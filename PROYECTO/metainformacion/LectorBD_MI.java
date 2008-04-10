@@ -10,13 +10,13 @@ import java.sql.*;
  * detallada de la estructura de la Base de Datos</p>
  * @author Ana Belén Pelegrina Ortiz
  */
-public class MiLectorBD {
+public class LectorBD_MI {
   ConectorBD conexion = null;
   
   /**
    * Inicializa la clase, creando un nuevo objeto conexión BD
    */
-  public MiLectorBD() {
+  public LectorBD_MI() {
 	  conexion = new ConectorBD();
 	  conexion.abrir();
   }
@@ -56,6 +56,7 @@ public class MiLectorBD {
 			 aplicacion.setPermisoDefault(aplicaciones.getInt("nivel"));
 			 
 			 int idApp = aplicaciones.getInt("id_aplicacion");
+			 aplicacion.setIdentificador(idApp);
 			 
 			 /*
 			  * 1.2) Recuperamos los datos de relaciones
@@ -65,6 +66,7 @@ public class MiLectorBD {
 			 
 			 while(componentes.next()){
 				 componente = new MIComponente(componentes.getString("nombre_componente"), aplicacion.getPermisoDefault());
+				 componente.setIdentificador(componentes.getInt("id_componente"));
 				 aplicacion.nuevoComponente(componente);
 			 }
 			 
@@ -76,6 +78,7 @@ public class MiLectorBD {
 			 while(roles.next()){
 				 rol = new MIRol(roles.getString("nombre_rol"));
 				 int id_rol = roles.getInt("id_rol");
+				 rol.setIdentificador(id_rol);
 				 
 				 // Buscamos los componente sobre los que el rol tiene permisos
 				 componentes = conexion.select( "SELECT * " +
@@ -103,6 +106,7 @@ public class MiLectorBD {
 			 while(usuarios.next()){
 				 usuario = new MIUsuario(usuarios.getString("nombre_usuario"), usuarios.getString("clave"));
 				 int id_usuario =  usuarios.getInt("id_usuario");
+				 usuario.setIdentificador(id_usuario);
 				 int id_rol_defecto = usuarios.getInt("id_rol_predeterminado");
 				 Boolean admin = usuarios.getBoolean("administrador");
 				 				
@@ -358,7 +362,7 @@ public class MiLectorBD {
    * @param args argumentos del main. Se ignoran
    */
   public static void main(String[] args){
-	  MiLectorBD pbd = new MiLectorBD();
+	  LectorBD_MI pbd = new LectorBD_MI();
 	  pbd.Recuperar();
   }
   

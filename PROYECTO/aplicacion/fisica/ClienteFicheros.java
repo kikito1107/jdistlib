@@ -203,20 +203,20 @@ public ClienteFicheros(String aplicacion, String usuario, String clave,
   public void insertarNuevoFichero(FicheroBD f, String aplicacion) {
 	  try
 		{
-	  DFileEvent evt = new DFileEvent();
-	  	// origen y destino del evento
-		evt.origen = new Integer(31); // Cliente ficheros
-		evt.destino = new Integer(30); // Servidor ficheros
-		
-		// tipo de evento 
-		evt.tipo = new Integer(DFileEvent.NOTIFICAR_INSERTAR_FICHERO.intValue());
-		evt.aplicacion = new String(aplicacion);
-		evt.usuario = new String(usuario);
-		evt.rol = new String(rol);
+		  DFileEvent evt = new DFileEvent();
+		  // origen y destino del evento
+		  evt.origen = new Integer(31); // Cliente ficheros
+		  evt.destino = new Integer(30); // Servidor ficheros
 
-	  
+		  // tipo de evento 
+		  evt.tipo = new Integer(DFileEvent.NOTIFICAR_INSERTAR_FICHERO.intValue());
+		  evt.aplicacion = new String(aplicacion);
+		  evt.usuario = new String(usuario);
+		  evt.rol = new String(rol);
 
-	  space.write(evt, null, leaseWriteTime);
+
+
+		  space.write(evt, null, leaseWriteTime);
 	}
 	catch (RemoteException e)
 	{
@@ -389,7 +389,7 @@ public ClienteFicheros(String aplicacion, String usuario, String clave,
 	 }
 
 	 /**
-	  * Método que ejecuta la hebra
+	  * Metodo que ejecuta la hebra
 	  */
 	 public void run() {
 		try {

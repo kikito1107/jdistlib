@@ -2,6 +2,8 @@ package aplicacion.gui;
 
 import aplicacion.fisica.*;
 import aplicacion.fisica.documentos.Documento;
+import aplicacion.fisica.documentos.FicheroBD;
+import aplicacion.fisica.eventos.DFileEvent;
 import interfaces.DComponente;
 import interfaces.listeners.LJButtonListener;
 
@@ -45,11 +47,18 @@ import javax.swing.SwingUtilities;
 import javax.swing.JToolBar.Separator;
 import javax.swing.border.LineBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreePath;
+
+import metainformacion.ClienteMetaInformacion;
+import metainformacion.MIRol;
+import metainformacion.MIUsuario;
 
 import util.Separador;
 
 import Deventos.DEvent;
+import Deventos.DJLienzoEvent;
 import Deventos.enlaceJS.DConector;
 import aplicacion.gui.componentes.ArbolDocumentos;
 
@@ -122,20 +131,20 @@ public class PanelPrincipal extends DComponenteBase
 	private JButton botonAbrirDoc = null;
 
 	private JTree arbolDocumentos = null;
-	
+
 	private ArbolDocumentos raizDocumentos = null;
 
 	private JLabel jLabel1 = null;
-	
+
 	private FramePanelDibujo frame = null;
 
 	ArbolUsuariosConectadosRol arbolUsuario = null;
-	
+
 	DefaultMutableTreeNode raiz = null;
-	
+
 	private JButton botonSubir  = null;
-	
-	
+
+
 	private JButton getButonSubir(){
 		if (botonSubir == null) {
 			botonSubir = new JButton("");
@@ -148,59 +157,70 @@ public class PanelPrincipal extends DComponenteBase
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
 					JFileChooser jfc = new JFileChooser("Guardar Documento Localmente");
-					 
-					 int op = jfc.showDialog(null, "Aceptar");
-					  
-					 if (op == JFileChooser.APPROVE_OPTION)
-					 {
-						 java.io.File f = jfc.getSelectedFile();
-						 byte[] bytes = null; 
-						 try
-						 {
-							 RandomAccessFile raf = new RandomAccessFile(f.getAbsolutePath(), "r");
 
-							 int tamanio = (int)raf.length();
+					int op = jfc.showDialog(null, "Aceptar");
 
-							 bytes = new byte[tamanio];
+					if (op == JFileChooser.APPROVE_OPTION)
+					{
+						java.io.File f = jfc.getSelectedFile();
+						byte[] bytes = null; 
+						try
+						{
+							RandomAccessFile raf = new RandomAccessFile(f.getAbsolutePath(), "r");
 
-							 raf.read(bytes);
-							 
-							 raf.close();
-							 
-							 TreePath camino = arbolDocumentos.getSelectionPath();
-								
-								Object[] objetos = camino.getPath();
-								
-								String path = "";
+							int tamanio = (int)raf.length();
 
-								if ( !((DefaultMutableTreeNode)objetos[objetos.length - 1]).isLeaf() ){
-								
-									for (int i=2; i<objetos.length; ++i){
-										path += '/' + objetos[i].toString();
-									}
+							bytes = new byte[tamanio];
+
+							raf.read(bytes);
+
+							raf.close();
+
+							TreePath camino = arbolDocumentos.getSelectionPath();
+
+							Object[] objetos = camino.getPath();
+
+							String path = "";
+
+							if ( !((DefaultMutableTreeNode)objetos[objetos.length - 1]).isLeaf() ){
+
+								for (int i=2; i<objetos.length; ++i){
+									path += '/' + objetos[i].toString();
 								}
-							 
-							 Transfer t = new Transfer(ClienteFicheros.ipConexion,  path+"/"+f.getName() );
-							 
-							 if (!t.sendFile(bytes)) {
-								 JOptionPane.showMessageDialog(null, "No se ha podido subir el fichero", "Error", JOptionPane.ERROR_MESSAGE);
-							 }
-						 }
-						 catch (FileNotFoundException ex)
-						 {
-							 ex.printStackTrace();
-						 }
-						 catch (IOException e1)
-						 {
-							 e1.printStackTrace();
-						 }
-					 }
+							}
+
+							Transfer t = new Transfer(ClienteFicheros.ipConexion,  path+"/"+f.getName() );
+
+							FicheroBD fbd = new FicheroBD(-1, f.getName(), false, "rwrw--", new MIUsuario(DConector.Dusuario, DConector.Drol), new MIRol(DConector.Drol), 0, path+"/"+f.getName(), "");
+							
+							DFileEvent evento = new DFileEvent();
+							
+							evento.fichero = fbd;
+							evento.tipo = new Integer(DFileEvent.NOTIFICAR_INSERTAR_FICHERO.intValue());
+							
+							enviarEvento(evento);
+
+							ClienteFicheros.cf.insertarNuevoFichero(fbd, DConector.Daplicacion);
+
+							if (!t.sendFile(bytes)) {
+								JOptionPane.showMessageDialog(null, "No se ha podido subir el fichero", "Error", JOptionPane.ERROR_MESSAGE);
+							}
+						}
+						catch (FileNotFoundException ex)
+						{
+							ex.printStackTrace();
+						}
+						catch (IOException e1)
+						{
+							e1.printStackTrace();
+						}
+					}
 				}
 			});
 		}
 		return botonSubir;
 	}
-	
+
 
 	/**
 	 * This method initializes jContentPane
@@ -209,19 +229,19 @@ public class PanelPrincipal extends DComponenteBase
 	 */
 	public PanelPrincipal(String nombre, boolean conexionDC,
 			DComponenteBase padre) {
-		 super(nombre, conexionDC, padre);
-		 try {
-			 BorderLayout borderLayout = new BorderLayout();
-				borderLayout.setHgap(0);
-				this.setLayout(null);
-				this.add(getPanelLateral(), BorderLayout.WEST);
-				this.add(getBarraHerramientas(), null);
-				
-				this.add(getPanelEspacioTrabajo(), null);
-		 }
-		 catch (Exception ex) {
+		super(nombre, conexionDC, padre);
+		try {
+			BorderLayout borderLayout = new BorderLayout();
+			borderLayout.setHgap(0);
+			this.setLayout(null);
+			this.add(getPanelLateral(), BorderLayout.WEST);
+			this.add(getBarraHerramientas(), null);
+
+			this.add(getPanelEspacioTrabajo(), null);
+		}
+		catch (Exception ex) {
 			ex.printStackTrace();
-		 }
+		}
 	}
 
 	/**
@@ -266,19 +286,19 @@ public class PanelPrincipal extends DComponenteBase
 		{
 			util.Separador separator1 = new util.Separador();
 			separator1.setPreferredSize(new Dimension(50, 35));
-			
+
 			util.Separador separator2 = new util.Separador();
 			separator2.setPreferredSize(new Dimension(50, 35));
-			
+
 			util.Separador separator3 = new util.Separador();
 			separator3.setPreferredSize(new Dimension(50, 35));
-			
+
 			util.Separador separator4 = new util.Separador();
 			separator4.setPreferredSize(new Dimension(50, 35));
-			
+
 			util.Separador separator5 = new util.Separador();
 			separator5.setPreferredSize(new Dimension(50, 35));
-			
+
 			barraHerramientas = new JToolBar();
 			barraHerramientas.setBounds(new Rectangle(3, -2, 563, 67));
 			barraHerramientas.add(getBotonNuevo());
@@ -286,9 +306,9 @@ public class PanelPrincipal extends DComponenteBase
 			barraHerramientas.add(getBotonGuardar());
 			barraHerramientas.add(getBotonImprimir());
 			barraHerramientas.add(separator1);
-			
-			
-			
+
+
+
 			barraHerramientas.add(getBotonEliminar());
 			barraHerramientas.add(separator2);
 			barraHerramientas.add(getBotonPersonalizar());
@@ -301,7 +321,7 @@ public class PanelPrincipal extends DComponenteBase
 			barraHerramientas.add(getBotonAdelante());
 			barraHerramientas.add(separator4);
 			barraHerramientas.add(getBotonAyuda());
-			
+
 			barraHerramientas.setFloatable(false);
 		}
 		return barraHerramientas;
@@ -403,8 +423,8 @@ public class PanelPrincipal extends DComponenteBase
 			herrmientasUsuarios = new JToolBar();
 			herrmientasUsuarios.setSize(new Dimension(183, 32));
 			herrmientasUsuarios.setLocation(new Point(3, 364));
-			
-			
+
+
 			Separador s1 = new Separador();
 			Separador s2 = new Separador();
 			s1.setMinimumSize(new Dimension(20,15));
@@ -747,11 +767,11 @@ public class PanelPrincipal extends DComponenteBase
 		{
 			arbolDocumentos = new JTree( DConector.raiz);
 			arbolDocumentos.setRootVisible(false);
-	
+
 			arbolDocumentos.setBorder(new LineBorder(Color.GRAY, 1));
-			
+
 			arbolDocumentos.expandRow(0);
-			
+
 			arbolDocumentos.addMouseListener(new java.awt.event.MouseAdapter()
 			{
 				public void mouseClicked(java.awt.event.MouseEvent e)
@@ -763,231 +783,241 @@ public class PanelPrincipal extends DComponenteBase
 		}
 		return arbolDocumentos;
 	}
-	
+
 	private void accionAbrir(){
 		TreePath camino = arbolDocumentos.getSelectionPath();
-		
+
 		Object[] objetos = camino.getPath();
-		
+
 		String path = "";
 
 		if ( ((DefaultMutableTreeNode)objetos[objetos.length - 1]).isLeaf() ){
-		
+
 			for (int i=2; i<objetos.length; ++i){
 				path += '/' + objetos[i].toString();
 			}
 		} 
-		
+
 		if (frame == null)
 		{
-		 frame = new FramePanelDibujo(false);
+			frame = new FramePanelDibujo(false);
 
-		 frame.pack();
-		 frame.setSize(800, 720);
+			frame.pack();
+			frame.setSize(800, 720);
 
-		 //Center the window
-		 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		 Dimension frameSize = frame.getSize();
-		 if (frameSize.height > screenSize.height) {
-			frameSize.height = screenSize.height;
-		 }
-		 if (frameSize.width > screenSize.width) {
-			frameSize.width = screenSize.width;
-		 }
-		 frame.setLocation( (screenSize.width - frameSize.width) / 2,
-								 (screenSize.height - frameSize.height) / 2);
+			//Center the window
+			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+			Dimension frameSize = frame.getSize();
+			if (frameSize.height > screenSize.height) {
+				frameSize.height = screenSize.height;
+			}
+			if (frameSize.width > screenSize.width) {
+				frameSize.width = screenSize.width;
+			}
+			frame.setLocation( (screenSize.width - frameSize.width) / 2,
+					(screenSize.height - frameSize.height) / 2);
 		}
-		
-			
-		 frame.setVisible(true);
-		 
-		 frame.getLienzo().getLienzo().getDocumento().setPath(path);
 
-		 DConector.obtenerDC().sincronizarComponentes();
-		 
-		 Transfer t = new Transfer(ClienteFicheros.ipConexion, path );
-		 
-		 Documento p = t.receive();
-		 
-		 frame.setDocumento(p);
+
+		frame.setVisible(true);
+
+		frame.getLienzo().getLienzo().getDocumento().setPath(path);
+
+		DConector.obtenerDC().sincronizarComponentes();
+
+		Transfer t = new Transfer(ClienteFicheros.ipConexion, path );
+
+		Documento p = t.receive();
+
+		frame.setDocumento(p);
 	}
-	
+
 	/**
-	* Mediante una llamada a este método se envía un mensaje de peticion de
-	* sincronizacion. No se debe llamar a este método de forma directa. Será
-	* llamado de forma automatica cuando sea necesario realizar la sincronizacion
-	*/
-  public void sincronizar() {
-	 if (conectadoDC()) {
-		EventoComponenteEjemplo peticion = new EventoComponenteEjemplo();
-		peticion.tipo = new Integer(EventoComponenteEjemplo.SINCRONIZACION.
-											 intValue());
-		enviarEvento(peticion);
-	 }
-  }
-	 
-	 
-	 void arbol_actionPerformed(ActionEvent e) {
-		  DefaultMutableTreeNode seleccionado = raiz;
-			 if (seleccionado != null) {
-				// Creamos un nuevo evento
-				EventoComponenteEjemplo evento = new EventoComponenteEjemplo();
-				// Establecemos el tipo del evento
-				evento.tipo = new Integer(EventoComponenteEjemplo.EVENTO_ARBOL.intValue());
-				// Indicamos el elemento que va a ser eliminado
-				evento.elemento = new String(raiz.toString());
-				// Enviamos el evento
-				enviarEvento(evento);
-			 }
-	 }
-
-  /**
-	* Devuelve una nueva instancia de la hebra que se encargara de procesar
-	* los eventos que se reciban. Este metodo no debe llamarse de forma directa.
-	* Sera llamado de forma automatica cuando sea necesario.
-	* @return HebraProcesadoraBase Nueva hebra procesadora
-	*/
-  public HebraProcesadoraBase crearHebraProcesadora() {
-	 return new HebraProcesadora(this);
-  }
-
-  /**
-	* Obtiene el numero de componentes hijos de este componente. SIEMPRE devuelve 0
-	* @return int Número de componentes hijos. En este caso devuelve 8 (la lista
-	* izquierda, el boton, la lista derecha, la lista de usuarios conectados,
-	* la lista de usuarios conectados bajo nuestro rol, la lista de usuarios
-	* conectados con la informacion del rol actual, el componente de cambio de
-	* rol y la etiqueta del rol actual)
-	*/
-  public int obtenerNumComponentesHijos() {
-	 return 1;
-  }
-
-  /**
-	* Obtiene el componente indicado
-	* @param i int Indice del componente que queremos obtener. Se comienza a numerar
-	* en el 0.
-	* @return DComponente Componente indicado. Si el indice no es v‡lido devuelve
-	* null
-	*/
-  public DComponente obtenerComponente(int i) {
-	 DComponente dc = null;
-	 switch (i) {
-		case 0:
-		  dc = arbolUsuario;
-		  break;
-	 }
-	 return dc;
-  }
-
-  /**
-	* Procesamos los eventos que recibimos de los componentes hijos. El procesamiento
-	* se reduce a adjuntar el evento del parametro a un nuevo evento y enviarlo.
-	* Los componentes de metainformacion no emiten eventos que deban ser procesados
-	* @param evento DEvent Evento recibido
-	*/
-  synchronized public void procesarEventoHijo(DEvent evento) {
-	 try {
-		EventoComponenteEjemplo ev = new EventoComponenteEjemplo();
-		
-		if(evento.nombreComponente.equals("Arbol")) {
-			ev.tipo = new Integer(EventoComponenteEjemplo.EVENTO_ARBOL.
+	 * Mediante una llamada a este método se envía un mensaje de peticion de
+	 * sincronizacion. No se debe llamar a este método de forma directa. Será
+	 * llamado de forma automatica cuando sea necesario realizar la sincronizacion
+	 */
+	public void sincronizar() {
+		if (conectadoDC()) {
+			EventoComponenteEjemplo peticion = new EventoComponenteEjemplo();
+			peticion.tipo = new Integer(EventoComponenteEjemplo.SINCRONIZACION.
 					intValue());
-			ev.aniadirEventoAdjunto(evento);
-			enviarEvento(ev);
+			enviarEvento(peticion);
+		}
+	}
+
+
+	void arbol_actionPerformed(ActionEvent e) {
+		DefaultMutableTreeNode seleccionado = raiz;
+		if (seleccionado != null) {
+			// Creamos un nuevo evento
+			EventoComponenteEjemplo evento = new EventoComponenteEjemplo();
+			// Establecemos el tipo del evento
+			evento.tipo = new Integer(EventoComponenteEjemplo.EVENTO_ARBOL.intValue());
+			// Indicamos el elemento que va a ser eliminado
+			evento.elemento = new String(raiz.toString());
+			// Enviamos el evento
+			enviarEvento(evento);
+		}
+	}
+
+	/**
+	 * Devuelve una nueva instancia de la hebra que se encargara de procesar
+	 * los eventos que se reciban. Este metodo no debe llamarse de forma directa.
+	 * Sera llamado de forma automatica cuando sea necesario.
+	 * @return HebraProcesadoraBase Nueva hebra procesadora
+	 */
+	public HebraProcesadoraBase crearHebraProcesadora() {
+		return new HebraProcesadora(this);
+	}
+
+	/**
+	 * Obtiene el numero de componentes hijos de este componente. SIEMPRE devuelve 0
+	 * @return int Número de componentes hijos. En este caso devuelve 8 (la lista
+	 * izquierda, el boton, la lista derecha, la lista de usuarios conectados,
+	 * la lista de usuarios conectados bajo nuestro rol, la lista de usuarios
+	 * conectados con la informacion del rol actual, el componente de cambio de
+	 * rol y la etiqueta del rol actual)
+	 */
+	public int obtenerNumComponentesHijos() {
+		return 1;
+	}
+
+	/**
+	 * Obtiene el componente indicado
+	 * @param i int Indice del componente que queremos obtener. Se comienza a numerar
+	 * en el 0.
+	 * @return DComponente Componente indicado. Si el indice no es v‡lido devuelve
+	 * null
+	 */
+	public DComponente obtenerComponente(int i) {
+		DComponente dc = null;
+		switch (i) {
+			case 0:
+				dc = arbolUsuario;
+				break;
+		}
+		return dc;
+	}
+
+	/**
+	 * Procesamos los eventos que recibimos de los componentes hijos. El procesamiento
+	 * se reduce a adjuntar el evento del parametro a un nuevo evento y enviarlo.
+	 * Los componentes de metainformacion no emiten eventos que deban ser procesados
+	 * @param evento DEvent Evento recibido
+	 */
+	synchronized public void procesarEventoHijo(DEvent evento) {
+		try {
+			EventoComponenteEjemplo ev = new EventoComponenteEjemplo();
+
+			if(evento.nombreComponente.equals("Arbol")) {
+				ev.tipo = new Integer(EventoComponenteEjemplo.EVENTO_ARBOL.
+						intValue());
+				ev.aniadirEventoAdjunto(evento);
+				enviarEvento(ev);
+			}
+
+		}
+		catch (Exception e) {
+
+		}
+	}
+
+	@Override
+	public void procesarEvento(DEvent evento){
+		if (evento.tipo.intValue() == DFileEvent.NOTIFICAR_INSERTAR_FICHERO/* &&
+				!evento.usuario.equals(DConector.Dusuario)*/) 
+		{
+			DFileEvent dfe = (DFileEvent) evento;
+			DefaultTreeModel modelo = (DefaultTreeModel) arbolDocumentos.getModel();
+			DefaultMutableTreeNode raiz = (DefaultMutableTreeNode)modelo.getRoot();
+			modelo.insertNodeInto(new DefaultMutableTreeNode(dfe.fichero.getNombre()), (MutableTreeNode) raiz.getChildAt(0), 0);
+		}
+	}
+
+	/**
+	 * Hebra procesadora de eventos. Se encarga de realizar las acciones que
+	 * correspondan cuando recibe un evento. Tambén se encarga en su inicio
+	 * de sincronizar el componente.
+	 */
+	private class HebraProcesadora
+	extends HebraProcesadoraBase {
+
+		HebraProcesadora(DComponente dc) {
+			super(dc);
 		}
 
-	 }
-	 catch (Exception e) {
+		public void run() {
+			EventoComponenteEjemplo evento = null;
+			EventoComponenteEjemplo saux = null;
+			EventoComponenteEjemplo respSincr = null;
+			Vector<Object> vaux = new Vector<Object>();
 
-	 }
-  }
-  
+			// Obtenemos los eventos existentes en la cola de recepcion. Estos eventos
+			// se han recibido en el intervalo de tiempo desde que se envio la peticion
+			// de sincronizacion y el inicio de esta hebra procesadora
+			DEvent[] eventos = obtenerEventosColaRecepcion();
+			int numEventos = eventos.length;
+			int i = 0;
 
+			// Buscamos entre los eventos si hay alguno correspondiente a una
+			// respuesta de sincronizacion
+			for (int j = 0; j < numEventos; j++) {
+				saux = (EventoComponenteEjemplo) eventos[j];
+				if ( (respSincr == null) &&
+						(saux.tipo.intValue() ==
+							EventoComponenteEjemplo.RESPUESTA_SINCRONIZACION.intValue())) {
+					respSincr = saux;
+				}
+				else {
+					vaux.add(saux);
+				}
+			}
 
-  /**
-	* Hebra procesadora de eventos. Se encarga de realizar las acciones que
-	* correspondan cuando recibe un evento. Tambén se encarga en su inicio
-	* de sincronizar el componente.
-	*/
-  private class HebraProcesadora
-		extends HebraProcesadoraBase {
+			if (respSincr != null) { // Se ha recibido respuesta de sincronizacion
+				// Al actualizar nuestro estado con el del componente que nos envia
+				// la respuesta de sincronizacion establecemos nuestro índice de cual
+				// ha sido el ultimo evento procesado al mismo que el componente
+				ultimoProcesado = new Integer(respSincr.ultimoProcesado.intValue());
+			}
 
-	 HebraProcesadora(DComponente dc) {
-		super(dc);
-	 }
+			// Todos esos eventos que se han recibido desde que se mando la peticion
+			// de sincronizacion deben ser colocados en la cola de recepcion para
+			// ser procesados. Solo nos interesan aquellos con un número de secuencia
+			// posterior a ultimoProcesado. Los anteriores no nos interesan puesto
+			// que ya han sido procesados por el componente que nos mando la respuesta
+			// de sincronizacion.
+			numEventos = vaux.size();
+			for (int j = 0; j < numEventos; j++) {
+				saux = (EventoComponenteEjemplo) vaux.elementAt(j);
+				if (saux.ultimoProcesado.intValue() > ultimoProcesado.intValue()) {
+					procesarEvento(saux);
+				}
+			}
 
-	 public void run() {
-		EventoComponenteEjemplo evento = null;
-		EventoComponenteEjemplo saux = null;
-		EventoComponenteEjemplo respSincr = null;
-		Vector<Object> vaux = new Vector<Object>();
+			while (true) {
+				// Extraemos un evento de la la cola de recepcion
+				// Si no hay ninguno se quedara bloqueado hasta que haya
+				evento = (EventoComponenteEjemplo) leerSiguienteEvento();
+				// Actualizamos nuestro indicado de cual ha sido el último evento
+				// que hemos procesado
+				ultimoProcesado = new Integer(evento.contador.intValue());
+				if (evento.tipo.intValue() ==
+					EventoComponenteEjemplo.SINCRONIZACION.intValue()) {
+					// Creamos un nuevo evento
+					EventoComponenteEjemplo infoEstado = new EventoComponenteEjemplo();
+					// Establecemos el tipo del evento
+					infoEstado.tipo = new Integer(EventoComponenteEjemplo.
+							RESPUESTA_SINCRONIZACION.intValue());
+					// Enviamos el evento
+					enviarEvento(infoEstado);
+				}
+				if (evento.tipo.intValue() == EventoComponenteEjemplo.EVENTO_ARBOL.intValue()){
+					//no hacemos nada
+				}
+			}
 
-		// Obtenemos los eventos existentes en la cola de recepcion. Estos eventos
-		// se han recibido en el intervalo de tiempo desde que se envio la peticion
-		// de sincronizacion y el inicio de esta hebra procesadora
-		DEvent[] eventos = obtenerEventosColaRecepcion();
-		int numEventos = eventos.length;
-		int i = 0;
-
-		// Buscamos entre los eventos si hay alguno correspondiente a una
-		// respuesta de sincronizacion
-		for (int j = 0; j < numEventos; j++) {
-		  saux = (EventoComponenteEjemplo) eventos[j];
-		  if ( (respSincr == null) &&
-				(saux.tipo.intValue() ==
-				 EventoComponenteEjemplo.RESPUESTA_SINCRONIZACION.intValue())) {
-			 respSincr = saux;
-		  }
-		  else {
-			 vaux.add(saux);
-		  }
 		}
-
-		if (respSincr != null) { // Se ha recibido respuesta de sincronizacion
-		  // Al actualizar nuestro estado con el del componente que nos envia
-		  // la respuesta de sincronizacion establecemos nuestro índice de cual
-		  // ha sido el ultimo evento procesado al mismo que el componente
-		  ultimoProcesado = new Integer(respSincr.ultimoProcesado.intValue());
-		}
-
-		// Todos esos eventos que se han recibido desde que se mando la peticion
-		// de sincronizacion deben ser colocados en la cola de recepcion para
-		// ser procesados. Solo nos interesan aquellos con un número de secuencia
-		// posterior a ultimoProcesado. Los anteriores no nos interesan puesto
-		// que ya han sido procesados por el componente que nos mando la respuesta
-		// de sincronizacion.
-		numEventos = vaux.size();
-		for (int j = 0; j < numEventos; j++) {
-		  saux = (EventoComponenteEjemplo) vaux.elementAt(j);
-		  if (saux.ultimoProcesado.intValue() > ultimoProcesado.intValue()) {
-			 procesarEvento(saux);
-		  }
-		}
-
-		while (true) {
-		  // Extraemos un evento de la la cola de recepcion
-		  // Si no hay ninguno se quedara bloqueado hasta que haya
-		  evento = (EventoComponenteEjemplo) leerSiguienteEvento();
-		  // Actualizamos nuestro indicado de cual ha sido el último evento
-		  // que hemos procesado
-		  ultimoProcesado = new Integer(evento.contador.intValue());
-		  if (evento.tipo.intValue() ==
-				EventoComponenteEjemplo.SINCRONIZACION.intValue()) {
-			 // Creamos un nuevo evento
-			 EventoComponenteEjemplo infoEstado = new EventoComponenteEjemplo();
-			 // Establecemos el tipo del evento
-			 infoEstado.tipo = new Integer(EventoComponenteEjemplo.
-													 RESPUESTA_SINCRONIZACION.intValue());
-			 // Enviamos el evento
-			 enviarEvento(infoEstado);
-		  }
-		  if (evento.tipo.intValue() == EventoComponenteEjemplo.EVENTO_ARBOL.intValue()){
-			  //no hacemos nada
-		  }
-		}
-
-	 }
-  }
+	}
 
 }

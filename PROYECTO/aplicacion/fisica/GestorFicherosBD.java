@@ -222,6 +222,25 @@ public class GestorFicherosBD
 		return null;
 	}
 	
+	
+	public void insertarNuevoFichero(FicheroBD f){
+			try{
+				
+				/*String parametros = conexion.generaId("Fichero", "id_fichero") +", " + f.getNombre() + ", "+ f.esDirectorio() 
+					+ ", " + f.getPermisos() + ", 1, 1, 0, NULL";*/
+				
+				String parametros = "222, 'aaaa.txt', 0, 'rwrw--', 1,1,1, '/aaaa.txt', 'txt'";
+				
+				//coger la raiz
+				if (!conexion.insert("INSERT INTO fichero values("+ parametros +")"))
+					System.err.println("ERROR en el insert");
+
+			}catch(Exception ex)
+			{
+				ex.printStackTrace();
+			}	
+	}
+	
 	/**
 	 * Obtiene el rol a través de su ID
 	 * @param id id del rol

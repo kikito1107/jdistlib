@@ -25,8 +25,19 @@ private String nombreUsuario = null;
   private boolean online = false;
   private boolean administrador = false;
   private long actualizado = -1;
+  private int identificador = -1;
 
-  public MIUsuario(String nombreUsuario, String clave) {
+  public int getIdentificador()
+{
+	return identificador;
+}
+
+public void setIdentificador(int identificador)
+{
+	this.identificador = identificador;
+}
+
+public MIUsuario(String nombreUsuario, String clave) {
 	 this.nombreUsuario = nombreUsuario;
 	 this.clave = clave;
   }

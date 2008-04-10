@@ -10,14 +10,14 @@ import aplicacion.fisica.documentos.FicheroBD;
  */
 public class DFileEvent extends DEvent
 {
-	public static final Integer NOTIFICAR_INSERTAR_FICHERO = new Integer(1);
-	public static final Integer NOTIFICAR_MODIFICACION_FICHERO = new Integer(2);
-	public static final Integer NOTIFICAR_ELIMINAR_FICHERO = new Integer(3);
-	public static final Integer RESPUESTA_INSERTAR_FICHERO = new Integer(4);
-	public static final Integer RESPUESTA_MODIFICACION_FICHERO = new Integer(5);
-	public static final Integer RESPUESTA_ELIMINAR_FICHERO = new Integer(6);
-	public static final Integer SINCRONIZACION = new Integer(100);
-	public static final Integer RESPUESTA_SINCRONIZACION = new Integer(200);
+	public static final Integer NOTIFICAR_INSERTAR_FICHERO = new Integer(177);
+	public static final Integer NOTIFICAR_MODIFICACION_FICHERO = new Integer(178);
+	public static final Integer NOTIFICAR_ELIMINAR_FICHERO = new Integer(179);
+	public static final Integer RESPUESTA_INSERTAR_FICHERO = new Integer(180);
+	public static final Integer RESPUESTA_MODIFICACION_FICHERO = new Integer(181);
+	public static final Integer RESPUESTA_ELIMINAR_FICHERO = new Integer(183);
+	public static final Integer SINCRONIZACION = new Integer(184);
+	public static final Integer RESPUESTA_SINCRONIZACION = new Integer(185);
 	
 	public FicheroBD fichero = null;
 	

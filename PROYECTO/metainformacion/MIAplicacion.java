@@ -21,6 +21,7 @@ public class MIAplicacion
   private Vector<MIRol> roles = new Vector<MIRol>();
   private Vector<MIComponente> componentes = new Vector<MIComponente>();
   private String nombre = null;
+  private int identificador;
 
   public MIAplicacion() {
   }
@@ -33,7 +34,17 @@ public class MIAplicacion
 	 this.nombre = nombre;
   }
 
-  /**
+  public int getIdentificador()
+{
+	return identificador;
+}
+
+public void setIdentificador(int identificador)
+{
+	this.identificador = identificador;
+}
+
+/**
 	* Obtenemos el nombre de la aplicacion
 	* @return String Nombre de la aplicacion
 	*/

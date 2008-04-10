@@ -1,9 +1,11 @@
 package aplicacion.fisica.documentos;
 
+import java.io.Serializable;
+
 import metainformacion.MIUsuario;
 import metainformacion.MIRol;
 
-public class FicheroBD 
+public class FicheroBD implements Serializable
 {
 	private String nombre;
 	private int id_documento;
@@ -26,8 +28,20 @@ public class FicheroBD
 		id_documento = id;
 		es_directorio = dir;
 		permisos = perm;
-		usuario = usu;
-		rol = ro;
+		usuario = usu;	rol = ro;
+		padre = pad;
+		ruta_local = ruta;
+		tipo = tip;
+	}
+	
+	public FicheroBD(int id, String nom, boolean dir, String perm, String usu, String rol2, int pad, String ruta, String tip)
+	{
+		nombre = nom;
+		id_documento = id;
+		es_directorio = dir;
+		permisos = perm;
+		/*usuario = usu;
+		rol = ro;*/
 		padre = pad;
 		ruta_local = ruta;
 		tipo = tip;

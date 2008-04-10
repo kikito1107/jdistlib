@@ -14,8 +14,19 @@ public class MIComponente
 	 implements Serializable {
   private String nombre = null;
   private int permiso = -1;
+  private int identificador;
 
-  public MIComponente(String nombre, int permiso) {
+  public int getIdentificador()
+{
+	return identificador;
+}
+
+public void setIdentificador(int identificador)
+{
+	this.identificador = identificador;
+}
+
+public MIComponente(String nombre, int permiso) {
 	 this.nombre = nombre;
 	 this.permiso = permiso;
   }

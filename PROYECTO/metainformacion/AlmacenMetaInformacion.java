@@ -10,7 +10,7 @@ import util.*;
 
 public class AlmacenMetaInformacion {
   private Vector<MIAplicacion> aplicaciones = null;
-  private MiLectorBD lector = null;
+  private LectorBD_MI lector = null;
 
   public AlmacenMetaInformacion() {
 	 start();
@@ -21,7 +21,7 @@ public class AlmacenMetaInformacion {
 	*/
   private void start() {	 
 	 try {
-		lector = new MiLectorBD();
+		lector = new LectorBD_MI();
 		lector.crearLog();
 		aplicaciones = lector.Recuperar();
 		lector.cerrarConexion();		
@@ -473,7 +473,7 @@ public class AlmacenMetaInformacion {
 	*/
   public void salvar() {
 	  
-	  lector = new MiLectorBD();
+	  lector = new LectorBD_MI();
 	  lector.actualizarBD(aplicaciones);
 	  lector.cerrarConexion();
   }
