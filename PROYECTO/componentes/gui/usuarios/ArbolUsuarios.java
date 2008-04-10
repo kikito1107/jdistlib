@@ -104,8 +104,11 @@ public class ArbolUsuarios extends JTree
 			DefaultMutableTreeNode posUsuario = buscarUsuario(unHijo, Usuario); 
 			
 			if (posUsuario != null) {
-				modelo.removeNodeFromParent(posUsuario);
-				seguir = false;
+				try {
+					modelo.removeNodeFromParent(posUsuario);
+					seguir = false;
+				}
+				catch (Exception e) {};
 			}
 		}
 	}

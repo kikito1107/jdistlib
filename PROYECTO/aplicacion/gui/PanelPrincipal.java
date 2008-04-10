@@ -167,8 +167,11 @@ public class PanelPrincipal extends DComponenteBase
 						byte[] bytes = null; 
 						try
 						{
+							//abrimos el fichero en modo lectura
 							RandomAccessFile raf = new RandomAccessFile(f.getAbsolutePath(), "r");
 
+							// consultamos el tamanio del fichero, reservamos memoria suficiente,
+							// leemos el fichero y lo cerramos
 							int tamanio = (int)raf.length();
 
 							bytes = new byte[tamanio];
@@ -177,57 +180,70 @@ public class PanelPrincipal extends DComponenteBase
 
 							raf.close();
 
+							//obtenemos el path actual
 							TreePath camino = arbolDocumentos.getSelectionPath();
-
-							Object[] objetos = camino.getPath();
+							Object[] objetos = null;
+							if (camino != null) objetos = camino.getPath();
 
 							String path = "";
+							
+							// obtenemos la carpeta en donde queremos subir el nuevo fichero
 							DefaultMutableTreeNode nodo = (DefaultMutableTreeNode)objetos[objetos.length - 1];
+							
+							// obtenemos los datos del fichero asociados a ese nodo
 							FicheroBD carpeta = (FicheroBD)nodo.getUserObject();
 
+							MIUsuario user = null;
+							MIRol rol = null;
+							
+							// comprobamos que el nodo elegido es una carpeta 
 							if ( carpeta.esDirectorio() ){
 
+								// reconstruimos el path
 								for (int i=2; i<objetos.length; ++i)
 									path += '/' + objetos[i].toString();
+
+								// recuperamos el usuario y el rol
+								user = ClienteMetaInformacion.cmi.getUsuario(DConector.Dusuario);
+								rol = ClienteMetaInformacion.cmi.getRol(DConector.Drol);
 							}
 
-							Transfer t = new Transfer(ClienteFicheros.ipConexion,  path+"/"+f.getName() );
+							
 
-							MIUsuario user = ClienteMetaInformacion.cmi.getUsuario(DConector.Dusuario);
-							MIRol rol = ClienteMetaInformacion.cmi.getRol(DConector.Drol);
+							// si todo ha ido OK
+							if (user != null && rol != null && path != "") {
 
-							if (user != null && rol != null) {
+								// creamos el nuevo fichero a almacenar
+								FicheroBD fbd = new FicheroBD(-1, f.getName(), false, "rwrw--", 
+										user, rol, carpeta.getId(), path+"/"+f.getName(), "");
 
-								
-								
-								FicheroBD fbd = new FicheroBD(-1, f.getName(), false, "rwrw--", user, rol, carpeta.getId(), path+"/"+f.getName(), "");
-
+								// notificamos al resto de usuarios la "novedad"
 								DFileEvent evento = new DFileEvent();
-
 								evento.fichero = fbd;
 								evento.padre = carpeta;
-								
 								evento.tipo = new Integer(DFileEvent.NOTIFICAR_INSERTAR_FICHERO.intValue());
-
 								enviarEvento(evento);
 
+								// insertamos el nuevo fichero en el servidor
 								ClienteFicheros.cf.insertarNuevoFichero(fbd, DConector.Daplicacion);
 
+								// enviamos el nuevo fichero al servidor
+								Transfer t = new Transfer(ClienteFicheros.ipConexion,  path+"/"+f.getName() );
 								if (!t.sendFile(bytes)) {
 									JOptionPane.showMessageDialog(null, "No se ha podido subir el fichero", "Error", JOptionPane.ERROR_MESSAGE);
 								}
 							}
 							else {
-								System.out.println("Error!!!!!!");
+								JOptionPane.showMessageDialog(null, "No se ha podido subir el fichero", "Error", JOptionPane.ERROR_MESSAGE);
 							}
 						}
 						catch (FileNotFoundException ex)
 						{
-							ex.printStackTrace();
+							JOptionPane.showMessageDialog(null, "El fichero no existe", "Error", JOptionPane.ERROR_MESSAGE);
 						}
 						catch (IOException e1)
 						{
-							e1.printStackTrace();
+							JOptionPane.showMessageDialog(null, "Error en la lectura del fichero", "Error", JOptionPane.ERROR_MESSAGE);
 						}
 					}
 				}

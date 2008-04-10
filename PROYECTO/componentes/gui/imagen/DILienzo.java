@@ -707,8 +707,10 @@ public class DILienzo extends DIViewer implements MouseListener,
 				}
 			}
 			else if (modoDibujo == DILienzo.MANO_ALZADA) {
-				if (trazo != null)
+				if (trazo != null) {
+					g.setColor(this.colorActual);
 					trazo.dibujar(g, 1);
+				}
 				
 			}
 		}

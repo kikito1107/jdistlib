@@ -205,6 +205,7 @@ public class ClienteMetaInformacion {
 			}
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(null,
 					"Hubo un error en la comunicacion en el cliente de metainformacion\nDebera identificarse de nuevo.",
 					"Error", JOptionPane.ERROR_MESSAGE);
@@ -281,6 +282,7 @@ public class ClienteMetaInformacion {
 			}
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(null,
 					"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
 					"Error", JOptionPane.ERROR_MESSAGE);
@@ -326,6 +328,7 @@ public class ClienteMetaInformacion {
 			}
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(null,
 					"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
 					"Error", JOptionPane.ERROR_MESSAGE);
@@ -367,6 +370,7 @@ public class ClienteMetaInformacion {
 			}
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(null,
 					"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
 					"Error", JOptionPane.ERROR_MESSAGE);
@@ -407,6 +411,7 @@ public class ClienteMetaInformacion {
 			}
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(null,
 					"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
 					"Error", JOptionPane.ERROR_MESSAGE);
@@ -447,6 +452,7 @@ public class ClienteMetaInformacion {
 			}
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(null,
 					"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
 					"Error", JOptionPane.ERROR_MESSAGE);
@@ -546,6 +552,7 @@ public class ClienteMetaInformacion {
 			}
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(null,
 					"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
 					"Error", JOptionPane.ERROR_MESSAGE);
@@ -588,6 +595,7 @@ public class ClienteMetaInformacion {
 			}
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(null,
 					"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
 					"Error", JOptionPane.ERROR_MESSAGE);
@@ -634,6 +642,7 @@ public class ClienteMetaInformacion {
 			JOptionPane.showMessageDialog(null,
 					"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
 					"Error", JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
 			System.exit(1);
 		}
 		return v;
@@ -681,6 +690,7 @@ public class ClienteMetaInformacion {
 			}
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(null,
 					"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
 					"Error", JOptionPane.ERROR_MESSAGE);
@@ -729,6 +739,7 @@ public class ClienteMetaInformacion {
 			}
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(null,
 					"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
 					"Error", JOptionPane.ERROR_MESSAGE);
@@ -775,6 +786,7 @@ public class ClienteMetaInformacion {
 			}
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(null,
 					"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
 					"Error", JOptionPane.ERROR_MESSAGE);
@@ -821,6 +833,7 @@ public class ClienteMetaInformacion {
 			}
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(null,
 					"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
 					"Error", JOptionPane.ERROR_MESSAGE);
@@ -841,6 +854,7 @@ public class ClienteMetaInformacion {
 			space.write(evento, null, leaseWriteTime);
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(null,
 					"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
 					"Error", JOptionPane.ERROR_MESSAGE);
@@ -886,6 +900,7 @@ public class ClienteMetaInformacion {
 			}
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(null,
 					"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
 					"Error", JOptionPane.ERROR_MESSAGE);
@@ -929,6 +944,7 @@ public class ClienteMetaInformacion {
 			}
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(null,
 					"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
 					"Error", JOptionPane.ERROR_MESSAGE);
@@ -974,6 +990,7 @@ public class ClienteMetaInformacion {
 			}
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(null,
 					"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
 					"Error", JOptionPane.ERROR_MESSAGE);
@@ -1019,6 +1036,7 @@ public class ClienteMetaInformacion {
 			}
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(null,
 					"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
 					"Error", JOptionPane.ERROR_MESSAGE);
@@ -1062,6 +1080,7 @@ public class ClienteMetaInformacion {
 			}
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(null,
 					"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
 					"Error", JOptionPane.ERROR_MESSAGE);
@@ -1105,6 +1124,7 @@ public class ClienteMetaInformacion {
 			}
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(null,
 					"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
 					"Error", JOptionPane.ERROR_MESSAGE);
@@ -1152,6 +1172,7 @@ public class ClienteMetaInformacion {
 				monitor.setInicializado(true);
 			}
 			catch (Exception e) {
+				e.printStackTrace();
 				JOptionPane.showMessageDialog(null,
 						"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
 						"Error", JOptionPane.ERROR_MESSAGE);
@@ -1194,6 +1215,7 @@ public class ClienteMetaInformacion {
 				}
 			}
 			catch (Exception e) {
+				e.printStackTrace();
 				JOptionPane.showMessageDialog(null,
 						"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
 						"Error", JOptionPane.ERROR_MESSAGE);
@@ -1218,8 +1240,9 @@ public class ClienteMetaInformacion {
 				}
 			}
 			catch (Exception e) {
+				e.printStackTrace();
 				JOptionPane.showMessageDialog(null,
-						"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
+						"Hubo un error en la comunicacion a la hora de enviar el KeepAlive\nDebera identificarse de nuevo.",
 						"Error", JOptionPane.ERROR_MESSAGE);
 				System.exit(1);
 			}
@@ -1250,8 +1273,9 @@ public class ClienteMetaInformacion {
 				}
 			}
 			catch (Exception e) {
+				e.printStackTrace();
 				JOptionPane.showMessageDialog(null,
-						"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
+						"Hubo un error en la comunicacion al inicializar el CMI\nDebera identificarse de nuevo.",
 						"Error", JOptionPane.ERROR_MESSAGE);
 				System.exit(1);
 			}
@@ -1420,8 +1444,9 @@ public class ClienteMetaInformacion {
 					}
 				}
 				catch (Exception e) {
+					e.printStackTrace();
 					JOptionPane.showMessageDialog(null,
-							"Hubo un error en la comunicacion a la hora de nose que\nDebera identificarse de nuevo.",
+							"Hubo un error en la comunicacion en la hebra recolectora\nDebera identificarse de nuevo.",
 							"Error", JOptionPane.ERROR_MESSAGE);
 					System.exit(1);
 				}
@@ -1471,8 +1496,9 @@ public class ClienteMetaInformacion {
 			}
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(null,
-					"Hubo un error en la comunicacion a la hora de obtener rol\nDebera identificarse de nuevo.",
+					"Hubo un error en la comunicacion a la hora de obtener rol en el CMI\nDebera identificarse de nuevo.",
 					"Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
