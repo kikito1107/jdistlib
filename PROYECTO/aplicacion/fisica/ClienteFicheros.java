@@ -166,7 +166,6 @@ public ClienteFicheros(String aplicacion, String usuario, String clave,
   public DefaultMutableTreeNode getRaiz() {
 	  return raiz;
   }
-  
 
   public void borrarFichero(FicheroBD f, String aplicacion) {
 	  try
@@ -213,6 +212,7 @@ public ClienteFicheros(String aplicacion, String usuario, String clave,
 		  evt.aplicacion = new String(aplicacion);
 		  evt.usuario = new String(usuario);
 		  evt.rol = new String(rol);
+		  evt.fichero = f;
 
 
 

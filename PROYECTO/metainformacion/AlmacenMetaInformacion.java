@@ -217,13 +217,34 @@ public class AlmacenMetaInformacion {
 	* Esto nos indicaria que LooPer esta conectado con el rol Jefe y PeTer
 	* con el rol Empleado.
 	*/
-  public Vector obtenerUsuariosConectados(String aplicacion) {
+  @SuppressWarnings("unchecked")
+public Vector obtenerUsuariosConectados(String aplicacion) {
 	 MIAplicacion apl = obtenerAplicacion(aplicacion);
 	 Vector v = null;
 	 if (apl != null) {
 		v = apl.getUsuariosConectados();
 	 }
 	 return v;
+  }
+  
+  public Vector<MIUsuario> obtenerDatosUsuarios(String aplicacion){
+	  MIAplicacion apl = obtenerAplicacion(aplicacion);
+		 Vector<MIUsuario> v = null;
+		 if (apl != null) {
+			v = apl.getUsuariosConectadosInfo();
+		 }
+		 return v;  
+  }
+  
+  public MIRol obtenerDatosRol(String aplicacion, String name) {
+	  
+	  MIAplicacion app = obtenerAplicacion(aplicacion);
+	  
+	  if (app != null) {
+		  return app.getRol(name);
+	  }
+	  else 
+		  return null;
   }
 
 // ****************************************************************************

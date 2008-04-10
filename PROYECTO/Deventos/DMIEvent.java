@@ -87,7 +87,10 @@ public class DMIEvent
 		51);
   public static final Integer NOTIFICACION_NUEVO_USUARIO = new Integer(52);
   public static final Integer NOTIFICACION_NUEVO_ROL = new Integer(53);
-
+  public static final Integer DATOS_USUARIOS = new Integer(54);
+  public static final Integer RESPUESTA_DATOS_USUARIO = new Integer(55);
+  public static final Integer DATOS_ROL = new Integer(56);
+  public static final Integer RESPUESTA_DATOS_ROL = new Integer(57);
   public static final Integer KEEPALIVE = new Integer(500);
 
   public Vector v1 = null;
@@ -107,6 +110,8 @@ public class DMIEvent
   public MIInformacionConexion infoConexion = null;
   public MICompleta infoCompleta = null;
   public String nuevoUsuario = null;
+  public MIRol datosRol = null;
+  public Vector<MIUsuario> usuarios = null;
 
   public int obtenerPermisoComponente(String componente) {
 	 int permiso = -1;

@@ -20,6 +20,7 @@ public class DFileEvent extends DEvent
 	public static final Integer RESPUESTA_SINCRONIZACION = new Integer(185);
 	
 	public FicheroBD fichero = null;
+	public FicheroBD padre = null;
 	
 	public DFileEvent()
 	{

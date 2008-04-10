@@ -22,6 +22,7 @@ import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.Enumeration;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
@@ -181,29 +182,43 @@ public class PanelPrincipal extends DComponenteBase
 							Object[] objetos = camino.getPath();
 
 							String path = "";
+							DefaultMutableTreeNode nodo = (DefaultMutableTreeNode)objetos[objetos.length - 1];
+							FicheroBD carpeta = (FicheroBD)nodo.getUserObject();
 
-							if ( !((DefaultMutableTreeNode)objetos[objetos.length - 1]).isLeaf() ){
+							if ( carpeta.esDirectorio() ){
 
-								for (int i=2; i<objetos.length; ++i){
+								for (int i=2; i<objetos.length; ++i)
 									path += '/' + objetos[i].toString();
-								}
 							}
 
 							Transfer t = new Transfer(ClienteFicheros.ipConexion,  path+"/"+f.getName() );
 
-							FicheroBD fbd = new FicheroBD(-1, f.getName(), false, "rwrw--", new MIUsuario(DConector.Dusuario, DConector.Drol), new MIRol(DConector.Drol), 0, path+"/"+f.getName(), "");
-							
-							DFileEvent evento = new DFileEvent();
-							
-							evento.fichero = fbd;
-							evento.tipo = new Integer(DFileEvent.NOTIFICAR_INSERTAR_FICHERO.intValue());
-							
-							enviarEvento(evento);
+							MIUsuario user = ClienteMetaInformacion.cmi.getUsuario(DConector.Dusuario);
+							MIRol rol = ClienteMetaInformacion.cmi.getRol(DConector.Drol);
 
-							ClienteFicheros.cf.insertarNuevoFichero(fbd, DConector.Daplicacion);
+							if (user != null && rol != null) {
 
-							if (!t.sendFile(bytes)) {
-								JOptionPane.showMessageDialog(null, "No se ha podido subir el fichero", "Error", JOptionPane.ERROR_MESSAGE);
+								
+								
+								FicheroBD fbd = new FicheroBD(-1, f.getName(), false, "rwrw--", user, rol, carpeta.getId(), path+"/"+f.getName(), "");
+
+								DFileEvent evento = new DFileEvent();
+
+								evento.fichero = fbd;
+								evento.padre = carpeta;
+								
+								evento.tipo = new Integer(DFileEvent.NOTIFICAR_INSERTAR_FICHERO.intValue());
+
+								enviarEvento(evento);
+
+								ClienteFicheros.cf.insertarNuevoFichero(fbd, DConector.Daplicacion);
+
+								if (!t.sendFile(bytes)) {
+									JOptionPane.showMessageDialog(null, "No se ha podido subir el fichero", "Error", JOptionPane.ERROR_MESSAGE);
+								}
+							}
+							else {
+								System.out.println("Error!!!!!!");
 							}
 						}
 						catch (FileNotFoundException ex)
@@ -925,13 +940,39 @@ public class PanelPrincipal extends DComponenteBase
 
 	@Override
 	public void procesarEvento(DEvent evento){
-		if (evento.tipo.intValue() == DFileEvent.NOTIFICAR_INSERTAR_FICHERO/* &&
-				!evento.usuario.equals(DConector.Dusuario)*/) 
+		if (evento.tipo.intValue() == DFileEvent.NOTIFICAR_INSERTAR_FICHERO) 
 		{
 			DFileEvent dfe = (DFileEvent) evento;
 			DefaultTreeModel modelo = (DefaultTreeModel) arbolDocumentos.getModel();
 			DefaultMutableTreeNode raiz = (DefaultMutableTreeNode)modelo.getRoot();
-			modelo.insertNodeInto(new DefaultMutableTreeNode(dfe.fichero.getNombre()), (MutableTreeNode) raiz.getChildAt(0), 0);
+			
+			int id_papa = dfe.padre.getId();
+			DefaultMutableTreeNode papi = buscarFichero(raiz, id_papa);
+			
+			
+			
+			modelo.insertNodeInto(new DefaultMutableTreeNode(dfe.fichero), papi, 0);
+		}
+	}
+	
+	private DefaultMutableTreeNode buscarFichero(DefaultMutableTreeNode n, int id) {
+		if (!n.isRoot() && ((FicheroBD)n.getUserObject()).getId() == id) {
+			return n;
+		}
+		else {
+			if (n.getChildCount() > 0) {
+				DefaultMutableTreeNode nodo = null;
+				
+				for (int i=0; i<n.getChildCount(); ++i) {
+					nodo = buscarFichero((DefaultMutableTreeNode)n.getChildAt(i),id);
+					
+					if (nodo != null) 
+						return nodo;
+				}
+				return nodo;
+			}
+			else 
+				return null;
 		}
 	}
 

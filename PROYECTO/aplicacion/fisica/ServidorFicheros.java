@@ -98,7 +98,7 @@ public class ServidorFicheros {
 		// agregamos una nueva hoja al arbol
 		if ( ParserPermisos.comprobarPermisoLectura(f, usuario, rol) ) {
 
-			DefaultMutableTreeNode nodo = new DefaultMutableTreeNode(f.getNombre());
+			DefaultMutableTreeNode nodo = new DefaultMutableTreeNode(f);
 
 			if (f.esDirectorio()) {
 				Vector<FicheroBD> fs = gestor.recuperarDirectorio(f.getId());

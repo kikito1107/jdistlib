@@ -226,14 +226,19 @@ public class GestorFicherosBD
 	public void insertarNuevoFichero(FicheroBD f){
 			try{
 				
-				/*String parametros = conexion.generaId("Fichero", "id_fichero") +", " + f.getNombre() + ", "+ f.esDirectorio() 
-					+ ", " + f.getPermisos() + ", 1, 1, 0, NULL";*/
+				if (f != null) {
 				
-				String parametros = "222, 'aaaa.txt', 0, 'rwrw--', 1,1,1, '/aaaa.txt', 'txt'";
-				
-				//coger la raiz
-				if (!conexion.insert("INSERT INTO fichero values("+ parametros +")"))
-					System.err.println("ERROR en el insert");
+					int isdir = f.esDirectorio()?0:1;
+					int id_user = f.getUsuario().getIdentificador();
+					int id_rol = f.getRol().getIdentificador();
+					String parametros = conexion.generaId("Fichero", "id_fichero") +", '" + f.getNombre() + "', "+ isdir
+						+ ", '" + f.getPermisos() + "'," + id_user +", " + id_rol +"," + f.getPadre() + ",'"+ f.getRutaLocal() +"', NULL";
+					
+					
+					// insertamos la nueva tupla en fichero
+					if (!conexion.insert("INSERT INTO fichero values("+ parametros +")"))
+						System.err.println("ERROR en el insert");
+				}
 
 			}catch(Exception ex)
 			{
