@@ -41,8 +41,19 @@ public class DIPanelDibujo extends DComponenteBase
 	private HebraProcesadora hebraProcesadora;
 	private JFrame padre = null;
 	private JScrollPane jsp = null;
+	private String pathDocumento;
 	
 	
+	public String getPathDocumento()
+	{
+		return pathDocumento;
+	}
+
+	public void setPathDocumento(String pathDocumento)
+	{
+		this.pathDocumento = pathDocumento;
+	}
+
 	public void setPadre(JFrame unaVentana) {
 		padre = unaVentana;
 	}

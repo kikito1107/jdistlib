@@ -58,18 +58,19 @@ public class FramePanelDibujo extends DJFrame {
 	 
 
 	 
-	 this.setTitle(".:: Panel Dibujo Compartido : " + DConector.Dusuario + " ::.");
+	 this.setTitle(".:: Panel Edici—n Compartido : " + DConector.Dusuario + " ::.");
   }
 
   void this_windowClosing(WindowEvent e) {
 	
+	  //DConector.obtenerDC().cerrarDocumento(this.getLienzo().getPathDocumento());
+	  
 	  if (standalone)
 		  DConector.obtenerDC().salir();
 	  
-	  else {
-	  
-	  setDocumento(new Documento());
-	  System.gc();
+	  else {	  
+		  setDocumento(new Documento());
+		  System.gc();
 	  }
   }
   
@@ -96,6 +97,21 @@ public void setDocumento(Documento d)
 	lienzo.setDocumento(d);
 	
 }
+
+public int obtenerNumComponentesHijos() {
+	return 1;
+}
+
+public DComponente obtenerComponente(int i) {
+	DComponente dc = null;
+	switch (i) {
+		case 0:
+			dc = this.lienzo;
+			break;
+	}
+	return dc;
+}
+
 }
 
 class FrameDrawPanel_this_windowAdapter

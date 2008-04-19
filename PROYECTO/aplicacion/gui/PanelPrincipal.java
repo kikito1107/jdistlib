@@ -152,7 +152,7 @@ public class PanelPrincipal extends DComponenteBase
 			botonSubir.setBorder(null);
 			botonSubir.setBorderPainted(false);
 			botonSubir.setText("subir fichero");
-			botonSubir.setIcon(new ImageIcon("./Resources/document_new.png"));
+			botonSubir.setIcon(new ImageIcon("./Resources/subir_documento.png"));
 			botonSubir.addActionListener(new java.awt.event.ActionListener()
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
@@ -185,7 +185,7 @@ public class PanelPrincipal extends DComponenteBase
 							Object[] objetos = null;
 							if (camino != null) objetos = camino.getPath();
 
-							String path = "";
+							String path = "/";
 							
 							// obtenemos la carpeta en donde queremos subir el nuevo fichero
 							DefaultMutableTreeNode nodo = (DefaultMutableTreeNode)objetos[objetos.length - 1];
@@ -196,26 +196,28 @@ public class PanelPrincipal extends DComponenteBase
 							MIUsuario user = null;
 							MIRol rol = null;
 							
+							System.out.println("Nombre carpeta: " + carpeta.getNombre()); 
+							
 							// comprobamos que el nodo elegido es una carpeta 
 							if ( carpeta.esDirectorio() ){
 
 								// reconstruimos el path
 								for (int i=2; i<objetos.length; ++i)
-									path += '/' + objetos[i].toString();
+									path +=  objetos[i].toString() + '/';
 
 								// recuperamos el usuario y el rol
 								user = ClienteMetaInformacion.cmi.getUsuario(DConector.Dusuario);
 								rol = ClienteMetaInformacion.cmi.getRol(DConector.Drol);
 							}
-
-							
+							else {
+								path = "";
+							}
 
 							// si todo ha ido OK
 							if (user != null && rol != null && path != "") {
-
 								// creamos el nuevo fichero a almacenar
 								FicheroBD fbd = new FicheroBD(-1, f.getName(), false, "rwrw--", 
-										user, rol, carpeta.getId(), path+"/"+f.getName(), "");
+										user, rol, carpeta.getId(), path+f.getName(), "");
 
 								// notificamos al resto de usuarios la "novedad"
 								DFileEvent evento = new DFileEvent();
@@ -230,11 +232,12 @@ public class PanelPrincipal extends DComponenteBase
 								// enviamos el nuevo fichero al servidor
 								Transfer t = new Transfer(ClienteFicheros.ipConexion,  path+"/"+f.getName() );
 								if (!t.sendFile(bytes)) {
-									JOptionPane.showMessageDialog(null, "No se ha podido subir el fichero", "Error", JOptionPane.ERROR_MESSAGE);
+									JOptionPane.showMessageDialog(null, "No se ha podido subir el fichero.\nSe ha producido un error en la transmisi—n del documento", "Error", JOptionPane.ERROR_MESSAGE);
 								}
 							}
 							else {
-								JOptionPane.showMessageDialog(null, "No se ha podido subir el fichero", "Error", JOptionPane.ERROR_MESSAGE);
+								if (path == "")
+									JOptionPane.showMessageDialog(null, "No se ha podido subir el fichero. No se ha podido escribir el fichero en la direcci—n de destino", "Error", JOptionPane.ERROR_MESSAGE);
 							}
 						}
 						catch (FileNotFoundException ex)
@@ -268,6 +271,25 @@ public class PanelPrincipal extends DComponenteBase
 			this.add(getPanelLateral(), BorderLayout.WEST);
 			this.add(getBarraHerramientas(), null);
 
+			frame = new FramePanelDibujo(false);
+			frame.setVisible(false);
+			frame.pack();
+			frame.setSize(800, 720);
+			
+			//Center the window
+			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+			Dimension frameSize = frame.getSize();
+			if (frameSize.height > screenSize.height) {
+				frameSize.height = screenSize.height;
+			}
+			if (frameSize.width > screenSize.width) {
+				frameSize.width = screenSize.width;
+			}
+			frame.setLocation( (screenSize.width - frameSize.width) / 2,
+					(screenSize.height - frameSize.height) / 2);
+			
+			
+			
 			this.add(getPanelEspacioTrabajo(), null);
 		}
 		catch (Exception ex) {
@@ -828,6 +850,11 @@ public class PanelPrincipal extends DComponenteBase
 				path += '/' + objetos[i].toString();
 			}
 		} 
+		
+		Documento p = new Documento();
+		p.setPath(path);
+
+		
 
 		if (frame == null)
 		{
@@ -847,6 +874,15 @@ public class PanelPrincipal extends DComponenteBase
 			}
 			frame.setLocation( (screenSize.width - frameSize.width) / 2,
 					(screenSize.height - frameSize.height) / 2);
+			
+			frame.setDocumento(p);
+			frame.getLienzo().setPathDocumento(path);
+			//DConector.obtenerDC().sincronizarComponentes();
+		}
+		else {
+			frame.setDocumento(p);
+			frame.getLienzo().setPathDocumento(path);
+			frame.getLienzo().getLienzo().sincronizar();
 		}
 
 
@@ -854,13 +890,13 @@ public class PanelPrincipal extends DComponenteBase
 
 		frame.getLienzo().getLienzo().getDocumento().setPath(path);
 
-		DConector.obtenerDC().sincronizarComponentes();
+		
 
-		Transfer t = new Transfer(ClienteFicheros.ipConexion, path );
+		/*Transfer t = new Transfer(ClienteFicheros.ipConexion, path );
 
-		Documento p = t.receive();
+		Documento p = t.receive();*/
+		
 
-		frame.setDocumento(p);
 	}
 
 	/**
@@ -926,6 +962,9 @@ public class PanelPrincipal extends DComponenteBase
 		switch (i) {
 			case 0:
 				dc = arbolUsuario;
+				break;
+			case 1:
+				//dc = frame.obtenerComponente(0);
 				break;
 		}
 		return dc;

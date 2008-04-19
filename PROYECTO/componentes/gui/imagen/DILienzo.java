@@ -30,6 +30,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.text.DefaultCaret;
 
+import aplicacion.fisica.ClienteFicheros;
 import aplicacion.fisica.Transfer;
 import aplicacion.fisica.TransferP2P;
 import aplicacion.fisica.documentos.Anotacion;
@@ -66,7 +67,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 	public static final int MANO_ALZADA = 1;
 	public static final int TEXTO = 2;
 	public static final int RECTANGULO = 3;
-	public static final int ELIPSE = 4;
+	public static final int ELIPSE = 4; 
 	
 	/**Indica si se ha sincronizado ya el lienzo*/
 	public boolean sincronizada = false;
@@ -190,7 +191,6 @@ public class DILienzo extends DIViewer implements MouseListener,
 		try
 		{
 			mediaTracker.waitForID(0);
-			//imagen = imagen.getScaledInstance(getSize().width, getSize().height, Image.SCALE_DEFAULT);
 			doc.addPagina(imagen);
 			repaint();
 		}
@@ -563,6 +563,7 @@ public class DILienzo extends DIViewer implements MouseListener,
                 evt3.dibujo = trazo;
                 evt3.numPagina = new Integer(paginaActual-1);
                 evt3.tipo = new Integer(DJLienzoEvent.NUEVA_ANOTACION.intValue());
+                evt3.path = new String(doc.getPath());
                 
                 enviarEvento(evt3);
                 
@@ -780,11 +781,36 @@ public class DILienzo extends DIViewer implements MouseListener,
 	
 	public void sincronizar()
 	{
-		if (conectadoDC()) {
-			DJLienzoEvent peticion = new DJLienzoEvent();
-			peticion.tipo = new Integer(DJLienzoEvent.SINCRONIZACION.intValue());
-			peticion.path = new String(doc.getPath());
-			enviarEvento(peticion);
+		if (conectadoDC()  && doc.getPath()!= null && !doc.getPath().equals("")) {
+			
+			DJLienzoEvent e = new DJLienzoEvent();
+			e.tipo = new Integer(DJLienzoEvent.SINCRONIZACION.intValue());
+			e.path = new String(doc.getPath());
+			
+			String ip = null;//DConector.obtenerDC().solicitarFichero(doc.getPath());
+			
+			// si no hay que sincronizar el fichero
+			if ( ip == null ) {
+				
+				Transfer t = new Transfer(ClienteFicheros.ipConexion, doc.getPath() );
+
+				Documento p = t.receive();
+				
+				if (p!= null)
+					doc = p;
+				else JOptionPane.showMessageDialog(this.padre, "Eror al cargar el fichero "+doc.getPath()+" desde el servidor");
+				
+				//DConector.obtenerDC().devolverTokenFichero();
+				
+				e.sincronizarFichero = new Boolean(false);
+				this.sincronizada = true;
+			}
+			else {
+				e.sincronizarFichero = new Boolean(true);
+			}
+			
+			this.enviarEvento(e);
+				
 		 }
 	}
 	
@@ -906,13 +932,19 @@ public class DILienzo extends DIViewer implements MouseListener,
 	public void procesarEvento(DEvent evento)
 	{
 		
-		if (evento.tipo.intValue() == DJLienzoEvent.SINCRONIZACION &&
+		//JOptionPane.showMessageDialog(this.padre, "Reciido evento id " + evento.tipo);
+		
+		
+		if (evento.tipo.intValue() == DJLienzoEvent.SINCRONIZACION.intValue() &&
 										!evento.usuario.equals(DConector.Dusuario)) 
 		{
-			TransferP2P.pararHebra();
-			DJLienzoEvent evt = new DJLienzoEvent();
-		
-			if (evt.path != null && evt.path.equals(doc.getPath())){
+			
+			DJLienzoEvent evt = (DJLienzoEvent) evento;
+			
+			if ( evt.sincronizarFichero.booleanValue() &&
+					evt.path != null && evt.path.equals(doc.getPath())){
+				
+				TransferP2P.pararHebra();
 			
 				TransferP2P.establecerServidor(id, doc); 
 				try
@@ -977,6 +1009,8 @@ public class DILienzo extends DIViewer implements MouseListener,
 		{
 			DJLienzoEvent evt = (DJLienzoEvent)evento;
 			
+			System.out.println("Recibida respuesta sincronizacion");
+			
 			if (evt.path != null && evt.path.equals(doc.getPath())){
 				System.out.println("Recibida Respuesta sincronizacion desde la direccción: "+ evt.direccionRMI 
 						+ "\nen el puerto " + evt.puerto + " para el fichero "+ evt.path);
@@ -987,17 +1021,19 @@ public class DILienzo extends DIViewer implements MouseListener,
 					this.setDocumento(puente);
 					sincronizada = true;
 				}
+				
+				//DConector.obtenerDC().devolverTokenFichero();
 			}
 		}	
 		
-		else if (evento.tipo.intValue() == DJLienzoEvent.NUEVA_ANOTACION.intValue()
-				&&
-				!evento.usuario.equals(DConector.Dusuario)) {
+		else if (evento.tipo.intValue() == DJLienzoEvent.NUEVA_ANOTACION.intValue())
+		 {
 			DJLienzoEvent evt = (DJLienzoEvent ) evento;
 			
-			// JOptionPane.showMessageDialog(null, "Recibida nueva anotacion para el fichero " + evt.path);
+			//JOptionPane.showMessageDialog(null, "Recibida nueva anotacion para el fichero " + evt.path);
 			
-			if(evt.path != null &&evt.path.equals(doc.getPath())) {
+			if(evt.path != null &&evt.path.equals(doc.getPath()) &&
+					!evento.usuario.equals(DConector.Dusuario)) {
 				Anotacion a = new Anotacion();
 				a.setContenido(evt.dibujo);
 				a.setUsuario(evt.usuario);
@@ -1011,8 +1047,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 				&& !evento.usuario.equals(DConector.Dusuario)) {
 			
 			DJLienzoEvent evt = (DJLienzoEvent ) evento;
-			
-			if(evt.path != null &&evt.path.equals(doc.getPath()))
+			if(evt.path != null && evt.path.equals(doc.getPath()))
 				this.limpiarLienzo();
 		}
 		else if (evento.tipo.intValue() == DJLienzoEvent.DESHACER.intValue()
@@ -1133,5 +1168,4 @@ public class DILienzo extends DIViewer implements MouseListener,
 			}
 		}
 	}
-
 }

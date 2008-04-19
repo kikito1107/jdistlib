@@ -28,20 +28,8 @@ public class FicheroBD implements Serializable
 		id_documento = id;
 		es_directorio = dir;
 		permisos = perm;
-		usuario = usu;	rol = ro;
-		padre = pad;
-		ruta_local = ruta;
-		tipo = tip;
-	}
-	
-	public FicheroBD(int id, String nom, boolean dir, String perm, String usu, String rol2, int pad, String ruta, String tip)
-	{
-		nombre = nom;
-		id_documento = id;
-		es_directorio = dir;
-		permisos = perm;
-		/*usuario = usu;
-		rol = ro;*/
+		usuario = usu;	
+		rol = ro;
 		padre = pad;
 		ruta_local = ruta;
 		tipo = tip;

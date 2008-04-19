@@ -192,6 +192,7 @@ public class ControlesDibujo extends JPanel
 					// enviamos el evento para sincronizar el borrado del lienzo
 					DJLienzoEvent el = new DJLienzoEvent();					
 					el.tipo = DJLienzoEvent.LIMPIEZA_LIENZO;
+					el.path = new String(lienzo.getDocumento().getPath());
 					lienzo.enviarEvento(el);
 				}
 			});
@@ -225,6 +226,7 @@ public class ControlesDibujo extends JPanel
 					DJLienzoEvent evt = new DJLienzoEvent();
 					evt.numPagina = new Integer(lienzo.getPaginaActual()-1);
 					evt.tipo = DJLienzoEvent.DESHACER;
+					evt.path = new String(lienzo.getDocumento().getPath());
 					lienzo.enviarEvento(evt);
 					
 				}
@@ -259,6 +261,7 @@ public class ControlesDibujo extends JPanel
 					ev.aBorrar = lienzo.getObjetoSeleccionado();
 					ev.numPagina = new Integer(lienzo.getPaginaActual()-1);
 					lienzo.borrarObjeto(lienzo.getObjetoSeleccionado(), lienzo.getPaginaActual()-1);
+					ev.path = new String(lienzo.getDocumento().getPath());
 					lienzo.enviarEvento(ev);
 				}
 			});
@@ -339,6 +342,7 @@ public class ControlesDibujo extends JPanel
 					lienzo.rehacer();
 					DJLienzoEvent ev = new DJLienzoEvent();
 					ev.tipo = DJLienzoEvent.REHACER;
+					ev.path = new String(lienzo.getDocumento().getPath());	
 					lienzo.enviarEvento(ev);
 				}
 			});

@@ -110,6 +110,8 @@ public class ServidorFicheros {
 			padre.add(nodo);
 		}
 	}
+	
+	
 
 
 	private class HebraProcesadora

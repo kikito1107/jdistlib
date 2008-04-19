@@ -27,7 +27,7 @@ public class DJLienzoEvent extends DJViewerEvent
 	public static final Integer SINCRONIZACION = new Integer(77);
 	public static final Integer RESPUESTA_SINCRONIZACION = new Integer(SINCRONIZACION.intValue()+1);
 	public static final Integer NUEVA_PAGINA = new Integer(SINCRONIZACION.intValue()+2);
-	public static final Integer NUEVA_ANOTACION = new Integer(SINCRONIZACION.intValue()+3);
+	public static final Integer NUEVA_ANOTACION = new Integer(3390);
 	public static final Integer LIMPIEZA_LIENZO = new Integer(SINCRONIZACION.intValue()+4);
 	public static final Integer DESHACER = new Integer(SINCRONIZACION.intValue()+5);
 	public static final Integer BORRADO = new Integer(SINCRONIZACION.intValue()+6);
@@ -51,6 +51,8 @@ public class DJLienzoEvent extends DJViewerEvent
 	public String direccionRMI = null;
 	
 	public String path = null;
+	
+	public Boolean sincronizarFichero = null;
 	
 	public DJLienzoEvent()
 	{
