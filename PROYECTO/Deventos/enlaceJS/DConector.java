@@ -1,5 +1,6 @@
 package Deventos.enlaceJS;
 
+import java.rmi.RemoteException;
 import java.util.*;
 
 import javax.swing.*;
@@ -15,6 +16,8 @@ import interfaces.listeners.*;
 
 import metainformacion.*;
 
+import net.jini.core.entry.UnusableEntryException;
+import net.jini.core.lease.LeaseDeniedException;
 import net.jini.core.transaction.*;
 
 import net.jini.core.transaction.server.*;
@@ -674,6 +677,78 @@ public class DConector
 		return v.size();
 
 	}
+	
+	
+	
+	public TokenFichero buscarTokenFichero(String path) {
+		TokenFichero t = null, plantilla = new TokenFichero(Daplicacion, path);
+		
+		Transaction.Created txnC;
+		try
+		{
+			t = (TokenFichero) space.take(plantilla, null, 10000L);
+			
+			if (t == null) {
+				JOptionPane.showMessageDialog(null, "no se ha encontrado el token");
+				t = new TokenFichero(Daplicacion, path);
+				t.sincronizar = new Boolean(false);
+			}
+			else {
+				t.sincronizar= new Boolean(true);
+			}
+			
+			return t;
+		}
+		catch (RemoteException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (UnusableEntryException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (TransactionException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (InterruptedException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		return t;
+	}
+	
+	public boolean devolverTokenFichero(TokenFichero tf) {
+		try
+		{
+			space.write(tf, null, Long.MAX_VALUE);
+		}
+		catch (RemoteException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (TransactionException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if (tf == null) {
+			JOptionPane.showMessageDialog(null, "Error al escribir el token");
+			return false;
+		}
+		else 
+			return true;
+	}
+	
 
 	/**
 	 * 

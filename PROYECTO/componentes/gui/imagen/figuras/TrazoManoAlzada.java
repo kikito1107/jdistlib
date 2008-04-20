@@ -25,5 +25,16 @@ public class TrazoManoAlzada extends Figura
 		for(int i=0;i<lineas.size(); ++i)
 			lineas.get(i).dibujar(g, factor);
 	}
+	
+	@Override
+	public boolean pertenece(int a, int b) {
+		
+		for (int i=0; i<lineas.size(); ++i)
+			if (lineas.get(i).pertenece(a, b))
+				return true;
+		
+		
+		return false;
+	}
 
 }

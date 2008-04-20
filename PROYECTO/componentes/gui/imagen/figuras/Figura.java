@@ -36,6 +36,11 @@ public class Figura implements Serializable
 	{
 		return x;
 	}
+	
+	public boolean pertenece(int x, int y)
+	{
+		return false;
+	}
 
 
 

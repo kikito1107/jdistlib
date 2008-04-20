@@ -23,5 +23,13 @@ public class Rectangulo extends Figura
 		
 		g.drawRect((int)((float)x*factor), (int)((float)y*factor), (int)((float)(xf-x)*factor), (int)((float)(yf-y)*factor));
 	}
+	
+	@Override
+	public boolean pertenece(int a, int b) {
+		if (a>=x && a<=xf && b>=y && b<=yf)
+			return true;
+		else
+			return false;
+	}
 
 }

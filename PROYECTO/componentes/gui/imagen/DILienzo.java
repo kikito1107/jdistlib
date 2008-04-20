@@ -6,6 +6,9 @@ import interfaces.listeners.LJLienzoListener;
 import interfaces.listeners.LJViewerListener;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JToolTip;
+import javax.swing.ToolTipManager;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -40,6 +43,7 @@ import Deventos.DEvent;
 import Deventos.DJLienzoEvent;
 import Deventos.DJViewerEvent;
 import Deventos.enlaceJS.DConector;
+import Deventos.enlaceJS.TokenFichero;
 import componentes.DComponenteBase;
 import componentes.HebraProcesadoraBase;
 import componentes.gui.imagen.figuras.*;
@@ -59,6 +63,8 @@ public class DILienzo extends DIViewer implements MouseListener,
 	 * Ventana en la que se dibuja el lienzo
 	 */
 	private JFrame padre = null;
+	
+	JToolTip tt = new JToolTip();
 	
 	/**
 	 * Modos de dibujo para las anotaciones
@@ -254,6 +260,11 @@ public class DILienzo extends DIViewer implements MouseListener,
 	private void init() throws Exception
 	{
 		addDJLienzoListener(new Listener());
+		
+		this.createToolTip();
+		
+		this.setToolTipText("");
+		
 		this.setBorder(new EtchedBorder(2));
 	}
 	
@@ -405,7 +416,36 @@ public class DILienzo extends DIViewer implements MouseListener,
 
 	public void mouseExited(MouseEvent e){}
 	
-	public void mouseMoved(MouseEvent e) {}
+	public void mouseMoved(MouseEvent e) {
+		
+		//
+		//ToolTipManager.
+		
+		int x = e.getX();
+		int y = e.getY();
+		
+		//recorremos todas las anotaciones de la página actual
+		
+		boolean encontrado = false;
+		Vector<Anotacion> v = doc.getPagina(this.paginaActual-1).getAnotaciones();
+		
+		System.out.println("x: "+ x + " y: " + y);
+		
+		for (int i=0; i<v.size() && !encontrado; ++i) {
+			if (v.get(i).getContenido().pertenece(x, y)) {
+				
+				String texto = "Usuario: " + v.get(i).getUsuario();
+				
+				texto += "\nRol" + v.get(i).getRol();
+				
+				this.setToolTipText(texto);
+				encontrado = true;
+			}
+		}
+		
+		if(!encontrado)
+			this.setToolTipText("");
+	}
 
 	public void mousePressed(MouseEvent e)
 	{
@@ -446,7 +486,7 @@ public class DILienzo extends DIViewer implements MouseListener,
             	if (rsp != null) {
  	            	Texto t = new Texto(x1, y1, rsp);
 
- 	            	System.out.println("x: " + x1 + "  y: " + y1);
+ 	            	//System.out.println("x: " + x1 + "  y: " + y1);
  	            	t.setColor(colorActual);
 	            	
 	            	
@@ -457,6 +497,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 	                evt2.numPagina = new Integer(paginaActual-1);
 	                evt2.tipo = new Integer(DJLienzoEvent.NUEVA_ANOTACION.intValue());
 	                evt2.path = new String(doc.getPath());
+	                evt2.rol = DConector.Drol;
 	                
 	                enviarEvento(evt2);
 	                
@@ -510,6 +551,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 	            evt.numPagina = new Integer(paginaActual-1);
 	            evt.tipo = new Integer(DJLienzoEvent.NUEVA_ANOTACION.intValue());
 	            evt.path = new String(doc.getPath());
+	            evt.rol = new String(DConector.Drol);
 	            enviarEvento(evt);
 	     
 	            if (doc.getNumeroPaginas() > 0) {
@@ -540,6 +582,7 @@ public class DILienzo extends DIViewer implements MouseListener,
                 evt2.numPagina = new Integer(paginaActual-1);
                 evt2.tipo = new Integer(DJLienzoEvent.NUEVA_ANOTACION.intValue());
                 evt2.path = new String(doc.getPath());
+                evt2.rol = new String(DConector.Drol);
                 enviarEvento(evt2);
                 
                 if (doc.getNumeroPaginas() > 0) {
@@ -564,6 +607,7 @@ public class DILienzo extends DIViewer implements MouseListener,
                 evt3.numPagina = new Integer(paginaActual-1);
                 evt3.tipo = new Integer(DJLienzoEvent.NUEVA_ANOTACION.intValue());
                 evt3.path = new String(doc.getPath());
+                evt3.rol = new String(DConector.Drol);
                 
                 enviarEvento(evt3);
                 
@@ -787,10 +831,13 @@ public class DILienzo extends DIViewer implements MouseListener,
 			e.tipo = new Integer(DJLienzoEvent.SINCRONIZACION.intValue());
 			e.path = new String(doc.getPath());
 			
-			String ip = null;//DConector.obtenerDC().solicitarFichero(doc.getPath());
+			String ip = null;//
+			
+			
+			//TokenFichero tk = DConector.obtenerDC().buscarTokenFichero(doc.getPath());
 			
 			// si no hay que sincronizar el fichero
-			if ( ip == null ) {
+			if ( true){//!tk.sincronizar.booleanValue() ) {
 				
 				Transfer t = new Transfer(ClienteFicheros.ipConexion, doc.getPath() );
 
@@ -810,6 +857,10 @@ public class DILienzo extends DIViewer implements MouseListener,
 			}
 			
 			this.enviarEvento(e);
+			
+			//tk.nuevoUsuario();
+			
+			//DConector.obtenerDC().devolverTokenFichero( tk );
 				
 		 }
 	}
