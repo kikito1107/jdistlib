@@ -1,7 +1,11 @@
 package chat;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
+
+import chat.webcam.PanelVC;
+import chat.webcam.VideoConferencia;
 
 import componentes.gui.usuarios.ArbolUsuariosConectadosRol;
 
@@ -31,7 +35,9 @@ public class PanelChatVC extends JSplitPane
 	 */
 	private void initialize()
 	{
-		this.setRightComponent(new PanelVC());
+		VideoConferencia.establecerOrigen();
+		String ip = JOptionPane.showInputDialog("Inserte IP de otro ordenador");
+		this.setRightComponent(new PanelVC(null, ip));
 		this.setLeftComponent(new PanelChat());
 		this.setOneTouchExpandable(true);
 		this.setSize(SIZE_X*2, SIZE_Y);

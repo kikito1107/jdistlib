@@ -39,7 +39,7 @@ public class MainChat {
 		frame.validate();
 	 }
 
-	 frame.setSize(568, 545);
+	 frame.setSize(568, 520);
 	 d.sincronizarComponentes();
 	 
 	 //Center the window

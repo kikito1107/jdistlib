@@ -2,6 +2,10 @@ package chat;
 
 import java.awt.BorderLayout;
 import java.awt.event.WindowEvent;
+
+import javax.swing.JOptionPane;
+
+import chat.webcam.VideoConferencia;
 import Deventos.enlaceJS.DConector;
 import componentes.DJFrame;
 
@@ -23,12 +27,8 @@ public class VentanaChat extends DJFrame {
 		 this.getContentPane().setLayout(borderLayout1);
 		 this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		 this.setResizable(true);
-		 this.addWindowListener(new FrameEjemplo_this_windowAdapter(this));
-
 		 componente = new PanelPrincipalChat("Componente5", true, null);
 		 this.getContentPane().add(componente, BorderLayout.CENTER);
-
-		 
 	  }
 
 	  void this_windowClosing(WindowEvent e) {
