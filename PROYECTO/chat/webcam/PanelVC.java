@@ -13,6 +13,8 @@ import chat.webcam.VideoFrame.Hebra;
 import chat.webcam.VideoFrame.HebraMiWebcam;
 
 import java.awt.GridBagConstraints;
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
 
 public class PanelVC extends JPanel
 {
@@ -29,7 +31,7 @@ public class PanelVC extends JPanel
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel myWebcam;
     private javax.swing.JPanel webcamPanel;
-
+	private JButton Capturar = null;
 	/**
 	 * This is the default constructor
 	 */
@@ -94,7 +96,8 @@ public class PanelVC extends JPanel
                 .add(myWebcam, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
 
-        jButton1.setText("Salir");
+        jButton1.setText("Cheese!");
+        jButton1.setIcon(new ImageIcon(getClass().getResource("/Resources/camera_16x16.png")));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -102,6 +105,7 @@ public class PanelVC extends JPanel
         });
 
         ini_stop.setText("Iniciar");
+        ini_stop.setIcon(new ImageIcon(getClass().getResource("/Resources/control_play_blue.png")));
         ini_stop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ini_stopActionPerformed(evt);
@@ -110,6 +114,7 @@ public class PanelVC extends JPanel
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
+        this.add(getCapturar(), null);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
@@ -146,6 +151,7 @@ public class PanelVC extends JPanel
             {
                 init = false;
                 this.ini_stop.setText("Iniciar");
+                ini_stop.setIcon(new ImageIcon(getClass().getResource("/Resources/control_play_blue.png")));
                 VideoConferencia.stopped = true;
             }
             catch (Exception ex)
@@ -162,6 +168,7 @@ public class PanelVC extends JPanel
                 th.start();
                 init = true;
                 this.ini_stop.setText("Detener");
+                ini_stop.setIcon(new ImageIcon(getClass().getResource("/Resources/control_pause_blue.png")));
             }
             catch (Exception ex)
             {
@@ -260,6 +267,20 @@ public class PanelVC extends JPanel
             }
         }
     }
+
+	/**
+	 * This method initializes Capturar	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private JButton getCapturar()
+	{
+		if (Capturar == null)
+		{
+			Capturar = new JButton();
+		}
+		return Capturar;
+	}
 
 
 

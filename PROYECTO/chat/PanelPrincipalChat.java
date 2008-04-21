@@ -36,13 +36,16 @@ public class PanelPrincipalChat extends DComponenteBase
 
 	private JButton ocultarVC = null;
 	private ArbolUsuariosConectadosRol arbolUsuario = null;
+
+	private String destinatario;
 	
 	/**
 	 * This is the default constructor
 	 */
-	public PanelPrincipalChat(String nombre, boolean conexionDC, DComponenteBase DCompPadre)
+	public PanelPrincipalChat(String nombre, boolean conexionDC, DComponenteBase DCompPadre, String dest)
 	{
 		super(nombre, conexionDC, DCompPadre);
+		destinatario = dest;
 		initialize();
 	}
 
@@ -61,7 +64,7 @@ public class PanelPrincipalChat extends DComponenteBase
 	
 	private PanelChatVC getChat(){
 		if (chat == null){
-			chat = new PanelChatVC();
+			chat = new PanelChatVC(this, destinatario);
 		}
 		return chat;
 	}
@@ -185,6 +188,10 @@ public class PanelPrincipalChat extends DComponenteBase
 	 */
 	public int obtenerNumComponentesHijos() {
 		return 1;
+	}
+	
+	public void esconderVC(){
+		chat.esconderVideoConferencia();
 	}
 
 	/**
@@ -314,6 +321,14 @@ public class PanelPrincipalChat extends DComponenteBase
 			}
 
 		}
+	}
+
+
+
+	public void setInterlocutor(String i)
+	{
+		chat.setDestinatario(i);
+		
 	}
 
 

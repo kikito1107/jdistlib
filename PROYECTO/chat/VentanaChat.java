@@ -1,5 +1,7 @@
 package chat;
 
+import interfaces.DComponente;
+
 import java.awt.BorderLayout;
 import java.awt.event.WindowEvent;
 
@@ -12,10 +14,12 @@ import componentes.DJFrame;
 public class VentanaChat extends DJFrame {
 	  BorderLayout borderLayout1 = new BorderLayout();
 	  PanelPrincipalChat componente = null;
+	  String interlocutor;
 
-	  public VentanaChat() {
-		 super(true, "MousesRemotos");
+	  public VentanaChat(String interloc) {
+		 super(true, "MousesRemotos3");
 		 try {
+			 interlocutor = interloc;
 			jbInit();
 		 }
 		 catch (Exception ex) {
@@ -25,17 +29,44 @@ public class VentanaChat extends DJFrame {
 
 	  void jbInit() throws Exception {
 		 this.getContentPane().setLayout(borderLayout1);
-		 this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		 this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		 this.setResizable(true);
-		 componente = new PanelPrincipalChat("Componente5", true, null);
+		 componente = new PanelPrincipalChat("panelChat", true, null, interlocutor);
 		 this.getContentPane().add(componente, BorderLayout.CENTER);
+		 this.setTitle(".:: Chat : " + DConector.Dusuario + " ::.");
 	  }
 
-	  void this_windowClosing(WindowEvent e) {
-		 DConector.obtenerDC().salir();
+	  public void esconderVC(){
+		  componente.esconderVC();
 	  }
+	  
+	  void this_windowClosing(WindowEvent e) {
+		 VideoConferencia.stopped = true;
+	  }
+	  
+	  public int obtenerNumComponentesHijos() {
+			return 1;
+		}
+
+		public DComponente obtenerComponente(int i) {
+			DComponente dc = null;
+			switch (i) {
+				case 0:
+					dc = this.componente;
+					break;
+			}
+			return dc;
+		}
+		
+		public void setInterlocutor(String i) {
+			componente.setInterlocutor(i);
+		}
 
 	}
+
+	
+	
+	
 
 	class FrameEjemplo_this_windowAdapter
 		 extends java.awt.event.WindowAdapter {

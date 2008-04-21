@@ -30,35 +30,41 @@ public class MainChat {
 	 d = new DConector("AplicacionDePrueba");
 	 d.inicializar();
 
-	 VentanaChat frame = new VentanaChat();
-
-	 if (packFrame) {
-		frame.pack();
-	 }
-	 else {
-		frame.validate();
-	 }
-
-	 frame.setSize(568, 520);
-	 d.sincronizarComponentes();
+	 String interlocutor = JOptionPane.showInputDialog("Introduce el interlocutor");
 	 
-	 //Center the window
-	 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	 Dimension frameSize = frame.getSize();
-	 if (frameSize.height > screenSize.height) {
-		frameSize.height = screenSize.height;
-	 }
-	 if (frameSize.width > screenSize.width) {
-		frameSize.width = screenSize.width;
-	 }
-	 frame.setLocation( (screenSize.width - frameSize.width) / 2,
-							 (screenSize.height - frameSize.height) / 2);
-	 frame.setVisible(true);
-	 frame.setResizable(true);
-
+	 if (interlocutor != null && interlocutor != "") {
 	 
-	 String nombreUsuario = d.Dusuario;
-	 frame.setTitle(".:: Chat : " + nombreUsuario + "  ::.");
+		 VentanaChat frame = new VentanaChat(interlocutor);
+	
+		 if (packFrame) {
+			frame.pack();
+		 }
+		 else {
+			frame.validate();
+		 }
+	
+		 frame.setSize(568, 520);
+		 d.sincronizarComponentes();
+		 
+		 //Center the window
+		 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		 Dimension frameSize = frame.getSize();
+		 if (frameSize.height > screenSize.height) {
+			frameSize.height = screenSize.height;
+		 }
+		 if (frameSize.width > screenSize.width) {
+			frameSize.width = screenSize.width;
+		 }
+		 frame.setLocation( (screenSize.width - frameSize.width) / 2,
+								 (screenSize.height - frameSize.height) / 2);
+		 frame.setVisible(true);
+		 frame.setResizable(true);
+	
+		 
+		 String nombreUsuario = d.Dusuario;
+		 frame.setTitle(".:: Chat : " + nombreUsuario + "  ::.");
+	 
+	 }
   }
 
   //Main method

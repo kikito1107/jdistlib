@@ -7,13 +7,21 @@ import javax.swing.JTextArea;
 import java.awt.GridBagConstraints;
 import java.awt.BorderLayout;
 
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.swing.JTree;
 
-public class PanelChat extends JPanel
+import chat.eventos.DChatEvent;
+
+import Deventos.DEvent;
+import Deventos.enlaceJS.DConector;
+
+import componentes.DComponenteBase;
+
+public class PanelChat extends DComponenteBase
 {
 
 	private static final long serialVersionUID = 1L;
@@ -22,14 +30,17 @@ public class PanelChat extends JPanel
 	private JButton botonEviar = null;
 	private JTextArea textoChat = null;
 	private JPanel panel = null;
+	private String destinatario = null;
 
 	/**
 	 * This is the default constructor
 	 */
-	public PanelChat()
+	public PanelChat(String nombre, boolean conexionDC,
+			 DComponenteBase padre, String dest)
 	{
-		super();
+		super(nombre, conexionDC, padre);
 		initialize();
+		destinatario = dest;
 	}
 
 	/**
@@ -84,7 +95,8 @@ public class PanelChat extends JPanel
 				public void keyTyped(java.awt.event.KeyEvent e)
 				{
 					if (e.getKeyChar() == '\n') {
-						//TODO evento de env’o de mensaje
+						enviarMensaje(Texto.getText());
+						Texto.setText("");
 					}
 				}
 			});
@@ -110,10 +122,28 @@ public class PanelChat extends JPanel
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
 					// TODO Evento de env’o de mensaje
+					enviarMensaje(Texto.getText());
+					Texto.setText("");
+					
 				}
 			});
 		}
 		return botonEviar;
+	}
+	
+	/**
+	 * Envia un mesaje al usuario con el que estamos conversando
+	 * @param mensaje mensaje 
+	 */
+	public void enviarMensaje(String mensaje){
+		
+		if (!mensaje.equals("") && destinatario != null) {
+			DChatEvent ev = new DChatEvent();
+			ev.mensaje = new String(mensaje);
+			ev.tipo = new Integer(DChatEvent.NUEVO_MENSAJE.intValue());
+			ev.destinatario = new String(destinatario);
+			enviarEvento(ev);
+		}
 	}
 
 	/**
@@ -128,6 +158,7 @@ public class PanelChat extends JPanel
 			textoChat = new JTextArea();
 			textoChat.setWrapStyleWord(true);
 			textoChat.setLineWrap(true);
+			textoChat.setEditable(false);
 		}
 		return textoChat;
 	}
@@ -147,6 +178,26 @@ public class PanelChat extends JPanel
 			panel.add(new JScrollPane(getTextoChat(), JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER), BorderLayout.CENTER);
 		}
 		return panel;
+	}
+	
+	public void procesarEvento(DEvent e){
+		
+		DChatEvent dce = (DChatEvent) e;
+		
+		if (dce.tipo.intValue() == DChatEvent.NUEVO_MENSAJE.intValue()
+				&& (dce.destinatario.equals(DConector.Dusuario ) || dce.usuario.equals(DConector.Dusuario ))){
+			
+			textoChat.setText( textoChat.getText() + "\n[" + dce.usuario + "]: " + dce.mensaje );
+		}
+		
+	}
+
+	public void setDestinatario(String d)
+	{
+		if (!destinatario.equals(d)) {
+			destinatario = d;
+			textoChat.setText("");
+		}
 	}
 
 }  //  @jve:decl-index=0:visual-constraint="7,19"

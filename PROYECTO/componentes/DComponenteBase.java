@@ -273,7 +273,7 @@ public class DComponenteBase
   public void procesarEvento(DEvent evento) {
 	  
 	  
-	 System.out.println("REcibido evento " + evento.tipo.toString());
+	 System.out.println("Recibido evento " + evento.tipo.toString());
 	 System.out.flush();
 	 colaRecepcion.nuevoEvento(evento);
   }

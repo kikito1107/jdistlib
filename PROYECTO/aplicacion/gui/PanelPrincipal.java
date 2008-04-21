@@ -52,6 +52,9 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreePath;
 
+import chat.VentanaChat;
+import chat.webcam.VideoConferencia;
+
 import metainformacion.ClienteMetaInformacion;
 import metainformacion.MIRol;
 import metainformacion.MIUsuario;
@@ -144,6 +147,8 @@ public class PanelPrincipal extends DComponenteBase
 	DefaultMutableTreeNode raiz = null;
 
 	private JButton botonSubir  = null;
+	
+	private VentanaChat vc = null;
 
 
 	private JButton getButonSubir(){
@@ -288,7 +293,11 @@ public class PanelPrincipal extends DComponenteBase
 			frame.setLocation( (screenSize.width - frameSize.width) / 2,
 					(screenSize.height - frameSize.height) / 2);
 			
+			vc = new VentanaChat("");
 			
+			vc.setSize(568, 520);
+			
+			vc.sincronizar();
 			
 			this.add(getPanelEspacioTrabajo(), null);
 		}
@@ -504,9 +513,35 @@ public class PanelPrincipal extends DComponenteBase
 	{
 		if (listaAplicaciones == null)
 		{
-			listaAplicaciones = new JList();
+			
+			String[] data = {"chat", "calculadora", "editor"};
+			
+			listaAplicaciones = new JList(data);
 			listaAplicaciones.setBounds(new Rectangle(1, 26, 186, 140));
 			listaAplicaciones.setBorder(new LineBorder(Color.GRAY));
+			
+			listaAplicaciones.addMouseListener(new java.awt.event.MouseAdapter()
+			{
+				public void mouseClicked(java.awt.event.MouseEvent e)
+				{
+					if (e.getClickCount() == 2 && listaAplicaciones.getSelectedIndex() == 0) {
+						
+						String interlocutor = arbolUsuario.getUsuarioSeleccionado();
+						
+						if (interlocutor != null && interlocutor != "") {
+
+							VideoConferencia.establecerOrigen();
+							vc.pack();
+							vc.setSize(568, 520);
+							vc.setInterlocutor(interlocutor);
+							vc.setVisible(true);
+							vc.esconderVC();
+						
+						}
+					}
+				}
+			});
+			
 		}
 		return listaAplicaciones;
 	}
@@ -890,11 +925,6 @@ public class PanelPrincipal extends DComponenteBase
 
 		frame.getLienzo().getLienzo().getDocumento().setPath(path);
 
-		
-
-		/*Transfer t = new Transfer(ClienteFicheros.ipConexion, path );
-
-		Documento p = t.receive();*/
 		
 
 	}

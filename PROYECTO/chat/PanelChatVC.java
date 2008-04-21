@@ -7,6 +7,7 @@ import javax.swing.JSplitPane;
 import chat.webcam.PanelVC;
 import chat.webcam.VideoConferencia;
 
+import componentes.DComponenteBase;
 import componentes.gui.usuarios.ArbolUsuariosConectadosRol;
 
 import java.awt.Dimension;
@@ -18,14 +19,16 @@ public class PanelChatVC extends JSplitPane
 	public static final int SIZE_X = 340;
 	public static final int SIZE_Y = 330;
 	
+	PanelChat chat = null;
+	
 
 	/**
 	 * This is the default constructor
 	 */
-	public PanelChatVC()
+	public PanelChatVC(DComponenteBase d, String destinatario)
 	{
 		super();
-		initialize();
+		initialize(d, destinatario);
 	}
 
 	/**
@@ -33,15 +36,15 @@ public class PanelChatVC extends JSplitPane
 	 * 
 	 * @return void
 	 */
-	private void initialize()
+	private void initialize(DComponenteBase d, String destinatario)
 	{
-		VideoConferencia.establecerOrigen();
-		String ip = JOptionPane.showInputDialog("Inserte IP de otro ordenador");
-		this.setRightComponent(new PanelVC(null, ip));
-		this.setLeftComponent(new PanelChat());
+		
+		this.setRightComponent(new PanelVC(null, "127.0.0.1"));
+		chat = new PanelChat("chat", true, d, destinatario);
+		this.setLeftComponent(chat);
 		this.setOneTouchExpandable(true);
 		this.setSize(SIZE_X*2, SIZE_Y);
-		this.setDividerLocation(0.5);
+		this.setDividerLocation(1.0);
 	}
 	
 	public void esconderVideoConferencia() {
@@ -52,6 +55,11 @@ public class PanelChatVC extends JSplitPane
 	public void esconderChat() {
 		this.setDividerLocation(0.0);
 		//this.setSize(SIZE_X, SIZE_Y);
+	}
+
+	public void setDestinatario(String i)
+	{
+		chat.setDestinatario(i);
 	}
 
 }  //  @jve:decl-index=0:visual-constraint="46,88"

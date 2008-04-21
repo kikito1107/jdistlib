@@ -1,16 +1,22 @@
 package componentes.gui.usuarios;
 
-import java.util.*;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.util.Vector;
 
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.border.*;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JScrollPane;
+import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 
-import Deventos.*;
-import componentes.*;
-import metainformacion.*;
+import metainformacion.ClienteMetaInformacion;
+import Deventos.DMIEvent;
+
+import componentes.DComponenteBase;
 
 /**
  * Con este componente podemos ver todos los usuarios que hay conectados que
@@ -111,6 +117,23 @@ public class ArbolUsuariosConectadosRol
 	 }
   }
 
+  public String getUsuarioSeleccionado(){
+	  
+	  TreePath tp = arbol.getSelectionPath();
+	  
+	  if (tp != null) {
+	  
+		  if (tp.getPathCount() == 3) {
+			Object vector[] = tp.getPath();
+			
+			return vector[vector.length -1 ].toString();
+		  }
+		  else return null;
+	  }
+	  else 
+		  return null;
+  }
+  
   /**
    * Inicializa el componente
    * @throws Exception
