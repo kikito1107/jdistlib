@@ -14,18 +14,6 @@ public class Linea extends Figura
 	{
 		super(x1, y1);
 		
-		if (x1 > xf1) {
-			int aux = x1;
-			x1 = xf1;
-			xf1 = aux;
-		}
-		
-		if (y1 > yf1) {
-			int aux = y1;
-			y1 = yf1;
-			yf1 = aux;
-		}
-		
 		x =x1;
 		y=y1;
 		xf=xf1;
@@ -42,13 +30,29 @@ public class Linea extends Figura
 	
 	@Override
 	public boolean pertenece(int a, int b) {
-		if (a>=x && a<=xf && b>=y && b<=yf) {
+
+		int x1=x,xf1=xf, y1=y, yf1=yf;
+		int margen = 10;
+		
+		if (x > xf) {
+			x1 = xf;
+			xf1 = x;
+		}
+		
+		if (y > yf) {
+			y1 = yf;
+			yf1 = y;
+		}
+		
+		if (a>=x1 && a<=xf1 && b>=y1 && b<=yf1) {
+
 			
+			/// calculamos el valor estimado de y para la posicion dada (a) en el eje x
 			int valor = (int)(((float)(yf-y)/(float)(xf-x))* (float)(a-x)+(float)y);
 			
 			System.out.println("Valor: " + valor +" B: " + b);
 			
-			if (valor < b+50 && valor > b-50)
+			if (valor < b+margen && valor > b-margen)
 				return true;
 			else
 				return false;
