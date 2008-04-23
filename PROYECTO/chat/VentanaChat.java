@@ -7,6 +7,7 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JOptionPane;
 
+
 import chat.webcam.VideoConferencia;
 import Deventos.enlaceJS.DConector;
 import componentes.DJFrame;
@@ -31,8 +32,11 @@ public class VentanaChat extends DJFrame {
 		 this.getContentPane().setLayout(borderLayout1);
 		 this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		 this.setResizable(true);
-		 componente = new PanelPrincipalChat("panelChat", true, null, interlocutor);
+		 this.addWindowListener(new FrameEjemplo_this_windowAdapter(this));
+
+		 componente = new PanelPrincipalChat("panelChat", true, null, interlocutor, this);
 		 this.getContentPane().add(componente, BorderLayout.CENTER);
+		 
 		 this.setTitle(".:: Chat : " + DConector.Dusuario + " ::.");
 	  }
 
@@ -42,6 +46,7 @@ public class VentanaChat extends DJFrame {
 	  
 	  void this_windowClosing(WindowEvent e) {
 		 VideoConferencia.stopped = true;
+		 componente.cerrar();
 	  }
 	  
 	  public int obtenerNumComponentesHijos() {

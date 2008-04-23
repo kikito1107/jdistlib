@@ -38,15 +38,18 @@ public class PanelPrincipalChat extends DComponenteBase
 	private ArbolUsuariosConectadosRol arbolUsuario = null;
 
 	private String destinatario;
+	private VentanaChat ventana = null;
 	
 	/**
 	 * This is the default constructor
 	 */
-	public PanelPrincipalChat(String nombre, boolean conexionDC, DComponenteBase DCompPadre, String dest)
+	public PanelPrincipalChat(String nombre, boolean conexionDC, DComponenteBase DCompPadre, String dest, VentanaChat v)
 	{
 		super(nombre, conexionDC, DCompPadre);
 		destinatario = dest;
+		ventana = v;
 		initialize();
+		
 	}
 
 	/**
@@ -64,13 +67,16 @@ public class PanelPrincipalChat extends DComponenteBase
 	
 	private PanelChatVC getChat(){
 		if (chat == null){
-			chat = new PanelChatVC(this, destinatario);
+			chat = new PanelChatVC(this, destinatario, ventana);
 		}
 		return chat;
 	}
 
 
-
+	public void cerrar(){
+		chat.cerrarConversacion();
+	}
+	
 	/**
 	 * This method initializes panelControles	
 	 * 	

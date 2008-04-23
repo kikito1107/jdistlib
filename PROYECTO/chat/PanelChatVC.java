@@ -4,6 +4,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 
+import chat.eventos.DChatEvent;
 import chat.webcam.PanelVC;
 import chat.webcam.VideoConferencia;
 
@@ -25,10 +26,12 @@ public class PanelChatVC extends JSplitPane
 	/**
 	 * This is the default constructor
 	 */
-	public PanelChatVC(DComponenteBase d, String destinatario)
+	public PanelChatVC(DComponenteBase d, String destinatario, VentanaChat v)
 	{
 		super();
-		initialize(d, destinatario);
+	
+		
+		initialize(d, destinatario, v);
 	}
 
 	/**
@@ -36,11 +39,11 @@ public class PanelChatVC extends JSplitPane
 	 * 
 	 * @return void
 	 */
-	private void initialize(DComponenteBase d, String destinatario)
+	private void initialize(DComponenteBase d, String destinatario, VentanaChat v)
 	{
 		
 		this.setRightComponent(new PanelVC(null, "127.0.0.1"));
-		chat = new PanelChat("chat", true, d, destinatario);
+		chat = new PanelChat("chat", true, d, destinatario, v);
 		this.setLeftComponent(chat);
 		this.setOneTouchExpandable(true);
 		this.setSize(SIZE_X*2, SIZE_Y);
@@ -62,4 +65,8 @@ public class PanelChatVC extends JSplitPane
 		chat.setDestinatario(i);
 	}
 
+	public void cerrarConversacion(){
+		chat.cerrarConversacion();
+	}
+	
 }  //  @jve:decl-index=0:visual-constraint="46,88"

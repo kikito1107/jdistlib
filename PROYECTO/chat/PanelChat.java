@@ -31,16 +31,21 @@ public class PanelChat extends DComponenteBase
 	private JTextArea textoChat = null;
 	private JPanel panel = null;
 	private String destinatario = null;
-
+	private VentanaChat ventana = null;
 	/**
 	 * This is the default constructor
 	 */
 	public PanelChat(String nombre, boolean conexionDC,
-			 DComponenteBase padre, String dest)
+			 DComponenteBase padre, String dest, VentanaChat v)
 	{
 		super(nombre, conexionDC, padre);
 		initialize();
 		destinatario = dest;
+		
+		if (v != null)
+			ventana = v;
+		else
+			System.out.println("ERROR: valor nulo");
 	}
 
 	/**
@@ -189,6 +194,16 @@ public class PanelChat extends DComponenteBase
 			
 			textoChat.setText( textoChat.getText() + "\n[" + dce.usuario + "]: " + dce.mensaje );
 		}
+		else if (e.tipo.intValue() == DChatEvent.FIN_CONVERSACION.intValue()
+				&& ( (DChatEvent) e ).destinatario.equals(DConector.Dusuario))
+		{
+			if (ventana == null)
+				JOptionPane.showMessageDialog(null, "VENTANANAKSFJDSL");
+			else {
+				ventana.setVisible(false);
+				ventana.dispose();
+			}
+		}
 		
 	}
 
@@ -198,6 +213,21 @@ public class PanelChat extends DComponenteBase
 			destinatario = d;
 			textoChat.setText("");
 		}
+	}
+
+	public String getDestinatario()
+	{
+		return destinatario;
+	}
+
+	public void cerrarConversacion()
+	{
+		DChatEvent ev = new DChatEvent();
+		ev.tipo = new Integer(DChatEvent.FIN_CONVERSACION.intValue());
+		ev.destinatario = new String(destinatario);
+		enviarEvento(ev);
+		
+		//JOptionPane.showMessageDialog(null, "enviada notificacion");
 	}
 
 }  //  @jve:decl-index=0:visual-constraint="7,19"

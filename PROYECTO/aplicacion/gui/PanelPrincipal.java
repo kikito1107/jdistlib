@@ -53,6 +53,7 @@ import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreePath;
 
 import chat.VentanaChat;
+import chat.eventos.DChatEvent;
 import chat.webcam.VideoConferencia;
 
 import metainformacion.ClienteMetaInformacion;
@@ -146,38 +147,43 @@ public class PanelPrincipal extends DComponenteBase
 
 	DefaultMutableTreeNode raiz = null;
 
-	private JButton botonSubir  = null;
-	
+	private JButton botonSubir = null;
+
 	private VentanaChat vc = null;
 
-
-	private JButton getButonSubir(){
-		if (botonSubir == null) {
+	private JButton getButonSubir()
+	{
+		if (botonSubir == null)
+		{
 			botonSubir = new JButton("");
 			botonSubir.setBorder(null);
 			botonSubir.setBorderPainted(false);
 			botonSubir.setText("subir fichero");
-			botonSubir.setIcon(new ImageIcon("./Resources/subir_documento.png"));
+			botonSubir
+					.setIcon(new ImageIcon("./Resources/subir_documento.png"));
 			botonSubir.addActionListener(new java.awt.event.ActionListener()
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
-					JFileChooser jfc = new JFileChooser("Guardar Documento Localmente");
+					JFileChooser jfc = new JFileChooser(
+							"Guardar Documento Localmente");
 
 					int op = jfc.showDialog(null, "Aceptar");
 
 					if (op == JFileChooser.APPROVE_OPTION)
 					{
 						java.io.File f = jfc.getSelectedFile();
-						byte[] bytes = null; 
+						byte[] bytes = null;
 						try
 						{
-							//abrimos el fichero en modo lectura
-							RandomAccessFile raf = new RandomAccessFile(f.getAbsolutePath(), "r");
+							// abrimos el fichero en modo lectura
+							RandomAccessFile raf = new RandomAccessFile(f
+									.getAbsolutePath(), "r");
 
-							// consultamos el tamanio del fichero, reservamos memoria suficiente,
+							// consultamos el tamanio del fichero, reservamos
+							// memoria suficiente,
 							// leemos el fichero y lo cerramos
-							int tamanio = (int)raf.length();
+							int tamanio = (int) raf.length();
 
 							bytes = new byte[tamanio];
 
@@ -185,73 +191,106 @@ public class PanelPrincipal extends DComponenteBase
 
 							raf.close();
 
-							//obtenemos el path actual
-							TreePath camino = arbolDocumentos.getSelectionPath();
+							// obtenemos el path actual
+							TreePath camino = arbolDocumentos
+									.getSelectionPath();
 							Object[] objetos = null;
 							if (camino != null) objetos = camino.getPath();
 
 							String path = "/";
-							
-							// obtenemos la carpeta en donde queremos subir el nuevo fichero
-							DefaultMutableTreeNode nodo = (DefaultMutableTreeNode)objetos[objetos.length - 1];
-							
-							// obtenemos los datos del fichero asociados a ese nodo
-							FicheroBD carpeta = (FicheroBD)nodo.getUserObject();
+
+							// obtenemos la carpeta en donde queremos subir el
+							// nuevo fichero
+							DefaultMutableTreeNode nodo = (DefaultMutableTreeNode) objetos[objetos.length - 1];
+
+							// obtenemos los datos del fichero asociados a ese
+							// nodo
+							FicheroBD carpeta = (FicheroBD) nodo
+									.getUserObject();
 
 							MIUsuario user = null;
 							MIRol rol = null;
-							
-							System.out.println("Nombre carpeta: " + carpeta.getNombre()); 
-							
-							// comprobamos que el nodo elegido es una carpeta 
-							if ( carpeta.esDirectorio() ){
+
+							System.out.println("Nombre carpeta: "
+									+ carpeta.getNombre());
+
+							// comprobamos que el nodo elegido es una carpeta
+							if (carpeta.esDirectorio())
+							{
 
 								// reconstruimos el path
-								for (int i=2; i<objetos.length; ++i)
-									path +=  objetos[i].toString() + '/';
+								for (int i = 2; i < objetos.length; ++i)
+									path += objetos[i].toString() + '/';
 
 								// recuperamos el usuario y el rol
-								user = ClienteMetaInformacion.cmi.getUsuario(DConector.Dusuario);
-								rol = ClienteMetaInformacion.cmi.getRol(DConector.Drol);
+								user = ClienteMetaInformacion.cmi
+										.getUsuario(DConector.Dusuario);
+								rol = ClienteMetaInformacion.cmi
+										.getRol(DConector.Drol);
 							}
-							else {
+							else
+							{
 								path = "";
 							}
 
 							// si todo ha ido OK
-							if (user != null && rol != null && path != "") {
+							if (user != null && rol != null && path != "")
+							{
 								// creamos el nuevo fichero a almacenar
-								FicheroBD fbd = new FicheroBD(-1, f.getName(), false, "rwrw--", 
-										user, rol, carpeta.getId(), path+f.getName(), "");
+								FicheroBD fbd = new FicheroBD(-1, f.getName(),
+										false, "rwrw--", user, rol, carpeta
+												.getId(), path + f.getName(),
+										"");
 
 								// notificamos al resto de usuarios la "novedad"
 								DFileEvent evento = new DFileEvent();
 								evento.fichero = fbd;
 								evento.padre = carpeta;
-								evento.tipo = new Integer(DFileEvent.NOTIFICAR_INSERTAR_FICHERO.intValue());
+								evento.tipo = new Integer(
+										DFileEvent.NOTIFICAR_INSERTAR_FICHERO
+												.intValue());
 								enviarEvento(evento);
 
 								// insertamos el nuevo fichero en el servidor
-								ClienteFicheros.cf.insertarNuevoFichero(fbd, DConector.Daplicacion);
+								ClienteFicheros.cf.insertarNuevoFichero(fbd,
+										DConector.Daplicacion);
 
 								// enviamos el nuevo fichero al servidor
-								Transfer t = new Transfer(ClienteFicheros.ipConexion,  path+"/"+f.getName() );
-								if (!t.sendFile(bytes)) {
-									JOptionPane.showMessageDialog(null, "No se ha podido subir el fichero.\nSe ha producido un error en la transmisi—n del documento", "Error", JOptionPane.ERROR_MESSAGE);
+								Transfer t = new Transfer(
+										ClienteFicheros.ipConexion, path + "/"
+												+ f.getName());
+								if (!t.sendFile(bytes))
+								{
+									JOptionPane
+											.showMessageDialog(
+													null,
+													"No se ha podido subir el fichero.\nSe ha producido un error en la transmisi—n del documento",
+													"Error",
+													JOptionPane.ERROR_MESSAGE);
 								}
 							}
-							else {
+							else
+							{
 								if (path == "")
-									JOptionPane.showMessageDialog(null, "No se ha podido subir el fichero. No se ha podido escribir el fichero en la direcci—n de destino", "Error", JOptionPane.ERROR_MESSAGE);
+									JOptionPane
+											.showMessageDialog(
+													null,
+													"No se ha podido subir el fichero. No se ha podido escribir el fichero en la direcci—n de destino",
+													"Error",
+													JOptionPane.ERROR_MESSAGE);
 							}
 						}
 						catch (FileNotFoundException ex)
 						{
-							JOptionPane.showMessageDialog(null, "El fichero no existe", "Error", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null,
+									"El fichero no existe", "Error",
+									JOptionPane.ERROR_MESSAGE);
 						}
 						catch (IOException e1)
 						{
-							JOptionPane.showMessageDialog(null, "Error en la lectura del fichero", "Error", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null,
+									"Error en la lectura del fichero", "Error",
+									JOptionPane.ERROR_MESSAGE);
 						}
 					}
 				}
@@ -260,16 +299,17 @@ public class PanelPrincipal extends DComponenteBase
 		return botonSubir;
 	}
 
-
 	/**
 	 * This method initializes jContentPane
 	 * 
 	 * @return javax.swing.JPanel
 	 */
-	public PanelPrincipal(String nombre, boolean conexionDC,
-			DComponenteBase padre) {
+	public PanelPrincipal( String nombre, boolean conexionDC,
+			DComponenteBase padre )
+	{
 		super(nombre, conexionDC, padre);
-		try {
+		try
+		{
 			BorderLayout borderLayout = new BorderLayout();
 			borderLayout.setHgap(0);
 			this.setLayout(null);
@@ -280,36 +320,39 @@ public class PanelPrincipal extends DComponenteBase
 			frame.setVisible(false);
 			frame.pack();
 			frame.setSize(800, 720);
-			
-			//Center the window
+
+			// Center the window
 			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 			Dimension frameSize = frame.getSize();
-			if (frameSize.height > screenSize.height) {
+			if (frameSize.height > screenSize.height)
+			{
 				frameSize.height = screenSize.height;
 			}
-			if (frameSize.width > screenSize.width) {
+			if (frameSize.width > screenSize.width)
+			{
 				frameSize.width = screenSize.width;
 			}
-			frame.setLocation( (screenSize.width - frameSize.width) / 2,
-					(screenSize.height - frameSize.height) / 2);
-			
+			frame.setLocation(( screenSize.width - frameSize.width ) / 2,
+					( screenSize.height - frameSize.height ) / 2);
+
 			vc = new VentanaChat("");
-			
+
 			vc.setSize(568, 520);
-			
+
 			vc.sincronizar();
-			
+
 			this.add(getPanelEspacioTrabajo(), null);
 		}
-		catch (Exception ex) {
+		catch (Exception ex)
+		{
 			ex.printStackTrace();
 		}
 	}
 
 	/**
-	 * This method initializes panelLateral	
-	 * 	
-	 * @return javax.swing.JPanel	
+	 * This method initializes panelLateral
+	 * 
+	 * @return javax.swing.JPanel
 	 */
 	private JPanel getPanelLateral()
 	{
@@ -338,9 +381,9 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * This method initializes barraHerramientas	
-	 * 	
-	 * @return javax.swing.JToolBar	
+	 * This method initializes barraHerramientas
+	 * 
+	 * @return javax.swing.JToolBar
 	 */
 	private JToolBar getBarraHerramientas()
 	{
@@ -369,8 +412,6 @@ public class PanelPrincipal extends DComponenteBase
 			barraHerramientas.add(getBotonImprimir());
 			barraHerramientas.add(separator1);
 
-
-
 			barraHerramientas.add(getBotonEliminar());
 			barraHerramientas.add(separator2);
 			barraHerramientas.add(getBotonPersonalizar());
@@ -390,9 +431,9 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * This method initializes botonNuevo	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes botonNuevo
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getBotonNuevo()
 	{
@@ -407,9 +448,9 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * This method initializes BotonAbrir	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes BotonAbrir
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getBotonAbrir()
 	{
@@ -424,9 +465,9 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * This method initializes botonGuardar	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes botonGuardar
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getBotonGuardar()
 	{
@@ -441,9 +482,9 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * This method initializes botonEliminar	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes botonEliminar
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getBotonEliminar()
 	{
@@ -458,9 +499,9 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * This method initializes botonPersonalizar	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes botonPersonalizar
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getBotonPersonalizar()
 	{
@@ -468,15 +509,16 @@ public class PanelPrincipal extends DComponenteBase
 		{
 			botonPersonalizar = new JButton();
 			botonPersonalizar.setBorderPainted(false);
-			botonPersonalizar.setIcon(new ImageIcon("./Resources/customize.png"));
+			botonPersonalizar
+					.setIcon(new ImageIcon("./Resources/customize.png"));
 		}
 		return botonPersonalizar;
 	}
 
 	/**
-	 * This method initializes herrmientasUsuarios	
-	 * 	
-	 * @return javax.swing.JToolBar	
+	 * This method initializes herrmientasUsuarios
+	 * 
+	 * @return javax.swing.JToolBar
 	 */
 	private JToolBar getHerrmientasUsuarios()
 	{
@@ -486,11 +528,10 @@ public class PanelPrincipal extends DComponenteBase
 			herrmientasUsuarios.setSize(new Dimension(183, 32));
 			herrmientasUsuarios.setLocation(new Point(3, 364));
 
-
 			Separador s1 = new Separador();
 			Separador s2 = new Separador();
-			s1.setMinimumSize(new Dimension(20,15));
-			s2.setMinimumSize(new Dimension(20,15));
+			s1.setMinimumSize(new Dimension(20, 15));
+			s2.setMinimumSize(new Dimension(20, 15));
 			herrmientasUsuarios.setFloatable(false);
 			herrmientasUsuarios.add(getNuevoUsuario());
 			herrmientasUsuarios.add(getEliminarUsuario());
@@ -505,49 +546,60 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * This method initializes listaAplicaciones	
-	 * 	
-	 * @return javax.swing.JList	
+	 * This method initializes listaAplicaciones
+	 * 
+	 * @return javax.swing.JList
 	 */
 	private JList getListaAplicaciones()
 	{
 		if (listaAplicaciones == null)
 		{
-			
-			String[] data = {"chat", "calculadora", "editor"};
-			
+
+			String[] data =
+			{ "chat", "calculadora", "editor" };
+
 			listaAplicaciones = new JList(data);
 			listaAplicaciones.setBounds(new Rectangle(1, 26, 186, 140));
 			listaAplicaciones.setBorder(new LineBorder(Color.GRAY));
-			
-			listaAplicaciones.addMouseListener(new java.awt.event.MouseAdapter()
-			{
-				public void mouseClicked(java.awt.event.MouseEvent e)
-				{
-					if (e.getClickCount() == 2 && listaAplicaciones.getSelectedIndex() == 0) {
-						
-						String interlocutor = arbolUsuario.getUsuarioSeleccionado();
-						
-						if (interlocutor != null && interlocutor != "") {
 
-							VideoConferencia.establecerOrigen();
-							vc.pack();
-							vc.setSize(568, 520);
-							vc.setInterlocutor(interlocutor);
-							vc.setVisible(true);
-							vc.esconderVC();
-						
+			listaAplicaciones
+					.addMouseListener(new java.awt.event.MouseAdapter()
+					{
+						public void mouseClicked(java.awt.event.MouseEvent e)
+						{
+							if (e.getClickCount() == 2
+									&& listaAplicaciones.getSelectedIndex() == 0)
+							{
+
+								String interlocutor = arbolUsuario
+										.getUsuarioSeleccionado();
+
+								if (interlocutor != null && interlocutor != "")
+								{
+
+									VideoConferencia.establecerOrigen();
+
+									// enviamos el evento de notificaci—n de
+									// conversaci—n
+									DChatEvent dce = new DChatEvent();
+									dce.tipo = new Integer(
+											DChatEvent.NUEVA_CONVERSACION
+													.intValue());
+									dce.destinatario = new String(interlocutor);
+									enviarEvento(dce);
+
+								}
+							}
 						}
-					}
-				}
-			});
-			
+					});
+
 		}
 		return listaAplicaciones;
 	}
 
 	/**
-	 * This method initializes arbolUsuario	
+	 * This method initializes arbolUsuario
+	 * 
 	 * @return
 	 */
 	private ArbolUsuariosConectadosRol getArbolUsuario()
@@ -560,9 +612,9 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * This method initializes botonBuscar	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes botonBuscar
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getBotonBuscar()
 	{
@@ -577,9 +629,9 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * This method initializes botonInspector	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes botonInspector
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getBotonInspector()
 	{
@@ -594,9 +646,9 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * This method initializes botonAtras	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes botonAtras
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getBotonAtras()
 	{
@@ -611,9 +663,9 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * This method initializes botonRecargar	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes botonRecargar
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getBotonRecargar()
 	{
@@ -628,9 +680,9 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * This method initializes botonAdelante	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes botonAdelante
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getBotonAdelante()
 	{
@@ -645,9 +697,9 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * This method initializes botonImprimir	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes botonImprimir
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getBotonImprimir()
 	{
@@ -662,9 +714,9 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * This method initializes botonAyuda	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes botonAyuda
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getBotonAyuda()
 	{
@@ -679,9 +731,9 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * This method initializes nuevoUsuario	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes nuevoUsuario
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getNuevoUsuario()
 	{
@@ -691,15 +743,15 @@ public class PanelPrincipal extends DComponenteBase
 			nuevoUsuario.setBorder(null);
 			nuevoUsuario.setIcon(new ImageIcon("./Resources/page_new.gif"));
 			nuevoUsuario.setBorderPainted(false);
-			nuevoUsuario.setPreferredSize(new Dimension(20,20));
+			nuevoUsuario.setPreferredSize(new Dimension(20, 20));
 		}
 		return nuevoUsuario;
 	}
 
 	/**
-	 * This method initializes eliminarUsuario	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes eliminarUsuario
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getEliminarUsuario()
 	{
@@ -707,16 +759,17 @@ public class PanelPrincipal extends DComponenteBase
 		{
 			eliminarUsuario = new JButton();
 			eliminarUsuario.setBorder(null);
-			eliminarUsuario.setIcon(new ImageIcon("./Resources/page_delete.gif"));
+			eliminarUsuario
+					.setIcon(new ImageIcon("./Resources/page_delete.gif"));
 			eliminarUsuario.setBorderPainted(false);
 		}
 		return eliminarUsuario;
 	}
 
 	/**
-	 * This method initializes editarUsuario	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes editarUsuario
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getEditarUsuario()
 	{
@@ -731,9 +784,9 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * This method initializes iniciarChat	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes iniciarChat
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getIniciarChat()
 	{
@@ -748,9 +801,9 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * This method initializes enviarMensaje	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes enviarMensaje
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getEnviarMensaje()
 	{
@@ -765,9 +818,9 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * This method initializes configurar	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes configurar
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getConfigurar()
 	{
@@ -782,9 +835,9 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * This method initializes panelEspacioTrabajo	
-	 * 	
-	 * @return javax.swing.JPanel	
+	 * This method initializes panelEspacioTrabajo
+	 * 
+	 * @return javax.swing.JPanel
 	 */
 	private JPanel getPanelEspacioTrabajo()
 	{
@@ -796,17 +849,19 @@ public class PanelPrincipal extends DComponenteBase
 			panelEspacioTrabajo = new JPanel();
 			panelEspacioTrabajo.setLayout(borderLayout2);
 			panelEspacioTrabajo.setBounds(new Rectangle(210, 76, 349, 397));
-			panelEspacioTrabajo.setBorder(new LineBorder( Color.GRAY, 1 ));
-			panelEspacioTrabajo.add(getHerraminetasDocumentos(), BorderLayout.NORTH);
-			panelEspacioTrabajo.add(new JScrollPane(getArbolDocumentos()), BorderLayout.CENTER);
+			panelEspacioTrabajo.setBorder(new LineBorder(Color.GRAY, 1));
+			panelEspacioTrabajo.add(getHerraminetasDocumentos(),
+					BorderLayout.NORTH);
+			panelEspacioTrabajo.add(new JScrollPane(getArbolDocumentos()),
+					BorderLayout.CENTER);
 		}
 		return panelEspacioTrabajo;
 	}
 
 	/**
-	 * This method initializes herraminetasDocumentos	
-	 * 	
-	 * @return javax.swing.JToolBar	
+	 * This method initializes herraminetasDocumentos
+	 * 
+	 * @return javax.swing.JToolBar
 	 */
 	private JToolBar getHerraminetasDocumentos()
 	{
@@ -821,9 +876,9 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * This method initializes boton52131	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes boton52131
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getBoton52131()
 	{
@@ -845,15 +900,15 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * This method initializes arbolDocuementos	
-	 * 	
-	 * @return javax.swing.JTree	
+	 * This method initializes arbolDocuementos
+	 * 
+	 * @return javax.swing.JTree
 	 */
 	private JTree getArbolDocumentos()
 	{
 		if (arbolDocumentos == null)
 		{
-			arbolDocumentos = new JTree( DConector.raiz);
+			arbolDocumentos = new JTree(DConector.raiz);
 			arbolDocumentos.setRootVisible(false);
 
 			arbolDocumentos.setBorder(new LineBorder(Color.GRAY, 1));
@@ -864,32 +919,32 @@ public class PanelPrincipal extends DComponenteBase
 			{
 				public void mouseClicked(java.awt.event.MouseEvent e)
 				{
-					if (e.getClickCount() == 2)
-						accionAbrir();
+					if (e.getClickCount() == 2) accionAbrir();
 				}
 			});
 		}
 		return arbolDocumentos;
 	}
 
-	private void accionAbrir(){
+	private void accionAbrir()
+	{
 		TreePath camino = arbolDocumentos.getSelectionPath();
 
 		Object[] objetos = camino.getPath();
 
 		String path = "";
 
-		if ( ((DefaultMutableTreeNode)objetos[objetos.length - 1]).isLeaf() ){
+		if (( (DefaultMutableTreeNode) objetos[objetos.length - 1] ).isLeaf())
+		{
 
-			for (int i=2; i<objetos.length; ++i){
+			for (int i = 2; i < objetos.length; ++i)
+			{
 				path += '/' + objetos[i].toString();
 			}
-		} 
-		
+		}
+
 		Documento p = new Documento();
 		p.setPath(path);
-
-		
 
 		if (frame == null)
 		{
@@ -898,59 +953,64 @@ public class PanelPrincipal extends DComponenteBase
 			frame.pack();
 			frame.setSize(800, 720);
 
-			//Center the window
+			// Center the window
 			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 			Dimension frameSize = frame.getSize();
-			if (frameSize.height > screenSize.height) {
+			if (frameSize.height > screenSize.height)
+			{
 				frameSize.height = screenSize.height;
 			}
-			if (frameSize.width > screenSize.width) {
+			if (frameSize.width > screenSize.width)
+			{
 				frameSize.width = screenSize.width;
 			}
-			frame.setLocation( (screenSize.width - frameSize.width) / 2,
-					(screenSize.height - frameSize.height) / 2);
-			
+			frame.setLocation(( screenSize.width - frameSize.width ) / 2,
+					( screenSize.height - frameSize.height ) / 2);
+
 			frame.setDocumento(p);
 			frame.getLienzo().setPathDocumento(path);
-			//DConector.obtenerDC().sincronizarComponentes();
+			// DConector.obtenerDC().sincronizarComponentes();
 		}
-		else {
+		else
+		{
 			frame.setDocumento(p);
 			frame.getLienzo().setPathDocumento(path);
 			frame.getLienzo().getLienzo().sincronizar();
 		}
 
-
 		frame.setVisible(true);
 
 		frame.getLienzo().getLienzo().getDocumento().setPath(path);
-
-		
 
 	}
 
 	/**
 	 * Mediante una llamada a este método se envía un mensaje de peticion de
 	 * sincronizacion. No se debe llamar a este método de forma directa. Será
-	 * llamado de forma automatica cuando sea necesario realizar la sincronizacion
+	 * llamado de forma automatica cuando sea necesario realizar la
+	 * sincronizacion
 	 */
-	public void sincronizar() {
-		if (conectadoDC()) {
+	public void sincronizar()
+	{
+		if (conectadoDC())
+		{
 			EventoComponenteEjemplo peticion = new EventoComponenteEjemplo();
-			peticion.tipo = new Integer(EventoComponenteEjemplo.SINCRONIZACION.
-					intValue());
+			peticion.tipo = new Integer(EventoComponenteEjemplo.SINCRONIZACION
+					.intValue());
 			enviarEvento(peticion);
 		}
 	}
 
-
-	void arbol_actionPerformed(ActionEvent e) {
+	void arbol_actionPerformed(ActionEvent e)
+	{
 		DefaultMutableTreeNode seleccionado = raiz;
-		if (seleccionado != null) {
+		if (seleccionado != null)
+		{
 			// Creamos un nuevo evento
 			EventoComponenteEjemplo evento = new EventoComponenteEjemplo();
 			// Establecemos el tipo del evento
-			evento.tipo = new Integer(EventoComponenteEjemplo.EVENTO_ARBOL.intValue());
+			evento.tipo = new Integer(EventoComponenteEjemplo.EVENTO_ARBOL
+					.intValue());
 			// Indicamos el elemento que va a ser eliminado
 			evento.elemento = new String(raiz.toString());
 			// Enviamos el evento
@@ -959,128 +1019,206 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * Devuelve una nueva instancia de la hebra que se encargara de procesar
-	 * los eventos que se reciban. Este metodo no debe llamarse de forma directa.
+	 * Devuelve una nueva instancia de la hebra que se encargara de procesar los
+	 * eventos que se reciban. Este metodo no debe llamarse de forma directa.
 	 * Sera llamado de forma automatica cuando sea necesario.
+	 * 
 	 * @return HebraProcesadoraBase Nueva hebra procesadora
 	 */
-	public HebraProcesadoraBase crearHebraProcesadora() {
+	public HebraProcesadoraBase crearHebraProcesadora()
+	{
 		return new HebraProcesadora(this);
 	}
 
 	/**
-	 * Obtiene el numero de componentes hijos de este componente. SIEMPRE devuelve 0
-	 * @return int Número de componentes hijos. En este caso devuelve 8 (la lista
-	 * izquierda, el boton, la lista derecha, la lista de usuarios conectados,
-	 * la lista de usuarios conectados bajo nuestro rol, la lista de usuarios
-	 * conectados con la informacion del rol actual, el componente de cambio de
-	 * rol y la etiqueta del rol actual)
+	 * Obtiene el numero de componentes hijos de este componente. SIEMPRE
+	 * devuelve 0
+	 * 
+	 * @return int Número de componentes hijos. En este caso devuelve 8 (la
+	 *         lista izquierda, el boton, la lista derecha, la lista de usuarios
+	 *         conectados, la lista de usuarios conectados bajo nuestro rol, la
+	 *         lista de usuarios conectados con la informacion del rol actual,
+	 *         el componente de cambio de rol y la etiqueta del rol actual)
 	 */
-	public int obtenerNumComponentesHijos() {
+	public int obtenerNumComponentesHijos()
+	{
 		return 1;
 	}
 
 	/**
 	 * Obtiene el componente indicado
-	 * @param i int Indice del componente que queremos obtener. Se comienza a numerar
-	 * en el 0.
-	 * @return DComponente Componente indicado. Si el indice no es v‡lido devuelve
-	 * null
+	 * 
+	 * @param i
+	 *            int Indice del componente que queremos obtener. Se comienza a
+	 *            numerar en el 0.
+	 * @return DComponente Componente indicado. Si el indice no es v‡lido
+	 *         devuelve null
 	 */
-	public DComponente obtenerComponente(int i) {
+	public DComponente obtenerComponente(int i)
+	{
 		DComponente dc = null;
-		switch (i) {
+		switch (i)
+		{
 			case 0:
 				dc = arbolUsuario;
 				break;
 			case 1:
-				//dc = frame.obtenerComponente(0);
+				// dc = frame.obtenerComponente(0);
 				break;
 		}
 		return dc;
 	}
 
 	/**
-	 * Procesamos los eventos que recibimos de los componentes hijos. El procesamiento
-	 * se reduce a adjuntar el evento del parametro a un nuevo evento y enviarlo.
-	 * Los componentes de metainformacion no emiten eventos que deban ser procesados
-	 * @param evento DEvent Evento recibido
+	 * Procesamos los eventos que recibimos de los componentes hijos. El
+	 * procesamiento se reduce a adjuntar el evento del parametro a un nuevo
+	 * evento y enviarlo. Los componentes de metainformacion no emiten eventos
+	 * que deban ser procesados
+	 * 
+	 * @param evento
+	 *            DEvent Evento recibido
 	 */
-	synchronized public void procesarEventoHijo(DEvent evento) {
-		try {
+	synchronized public void procesarEventoHijo(DEvent evento)
+	{
+
+		try
+		{
 			EventoComponenteEjemplo ev = new EventoComponenteEjemplo();
 
-			if(evento.nombreComponente.equals("Arbol")) {
-				ev.tipo = new Integer(EventoComponenteEjemplo.EVENTO_ARBOL.
-						intValue());
+			if (evento.nombreComponente.equals("Arbol"))
+			{
+				ev.tipo = new Integer(EventoComponenteEjemplo.EVENTO_ARBOL
+						.intValue());
 				ev.aniadirEventoAdjunto(evento);
 				enviarEvento(ev);
 			}
 
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 
 		}
 	}
 
 	@Override
-	public void procesarEvento(DEvent evento){
-		if (evento.tipo.intValue() == DFileEvent.NOTIFICAR_INSERTAR_FICHERO) 
+	public void procesarEvento(DEvent evento)
+	{
+		if (evento.tipo.intValue() == DFileEvent.NOTIFICAR_INSERTAR_FICHERO)
 		{
 			DFileEvent dfe = (DFileEvent) evento;
-			DefaultTreeModel modelo = (DefaultTreeModel) arbolDocumentos.getModel();
-			DefaultMutableTreeNode raiz = (DefaultMutableTreeNode)modelo.getRoot();
-			
+			DefaultTreeModel modelo = (DefaultTreeModel) arbolDocumentos
+					.getModel();
+			DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) modelo
+					.getRoot();
+
 			int id_papa = dfe.padre.getId();
 			DefaultMutableTreeNode papi = buscarFichero(raiz, id_papa);
-			
-			
-			
-			modelo.insertNodeInto(new DefaultMutableTreeNode(dfe.fichero), papi, 0);
+
+			modelo.insertNodeInto(new DefaultMutableTreeNode(dfe.fichero),
+					papi, 0);
+		}
+		else if (evento.tipo.intValue() == DChatEvent.NUEVA_CONVERSACION
+				.intValue()
+				&& ( (DChatEvent) evento ).destinatario.equals(DConector.Dusuario))
+		{
+
+			DChatEvent e = (DChatEvent) evento;
+
+			int res = JOptionPane.showConfirmDialog(this, "El usuario "
+					+ e.usuario + " solicita nueva conversaci—n. ÀAceptar?");
+			DChatEvent dce = new DChatEvent();
+
+			dce.tipo = new Integer(DChatEvent.RESPUESTA_NUEVA_CONVERSACION
+					.intValue());
+			dce.destinatario = e.usuario;
+			if (res == 0)
+			{
+
+				dce.ok = new Boolean(true);
+
+				vc.pack();
+				vc.setSize(568, 520);
+				vc.setInterlocutor(e.usuario);
+				vc.setVisible(true);
+				vc.esconderVC();
+			}
+			else dce.ok = new Boolean(false);
+
+			enviarEvento(dce);
+		}
+		else if (evento.tipo.intValue() == DChatEvent.RESPUESTA_NUEVA_CONVERSACION
+				.intValue()
+				&& ( (DChatEvent) evento ).destinatario.equals(DConector.Dusuario))
+		{
+
+			DChatEvent e = (DChatEvent) evento;
+			if (e.ok.booleanValue())
+			{
+				vc.pack();
+				vc.setSize(568, 520);
+				vc.setInterlocutor(e.usuario);
+				vc.setVisible(true);
+				vc.esconderVC();
+			}
+			else
+			{
+				JOptionPane
+						.showMessageDialog(null,
+								"El usuario ha rechazado la petici—n de nueva conversaci—n");
+			}
 		}
 	}
-	
-	private DefaultMutableTreeNode buscarFichero(DefaultMutableTreeNode n, int id) {
-		if (!n.isRoot() && ((FicheroBD)n.getUserObject()).getId() == id) {
+
+	private DefaultMutableTreeNode buscarFichero(DefaultMutableTreeNode n,
+			int id)
+	{
+		if (!n.isRoot() && ( (FicheroBD) n.getUserObject() ).getId() == id)
+		{
 			return n;
 		}
-		else {
-			if (n.getChildCount() > 0) {
+		else
+		{
+			if (n.getChildCount() > 0)
+			{
 				DefaultMutableTreeNode nodo = null;
-				
-				for (int i=0; i<n.getChildCount(); ++i) {
-					nodo = buscarFichero((DefaultMutableTreeNode)n.getChildAt(i),id);
-					
-					if (nodo != null) 
-						return nodo;
+
+				for (int i = 0; i < n.getChildCount(); ++i)
+				{
+					nodo = buscarFichero((DefaultMutableTreeNode) n
+							.getChildAt(i), id);
+
+					if (nodo != null) return nodo;
 				}
 				return nodo;
 			}
-			else 
-				return null;
+			else return null;
 		}
 	}
 
 	/**
 	 * Hebra procesadora de eventos. Se encarga de realizar las acciones que
-	 * correspondan cuando recibe un evento. Tambén se encarga en su inicio
-	 * de sincronizar el componente.
+	 * correspondan cuando recibe un evento. Tambén se encarga en su inicio de
+	 * sincronizar el componente.
 	 */
-	private class HebraProcesadora
-	extends HebraProcesadoraBase {
+	private class HebraProcesadora extends HebraProcesadoraBase
+	{
 
-		HebraProcesadora(DComponente dc) {
+		HebraProcesadora( DComponente dc )
+		{
 			super(dc);
 		}
 
-		public void run() {
+		public void run()
+		{
 			EventoComponenteEjemplo evento = null;
 			EventoComponenteEjemplo saux = null;
 			EventoComponenteEjemplo respSincr = null;
 			Vector<Object> vaux = new Vector<Object>();
 
-			// Obtenemos los eventos existentes en la cola de recepcion. Estos eventos
-			// se han recibido en el intervalo de tiempo desde que se envio la peticion
+			// Obtenemos los eventos existentes en la cola de recepcion. Estos
+			// eventos
+			// se han recibido en el intervalo de tiempo desde que se envio la
+			// peticion
 			// de sincronizacion y el inicio de esta hebra procesadora
 			DEvent[] eventos = obtenerEventosColaRecepcion();
 			int numEventos = eventos.length;
@@ -1088,58 +1226,79 @@ public class PanelPrincipal extends DComponenteBase
 
 			// Buscamos entre los eventos si hay alguno correspondiente a una
 			// respuesta de sincronizacion
-			for (int j = 0; j < numEventos; j++) {
+			for (int j = 0; j < numEventos; j++)
+			{
 				saux = (EventoComponenteEjemplo) eventos[j];
-				if ( (respSincr == null) &&
-						(saux.tipo.intValue() ==
-							EventoComponenteEjemplo.RESPUESTA_SINCRONIZACION.intValue())) {
+				if (( respSincr == null )
+						&& ( saux.tipo.intValue() == EventoComponenteEjemplo.RESPUESTA_SINCRONIZACION
+								.intValue() ))
+				{
 					respSincr = saux;
 				}
-				else {
+				else
+				{
 					vaux.add(saux);
 				}
 			}
 
-			if (respSincr != null) { // Se ha recibido respuesta de sincronizacion
-				// Al actualizar nuestro estado con el del componente que nos envia
-				// la respuesta de sincronizacion establecemos nuestro índice de cual
+			if (respSincr != null)
+			{ // Se ha recibido respuesta de sincronizacion
+				// Al actualizar nuestro estado con el del componente que nos
+				// envia
+				// la respuesta de sincronizacion establecemos nuestro índice de
+				// cual
 				// ha sido el ultimo evento procesado al mismo que el componente
-				ultimoProcesado = new Integer(respSincr.ultimoProcesado.intValue());
+				ultimoProcesado = new Integer(respSincr.ultimoProcesado
+						.intValue());
 			}
 
-			// Todos esos eventos que se han recibido desde que se mando la peticion
-			// de sincronizacion deben ser colocados en la cola de recepcion para
-			// ser procesados. Solo nos interesan aquellos con un número de secuencia
-			// posterior a ultimoProcesado. Los anteriores no nos interesan puesto
-			// que ya han sido procesados por el componente que nos mando la respuesta
+			// Todos esos eventos que se han recibido desde que se mando la
+			// peticion
+			// de sincronizacion deben ser colocados en la cola de recepcion
+			// para
+			// ser procesados. Solo nos interesan aquellos con un número de
+			// secuencia
+			// posterior a ultimoProcesado. Los anteriores no nos interesan
+			// puesto
+			// que ya han sido procesados por el componente que nos mando la
+			// respuesta
 			// de sincronizacion.
 			numEventos = vaux.size();
-			for (int j = 0; j < numEventos; j++) {
+			for (int j = 0; j < numEventos; j++)
+			{
 				saux = (EventoComponenteEjemplo) vaux.elementAt(j);
-				if (saux.ultimoProcesado.intValue() > ultimoProcesado.intValue()) {
+				if (saux.ultimoProcesado.intValue() > ultimoProcesado
+						.intValue())
+				{
 					procesarEvento(saux);
 				}
 			}
 
-			while (true) {
+			while (true)
+			{
 				// Extraemos un evento de la la cola de recepcion
 				// Si no hay ninguno se quedara bloqueado hasta que haya
 				evento = (EventoComponenteEjemplo) leerSiguienteEvento();
-				// Actualizamos nuestro indicado de cual ha sido el último evento
+				// Actualizamos nuestro indicado de cual ha sido el último
+				// evento
 				// que hemos procesado
 				ultimoProcesado = new Integer(evento.contador.intValue());
-				if (evento.tipo.intValue() ==
-					EventoComponenteEjemplo.SINCRONIZACION.intValue()) {
+				if (evento.tipo.intValue() == EventoComponenteEjemplo.SINCRONIZACION
+						.intValue())
+				{
 					// Creamos un nuevo evento
 					EventoComponenteEjemplo infoEstado = new EventoComponenteEjemplo();
 					// Establecemos el tipo del evento
-					infoEstado.tipo = new Integer(EventoComponenteEjemplo.
-							RESPUESTA_SINCRONIZACION.intValue());
+					infoEstado.tipo = new Integer(
+							EventoComponenteEjemplo.RESPUESTA_SINCRONIZACION
+									.intValue());
 					// Enviamos el evento
 					enviarEvento(infoEstado);
 				}
-				if (evento.tipo.intValue() == EventoComponenteEjemplo.EVENTO_ARBOL.intValue()){
-					//no hacemos nada
+				if (evento.tipo.intValue() == EventoComponenteEjemplo.EVENTO_ARBOL
+						.intValue())
+				{
+					// no hacemos nada
 				}
 			}
 
