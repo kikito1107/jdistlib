@@ -11,6 +11,7 @@ import com.lti.civil.awt.AWTImageConverter;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 
 import java.io.ObjectOutputStream;
@@ -116,6 +117,9 @@ public class VideoConferencia
     private class ServerThread extends Thread
     {
 
+    	public boolean conversacionParada = true;
+    	private CaptureSystem system=null;
+    	
         public ServerThread()
         {
         }
@@ -125,40 +129,59 @@ public class VideoConferencia
         {
             try
             {
-                ServerSocket servidor = new ServerSocket(4445);
-                Socket conexion = null;
-                salida = new Vector<ObjectOutputStream>();
-
-                CaptureSystem system=null;
-                CaptureStream captureStream=null;
                 final CaptureSystemFactory factory = DefaultCaptureSystemFactorySingleton.instance();
-
                 system = factory.createCaptureSystem();
                 system.init();
-                List list = system.getCaptureDeviceInfoList();
-                for (int i = 0; i < list.size(); ++i)
-                {
-                    CaptureDeviceInfo info = (CaptureDeviceInfo) list.get(i);
-
-                    captureStream = system.openCaptureDeviceStream(info.getDeviceID());
-                    captureStream.setObserver(new MyCaptureObserver());
-
-                    break;
-                }
+            	ServerSocket servidor = new ServerSocket(4445);
+            	Socket conexion = null;
+            	salida = new Vector<ObjectOutputStream>();
+                CaptureStream captureStream = iniciarCaptura();
                 
-                captureStream.start();
+                //captureStream.start();
 
 
                 while (true)
                 {
-                    conexion = servidor.accept();
-                    salida.add(new ObjectOutputStream(conexion.getOutputStream()));
+                	if(!stopped) {
+                		
+                		if (conversacionParada){
+                			captureStream.start();
+                			conversacionParada = false;
+                			System.out.println("Inicializando la camara");
+                		}
+                		conexion = servidor.accept();
+                		salida.add(new ObjectOutputStream(conexion.getOutputStream()));
+                	}
+                	else {
+                		
+                		if (!conversacionParada) {
+                			captureStream.stop();
+                		}
+                		conversacionParada = true;
+                		Thread.sleep(1500);
+                	}
                 }
             }      
             catch (Exception ex)
             {
                 ex.printStackTrace();
             }
+        }
+        
+        private CaptureStream iniciarCaptura() throws IOException, CaptureException{
+            CaptureStream captureStream=null;
+            List list = system.getCaptureDeviceInfoList();
+            for (int i = 0; i < list.size(); ++i)
+            {
+                CaptureDeviceInfo info = (CaptureDeviceInfo) list.get(i);
+
+                captureStream = system.openCaptureDeviceStream(info.getDeviceID());
+                captureStream.setObserver(new MyCaptureObserver());
+
+                break;
+            }
+            
+            return captureStream;
         }
     }
 }

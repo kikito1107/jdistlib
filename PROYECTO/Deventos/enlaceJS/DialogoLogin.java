@@ -103,7 +103,7 @@ JPanel panel1 = new JPanel();
 		setVisible(false);
 	 }
 	 else {
-		JOptionPane.showMessageDialog(null, "No debes dejar ningún campo vac’arbol.expandir();o",
+		JOptionPane.showMessageDialog(null, "No debes dejar ningœn campo vac’o",
 												"Error", JOptionPane.ERROR_MESSAGE);
 
 	 }
@@ -111,12 +111,12 @@ JPanel panel1 = new JPanel();
 
   void jButton1_actionPerformed(ActionEvent e) {
 	 
-	  DConector.obtenerDC().salir();
+	  //DConector.obtenerDC().salir();
 	  System.exit(0);
   }
 
   void this_windowClosing(WindowEvent e) {
-	 DConector.obtenerDC().salir();
+	 //DConector.obtenerDC().salir();
 	 System.exit(0);
   }
 
