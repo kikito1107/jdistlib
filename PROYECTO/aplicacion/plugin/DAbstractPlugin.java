@@ -24,12 +24,22 @@ public abstract class DAbstractPlugin extends DComponenteBase
 	protected DAbstractPlugin(String nombre, boolean conexionDC, DComponenteBase padre)
 	{
 		super(nombre, conexionDC, padre);
+		
+		try
+		{
+			init();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	protected String nombre;
 	protected long version;
 	protected String jarFile;
 	protected boolean started;
+	protected boolean versioningEnabled;
 	
 	private Integer ultimoProcesado = new Integer(-1);
 
@@ -138,7 +148,7 @@ public abstract class DAbstractPlugin extends DComponenteBase
 	{
 		if (dp.tipo == DPluginRegisterEvent.RESPUESTA_SINCRONIZACION)
 		{
-			if (dp.version > getVersion())
+			if (dp.version > getVersion() && this.versioningEnabled)
 				JOptionPane.showMessageDialog(null, "Hay una nueva version del plug-in "+getName()+" (Version Actual: "+getVersion()+", Version Nueva: "+dp.version);
 		}
 	}
@@ -177,10 +187,7 @@ public abstract class DAbstractPlugin extends DComponenteBase
 
 			if (respSincr != null)
 			{ // Se ha recibido respuesta de sincronizacion
-				if (respSincr.version > getVersion())
-					JOptionPane.showMessageDialog(null, "Hay una nueva version del plug-in "+getName()+" (Version Actual: "+getVersion()+", Version Nueva: "+respSincr.version);
-				
-				//recibir o enviar fichero
+				procesarEvento(respSincr);
 			}
 
 			// Colocamos en la cola de recepcion los eventos que deben ser
