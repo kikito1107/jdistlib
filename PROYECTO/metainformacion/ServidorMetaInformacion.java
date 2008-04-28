@@ -2,6 +2,8 @@ package metainformacion;
 
 import java.util.*;
 
+import javaspaces.SpaceLocator;
+
 import javax.swing.JOptionPane;
 
 import Deventos.*;

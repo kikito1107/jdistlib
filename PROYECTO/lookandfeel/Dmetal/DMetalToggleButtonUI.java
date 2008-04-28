@@ -19,6 +19,7 @@ import javax.swing.plaf.basic.*;
 
 import Deventos.*;
 import componentes.*;
+import componentes.base.DJToggleButton;
 import componentes.listeners.*;
 
 /**

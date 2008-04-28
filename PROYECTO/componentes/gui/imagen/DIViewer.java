@@ -3,15 +3,16 @@
  */
 package componentes.gui.imagen;
 
-import componentes.DComponente;
-import componentes.DComponenteBase;
 import java.awt.*;
 import javax.swing.ImageIcon;
 import Deventos.*;
 import Deventos.enlaceJS.DConector;
 
 import java.util.Vector;
-import componentes.HebraProcesadoraBase;
+
+import componentes.base.DComponente;
+import componentes.base.DComponenteBase;
+import componentes.base.HebraProcesadoraBase;
 import componentes.listeners.*;
 
 /**

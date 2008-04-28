@@ -6,6 +6,8 @@ import java.util.*;
 import Deventos.enlaceJS.*;
 import java.awt.*;
 import componentes.*;
+import componentes.base.DComponente;
+import componentes.base.HebraProcesadoraBase;
 import componentes.listeners.*;
 /**
  * <p>Title: </p>

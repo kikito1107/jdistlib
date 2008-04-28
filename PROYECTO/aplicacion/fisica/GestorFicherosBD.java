@@ -1,6 +1,5 @@
 package aplicacion.fisica;
 
-import util.ConectorBD;
 import java.util.Vector;
 import java.sql.*;
 

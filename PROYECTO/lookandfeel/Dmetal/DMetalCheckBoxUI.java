@@ -17,6 +17,7 @@ import javax.swing.plaf.*;
 
 import Deventos.*;
 import componentes.*;
+import componentes.base.DJCheckBox;
 import componentes.listeners.*;
 
 /**

@@ -19,6 +19,7 @@ import javax.swing.tree.*;
 
 import Deventos.*;
 import componentes.*;
+import componentes.base.DJTree;
 import componentes.listeners.*;
 
 /**

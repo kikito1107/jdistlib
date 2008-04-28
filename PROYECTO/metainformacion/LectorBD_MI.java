@@ -4,6 +4,8 @@ import java.util.*;
 import util.*;
 import java.sql.*;
 
+import aplicacion.fisica.ConectorBD;
+
 /**
  * <p>Description: Con esta clase se realiza la lectura de la
  * metainformacion desde la BD. En la documentacion se puede encontrar una descripcion

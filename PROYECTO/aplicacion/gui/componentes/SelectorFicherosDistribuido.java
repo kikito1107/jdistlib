@@ -21,8 +21,8 @@ import javax.swing.tree.TreePath;
 
 
 import aplicacion.fisica.ClienteFicheros;
-import aplicacion.fisica.Transfer;
 import aplicacion.fisica.documentos.Documento;
+import aplicacion.fisica.net.Transfer;
 
 import Deventos.enlaceJS.DConector;
 

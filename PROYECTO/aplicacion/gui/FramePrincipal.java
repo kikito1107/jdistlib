@@ -5,7 +5,7 @@ import java.awt.event.WindowEvent;
 
 import Deventos.enlaceJS.DConector;
 
-import componentes.DJFrame;
+import componentes.base.DJFrame;
 
 
 /**

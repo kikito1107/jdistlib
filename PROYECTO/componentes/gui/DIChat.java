@@ -6,6 +6,10 @@ import java.awt.*;
 
 import Deventos.*;
 import componentes.*;
+import componentes.base.DComponente;
+import componentes.base.DComponenteBase;
+import componentes.base.DJChat;
+import componentes.base.HebraProcesadoraBase;
 import componentes.listeners.*;
 
 /**

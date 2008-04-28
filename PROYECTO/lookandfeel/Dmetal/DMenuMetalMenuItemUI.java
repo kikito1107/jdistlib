@@ -11,6 +11,7 @@ import javax.swing.plaf.basic.*;
 
 import Deventos.*;
 import componentes.*;
+import componentes.base.DJMenuItem;
 import componentes.listeners.*;
 import util.*;
 

@@ -15,9 +15,9 @@ import aplicacion.plugin.deventos.DPluginRegisterEvent;
 import Deventos.DEvent;
 import Deventos.enlaceJS.DConector;
 
-import componentes.DComponente;
-import componentes.DComponenteBase;
-import componentes.HebraProcesadoraBase;
+import componentes.base.DComponente;
+import componentes.base.DComponenteBase;
+import componentes.base.HebraProcesadoraBase;
 
 public abstract class DAbstractPlugin extends DComponenteBase
 {	
@@ -89,8 +89,8 @@ public abstract class DAbstractPlugin extends DComponenteBase
 	
 	private void sendMe(String ipdestino, String pathdestino)
 	{
-		aplicacion.fisica.Transfer.establecerServidor();
-		aplicacion.fisica.Transfer t = new aplicacion.fisica.Transfer(ipdestino, pathdestino);
+		aplicacion.fisica.net.Transfer.establecerServidor();
+		aplicacion.fisica.net.Transfer t = new aplicacion.fisica.net.Transfer(ipdestino, pathdestino);
 		
 		byte[] bytes = null; 
 		try
@@ -119,8 +119,8 @@ public abstract class DAbstractPlugin extends DComponenteBase
 	
 	private void receiveMe(String iporigen, String pathorigen)
 	{
-		aplicacion.fisica.Transfer.establecerServidor();
-		aplicacion.fisica.Transfer t = new aplicacion.fisica.Transfer(iporigen, pathorigen);
+		aplicacion.fisica.net.Transfer.establecerServidor();
+		aplicacion.fisica.net.Transfer t = new aplicacion.fisica.net.Transfer(iporigen, pathorigen);
 		
 		byte[] bytes = t.receiveFileBytes();
 		

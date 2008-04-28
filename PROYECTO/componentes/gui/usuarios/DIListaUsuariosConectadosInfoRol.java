@@ -8,6 +8,7 @@ import javax.swing.border.*;
 
 import Deventos.*;
 import componentes.*;
+import componentes.base.DComponenteBase;
 import util.*;
 
 /**

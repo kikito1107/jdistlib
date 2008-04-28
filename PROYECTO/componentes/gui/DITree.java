@@ -9,6 +9,10 @@ import javax.swing.tree.*;
 import Deventos.*;
 import Deventos.enlaceJS.*;
 import componentes.*;
+import componentes.base.DComponente;
+import componentes.base.DComponenteBase;
+import componentes.base.DJTree;
+import componentes.base.HebraProcesadoraBase;
 import componentes.listeners.*;
 import lookandfeel.Dmetal.*;
 

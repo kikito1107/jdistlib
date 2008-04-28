@@ -3,6 +3,9 @@ package util;
 import javax.swing.JList;
 import java.util.Vector;
 import javax.swing.*;
+
+import Deventos.enlaceJS.DialogoSincronizacion;
+
 import java.awt.*;
 
 /**

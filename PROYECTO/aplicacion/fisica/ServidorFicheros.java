@@ -4,6 +4,8 @@ import java.io.File;
 import java.net.InetAddress;
 import java.util.*;
 
+import javaspaces.SpaceLocator;
+
 import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -11,6 +13,7 @@ import aplicacion.fisica.documentos.FicheroBD;
 import aplicacion.fisica.eventos.DDocumentEvent;
 import aplicacion.fisica.eventos.DFileEvent;
 import aplicacion.fisica.eventos.DNodeEvent;
+import aplicacion.fisica.net.Transfer;
 
 import Deventos.*;
 import net.jini.space.*;

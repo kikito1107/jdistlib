@@ -3,6 +3,8 @@ package aplicacion.fisica;
 import java.rmi.RemoteException;
 import java.util.*;
 import desarrollo.*;
+import javaspaces.SpaceLocator;
+
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 

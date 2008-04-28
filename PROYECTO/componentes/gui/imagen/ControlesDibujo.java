@@ -27,10 +27,10 @@ import javax.swing.SwingConstants;
 
 
 import aplicacion.fisica.ClienteFicheros;
-import aplicacion.fisica.Transfer;
 import aplicacion.fisica.documentos.Documento;
 import aplicacion.fisica.documentos.Pagina;
 import aplicacion.fisica.eventos.DDocumentEvent;
+import aplicacion.fisica.net.Transfer;
 import aplicacion.gui.componentes.SelectorFicherosDistribuido;
 
 import util.FiltroImagenes;

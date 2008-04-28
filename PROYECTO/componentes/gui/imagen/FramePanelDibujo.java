@@ -8,6 +8,8 @@ import aplicacion.fisica.documentos.Documento;
 
 import Deventos.enlaceJS.*;
 import componentes.*;
+import componentes.base.DComponente;
+import componentes.base.DJFrame;
 import componentes.listeners.*;
 import metainformacion.*;
 

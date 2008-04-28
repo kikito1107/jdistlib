@@ -2,12 +2,15 @@ package metainformacion;
 
 import java.util.*;
 import desarrollo.*;
+import javaspaces.SpaceLocator;
+
 import javax.swing.*;
 
 import componentes.listeners.*;
 
 import Deventos.*;
 import Deventos.enlaceJS.DConector;
+import metainformacion.gui.DialogoMetaInformacion;
 import net.jini.space.*;
 import net.jini.core.lease.Lease;
 import util.*;

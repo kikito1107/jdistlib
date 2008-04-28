@@ -6,10 +6,9 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 
 
 import aplicacion.fisica.ClienteFicheros;
+import aplicacion.fisica.ConectorBD;
 import aplicacion.fisica.GestorFicherosBD;
-import aplicacion.fisica.MainTest;
 import aplicacion.fisica.documentos.FicheroBD;
-import util.ConectorBD;
 import util.ParserPermisos;
 
 import java.awt.Component;
@@ -108,35 +107,7 @@ public class ArbolDocumentos
 		}
 		
 		return null;
-	}
-	
-
-	
-	public static void pintarFichero(FicheroBD f, GestorFicherosBD g) {
-		
-		String vineta = "- ";
-		
-		if (f.esDirectorio())
-			vineta = "+ ";
-		
-		System.out.println(vineta + f.toString());
-		
-		if ( f.esDirectorio() ) {
-			Vector<FicheroBD> fs = g.recuperarDirectorio(f.getId());
-			
-			nivel  ++;
-			
-			for (int i=1; i < fs.size(); ++i) {
-				for (int j=0; j<nivel; ++j)
-					System.out.print("\t");
-				
-				MainTest.pintarFichero(fs.get(i), g);
-			}
-			
-			nivel --;
-		}
-	}
-	
+	}	
 	
 	public static void cambiarIconosArbol (JTree arbol, String close, String leaf) {
 		// Retrieve the three icons

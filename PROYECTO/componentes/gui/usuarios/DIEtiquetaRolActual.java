@@ -6,6 +6,7 @@ import javax.swing.*;
 import Deventos.*;
 import Deventos.enlaceJS.*;
 import componentes.*;
+import componentes.base.DComponenteBase;
 
 /**
  * Etiqueta que nos muestra en cada momento el rol que estamos desempeñando

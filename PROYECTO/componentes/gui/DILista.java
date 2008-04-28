@@ -8,6 +8,10 @@ import javax.swing.*;
 import Deventos.*;
 import Deventos.enlaceJS.*;
 import componentes.*;
+import componentes.base.DComponente;
+import componentes.base.DComponenteBase;
+import componentes.base.DJList;
+import componentes.base.HebraProcesadoraBase;
 import componentes.listeners.*;
 import util.*;
 

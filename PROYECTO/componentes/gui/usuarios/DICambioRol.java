@@ -10,6 +10,7 @@ import javax.swing.border.*;
 import Deventos.*;
 import Deventos.enlaceJS.*;
 import componentes.*;
+import componentes.base.DComponenteBase;
 import metainformacion.*;
 import util.*;
 

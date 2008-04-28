@@ -3,10 +3,13 @@ package Deventos.enlaceJS;
 import java.rmi.RemoteException;
 import java.util.*;
 
+import javaspaces.ServiceLocator;
+import javaspaces.SpaceLocator;
+
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import componentes.DComponente;
+import componentes.base.DComponente;
 import componentes.listeners.*;
 
 import aplicacion.fisica.ClienteFicheros;
