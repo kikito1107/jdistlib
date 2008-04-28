@@ -17,10 +17,11 @@ public class VentanaChat extends DJFrame {
 	  PanelPrincipalChat componente = null;
 	  String interlocutor;
 
-	  public VentanaChat(String interloc) {
-		 super(true, "MousesRemotos3");
+	  public VentanaChat(String interloc, String ip) {
+		 super(false, "");
 		 try {
 			 interlocutor = interloc;
+			 componente = new PanelPrincipalChat("panelChat", true, null, interlocutor, this, ip);
 			jbInit();
 		 }
 		 catch (Exception ex) {
@@ -34,7 +35,7 @@ public class VentanaChat extends DJFrame {
 		 this.setResizable(true);
 		 this.addWindowListener(new FrameEjemplo_this_windowAdapter(this));
 
-		 componente = new PanelPrincipalChat("panelChat", true, null, interlocutor, this);
+		
 		 this.getContentPane().add(componente, BorderLayout.CENTER);
 		 
 		 this.setTitle(".:: Chat : " + DConector.Dusuario + " ::.");
@@ -65,6 +66,11 @@ public class VentanaChat extends DJFrame {
 		
 		public void setInterlocutor(String i) {
 			componente.setInterlocutor(i);
+		}
+		
+		
+		public void setIp(String ip){
+			componente.setIp(ip);
 		}
 
 	}

@@ -34,7 +34,7 @@ public class MainChat {
 	 
 	 if (interlocutor != null && interlocutor != "") {
 	 
-		 VentanaChat frame = new VentanaChat(interlocutor);
+		 VentanaChat frame = new VentanaChat(interlocutor, "");
 	
 		 if (packFrame) {
 			frame.pack();

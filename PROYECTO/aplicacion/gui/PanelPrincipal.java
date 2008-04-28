@@ -1,79 +1,59 @@
 package aplicacion.gui;
 
-import aplicacion.fisica.*;
-import aplicacion.fisica.documentos.Documento;
-import aplicacion.fisica.documentos.FicheroBD;
-import aplicacion.fisica.eventos.DFileEvent;
 import interfaces.DComponente;
-import interfaces.listeners.LJButtonListener;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Event;
 import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.Enumeration;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Vector;
 
-import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
 import javax.swing.JTree;
-import javax.swing.KeyStroke;
-import javax.swing.ScrollPaneLayout;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.JToolBar.Separator;
 import javax.swing.border.LineBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreePath;
-
-import chat.VentanaChat;
-import chat.eventos.DChatEvent;
-import chat.webcam.VideoConferencia;
 
 import metainformacion.ClienteMetaInformacion;
 import metainformacion.MIRol;
 import metainformacion.MIUsuario;
-
 import util.Separador;
-
 import Deventos.DEvent;
-import Deventos.DJLienzoEvent;
 import Deventos.enlaceJS.DConector;
+import aplicacion.fisica.ClienteFicheros;
+import aplicacion.fisica.Transfer;
+import aplicacion.fisica.documentos.Documento;
+import aplicacion.fisica.documentos.FicheroBD;
+import aplicacion.fisica.eventos.DFileEvent;
 import aplicacion.gui.componentes.ArbolDocumentos;
+import chat.VentanaChat;
+import chat.eventos.DChatEvent;
+import chat.webcam.VideoConferencia;
 
 import componentes.DComponenteBase;
 import componentes.HebraProcesadoraBase;
 import componentes.gui.imagen.FramePanelDibujo;
 import componentes.gui.usuarios.ArbolUsuariosConectadosRol;
+
 import ejemplos.EventoComponenteEjemplo;
-import ejemplos.arbol.ComponenteEjemplo;
 
 public class PanelPrincipal extends DComponenteBase
 {
@@ -153,6 +133,12 @@ public class PanelPrincipal extends DComponenteBase
 	private JButton botonSubir = null;
 
 	private VentanaChat vc = null;
+	
+	private String documentoActual = null;
+	
+	
+	
+	
 
 	private JButton getButonSubir()
 	{
@@ -161,7 +147,7 @@ public class PanelPrincipal extends DComponenteBase
 			botonSubir = new JButton("");
 			botonSubir.setBorder(null);
 			botonSubir.setBorderPainted(false);
-			botonSubir.setText("subir fichero");
+			botonSubir.setText("Subir Fchero");
 			botonSubir
 					.setIcon(new ImageIcon("./Resources/subir_documento.png"));
 			botonSubir.addActionListener(new java.awt.event.ActionListener()
@@ -337,9 +323,9 @@ public class PanelPrincipal extends DComponenteBase
 			}
 			frame.setLocation(( screenSize.width - frameSize.width ) / 2,
 					( screenSize.height - frameSize.height ) / 2);
-
-			vc = new VentanaChat("");
-
+			
+			vc = new VentanaChat("", "");
+			
 			vc.setSize(568, 520);
 
 			vc.sincronizar();
@@ -588,6 +574,17 @@ public class PanelPrincipal extends DComponenteBase
 									dce.tipo = new Integer(
 											DChatEvent.NUEVA_CONVERSACION
 													.intValue());
+									
+									try
+									{
+										dce.ip_vc = InetAddress.getLocalHost().getHostAddress();
+									}
+									catch (UnknownHostException e1)
+									{
+										// TODO Auto-generated catch block
+										e1.printStackTrace();
+									}
+									
 									dce.destinatario = new String(interlocutor);
 									enviarEvento(dce);
 
@@ -889,7 +886,7 @@ public class PanelPrincipal extends DComponenteBase
 			botonEliminarFich = new JButton();
 			botonEliminarFich.setText("Elimnar");
 			botonEliminarFich.setBorderPainted(false);
-			botonEliminarFich.setIcon(new ImageIcon("./Resources/delete.png"));
+			botonEliminarFich.setIcon(new ImageIcon("./Resources/delete2.png"));
 			botonEliminarFich
 					.addActionListener(new java.awt.event.ActionListener()
 					{
@@ -1058,6 +1055,7 @@ public class PanelPrincipal extends DComponenteBase
 		{
 			botonAbrirDoc = new JButton();
 			botonAbrirDoc.setText("Abrir");
+			botonAbrirDoc.setIcon(new ImageIcon("./Resources/folder-open_16x16.png"));
 			botonAbrirDoc.setBorderPainted(false);
 			botonAbrirDoc.addActionListener(new java.awt.event.ActionListener()
 			{
@@ -1084,6 +1082,8 @@ public class PanelPrincipal extends DComponenteBase
 			arbolDocumentos.setRootVisible(false);
 
 			arbolDocumentos.setBorder(new LineBorder(Color.GRAY, 1));
+			
+			ArbolDocumentos.cambiarIconosArbol(arbolDocumentos, "./Resources/folder.gif", "./Resources/page_white.png"); 
 
 			arbolDocumentos.expandRow(0);
 
@@ -1146,6 +1146,8 @@ public class PanelPrincipal extends DComponenteBase
 
 		Documento p = new Documento();
 		p.setPath(path);
+		
+		this.documentoActual = path;
 
 		if (frame == null)
 		{
@@ -1307,16 +1309,24 @@ public class PanelPrincipal extends DComponenteBase
 		if (evento.tipo.intValue() == DFileEvent.NOTIFICAR_INSERTAR_FICHERO)
 		{
 			DFileEvent dfe = (DFileEvent) evento;
-			DefaultTreeModel modelo = (DefaultTreeModel) arbolDocumentos
-					.getModel();
-			DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) modelo
-					.getRoot();
-
-			int id_papa = dfe.padre.getId();
-			DefaultMutableTreeNode papi = buscarFichero(raiz, id_papa);
-
-			modelo.insertNodeInto(new DefaultMutableTreeNode(dfe.fichero),
-					papi, 0);
+			
+			
+			if (dfe.fichero.comprobarPermisos(DConector.Dusuario, DConector.Drol, FicheroBD.PERMISO_LECTURA)){
+			
+				DefaultTreeModel modelo = (DefaultTreeModel) arbolDocumentos
+						.getModel();
+				DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) modelo
+						.getRoot();
+	
+				int id_papa = dfe.padre.getId();
+				DefaultMutableTreeNode papi = buscarFichero(raiz, id_papa);
+	
+				modelo.insertNodeInto(new DefaultMutableTreeNode(dfe.fichero),
+						papi, 0);
+				
+			}
+			
+			comprobarPermisosDocumentoActual(dfe.fichero, true);
 		}
 		else if (evento.tipo.intValue() == DFileEvent.NOTIFICAR_MODIFICACION_FICHERO)
 		{
@@ -1333,7 +1343,6 @@ public class PanelPrincipal extends DComponenteBase
 			if (nodo == null){
 				if (dfe.fichero.comprobarPermisos(DConector.Dusuario, DConector.Drol, FicheroBD.PERMISO_LECTURA)){
 					DefaultMutableTreeNode padre = buscarFichero(raiz, dfe.padre.getId());
-					JOptionPane.showMessageDialog(null, "padre del fichero " + padre.getUserObject());
 					
 					modelo.insertNodeInto(new DefaultMutableTreeNode(dfe.fichero), padre, modelo.getChildCount(padre));
 				}
@@ -1344,6 +1353,7 @@ public class PanelPrincipal extends DComponenteBase
 				else 
 					modelo.removeNodeFromParent(nodo);
 			}
+			comprobarPermisosDocumentoActual(dfe.fichero, false);
 
 		}
 		else if (evento.tipo.intValue() == DFileEvent.NOTIFICAR_ELIMINAR_FICHERO)
@@ -1359,6 +1369,7 @@ public class PanelPrincipal extends DComponenteBase
 			DefaultMutableTreeNode nodo = buscarFichero(raiz, id_doc);
 
 			modelo.removeNodeFromParent(nodo);
+			comprobarPermisosDocumentoActual(dfe.fichero, true);
 
 		}
 		else if (evento.tipo.intValue() == DChatEvent.NUEVA_CONVERSACION
@@ -1373,17 +1384,33 @@ public class PanelPrincipal extends DComponenteBase
 					+ e.usuario + " solicita nueva conversaci—n. ÀAceptar?");
 			DChatEvent dce = new DChatEvent();
 
+			//JOptionPane.showMessageDialog(null, "Ip recibida: " + e.ip_vc);
+			
 			dce.tipo = new Integer(DChatEvent.RESPUESTA_NUEVA_CONVERSACION
 					.intValue());
 			dce.destinatario = e.usuario;
+			
 			if (res == 0)
 			{
 
 				dce.ok = new Boolean(true);
-
+				
+				try
+				{
+					dce.ip_vc = InetAddress.getLocalHost().getHostAddress();
+				}
+				catch (UnknownHostException e1)
+				{
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				if (vc == null){
+				}
 				vc.pack();
 				vc.setSize(568, 520);
 				vc.setInterlocutor(e.usuario);
+				vc.setIp(e.ip_vc);
 				vc.setVisible(true);
 				vc.esconderVC();
 			}
@@ -1398,11 +1425,15 @@ public class PanelPrincipal extends DComponenteBase
 		{
 
 			DChatEvent e = (DChatEvent) evento;
+			
+			//JOptionPane.showMessageDialog(null, "Ip recibida: " + e.ip_vc);
+			
 			if (e.ok.booleanValue())
 			{
 				vc.pack();
 				vc.setSize(568, 520);
 				vc.setInterlocutor(e.usuario);
+				vc.setIp(e.ip_vc);
 				vc.setVisible(true);
 				vc.esconderVC();
 			}
@@ -1463,6 +1494,24 @@ public class PanelPrincipal extends DComponenteBase
 			}
 			else return null;
 	}
+	
+	
+	public void comprobarPermisosDocumentoActual(FicheroBD f, boolean eliminado) {
+		if (!f.comprobarPermisos(DConector.Dusuario, DConector.Drol, FicheroBD.PERMISO_LECTURA) || eliminado)
+			if (frame.isVisible() && frame.getLienzo().getLienzo().getDocumento().getPath().equals(f.getRutaLocal())) {
+				
+				
+			JOptionPane.showMessageDialog(null, "Los permisos del fichero han cambiado y usted" +
+						"\n no puede seguir accediendo a este documento");
+			
+			
+			this.frame.setVisible(false);
+			Documento d = new Documento();
+			d.setPath("");
+			frame.setDocumento(d);
+		}		
+	}
+		
 
 	/**
 	 * Hebra procesadora de eventos. Se encarga de realizar las acciones que

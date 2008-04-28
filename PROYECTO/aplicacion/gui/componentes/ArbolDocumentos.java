@@ -11,6 +11,7 @@ import aplicacion.fisica.documentos.FicheroBD;
 import util.ConectorBD;
 import util.ParserPermisos;
 
+import java.awt.Component;
 import java.io.*;
 import java.util.Vector;
 
@@ -136,16 +137,17 @@ public class ArbolDocumentos
 	}
 	
 	
-	protected void cambiarIconosArbol (JTree arbol, String close, String open, String leaf) {
+	public static void cambiarIconosArbol (JTree arbol, String close, String leaf) {
 		// Retrieve the three icons
 		    Icon leafIcon = new ImageIcon(leaf);
-		    Icon openIcon = new ImageIcon(open);
 		    Icon closedIcon = new ImageIcon(close);
 		    
 		    // Update only one tree instance
-		    DefaultTreeCellRenderer renderer = (DefaultTreeCellRenderer)arbol.getCellRenderer();
+		    CustomCellRenderer renderer = new CustomCellRenderer(closedIcon);
 		    renderer.setLeafIcon(leafIcon);
 		    renderer.setClosedIcon(closedIcon);
-		    renderer.setOpenIcon(openIcon);
+		    renderer.setOpenIcon(closedIcon);
+		    
+		    arbol.setCellRenderer(renderer);
 	}
 }

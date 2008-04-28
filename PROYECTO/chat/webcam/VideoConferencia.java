@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Vector;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 public class VideoConferencia
 {
@@ -37,6 +38,13 @@ public class VideoConferencia
     public VideoConferencia(String ip_orig)
     {
         ip_origen = ip_orig;
+        JOptionPane.showMessageDialog(null, "IP: " + ip_origen);
+    }
+    
+    
+    public void set_ip_origen(String ip){
+    	ip_origen = ip;
+    	
     }
 
     public static void establecerOrigen()
@@ -136,9 +144,6 @@ public class VideoConferencia
             	Socket conexion = null;
             	salida = new Vector<ObjectOutputStream>();
                 CaptureStream captureStream = iniciarCaptura();
-                
-                //captureStream.start();
-
 
                 while (true)
                 {

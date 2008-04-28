@@ -39,15 +39,18 @@ public class PanelPrincipalChat extends DComponenteBase
 
 	private String destinatario;
 	private VentanaChat ventana = null;
+	private String ip = null;
 	
 	/**
 	 * This is the default constructor
+	 * @param ip 
 	 */
-	public PanelPrincipalChat(String nombre, boolean conexionDC, DComponenteBase DCompPadre, String dest, VentanaChat v)
+	public PanelPrincipalChat(String nombre, boolean conexionDC, DComponenteBase DCompPadre, String dest, VentanaChat v, String ip)
 	{
 		super(nombre, conexionDC, DCompPadre);
 		destinatario = dest;
 		ventana = v;
+		this.ip = ip;
 		initialize();
 		
 	}
@@ -67,7 +70,7 @@ public class PanelPrincipalChat extends DComponenteBase
 	
 	private PanelChatVC getChat(){
 		if (chat == null){
-			chat = new PanelChatVC(this, destinatario, ventana);
+			chat = new PanelChatVC(this, destinatario, ventana, ip);
 		}
 		return chat;
 	}
@@ -335,6 +338,12 @@ public class PanelPrincipalChat extends DComponenteBase
 	{
 		chat.setDestinatario(i);
 		
+	}
+
+	public void setIp(String ip2)
+	{
+		// TODO Auto-generated method stub
+		chat.setInheritsPopupMenu(ip2);
 	}
 
 

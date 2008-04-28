@@ -20,17 +20,21 @@ public class PanelChatVC extends JSplitPane
 	public static final int SIZE_X = 340;
 	public static final int SIZE_Y = 330;
 	
+	String ip = null;
+	
 	PanelChat chat = null;
+	PanelVC vc = null;
 	
 
 	/**
 	 * This is the default constructor
+	 * @param ip 
 	 */
-	public PanelChatVC(DComponenteBase d, String destinatario, VentanaChat v)
+	public PanelChatVC(DComponenteBase d, String destinatario, VentanaChat v, String ip)
 	{
 		super();
 	
-		
+		this.ip = ip;
 		initialize(d, destinatario, v);
 	}
 
@@ -41,8 +45,8 @@ public class PanelChatVC extends JSplitPane
 	 */
 	private void initialize(DComponenteBase d, String destinatario, VentanaChat v)
 	{
-		
-		this.setRightComponent(new PanelVC(null, "127.0.0.1"));
+		vc = new PanelVC(null, ip);
+		this.setRightComponent(vc);
 		chat = new PanelChat("chat", true, d, destinatario, v);
 		this.setLeftComponent(chat);
 		this.setOneTouchExpandable(true);
@@ -67,6 +71,12 @@ public class PanelChatVC extends JSplitPane
 
 	public void cerrarConversacion(){
 		chat.cerrarConversacion();
+	}
+
+	public void setInheritsPopupMenu(String ip)
+	{
+		// TODO Auto-generated method stub
+		vc.setIP(ip);
 	}
 	
 }  //  @jve:decl-index=0:visual-constraint="46,88"

@@ -58,8 +58,7 @@ CREATE TABLE `Fichero` (
   `padre` int(11) default NULL,
   `ruta_local` varchar(512) default NULL,
   `tipo` varchar(10) default NULL,
-  PRIMARY KEY  (`id_fichero`),
-  CONSTRAINT `fichero_ibfk_1` FOREIGN KEY (`padre`) REFERENCES `fichero` (`id_fichero`) ON DELETE CASCADE ON UPDATE CASCADE
+  PRIMARY KEY  (`id_fichero`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -68,7 +67,7 @@ CREATE TABLE `Fichero` (
 
 LOCK TABLES `Fichero` WRITE;
 /*!40000 ALTER TABLE `Fichero` DISABLE KEYS */;
-INSERT INTO `Fichero` VALUES (1,'/',1,'rwrwrw',NULL,NULL,NULL,NULL,NULL),(2,'Personal',1,'rw----',1,1,1,NULL,NULL),(3,'pepe.doc',0,'rw----',1,1,2,'pepe.doc','doc'),(4,'noseque.pdf',0,'rwr---',2,2,1,'noseque.pdf','pdf'),(5,'foto.jpg',0,'rwrwrw',2,1,1,'foto.jpg','jpg'),(6,'publico.txt',0,'rwrwrw',1,1,1,'publico.txt','txt'),(7,'Public',1,'rwrwrw',1,1,1,NULL,NULL),(8,'informe.pdf',0,'rwrwrw',1,1,7,'informe.pdf','pdf'),(9,'topSecret',1,'rw----',1,1,2,NULL,NULL),(10,'planosEstrellaDeLaMuerte.dwg',0,'rw----',1,1,9,'planosEstrellaDeLaMuerte.dwg','dwg');
+INSERT INTO `Fichero` VALUES (1,'/',1,'rwrwrw',NULL,NULL,NULL,'/',NULL),(2,'Personal',1,'rwrwr-',1,1,1,'/Personal',NULL),(3,'pepe.doc',0,'rwr---',1,1,2,'/Personal/pepe.doc','doc'),(4,'noseque.pdf',0,'rwr---',2,2,1,'/noseque.pdf','pdf'),(5,'foto.jpg',0,'rwrw--',2,1,1,'/foto.jpg','jpg'),(6,'publico.txt',0,'rwrwrw',1,1,1,'/publico.txt','txt'),(7,'Public',1,'rwrwrw',1,1,1,'/Public',NULL),(8,'informe.pdf',0,'rwrwrw',1,1,7,'/Public/informe.pdf','pdf'),(9,'topSecret',1,'rw----',1,1,2,'/Personal/topSecret',NULL),(10,'planosEstrellaDeLaMuerte.dwg',0,'rwr-r-',1,1,9,'/Personal/topSecret/planosEstrellaDeLaMuerte.dwg','dwg'),(11,'horario.pdf',1,'rwrw--',2,2,1,'/horario.pdf',NULL);
 /*!40000 ALTER TABLE `Fichero` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -81,4 +80,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2008-03-11 17:00:30
+-- Dump completed on 2008-04-28 11:46:45

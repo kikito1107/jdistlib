@@ -47,6 +47,8 @@ public class PanelVC extends JPanel
         this.myWebcam.add(img_local);
         
         VideoConferencia.stopped = true;
+        
+        th2.start();
 	}
 
 	/**
@@ -201,6 +203,8 @@ public class PanelVC extends JPanel
 
     public void setIP(String ip){
     	this.ip = ip;
+    	init = false;
+    	
     }
     
     public void iniciarHebra(){
@@ -211,7 +215,7 @@ public class PanelVC extends JPanel
 	class Hebra extends Thread
     {
 
-        public void run()
+		public void run()
         {
             VideoConferencia t = new VideoConferencia(ip);
             Image im = null;
@@ -244,8 +248,7 @@ public class PanelVC extends JPanel
 
     class HebraMiWebcam extends Thread
     {
-
-        public void run()
+    	public void run()
         {
             //Graphics g = myWebcam.getGraphics();
             //Image img = null;
