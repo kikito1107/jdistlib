@@ -134,12 +134,6 @@ public class PanelPrincipal extends DComponenteBase
 
 	private VentanaChat vc = null;
 	
-	private String documentoActual = null;
-	
-	
-	
-	
-
 	private JButton getButonSubir()
 	{
 		if (botonSubir == null)
@@ -147,13 +141,57 @@ public class PanelPrincipal extends DComponenteBase
 			botonSubir = new JButton("");
 			botonSubir.setBorder(null);
 			botonSubir.setBorderPainted(false);
-			botonSubir.setText("Subir Fchero");
+			botonSubir.setText("Subir Fichero ");
 			botonSubir
 					.setIcon(new ImageIcon("./Resources/subir_documento.png"));
 			botonSubir.addActionListener(new java.awt.event.ActionListener()
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
+					
+					// obtenemos el path hasta el nodo seleccionado
+					TreePath camino = arbolDocumentos
+							.getSelectionPath();
+					Object[] objetos = null;
+					if (camino != null) 
+						objetos = camino.getPath();
+					else
+						return;
+					
+					String path = "/";
+
+					// obtenemos la carpeta en donde queremos subir el
+					// nuevo fichero
+					DefaultMutableTreeNode nodo = (DefaultMutableTreeNode) objetos[objetos.length - 1];
+					
+					// obtenemos los datos del fichero asociados a ese
+					// nodo
+					FicheroBD carpeta = (FicheroBD) nodo
+							.getUserObject();
+
+					MIUsuario user = null;
+					MIRol rol = null;
+
+
+					// comprobamos que el nodo elegido es una carpeta
+					if (carpeta.esDirectorio())
+					{
+
+						// reconstruimos el path
+						for (int i = 2; i < objetos.length; ++i)
+							path += objetos[i].toString() + '/';
+
+						// recuperamos el usuario y el rol
+						user = ClienteMetaInformacion.cmi
+								.getUsuario(DConector.Dusuario);
+						rol = ClienteMetaInformacion.cmi
+								.getRol(DConector.Drol);
+					}
+					else
+					{
+						return;
+					}
+					
 					JFileChooser jfc = new JFileChooser(
 							"Guardar Documento Localmente");
 
@@ -161,6 +199,9 @@ public class PanelPrincipal extends DComponenteBase
 
 					if (op == JFileChooser.APPROVE_OPTION)
 					{
+						
+						
+						
 						java.io.File f = jfc.getSelectedFile();
 						byte[] bytes = null;
 						try
@@ -180,47 +221,7 @@ public class PanelPrincipal extends DComponenteBase
 
 							raf.close();
 
-							// obtenemos el path actual
-							TreePath camino = arbolDocumentos
-									.getSelectionPath();
-							Object[] objetos = null;
-							if (camino != null) objetos = camino.getPath();
-
-							String path = "/";
-
-							// obtenemos la carpeta en donde queremos subir el
-							// nuevo fichero
-							DefaultMutableTreeNode nodo = (DefaultMutableTreeNode) objetos[objetos.length - 1];
-
-							// obtenemos los datos del fichero asociados a ese
-							// nodo
-							FicheroBD carpeta = (FicheroBD) nodo
-									.getUserObject();
-
-							MIUsuario user = null;
-							MIRol rol = null;
-
-							System.out.println("Nombre carpeta: "
-									+ carpeta.getNombre());
-
-							// comprobamos que el nodo elegido es una carpeta
-							if (carpeta.esDirectorio())
-							{
-
-								// reconstruimos el path
-								for (int i = 2; i < objetos.length; ++i)
-									path += objetos[i].toString() + '/';
-
-								// recuperamos el usuario y el rol
-								user = ClienteMetaInformacion.cmi
-										.getUsuario(DConector.Dusuario);
-								rol = ClienteMetaInformacion.cmi
-										.getRol(DConector.Drol);
-							}
-							else
-							{
-								path = "";
-							}
+							
 
 							// si todo ha ido OK
 							if (user != null && rol != null && path != "")
@@ -257,6 +258,8 @@ public class PanelPrincipal extends DComponenteBase
 													"Error",
 													JOptionPane.ERROR_MESSAGE);
 								}
+								
+								VisorPropiedadesFichero.verInfoFichero(fbd, null);
 							}
 							else
 							{
@@ -870,8 +873,11 @@ public class PanelPrincipal extends DComponenteBase
 			herramientasDocumentos = new JToolBar();
 			herramientasDocumentos.setBorder(new LineBorder(Color.GRAY));
 			herramientasDocumentos.add(getBoton52131());
+			herramientasDocumentos.add(new Separador());
 			herramientasDocumentos.add(getButonSubir());
+			herramientasDocumentos.add(new Separador());
 			herramientasDocumentos.add(getBotonEliminarFichero());
+			herramientasDocumentos.add(new Separador());
 			herramientasDocumentos.add(getBotonInfo());
 		}
 		return herramientasDocumentos;
@@ -1147,8 +1153,6 @@ public class PanelPrincipal extends DComponenteBase
 		Documento p = new Documento();
 		p.setPath(path);
 		
-		this.documentoActual = path;
-
 		if (frame == null)
 		{
 			frame = new FramePanelDibujo(false);

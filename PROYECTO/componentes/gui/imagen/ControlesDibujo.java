@@ -379,7 +379,7 @@ public class ControlesDibujo extends JPanel
 			barraHerramientas.setFloatable(false);
 			barraHerramientas.setPreferredSize(new Dimension(533, 35));
 			barraHerramientas.add(getBotonAbrir());
-			barraHerramientas.add(getBotonCargarImagen1());
+			barraHerramientas.add(getBotonGuardar());
 			barraHerramientas.add(getBotonGuardarLocal());
 			barraHerramientas.add(getBotonImprimir());
 			barraHerramientas.add(getSeparator41());
@@ -523,7 +523,7 @@ public class ControlesDibujo extends JPanel
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBotonCargarImagen1()
+	private JButton getBotonGuardar()
 	{
 		if (botonGuardar == null)
 		{

@@ -428,6 +428,25 @@ public class VisorPropiedadesFichero extends JDialog
 				{
 					if (fichero.comprobarPermisos(DConector.Dusuario, DConector.Drol, FicheroBD.PERMISO_ESCRITURA)){
 						fichero.setNombre(nombreFichero.getText());
+						
+						String path = fichero.getRutaLocal();
+						
+						String[] carpetas = path.split("/");
+						path = "";
+						
+						for (int i=0; i<carpetas.length-1; ++i){
+							
+							if (carpetas[i] != "")
+								path += carpetas[i] + "/";
+							System.err.print(carpetas[i] + ",\t");
+						}
+						
+						path += fichero.getNombre();
+						
+						System.err.println("\n\nnueva ruta local " + path);
+						
+						fichero.setRutaLocal(path);
+						
 						String permisos = "";
 						
 						if (lecturaU.isSelected())

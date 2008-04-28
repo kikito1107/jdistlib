@@ -280,6 +280,31 @@ public class GestorFicherosBD
 		return null;
 	}
 	
+	public FicheroBD buscarFichero(int id){
+		FicheroBD f = new FicheroBD();
+		
+		ResultSet rs = conexion.select("SELECT * FROM fichero WHERE id_fichero="+id);
+		
+		try
+		{
+			while(rs.next()){
+				f.setId(id);
+				f.setNombre(rs.getString("nombre"));
+				f.setPadre(rs.getInt("padre"));
+				f.setPermisos(rs.getString("permisos"));
+				f.setRutaLocal(rs.getString("ruta_local"));
+				f.setTipo(rs.getString("tipo"));
+			}
+		}
+		catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return f;
+	}
+	
 	/**
 	 * Cierra la conexi—n con la base de datos
 	 */
@@ -301,7 +326,7 @@ public class GestorFicherosBD
 			if (f != null) {
 				
 				String consulta = "UPDATE fichero SET nombre='"+ f.getNombre() 
-				+"', permisos ='"+ f.getPermisos() +"' WHERE id_fichero="+f.getId();
+				+"', permisos ='"+ f.getPermisos() +"', ruta_local ='" + f.getRutaLocal() + "' WHERE id_fichero="+f.getId();
 				
 				System.out.println("Consulta a ejecutar: " +  consulta);
 				

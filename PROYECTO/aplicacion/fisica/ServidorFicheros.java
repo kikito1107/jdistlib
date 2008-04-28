@@ -1,5 +1,6 @@
 package aplicacion.fisica;
 
+import java.io.File;
 import java.net.InetAddress;
 import java.util.*;
 
@@ -156,43 +157,57 @@ public class ServidorFicheros {
 						
 					}
 					else if(leido.tipo.intValue() == DFileEvent.NOTIFICAR_ELIMINAR_FICHERO.intValue()) {
-						// TODO eliminar el fichero de la BD
 						System.out.println("Leido evento eliminacion  fichero");
 
 						if (gestor == null)
 							gestor = new GestorFicherosBD();
 
 						gestor.eliminarFichero(((DFileEvent)leido).fichero);
+						
+						String path = ((DFileEvent)leido).fichero.getRutaLocal();
+						
+						System.out.println("Fichero a borrar: " +path);
+						
+						File f = new File(path);
+						File fAnot = new File(path + ".anot");
+						
+						if (!f.delete() || !fAnot.delete())
+							System.err.println("Error borrando el archivo: " + path);
+						
 					}
 					else if(leido.tipo.intValue() == DFileEvent.NOTIFICAR_MODIFICACION_FICHERO.intValue()) {
-						//TODO modificar los atributos de un fichero en la BD
 						System.out.println("Leido evento modificacion  fichero");
 
 						if (gestor == null)
 							gestor = new GestorFicherosBD();
+						
 
+						int id = ((DFileEvent)leido).fichero.getId();
+						
+						// cambiar el nombre del fichero 
+						String old = gestor.buscarFichero(id).getRutaLocal();
+						String new_ = ((DFileEvent)leido).fichero.getRutaLocal();
+						File f = new File(old);
+						
+						File f2 = new File(new_);
+						
+						System.err.println("Ruta local: " + old);
+						System.err.println("Ruta nueva " + new_);
+						
+						if(!f.renameTo(f2))
+							System.err.println("Error al renombrar el fichero");
+						else {
+	
+							f = new File(old+".anot");
+							f2 = new File(new_+".anot");
+							
+							if(!f.renameTo(f2))
+								System.err.println("Error al renombrar el fichero de anotaciones");
+							else
+								System.err.println("Fichero renombrado con Žxito");
+							
+						}
 						gestor.modificarFichero(((DFileEvent)leido).fichero);
-					}
-					else if(leido.tipo.intValue() == DDocumentEvent.OBTENER_FICHERO.intValue()) {
-						//TODO modificar los atributos de un fichero en la BD
-						System.out.println("Leido evento solicitud documento");
-
-
-						//TODO insertar un nuevo fichero en la BD
-
-						DDocumentEvent nuevo = new DDocumentEvent();
-						nuevo.tipo = new Integer(DDocumentEvent.RESPUESTA_FICHERO.intValue());
-						nuevo.origen = new Integer(30);
-						nuevo.destino = new Integer(31);
-						nuevo.aplicacion = new String(leido.aplicacion);
-
-						nuevo.direccionRespuesta = new String(InetAddress.getLocalHost().getHostName());
-
-						nuevo.path = new String( ((DDocumentEvent)leido).path);
-
-						//TODO asignar a dfile event el nuevo fichero
-
-						colaEnvio.nuevoEvento(nuevo);
 					}
 				}
 				catch (Exception e) {
