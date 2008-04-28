@@ -1,7 +1,9 @@
-package aplicacion.plugin;
+package aplicacion.plugin.example;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
+import aplicacion.plugin.DAbstractPlugin;
 
 public class DPluginExample extends DAbstractPlugin
 {
@@ -9,9 +11,14 @@ public class DPluginExample extends DAbstractPlugin
 
 	private JFrame ventana = null;
 	
-	public DPluginExample()
+	public DPluginExample() throws Exception
 	{
 		super("DpluginExample", true, null);
+	}
+	
+	public DAbstractPlugin getInstance() throws Exception
+	{
+		return new DPluginExample();
 	}
 	
 	public void init() throws Exception
@@ -36,5 +43,9 @@ public class DPluginExample extends DAbstractPlugin
 		JOptionPane.showMessageDialog(null, "Se cierra la ventana");
 		ventana.dispose();
 	}
-
+	
+	public static void main(String[] args)
+	{
+		System.out.println("hola");
+	}
 }

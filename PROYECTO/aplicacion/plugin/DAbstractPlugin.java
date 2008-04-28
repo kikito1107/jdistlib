@@ -21,18 +21,10 @@ import componentes.HebraProcesadoraBase;
 
 public abstract class DAbstractPlugin extends DComponenteBase
 {	
-	protected DAbstractPlugin(String nombre, boolean conexionDC, DComponenteBase padre)
+	protected DAbstractPlugin(String nombre, boolean conexionDC, DComponenteBase padre) throws Exception
 	{
 		super(nombre, conexionDC, padre);
-		
-		try
-		{
-			init();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
+		init();
 	}
 
 	protected String nombre;
@@ -91,6 +83,7 @@ public abstract class DAbstractPlugin extends DComponenteBase
 		return dpre;
 	}
 	
+	public abstract DAbstractPlugin getInstance() throws Exception;
 	public abstract void init() throws Exception;
 	public abstract void start() throws Exception;
 	public abstract void stop() throws Exception;
