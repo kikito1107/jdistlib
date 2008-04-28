@@ -43,9 +43,4 @@ public class DPluginExample extends DAbstractPlugin
 		JOptionPane.showMessageDialog(null, "Se cierra la ventana");
 		ventana.dispose();
 	}
-	
-	public static void main(String[] args)
-	{
-		System.out.println("hola");
-	}
 }
