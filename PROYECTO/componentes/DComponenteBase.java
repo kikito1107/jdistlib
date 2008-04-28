@@ -4,7 +4,6 @@ import java.awt.*;
 import javax.swing.*;
 
 import Deventos.*;
-import interfaces.*;
 import java.util.*;
 import Deventos.enlaceJS.*;
 

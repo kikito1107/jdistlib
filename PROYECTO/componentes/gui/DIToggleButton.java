@@ -9,7 +9,6 @@ import Deventos.*;
 import Deventos.enlaceJS.*;
 import componentes.*;
 import componentes.listeners.*;
-import interfaces.*;
 
 /**
  * Toggle button compartido. Consultar documentación del proyecto para ver

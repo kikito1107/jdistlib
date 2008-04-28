@@ -3,7 +3,6 @@ package componentes;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import interfaces.*;
 import Deventos.*;
 import java.util.*;
 import Deventos.enlaceJS.*;

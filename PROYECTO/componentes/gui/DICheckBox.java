@@ -9,7 +9,6 @@ import Deventos.*;
 import Deventos.enlaceJS.*;
 import componentes.*;
 import componentes.listeners.*;
-import interfaces.*;
 
 /**
  * Checkbox compartido. Consultar documentacion del proyecto para ver su

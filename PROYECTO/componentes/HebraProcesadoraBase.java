@@ -1,7 +1,6 @@
 package componentes;
 
 import Deventos.*;
-import interfaces.*;
 /**
  * <p>Title: </p>
  * <p>Description: </p>

@@ -3,7 +3,6 @@ package componentes;
 import javax.swing.JMenuBar;
 
 import util.*;
-import interfaces.*;
 import Deventos.enlaceJS.*;
 import Deventos.*;
 import javax.swing.*;

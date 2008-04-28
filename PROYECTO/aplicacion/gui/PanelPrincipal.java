@@ -37,6 +37,7 @@ import metainformacion.MIUsuario;
 import util.Separador;
 import Deventos.DChatEvent;
 import Deventos.DEvent;
+import Deventos.EventoComponenteEjemplo;
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.ClienteFicheros;
 import aplicacion.fisica.Transfer;
@@ -53,7 +54,6 @@ import componentes.gui.chat.webcam.VideoConferencia;
 import componentes.gui.imagen.FramePanelDibujo;
 import componentes.gui.usuarios.ArbolUsuariosConectadosRol;
 
-import ejemplos.EventoComponenteEjemplo;
 
 public class PanelPrincipal extends DComponenteBase
 {

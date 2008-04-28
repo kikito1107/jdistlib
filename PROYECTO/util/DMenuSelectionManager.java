@@ -1,7 +1,6 @@
 package util;
 
 import javax.swing.*;
-import interfaces.*;
 import Deventos.*;
 import java.util.*;
 import Deventos.enlaceJS.*;

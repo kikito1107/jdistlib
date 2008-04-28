@@ -1,18 +1,11 @@
 package aplicacion.gui;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.event.WindowEvent;
 
-import javax.swing.tree.DefaultMutableTreeNode;
+import Deventos.enlaceJS.DConector;
 
-import aplicacion.fisica.ClienteFicheros;
-import aplicacion.fisica.ServidorFicheros;
-
-import Deventos.enlaceJS.*;
-import componentes.*;
-import componentes.listeners.*;
-import ejemplos.arbol.ComponenteEjemplo;
-import metainformacion.*;
+import componentes.DJFrame;
 
 
 /**

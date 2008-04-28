@@ -4,7 +4,6 @@ import javax.swing.JMenuItem;
 import javax.swing.Action;
 import javax.swing.Icon;
 
-import interfaces.*;
 import Deventos.*;
 import Deventos.enlaceJS.*;
 import util.*;

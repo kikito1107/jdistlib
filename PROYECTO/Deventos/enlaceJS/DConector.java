@@ -15,9 +15,6 @@ import aplicacion.fisica.ClienteFicheros;
 
 import Deventos.*;
 
-import interfaces.*;
-
-
 import metainformacion.*;
 
 import net.jini.core.entry.UnusableEntryException;
