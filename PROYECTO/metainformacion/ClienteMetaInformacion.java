@@ -1,7 +1,6 @@
 package metainformacion;
 
 import java.util.*;
-import desarrollo.*;
 import javaspaces.SpaceLocator;
 
 import javax.swing.*;
