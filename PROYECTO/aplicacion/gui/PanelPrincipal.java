@@ -1,6 +1,8 @@
 package aplicacion.gui;
 
 
+import interfaces.DComponente;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,13 +10,11 @@ import java.awt.GridBagConstraints;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -35,9 +35,7 @@ import metainformacion.ClienteMetaInformacion;
 import metainformacion.MIRol;
 import metainformacion.MIUsuario;
 import util.Separador;
-import Deventos.DChatEvent;
 import Deventos.DEvent;
-import Deventos.EventoComponenteEjemplo;
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.ClienteFicheros;
 import aplicacion.fisica.Transfer;
@@ -45,12 +43,12 @@ import aplicacion.fisica.documentos.Documento;
 import aplicacion.fisica.documentos.FicheroBD;
 import aplicacion.fisica.eventos.DFileEvent;
 import aplicacion.gui.componentes.ArbolDocumentos;
+import chat.VentanaChat;
+import chat.eventos.DChatEvent;
+import chat.webcam.VideoConferencia;
 
-import componentes.DComponente;
 import componentes.DComponenteBase;
 import componentes.HebraProcesadoraBase;
-import componentes.gui.chat.VentanaChat;
-import componentes.gui.chat.webcam.VideoConferencia;
 import componentes.gui.imagen.FramePanelDibujo;
 import componentes.gui.usuarios.ArbolUsuariosConectadosRol;
 
@@ -1197,32 +1195,8 @@ public class PanelPrincipal extends DComponenteBase
 	 * llamado de forma automatica cuando sea necesario realizar la
 	 * sincronizacion
 	 */
-	public void sincronizar()
-	{
-		if (conectadoDC())
-		{
-			EventoComponenteEjemplo peticion = new EventoComponenteEjemplo();
-			peticion.tipo = new Integer(EventoComponenteEjemplo.SINCRONIZACION
-					.intValue());
-			enviarEvento(peticion);
-		}
-	}
+	public void sincronizar(){
 
-	void arbol_actionPerformed(ActionEvent e)
-	{
-		DefaultMutableTreeNode seleccionado = raiz;
-		if (seleccionado != null)
-		{
-			// Creamos un nuevo evento
-			EventoComponenteEjemplo evento = new EventoComponenteEjemplo();
-			// Establecemos el tipo del evento
-			evento.tipo = new Integer(EventoComponenteEjemplo.EVENTO_ARBOL
-					.intValue());
-			// Indicamos el elemento que va a ser eliminado
-			evento.elemento = new String(raiz.toString());
-			// Enviamos el evento
-			enviarEvento(evento);
-		}
 	}
 
 	/**
@@ -1288,23 +1262,6 @@ public class PanelPrincipal extends DComponenteBase
 	synchronized public void procesarEventoHijo(DEvent evento)
 	{
 
-		try
-		{
-			EventoComponenteEjemplo ev = new EventoComponenteEjemplo();
-
-			if (evento.nombreComponente.equals("Arbol"))
-			{
-				ev.tipo = new Integer(EventoComponenteEjemplo.EVENTO_ARBOL
-						.intValue());
-				ev.aniadirEventoAdjunto(evento);
-				enviarEvento(ev);
-			}
-
-		}
-		catch (Exception e)
-		{
-
-		}
 	}
 
 	@Override
@@ -1532,7 +1489,7 @@ public class PanelPrincipal extends DComponenteBase
 
 		public void run()
 		{
-			EventoComponenteEjemplo evento = null;
+/*			EventoComponenteEjemplo evento = null;
 			EventoComponenteEjemplo saux = null;
 			EventoComponenteEjemplo respSincr = null;
 			Vector<Object> vaux = new Vector<Object>();
@@ -1622,7 +1579,7 @@ public class PanelPrincipal extends DComponenteBase
 				{
 					// no hacemos nada
 				}
-			}
+			}*/
 
 		}
 	}
