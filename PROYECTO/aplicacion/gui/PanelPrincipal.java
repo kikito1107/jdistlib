@@ -1031,11 +1031,6 @@ public class PanelPrincipal extends DComponenteBase
 						evento.fichero = f;
 						
 						DefaultMutableTreeNode r = (DefaultMutableTreeNode)arbolDocumentos.getModel().getRoot();
-						if (r == null)
-							JOptionPane.showMessageDialog(null, "raiz nula?");
-						else 
-							JOptionPane.showMessageDialog(null, "raiz no nula?");
-						
 						
 						evento.padre = buscarDirectorioPadre((DefaultMutableTreeNode)r.getChildAt(0), f.getId());
 						
@@ -1338,9 +1333,9 @@ public class PanelPrincipal extends DComponenteBase
 			if (nodo == null){
 				if (dfe.fichero.comprobarPermisos(DConector.Dusuario, DConector.Drol, FicheroBD.PERMISO_LECTURA)){
 					DefaultMutableTreeNode padre = buscarFichero(raiz, dfe.padre.getId());
-					JOptionPane.showMessageDialog(null, "padre del fichero" + padre.getUserObject());
+					JOptionPane.showMessageDialog(null, "padre del fichero " + padre.getUserObject());
 					
-					padre.add(new DefaultMutableTreeNode(dfe.fichero));
+					modelo.insertNodeInto(new DefaultMutableTreeNode(dfe.fichero), padre, modelo.getChildCount(padre));
 				}
 			}
 			else {
