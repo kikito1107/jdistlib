@@ -1,6 +1,5 @@
 package aplicacion.plugin;
 
-import interfaces.DComponente;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -16,6 +15,7 @@ import aplicacion.plugin.deventos.DPluginRegisterEvent;
 import Deventos.DEvent;
 import Deventos.enlaceJS.DConector;
 
+import componentes.DComponente;
 import componentes.DComponenteBase;
 import componentes.HebraProcesadoraBase;
 

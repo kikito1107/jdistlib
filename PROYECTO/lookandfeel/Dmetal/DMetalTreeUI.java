@@ -19,7 +19,7 @@ import javax.swing.tree.*;
 
 import Deventos.*;
 import componentes.*;
-import interfaces.listeners.*;
+import componentes.listeners.*;
 
 /**
  * The metal look and feel implementation of <code>TreeUI</code>.

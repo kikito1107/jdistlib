@@ -1,9 +1,5 @@
 package componentes.gui.imagen;
 
-import interfaces.DComponente;
-import interfaces.listeners.DJLienzoListener;
-import interfaces.listeners.LJLienzoListener;
-import interfaces.listeners.LJViewerListener;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JToolTip;
@@ -44,9 +40,13 @@ import Deventos.DJLienzoEvent;
 import Deventos.DJViewerEvent;
 import Deventos.enlaceJS.DConector;
 import Deventos.enlaceJS.TokenFichero;
+import componentes.DComponente;
 import componentes.DComponenteBase;
 import componentes.HebraProcesadoraBase;
 import componentes.gui.imagen.figuras.*;
+import componentes.listeners.DJLienzoListener;
+import componentes.listeners.LJLienzoListener;
+import componentes.listeners.LJViewerListener;
 
 
 /**

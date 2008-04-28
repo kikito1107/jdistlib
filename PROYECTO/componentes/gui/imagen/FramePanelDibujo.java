@@ -8,8 +8,7 @@ import aplicacion.fisica.documentos.Documento;
 
 import Deventos.enlaceJS.*;
 import componentes.*;
-import interfaces.DComponente;
-import interfaces.listeners.*;
+import componentes.listeners.*;
 import metainformacion.*;
 
 /**

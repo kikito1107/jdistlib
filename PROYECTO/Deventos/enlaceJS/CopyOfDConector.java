@@ -8,6 +8,10 @@ import java.util.*;
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import componentes.DComponente;
+import componentes.listeners.*;
+
+
 import aplicacion.fisica.ClienteFicheros;
 import aplicacion.fisica.Transfer;
 import aplicacion.fisica.TransferP2P;
@@ -15,7 +19,6 @@ import aplicacion.fisica.eventos.DDocumentEvent;
 
 import Deventos.*;
 import interfaces.*;
-import interfaces.listeners.*;
 import metainformacion.*;
 import net.jini.core.entry.UnusableEntryException;
 import net.jini.core.lease.LeaseDeniedException;

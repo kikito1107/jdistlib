@@ -1,9 +1,5 @@
 package componentes.gui.imagen;
 
-import interfaces.DComponente;
-import interfaces.listeners.DJLienzoListener;
-import interfaces.listeners.LJLienzoListener;
-import interfaces.listeners.LJViewerListener;
 
 import java.awt.BorderLayout;
 import java.awt.Image;
@@ -21,8 +17,12 @@ import aplicacion.fisica.documentos.Documento;
 import Deventos.DEvent;
 import Deventos.DJLienzoEvent;
 import Deventos.enlaceJS.DConector;
+import componentes.DComponente;
 import componentes.DComponenteBase;
 import componentes.HebraProcesadoraBase;
+import componentes.listeners.DJLienzoListener;
+import componentes.listeners.LJLienzoListener;
+import componentes.listeners.LJViewerListener;
 
 public class DIPanelDibujo extends DComponenteBase
 {

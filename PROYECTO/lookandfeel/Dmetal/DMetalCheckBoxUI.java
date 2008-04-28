@@ -17,7 +17,7 @@ import javax.swing.plaf.*;
 
 import Deventos.*;
 import componentes.*;
-import interfaces.listeners.*;
+import componentes.listeners.*;
 
 /**
  * CheckboxUI implementation for MetalCheckboxUI

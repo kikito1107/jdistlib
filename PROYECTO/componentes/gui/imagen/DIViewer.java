@@ -3,6 +3,7 @@
  */
 package componentes.gui.imagen;
 
+import componentes.DComponente;
 import componentes.DComponenteBase;
 import java.awt.*;
 import javax.swing.ImageIcon;
@@ -11,8 +12,7 @@ import Deventos.enlaceJS.DConector;
 
 import java.util.Vector;
 import componentes.HebraProcesadoraBase;
-import interfaces.DComponente;
-import interfaces.listeners.*;
+import componentes.listeners.*;
 
 /**
  * Implementacion de un visor de imagenes distribuido

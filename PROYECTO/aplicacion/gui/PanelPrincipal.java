@@ -1,6 +1,5 @@
 package aplicacion.gui;
 
-import interfaces.DComponente;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -36,6 +35,7 @@ import metainformacion.ClienteMetaInformacion;
 import metainformacion.MIRol;
 import metainformacion.MIUsuario;
 import util.Separador;
+import Deventos.DChatEvent;
 import Deventos.DEvent;
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.ClienteFicheros;
@@ -44,12 +44,12 @@ import aplicacion.fisica.documentos.Documento;
 import aplicacion.fisica.documentos.FicheroBD;
 import aplicacion.fisica.eventos.DFileEvent;
 import aplicacion.gui.componentes.ArbolDocumentos;
-import chat.VentanaChat;
-import chat.eventos.DChatEvent;
-import chat.webcam.VideoConferencia;
 
+import componentes.DComponente;
 import componentes.DComponenteBase;
 import componentes.HebraProcesadoraBase;
+import componentes.gui.chat.VentanaChat;
+import componentes.gui.chat.webcam.VideoConferencia;
 import componentes.gui.imagen.FramePanelDibujo;
 import componentes.gui.usuarios.ArbolUsuariosConectadosRol;
 

@@ -14,8 +14,8 @@ import componentes.gui.usuarios.DIEtiquetaRolActual;
 import componentes.gui.usuarios.DIListaUsuariosConectados;
 import componentes.gui.usuarios.DIListaUsuariosConectadosInfoRol;
 import componentes.gui.usuarios.DIListaUsuariosConectadosRol;
+import componentes.listeners.*;
 import interfaces.*;
-import interfaces.listeners.*;
 
 /**
  * Componente implementado para el cuarto ejemplo

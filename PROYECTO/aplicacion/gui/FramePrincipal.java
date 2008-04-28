@@ -7,10 +7,11 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import aplicacion.fisica.ClienteFicheros;
 import aplicacion.fisica.ServidorFicheros;
+
 import Deventos.enlaceJS.*;
 import componentes.*;
+import componentes.listeners.*;
 import ejemplos.arbol.ComponenteEjemplo;
-import interfaces.listeners.*;
 import metainformacion.*;
 
 

@@ -4,9 +4,10 @@ import javax.swing.JButton;
 import Deventos.*;
 import javax.swing.Action;
 import javax.swing.Icon;
+
+import componentes.listeners.*;
+
 import java.util.*;
-import interfaces.listeners.*;
-import interfaces.DComponente;
 import Deventos.enlaceJS.*;
 import java.awt.*;
 

@@ -9,8 +9,8 @@ import javax.swing.*;
 import Deventos.*;
 import componentes.*;
 import componentes.gui.*;
+import componentes.listeners.*;
 import interfaces.*;
-import interfaces.listeners.*;
 
 /**
  * Componente implementado para el cuarto ejemplo

@@ -3,6 +3,7 @@ package ejemplos.arbol;
 import java.util.*;
 import componentes.gui.*;
 import componentes.gui.usuarios.*;
+import componentes.listeners.*;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -13,7 +14,6 @@ import Deventos.*;
 import componentes.*;
 import ejemplos.EventoComponenteEjemplo;
 import interfaces.*;
-import interfaces.listeners.*;
 
 /**
  * Componente implementado para el cuarto ejemplo

@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import Deventos.enlaceJS.*;
 import componentes.*;
-import interfaces.listeners.*;
+import componentes.listeners.*;
 import metainformacion.*;
 
 

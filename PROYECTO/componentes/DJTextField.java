@@ -5,10 +5,12 @@ import javax.swing.text.Document;
 
 import javax.swing.*;
 import javax.swing.text.*;
+
+import componentes.listeners.*;
+
 import java.awt.event.*;
 import java.util.*;
 import Deventos.*;
-import interfaces.listeners.*;
 import Deventos.enlaceJS.*;
 import util.*;
 

@@ -2,10 +2,12 @@ package componentes;
 
 import java.awt.*;
 import javax.swing.*;
+
+import componentes.listeners.*;
+
 import java.awt.event.*;
 import java.util.*;
 import Deventos.*;
-import interfaces.listeners.*;
 /**
  * <p>Title: </p>
  * <p>Description: </p>

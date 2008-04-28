@@ -3,7 +3,8 @@ package aplicacion;
 import java.awt.*;
 import javax.swing.*;
 
-import chat.VentanaChat;
+import componentes.gui.chat.VentanaChat;
+
 
 import aplicacion.gui.FramePrincipal;
 

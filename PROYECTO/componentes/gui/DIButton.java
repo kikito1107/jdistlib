@@ -8,8 +8,8 @@ import javax.swing.*;
 import Deventos.*;
 import Deventos.enlaceJS.*;
 import componentes.*;
+import componentes.listeners.*;
 import interfaces.*;
-import interfaces.listeners.*;
 
 /**
  * Boton compartido. Consultar documentacion del proyecto para ver su funcionamiento

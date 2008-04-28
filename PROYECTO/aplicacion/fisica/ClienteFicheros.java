@@ -5,13 +5,15 @@ import java.util.*;
 import desarrollo.*;
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
+
+import componentes.listeners.*;
+
 import aplicacion.fisica.documentos.FicheroBD;
 import aplicacion.fisica.eventos.DDocumentEvent;
 import aplicacion.fisica.eventos.DFileEvent;
 import aplicacion.fisica.eventos.DNodeEvent;
 
 import Deventos.*;
-import interfaces.listeners.*;
 import metainformacion.MICompleta;
 import metainformacion.MIInformacionConexion;
 import net.jini.space.*;

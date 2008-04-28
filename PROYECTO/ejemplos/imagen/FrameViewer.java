@@ -6,10 +6,9 @@ import javax.swing.*;
 
 import Deventos.enlaceJS.*;
 import componentes.*;
-import interfaces.DComponente;
-import interfaces.listeners.*;
 import metainformacion.*;
 import componentes.gui.imagen.DIViewer;
+import componentes.listeners.*;
 
 /**
  * <p>Title: </p>

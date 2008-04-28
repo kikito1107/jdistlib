@@ -4,9 +4,10 @@ import java.util.*;
 import desarrollo.*;
 import javax.swing.*;
 
+import componentes.listeners.*;
+
 import Deventos.*;
 import Deventos.enlaceJS.DConector;
-import interfaces.listeners.*;
 import net.jini.space.*;
 import net.jini.core.lease.Lease;
 import util.*;

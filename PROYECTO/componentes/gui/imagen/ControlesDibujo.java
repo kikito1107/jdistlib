@@ -25,6 +25,7 @@ import java.io.RandomAccessFile;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
+
 import aplicacion.fisica.ClienteFicheros;
 import aplicacion.fisica.Transfer;
 import aplicacion.fisica.documentos.Documento;
