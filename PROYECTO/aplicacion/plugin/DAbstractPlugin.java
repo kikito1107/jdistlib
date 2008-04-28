@@ -24,7 +24,6 @@ public abstract class DAbstractPlugin extends DComponenteBase
 	protected DAbstractPlugin(String nombre, boolean conexionDC, DComponenteBase padre) throws Exception
 	{
 		super(nombre, conexionDC, padre);
-		init();
 	}
 
 	protected String nombre;

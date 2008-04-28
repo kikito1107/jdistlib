@@ -13,7 +13,8 @@ public class DPluginExample extends DAbstractPlugin
 	
 	public DPluginExample() throws Exception
 	{
-		super("DpluginExample", true, null);
+		super("DpluginExample", false, null);
+		init();
 	}
 	
 	public DAbstractPlugin getInstance() throws Exception
@@ -23,12 +24,14 @@ public class DPluginExample extends DAbstractPlugin
 	
 	public void init() throws Exception
 	{
+		System.out.println("hola mariposa");
 		version = 5;
 		nombre = "Ejemplo";
 		jarFile = "ejemplo.jar";
 		versioningEnabled = false;
 		
 		ventana = new JFrame(nombre);
+		System.out.println("aki");
 		ventana.setSize(400, 400);
 	}
 

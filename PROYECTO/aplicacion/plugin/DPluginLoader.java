@@ -19,18 +19,8 @@ public class DPluginLoader
 		Class c = Class.forName(classname);
 		
 		DAbstractPlugin dap = (DAbstractPlugin)c.newInstance();
-		
-		Method[] m = c.getMethods();
-		System.out.println(m.length);
-		for (int i=0; i<m.length; i++)
-		{
-			if (m[i].getName().compareTo("getInstance") == 0)
-			{
-				return (DAbstractPlugin)m[i].invoke(dap, new Object[]{});
-			}
-		}
-		
-		return null;
+				
+		return dap;
 	}
 	
 	public static Vector<DAbstractPlugin> getAllPlugins(String directory) throws Exception
