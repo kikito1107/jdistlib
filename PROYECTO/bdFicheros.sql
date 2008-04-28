@@ -58,7 +58,8 @@ CREATE TABLE `Fichero` (
   `padre` int(11) default NULL,
   `ruta_local` varchar(512) default NULL,
   `tipo` varchar(10) default NULL,
-  PRIMARY KEY  (`id_fichero`)
+  PRIMARY KEY  (`id_fichero`),
+  CONSTRAINT `fichero_ibfk_1` FOREIGN KEY (`padre`) REFERENCES `fichero` (`id_fichero`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --

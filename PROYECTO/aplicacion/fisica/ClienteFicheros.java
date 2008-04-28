@@ -180,6 +180,7 @@ public ClienteFicheros(String aplicacion, String usuario, String clave,
 		evt.aplicacion = new String(aplicacion);
 		evt.usuario = new String(usuario);
 		evt.rol = new String(rol);
+		evt.fichero = f;
 
 	  
 
@@ -244,6 +245,7 @@ public ClienteFicheros(String aplicacion, String usuario, String clave,
 		evt.aplicacion = new String(aplicacion);
 		evt.usuario = new String(usuario);
 		evt.rol = new String(rol);
+		evt.fichero = f;
 
 	  
 
@@ -325,6 +327,10 @@ public ClienteFicheros(String aplicacion, String usuario, String clave,
 	 int aleatorio = r.nextInt(50000);
 	 aleatorio += 1000;
 	 return aleatorio;
+  }
+  
+  public boolean comprobarPermisos(String path){
+	  return false;
   }
 
   /**
@@ -551,101 +557,6 @@ public ClienteFicheros(String aplicacion, String usuario, String clave,
 				 
 				 space.write(evt, null, leaseWriteTime);
 			 }
-			 
-			 /*
-			 if (leido.tipo.intValue() ==
-				  DMIEvent.NOTIFICACION_CONEXION_USUARIO.intValue()) {
-				String usuario = leido.usuario;
-				String rol = leido.rol;
-				for (int i = 0; i < dmilisteners.size(); i++) {
-				  ( (DMIListener) dmilisteners.elementAt(i)).conexionUsuario(
-						usuario, rol);
-				}
-
-			 }
-			 if (leido.tipo.intValue() ==
-				  DMIEvent.NOTIFICACION_DESCONEXION_USUARIO.intValue()) {
-				String usuario = leido.usuario;
-				for (int i = 0; i < dmilisteners.size(); i++) {
-				  ( (DMIListener) dmilisteners.elementAt(i)).desconexionUsuario(
-						usuario);
-				}
-			 }
-			 if (leido.tipo.intValue() ==
-				  DMIEvent.NOTIFICACION_CAMBIO_ROL_USUARIO.intValue()) {
-				String usuario = leido.usuario;
-				String rol = leido.rol;
-				String rolAntiguo = leido.rolAntiguo;
-				for (int i = 0; i < dmilisteners.size(); i++) {
-				  ( (DMIListener) dmilisteners.elementAt(i)).cambioRolUsuario(
-						usuario, rol, rolAntiguo, leido.infoCompleta);
-				}
-			 }
-			 if (leido.tipo.intValue() ==
-				  DMIEvent.NOTIFICACION_CAMBIO_PERMISO_COMPONENTE_USUARIO.intValue()) {
-				String usuario = leido.usuario;
-				String componente = leido.componente;
-				int permiso = leido.permiso.intValue();
-				for (int i = 0; i < dmilisteners.size(); i++) {
-				  ( (DMIListener) dmilisteners.elementAt(i)).
-						cambioPermisoComponenteUsuario(usuario, componente, permiso);
-				}
-			 }
-			 if (leido.tipo.intValue() ==
-				  DMIEvent.NOTIFICACION_CAMBIO_PERMISO_COMPONENTE_ROL.intValue()) {
-				String rol = leido.rol;
-				String componente = leido.componente;
-				int permiso = leido.permiso.intValue();
-				for (int i = 0; i < dmilisteners.size(); i++) {
-				  ( (DMIListener) dmilisteners.elementAt(i)).
-						cambioPermisoComponenteRol(rol, componente, permiso);
-				}
-			 }
-			 if (leido.tipo.intValue() ==
-				  DMIEvent.NOTIFICACION_NUEVO_ROL_PERMITIDO.intValue()) {
-				String usuario = leido.usuario;
-				String rol = leido.rol;
-				for (int i = 0; i < dmilisteners.size(); i++) {
-				  ( (DMIListener) dmilisteners.elementAt(i)).nuevoRolPermitido(
-						usuario, rol);
-				}
-			 }
-			 if (leido.tipo.intValue() ==
-				  DMIEvent.NOTIFICACION_ELIMINAR_ROL_PERMITIVO.intValue()) {
-				String usuario = leido.usuario;
-				String rol = leido.rol;
-				for (int i = 0; i < dmilisteners.size(); i++) {
-				  ( (DMIListener) dmilisteners.elementAt(i)).eliminarRolPermitido(
-						usuario, rol);
-				}
-			 }
-			 if (leido.tipo.intValue() ==
-				  DMIEvent.NOTIFICACION_USUARIO_ELIMINADO.intValue()) {
-				String usuario = leido.usuario;
-				dmi.eliminarUsuario(usuario);
-				for (int i = 0; i < dmilisteners.size(); i++) {
-				  ( (DMIListener) dmilisteners.elementAt(i)).usuarioEliminado(
-						usuario);
-				}
-			 }
-			 if (leido.tipo.intValue() ==
-				  DMIEvent.NOTIFICACION_ROL_ELIMINADO.intValue()) {
-				String rol = leido.rol;
-				dmi.eliminarRol(rol);
-				for (int i = 0; i < dmilisteners.size(); i++) {
-				  ( (DMIListener) dmilisteners.elementAt(i)).rolEliminado(rol);
-				}
-			 }
-			 if (leido.tipo.intValue() ==
-				  DMIEvent.NOTIFICACION_NUEVO_USUARIO.intValue()) {
-				String usuario = leido.usuario;
-				dmi.nuevoUsuario(usuario);
-			 }
-			 if (leido.tipo.intValue() ==
-				  DMIEvent.NOTIFICACION_NUEVO_ROL.intValue()) {
-				String rol = leido.rol;
-				dmi.nuevoRol(rol);
-			 }*/
 		  }
 		  catch (Exception e) {
 			  e.printStackTrace();

@@ -429,22 +429,26 @@ public class DILienzo extends DIViewer implements MouseListener,
 		boolean encontrado = false;
 		Vector<Anotacion> v = doc.getPagina(this.paginaActual-1).getAnotaciones();
 		
-		System.out.println("x: "+ x + " y: " + y);
+		//System.out.println("x: "+ x + " y: " + y);
 		
-		for (int i=0; i<v.size() && !encontrado; ++i) {
-			if (v.get(i).getContenido().pertenece(x, y)) {
-				
-				String texto = "Usuario: " + v.get(i).getUsuario();
-				
-				texto += "\nRol" + v.get(i).getRol();
-				
-				this.setToolTipText(texto);
-				encontrado = true;
+		if (v != null) {
+			
+			for (int i=0; i<v.size() && !encontrado; ++i) {
+				if (v.get(i).getContenido().pertenece(x, y)) {
+					
+					String texto = "Usuario: " + v.get(i).getUsuario();
+					
+					texto += "\nRol" + v.get(i).getRol();
+					
+					this.setToolTipText(texto);
+					encontrado = true;
+				}
 			}
+			
+			if(!encontrado)
+				this.setToolTipText("");
+			
 		}
-		
-		if(!encontrado)
-			this.setToolTipText("");
 	}
 
 	public void mousePressed(MouseEvent e)
@@ -823,6 +827,10 @@ public class DILienzo extends DIViewer implements MouseListener,
 		return 0;
 	}
 	
+	
+	
+	
+	
 	public void sincronizar()
 	{
 		if (conectadoDC()  && doc.getPath()!= null && !doc.getPath().equals("")) {
@@ -834,10 +842,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 			String ip = null;//
 			
 			
-			//TokenFichero tk = DConector.obtenerDC().buscarTokenFichero(doc.getPath());
-			
-			// si no hay que sincronizar el fichero
-			if ( true){//!tk.sincronizar.booleanValue() ) {
+			if (!DConector.obtenerDC().leerToken(doc.getPath())){
 				
 				Transfer t = new Transfer(ClienteFicheros.ipConexion, doc.getPath() );
 
@@ -845,22 +850,22 @@ public class DILienzo extends DIViewer implements MouseListener,
 				
 				if (p!= null)
 					doc = p;
-				else JOptionPane.showMessageDialog(this.padre, "Eror al cargar el fichero "+doc.getPath()+" desde el servidor");
+				else JOptionPane.showMessageDialog(this.padre, "Error al cargar el fichero "+doc.getPath()+" desde el servidor");
 				
-				//DConector.obtenerDC().devolverTokenFichero();
 				
 				e.sincronizarFichero = new Boolean(false);
 				this.sincronizada = true;
 			}
 			else {
 				e.sincronizarFichero = new Boolean(true);
+				this.sincronizada = false;
 			}
 			
 			this.enviarEvento(e);
 			
-			//tk.nuevoUsuario();
-			
 			//DConector.obtenerDC().devolverTokenFichero( tk );
+			if (!DConector.obtenerDC().escribirToken())
+				JOptionPane.showMessageDialog(padre, "Error al guardar el token");
 				
 		 }
 	}
@@ -1072,8 +1077,6 @@ public class DILienzo extends DIViewer implements MouseListener,
 					this.setDocumento(puente);
 					sincronizada = true;
 				}
-				
-				//DConector.obtenerDC().devolverTokenFichero();
 			}
 		}	
 		

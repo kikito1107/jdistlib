@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import metainformacion.MIUsuario;
 import metainformacion.MIRol;
+import javax.swing.JOptionPane;
 
 public class FicheroBD implements Serializable
 {
@@ -16,6 +17,10 @@ public class FicheroBD implements Serializable
 	private int padre;
 	private String ruta_local;
 	private String tipo;
+	
+	
+	public final static char PERMISO_LECTURA = 'r';
+	public final static char PERMISO_ESCRITURA = 'w';
 	
 	public FicheroBD()
 	{
@@ -130,4 +135,32 @@ public class FicheroBD implements Serializable
 		return this.nombre;
 	}
 	
+	public boolean comprobarPermisos(String u, String r, char modo){
+		
+		int index = -1;
+		
+		
+		
+		if (modo == FicheroBD.PERMISO_LECTURA)
+			index = 0;
+		else if (modo == FicheroBD.PERMISO_ESCRITURA)
+			index = 1;
+		else 
+			return false;
+		
+		if (getUsuario().getNombreUsuario().equals(u))
+			index += 0;
+			
+		else if (getRol().getNombreRol().equals(r)){
+			index += 2;
+		}
+		else {
+			index += 4;
+		}
+		
+		if (getPermisos().charAt(index) == modo)
+			return true;
+		else
+			return false;
+	}
 }

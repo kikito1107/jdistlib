@@ -88,6 +88,8 @@ public class DConector
 	public static DefaultMutableTreeNode raiz = null;
 	
 	private ClienteFicheros cf = null;
+	
+	private TokenFichero tk = null;
 
 	/**
 	 * 
@@ -593,6 +595,133 @@ public class DConector
 		return dconector;
 
 	}
+	
+	/**
+	 * Comprueba si el token correspondiente al fichero se encuentra en el JS
+	 * @param fichero nombre del fichero
+	 * @return true si el token esta en el JS y false en caso contrario
+	 */
+	public boolean leerToken(String fichero){
+		
+		//1. Buscamos el token asociado al fichero
+		TokenFichero plantilla = new TokenFichero();
+		plantilla.Fichero = new String(fichero);
+		plantilla.aplicacion = new String(Daplicacion+"_");
+		
+		try
+		{
+			tk =  (TokenFichero) space.take(plantilla, null, 2000L);
+		}
+		catch (RemoteException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (UnusableEntryException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (TransactionException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (InterruptedException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//2. Si no existe:
+		//	2.1. Creamos el token
+		//  2.2. Devolvemos false
+		if (tk == null) {
+			tk = new TokenFichero();
+			tk.Fichero = new String(fichero);
+			tk.aplicacion = new String(Daplicacion+"_");
+			tk.sec = new Long(1L);
+			tk.nuevoUsuario();
+			return false;
+		}
+		//3. Si existe el token
+		//	3.1. Devolvemos true
+		else {
+			tk.nuevoUsuario();
+			tk.sec = new Long(tk.sec.longValue()+1L);
+			return true;
+		}
+	}
+	
+	public boolean escribirToken(){
+		try
+		{
+			space.write(tk, null, 10000L);
+			return true;
+		}
+		catch (RemoteException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		catch (TransactionException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean cerrarFichero(String fichero){
+		//1. Buscamos el token asociado al fichero
+		TokenFichero plantilla = new TokenFichero();
+		plantilla.Fichero = new String(fichero);
+		plantilla.aplicacion = new String(Daplicacion+"_");
+		
+		try
+		{
+			// buscamos el token en el JS
+			tk =  (TokenFichero) space.take(plantilla, null, 1000L);
+			
+			//Si existe el token:
+			if (tk != null) {
+				
+				// si todav’a quedan usuarios editando ese documento
+				if (tk.NumUsuarios.intValue() > 1) {
+					tk.bajaUsuario();
+					space.write(tk, null, 10000L);	
+				}
+				return true;
+			}
+			else
+				return false;
+		}
+		catch (RemoteException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (UnusableEntryException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (TransactionException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (InterruptedException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+		
+
+	}
+	
 
 	private void broadCastMI(DMIEvent evento)
 	{

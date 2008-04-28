@@ -293,4 +293,93 @@ public class GestorFicherosBD
 		// TODO Auto-generated method stub
 		
 	}
+
+	public void modificarFichero(FicheroBD f)
+	{
+		try{
+			
+			if (f != null) {
+				
+				String consulta = "UPDATE fichero SET nombre='"+ f.getNombre() 
+				+"', permisos ='"+ f.getPermisos() +"' WHERE id_fichero="+f.getId();
+				
+				System.out.println("Consulta a ejecutar: " +  consulta);
+				
+				
+				// insertamos la nueva tupla en fichero
+				if (!conexion.update(consulta))
+					System.err.println("ERROR en el update");
+			}
+
+		}catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+	
+	public void eliminarFichero(FicheroBD f)
+	{
+		try{
+			
+			if (f != null) {
+				
+				if (f.esDirectorio()){
+					eliminarDirectorio(f.getId());
+				}
+				else{
+					
+					String consulta = "delete from fichero where id_fichero ="+f.getId();
+					
+					System.out.println("Consulta:\n"+consulta);
+					
+					if (!conexion.delete(consulta))
+						System.err.println("ERROR en el delete");
+				}
+			}
+			else {
+				System.out.println("ERROR: fichero nulo");
+			}
+
+		}catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+	
+	public void eliminarDirectorio(int id_fichero){
+		
+		//1. Buscamos sus hijos directorio y los borramos
+		String consulta = "SELECT * FROM fichero WHERE es_directorio=1 AND padre="+id_fichero;
+		System.out.println("Consulta:\n"+consulta);
+		ResultSet rs = conexion.select(consulta);
+		
+		try
+		{
+			while(rs.next()){
+				eliminarDirectorio(rs.getInt("id_fichero"));
+			}
+		}
+		catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//2. Eliminamos los hijos no directorio
+		consulta = "delete from fichero where padre="+id_fichero+" AND es_directorio=0"; 
+		System.out.println("Consulta:\n"+consulta);
+		conexion.delete(consulta);
+		
+		
+		//3. Eliminamos el directorio
+		consulta = "delete from fichero where id_fichero ="+id_fichero;
+		
+		System.out.println("Consulta:\n"+consulta);
+		
+		if (!conexion.delete(consulta)) {
+			System.err.println("ERROR en el delete");
+		}
+	}
 }
+
+

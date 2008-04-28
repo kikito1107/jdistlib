@@ -63,7 +63,7 @@ public class FramePanelDibujo extends DJFrame {
 
   void this_windowClosing(WindowEvent e) {
 	
-	  //DConector.obtenerDC().cerrarDocumento(this.getLienzo().getPathDocumento());
+	  DConector.obtenerDC().cerrarFichero(this.getLienzo().getPathDocumento());
 	  
 	  if (standalone)
 		  DConector.obtenerDC().salir();

@@ -142,7 +142,7 @@ public class SelectorFicherosDistribuido extends JDialog
 	}
 	
 	public String getPath(){
-		setTitle("Introduce el texto");
+		setTitle("Selecciona el documento");
 		
 		 setSize(330, 200);
 		 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
