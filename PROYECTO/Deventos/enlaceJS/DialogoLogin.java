@@ -58,7 +58,7 @@ JPanel panel1 = new JPanel();
 	 botonAceptar.setBounds(new Rectangle(70, 100, 84, 23));
 	 botonAceptar.setText("Aceptar");
 	 botonAceptar.addActionListener(new DialogoLogin_botonAceptar_actionAdapter(this));
-	 this.setDefaultCloseOperation(3);
+	 this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	 this.setModal(true);
 	 this.setResizable(false);
 	 this.addWindowListener(new DialogoLogin_this_windowAdapter(this));

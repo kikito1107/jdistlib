@@ -1,3 +1,5 @@
 aplicacion/plugin/example/DPluginExample.class
 aplicacion/plugin/example/PluginEcho.class
 aplicacion/plugin/example/ChatPlugin.class
+aplicacion/plugin/example/PizarraPlugin.class
+aplicacion/plugin/example/CalcPlugin.class

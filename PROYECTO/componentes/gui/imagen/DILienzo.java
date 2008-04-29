@@ -1,49 +1,44 @@
 package componentes.gui.imagen;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JToolTip;
-import javax.swing.ToolTipManager;
-
-import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.MediaTracker;
-import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.awt.image.BufferedImage;
-import java.util.Random;
-import java.util.Vector;
-import java.awt.*;
-import java.io.Serializable;
-import java.math.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Random;
+import java.util.Vector;
 
-import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JToolTip;
 import javax.swing.border.EtchedBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.text.DefaultCaret;
 
+import Deventos.DEvent;
+import Deventos.DJLienzoEvent;
+import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.ClienteFicheros;
 import aplicacion.fisica.documentos.Anotacion;
 import aplicacion.fisica.documentos.Documento;
+import aplicacion.fisica.documentos.Pagina;
 import aplicacion.fisica.eventos.DDocumentEvent;
 import aplicacion.fisica.net.Transfer;
 import aplicacion.fisica.net.TransferP2P;
-import Deventos.DEvent;
-import Deventos.DJLienzoEvent;
-import Deventos.DJViewerEvent;
-import Deventos.enlaceJS.DConector;
-import Deventos.enlaceJS.TokenFichero;
+
 import componentes.base.DComponente;
 import componentes.base.DComponenteBase;
 import componentes.base.HebraProcesadoraBase;
-import componentes.gui.imagen.figuras.*;
+import componentes.gui.imagen.figuras.Elipse;
+import componentes.gui.imagen.figuras.Figura;
+import componentes.gui.imagen.figuras.Linea;
+import componentes.gui.imagen.figuras.Rectangulo;
+import componentes.gui.imagen.figuras.Texto;
+import componentes.gui.imagen.figuras.TrazoManoAlzada;
 import componentes.listeners.DJLienzoListener;
 import componentes.listeners.LJLienzoListener;
 import componentes.listeners.LJViewerListener;
@@ -427,7 +422,13 @@ public class DILienzo extends DIViewer implements MouseListener,
 		//recorremos todas las anotaciones de la página actual
 		
 		boolean encontrado = false;
-		Vector<Anotacion> v = doc.getPagina(this.paginaActual-1).getAnotaciones();
+		
+		Pagina p = doc.getPagina(this.paginaActual-1);
+		
+		Vector<Anotacion> v = null;
+		
+		if (p!=null)
+			v = p.getAnotaciones();
 		
 		//System.out.println("x: "+ x + " y: " + y);
 		

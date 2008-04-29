@@ -46,6 +46,7 @@ public class ChatPlugin extends DAbstractPlugin
 		chat.getContentPane().add(new DIChat("chat", true, null), BorderLayout.CENTER);
 		chat.getContentPane().add(new ArbolUsuariosConectadosRol(
 				"ListaUsuariosConectadosRol", true, null), BorderLayout.WEST);
+		chat.setTitle(":: Chat ::");
 	}
 
 	@Override

@@ -25,7 +25,7 @@ public class FramePrincipal
   PanelPrincipal componente = null;
 
   public FramePrincipal() {
-	 super(true, "MousesRemotos");
+	 super(false, "MousesRemotos");
 	 try {
 		jbInit();
 	 }

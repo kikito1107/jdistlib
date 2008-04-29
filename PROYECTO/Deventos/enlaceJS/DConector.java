@@ -61,12 +61,6 @@ public class DConector
 
 	private DialogoSincronizacion dialogo = new DialogoSincronizacion();
 
-	private String nombreJavaSpace = null;
-
-	private DEvent plantilla = null;
-
-	private DEvent leido = null;
-
 	private long contador = -1;
 
 	public static String Dusuario = null;
@@ -86,8 +80,7 @@ public class DConector
 	private boolean identificado = false;
 
 	private DialogoLogin dialogoLogin = new DialogoLogin(new JFrame(),
-			"Introduzca su usuario y contraseña", false);
-	private boolean solicitadaDesconexion = false;
+			"Introduzca su usuario y contrase–a", false);
 	private int tiempoSincronizacion = 4000;
 	public static DefaultMutableTreeNode raiz = null;
 	
@@ -108,7 +101,7 @@ public class DConector
 	public DConector( String aplicacion, String nombreJavaSpace )
 	{
 
-		this.nombreJavaSpace = new String(nombreJavaSpace);
+		new String(nombreJavaSpace);
 
 		this.Daplicacion = new String(aplicacion);
 
@@ -130,7 +123,7 @@ public class DConector
 	public DConector( String aplicacion )
 	{
 
-		this.nombreJavaSpace = new String("JavaSpace");
+		new String("JavaSpace");
 
 		this.Daplicacion = new String(aplicacion);
 
@@ -162,7 +155,7 @@ public class DConector
 	public DConector( String aplicacion, int tiempoSincronizacion )
 	{
 
-		this.nombreJavaSpace = new String("JavaSpace");
+		new String("JavaSpace");
 
 		this.Daplicacion = new String(aplicacion);
 
@@ -258,7 +251,7 @@ public class DConector
 
 				}
 
-				cmi.desconectarUsuario(Dusuario); // ****************************************
+				//cmi.desconectarUsuario(Dusuario); // ****************************************
 													// QUITAR
 													// **********************************************
 
@@ -297,6 +290,7 @@ public class DConector
 					infoCompleta.mensajeError,
 
 					"Error", JOptionPane.ERROR_MESSAGE);
+					
 
 				}
 
@@ -1362,7 +1356,7 @@ public class DConector
 					evento = (DEvent) space.read(plantilla, null,
 							Long.MAX_VALUE);
 
-					// System.out.println("DConector: Leido evento "+evento);
+					 System.out.println("DConector: Leido evento "+evento);
 
 					contador++;
 

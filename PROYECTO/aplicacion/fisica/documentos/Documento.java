@@ -133,7 +133,10 @@ public class Documento implements Serializable, Printable
 	
 	public Pagina getPagina(int index)
 	{
-		return paginas.get(index);
+		if (index < paginas.size())
+			return paginas.get(index);
+		else
+			return null;
 	}
 	
 	public String getUsuario()

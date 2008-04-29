@@ -136,7 +136,7 @@ public class PanelPrincipal extends DComponenteBase
 
 	private VentanaChat vc = null;
 	
-	Vector<DAbstractPlugin> v = null;// DPluginLoader.getAllPlugins("aplicacion/plugin/example");
+	Vector<DAbstractPlugin> v = null;
 	
 	private JButton getButonSubir()
 	{
@@ -317,7 +317,7 @@ public class PanelPrincipal extends DComponenteBase
 			
 			
 
-			//inicializarEditor();
+			inicializarEditor();
 			
 			//inicializarChat();
 
@@ -570,6 +570,8 @@ public class PanelPrincipal extends DComponenteBase
 			for (int i=0; i<data.length; ++i)
 				data[i] = v.get(i).getName();
 			
+			
+			//String[] data = {"hola","adios"};
 			listaAplicaciones = new JList(data);
 			listaAplicaciones.setBounds(new Rectangle(1, 26, 186, 140));
 			listaAplicaciones.setBorder(new LineBorder(Color.GRAY));

@@ -1,13 +1,17 @@
 package aplicacion.plugin.example;
 
-import aplicacion.plugin.DAbstractPlugin;
+import javax.swing.JFrame;
 
-public class PluginEcho extends DAbstractPlugin
+import aplicacion.plugin.DAbstractPlugin;
+import aplicacion.plugin.example.calculadora.Calc;
+
+public class CalcPlugin extends DAbstractPlugin
 {
 
-	private echo eco;
+	private Calc eco;
+	private JFrame ventana;
 	
-	public PluginEcho(  ) throws Exception
+	public CalcPlugin(  ) throws Exception
 	{
 		super("PluginEcho", false, null);
 		init();
@@ -32,7 +36,8 @@ public class PluginEcho extends DAbstractPlugin
 		nombre = "Echo";
 		jarFile = "ejemplo.jar";
 		versioningEnabled = false;
-		eco = new echo();
+		ventana = new JFrame(":: Calculadora ::");
+		eco = new Calc();
 
 	}
 
@@ -40,14 +45,19 @@ public class PluginEcho extends DAbstractPlugin
 	public void start() throws Exception
 	{
 		//eco.pack();
-		eco.setVisible(true);
+		eco.init();
+
+		ventana.setSize(210, 200);
+		ventana.add("Center", eco);
+		ventana.setVisible(true);
 	}
 
 	@Override
 	public void stop() throws Exception
 	{
 		// TODO Auto-generated method stub
-		eco.dispose();
+		ventana.setVisible(false);
+		ventana.dispose();
 	}
 
 }
