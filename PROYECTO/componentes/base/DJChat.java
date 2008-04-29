@@ -35,6 +35,7 @@ public class DJChat
   BorderLayout borderLayout1 = new BorderLayout();
   JPanel PanelTexto = new JPanel();
   JScrollPane PanelScroll = new JScrollPane();
+  JScrollPane PanelScroll2 = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
   BorderLayout borderLayout2 = new BorderLayout();
   JTextArea areaTexto = new JTextArea();
   JPanel PanelInferior = new JPanel();
@@ -59,9 +60,27 @@ public class DJChat
   void jbInit() throws Exception {
 	 this.setLayout(borderLayout1);
 	 PanelTexto.setLayout(borderLayout2);
-	 PanelInferior.setLayout(flowLayout1);
-	 campoTexto.setPreferredSize(new Dimension(150, 20));
-	 botonEnvio.setText("Enviar");
+	 PanelInferior.setLayout(new BorderLayout());
+	 //campoTexto.setPreferredSize(new Dimension(350, 40));
+	 
+	 campoTexto.addKeyListener(new java.awt.event.KeyAdapter() {
+			public void keyTyped(java.awt.event.KeyEvent e) {
+				if (e.getKeyChar() == '\n') {
+					if(campoTexto.getText().length() > 0){
+						DJChatEvent evento = new DJChatEvent();
+						evento.tipo = new Integer(DJChatEvent.MENSAJE.intValue());
+						evento.mensaje = new String(campoTexto.getText());
+						for (int i = 0; i < djchatlisteners.size(); i++) {
+						  ( (DJChatListener) djchatlisteners.elementAt(i)).nuevoMensaje(evento);
+						}
+
+						campoTexto.setText("");
+					 }	
+				}
+			}
+		});
+	 
+	 botonEnvio.setIcon(new ImageIcon(getClass().getResource("/Resources/comment.png")));
 	 botonEnvio.addActionListener(new DJChat_botonEnvio_actionAdapter(this));
 	 areaTexto.setEditable(false);
 	 areaTexto.setLineWrap(true);
@@ -71,8 +90,9 @@ public class DJChat
 	 PanelTexto.add(PanelScroll, BorderLayout.CENTER);
 	 PanelScroll.getViewport().add(areaTexto, null);
 	 this.add(PanelInferior, BorderLayout.SOUTH);
-	 PanelInferior.add(campoTexto, null);
-	 PanelInferior.add(botonEnvio, null);
+	 PanelInferior.add(PanelScroll2, BorderLayout.CENTER);
+	 PanelInferior.add(botonEnvio, BorderLayout.EAST);
+	 PanelScroll2.getViewport().add(campoTexto, null);
 
 	// desactivar();
   }
@@ -98,7 +118,7 @@ public class DJChat
 	 DJChatEvent ev = (DJChatEvent)evento;
 	 int i;
 	 if (evento.tipo.intValue() == DJChatEvent.MENSAJE.intValue()) {
-		String cadena = new String("(" + evento.usuario + "): " +
+		String cadena = new String("[" + evento.usuario + "]: " +
 											ev.mensaje + "\n");
 		areaTexto.append(cadena);
 		PanelScroll.getVerticalScrollBar().setValue(PanelScroll.
