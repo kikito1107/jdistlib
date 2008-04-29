@@ -1,27 +1,25 @@
 package aplicacion.fisica;
 
 import java.rmi.RemoteException;
-import java.util.*;
+import java.util.Date;
+import java.util.Random;
+
 import javaspaces.SpaceLocator;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import componentes.listeners.*;
-
+import net.jini.core.entry.UnusableEntryException;
+import net.jini.core.lease.Lease;
+import net.jini.core.transaction.TransactionException;
+import net.jini.space.JavaSpace;
+import Deventos.DEvent;
+import Deventos.DMIEvent;
 import aplicacion.fisica.documentos.FicheroBD;
 import aplicacion.fisica.eventos.DDocumentEvent;
 import aplicacion.fisica.eventos.DFileEvent;
 import aplicacion.fisica.eventos.DNodeEvent;
-
-import Deventos.*;
-import metainformacion.MICompleta;
-import metainformacion.MIInformacionConexion;
-import net.jini.space.*;
-import net.jini.core.entry.UnusableEntryException;
-import net.jini.core.lease.Lease;
-import net.jini.core.transaction.TransactionException;
-import util.*;
 
 /**
  * Cliente del modulo de ficheros
@@ -38,8 +36,6 @@ public class ClienteFicheros {
   private static final long leaseReadTime = 10000L;
 
   private JavaSpace space = null;
-  private static boolean permisoAdministracion = false;
-
   private Monitor monitor = new Monitor();
   private long contador = -1;
   
