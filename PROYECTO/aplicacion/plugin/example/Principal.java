@@ -12,7 +12,11 @@ public class Principal
 		try
 		{
 			Vector<DAbstractPlugin> v = DPluginLoader.getAllPlugins("aplicacion/plugin/example");
-			v.get(0).start();
+			
+			for(int i=0; i<v.size(); ++i)
+				v.get(i).start();
+			
+			//v.get(0).start();
 		}
 		catch (Exception e)
 		{

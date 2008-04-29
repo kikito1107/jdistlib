@@ -21,7 +21,7 @@ public class ListaElementos
 	 extends JList {
 	
   private static final long serialVersionUID = 1L;
-  ImageIcon img = new ImageIcon(DialogoSincronizacion.class.getResource("../Resources/openFile.png"));
+  ImageIcon img = new ImageIcon(DialogoSincronizacion.class.getResource("../../Resources/openFile.png"));
   private Modelo model = null;
 
   public ListaElementos() {
@@ -172,7 +172,12 @@ public class ListaElementos
 
   private class Modelo
 		extends DefaultListModel {
-	 public boolean removeElement(Object obj) {
+	 /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public boolean removeElement(Object obj) {
 		boolean eliminado = false;
 		if (obj instanceof String) {
 		  ElementoLista el = new ElementoLista(null, (String) obj);

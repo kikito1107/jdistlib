@@ -118,7 +118,7 @@ public class DJFrame
 		  Color auxColor = g.getColor();
 		  Font auxFont = g.getFont();
 
-		  Image img = new ImageIcon(DialogoSincronizacion.class.getResource("../Resources/puntero.gif")).
+		  Image img = new ImageIcon(DialogoSincronizacion.class.getResource("../../Resources/puntero.gif")).
 				getImage();
 		  Point posTexto = new Point();
 		  g.setColor(Color.red);

@@ -3,6 +3,8 @@ package aplicacion.gui;
 import java.awt.BorderLayout;
 import java.awt.event.WindowEvent;
 
+import javax.swing.ImageIcon;
+
 import Deventos.enlaceJS.DConector;
 
 import componentes.base.DJFrame;
@@ -38,6 +40,8 @@ public class FramePrincipal
 	 this.setResizable(false);
 	 this.addWindowListener(new FrameEjemplo_this_windowAdapter(this));
 
+	 this.setIconImage(new ImageIcon("./Resources/information.png").getImage());
+	 
 	 componente = new PanelPrincipal("Componente5", true, null);
 	 this.getContentPane().add(componente, BorderLayout.CENTER);
 

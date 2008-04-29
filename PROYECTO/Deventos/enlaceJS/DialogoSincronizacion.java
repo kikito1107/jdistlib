@@ -46,7 +46,7 @@ public class DialogoSincronizacion
   private void jbInit() throws Exception {
 	 panel1.setLayout(null);
 	 etiquetaIcono.setFont(new java.awt.Font("Dialog", 1, 11));
-	 icono = new ImageIcon(DialogoSincronizacion.class.getResource("../Resources/openFile.png"));
+	 icono = new ImageIcon(DialogoSincronizacion.class.getResource("../../Resources/openFile.png"));
 	 etiquetaIcono.setIcon(icono);
 	 etiquetaIcono.setText("");
 	 etiquetaIcono.setBounds(new Rectangle(7, 3, 53, 54));

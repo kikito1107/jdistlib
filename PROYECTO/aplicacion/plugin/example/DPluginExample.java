@@ -3,13 +3,15 @@ package aplicacion.plugin.example;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import aplicacion.fisica.webcam.VideoConferencia;
+import aplicacion.fisica.webcam.VideoFrame;
 import aplicacion.plugin.DAbstractPlugin;
 
 public class DPluginExample extends DAbstractPlugin
 {
 	private static final long serialVersionUID = -9034900489624255928L;
 
-	private JFrame ventana = null;
+	private VideoFrame ventana = null;
 	
 	public DPluginExample() throws Exception
 	{
@@ -24,13 +26,12 @@ public class DPluginExample extends DAbstractPlugin
 	
 	public void init() throws Exception
 	{
-		System.out.println("hola mariposa");
 		version = 5;
-		nombre = "Ejemplo";
+		nombre = "Videoconferencia";
 		jarFile = "ejemplo.jar";
 		versioningEnabled = false;
 		
-		ventana = new JFrame(nombre);
+		ventana = new VideoFrame("127.0.0.1");
 		System.out.println("aki");
 		ventana.setSize(400, 400);
 	}
@@ -38,7 +39,9 @@ public class DPluginExample extends DAbstractPlugin
 	public void start() throws Exception
 	{
 		JOptionPane.showMessageDialog(null, "Se inicia la ventana");
-		ventana.setVisible(true);
+		
+		VideoConferencia.establecerOrigen();
+		ventana.run();
 	}
 
 	public void stop() throws Exception
