@@ -1,6 +1,7 @@
 package aplicacion.gui;
 
 
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -33,21 +35,24 @@ import metainformacion.ClienteMetaInformacion;
 import metainformacion.MIRol;
 import metainformacion.MIUsuario;
 import util.Separador;
-import Deventos.DChatEvent;
 import Deventos.DEvent;
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.ClienteFicheros;
+import aplicacion.fisica.net.*;
 import aplicacion.fisica.documentos.Documento;
 import aplicacion.fisica.documentos.FicheroBD;
 import aplicacion.fisica.eventos.DFileEvent;
-import aplicacion.fisica.net.Transfer;
 import aplicacion.gui.componentes.ArbolDocumentos;
+import aplicacion.plugin.DAbstractPlugin;
+import aplicacion.plugin.DPluginLoader;
+import componentes.gui.chat.VentanaChat;
+import Deventos.DChatEvent;
+import aplicacion.fisica.webcam.VideoConferencia;
 
 import componentes.base.DComponente;
 import componentes.base.DComponenteBase;
 import componentes.base.HebraProcesadoraBase;
-import componentes.gui.chat.VentanaChat;
-import componentes.gui.chat.webcam.VideoConferencia;
+
 import componentes.gui.imagen.FramePanelDibujo;
 import componentes.gui.usuarios.ArbolUsuariosConectadosRol;
 
@@ -130,6 +135,8 @@ public class PanelPrincipal extends DComponenteBase
 	private JButton botonSubir = null;
 
 	private VentanaChat vc = null;
+	
+	Vector<DAbstractPlugin> v = null;// DPluginLoader.getAllPlugins("aplicacion/plugin/example");
 	
 	private JButton getButonSubir()
 	{
@@ -299,36 +306,20 @@ public class PanelPrincipal extends DComponenteBase
 		super(nombre, conexionDC, padre);
 		try
 		{
+			
+			v = DPluginLoader.getAllPlugins("aplicacion/plugin/example");
+			
 			BorderLayout borderLayout = new BorderLayout();
 			borderLayout.setHgap(0);
 			this.setLayout(null);
 			this.add(getPanelLateral(), BorderLayout.WEST);
 			this.add(getBarraHerramientas(), null);
-
-			frame = new FramePanelDibujo(false);
-			frame.setVisible(false);
-			frame.pack();
-			frame.setSize(800, 720);
-
-			// Center the window
-			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-			Dimension frameSize = frame.getSize();
-			if (frameSize.height > screenSize.height)
-			{
-				frameSize.height = screenSize.height;
-			}
-			if (frameSize.width > screenSize.width)
-			{
-				frameSize.width = screenSize.width;
-			}
-			frame.setLocation(( screenSize.width - frameSize.width ) / 2,
-					( screenSize.height - frameSize.height ) / 2);
 			
-			vc = new VentanaChat("", "");
 			
-			vc.setSize(568, 520);
 
-			vc.sincronizar();
+			//inicializarEditor();
+			
+			//inicializarChat();
 
 			this.add(getPanelEspacioTrabajo(), null);
 		}
@@ -336,6 +327,36 @@ public class PanelPrincipal extends DComponenteBase
 		{
 			ex.printStackTrace();
 		}
+	}
+	
+	private void inicializarEditor(){
+		frame = new FramePanelDibujo(false);
+		frame.setVisible(false);
+		frame.pack();
+		frame.setSize(800, 720);
+
+		// Center the window
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		Dimension frameSize = frame.getSize();
+		if (frameSize.height > screenSize.height)
+		{
+			frameSize.height = screenSize.height;
+		}
+		if (frameSize.width > screenSize.width)
+		{
+			frameSize.width = screenSize.width;
+		}
+		frame.setLocation(( screenSize.width - frameSize.width ) / 2,
+				( screenSize.height - frameSize.height ) / 2);
+	}
+	
+	
+	private void inicializarChat(){
+		vc = new VentanaChat("", "");
+		
+		vc.setSize(568, 520);
+
+		vc.sincronizar();
 	}
 
 	/**
@@ -544,9 +565,11 @@ public class PanelPrincipal extends DComponenteBase
 		if (listaAplicaciones == null)
 		{
 
-			String[] data =
-			{ "chat", "calculadora", "editor" };
+			String[] data = new String[v.size()];
 
+			for (int i=0; i<data.length; ++i)
+				data[i] = v.get(i).getName();
+			
 			listaAplicaciones = new JList(data);
 			listaAplicaciones.setBounds(new Rectangle(1, 26, 186, 140));
 			listaAplicaciones.setBorder(new LineBorder(Color.GRAY));
@@ -556,38 +579,23 @@ public class PanelPrincipal extends DComponenteBase
 					{
 						public void mouseClicked(java.awt.event.MouseEvent e)
 						{
-							if (e.getClickCount() == 2
-									&& listaAplicaciones.getSelectedIndex() == 0)
+							
+							if (e.getClickCount() == 2){
+							/*		&& listaAplicaciones.getSelectedIndex() == 0)
 							{
-
-								String interlocutor = arbolUsuario
-										.getUsuarioSeleccionado();
-
-								if (interlocutor != null && interlocutor != "")
+								iniciarChat();
+								
+							}
+							*/
+							
+								try
 								{
-
-									VideoConferencia.establecerOrigen();
-
-									// enviamos el evento de notificaci—n de
-									// conversaci—n
-									DChatEvent dce = new DChatEvent();
-									dce.tipo = new Integer(
-											DChatEvent.NUEVA_CONVERSACION
-													.intValue());
-									
-									try
-									{
-										dce.ip_vc = InetAddress.getLocalHost().getHostAddress();
-									}
-									catch (UnknownHostException e1)
-									{
-										// TODO Auto-generated catch block
-										e1.printStackTrace();
-									}
-									
-									dce.destinatario = new String(interlocutor);
-									enviarEvento(dce);
-
+									v.get(listaAplicaciones.getSelectedIndex()).start();
+								}
+								catch (Exception e1)
+								{
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
 								}
 							}
 						}
@@ -595,6 +603,39 @@ public class PanelPrincipal extends DComponenteBase
 
 		}
 		return listaAplicaciones;
+	}
+	
+	
+	private void iniciarChat(){
+		String interlocutor = arbolUsuario
+		.getUsuarioSeleccionado();
+
+		if (interlocutor != null && interlocutor != "")
+		{
+		
+			VideoConferencia.establecerOrigen();
+		
+			// enviamos el evento de notificaci—n de
+			// conversaci—n
+			DChatEvent dce = new DChatEvent();
+			dce.tipo = new Integer(
+					DChatEvent.NUEVA_CONVERSACION
+							.intValue());
+			
+			try
+			{
+				dce.ip_vc = InetAddress.getLocalHost().getHostAddress();
+			}
+			catch (UnknownHostException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			dce.destinatario = new String(interlocutor);
+			enviarEvento(dce);
+		
+		}
 	}
 
 	/**
