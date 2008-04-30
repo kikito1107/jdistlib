@@ -10,6 +10,7 @@ import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.Panel;
+import java.awt.event.KeyEvent;
 
 /**
  * Calculadora sencilla
@@ -31,7 +32,7 @@ public class Calc extends Applet
 	{
 
 		setLayout(new BorderLayout());
-		Keypad keypad = new Keypad();
+		Keypad keypad = new Keypad(display);
 
 		add("North", display);
 		add("Center", keypad);
@@ -122,10 +123,13 @@ public class Calc extends Applet
 class Keypad extends Panel
 {
 
+	Display d;
+	
 	/**
 	 * inicializa keypad, a–ade los botones, establece los colores, etc.
+	 * @param display 
 	 */
-	Keypad()
+	Keypad(Display display)
 	{
 
 		Button b = new Button();
@@ -135,51 +139,266 @@ class Keypad extends Panel
 		Color equalsColor = new Color(0, 255, 0);
 		setFont(font);
 		b.setForeground(Color.black);
+		d = display;
+		
+		this.addKeyListener(new java.awt.event.KeyAdapter()
+		{
+			public void keyPressed(java.awt.event.KeyEvent e)
+			{
+				funcionTecla(e);
+			}
+		});
 
-		add(b = new Button("7"));
+		
+		b = new Button("7");
+		b.addKeyListener(new java.awt.event.KeyAdapter()
+		{
+			public void keyPressed(java.awt.event.KeyEvent e)
+			{
+				funcionTecla(e);
+			}
+		});
+		
+		add(b);
 		b.setBackground(numberColor);
-		add(b = new Button("8"));
+		
+		
+		b = new Button("8");
+		b.addKeyListener(new java.awt.event.KeyAdapter()
+		{
+			public void keyPressed(java.awt.event.KeyEvent e)
+			{
+				funcionTecla(e);
+			}
+		});
+		add(b);
 		b.setBackground(numberColor);
-		add(b = new Button("9"));
+		
+		
+		b = new Button("9");
+		b.addKeyListener(new java.awt.event.KeyAdapter()
+		{
+			public void keyPressed(java.awt.event.KeyEvent e)
+			{
+				funcionTecla(e);
+			}
+		});
+		add(b);
 		b.setBackground(numberColor);
+		
+		
+		
+
 		add(b = new Button("/"));
-		b.setBackground(functionColor);
-
+		b.setBackground(functionColor);		
+		b.addKeyListener(new java.awt.event.KeyAdapter()
+		{
+			public void keyPressed(java.awt.event.KeyEvent e)
+			{
+				funcionTecla(e);
+			}
+		});
+		
+		
 		add(b = new Button("4"));
 		b.setBackground(numberColor);
+		b.addKeyListener(new java.awt.event.KeyAdapter()
+		{
+			public void keyPressed(java.awt.event.KeyEvent e)
+			{
+				funcionTecla(e);
+			}
+		});
+		
+		
 		add(b = new Button("5"));
 		b.setBackground(numberColor);
+		b.addKeyListener(new java.awt.event.KeyAdapter()
+		{
+			public void keyPressed(java.awt.event.KeyEvent e)
+			{
+				funcionTecla(e);
+			}
+		});
+		
+		
 		add(b = new Button("6"));
 		b.setBackground(numberColor);
+		b.addKeyListener(new java.awt.event.KeyAdapter()
+		{
+			public void keyPressed(java.awt.event.KeyEvent e)
+			{
+				funcionTecla(e);
+			}
+		});
+		
+		
 		add(b = new Button("x"));
 		b.setBackground(functionColor);
+		b.addKeyListener(new java.awt.event.KeyAdapter()
+		{
+			public void keyPressed(java.awt.event.KeyEvent e)
+			{
+				funcionTecla(e);
+			}
+		});
+		
 
 		add(b = new Button("1"));
 		b.setBackground(numberColor);
+		b.addKeyListener(new java.awt.event.KeyAdapter()
+		{
+			public void keyPressed(java.awt.event.KeyEvent e)
+			{
+				funcionTecla(e);
+			}
+		});
+		
 		add(b = new Button("2"));
 		b.setBackground(numberColor);
+		b.addKeyListener(new java.awt.event.KeyAdapter()
+		{
+			public void keyPressed(java.awt.event.KeyEvent e)
+			{
+				funcionTecla(e);
+			}
+		});
+		
+		
 		add(b = new Button("3"));
 		b.setBackground(numberColor);
+		b.addKeyListener(new java.awt.event.KeyAdapter()
+		{
+			public void keyPressed(java.awt.event.KeyEvent e)
+			{
+				funcionTecla(e);
+			}
+		});
+		
+		
 		add(b = new Button("-"));
 		b.setBackground(functionColor);
-
+		b.addKeyListener(new java.awt.event.KeyAdapter()
+		{
+			public void keyPressed(java.awt.event.KeyEvent e)
+			{
+				funcionTecla(e);
+			}
+		});
+		
+		
 		add(b = new Button("."));
 		b.setBackground(functionColor);
+		b.addKeyListener(new java.awt.event.KeyAdapter()
+		{
+			public void keyPressed(java.awt.event.KeyEvent e)
+			{
+				funcionTecla(e);
+			}
+		});
+		
 		add(b = new Button("0"));
 		b.setBackground(numberColor);
+		b.addKeyListener(new java.awt.event.KeyAdapter()
+		{
+			public void keyPressed(java.awt.event.KeyEvent e)
+			{
+				funcionTecla(e);
+			}
+		});
+		
 		add(b = new Button("+/-"));
 		b.setBackground(functionColor);
+		b.addKeyListener(new java.awt.event.KeyAdapter()
+		{
+			public void keyPressed(java.awt.event.KeyEvent e)
+			{
+				funcionTecla(e);
+			}
+		});
+		
 		add(b = new Button("+"));
 		b.setBackground(functionColor);
+		b.addKeyListener(new java.awt.event.KeyAdapter()
+		{
+			public void keyPressed(java.awt.event.KeyEvent e)
+			{
+				funcionTecla(e);
+			}
+		});
 
 		add(b = new Button("C"));
 		b.setBackground(functionColor);
+		b.addKeyListener(new java.awt.event.KeyAdapter()
+		{
+			public void keyPressed(java.awt.event.KeyEvent e)
+			{
+				funcionTecla(e);
+			}
+		});
+		
 		add(new Label(""));
 		add(new Label(""));
 		add(b = new Button("="));
 		b.setBackground(equalsColor);
 
 		setLayout(new GridLayout(5, 4, 4, 4));
+	}
+	
+	
+	private void funcionTecla(KeyEvent e){
+		switch( e.getKeyChar() ){
+			case '1':
+				d.Digit("1");
+				break;
+			case '2':
+				d.Digit("2");
+				break;
+			case '3':
+				d.Digit("3");
+				break;
+			case '4':
+				d.Digit("4");
+				break;
+			case '5':
+				d.Digit("5");
+				break;
+			case '6':
+				d.Digit("6");
+				break;
+			case '7':
+				d.Digit("7");
+				break;
+			case '8':
+				d.Digit("8");
+				break;
+			case '9':
+				d.Digit("9");
+				break;
+			case '0':
+				d.Digit("0");
+				break;
+			case '.':
+				d.Dot();
+				break;
+			case '+':
+				d.Plus();
+				break;
+			case '-':
+				d.Minus();
+				break;
+			case 'x':
+			case '*':
+				d.Mul();
+				break;
+			case '/':
+				d.Div();
+				break;
+			case '=':
+			case '\n':
+				d.Equals();
+				break;
+		}
 	}
 
 }

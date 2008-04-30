@@ -97,6 +97,16 @@ public class VisorPropiedadesFichero extends JDialog
 	{
 		this.setSize(246, 357);
 		this.setContentPane(getJContentPane());
+		this.addKeyListener(new java.awt.event.KeyAdapter()
+		{   
+			public void keyTyped(java.awt.event.KeyEvent e) {    
+				System.out.println("keyTyped()"); // TODO Auto-generated Event stub keyTyped()
+			}
+			public void keyPressed(java.awt.event.KeyEvent e)
+			{
+				System.out.println("keyPressed()"); // TODO Auto-generated Event stub keyPressed()
+			}
+		});
 	}
 
 	/**

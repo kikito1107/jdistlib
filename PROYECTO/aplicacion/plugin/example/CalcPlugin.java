@@ -13,7 +13,7 @@ public class CalcPlugin extends DAbstractPlugin
 	
 	public CalcPlugin(  ) throws Exception
 	{
-		super("PluginEcho", false, null);
+		super("CalcPlugin", false, null);
 		init();
 		// TODO Auto-generated constructor stub
 	}
@@ -26,7 +26,7 @@ public class CalcPlugin extends DAbstractPlugin
 	@Override
 	public DAbstractPlugin getInstance() throws Exception
 	{
-		return new PluginEcho();
+		return new CalcPlugin();
 	}
 
 	@Override
