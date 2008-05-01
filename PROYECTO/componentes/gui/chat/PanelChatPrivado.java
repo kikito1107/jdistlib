@@ -1,27 +1,24 @@
 package componentes.gui.chat;
 
-import java.awt.GridBagLayout;
-import javax.swing.JPanel;
-import java.awt.Dimension;
-import javax.swing.JTextArea;
-import java.awt.GridBagConstraints;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.JButton;
 import javax.swing.ImageIcon;
-import javax.swing.JTree;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+import componentes.base.DJChat;
 
 import Deventos.DChatEvent;
-
 import Deventos.DEvent;
+import Deventos.DJChatEvent;
 import Deventos.enlaceJS.DConector;
 
-import componentes.base.DComponenteBase;
-
-public class PanelChat extends DComponenteBase
+public class PanelChatPrivado extends JPanel
 {
 
 	private static final long serialVersionUID = 1L;
@@ -32,20 +29,15 @@ public class PanelChat extends DComponenteBase
 	private JPanel panel = null;
 	private String destinatario = null;
 	private VentanaChat ventana = null;
+	private DJChat padre = null;
 	/**
 	 * This is the default constructor
 	 */
-	public PanelChat(String nombre, boolean conexionDC,
-			 DComponenteBase padre, String dest, VentanaChat v)
+	public PanelChatPrivado(DJChat p)
 	{
-		super(nombre, conexionDC, padre);
+		super();
+		padre = p;
 		initialize();
-		destinatario = dest;
-		
-		if (v != null)
-			ventana = v;
-		else
-			System.out.println("ERROR: valor nulo");
 	}
 
 	/**
@@ -143,11 +135,13 @@ public class PanelChat extends DComponenteBase
 	public void enviarMensaje(String mensaje){
 		
 		if (!mensaje.equals("") && destinatario != null) {
-			DChatEvent ev = new DChatEvent();
+			DJChatEvent ev = new DJChatEvent();
 			ev.mensaje = new String(mensaje);
-			ev.tipo = new Integer(DChatEvent.NUEVO_MENSAJE.intValue());
-			ev.destinatario = new String(destinatario);
-			enviarEvento(ev);
+			ev.tipo = new Integer(DJChatEvent.MENSAJE_PRIVADO);
+			ev.receptor = new String(this.destinatario);
+			
+			this.nuevoMensaje(DConector.Dusuario, Texto.getText());
+			padre.enviarEvento(ev);
 		}
 	}
 
@@ -209,7 +203,7 @@ public class PanelChat extends DComponenteBase
 
 	public void setDestinatario(String d)
 	{
-		if (!destinatario.equals(d)) {
+		if (destinatario == null || !destinatario.equals(d)) {
 			destinatario = d;
 			textoChat.setText("");
 		}
@@ -222,12 +216,15 @@ public class PanelChat extends DComponenteBase
 
 	public void cerrarConversacion()
 	{
-		DChatEvent ev = new DChatEvent();
-		ev.tipo = new Integer(DChatEvent.FIN_CONVERSACION.intValue());
-		ev.destinatario = new String(destinatario);
-		enviarEvento(ev);
-		
-		//JOptionPane.showMessageDialog(null, "enviada notificacion");
+		DJChatEvent ev = new DJChatEvent();
+		ev.tipo = new Integer(DJChatEvent.FIN_CONVERSACION_PRIVADA.intValue());
+		ev.receptor = new String(destinatario);
+		padre.enviarEvento(ev);
+	}
+
+	public void nuevoMensaje(String usuario, String mensaje)
+	{
+		textoChat.setText( textoChat.getText() + "\n[" + usuario + "]: " + mensaje );
 	}
 
 }  //  @jve:decl-index=0:visual-constraint="7,19"

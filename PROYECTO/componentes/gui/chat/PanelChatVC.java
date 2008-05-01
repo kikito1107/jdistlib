@@ -15,7 +15,7 @@ public class PanelChatVC extends JSplitPane
 	
 	String ip = null;
 	
-	PanelChat chat = null;
+	PanelChatPrivado chat = null;
 	PanelVC vc = null;
 	
 
@@ -40,7 +40,7 @@ public class PanelChatVC extends JSplitPane
 	{
 		vc = new PanelVC(null, ip);
 		this.setRightComponent(vc);
-		chat = new PanelChat("chat", true, d, destinatario, v);
+		//chat = new PanelChatPrivado("chat", true, d, destinatario, v);
 		this.setLeftComponent(chat);
 		this.setOneTouchExpandable(true);
 		this.setSize(SIZE_X*2, SIZE_Y);

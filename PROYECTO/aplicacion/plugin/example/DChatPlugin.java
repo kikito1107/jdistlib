@@ -9,7 +9,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Calendar;
-import java.util.Date;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,9 +18,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
-
 import util.JFontChooser;
-
+import Deventos.DJChatEvent;
+import Deventos.enlaceJS.DConector;
 import aplicacion.plugin.DAbstractPlugin;
 
 import componentes.base.DJFrame;
@@ -96,6 +95,11 @@ public class DChatPlugin extends DAbstractPlugin
 		ventanaChat.dispose();
 	}
 	
+	
+	/**
+	 * 
+	 * @author anab
+	 */
 	private class PanelControlChat extends JPanel
 	{
 
@@ -172,8 +176,17 @@ public class DChatPlugin extends DAbstractPlugin
 				{
 					public void actionPerformed(java.awt.event.ActionEvent e)
 					{
-						JOptionPane.showMessageDialog(ventanaChat, "Aki habr’a que iniciar " +
-								"una conversaci—n privada con " + arbol.getUsuarioSeleccionado());
+
+						String usuario = arbol.getUsuarioSeleccionado();
+						
+						if (usuario != null && !usuario.equals(DConector.Dusuario)){
+							DJChatEvent evento = new DJChatEvent();
+							evento.tipo = new Integer(DJChatEvent.MENSAJE_PRIVADO);
+							evento.receptor = new String(usuario);
+							evento.mensaje = "Solicita una nueva conversaci—n";
+							
+							chat.enviarEvento(evento);
+						}
 					}
 				});
 			}
