@@ -2,16 +2,13 @@ package aplicacion.plugin.example;
 
 import java.awt.BorderLayout;
 
-import componentes.base.DComponenteBase;
-import componentes.base.DJFrame;
-import componentes.gui.DIChat;
-import componentes.gui.usuarios.ArbolUsuariosConectadosRol;
-
 import Deventos.DEvent;
-import Deventos.enlaceJS.DConector;
 import aplicacion.plugin.DAbstractPlugin;
 import aplicacion.plugin.example.pizarra.ControlesPizarra;
 import aplicacion.plugin.example.pizarra.Pizarra;
+
+import componentes.base.DComponenteBase;
+import componentes.base.DJFrame;
 
 public class DPizarraPlugin extends DAbstractPlugin
 {
@@ -27,7 +24,7 @@ public class DPizarraPlugin extends DAbstractPlugin
 
 	public DPizarraPlugin(  ) throws Exception
 	{
-		super("chatplugin", false, null);
+		super("pizarra plugin", false, null);
 		ventanaPizarra = new DJFrame(true,"mousesRemotos3");
 		init();
 		// TODO Auto-generated constructor stub

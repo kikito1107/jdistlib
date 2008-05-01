@@ -37,6 +37,8 @@ public class GestorPlugins extends JFrame
 	private DefaultTableModel defaultTableModel = null;
 	
 	private JScrollPane panelScroll = null;
+	
+	Vector<DAbstractPlugin> plugins = null;
 
 	/**
 	 * This is the default constructor
@@ -61,6 +63,11 @@ public class GestorPlugins extends JFrame
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
+	public void setPlugins(Vector<DAbstractPlugin> plgs){
+		plugins = plgs;
+		
+	}
+	
 	/**
 	 * This method initializes jContentPane
 	 * 
@@ -199,40 +206,39 @@ public class GestorPlugins extends JFrame
 			defaultTableModel.setRowCount(3);
 			defaultTableModel.addColumn("Nombre");
 			defaultTableModel.addColumn("Version");
+			
+			
 
-			Vector<DAbstractPlugin> plugins = null;
-			
-			try
-			{
-				plugins = DPluginLoader.getAllPlugins("aplicacion/plugin/example");
-			}
-			catch (Exception e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			String nombre;
-			long version;
-			
-			if (plugins != null){
-				
-				defaultTableModel.setRowCount(plugins.size());
-				
-				for (int i=0; i <plugins.size(); ++i){
-					nombre = plugins.get(i).getName();
-					version = plugins.get(i).getVersion();
-					
-					defaultTableModel.setValueAt(nombre, i, 0);
-					defaultTableModel.setValueAt(version, i, 1);
-				}
-			}
-			
+			this.inicializarModelo();
 		}
 
 		return defaultTableModel;
 	}
 	
+	
+	
+	private void inicializarModelo()
+	{
+		String nombre;
+		long version;
+		
+		if (plugins != null){
+			
+			defaultTableModel.setRowCount(plugins.size());
+			
+			for (int i=0; i <plugins.size(); ++i){
+				nombre = plugins.get(i).getName();
+				version = plugins.get(i).getVersion();
+				
+				defaultTableModel.setValueAt(nombre, i, 0);
+				defaultTableModel.setValueAt(version, i, 1);
+			}
+		}
+		
+
+		
+	}
+
 	public static void main(String[] args){
 
 		new GestorPlugins().setVisible(true);

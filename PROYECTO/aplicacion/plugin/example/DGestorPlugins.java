@@ -1,25 +1,13 @@
 package aplicacion.plugin.example;
 
-import java.awt.BorderLayout;
-
-import componentes.base.DComponenteBase;
-import componentes.base.DJFrame;
-import componentes.gui.DIChat;
-import componentes.gui.usuarios.ArbolUsuariosConectadosRol;
-
-import Deventos.DEvent;
-import Deventos.enlaceJS.DConector;
 import aplicacion.plugin.DAbstractPlugin;
 import aplicacion.plugin.example.gestor.GestorPlugins;
-import aplicacion.plugin.example.pizarra.ControlesPizarra;
-import aplicacion.plugin.example.pizarra.Pizarra;
 
 public class DGestorPlugins extends DAbstractPlugin
 {
 	
 	
 	private GestorPlugins gestorPlugin = null;
-	Pizarra p = null;
 
 	/**
 	 * 
@@ -44,7 +32,7 @@ public class DGestorPlugins extends DAbstractPlugin
 	{
 		// TODO Auto-generated method stub
 		version = 1;
-		nombre = "GestorPlugins";
+		nombre = "Gestor Plugins";
 		jarFile = "ejemplo.jar";
 		
 		gestorPlugin = new GestorPlugins();
