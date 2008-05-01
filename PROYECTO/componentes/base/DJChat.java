@@ -1,6 +1,7 @@
 package componentes.base;
 
 import java.awt.*;
+
 import javax.swing.*;
 
 import componentes.listeners.*;
@@ -81,6 +82,7 @@ public class DJChat
 		});
 	 
 	 botonEnvio.setIcon(new ImageIcon(getClass().getResource("/Resources/comment.png")));
+	 botonEnvio.setToolTipText("Envia el mensaje escrito");
 	 botonEnvio.addActionListener(new DJChat_botonEnvio_actionAdapter(this));
 	 areaTexto.setEditable(false);
 	 areaTexto.setLineWrap(true);
@@ -280,6 +282,26 @@ public class DJChat
 		}
 	 }
   }
+
+public void limpiarTexto()
+{
+	areaTexto.setText("");
+	
+}
+
+public String getTexto()
+{
+	return areaTexto.getText();
+	
+}
+
+public void setFuente(Font f)
+{
+	areaTexto.setFont(f);
+	
+}
+
+
 
 }
 

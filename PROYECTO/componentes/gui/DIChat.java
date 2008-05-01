@@ -44,6 +44,20 @@ public class DIChat
 	 chat.addDJChatListener(crearDJListener());
 	 //desactivar();//*******************************************************************************
   }
+  
+  
+  public void limpiarTexto(){
+	  chat.limpiarTexto();
+  }
+  
+  public String getTexto(){
+	  return chat.getTexto();
+  }
+ 
+  
+  public void setFuente(Font f){
+	  chat.setFuente(f);
+  }
 
   /**
 	* Establece el nivel de permisos de este componente. No se recomienda

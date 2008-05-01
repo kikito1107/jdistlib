@@ -3,8 +3,10 @@ package aplicacion.plugin.example.gestor;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Toolkit;
 import java.util.Vector;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -14,10 +16,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 import aplicacion.plugin.DAbstractPlugin;
-import aplicacion.plugin.DPluginLoader;
-import java.awt.Dimension;
-import javax.swing.ImageIcon;
-import java.awt.Toolkit;
 
 public class GestorPlugins extends JFrame
 {

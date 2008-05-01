@@ -1,40 +1,29 @@
 package componentes.gui.imagen;
 
 import java.awt.Color;
-import java.awt.Frame;
-import java.awt.Image;
-
-import javax.swing.JPanel;
 import java.awt.Dimension;
-import javax.swing.JComboBox;
-import javax.swing.ImageIcon;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import javax.swing.JToolBar.Separator;
-import Deventos.DJLienzoEvent;
-import Deventos.enlaceJS.DConector;
-
 import java.awt.GridLayout;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JToolBar;
-import javax.swing.SwingConstants;
 
-
+import util.Separador;
+import Deventos.DJLienzoEvent;
+import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.ClienteFicheros;
 import aplicacion.fisica.documentos.Documento;
-import aplicacion.fisica.documentos.Pagina;
-import aplicacion.fisica.eventos.DDocumentEvent;
 import aplicacion.fisica.net.Transfer;
 import aplicacion.gui.componentes.SelectorFicherosDistribuido;
-
-import util.FiltroImagenes;
-import util.Separador;
 
 public class ControlesDibujo extends JPanel
 {
@@ -61,7 +50,6 @@ public class ControlesDibujo extends JPanel
 	private Separador separator41 = null;
 	private JButton botonPaletaColores = null;
 	private JButton botonAbrir = null;
-	private JFrame padre;
 	private JButton botonInfo = null;
 	private Separador separator11 = null;
 	private JButton botonGuardar = null;
@@ -95,7 +83,6 @@ public class ControlesDibujo extends JPanel
 	}
 
 	public void setPadre(JFrame p){
-		this.padre = p;
 	}
 	
 	/**
