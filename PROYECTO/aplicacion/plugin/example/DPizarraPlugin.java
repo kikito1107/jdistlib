@@ -13,7 +13,7 @@ import aplicacion.plugin.DAbstractPlugin;
 import aplicacion.plugin.example.pizarra.ControlesPizarra;
 import aplicacion.plugin.example.pizarra.Pizarra;
 
-public class PizarraPlugin extends DAbstractPlugin
+public class DPizarraPlugin extends DAbstractPlugin
 {
 	
 	
@@ -25,7 +25,7 @@ public class PizarraPlugin extends DAbstractPlugin
 	 */
 	private static final long serialVersionUID = -6310087937591625336L;
 
-	public PizarraPlugin(  ) throws Exception
+	public DPizarraPlugin(  ) throws Exception
 	{
 		super("chatplugin", false, null);
 		ventanaPizarra = new DJFrame(true,"mousesRemotos3");
@@ -36,7 +36,7 @@ public class PizarraPlugin extends DAbstractPlugin
 	@Override
 	public DAbstractPlugin getInstance() throws Exception
 	{
-		return new PizarraPlugin();
+		return new DPizarraPlugin();
 	}
 
 	@Override
@@ -79,7 +79,7 @@ public class PizarraPlugin extends DAbstractPlugin
 		// TODO Auto-generated method stub
 		ventanaPizarra.pack();
 		ventanaPizarra.setSize(530, 445);
-		
+		ventanaPizarra.setLocationRelativeTo(null);
 		
 		
 		ventanaPizarra.setVisible(true);

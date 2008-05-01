@@ -44,6 +44,9 @@ public class DPluginLoader
 			while(!fin)
 			{
 				String aux = br.readLine();
+				
+				System.out.println(aux);
+				
 				if (aux != null) tipos.add(aux);
 				else fin = true;
 			}

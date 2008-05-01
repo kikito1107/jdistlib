@@ -5,13 +5,13 @@ import javax.swing.JFrame;
 import aplicacion.plugin.DAbstractPlugin;
 import aplicacion.plugin.example.calculadora.Calc;
 
-public class CalcPlugin extends DAbstractPlugin
+public class DCalcPlugin extends DAbstractPlugin
 {
 
 	private Calc eco;
 	private JFrame ventana;
 	
-	public CalcPlugin(  ) throws Exception
+	public DCalcPlugin(  ) throws Exception
 	{
 		super("CalcPlugin", false, null);
 		init();
@@ -26,14 +26,14 @@ public class CalcPlugin extends DAbstractPlugin
 	@Override
 	public DAbstractPlugin getInstance() throws Exception
 	{
-		return new CalcPlugin();
+		return new DCalcPlugin();
 	}
 
 	@Override
 	public void init() throws Exception
 	{
 		version = 5;
-		nombre = "Echo";
+		nombre = "Calculadora";
 		jarFile = "ejemplo.jar";
 		versioningEnabled = false;
 		ventana = new JFrame(":: Calculadora ::");
@@ -49,6 +49,7 @@ public class CalcPlugin extends DAbstractPlugin
 
 		ventana.setSize(210, 200);
 		ventana.add("Center", eco);
+		ventana.setLocationRelativeTo(null);
 		ventana.setVisible(true);
 	}
 

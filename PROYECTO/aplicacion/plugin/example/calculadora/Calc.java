@@ -341,6 +341,14 @@ class Keypad extends Panel
 		add(new Label(""));
 		add(b = new Button("="));
 		b.setBackground(equalsColor);
+		b.setBackground(functionColor);
+		b.addKeyListener(new java.awt.event.KeyAdapter()
+		{
+			public void keyPressed(java.awt.event.KeyEvent e)
+			{
+				funcionTecla(e);
+			}
+		});
 
 		setLayout(new GridLayout(5, 4, 4, 4));
 	}

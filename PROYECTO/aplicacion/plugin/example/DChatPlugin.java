@@ -10,7 +10,7 @@ import componentes.gui.usuarios.ArbolUsuariosConectadosRol;
 import Deventos.enlaceJS.DConector;
 import aplicacion.plugin.DAbstractPlugin;
 
-public class ChatPlugin extends DAbstractPlugin
+public class DChatPlugin extends DAbstractPlugin
 {
 	
 	
@@ -21,7 +21,7 @@ public class ChatPlugin extends DAbstractPlugin
 	 */
 	private static final long serialVersionUID = -6310087937591625336L;
 
-	public ChatPlugin(  ) throws Exception
+	public DChatPlugin(  ) throws Exception
 	{
 		super("chatplugin", false, null);
 		chat = new DJFrame(false,"");
@@ -32,7 +32,7 @@ public class ChatPlugin extends DAbstractPlugin
 	@Override
 	public DAbstractPlugin getInstance() throws Exception
 	{
-		return new ChatPlugin();
+		return new DChatPlugin();
 	}
 
 	@Override
@@ -54,9 +54,9 @@ public class ChatPlugin extends DAbstractPlugin
 	{
 		// TODO Auto-generated method stub
 		chat.pack();
-		chat.setSize(568, 545);
+		chat.setSize(500, 430);
 		
-		
+		chat.setLocationRelativeTo(null);
 		
 		chat.setVisible(true);
 	}
