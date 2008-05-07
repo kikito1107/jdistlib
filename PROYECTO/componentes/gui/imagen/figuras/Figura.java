@@ -3,10 +3,14 @@ package componentes.gui.imagen.figuras;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.io.Serializable;
-import java.rmi.server.UnicastRemoteObject;
 
 public class Figura implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3309755047252198062L;
+
 	/**
 	 * coordenada x de la esquina superior izquierda de la figura
 	 */
@@ -23,8 +27,8 @@ public class Figura implements Serializable
 	Color color;
 	
 	public Figura(int x1, int y1){
-		int x = x1;
-		int y = y1;
+		x = x1;
+		y = y1;
 	}
 	
 	

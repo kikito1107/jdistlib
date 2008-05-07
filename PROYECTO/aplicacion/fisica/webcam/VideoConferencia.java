@@ -38,7 +38,6 @@ public class VideoConferencia
     public VideoConferencia(String ip_orig)
     {
         ip_origen = ip_orig;
-        JOptionPane.showMessageDialog(null, "IP: " + ip_origen);
     }
     
     

@@ -1,19 +1,15 @@
 package aplicacion.gui.componentes;
 
-import javax.swing.*;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeCellRenderer;
+import java.io.File;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 import aplicacion.fisica.ClienteFicheros;
-import aplicacion.fisica.ConectorBD;
 import aplicacion.fisica.GestorFicherosBD;
 import aplicacion.fisica.documentos.FicheroBD;
-import util.ParserPermisos;
-
-import java.awt.Component;
-import java.io.*;
-import java.util.Vector;
 
 /**
  * Clase que se encargar‡ de almacenar los datos de los documentos
@@ -28,8 +24,6 @@ public class ArbolDocumentos
 	 */
 	private static final long serialVersionUID = -3359982437919729727L;
 
-	private static int nivel = 0;
-	
 	DefaultMutableTreeNode raiz = null;
 	ClienteFicheros cf =  null;
 	GestorFicherosBD gestor = null;

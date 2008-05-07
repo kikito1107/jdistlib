@@ -4,10 +4,15 @@ import java.awt.*;
 
 import javax.swing.*;
 
+import aplicacion.fisica.webcam.VideoConferencia;
+import aplicacion.fisica.webcam.VideoFrame;
+
 import componentes.gui.chat.PanelChatPrivado;
 import componentes.listeners.*;
 
 import java.awt.event.*;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.*;
 import Deventos.*;
 import Deventos.enlaceJS.DConector;
@@ -195,7 +200,9 @@ public class DJChat extends JPanel
 
 			DJChatEvent ev1 = (DJChatEvent) evento;
 
-			if (ev1.usuario.equals(DConector.Dusuario)) return;
+			if (ev1.usuario.equals(DConector.Dusuario)) { 
+				return;
+			}
 
 			if (!ev1.receptor.equals(DConector.Dusuario)) return;
 
@@ -273,6 +280,71 @@ public class DJChat extends JPanel
 			{
 				( (LJChatListener) v.elementAt(i) ).nuevoMensaje(
 						evento.usuario, ev2.mensaje);
+			}
+		}
+		else if (evento.tipo.intValue() == DJChatEvent.INICIAR_VC.intValue())
+		{
+
+			
+			
+			DJChatEvent ev2 = (DJChatEvent) evento;
+			
+			if (ev2.usuario.equals(DConector.Dusuario)) { 
+				return;
+			}
+
+			if (!ev2.receptor.equals(DConector.Dusuario)) return;
+			
+			if (ev2.ipVC != null && ev2.ipVC != ""){
+				
+				
+				VideoConferencia.establecerOrigen();
+				VideoFrame ventana = new VideoFrame(ev2.ipVC);
+				ventana.setSize(400, 400);
+				ventana.setLocationRelativeTo(null);
+				ventana.run();
+			}
+			
+			
+			DJChatEvent respuesta = new DJChatEvent();
+			
+			respuesta.tipo = new Integer(DJChatEvent.RESPUESTA_INICIAR_VC);
+			try
+			{
+				respuesta.ipVC = InetAddress.getLocalHost().getHostAddress();
+			}
+			catch (UnknownHostException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			respuesta.receptor = new String(ev2.usuario);
+			
+			this.enviarEvento(respuesta);
+		}
+		else if (evento.tipo.intValue() == DJChatEvent.RESPUESTA_INICIAR_VC.intValue())
+		{
+
+			DJChatEvent ev2 = (DJChatEvent) evento;
+
+			// chequeamos que no sea un auto mensaje o que no seamos los receptores del mensaje
+			if (ev2.usuario.equals(DConector.Dusuario))  return;
+
+			if (!ev2.receptor.equals(DConector.Dusuario)) return;
+			
+			
+			// iniciamos la VC
+			if (ev2.ipVC != null && ev2.ipVC != ""){
+				
+				
+				JOptionPane.showMessageDialog(null, "IP de la nueva conversaci—n " + ev2.ipVC);
+				
+				VideoConferencia.establecerOrigen();
+				VideoFrame ventana = new VideoFrame(ev2.ipVC);
+				ventana.setSize(400, 400);
+				ventana.setLocationRelativeTo(null);
+				ventana.run();
 			}
 		}
 	}

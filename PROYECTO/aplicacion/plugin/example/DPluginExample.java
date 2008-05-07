@@ -1,7 +1,5 @@
 package aplicacion.plugin.example;
 
-import javax.swing.JOptionPane;
-
 import aplicacion.fisica.webcam.VideoConferencia;
 import aplicacion.fisica.webcam.VideoFrame;
 import aplicacion.plugin.DAbstractPlugin;
@@ -29,10 +27,6 @@ public class DPluginExample extends DAbstractPlugin
 		nombre = "Videoconferencia";
 		jarFile = "ejemplo.jar";
 		versioningEnabled = false;
-		
-		
-		System.out.println("aki");
-		
 	}
 
 	public void start() throws Exception
@@ -40,7 +34,9 @@ public class DPluginExample extends DAbstractPlugin
 		
 		VideoConferencia.establecerOrigen();
 		
-		String ip = JOptionPane.showInputDialog("Introduce la ip de destino");
+		String ip = "localhost";
+		
+		//ip = JOptionPane.showInputDialog("Introduce la ip de destino");
 		
 		ventana = new VideoFrame(ip);
 		ventana.setSize(400, 400);

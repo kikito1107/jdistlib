@@ -2,12 +2,15 @@ package aplicacion.fisica.documentos;
 
 import java.io.Serializable;
 
-import metainformacion.MIUsuario;
 import metainformacion.MIRol;
-import javax.swing.JOptionPane;
+import metainformacion.MIUsuario;
 
 public class FicheroBD implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6727437732098052591L;
 	private String nombre;
 	private int id_documento;
 	private boolean es_directorio;

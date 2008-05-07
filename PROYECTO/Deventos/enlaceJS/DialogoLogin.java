@@ -42,7 +42,7 @@ JPanel panel1 = new JPanel();
   private void jbInit() throws Exception {
 	 panel1.setLayout(null);
 	 campoUsuario.setToolTipText("");
-	 campoUsuario.setText("DarthVader");
+	 campoUsuario.setText("User Name");
 	 campoUsuario.setBounds(new Rectangle(120, 41, 171, 20));
 	 campoPass.setText("clave");
 	 campoPass.setBounds(new Rectangle(120, 66, 171, 20));

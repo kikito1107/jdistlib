@@ -7,7 +7,7 @@ package aplicacion.fisica.webcam;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
-import javax.swing.ImageIcon;
+
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -19,7 +19,11 @@ import javax.swing.SwingUtilities;
 public class ImageComponent extends JComponent
 {
 
-    private Image image;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -6869102214250977942L;
+	private Image image;
     private Dimension size;
     private JFrame parent;
     

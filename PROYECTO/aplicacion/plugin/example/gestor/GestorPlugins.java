@@ -58,7 +58,7 @@ public class GestorPlugins extends JFrame
 		this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Resources/brick.png")));
 		this.setContentPane(getJContentPane());
 		this.setTitle(":: Gestor de Plugins ::");
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 
 	public void setPlugins(Vector<DAbstractPlugin> plgs){

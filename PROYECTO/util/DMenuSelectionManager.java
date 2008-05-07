@@ -1,14 +1,24 @@
 package util;
 
-import javax.swing.*;
-import Deventos.*;
-import java.util.*;
-import Deventos.enlaceJS.*;
-import java.awt.*;
-import componentes.*;
+import java.awt.Container;
+import java.util.Vector;
+
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JPopupMenu;
+import javax.swing.MenuElement;
+import javax.swing.MenuSelectionManager;
+
+import Deventos.ColaEventos;
+import Deventos.DEvent;
+import Deventos.DJListEvent;
+import Deventos.DMIEvent;
+import Deventos.DMenuSelectionManagerEvent;
+import Deventos.enlaceJS.DConector;
+
 import componentes.base.DComponente;
 import componentes.base.HebraProcesadoraBase;
-import componentes.listeners.*;
+import componentes.listeners.DMenuSelectionManagerListener;
 /**
  * <p>Title: </p>
  * <p>Description: </p>

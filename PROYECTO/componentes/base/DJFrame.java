@@ -1,12 +1,30 @@
 package componentes.base;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import Deventos.*;
-import java.util.*;
-import Deventos.enlaceJS.*;
-import util.*;
+import java.awt.AWTEvent;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
+import java.awt.event.MouseEvent;
+import java.util.Vector;
+
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
+import Deventos.ColaEventos;
+import Deventos.DEvent;
+import Deventos.DMIEvent;
+import Deventos.DMouseEvent;
+import Deventos.enlaceJS.DConector;
+import Deventos.enlaceJS.DialogoSincronizacion;
 
 /**
  * <p>Title: </p>
@@ -17,10 +35,12 @@ import util.*;
  * @version 1.0
  */
 
-public class DJFrame
-	 extends JFrame {
-  BorderLayout borderLayout1 = new BorderLayout();
-  private boolean mostrarPunterosRemotos = false;
+public class DJFrame extends JFrame {
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = -1361890889404193956L;
+BorderLayout borderLayout1 = new BorderLayout();
   private GestorMousesRemotos gestorMR = null;
 
   //private DConector dconector = null;
@@ -30,8 +50,8 @@ public class DJFrame
 
   public DJFrame(boolean mostrarPunterosRemotos,
 					  String nombreGestorMousesRemotos) {
-	 this.mostrarPunterosRemotos = mostrarPunterosRemotos;
-	 this.frame = this;
+	 DJFrame.frame = this;
+	 
 	 String nombre = nombreGestorMousesRemotos;
 	 if (nombre == null) {
 		nombre = new String("GMR");
@@ -54,9 +74,6 @@ public class DJFrame
 	 if (nombreJS == null) {
 		nombreJS = new String("JavaSpace");
 	 }
-	 //dconector = new DConector(nombreAplicacion,nombreJS);
-	 //dconector.inicializar();
-	 this.mostrarPunterosRemotos = mostrarPunterosRemotos;
 	 this.frame = this;
 	 String nombre = nombreGestorMousesRemotos;
 	 if (nombre == null) {
@@ -340,7 +357,7 @@ public class DJFrame
 		}
 		if(evento.tipo.intValue() == DMIEvent.NOTIFICACION_DESCONEXION_USUARIO.intValue()){
 		  conjuntoMouses.eliminarUsuario(evento.usuario);
-		  Toolkit.getDefaultToolkit().getSystemEventQueue().invokeLater(new RepintadorGlassPane(frame));
+		  EventQueue.invokeLater(new RepintadorGlassPane(frame));
 		}
 	 }
 
@@ -464,13 +481,13 @@ public class DJFrame
 							 evento.py.intValue()));
 					 }
 
-					 Toolkit.getDefaultToolkit().getSystemEventQueue().invokeLater(new Runnable(){
+					 EventQueue.invokeLater(new Runnable(){
 					 public void run(){
 						//System.out.println("Evento");
 					 }
 					 });
 
-					 Toolkit.getDefaultToolkit().getSystemEventQueue().invokeLater(new RepintadorGlassPane(frame));
+					 EventQueue.invokeLater(new RepintadorGlassPane(frame));
 
 
 				  }
@@ -481,7 +498,7 @@ public class DJFrame
 											  evento.usuario);*/
 					 conjuntoMouses.eliminarUsuario(evento.usuario);
 
-					 Toolkit.getDefaultToolkit().getSystemEventQueue().invokeLater(new RepintadorGlassPane(frame));
+					 EventQueue.invokeLater(new RepintadorGlassPane(frame));
 
 				  }
 				}
@@ -547,7 +564,7 @@ public class DJFrame
 					 colaEnvio.nuevoEvento(evento);
 
 					 conjuntoMouses.decrementarContadores();
-					 Toolkit.getDefaultToolkit().getSystemEventQueue().invokeLater(new RepintadorGlassPane(frame));
+					 EventQueue.invokeLater(new RepintadorGlassPane(frame));
 					 tiempoRestante = tiempoPeticion;
 				  }
 				}

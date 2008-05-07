@@ -1,21 +1,16 @@
 package aplicacion.plugin.example.pizarra;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.Random;
 import java.util.Vector;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JToolTip;
 import javax.swing.border.EtchedBorder;
 
 import Deventos.DEvent;
-import Deventos.DJLienzoEvent;
 import Deventos.enlaceJS.DConector;
 
 import componentes.base.DComponente;
@@ -30,8 +25,6 @@ import componentes.gui.imagen.figuras.Linea;
 import componentes.gui.imagen.figuras.Rectangulo;
 import componentes.gui.imagen.figuras.Texto;
 import componentes.gui.imagen.figuras.TrazoManoAlzada;
-import componentes.listeners.DJLienzoListener;
-import componentes.listeners.LJLienzoListener;
 
 
 /**
@@ -102,21 +95,11 @@ public class Pizarra extends DIViewer implements MouseListener,
     int x1,y1;
     int x2,y2;
     
-    // Listeners
-	private Vector dj_lienzo_listeners = new Vector(5);
-	private Vector lj_lienzo_listeners = new Vector(5);
-	private Vector luj_lienzo_listeners = new Vector(5);
-    
 	/**
 	 * Hebra encargada del procesamiento de los eventos
 	 */
     private HebraProcesadoraBase hebraProcesadora = null;
     
-	/**
-	 * identificador del lienzo
-	 */
-	private int id = (new Random()).nextInt(1000);
-	
 	/**
 	 * indica el zoom actual aplicado al documento
 	 */
@@ -177,9 +160,7 @@ public class Pizarra extends DIViewer implements MouseListener,
 	 * @throws Exception
 	 */
 	private void init() throws Exception
-	{
-		addDJLienzoListener(new Listener());
-		
+	{	
 		this.createToolTip();
 		
 		this.setToolTipText("");
@@ -532,106 +513,7 @@ public class Pizarra extends DIViewer implements MouseListener,
 	}
 	
 	
-	//***********************************************************************
-	//**************************** LISTENERS ********************************
-	//***********************************************************************
 	
-	/**
-	 * Clase encargada de estar a la "escucha" de los eventos de lienzo 
-	 * @author Ana Belen Pelegrina Ortiz
-	 */
-	private class Listener implements DJLienzoListener 
-	{
-
-		public void cargado(DJPizarraEvent evento) {
-			enviarEvento(evento);
-		}
-
-		public void cargado(DJLienzoEvent evento)
-		{
-			// TODO Auto-generated method stub
-			
-		}
-	}
-	
-
-	/**
-	 * Agrega un nuevo listener
-	 * @param dvl nuevo listener a agregar DJ
-	 */
-	public void addDJLienzoListener(DJLienzoListener dvl)
-	{
-		dj_lienzo_listeners.add(dvl);
-	}
-	
-	/**
-	 * Agrega un nuevo listener
-	 * @param lvl nuevo listener a agregar LJ
-	 */
-	public void addLJLienzoListener(LJLienzoListener lvl)
-	{
-		lj_lienzo_listeners.add(lvl);
-	}
-	
-	/**
-	 * Agrega un nuevo listener LUJ
-	 * @param lvl nuevo listener a agregar
-	 */
-	public void addLUJLienzoListener(LJLienzoListener lvl)
-	{
-		luj_lienzo_listeners.add(lvl);
-	}
-	
-	/**
-	 * Permite recuperar los listeners DJ
-	 * @returm los listener
-	 */
-	public Vector getDJLienzoListeners()
-	{
-		return dj_lienzo_listeners;
-	}
-	
-	/**
-	 * Permite recuperar los listeners LJ
-	 * @returm los listener
-	 */
-	public Vector getLJLienzoListeners()
-	{
-		return lj_lienzo_listeners;
-	}
-	
-	/**
-	 * Permite recuperar los listeners LUJ
-	 * @returm los listener
-	 */
-	public Vector getLUJLienzoListeners()
-	{
-		return luj_lienzo_listeners;
-	}
-	
-	/**
-	 * Elimina los listeners DJ
-	 */
-	public void removeDJLienzoListeners()
-	{
-		dj_lienzo_listeners.removeAllElements();
-	}
-
-	/**
-	 * Elimina los listeners LJ
-	 */
-	public void removeLJLienzoListeners()
-	{
-		lj_lienzo_listeners.removeAllElements();
-	}
-	
-	/**
-	 * Elimina los listeners LUJ
-	 */
-	public void removeLUJLienzoListeners()
-	{
-		luj_lienzo_listeners.removeAllElements();
-	}
 	
 	//***********************************************************************
 	//******************* PROCESAMIENTO DE EVENTOS **************************
@@ -677,7 +559,8 @@ public class Pizarra extends DIViewer implements MouseListener,
 			repaint();
 		}	
 		
-		else if (evento.tipo.intValue() == DJPizarraEvent.NUEVA_ANOTACION.intValue())
+		else if (evento.tipo.intValue() == DJPizarraEvent.NUEVA_ANOTACION.intValue() 
+				&& !evento.usuario.equals(DConector.Dusuario))
 		 {
 			DJPizarraEvent evt = (DJPizarraEvent ) evento;
 			

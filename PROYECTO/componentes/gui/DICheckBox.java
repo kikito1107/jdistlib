@@ -1,18 +1,22 @@
 package componentes.gui;
 
-import java.util.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.util.Vector;
 
-import java.awt.*;
-import javax.swing.*;
+import javax.swing.JScrollPane;
 
-import Deventos.*;
-import Deventos.enlaceJS.*;
-import componentes.*;
+import Deventos.DEvent;
+import Deventos.DJCheckBoxEvent;
+import Deventos.enlaceJS.DConector;
+
 import componentes.base.DComponente;
 import componentes.base.DComponenteBase;
 import componentes.base.DJCheckBox;
 import componentes.base.HebraProcesadoraBase;
-import componentes.listeners.*;
+import componentes.listeners.DJCheckBoxListener;
+import componentes.listeners.LJCheckBoxListener;
 
 /**
  * Checkbox compartido. Consultar documentacion del proyecto para ver su
@@ -271,7 +275,7 @@ public class DICheckBox
 
 		DEvent[] eventos = obtenerEventosColaRecepcion();
 		int numEventos = eventos.length;
-		int i = 0;
+
 
 		// Buscamos si se ha recibido una respuesta de sincronizacion
 		for (int j = 0; j < numEventos; j++) {

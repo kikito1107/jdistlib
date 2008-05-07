@@ -37,8 +37,6 @@ public class ControlesPizarra extends JPanel
 	private JLabel jLabel1 = null;
 	private JLabel jLabel2 = null;
 	private JButton botonPaletaColores = null;
-	private JButton botonImprimir = null;
-	private Separador separator21 = null;
 	/**
 	 * Devuelve el color actual
 	 * @return el nœmero asociado al color actual
@@ -339,8 +337,6 @@ public class ControlesPizarra extends JPanel
 			barraHerramientas = new JToolBar();
 			barraHerramientas.setFloatable(false);
 			barraHerramientas.setPreferredSize(new Dimension(533, 35));
-			barraHerramientas.add(getBotonImprimir());
-			barraHerramientas.add(getSeparator21());
 			barraHerramientas.add(getBotonDeshacer());
 			barraHerramientas.add(getBotonRehacer());
 			barraHerramientas.add(separator2);
@@ -388,47 +384,6 @@ public class ControlesPizarra extends JPanel
 			});
 		}
 		return botonPaletaColores;
-	}
-
-	/**
-	 * This method initializes botonImprimir	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
-	private JButton getBotonImprimir()
-	{
-		if (botonImprimir == null)
-		{
-			botonImprimir = new JButton();
-			botonImprimir.setBorder(null);
-			botonImprimir.setToolTipText("Imprime el documento");
-			botonImprimir.setBorderPainted(false);
-			botonImprimir.setIcon(new ImageIcon(getClass().getResource("/Resources/printer.png")));
-			botonImprimir.setText("");
-			botonImprimir.setPreferredSize(new Dimension(35, 24));
-			botonImprimir.addActionListener(new java.awt.event.ActionListener()
-			{
-				public void actionPerformed(java.awt.event.ActionEvent e)
-				{
-					//
-				}
-			});
-		}
-		return botonImprimir;
-	}
-
-	/**
-	 * This method initializes separator21	
-	 * 	
-	 * @return util.Separador	
-	 */
-	private Separador getSeparator21()
-	{
-		if (separator21 == null)
-		{
-			separator21 = new Separador();
-		}
-		return separator21;
 	}
 
 }  //  @jve:decl-index=0:visual-constraint="-78,19"

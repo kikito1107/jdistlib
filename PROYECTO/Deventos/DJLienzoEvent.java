@@ -1,7 +1,6 @@
 package Deventos;
 
 import java.awt.Color;
-import java.awt.Rectangle;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;

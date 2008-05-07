@@ -21,7 +21,11 @@ import componentes.base.DJFrame;
 
 public class FramePrincipal
 	 extends DJFrame {
-  BorderLayout borderLayout1 = new BorderLayout();
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3179403669427211858L;
+BorderLayout borderLayout1 = new BorderLayout();
   PanelPrincipal componente = null;
 
   public FramePrincipal() {

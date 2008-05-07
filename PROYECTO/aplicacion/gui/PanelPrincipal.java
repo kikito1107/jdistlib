@@ -12,8 +12,6 @@ import java.awt.Toolkit;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
@@ -38,21 +36,16 @@ import util.Separador;
 import Deventos.DEvent;
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.ClienteFicheros;
-import aplicacion.fisica.net.*;
 import aplicacion.fisica.documentos.Documento;
 import aplicacion.fisica.documentos.FicheroBD;
 import aplicacion.fisica.eventos.DFileEvent;
+import aplicacion.fisica.net.Transfer;
 import aplicacion.gui.componentes.ArbolDocumentos;
 import aplicacion.plugin.DAbstractPlugin;
 import aplicacion.plugin.DPluginLoader;
-import componentes.gui.chat.VentanaChat;
-import Deventos.DChatEvent;
-import aplicacion.fisica.webcam.VideoConferencia;
 
 import componentes.base.DComponente;
 import componentes.base.DComponenteBase;
-import componentes.base.HebraProcesadoraBase;
-
 import componentes.gui.imagen.FramePanelDibujo;
 import componentes.gui.usuarios.ArbolUsuariosConectadosRol;
 
@@ -133,8 +126,6 @@ public class PanelPrincipal extends DComponenteBase
 	DefaultMutableTreeNode raiz = null;
 
 	private JButton botonSubir = null;
-
-	private VentanaChat vc = null;
 	
 	Vector<DAbstractPlugin> v = null;
 	
@@ -349,15 +340,6 @@ public class PanelPrincipal extends DComponenteBase
 		frame.setLocation(( screenSize.width - frameSize.width ) / 2,
 				( screenSize.height - frameSize.height ) / 2);
 	}
-	
-	
-	private void inicializarChat(){
-		vc = new VentanaChat("", "");
-		
-		vc.setSize(568, 520);
-
-		vc.sincronizar();
-	}
 
 	/**
 	 * This method initializes panelLateral
@@ -469,7 +451,7 @@ public class PanelPrincipal extends DComponenteBase
 			BotonAbrir = new JButton();
 			BotonAbrir.setBorder(null);
 			BotonAbrir.setBorderPainted(false);
-			BotonAbrir.setIcon(new ImageIcon("./Resources/folder.png"));
+			BotonAbrir.setIcon(new ImageIcon("./Resources/folder_big.png"));
 		}
 		return BotonAbrir;
 	}
@@ -608,38 +590,6 @@ public class PanelPrincipal extends DComponenteBase
 	}
 	
 	
-	private void iniciarChat(){
-		String interlocutor = arbolUsuario
-		.getUsuarioSeleccionado();
-
-		if (interlocutor != null && interlocutor != "")
-		{
-		
-			VideoConferencia.establecerOrigen();
-		
-			// enviamos el evento de notificaci—n de
-			// conversaci—n
-			DChatEvent dce = new DChatEvent();
-			dce.tipo = new Integer(
-					DChatEvent.NUEVA_CONVERSACION
-							.intValue());
-			
-			try
-			{
-				dce.ip_vc = InetAddress.getLocalHost().getHostAddress();
-			}
-			catch (UnknownHostException e1)
-			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
-			dce.destinatario = new String(interlocutor);
-			enviarEvento(dce);
-		
-		}
-	}
-
 	/**
 	 * This method initializes arbolUsuario
 	 * 
@@ -1028,7 +978,6 @@ public class PanelPrincipal extends DComponenteBase
 			DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) modelo
 					.getRoot();
 
-			int idir_doc = dir.getId();
 			DefaultMutableTreeNode nodo = buscarFichero(raiz, dir.getId());
 
 			// tenemos que recorrer todos los directorios que cuelgan de dir
@@ -1147,11 +1096,18 @@ public class PanelPrincipal extends DComponenteBase
 	private FicheroBD getDocumentoSeleccionado()
 	{
 		TreePath camino = arbolDocumentos.getSelectionPath();
+		
+		
+		Object[] objetos = null;
+		
+		if (camino != null)
+			objetos = camino.getPath();
 
-		Object[] objetos = camino.getPath();
-
-		return (FicheroBD) ( (DefaultMutableTreeNode) objetos[objetos.length - 1] )
+		if (objetos != null && objetos.length > 0)
+			return (FicheroBD) ( (DefaultMutableTreeNode) objetos[objetos.length - 1] )
 				.getUserObject();
+		else 
+			return null;
 	}
 
 	private void accionAbrir()
@@ -1241,17 +1197,7 @@ public class PanelPrincipal extends DComponenteBase
 
 	}
 
-	/**
-	 * Devuelve una nueva instancia de la hebra que se encargara de procesar los
-	 * eventos que se reciban. Este metodo no debe llamarse de forma directa.
-	 * Sera llamado de forma automatica cuando sea necesario.
-	 * 
-	 * @return HebraProcesadoraBase Nueva hebra procesadora
-	 */
-	public HebraProcesadoraBase crearHebraProcesadora()
-	{
-		return new HebraProcesadora(this);
-	}
+
 
 	/**
 	 * Obtiene el numero de componentes hijos de este componente. SIEMPRE
@@ -1375,78 +1321,7 @@ public class PanelPrincipal extends DComponenteBase
 			comprobarPermisosDocumentoActual(dfe.fichero, true);
 
 		}
-		else if (evento.tipo.intValue() == DChatEvent.NUEVA_CONVERSACION
-				.intValue()
-				&& ( (DChatEvent) evento ).destinatario
-						.equals(DConector.Dusuario))
-		{
-
-			DChatEvent e = (DChatEvent) evento;
-
-			int res = JOptionPane.showConfirmDialog(this, "El usuario "
-					+ e.usuario + " solicita nueva conversaci—n. ÀAceptar?");
-			DChatEvent dce = new DChatEvent();
-
-			//JOptionPane.showMessageDialog(null, "Ip recibida: " + e.ip_vc);
-			
-			dce.tipo = new Integer(DChatEvent.RESPUESTA_NUEVA_CONVERSACION
-					.intValue());
-			dce.destinatario = e.usuario;
-			
-			if (res == 0)
-			{
-
-				dce.ok = new Boolean(true);
-				
-				try
-				{
-					dce.ip_vc = InetAddress.getLocalHost().getHostAddress();
-				}
-				catch (UnknownHostException e1)
-				{
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
-				if (vc == null){
-				}
-				vc.pack();
-				vc.setSize(568, 520);
-				vc.setInterlocutor(e.usuario);
-				vc.setIp(e.ip_vc);
-				vc.setVisible(true);
-				vc.esconderVC();
-			}
-			else dce.ok = new Boolean(false);
-
-			enviarEvento(dce);
-		}
-		else if (evento.tipo.intValue() == DChatEvent.RESPUESTA_NUEVA_CONVERSACION
-				.intValue()
-				&& ( (DChatEvent) evento ).destinatario
-						.equals(DConector.Dusuario))
-		{
-
-			DChatEvent e = (DChatEvent) evento;
-			
-			//JOptionPane.showMessageDialog(null, "Ip recibida: " + e.ip_vc);
-			
-			if (e.ok.booleanValue())
-			{
-				vc.pack();
-				vc.setSize(568, 520);
-				vc.setInterlocutor(e.usuario);
-				vc.setIp(e.ip_vc);
-				vc.setVisible(true);
-				vc.esconderVC();
-			}
-			else
-			{
-				JOptionPane
-						.showMessageDialog(null,
-								"El usuario ha rechazado la petici—n de nueva conversaci—n");
-			}
-		}
+		
 	}
 
 	private DefaultMutableTreeNode buscarFichero(DefaultMutableTreeNode n,
@@ -1516,114 +1391,6 @@ public class PanelPrincipal extends DComponenteBase
 	}
 		
 
-	/**
-	 * Hebra procesadora de eventos. Se encarga de realizar las acciones que
-	 * correspondan cuando recibe un evento. Tambén se encarga en su inicio de
-	 * sincronizar el componente.
-	 */
-	private class HebraProcesadora extends HebraProcesadoraBase
-	{
-
-		HebraProcesadora( DComponente dc )
-		{
-			super(dc);
-		}
-
-		public void run()
-		{
-/*			EventoComponenteEjemplo evento = null;
-			EventoComponenteEjemplo saux = null;
-			EventoComponenteEjemplo respSincr = null;
-			Vector<Object> vaux = new Vector<Object>();
-
-			// Obtenemos los eventos existentes en la cola de recepcion. Estos
-			// eventos
-			// se han recibido en el intervalo de tiempo desde que se envio la
-			// peticion
-			// de sincronizacion y el inicio de esta hebra procesadora
-			DEvent[] eventos = obtenerEventosColaRecepcion();
-			int numEventos = eventos.length;
-			int i = 0;
-
-			// Buscamos entre los eventos si hay alguno correspondiente a una
-			// respuesta de sincronizacion
-			for (int j = 0; j < numEventos; j++)
-			{
-				saux = (EventoComponenteEjemplo) eventos[j];
-				if (( respSincr == null )
-						&& ( saux.tipo.intValue() == EventoComponenteEjemplo.RESPUESTA_SINCRONIZACION
-								.intValue() ))
-				{
-					respSincr = saux;
-				}
-				else
-				{
-					vaux.add(saux);
-				}
-			}
-
-			if (respSincr != null)
-			{ // Se ha recibido respuesta de sincronizacion
-				// Al actualizar nuestro estado con el del componente que nos
-				// envia
-				// la respuesta de sincronizacion establecemos nuestro índice de
-				// cual
-				// ha sido el ultimo evento procesado al mismo que el componente
-				ultimoProcesado = new Integer(respSincr.ultimoProcesado
-						.intValue());
-			}
-
-			// Todos esos eventos que se han recibido desde que se mando la
-			// peticion
-			// de sincronizacion deben ser colocados en la cola de recepcion
-			// para
-			// ser procesados. Solo nos interesan aquellos con un número de
-			// secuencia
-			// posterior a ultimoProcesado. Los anteriores no nos interesan
-			// puesto
-			// que ya han sido procesados por el componente que nos mando la
-			// respuesta
-			// de sincronizacion.
-			numEventos = vaux.size();
-			for (int j = 0; j < numEventos; j++)
-			{
-				saux = (EventoComponenteEjemplo) vaux.elementAt(j);
-				if (saux.ultimoProcesado.intValue() > ultimoProcesado
-						.intValue())
-				{
-					procesarEvento(saux);
-				}
-			}
-
-			while (true)
-			{
-				// Extraemos un evento de la la cola de recepcion
-				// Si no hay ninguno se quedara bloqueado hasta que haya
-				evento = (EventoComponenteEjemplo) leerSiguienteEvento();
-				// Actualizamos nuestro indicado de cual ha sido el último
-				// evento
-				// que hemos procesado
-				ultimoProcesado = new Integer(evento.contador.intValue());
-				if (evento.tipo.intValue() == EventoComponenteEjemplo.SINCRONIZACION
-						.intValue())
-				{
-					// Creamos un nuevo evento
-					EventoComponenteEjemplo infoEstado = new EventoComponenteEjemplo();
-					// Establecemos el tipo del evento
-					infoEstado.tipo = new Integer(
-							EventoComponenteEjemplo.RESPUESTA_SINCRONIZACION
-									.intValue());
-					// Enviamos el evento
-					enviarEvento(infoEstado);
-				}
-				if (evento.tipo.intValue() == EventoComponenteEjemplo.EVENTO_ARBOL
-						.intValue())
-				{
-					// no hacemos nada
-				}
-			}*/
-
-		}
-	}
+	
 
 }

@@ -58,11 +58,12 @@ public class FramePanelDibujo extends DJFrame
 		this.setResizable(false);
 		this.addWindowListener(new FrameDrawPanel_this_windowAdapter(this));
 		lienzo = new DIPanelDibujo("panelDibujo", true, null);
-		lienzo.setPadre(this);
 		this.getContentPane().add(lienzo, BorderLayout.CENTER);
 
 		this.setTitle(".:: Panel Edici—n Compartido : " + DConector.Dusuario
 				+ " ::.");
+		
+		lienzo.setPadre(this);
 	}
 
 	void this_windowClosing(WindowEvent e)
@@ -91,10 +92,10 @@ public class FramePanelDibujo extends DJFrame
 
 			String path = this.getLienzo().getPathDocumento();
 
-			if (path != null && path != "")
+			/*if (path != null && path != "")
 				DConector.obtenerDC().cerrarFichero(path);
 
-			System.out.println("Cerrando el editor");
+			System.out.println("Cerrando el editor");*/
 		}
 		repaint();
 		validate();

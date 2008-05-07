@@ -1,36 +1,33 @@
 package Deventos.enlaceJS;
 
 import java.rmi.RemoteException;
-import java.util.*;
+import java.util.Date;
+import java.util.Random;
+import java.util.Vector;
 
 import javaspaces.ServiceLocator;
 import javaspaces.SpaceLocator;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import componentes.base.DComponente;
-import componentes.listeners.*;
-
+import metainformacion.ClienteMetaInformacion;
+import metainformacion.MICompleta;
+import net.jini.core.entry.UnusableEntryException;
+import net.jini.core.transaction.Transaction;
+import net.jini.core.transaction.TransactionException;
+import net.jini.core.transaction.TransactionFactory;
+import net.jini.core.transaction.server.TransactionManager;
+import net.jini.space.JavaSpace;
+import util.Fecha;
+import Deventos.ColaEventos;
+import Deventos.DEvent;
+import Deventos.DMIEvent;
 import aplicacion.fisica.ClienteFicheros;
 
-
-
-import Deventos.*;
-
-import metainformacion.*;
-
-import net.jini.core.entry.UnusableEntryException;
-import net.jini.core.lease.LeaseDeniedException;
-import net.jini.core.transaction.*;
-
-import net.jini.core.transaction.server.*;
-
-import net.jini.space.*;
-
-import util.*;
-
-import java.io.*;
+import componentes.base.DComponente;
+import componentes.listeners.DMIListener;
 
 /**
  * 
@@ -47,7 +44,7 @@ import java.io.*;
 public class DConector
 {
 
-	private static final Vector v = new Vector();
+	private static final Vector<DComponente> v = new Vector<DComponente>();
 
 	protected JavaSpace space = null;
 
@@ -103,9 +100,9 @@ public class DConector
 
 		new String(nombreJavaSpace);
 
-		this.Daplicacion = new String(aplicacion);
+		DConector.Daplicacion = new String(aplicacion);
 
-		this.dconector = this;
+		DConector.dconector = this;
 
 	}
 
@@ -125,9 +122,9 @@ public class DConector
 
 		new String("JavaSpace");
 
-		this.Daplicacion = new String(aplicacion);
+		DConector.Daplicacion = new String(aplicacion);
 
-		this.dconector = this;
+		DConector.dconector = this;
 
 	}
 
@@ -157,9 +154,9 @@ public class DConector
 
 		new String("JavaSpace");
 
-		this.Daplicacion = new String(aplicacion);
+		DConector.Daplicacion = new String(aplicacion);
 
-		this.dconector = this;
+		DConector.dconector = this;
 
 		this.tiempoSincronizacion = tiempoSincronizacion;
 
@@ -189,7 +186,7 @@ public class DConector
 
 			// Encargada de localizar el JavaSpace
 
-			HebraLocalizadora hl = new HebraLocalizadora(this, "JavaSpace");
+			new HebraLocalizadora(this, "JavaSpace");
 
 			// Espera un tiempo la localizacion del JavaSpace. En caso de no
 
@@ -197,7 +194,7 @@ public class DConector
 
 			// programa se quede atrancado
 
-			HebraDetectoraError hde = new HebraDetectoraError(this, 10);
+			new HebraDetectoraError(this, 10);
 
 			// Espera un evento sobre la inicializacion
 
@@ -522,7 +519,7 @@ public class DConector
 		try
 		{
 
-			Thread.currentThread().sleep(tiempoSincronizacion); // *****************************************************
+			Thread.sleep(tiempoSincronizacion); // *****************************************************
 
 		}
 
@@ -563,8 +560,6 @@ public class DConector
 		// ************************************************************************
 
 		cmi.addDMIListener(new ListenerMI());
-
-		MIComponente c = null;
 
 		DMIEvent broadCast = new DMIEvent();
 
@@ -608,7 +603,7 @@ public class DConector
 		
 		try
 		{
-			tk =  (TokenFichero) space.take(plantilla, null, 2000L);
+			tk =  (TokenFichero) space.take(plantilla, null, 5000L);
 		}
 		catch (RemoteException e)
 		{
@@ -635,16 +630,22 @@ public class DConector
 		//	2.1. Creamos el token
 		//  2.2. Devolvemos false
 		if (tk == null) {
+			
+			System.err.println("El token para el fichero " + fichero +" no existe: creando nuevo token");
+			
 			tk = new TokenFichero();
 			tk.Fichero = new String(fichero);
 			tk.aplicacion = new String(Daplicacion+"_");
 			tk.sec = new Long(1L);
 			tk.nuevoUsuario();
+			
 			return false;
 		}
 		//3. Si existe el token
-		//	3.1. Devolvemos true
+		//	3.1. Incrementamos el numero de usuarios que actualmente estan anotando en el documento 
+		//  3.2. Devolvemos true
 		else {
+			System.err.println("El token para el " + fichero + " existe: incrementando el contador de usuarios");
 			tk.nuevoUsuario();
 			tk.sec = new Long(tk.sec.longValue()+1L);
 			return true;
@@ -654,7 +655,8 @@ public class DConector
 	public boolean escribirToken(){
 		try
 		{
-			space.write(tk, null, 10000L);
+			space.write(tk, null, Long.MAX_VALUE);
+			System.err.println("escribiendo el token");
 			return true;
 		}
 		catch (RemoteException e)
@@ -677,6 +679,8 @@ public class DConector
 		plantilla.Fichero = new String(fichero);
 		plantilla.aplicacion = new String(Daplicacion+"_");
 		
+		System.err.println("Decrementando el numero de usuaris del documento");
+		
 		try
 		{
 			// buscamos el token en el JS
@@ -684,6 +688,8 @@ public class DConector
 			
 			//Si existe el token:
 			if (tk != null) {
+				
+				System.err.println("Numero de usuarios activos " +  (tk.NumUsuarios-1));
 				
 				// si todav’a quedan usuarios editando ese documento
 				if (tk.NumUsuarios.intValue() > 1) {
@@ -803,77 +809,6 @@ public class DConector
 
 		return v.size();
 
-	}
-	
-	
-	
-	public TokenFichero buscarTokenFichero(String path) {
-		TokenFichero t = null, plantilla = new TokenFichero(Daplicacion, path);
-		
-		Transaction.Created txnC;
-		try
-		{
-			t = (TokenFichero) space.take(plantilla, null, 10000L);
-			
-			if (t == null) {
-				JOptionPane.showMessageDialog(null, "no se ha encontrado el token");
-				t = new TokenFichero(Daplicacion, path);
-				t.sincronizar = new Boolean(false);
-			}
-			else {
-				t.sincronizar= new Boolean(true);
-			}
-			
-			return t;
-		}
-		catch (RemoteException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (UnusableEntryException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (TransactionException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (InterruptedException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		
-		return t;
-	}
-	
-	public boolean devolverTokenFichero(TokenFichero tf) {
-		try
-		{
-			space.write(tf, null, Long.MAX_VALUE);
-		}
-		catch (RemoteException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (TransactionException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		if (tf == null) {
-			JOptionPane.showMessageDialog(null, "Error al escribir el token");
-			return false;
-		}
-		else 
-			return true;
 	}
 	
 
@@ -1022,7 +957,7 @@ public class DConector
 			try
 			{
 
-				Thread.currentThread().sleep(tiempoEspera * 1000);
+				Thread.sleep(tiempoEspera * 1000);
 
 				if (!conector.monitor.getInicializado())
 				{
@@ -1222,8 +1157,6 @@ public class DConector
 
 		public void run()
 		{
-
-			int i = 0;
 
 			DEvent evento = null;
 

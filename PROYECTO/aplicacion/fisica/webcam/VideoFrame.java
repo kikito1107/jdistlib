@@ -4,13 +4,15 @@
  * Created on 11 de abril de 2008, 19:20
  */
 package aplicacion.fisica.webcam;
+
+
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.Image;
+
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,7 +21,11 @@ import javax.swing.JOptionPane;
 public class VideoFrame extends JFrame
 {
 
-    ImageComponent img_remota = new ImageComponent(this);
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6810880621391638536L;
+	ImageComponent img_remota = new ImageComponent(this);
     ImageComponent img_local = new ImageComponent(this);
     boolean init = false;
     String ip = null;
@@ -34,7 +40,7 @@ public class VideoFrame extends JFrame
         jButton1 = new javax.swing.JButton();
         ini_stop = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
         webcamPanel.setBackground(new java.awt.Color(102, 102, 102));
@@ -113,7 +119,7 @@ public class VideoFrame extends JFrame
     }// </editor-fold>//GEN-END:initComponents
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        System.exit(0);
+        //System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void ini_stopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ini_stopActionPerformed
@@ -268,7 +274,9 @@ public class VideoFrame extends JFrame
     public static void main(String args[])
     {
         VideoConferencia.establecerOrigen();
-        String ip = JOptionPane.showInputDialog("Inserte IP de otro ordenador");
+        //String ip = JOptionPane.showInputDialog("Inserte IP de otro ordenador");
+        
+        String ip = "localhost";
         new VideoFrame(ip).run();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

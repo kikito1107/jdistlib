@@ -5,18 +5,15 @@ import java.awt.Dimension;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import componentes.base.DJChat;
-
-import Deventos.DChatEvent;
-import Deventos.DEvent;
 import Deventos.DJChatEvent;
 import Deventos.enlaceJS.DConector;
+
+import componentes.base.DJChat;
 
 public class PanelChatPrivado extends JPanel
 {
@@ -28,7 +25,6 @@ public class PanelChatPrivado extends JPanel
 	private JTextArea textoChat = null;
 	private JPanel panel = null;
 	private String destinatario = null;
-	private VentanaChat ventana = null;
 	private DJChat padre = null;
 	/**
 	 * This is the default constructor
@@ -179,27 +175,7 @@ public class PanelChatPrivado extends JPanel
 		return panel;
 	}
 	
-	public void procesarEvento(DEvent e){
-		
-		DChatEvent dce = (DChatEvent) e;
-		
-		if (dce.tipo.intValue() == DChatEvent.NUEVO_MENSAJE.intValue()
-				&& (dce.destinatario.equals(DConector.Dusuario ) || dce.usuario.equals(DConector.Dusuario ))){
-			
-			textoChat.setText( textoChat.getText() + "\n[" + dce.usuario + "]: " + dce.mensaje );
-		}
-		else if (e.tipo.intValue() == DChatEvent.FIN_CONVERSACION.intValue()
-				&& ( (DChatEvent) e ).destinatario.equals(DConector.Dusuario))
-		{
-			if (ventana == null)
-				JOptionPane.showMessageDialog(null, "VENTANANAKSFJDSL");
-			else {
-				ventana.setVisible(false);
-				ventana.dispose();
-			}
-		}
-		
-	}
+	
 
 	public void setDestinatario(String d)
 	{

@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.MediaTracker;
-import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -30,18 +28,13 @@ import aplicacion.fisica.eventos.DDocumentEvent;
 import aplicacion.fisica.net.Transfer;
 import aplicacion.fisica.net.TransferP2P;
 
-import componentes.base.DComponente;
 import componentes.base.DComponenteBase;
-import componentes.base.HebraProcesadoraBase;
 import componentes.gui.imagen.figuras.Elipse;
 import componentes.gui.imagen.figuras.Figura;
 import componentes.gui.imagen.figuras.Linea;
 import componentes.gui.imagen.figuras.Rectangulo;
 import componentes.gui.imagen.figuras.Texto;
 import componentes.gui.imagen.figuras.TrazoManoAlzada;
-import componentes.listeners.DJLienzoListener;
-import componentes.listeners.LJLienzoListener;
-import componentes.listeners.LJViewerListener;
 
 
 /**
@@ -54,6 +47,11 @@ public class DILienzo extends DIViewer implements MouseListener,
 {
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6690106456671059169L;
+
 	/**
 	 * Ventana en la que se dibuja el lienzo
 	 */
@@ -114,16 +112,6 @@ public class DILienzo extends DIViewer implements MouseListener,
     int x1,y1;
     int x2,y2;
     
-    // Listeners
-	private Vector dj_lienzo_listeners = new Vector(5);
-	private Vector lj_lienzo_listeners = new Vector(5);
-	private Vector luj_lienzo_listeners = new Vector(5);
-    
-	/**
-	 * Hebra encargada del procesamiento de los eventos
-	 */
-    private HebraProcesadoraBase hebraProcesadora = null;
-    
 	/**
 	 * identificador del lienzo
 	 */
@@ -133,6 +121,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 	 * indica el zoom actual aplicado al documento
 	 */
 	private float zoom = 1;
+	
 	
     /**
      * Constructor de la clase
@@ -159,49 +148,6 @@ public class DILienzo extends DIViewer implements MouseListener,
 		}
 	}
 
-	/**
-	 * Establece la imagen de fondo con la que se trabajará
-	 * @param img objeto imagen que se quiere establecer como fondo
-	 */
-	public void setImagen(Image img) {
-		MediaTracker mediatracker = new MediaTracker(this);
-		mediatracker.addImage(img, 0);
-		
-		try{
-			mediatracker.waitForID(0);
-			//this.limpiarLienzo();
-			repaint();
-		}
-		catch(InterruptedException ex){
-			ex.printStackTrace();
-		}
-	}
-	
-	/**
-	 * Establece la imagen de fondo con la que se trabajará
-	 * @param filename path de la imagen que se quiere establecer como fondo
-	 */
-	public void setImagen(String filename) {
-		MediaTracker mediaTracker = new MediaTracker(this);
-		Image imagen = Toolkit.getDefaultToolkit().getImage(filename);
-		paginaActual++;
-		
-		System.out.println("Agregada imagen numero " + paginaActual);
-		
-		mediaTracker.addImage(imagen, 0);
-		try
-		{
-			mediaTracker.waitForID(0);
-			doc.addPagina(imagen);
-			repaint();
-		}
-		catch (InterruptedException ie)
-		{
-			System.err.println(ie);
-		}
-		
-	}
-
 	
 	/**
 	 * Establece el color actual para dibujar
@@ -226,6 +172,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 	public void setDocumento(Documento nuevo) {
 		doc = nuevo;
 		paginaActual = 1;
+		anotacionSeleccionada = -1;
 		
 		repaint();
 	}
@@ -235,9 +182,8 @@ public class DILienzo extends DIViewer implements MouseListener,
 	 * @param trazo tipo de trazo
 	 */
 	public void setTrazo(int trazo) {
-		if (trazo == DILienzo.LINEAS) {
+		if (trazo == DILienzo.LINEAS)
 			modoDibujo = DILienzo.LINEAS;
-		}
 		else if (trazo == DILienzo.MANO_ALZADA)
 			modoDibujo = DILienzo.MANO_ALZADA;
 		else if (trazo == DILienzo.TEXTO)
@@ -254,7 +200,6 @@ public class DILienzo extends DIViewer implements MouseListener,
 	 */
 	private void init() throws Exception
 	{
-		addDJLienzoListener(new Listener());
 		
 		this.createToolTip();
 		
@@ -288,21 +233,27 @@ public class DILienzo extends DIViewer implements MouseListener,
 	}
 
 	/**
+	 * Selecciona la n-ésima anotacion de la pagina actual del documento
 	 * @param anotacionSeleccionada the objetoSeleccionado to set
 	 */
-	public void setObjetoSeleccionado(int objeto)
+	public void setObjetoSeleccionado(int n)
 	{
-		if (objeto > -1 && objeto < doc.getPagina(paginaActual-1).getAnotaciones().size() ) {
-			this.anotacionSeleccionada = objeto;
-			repaint();
-		}
-		else if (objeto > -1 && objeto >= doc.getPagina(paginaActual-1).getAnotaciones().size()) {
+		int numObjetos = doc.getPagina(paginaActual-1).getAnotaciones().size();
+		
+		System.out.println("Objeto seleccionado " + this.anotacionSeleccionada);
+		
+		if (n == -2)
+			this.anotacionSeleccionada = numObjetos;
+		
+		if (n >= 0 && n < numObjetos)
+			this.anotacionSeleccionada = n;
+		
+		if (n == numObjetos)
 			this.anotacionSeleccionada = 0;
-			repaint();
-		}
-		else
-			this.anotacionSeleccionada = 0;
-		//System.out.println("valor objeto seleccionado " + this.objetoSeleccionado);
+		if (n == -1)
+			this.anotacionSeleccionada = numObjetos-1;
+		
+		repaint();
 	}
 	
 	/**
@@ -338,27 +289,13 @@ public class DILienzo extends DIViewer implements MouseListener,
 			
 			doc.getPagina(paginaActual-1).getAnotaciones().add(objeto);
 			
+			anotacionSeleccionada = doc.getPagina(paginaActual-1).getAnotaciones().size();
+			
 			repaint();
 		}
 		
 	}
 
-	/**
-	 * Borra una página del documento
-	 * @param i número de la página a borrar (entre 0 y numPaginas-1)
-	 */
-	public void borrarPagina(int i)	{
-		doc.delPagina(i);
-		
-		// afecta al nuevo orden de páginas
-		if (paginaActual-1 > i )
-			paginaActual--;
-		else if(i==0 && paginaActual-1==i)
-			paginaActual = 1;
-		
-		repaint();
-		System.gc();
-	}
 
 	/**
 	 * Devuelve el número de la página actual
@@ -669,14 +606,12 @@ public class DILienzo extends DIViewer implements MouseListener,
 	//******************** REPINTADO DEL LIENZO *****************************
 	//***********************************************************************
 	public void paint (Graphics g) {
-		
-		
 		if (doc != null && doc.getNumeroPaginas() > 0) {
 		
 			try{
 				Image imagen = doc.getPagina(paginaActual-1).getImagen();
-				int img_w = (int)((float)imagen.getWidth(null) );
-				int img_h = (int)((float)imagen.getHeight(null) );
+				int img_w = imagen.getWidth(null);
+				int img_h = imagen.getHeight(null);
 				
 				int lienzo_w = this.getWidth();
 				int lienzo_h = this.getHeight();
@@ -770,7 +705,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 
 	/**
 	 * Deshace el ultimo trazo realizado en el lienzo
-	 * @param i 
+	 * @param i página
 	 */
 	public void deshacer(int i) {
 		// si se ha dibujado algo...
@@ -791,7 +726,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 	
 	
 	/**
-	 * Elimina todos los trazos realizados en el lienzo hasta el momento
+	 * Elimina todas las trazos realizados en el lienzo hasta el momento
 	 */
 	public void limpiarLienzo() {
 		
@@ -840,9 +775,6 @@ public class DILienzo extends DIViewer implements MouseListener,
 			e.tipo = new Integer(DJLienzoEvent.SINCRONIZACION.intValue());
 			e.path = new String(doc.getPath());
 			
-			String ip = null;//
-			
-			
 			if (!DConector.obtenerDC().leerToken(doc.getPath())){
 				
 				Transfer t = new Transfer(ClienteFicheros.ipConexion, doc.getPath() );
@@ -851,11 +783,20 @@ public class DILienzo extends DIViewer implements MouseListener,
 				
 				if (p!= null)
 					doc = p;
-				else JOptionPane.showMessageDialog(this.padre, "Error al cargar el fichero "+doc.getPath()+" desde el servidor");
+				else {
+					JOptionPane.showMessageDialog(this.padre, "Error al cargar el fichero "+doc.getPath()+" desde el servidor");
+					
+					if (padre != null)
+						padre.dispose();
+				}
 				
 				
 				e.sincronizarFichero = new Boolean(false);
 				this.sincronizada = true;
+				
+				if (!DConector.obtenerDC().escribirToken()) {
+					JOptionPane.showMessageDialog(padre, "Error al guardar el token");
+				}
 			}
 			else {
 				e.sincronizarFichero = new Boolean(true);
@@ -863,123 +804,14 @@ public class DILienzo extends DIViewer implements MouseListener,
 			}
 			
 			this.enviarEvento(e);
-			
-			//DConector.obtenerDC().devolverTokenFichero( tk );
-			if (!DConector.obtenerDC().escribirToken())
-				JOptionPane.showMessageDialog(padre, "Error al guardar el token");
 				
 		 }
 	}
-	
-	
-	//***********************************************************************
-	//**************************** LISTENERS ********************************
-	//***********************************************************************
-	
-	/**
-	 * Clase encargada de estar a la "escucha" de los eventos de lienzo 
-	 * @author Ana Belen Pelegrina Ortiz
-	 */
-	private class Listener implements DJLienzoListener 
-	{
 
-		public void cargado(DJLienzoEvent evento) {
-			enviarEvento(evento);
-		}
-	}
-	
-
-	/**
-	 * Agrega un nuevo listener
-	 * @param dvl nuevo listener a agregar DJ
-	 */
-	public void addDJLienzoListener(DJLienzoListener dvl)
-	{
-		dj_lienzo_listeners.add(dvl);
-	}
-	
-	/**
-	 * Agrega un nuevo listener
-	 * @param lvl nuevo listener a agregar LJ
-	 */
-	public void addLJLienzoListener(LJLienzoListener lvl)
-	{
-		lj_lienzo_listeners.add(lvl);
-	}
-	
-	/**
-	 * Agrega un nuevo listener LUJ
-	 * @param lvl nuevo listener a agregar
-	 */
-	public void addLUJLienzoListener(LJLienzoListener lvl)
-	{
-		luj_lienzo_listeners.add(lvl);
-	}
-	
-	/**
-	 * Permite recuperar los listeners DJ
-	 * @returm los listener
-	 */
-	public Vector getDJLienzoListeners()
-	{
-		return dj_lienzo_listeners;
-	}
-	
-	/**
-	 * Permite recuperar los listeners LJ
-	 * @returm los listener
-	 */
-	public Vector getLJLienzoListeners()
-	{
-		return lj_lienzo_listeners;
-	}
-	
-	/**
-	 * Permite recuperar los listeners LUJ
-	 * @returm los listener
-	 */
-	public Vector getLUJLienzoListeners()
-	{
-		return luj_lienzo_listeners;
-	}
-	
-	/**
-	 * Elimina los listeners DJ
-	 */
-	public void removeDJLienzoListeners()
-	{
-		dj_lienzo_listeners.removeAllElements();
-	}
-
-	/**
-	 * Elimina los listeners LJ
-	 */
-	public void removeLJLienzoListeners()
-	{
-		lj_lienzo_listeners.removeAllElements();
-	}
-	
-	/**
-	 * Elimina los listeners LUJ
-	 */
-	public void removeLUJLienzoListeners()
-	{
-		luj_lienzo_listeners.removeAllElements();
-	}
 	
 	//***********************************************************************
 	//******************* PROCESAMIENTO DE EVENTOS **************************
 	//***********************************************************************
-	
-	/**
-	 * Inicia la hebra procesadora de eventos
-	 */
-	public void iniciarHebraProcesadora()
-	{
-		hebraProcesadora = new HebraProcesadora(this);
-		hebraProcesadora.iniciarHebra();
-	}
-	
 	
 	/**
 	 * Procesa un evento recibido
@@ -1045,19 +877,6 @@ public class DILienzo extends DIViewer implements MouseListener,
 				}
 				
 				repaint();
-				
-				Vector v = getLJLienzoListeners();
-				for (int i = 0; i < v.size(); i++) 
-				{
-				 ( (LJViewerListener) v.elementAt(i)).cargado();
-				}
-	
-				  if(evento.usuario.equals(DConector.Dusuario)){
-					 v = getLUJLienzoListeners();
-					 for (int i = 0; i < v.size(); i++) {
-						( (LJViewerListener) v.elementAt(i)).cargado();
-					 }
-				  }
 			}
 		}
 		
@@ -1078,14 +897,15 @@ public class DILienzo extends DIViewer implements MouseListener,
 					this.setDocumento(puente);
 					sincronizada = true;
 				}
+				
+				if (!DConector.obtenerDC().escribirToken())
+					JOptionPane.showMessageDialog(padre, "Error al guardar el token");
 			}
 		}	
 		
 		else if (evento.tipo.intValue() == DJLienzoEvent.NUEVA_ANOTACION.intValue())
 		 {
 			DJLienzoEvent evt = (DJLienzoEvent ) evento;
-			
-			//JOptionPane.showMessageDialog(null, "Recibida nueva anotacion para el fichero " + evt.path);
 			
 			if(evt.path != null &&evt.path.equals(doc.getPath()) &&
 					!evento.usuario.equals(DConector.Dusuario)) {
@@ -1130,13 +950,6 @@ public class DILienzo extends DIViewer implements MouseListener,
 			if(evt.path != null && evt.path.equals(doc.getPath()))
 				this.rehacer();
 		}
-		else if (evento.tipo.intValue() == DJLienzoEvent.BORRAR_IMAGEN.intValue()
-				&& !evento.usuario.equals(DConector.Dusuario)) {
-			DJLienzoEvent evt = (DJLienzoEvent ) evento;
-			
-			if(evt.path != null && evt.path.equals(doc.getPath()))
-			this.borrarPagina(evt.numPagina.intValue()-1);
-		}
 		else if (evento.tipo.intValue() ==DDocumentEvent.RESPUESTA_FICHERO.intValue()
 				// nos aseguramos que el evento esté dirigido a nosotros
 				&& evento.usuario.equals(DConector.Dusuario)) {
@@ -1154,73 +967,4 @@ public class DILienzo extends DIViewer implements MouseListener,
 		}
 	}
 	
-	
-	/**
-	 * Hebra que se encarga de procesar los eventos asociados al lienzo
-	 * @author Ana Belen Pelegrina Ortiz
-	 */
-	private class HebraProcesadora extends HebraProcesadoraBase 
-	{
-
-		/**
-		 * Contructor de la clase
-		 * @param dc componente cuyos eventos van a ser procesados
-		 */
-		HebraProcesadora(DComponente dc) 
-		{
-			super(dc);
-		}
-
-		/**
-		 * Inicia la ejecucion de la hebra
-		 */
-		public void run() 
-		{
-			DJLienzoEvent evento = null;
-			DJLienzoEvent saux = null;
-			DJLienzoEvent respSincr = null;
-			Vector vaux = new Vector();
-
-			DEvent[] eventos = obtenerEventosColaRecepcion();
-			int numEventos = eventos.length;
-			int i = 0;
-
-			// Buscamos si se ha recibido una respuesta de sincronizacion
-			for (int j = 0; j < numEventos; j++) 
-			{
-				saux = (DJLienzoEvent) eventos[j];
-				if ( 
-						(saux.tipo.intValue() == DJLienzoEvent.RESPUESTA_SINCRONIZACION.intValue())) 
-					respSincr = saux;
-				else 
-					vaux.add(saux);
-			}
-
-			activar();
-
-			if (respSincr != null) 
-			{ // Se ha recibido respuesta de sincronizacion
-				ultimoProcesado = new Integer(respSincr.ultimoProcesado.intValue());
-				setImagen(respSincr.imagen.getImage());
-			}
-
-			// Colocamos en la cola de recepcion los eventos que deben ser
-			// procesados (recibidos mientras se realizaba la sincronizacion )
-			numEventos = vaux.size();
-			for (int j = 0; j < numEventos; j++) 
-			{
-				saux = (DJLienzoEvent) vaux.elementAt(j);
-				if (saux.ultimoProcesado.intValue() > ultimoProcesado.intValue()) {
-					procesarEvento(saux);
-				}
-			}
-
-			while (true) 
-			{
-				evento = (DJLienzoEvent) leerSiguienteEvento();
-				ultimoProcesado = new Integer(evento.contador.intValue());
-				procesarEvento(evento);
-			}
-		}
-	}
 }

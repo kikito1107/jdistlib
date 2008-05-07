@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Calendar;
 
 import javax.swing.ImageIcon;
@@ -187,6 +189,8 @@ public class DChatPlugin extends DAbstractPlugin
 							
 							chat.enviarEvento(evento);
 						}
+						else 
+							JOptionPane.showMessageDialog(null, "No puedes mantener una conversación contigo mismo");
 					}
 				});
 			}
@@ -211,11 +215,27 @@ public class DChatPlugin extends DAbstractPlugin
 				{
 					public void actionPerformed(java.awt.event.ActionEvent e)
 					{
-						JOptionPane.showMessageDialog(ventanaChat, "Aki habría que iniciar " +
-								"una VideoConferencia privada con " + arbol.getUsuarioSeleccionado());
+						String user = arbol.getUsuarioSeleccionado(); 
 						
-						if (arbol.getUsuarioSeleccionado() != null){
-							//TODO iniciar videoconferencia
+						if (user != null && user != DConector.Dusuario){
+							
+							DJChatEvent ev = new DJChatEvent();
+							
+							ev.tipo = new Integer(DJChatEvent.INICIAR_VC.intValue());
+							try
+							{
+								ev.ipVC = InetAddress.getLocalHost().getHostAddress();
+								ev.receptor = new String(user);
+								
+								chat.enviarEvento(ev);
+								
+							}
+							catch (UnknownHostException e1)
+							{
+								JOptionPane.showMessageDialog(null, "Ha ocurrido un error en la comunicación. Inténtelo más tarde");
+								return;
+							}
+							
 						}
 					}
 				});
@@ -374,8 +394,5 @@ public class DChatPlugin extends DAbstractPlugin
 			}
 			return botonFuente;
 		}
-
-
 	}
-
 }

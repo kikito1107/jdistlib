@@ -27,7 +27,6 @@ public class DPizarraPlugin extends DAbstractPlugin
 		super("pizarra plugin", false, null);
 		ventanaPizarra = new DJFrame(true,"mousesRemotos3");
 		init();
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -39,7 +38,6 @@ public class DPizarraPlugin extends DAbstractPlugin
 	@Override
 	public void init() throws Exception
 	{
-		// TODO Auto-generated method stub
 		version = 5;
 		nombre = "Pizarra";
 		jarFile = "ejemplo.jar";

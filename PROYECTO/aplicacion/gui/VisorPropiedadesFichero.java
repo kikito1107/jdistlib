@@ -1,25 +1,21 @@
 package aplicacion.gui;
 
-import javax.swing.JPanel;
-import java.awt.Frame;
-import java.awt.BorderLayout;
-import javax.swing.JDialog;
 import java.awt.Dimension;
-import javax.swing.JTextField;
-import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
+import java.awt.Frame;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 
-import javax.swing.JCheckBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.BorderFactory;
-import javax.swing.border.TitledBorder;
-import javax.swing.border.BevelBorder;
-import java.awt.Insets;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
 
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.documentos.FicheroBD;
@@ -97,16 +93,6 @@ public class VisorPropiedadesFichero extends JDialog
 	{
 		this.setSize(246, 357);
 		this.setContentPane(getJContentPane());
-		this.addKeyListener(new java.awt.event.KeyAdapter()
-		{   
-			public void keyTyped(java.awt.event.KeyEvent e) {    
-				System.out.println("keyTyped()"); // TODO Auto-generated Event stub keyTyped()
-			}
-			public void keyPressed(java.awt.event.KeyEvent e)
-			{
-				System.out.println("keyPressed()"); // TODO Auto-generated Event stub keyPressed()
-			}
-		});
 	}
 
 	/**
@@ -522,7 +508,7 @@ public class VisorPropiedadesFichero extends JDialog
 	
 	
 	private void verPropiedades(){
-		setTitle("Introduce el texto");
+		setTitle("Propiedades " + this.fichero.getNombre());
 		
 		 setSize(246, 357);
 		 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -535,6 +521,8 @@ public class VisorPropiedadesFichero extends JDialog
 		 }
 		 setLocation( (screenSize.width - frameSize.width) / 2,
 						 (screenSize.height - frameSize.height) / 2);
+		 
+		 this.setResizable(false);
 		
 		 this.setModal(true);
 		 

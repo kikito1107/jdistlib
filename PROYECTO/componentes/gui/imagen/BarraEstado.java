@@ -1,20 +1,16 @@
 package componentes.gui.imagen;
 
-import java.awt.GridBagLayout;
-import javax.swing.JPanel;
-import java.awt.Dimension;
-import javax.swing.JProgressBar;
-import java.awt.GridBagConstraints;
-import javax.swing.JTextField;
-import java.awt.Insets;
-import javax.swing.JLabel;
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.Color;
-import javax.swing.JButton;
-import javax.swing.ImageIcon;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 
-import aplicacion.fisica.documentos.Documento;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class BarraEstado extends JPanel
 {

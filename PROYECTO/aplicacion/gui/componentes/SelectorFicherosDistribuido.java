@@ -136,10 +136,15 @@ public class SelectorFicherosDistribuido extends JDialog
 			new SelectorFicherosDistribuido( owner, raiz );
 		
 		String path = sfd.getPath();
-		Transfer ts = new Transfer(ClienteFicheros.ipConexion, path);
-		Documento d = ts.receive();
 		
-		return d;
+		if (path != null && path != ""){
+		
+			Transfer ts = new Transfer(ClienteFicheros.ipConexion, path);
+			Documento d = ts.receive();
+			return d;
+		}
+		else
+			return null;
 	}
 	
 	public String getPath(){
