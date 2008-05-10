@@ -14,8 +14,6 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 
-import componentes.gui.chat.PanelChatPrivado;
-
 /**
  *
  * @author  carlosrodriguezdominguez
