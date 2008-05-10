@@ -1020,14 +1020,19 @@ public class PanelPrincipal extends DComponenteBase
 				{
 					FicheroBD f = VisorPropiedadesFichero.verInfoFichero(
 							getDocumentoSeleccionado(), null);
+					
 					if (f != null)
 					{
 						DFileEvent evento = new DFileEvent();
 						evento.fichero = f;
 						
-						DefaultMutableTreeNode r = (DefaultMutableTreeNode)arbolDocumentos.getModel().getRoot();
+						DefaultMutableTreeNode r = (DefaultMutableTreeNode)getNodoSeleccionado().getParent();
 						
-						evento.padre = buscarDirectorioPadre((DefaultMutableTreeNode)r.getChildAt(0), f.getId());
+						evento.padre = (FicheroBD)r.getUserObject(); 
+						
+						//evento.padre = buscarDirectorioPadre((DefaultMutableTreeNode)r.getChildAt(0), f.getId());
+						
+						System.err.println("directorio padre: " + evento.padre.getNombre());
 						
 						evento.tipo = new Integer(
 								DFileEvent.NOTIFICAR_MODIFICACION_FICHERO
@@ -1111,6 +1116,20 @@ public class PanelPrincipal extends DComponenteBase
 				.getUserObject();
 		else 
 			return null;
+	}
+	
+	private DefaultMutableTreeNode getNodoSeleccionado(){
+		TreePath camino = arbolDocumentos.getSelectionPath();
+		
+		Object[] objetos = null;
+		
+		if (camino != null)
+			objetos = camino.getPath();
+
+		if (objetos != null && objetos.length > 0)
+			return (DefaultMutableTreeNode) objetos[objetos.length - 1];
+		else 
+			return null;	
 	}
 
 	private void accionAbrir()
@@ -1293,18 +1312,18 @@ public class PanelPrincipal extends DComponenteBase
 			DefaultMutableTreeNode nodo = buscarFichero(raiz, id_doc);
 			
 			if (nodo == null){
+				
 				if (dfe.fichero.comprobarPermisos(DConector.Dusuario, DConector.Drol, FicheroBD.PERMISO_LECTURA)){
-					DefaultMutableTreeNode padre = buscarFichero(raiz, dfe.padre.getId());
 					
+					DefaultMutableTreeNode padre = buscarFichero(raiz, dfe.padre.getId());					
 					modelo.insertNodeInto(new DefaultMutableTreeNode(dfe.fichero), padre, modelo.getChildCount(padre));
 				}
 			}
-			else {
-				if (dfe.fichero.comprobarPermisos(DConector.Dusuario, DConector.Drol, FicheroBD.PERMISO_LECTURA))
-					nodo.setUserObject(dfe.fichero);
-				else 
-					modelo.removeNodeFromParent(nodo);
-			}
+			else if (dfe.fichero.comprobarPermisos(DConector.Dusuario, DConector.Drol, FicheroBD.PERMISO_LECTURA))
+				nodo.setUserObject(dfe.fichero);
+			else 
+				modelo.removeNodeFromParent(nodo);
+			
 			comprobarPermisosDocumentoActual(dfe.fichero, false);
 
 		}
@@ -1355,13 +1374,13 @@ public class PanelPrincipal extends DComponenteBase
 	
 	private FicheroBD buscarDirectorioPadre(DefaultMutableTreeNode n, int id){
 
+		System.err.println("comparando: " + n.getUserObject());
 		
 			if (n!= null&&!n.isRoot() && ((FicheroBD)n.getUserObject()).getId() == id)
 				return (FicheroBD)n.getUserObject();
 		
 			if (n!=null && n.getChildCount() > 0)
 			{
-				
 				FicheroBD nodo = null;
 
 				for (int i = 0; i < n.getChildCount(); ++i)
@@ -1369,7 +1388,8 @@ public class PanelPrincipal extends DComponenteBase
 					nodo = buscarDirectorioPadre((DefaultMutableTreeNode) n
 							.getChildAt(i), id);
 
-					if (nodo != null) return (FicheroBD)n.getUserObject();
+					if (nodo != null) 
+						return (FicheroBD)n.getUserObject();
 				}
 				return null;
 			}
