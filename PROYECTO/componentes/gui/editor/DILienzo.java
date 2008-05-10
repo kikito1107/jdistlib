@@ -1,4 +1,4 @@
-package componentes.gui.imagen;
+package componentes.gui.editor;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -779,10 +779,14 @@ public class DILienzo extends DIViewer implements MouseListener,
 				
 				Transfer t = new Transfer(ClienteFicheros.ipConexion, doc.getPath() );
 
-				Documento p = t.receive();
+				Documento p = t.receiveDocumento();
 				
-				if (p!= null)
+				if (p!= null) {
+					p.setDatosBD(doc.getDatosBD());
 					doc = p;
+					
+					repaint();
+				}
 				else {
 					JOptionPane.showMessageDialog(this.padre, "Error al cargar el fichero "+doc.getPath()+" desde el servidor");
 					
@@ -894,7 +898,9 @@ public class DILienzo extends DIViewer implements MouseListener,
 				Documento puente = tf.receive();
 				
 				if(puente != null) {
+					puente.setDatosBD(doc.getDatosBD());
 					this.setDocumento(puente);
+					repaint();
 					sincronizada = true;
 				}
 				
@@ -960,7 +966,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 			if(evt.path != null && evt.path.equals(doc.getPath())) {
 				Transfer ts = new Transfer(evt.direccionRespuesta, evt.path);
 				
-				doc = ts.receive();
+				doc = ts.receiveDocumento();
 				
 				repaint();
 			}

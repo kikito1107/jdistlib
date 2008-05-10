@@ -46,7 +46,7 @@ import aplicacion.plugin.DPluginLoader;
 
 import componentes.base.DComponente;
 import componentes.base.DComponenteBase;
-import componentes.gui.imagen.FramePanelDibujo;
+import componentes.gui.editor.FramePanelDibujo;
 import componentes.gui.usuarios.ArbolUsuariosConectadosRol;
 
 
@@ -128,6 +128,9 @@ public class PanelPrincipal extends DComponenteBase
 	private JButton botonSubir = null;
 	
 	Vector<DAbstractPlugin> v = null;
+	
+	
+	
 	
 	private JButton getButonSubir()
 	{
@@ -1147,6 +1150,7 @@ public class PanelPrincipal extends DComponenteBase
 		}
 
 		Documento p = new Documento();
+		p.setDatosBD(this.getDocumentoSeleccionado());
 		p.setPath(path);
 		
 		if (frame == null)
@@ -1172,7 +1176,6 @@ public class PanelPrincipal extends DComponenteBase
 
 			frame.setDocumento(p);
 			frame.getLienzo().setPathDocumento(path);
-			// DConector.obtenerDC().sincronizarComponentes();
 		}
 		else
 		{

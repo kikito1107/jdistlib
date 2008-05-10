@@ -17,7 +17,7 @@ public class TransferenciaFichero extends UnicastRemoteObject implements Interfa
 		super();
 	}
 	
-	public Documento getFile(String path)
+	public Documento getDocument(String path)
 	{	
 		return Documento.openDocument(path, "", "");
 	}
@@ -48,7 +48,7 @@ public class TransferenciaFichero extends UnicastRemoteObject implements Interfa
 		return bytes;
 	}
 
-	public boolean sendFile(byte[] bytes, String path)
+	public boolean sendByteFile(byte[] bytes, String path)
 	{
 		try
 		{
@@ -71,5 +71,9 @@ public class TransferenciaFichero extends UnicastRemoteObject implements Interfa
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	public  boolean  sendDocument(Documento d) throws RemoteException{
+		return Documento.saveDocument(d, d.getPath());
 	}
 }

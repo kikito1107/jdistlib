@@ -1,12 +1,11 @@
 package aplicacion.fisica.net;
 
+import java.net.InetAddress;
+import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
-import java.util.Random;
-import java.net.InetAddress;
-import java.net.MalformedURLException;
 
 import aplicacion.fisica.documentos.Documento;
 

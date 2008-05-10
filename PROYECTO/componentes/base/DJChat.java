@@ -204,7 +204,7 @@ public class DJChat extends JPanel
 				return;
 			}
 
-			if (!ev1.receptor.equals(DConector.Dusuario)) return;
+			if (!ev1.receptores.contains(DConector.Dusuario)) return;
 
 			if (!this.nombres.contains(evento.usuario))
 			{
@@ -214,6 +214,8 @@ public class DJChat extends JPanel
 				nuevaVentana.setTitle(":: Conversaci—n privada con "
 						+ ev1.usuario + " ::");
 				nuevaVentana.getContentPane().add(conversaciones.lastElement());
+				
+				conversaciones.lastElement().agregarReceptor(evento.usuario);
 
 				nuevaVentana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -244,6 +246,7 @@ public class DJChat extends JPanel
 			else
 			{
 				int index = nombres.indexOf(evento.usuario);
+				conversaciones.lastElement().agregarReceptor(evento.usuario);
 				conversaciones.get(index)
 						.nuevoMensaje(ev1.usuario, ev1.mensaje);
 			}
@@ -293,7 +296,7 @@ public class DJChat extends JPanel
 				return;
 			}
 
-			if (!ev2.receptor.equals(DConector.Dusuario)) return;
+			if (!ev2.receptores.contains(DConector.Dusuario)) return;
 			
 			if (ev2.ipVC != null && ev2.ipVC != ""){
 				
@@ -319,7 +322,7 @@ public class DJChat extends JPanel
 				e.printStackTrace();
 			}
 			
-			respuesta.receptor = new String(ev2.usuario);
+			respuesta.receptores.add(ev2.usuario);
 			
 			this.enviarEvento(respuesta);
 		}
@@ -331,7 +334,7 @@ public class DJChat extends JPanel
 			// chequeamos que no sea un auto mensaje o que no seamos los receptores del mensaje
 			if (ev2.usuario.equals(DConector.Dusuario))  return;
 
-			if (!ev2.receptor.equals(DConector.Dusuario)) return;
+			if (!ev2.receptores.contains(DConector.Dusuario)) return;
 			
 			
 			// iniciamos la VC

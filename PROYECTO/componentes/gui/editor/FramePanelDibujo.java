@@ -1,17 +1,14 @@
-package componentes.gui.imagen;
+package componentes.gui.editor;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Graphics;
+import java.awt.event.WindowEvent;
 
+import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.documentos.Documento;
 
-import Deventos.enlaceJS.*;
-import componentes.*;
 import componentes.base.DComponente;
 import componentes.base.DJFrame;
-import componentes.listeners.*;
-import metainformacion.*;
 
 /**
  * <p>Title: </p>
@@ -28,6 +25,11 @@ import metainformacion.*;
 public class FramePanelDibujo extends DJFrame
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 84713594362863139L;
+
 	BorderLayout borderLayout1 = new BorderLayout();
 
 	DIPanelDibujo lienzo = null;
@@ -40,7 +42,7 @@ public class FramePanelDibujo extends DJFrame
 		standalone = sa;
 		try
 		{
-			jbInit();
+			init();
 		}
 		catch (Exception ex)
 		{
@@ -48,7 +50,7 @@ public class FramePanelDibujo extends DJFrame
 		}
 	}
 
-	void jbInit() throws Exception
+	void init() throws Exception
 	{
 		this.getContentPane().setLayout(borderLayout1);
 		if (!standalone)
@@ -90,7 +92,7 @@ public class FramePanelDibujo extends DJFrame
 		if (!b)
 		{
 
-			String path = this.getLienzo().getPathDocumento();
+			//String path = this.getLienzo().getPathDocumento();
 
 			/*if (path != null && path != "")
 				DConector.obtenerDC().cerrarFichero(path);

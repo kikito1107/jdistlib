@@ -31,14 +31,14 @@ BorderLayout borderLayout1 = new BorderLayout();
   public FramePrincipal() {
 	 super(false, "MousesRemotos");
 	 try {
-		jbInit();
+		init();
 	 }
 	 catch (Exception ex) {
 		ex.printStackTrace();
 	 }
   }
 
-  void jbInit() throws Exception {
+  void init() throws Exception {
 	 this.getContentPane().setLayout(borderLayout1);
 	 this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	 this.setResizable(false);
@@ -66,7 +66,7 @@ class FrameEjemplo_this_windowAdapter
 	 this.adaptee = adaptee;
   }
 
-  public void windowClosing(WindowEvent e) {
+  public void windowClosed(WindowEvent e) {
 	 adaptee.this_windowClosing(e);
   }
 }

@@ -47,11 +47,26 @@ public class Documento implements Serializable, Printable
 	private String rol = "";
 	private String path = "";
 	
+	private FicheroBD datosBD = null;
+	
 	public Documento()
 	{
 		
 	}
 	
+
+	public FicheroBD getDatosBD()
+	{
+		return datosBD;
+	}
+
+
+	public void setDatosBD(FicheroBD datosBD)
+	{
+		this.datosBD = datosBD;
+	}
+
+
 	public void insertarPagina(int index, Pagina o) {
 		paginas.insertElementAt(o, index);
 	}

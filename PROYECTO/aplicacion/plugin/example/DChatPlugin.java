@@ -74,7 +74,7 @@ public class DChatPlugin extends DAbstractPlugin
 		ventanaChat.getContentPane().setLayout(new BorderLayout());
 		ventanaChat.getContentPane().add(centro, BorderLayout.CENTER);
 		ventanaChat.getContentPane().add(oeste, BorderLayout.WEST);
-		ventanaChat.setTitle(":: Chat ::");
+		ventanaChat.setTitle(":: Chat - "+ DConector.Dusuario + " ::");
 		ventanaChat.setResizable(true);
 	}
 
@@ -184,7 +184,7 @@ public class DChatPlugin extends DAbstractPlugin
 						if (usuario != null && !usuario.equals(DConector.Dusuario)){
 							DJChatEvent evento = new DJChatEvent();
 							evento.tipo = new Integer(DJChatEvent.MENSAJE_PRIVADO);
-							evento.receptor = new String(usuario);
+							evento.receptores.add(usuario);
 							evento.mensaje = "Solicita una nueva conversaci—n";
 							
 							chat.enviarEvento(evento);
@@ -225,7 +225,7 @@ public class DChatPlugin extends DAbstractPlugin
 							try
 							{
 								ev.ipVC = InetAddress.getLocalHost().getHostAddress();
-								ev.receptor = new String(user);
+								ev.receptores.add( new String(user) );
 								
 								chat.enviarEvento(ev);
 								

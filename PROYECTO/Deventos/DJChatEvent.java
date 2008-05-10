@@ -1,5 +1,7 @@
 package Deventos;
 
+import java.util.Vector;
+
 /**
  * <p>
  * Title:
@@ -41,7 +43,12 @@ public class DJChatEvent extends DEvent
 
 	public String mensaje = null;
 
-	public String receptor = null;
+	public Vector<String> receptores = null;
 	
 	public String ipVC = null;
+	
+	public DJChatEvent(){
+		super();
+		receptores = new Vector<String>();
+	}
 }

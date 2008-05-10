@@ -1,22 +1,19 @@
-package componentes.gui.imagen;
+package componentes.gui.editor;
 
-import javax.swing.JPanel;
-import java.awt.Frame;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Frame;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.Toolkit;
 
-import javax.swing.JDialog;
-import java.awt.Dimension;
-import java.awt.GridBagLayout;
-import javax.swing.JButton;
-import java.awt.GridBagConstraints;
-
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import java.awt.GridLayout;
-import java.awt.Insets;
 
 public class DialogoIntroTexto extends JDialog
 {

@@ -1,4 +1,4 @@
-package componentes.gui.imagen;
+package componentes.gui.editor;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -14,6 +14,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
@@ -22,6 +23,7 @@ import Deventos.DJLienzoEvent;
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.ClienteFicheros;
 import aplicacion.fisica.documentos.Documento;
+import aplicacion.fisica.documentos.FicheroBD;
 import aplicacion.fisica.net.Transfer;
 import aplicacion.gui.componentes.SelectorFicherosDistribuido;
 
@@ -50,8 +52,6 @@ public class ControlesDibujo extends JPanel
 	private Separador separator41 = null;
 	private JButton botonPaletaColores = null;
 	private JButton botonAbrir = null;
-	private JButton botonInfo = null;
-	private Separador separator11 = null;
 	private JButton botonGuardar = null;
 	private JButton botonImprimir = null;
 	private JButton botonGuardarLocal = null;
@@ -386,8 +386,6 @@ public class ControlesDibujo extends JPanel
 			barraHerramientas.add(getListaPinceles());
 			barraHerramientas.add(separator1);
 			barraHerramientas.add(getBotonColores());
-			barraHerramientas.add(getSeparator11());
-			barraHerramientas.add(getBotonInfo());
 		}
 		return barraHerramientas;
 	}
@@ -455,55 +453,21 @@ public class ControlesDibujo extends JPanel
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
-					Documento d = SelectorFicherosDistribuido.getPathFichero( lienzo.getPadre(), DConector.raiz);
+					
+					FicheroBD f = SelectorFicherosDistribuido.getDatosFichero(lienzo.getPadre(), DConector.raiz);
+					
 
-
-					if (d!=null && d.getNumeroPaginas() > 0) {
-						lienzo.setDocumento(d);
-						barra.setNumTotalPaginas(d.getNumeroPaginas());
-						barra.setPaginaActual(lienzo.getPaginaActual());
-						lienzo.repaint();
+					if (f!=null && !f.getRutaLocal().equals("")) {
+						
+						lienzo.getDocumento().setPath(f.getRutaLocal());
+						
+						lienzo.sincronizar();
 					}
 
 				}
 			});
 		}
 		return botonAbrir;
-	}
-
-	/**
-	 * This method initializes botonLimpiarLienzo1	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
-	private JButton getBotonInfo()
-	{
-		if (botonInfo == null)
-		{
-			botonInfo = new JButton();
-			botonInfo.setBorder(null);
-			botonInfo.setToolTipText("Muestra informacion del objeto selecconado");
-			botonInfo.setBorderPainted(false);
-			botonInfo.setIcon(new ImageIcon(getClass().getResource("/Resources/information.png")));
-			botonInfo.setText("");
-			botonInfo.setName("botonInformacion");
-			botonInfo.setPreferredSize(new Dimension(30, 24));
-		}
-		return botonInfo;
-	}
-
-	/**
-	 * This method initializes separator11	
-	 * 	
-	 * @return util.Separador	
-	 */
-	private Separador getSeparator11()
-	{
-		if (separator11 == null)
-		{
-			separator11 = new Separador();
-		}
-		return separator11;
 	}
 
 	/**
@@ -527,7 +491,14 @@ public class ControlesDibujo extends JPanel
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
 					
-					Documento.saveDocument(lienzo.getDocumento(), lienzo.getDocumento().getPath());
+					FicheroBD f = lienzo.getDocumento().getDatosBD();
+					if (f.comprobarPermisos(DConector.Dusuario, DConector.Drol, FicheroBD.PERMISO_ESCRITURA)) {
+						if (!(new Transfer(ClienteFicheros.ipConexion, "")).sendDocumento(lienzo.getDocumento()))
+							JOptionPane.showMessageDialog(null, "Error: no se ha podido guardar el documento en el servidor");
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "No tiene suficientes permisos para guardar el documento");
+					}
 
 				}
 			});

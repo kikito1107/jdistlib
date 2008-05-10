@@ -34,12 +34,12 @@ public class Transfer
 		}
 	}
 	
-	public Documento receive()
+	public Documento receiveDocumento()
 	{
 		try{
 			InterfazTransferenciaFichero ar = (InterfazTransferenciaFichero)Naming.lookup("//" + ip_origen + "/TransferenciaFichero");
 		
-			return ar.getFile(path);
+			return ar.getDocument(path);
 		}
 		catch(Exception ex)
 		{
@@ -48,6 +48,20 @@ public class Transfer
 		}
 	}
 	
+	
+	public boolean sendDocumento(Documento d)
+	{
+		try{
+			InterfazTransferenciaFichero ar = (InterfazTransferenciaFichero)Naming.lookup("//" + ip_origen + "/TransferenciaFichero");
+		
+			return ar.sendDocument(d);
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			return false;
+		}
+	}
 	
 	public byte[] receiveFileBytes()
 	{
@@ -68,7 +82,7 @@ public class Transfer
 		try{
 			InterfazTransferenciaFichero ar = (InterfazTransferenciaFichero)Naming.lookup("//" + ip_origen + "/TransferenciaFichero");
 		
-			return ar.sendFile(datos, path);
+			return ar.sendByteFile(datos, path);
 		}
 		catch(Exception ex)
 		{

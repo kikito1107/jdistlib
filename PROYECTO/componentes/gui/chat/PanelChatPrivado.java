@@ -2,6 +2,7 @@ package componentes.gui.chat;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -14,6 +15,7 @@ import Deventos.DJChatEvent;
 import Deventos.enlaceJS.DConector;
 
 import componentes.base.DJChat;
+import javax.swing.JToolBar;
 
 public class PanelChatPrivado extends JPanel
 {
@@ -23,9 +25,11 @@ public class PanelChatPrivado extends JPanel
 	private JTextField Texto = null;
 	private JButton botonEviar = null;
 	private JTextArea textoChat = null;
-	private JPanel panel = null;
 	private String destinatario = null;
 	private DJChat padre = null;
+	
+	private Vector<String> receptores;
+	private JScrollPane jScrollPane = null;
 	/**
 	 * This is the default constructor
 	 */
@@ -34,6 +38,13 @@ public class PanelChatPrivado extends JPanel
 		super();
 		padre = p;
 		initialize();
+		receptores = new Vector<String>();
+	}
+	
+	
+	public void agregarReceptor(String nombre){
+		if ( !receptores.contains(nombre) )
+			receptores.add(nombre);
 	}
 
 	/**
@@ -49,7 +60,8 @@ public class PanelChatPrivado extends JPanel
 		this.setLayout(borderLayout1);
 		this.setSize(347, 293);
 		this.setPreferredSize(new Dimension(531, 350));
-		this.add(getPanel(), BorderLayout.CENTER);
+		this.add(getPanelIntroTexto(), BorderLayout.SOUTH);
+		this.add(getJScrollPane(), BorderLayout.CENTER);
 	}
 
 	/**
@@ -134,7 +146,7 @@ public class PanelChatPrivado extends JPanel
 			DJChatEvent ev = new DJChatEvent();
 			ev.mensaje = new String(mensaje);
 			ev.tipo = new Integer(DJChatEvent.MENSAJE_PRIVADO);
-			ev.receptor = new String(this.destinatario);
+			ev.receptores = receptores;
 			
 			this.nuevoMensaje(DConector.Dusuario, Texto.getText());
 			padre.enviarEvento(ev);
@@ -158,25 +170,6 @@ public class PanelChatPrivado extends JPanel
 		return textoChat;
 	}
 
-	/**
-	 * This method initializes panel	
-	 * 	
-	 * @return javax.swing.JPanel	
-	 */
-	private JPanel getPanel()
-	{
-		if (panel == null)
-		{
-			panel = new JPanel();
-			panel.setLayout(new BorderLayout());
-			panel.add(getPanelIntroTexto(), BorderLayout.SOUTH);
-			panel.add(new JScrollPane(getTextoChat(), JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER), BorderLayout.CENTER);
-		}
-		return panel;
-	}
-	
-	
-
 	public void setDestinatario(String d)
 	{
 		if (destinatario == null || !destinatario.equals(d)) {
@@ -194,13 +187,31 @@ public class PanelChatPrivado extends JPanel
 	{
 		DJChatEvent ev = new DJChatEvent();
 		ev.tipo = new Integer(DJChatEvent.FIN_CONVERSACION_PRIVADA.intValue());
-		ev.receptor = new String(destinatario);
+		ev.receptores = receptores;
 		padre.enviarEvento(ev);
 	}
 
 	public void nuevoMensaje(String usuario, String mensaje)
 	{
 		textoChat.setText( textoChat.getText() + "\n[" + usuario + "]: " + mensaje );
+	}
+
+
+	/**
+	 * This method initializes jScrollPane	
+	 * 	
+	 * @return javax.swing.JScrollPane	
+	 */
+	private JScrollPane getJScrollPane()
+	{
+		if (jScrollPane == null)
+		{
+			jScrollPane = new JScrollPane(getTextoChat(),
+					JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+					JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+			jScrollPane.setViewportView(getTextoChat());
+		}
+		return jScrollPane;
 	}
 
 }  //  @jve:decl-index=0:visual-constraint="7,19"

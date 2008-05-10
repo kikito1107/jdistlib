@@ -1,10 +1,8 @@
 package aplicacion.fisica.eventos;
 
-import Deventos.DEvent;
-import aplicacion.fisica.documentos.FicheroBD;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import aplicacion.fisica.*;
+import Deventos.DEvent;
 
 /**
  * Obtener nodos del FS a partir de la BD

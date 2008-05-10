@@ -1,30 +1,22 @@
 package aplicacion.gui.componentes;
 
-import javax.swing.JFrame;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Frame;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Toolkit;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
-
-import java.awt.Frame;
-import java.awt.BorderLayout;
-import java.awt.Toolkit;
-
-import javax.swing.JDialog;
-import java.awt.Dimension;
-import java.awt.GridBagLayout;
-import javax.swing.JButton;
-import java.awt.GridBagConstraints;
-import javax.swing.ImageIcon;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
-
-import aplicacion.fisica.ClienteFicheros;
-import aplicacion.fisica.documentos.Documento;
-import aplicacion.fisica.net.Transfer;
-
-import Deventos.enlaceJS.DConector;
+import aplicacion.fisica.documentos.FicheroBD;
 
 public class SelectorFicherosDistribuido extends JDialog
 {
@@ -46,6 +38,8 @@ public class SelectorFicherosDistribuido extends JDialog
 	private JTree arbol = null;
 	
 	private String path = null;  //  @jve:decl-index=0:
+	
+	private FicheroBD fichero = null;
 
 	/**
 	 * @param owner
@@ -131,23 +125,17 @@ public class SelectorFicherosDistribuido extends JDialog
 		return botonAceptar;
 	}
 	
-	public static Documento getPathFichero(Frame owner, DefaultMutableTreeNode raiz){
+	public static FicheroBD getDatosFichero(Frame owner, DefaultMutableTreeNode raiz){
 		SelectorFicherosDistribuido sfd = 
 			new SelectorFicherosDistribuido( owner, raiz );
 		
-		String path = sfd.getPath();
+		sfd.getPath();
 		
-		if (path != null && path != ""){
+		return sfd.fichero;
 		
-			Transfer ts = new Transfer(ClienteFicheros.ipConexion, path);
-			Documento d = ts.receive();
-			return d;
-		}
-		else
-			return null;
 	}
 	
-	public String getPath(){
+	private void getPath(){
 		setTitle("Selecciona el documento");
 		
 		 setSize(330, 200);
@@ -165,8 +153,6 @@ public class SelectorFicherosDistribuido extends JDialog
 		 this.setModal(true);
 		 
 		setVisible(true); 
-		
-		return path;
 	}
 
 	/**
@@ -249,15 +235,9 @@ public class SelectorFicherosDistribuido extends JDialog
 
 			Object[] objetos = dtp[0].getPath();
 
-			path = "";
-
-			if ( ((DefaultMutableTreeNode)objetos[objetos.length - 1]).isLeaf() ){
+			fichero = (FicheroBD)((DefaultMutableTreeNode)objetos[objetos.length - 1]).getUserObject();
 			
-				for (int i=2; i<objetos.length; ++i){
-					path += '/' + objetos[i].toString();
-				}
-				setVisible(false);
-			}
+			setVisible(false);
 		}
 	}
 

@@ -9,8 +9,7 @@ import aplicacion.fisica.documentos.FicheroBD;
 
 
 /**
- * @TODO toda la clase, es un STUB
- * @author Carlos Rodriguez Dominguez, Comentarios: Ana Belen Pelegrina Ortiz
+ * @author Carlos Rodriguez Dominguez, Ana Belen Pelegrina Ortiz
  *
  */
 public class GestorFicherosBD
@@ -222,6 +221,10 @@ public class GestorFicherosBD
 	}
 	
 	
+	/**
+	 * 
+	 * @param f
+	 */
 	public void insertarNuevoFichero(FicheroBD f){
 			try{
 				
@@ -279,6 +282,11 @@ public class GestorFicherosBD
 		return null;
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
 	public FicheroBD buscarFichero(int id){
 		FicheroBD f = new FicheroBD();
 		
@@ -294,6 +302,8 @@ public class GestorFicherosBD
 				f.setRutaLocal(rs.getString("ruta_local"));
 				f.setTipo(rs.getString("tipo"));
 			}
+			
+			rs.close();
 		}
 		catch (SQLException e)
 		{

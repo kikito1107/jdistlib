@@ -1,7 +1,6 @@
 package aplicacion.fisica.eventos;
 
 import Deventos.DEvent;
-import aplicacion.fisica.*;
 import aplicacion.fisica.documentos.FicheroBD;
 
 /**
@@ -10,6 +9,10 @@ import aplicacion.fisica.documentos.FicheroBD;
  */
 public class DFileEvent extends DEvent
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1925222008496901194L;
 	public static final Integer NOTIFICAR_INSERTAR_FICHERO = new Integer(177);
 	public static final Integer NOTIFICAR_MODIFICACION_FICHERO = new Integer(178);
 	public static final Integer NOTIFICAR_ELIMINAR_FICHERO = new Integer(179);
