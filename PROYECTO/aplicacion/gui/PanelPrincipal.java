@@ -1018,7 +1018,11 @@ public class PanelPrincipal extends DComponenteBase
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
-					FicheroBD f = VisorPropiedadesFichero.verInfoFichero(
+					FicheroBD f = getDocumentoSeleccionado();
+					
+					if ( f==null) return;
+					
+					f = VisorPropiedadesFichero.verInfoFichero(
 							getDocumentoSeleccionado(), null);
 					
 					if (f != null)
@@ -1311,6 +1315,8 @@ public class PanelPrincipal extends DComponenteBase
 			int id_doc = dfe.fichero.getId();
 			DefaultMutableTreeNode nodo = buscarFichero(raiz, id_doc);
 			
+			//System.err.println("Fichero a cambiar " + dfe.fichero.getNombre());
+			
 			if (nodo == null){
 				
 				if (dfe.fichero.comprobarPermisos(DConector.Dusuario, DConector.Drol, FicheroBD.PERMISO_LECTURA)){
@@ -1323,6 +1329,8 @@ public class PanelPrincipal extends DComponenteBase
 				nodo.setUserObject(dfe.fichero);
 			else 
 				modelo.removeNodeFromParent(nodo);
+			
+			this.arbolDocumentos.repaint();
 			
 			comprobarPermisosDocumentoActual(dfe.fichero, false);
 

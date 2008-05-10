@@ -230,7 +230,7 @@ public class GestorFicherosBD
 				
 				if (f != null) {
 				
-					int isdir = f.esDirectorio()?0:1;
+					int isdir = f.esDirectorio()?1:0;
 					int id_user = f.getUsuario().getIdentificador();
 					int id_rol = f.getRol().getIdentificador();
 					String parametros = conexion.generaId("Fichero", "id_fichero") +", '" + f.getNombre() + "', "+ isdir
