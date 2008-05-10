@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Vector;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 
 public class VideoConferencia
 {

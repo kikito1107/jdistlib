@@ -14,6 +14,8 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 
+import componentes.gui.chat.PanelChatPrivado;
+
 /**
  *
  * @author  carlosrodriguezdominguez
@@ -40,7 +42,26 @@ public class VideoFrame extends JFrame
         jButton1 = new javax.swing.JButton();
         ini_stop = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
+        this.addWindowListener(new WindowAdapter()
+		{
+
+			public void windowClosing(WindowEvent e)
+			{
+				try
+	            {
+	                init = false;
+	                ini_stop.setText("Iniciar");
+	                VideoConferencia.stopped = true;
+	            }
+	            catch (Exception ex)
+	            {
+	                ex.printStackTrace();
+	            }
+			}
+		});
+        
         setResizable(false);
 
         webcamPanel.setBackground(new java.awt.Color(102, 102, 102));
@@ -117,8 +138,10 @@ public class VideoFrame extends JFrame
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+    	//System.out.println("Saliendo del programa");
         //System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -251,19 +274,7 @@ public class VideoFrame extends JFrame
     public void run()
     {
         setLocation(200, 200);
-
-
-        addWindowListener(new WindowAdapter()
-        {
-
-            @Override
-            public void windowClosing(WindowEvent e)
-            {
-                System.exit(0);
-            }
-        });
-
-
+        
         th.start();
         th2.start();
         

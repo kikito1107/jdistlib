@@ -19,82 +19,84 @@ import javax.swing.SwingUtilities;
 public class ImageComponent extends JComponent
 {
 
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -6869102214250977942L;
+
 	private Image image;
-    private Dimension size;
-    private JFrame parent;
-    
-    
-    public ImageComponent(JFrame padre)
-    {
-        parent = padre;
-    }
 
-    public void setImage(Image image)
-    {
-        SwingUtilities.invokeLater(new ImageRunnable(image));
+	private Dimension size;
 
-    }
+	private JFrame parent;
 
-    public void setImageSize(Dimension newSize)
-    {
-        if (!newSize.equals(size))
-        {	//System.out.println("New size " + newSize + " from " + size);
-            size = newSize;
-            setSize(size);
-            parent.pack();
-        }
-    }
+	public ImageComponent( JFrame padre )
+	{
+		parent = padre;
+	}
 
-    private class ImageRunnable implements Runnable
-    {
+	public void setImage(Image image)
+	{
+		SwingUtilities.invokeLater(new ImageRunnable(image));
 
-        private final Image newImage;
+	}
 
-        public ImageRunnable(Image newImage)
-        {
-            super();
-            this.newImage = newImage;
-        }
+	public void setImageSize(Dimension newSize)
+	{
+		if (!newSize.equals(size))
+		{ //System.out.println("New size " + newSize + " from " + size);
+			size = newSize;
+			setSize(size);
+			parent.pack();
+		}
+	}
 
-        public void run()
-        {
-            setImageInSwingThread(newImage);
-        }
-    }
+	private class ImageRunnable implements Runnable
+	{
 
-    private synchronized void setImageInSwingThread(Image image)
-    {
-        this.image = image;
-        final Dimension newSize = new Dimension(image.getWidth(null), image.getHeight(null));
-        setImageSize(newSize);
-        repaint();
-    }
+		private final Image newImage;
 
-    public ImageComponent()
-    {
-        size = new Dimension(0, 0);
-        setSize(size);
-    }
+		public ImageRunnable( Image newImage )
+		{
+			super();
+			this.newImage = newImage;
+		}
 
-    @Override
-    public synchronized void paint(Graphics g)
-    {
-        if (image != null)
-        {
-            //g.drawImage(image, 0, 0, this);
-            g.drawImage (image, 
-             image.getWidth(this), 0, 0, image.getHeight(this),
-             0, 0, image.getWidth(this), image.getHeight(this),
-             this);
-        }
-    }
-    
-    public synchronized Dimension getPreferredSize()
-    {
-        return size;
-    }
+		public void run()
+		{
+			setImageInSwingThread(newImage);
+		}
+	}
+
+	private synchronized void setImageInSwingThread(Image image)
+	{
+		this.image = image;
+		final Dimension newSize = new Dimension(image.getWidth(null), image
+				.getHeight(null));
+		setImageSize(newSize);
+		repaint();
+	}
+
+	public ImageComponent()
+	{
+		size = new Dimension(0, 0);
+		setSize(size);
+	}
+
+	@Override
+	public synchronized void paint(Graphics g)
+	{
+		if (image != null)
+		{
+			//g.drawImage(image, 0, 0, this);
+			g.drawImage(image, image.getWidth(this), 0, 0, image
+					.getHeight(this), 0, 0, image.getWidth(this), image
+					.getHeight(this), this);
+		}
+	}
+
+	public synchronized Dimension getPreferredSize()
+	{
+		return size;
+	}
 }

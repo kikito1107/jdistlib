@@ -24,6 +24,11 @@ import javax.swing.text.*;
 import javax.swing.text.BadLocationException;
 
 public class DCaret extends Rectangle implements Caret, FocusListener, MouseListener, MouseMotionListener {
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1242950692357469828L;
+
 Rectangle grupo = new Rectangle();
 
 		/**
@@ -1046,7 +1051,6 @@ Rectangle grupo = new Rectangle();
 					visible = !visible;
 					try{
 						TextUI mapper = component.getUI();
-						Rectangle r = mapper.modelToView(component, dot, dotBias);
 
 						/*for(int i=0; i<dJTextPane.grupoTrabajo.estaciones.size(); i++){
 							DEstacion estacion = (DEstacion)dJTextPane.grupoTrabajo.estaciones.elementAt(i);

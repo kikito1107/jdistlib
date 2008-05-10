@@ -7,14 +7,12 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class PanelVC extends JPanel
 {
 
 	private static final long serialVersionUID = 1L;
-	private JLabel Lable = null;
 	ImageComponent img_remota = null;
     ImageComponent img_local = null;
     boolean init = false;
@@ -137,7 +135,7 @@ public class PanelVC extends JPanel
 	
 	private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        System.exit(0);
+        //System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void ini_stopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ini_stopActionPerformed
