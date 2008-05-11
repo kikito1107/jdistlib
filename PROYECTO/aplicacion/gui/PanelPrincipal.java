@@ -127,7 +127,7 @@ public class PanelPrincipal extends DComponenteBase
 
 	private JButton botonSubir = null;
 	
-	Vector<DAbstractPlugin> v = null;
+	public static Vector<DAbstractPlugin> plugins = null;
 	
 	
 	
@@ -301,7 +301,7 @@ public class PanelPrincipal extends DComponenteBase
 		try
 		{
 			
-			v = DPluginLoader.getAllPlugins("aplicacion/plugin/example");
+			plugins = DPluginLoader.getAllPlugins("aplicacion/plugin/example");
 			
 			BorderLayout borderLayout = new BorderLayout();
 			borderLayout.setHgap(0);
@@ -550,10 +550,10 @@ public class PanelPrincipal extends DComponenteBase
 		if (listaAplicaciones == null)
 		{
 
-			String[] data = new String[v.size()];
+			String[] data = new String[plugins.size()];
 
 			for (int i=0; i<data.length; ++i)
-				data[i] = v.get(i).getName();
+				data[i] = plugins.get(i).getName();
 			
 			
 			//String[] data = {"hola","adios"};
@@ -577,7 +577,7 @@ public class PanelPrincipal extends DComponenteBase
 							
 								try
 								{
-									v.get(listaAplicaciones.getSelectedIndex()).start();
+									plugins.get(listaAplicaciones.getSelectedIndex()).start();
 								}
 								catch (Exception e1)
 								{

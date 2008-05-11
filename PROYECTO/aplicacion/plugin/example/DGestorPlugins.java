@@ -43,6 +43,8 @@ public class DGestorPlugins extends DAbstractPlugin
 	public void start() throws Exception
 	{
 		// TODO Auto-generated method stub
+		
+		gestorPlugin.inicializarModelo();
 		gestorPlugin.pack();
 		gestorPlugin.setLocationRelativeTo(null);
 		gestorPlugin.setVisible(true);

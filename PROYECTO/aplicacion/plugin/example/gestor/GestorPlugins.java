@@ -4,6 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Toolkit;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
@@ -15,6 +20,7 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
+import aplicacion.gui.PanelPrincipal;
 import aplicacion.plugin.DAbstractPlugin;
 
 public class GestorPlugins extends JFrame
@@ -204,10 +210,7 @@ public class GestorPlugins extends JFrame
 			defaultTableModel.setRowCount(3);
 			defaultTableModel.addColumn("Nombre");
 			defaultTableModel.addColumn("Version");
-			
-			
 
-			this.inicializarModelo();
 		}
 
 		return defaultTableModel;
@@ -215,26 +218,16 @@ public class GestorPlugins extends JFrame
 	
 	
 	
-	private void inicializarModelo()
+	public void inicializarModelo()
 	{
-		String nombre;
-		long version;
+		if (PanelPrincipal.plugins == null) return;
+			
+		defaultTableModel.setNumRows(PanelPrincipal.plugins.size());
 		
-		if (plugins != null){
-			
-			defaultTableModel.setRowCount(plugins.size());
-			
-			for (int i=0; i <plugins.size(); ++i){
-				nombre = plugins.get(i).getName();
-				version = plugins.get(i).getVersion();
-				
-				defaultTableModel.setValueAt(nombre, i, 0);
-				defaultTableModel.setValueAt(version, i, 1);
-			}
+		for (int i=0; i<PanelPrincipal.plugins.size(); ++i) {
+			defaultTableModel.setValueAt(PanelPrincipal.plugins.get(i).getName(), i, 0);
+			defaultTableModel.setValueAt(PanelPrincipal.plugins.get(i).getVersion(), i, 1);
 		}
-		
-
-		
 	}
 
 	public static void main(String[] args){
