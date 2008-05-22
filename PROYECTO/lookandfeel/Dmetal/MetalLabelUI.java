@@ -7,10 +7,14 @@
 
 package lookandfeel.Dmetal;
 
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.plaf.*;
-import javax.swing.plaf.basic.*;
+import java.awt.Graphics;
+
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.UIManager;
+import javax.swing.plaf.ComponentUI;
+import javax.swing.plaf.basic.BasicGraphicsUtils;
+import javax.swing.plaf.basic.BasicLabelUI;
 
 /**
  * A Windows L&F implementation of LabelUI.  This implementation

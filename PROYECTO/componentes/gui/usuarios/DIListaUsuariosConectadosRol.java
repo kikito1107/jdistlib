@@ -1,17 +1,19 @@
 package componentes.gui.usuarios;
 
-import java.util.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.util.Vector;
 
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.border.*;
+import javax.swing.BorderFactory;
+import javax.swing.JScrollPane;
+import javax.swing.border.TitledBorder;
 
-import Deventos.*;
-import Deventos.enlaceJS.*;
-import componentes.*;
+import metainformacion.ClienteMetaInformacion;
+import util.ListaElementos;
+import Deventos.DMIEvent;
+import Deventos.enlaceJS.DConector;
+
 import componentes.base.DComponenteBase;
-import metainformacion.*;
-import util.*;
 
 /**
  * Con este componente podemos ver todos los usuarios que hay conectados que

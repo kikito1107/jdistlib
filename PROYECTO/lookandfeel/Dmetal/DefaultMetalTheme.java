@@ -7,8 +7,10 @@
 
 package lookandfeel.Dmetal;
 
-import java.awt.*;
-import javax.swing.plaf.*;
+import java.awt.Font;
+
+import javax.swing.plaf.ColorUIResource;
+import javax.swing.plaf.FontUIResource;
 
 /**
  * This class describes the default Metal Theme.

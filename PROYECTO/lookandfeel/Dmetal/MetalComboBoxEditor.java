@@ -7,10 +7,13 @@
 
 package lookandfeel.Dmetal;
 
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.plaf.basic.*;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Insets;
+
+import javax.swing.JTextField;
+import javax.swing.border.AbstractBorder;
+import javax.swing.plaf.basic.BasicComboBoxEditor;
 
 /**
  * The default editor for Metal editable combo boxes

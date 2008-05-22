@@ -1,15 +1,19 @@
 package componentes.base;
 
-import javax.swing.JCheckBox;
+import java.awt.Color;
+import java.util.Vector;
+
 import javax.swing.Action;
 import javax.swing.Icon;
+import javax.swing.JCheckBox;
 
-import componentes.listeners.*;
+import Deventos.ColaEventos;
+import Deventos.DEvent;
+import Deventos.DJCheckBoxEvent;
+import Deventos.enlaceJS.DConector;
 
-import java.util.*;
-import Deventos.*;
-import Deventos.enlaceJS.*;
-import java.awt.*;
+import componentes.listeners.DJCheckBoxListener;
+import componentes.listeners.LJCheckBoxListener;
 /**
  * <p>Title: </p>
  * <p>Description: </p>

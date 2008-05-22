@@ -1,6 +1,5 @@
 package Deventos;
 
-import Deventos.*;
 
 /**
  * <p>Title: </p>

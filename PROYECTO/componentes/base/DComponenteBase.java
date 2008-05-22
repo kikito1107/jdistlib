@@ -1,11 +1,20 @@
 package componentes.base;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.LayoutManager;
+import java.awt.PopupMenu;
+import java.util.Vector;
 
-import Deventos.*;
-import java.util.*;
-import Deventos.enlaceJS.*;
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
+
+import Deventos.ColaEventos;
+import Deventos.DEvent;
+import Deventos.DMIEvent;
+import Deventos.enlaceJS.DConector;
 
 /**
 Componente base para construir componentes distribuidos. Para una descripcion

@@ -1,6 +1,7 @@
 package componentes.base;
 
-import Deventos.*;
+import Deventos.ColaEventos;
+import Deventos.DEvent;
 /**
  * <p>Title: </p>
  * <p>Description: </p>

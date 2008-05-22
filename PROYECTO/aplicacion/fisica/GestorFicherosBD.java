@@ -1,10 +1,11 @@
 package aplicacion.fisica;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Vector;
-import java.sql.*;
 
-import metainformacion.*;
-
+import metainformacion.MIRol;
+import metainformacion.MIUsuario;
 import aplicacion.fisica.documentos.FicheroBD;
 
 

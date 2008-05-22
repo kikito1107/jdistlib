@@ -1,11 +1,13 @@
 package componentes.gui.usuarios;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.Color;
+import java.awt.FlowLayout;
 
-import Deventos.*;
-import Deventos.enlaceJS.*;
-import componentes.*;
+import javax.swing.JLabel;
+
+import Deventos.DMIEvent;
+import Deventos.enlaceJS.DConector;
+
 import componentes.base.DComponenteBase;
 
 /**

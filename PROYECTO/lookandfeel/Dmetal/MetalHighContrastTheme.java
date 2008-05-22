@@ -7,10 +7,13 @@
 
 package lookandfeel.Dmetal;
 
-import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.plaf.*;
-import javax.swing.plaf.basic.*;
+import javax.swing.UIDefaults;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.plaf.BorderUIResource;
+import javax.swing.plaf.ColorUIResource;
+import javax.swing.plaf.basic.BasicBorders;
 
 /**
  * A high contrast theme. This is used on Windows if the system property

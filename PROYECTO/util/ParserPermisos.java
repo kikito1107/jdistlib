@@ -1,6 +1,5 @@
 package util;
 
-import metainformacion.MIUsuario;
 import aplicacion.fisica.documentos.FicheroBD;
 
 public class ParserPermisos

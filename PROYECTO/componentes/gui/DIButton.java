@@ -1,18 +1,22 @@
 package componentes.gui;
 
-import java.util.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.util.Vector;
 
-import java.awt.*;
-import javax.swing.*;
+import javax.swing.JScrollPane;
 
-import Deventos.*;
-import Deventos.enlaceJS.*;
-import componentes.*;
+import Deventos.DEvent;
+import Deventos.DJButtonEvent;
+import Deventos.enlaceJS.DConector;
+
 import componentes.base.DComponente;
 import componentes.base.DComponenteBase;
 import componentes.base.DJButton;
 import componentes.base.HebraProcesadoraBase;
-import componentes.listeners.*;
+import componentes.listeners.DJButtonListener;
+import componentes.listeners.LJButtonListener;
 
 /**
  * Boton compartido. Consultar documentacion del proyecto para ver su funcionamiento

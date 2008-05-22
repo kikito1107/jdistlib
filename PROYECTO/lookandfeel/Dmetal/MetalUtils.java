@@ -7,8 +7,11 @@
 
 package lookandfeel.Dmetal;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Rectangle;
+
+import javax.swing.UIManager;
 
 /**
  * This is a dumping ground for random stuff we want to use in several places.

@@ -1,7 +1,9 @@
 package metainformacion;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
+import javax.swing.UIManager;
 
 /**
  * Clase para lanzar el servidor de Metainformacion

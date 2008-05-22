@@ -1,20 +1,22 @@
 package componentes.gui;
 
-import java.util.*;
+import java.awt.BorderLayout;
+import java.util.Vector;
 
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.tree.*;
+import javax.swing.JScrollPane;
+import javax.swing.tree.TreeNode;
 
-import Deventos.*;
-import Deventos.enlaceJS.*;
-import componentes.*;
+import lookandfeel.Dmetal.DMetalTreeUI;
+import Deventos.DEvent;
+import Deventos.DJTreeEvent;
+import Deventos.enlaceJS.DConector;
+
 import componentes.base.DComponente;
 import componentes.base.DComponenteBase;
 import componentes.base.DJTree;
 import componentes.base.HebraProcesadoraBase;
-import componentes.listeners.*;
-import lookandfeel.Dmetal.*;
+import componentes.listeners.DJTreeListener;
+import componentes.listeners.LJTreeListener;
 
 /**
  * Arbol compartido. Consultar documentación del proyecto para ver

@@ -1,14 +1,24 @@
 package componentes.base;
 
-import javax.swing.*;
-import lookandfeel.Dmetal.*;
-import java.util.*;
-import Deventos.*;
-import componentes.gui.*;
-import componentes.listeners.*;
-import Deventos.enlaceJS.*;
-import java.awt.event.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.event.ComponentEvent;
+import java.util.Vector;
+
+import javax.swing.ComboBoxModel;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+
+import lookandfeel.Dmetal.DMetalComboBoxUI;
+import Deventos.ColaEventos;
+import Deventos.DEvent;
+import Deventos.DJComboBoxEvent;
+import Deventos.DMIEvent;
+import Deventos.enlaceJS.DConector;
+
+import componentes.gui.DIComboBox;
+import componentes.listeners.DJComboBoxListener;
+import componentes.listeners.LJComboBoxListener;
 
 /**
  * <p>

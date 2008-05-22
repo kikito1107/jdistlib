@@ -15,7 +15,6 @@ import Deventos.DJChatEvent;
 import Deventos.enlaceJS.DConector;
 
 import componentes.base.DJChat;
-import javax.swing.JToolBar;
 
 public class PanelChatPrivado extends JPanel
 {

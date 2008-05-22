@@ -7,11 +7,14 @@
 
 package lookandfeel.Dmetal;
 
-import java.io.*;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.io.Serializable;
 
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.plaf.*;
+import javax.swing.ButtonModel;
+import javax.swing.Icon;
+import javax.swing.JCheckBox;
+import javax.swing.plaf.UIResource;
 
 /**
  * CheckboxIcon implementation for OrganicCheckBoxUI

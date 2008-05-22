@@ -1,6 +1,6 @@
 package componentes.listeners;
 
-import Deventos.*;
+import Deventos.DJChatEvent;
 
 /**
  * <p>Title: </p>

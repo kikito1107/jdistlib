@@ -10,10 +10,9 @@ import java.util.Vector;
 
 import javax.swing.JOptionPane;
 
-import aplicacion.plugin.deventos.DPluginRegisterEvent;
-
 import Deventos.DEvent;
 import Deventos.enlaceJS.DConector;
+import aplicacion.plugin.deventos.DPluginRegisterEvent;
 
 import componentes.base.DComponente;
 import componentes.base.DComponenteBase;

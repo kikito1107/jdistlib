@@ -1,8 +1,10 @@
 package util;
 
-import javax.swing.*;
-import javax.swing.table.*;
-import java.util.*;
+import java.util.Vector;
+
+import javax.swing.JTable;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
 /**
  * Clase con la que se simplifica el uso de las tablas JTable añadiendo
  * metodos utiles para su utilizacion.

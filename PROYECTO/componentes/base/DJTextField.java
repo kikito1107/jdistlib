@@ -1,20 +1,25 @@
 package componentes.base;
 
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.util.Vector;
+
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Caret;
 import javax.swing.text.Document;
+import javax.swing.text.JTextComponent;
+import javax.swing.text.TextAction;
 
-import javax.swing.*;
-import javax.swing.text.*;
+import util.DCaret;
+import Deventos.ColaEventos;
+import Deventos.DEvent;
+import Deventos.DJTextFieldEvent;
+import Deventos.enlaceJS.DConector;
 
-import componentes.listeners.*;
-
-import java.awt.event.*;
-import java.util.*;
-import Deventos.*;
-import Deventos.enlaceJS.*;
-import util.*;
-
-import java.awt.*;
+import componentes.listeners.DJTextFieldListener;
 /**
  * <p>Title: </p>
  * <p>Description: </p>

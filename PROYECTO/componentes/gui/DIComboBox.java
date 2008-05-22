@@ -1,18 +1,21 @@
 package componentes.gui;
 
-import java.util.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.util.Vector;
 
-import java.awt.*;
+import lookandfeel.Dmetal.DMetalComboBoxUI;
+import Deventos.DEvent;
+import Deventos.DJComboBoxEvent;
+import Deventos.enlaceJS.DConector;
 
-import Deventos.*;
-import Deventos.enlaceJS.*;
-import componentes.*;
 import componentes.base.DComponente;
 import componentes.base.DComponenteBase;
 import componentes.base.DJComboBox;
 import componentes.base.HebraProcesadoraBase;
-import componentes.listeners.*;
-import lookandfeel.Dmetal.*;
+import componentes.listeners.DJComboBoxListener;
+import componentes.listeners.LJComboBoxListener;
 
 /**
  * ComboBox distribuido. Consultar documentacion del proyecto para ver su

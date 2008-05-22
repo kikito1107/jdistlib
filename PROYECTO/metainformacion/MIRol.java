@@ -1,6 +1,6 @@
 package metainformacion;
 
-import java.io.*;
+import java.io.Serializable;
 
 /**
  * <p>Title: </p>

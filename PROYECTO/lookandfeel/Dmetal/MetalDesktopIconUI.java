@@ -7,14 +7,22 @@
 
 package lookandfeel.Dmetal;
 
-import java.beans.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.plaf.*;
-import javax.swing.plaf.basic.*;
+import javax.swing.Icon;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.LookAndFeel;
+import javax.swing.UIManager;
+import javax.swing.border.MatteBorder;
+import javax.swing.plaf.ComponentUI;
+import javax.swing.plaf.basic.BasicDesktopIconUI;
 
 /**
  * Metal desktop icon.

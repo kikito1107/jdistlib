@@ -1,5 +1,19 @@
 package aplicacion.fisica.webcam;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.List;
+import java.util.Vector;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+
 import com.lti.civil.CaptureDeviceInfo;
 import com.lti.civil.CaptureException;
 import com.lti.civil.CaptureObserver;
@@ -8,19 +22,6 @@ import com.lti.civil.CaptureSystem;
 import com.lti.civil.CaptureSystemFactory;
 import com.lti.civil.DefaultCaptureSystemFactorySingleton;
 import com.lti.civil.awt.AWTImageConverter;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-
-import java.io.ObjectOutputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.List;
-import java.util.Vector;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 
 public class VideoConferencia
 {

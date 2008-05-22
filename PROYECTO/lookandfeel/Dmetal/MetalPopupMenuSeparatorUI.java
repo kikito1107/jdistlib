@@ -7,9 +7,11 @@
 
 package lookandfeel.Dmetal;
 
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.plaf.*;
+import java.awt.Dimension;
+import java.awt.Graphics;
+
+import javax.swing.JComponent;
+import javax.swing.plaf.ComponentUI;
 
 /**
  * A Metal L&F implementation of PopupMenuSeparatorUI.  This implementation

@@ -7,9 +7,12 @@
 
 package lookandfeel.Dmetal;
 
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.plaf.basic.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+
+import javax.swing.UIManager;
+import javax.swing.plaf.basic.BasicArrowButton;
 
 /**
  * JButton object for Metal scrollbar arrows.

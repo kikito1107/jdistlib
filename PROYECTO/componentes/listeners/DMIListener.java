@@ -1,6 +1,6 @@
 package componentes.listeners;
 
-import metainformacion.*;
+import metainformacion.MICompleta;
 
 /**
  * <p>Title: </p>

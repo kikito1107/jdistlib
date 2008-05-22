@@ -4,7 +4,8 @@
  */
 package lookandfeel.Dmetal;
 
-import java.awt.*;
+import java.awt.Font;
+import java.awt.Toolkit;
 
 /**
  * DesktopProperty that only uses font height in configuring font. This

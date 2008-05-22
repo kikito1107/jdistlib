@@ -1,12 +1,15 @@
 package componentes.base;
 
+import java.awt.Color;
+
+import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 
-import util.*;
-import Deventos.enlaceJS.*;
-import Deventos.*;
-import javax.swing.*;
-import java.awt.*;
+import util.DMenuSelectionManager;
+import Deventos.ColaEventos;
+import Deventos.DEvent;
+import Deventos.DMIEvent;
+import Deventos.enlaceJS.DConector;
 /**
  * <p>Title: </p>
  * <p>Description: </p>

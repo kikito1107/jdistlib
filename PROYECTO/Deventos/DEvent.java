@@ -1,6 +1,6 @@
 package Deventos;
 
-import net.jini.core.entry.*;
+import net.jini.core.entry.Entry;
 
 /**
  Clase genérica de eventos. Implementa la interfaz Entry para poder ser

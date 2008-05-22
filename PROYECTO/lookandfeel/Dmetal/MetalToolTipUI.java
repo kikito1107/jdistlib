@@ -7,11 +7,21 @@
 
 package lookandfeel.Dmetal;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.plaf.*;
-import javax.swing.plaf.basic.*;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Toolkit;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+
+import javax.swing.JComponent;
+import javax.swing.JMenuItem;
+import javax.swing.JToolTip;
+import javax.swing.KeyStroke;
+import javax.swing.UIManager;
+import javax.swing.plaf.ComponentUI;
+import javax.swing.plaf.basic.BasicToolTipUI;
 
 /**
  * A Metal L&F extension of BasicToolTipUI.

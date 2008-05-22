@@ -7,13 +7,18 @@
 
 package lookandfeel.Dmetal;
 
-import java.beans.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Insets;
+import java.awt.Rectangle;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.plaf.*;
-import javax.swing.plaf.basic.*;
-import javax.swing.tree.*;
+import javax.swing.JComponent;
+import javax.swing.UIManager;
+import javax.swing.plaf.ComponentUI;
+import javax.swing.plaf.basic.BasicTreeUI;
+import javax.swing.tree.TreePath;
 
 /**
  * The metal look and feel implementation of <code>TreeUI</code>.

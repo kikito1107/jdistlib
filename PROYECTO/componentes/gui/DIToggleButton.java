@@ -1,18 +1,22 @@
 package componentes.gui;
 
-import java.util.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.util.Vector;
 
-import java.awt.*;
-import javax.swing.*;
+import javax.swing.JScrollPane;
 
-import Deventos.*;
-import Deventos.enlaceJS.*;
-import componentes.*;
+import Deventos.DEvent;
+import Deventos.DJToggleButtonEvent;
+import Deventos.enlaceJS.DConector;
+
 import componentes.base.DComponente;
 import componentes.base.DComponenteBase;
 import componentes.base.DJToggleButton;
 import componentes.base.HebraProcesadoraBase;
-import componentes.listeners.*;
+import componentes.listeners.DJToggleButtonListener;
+import componentes.listeners.LJToggleButtonListener;
 
 /**
  * Toggle button compartido. Consultar documentación del proyecto para ver

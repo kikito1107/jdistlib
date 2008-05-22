@@ -1,10 +1,16 @@
 package Deventos.enlaceJS;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.Color;
+import java.awt.Frame;
+import java.awt.Rectangle;
+import java.awt.event.WindowEvent;
 
-
-import java.awt.event.*;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  * <p>Title: </p>

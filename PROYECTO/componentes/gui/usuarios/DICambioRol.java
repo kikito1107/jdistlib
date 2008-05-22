@@ -1,18 +1,23 @@
 package componentes.gui.usuarios;
 
-import java.util.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.util.Vector;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.border.*;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.border.TitledBorder;
 
-import Deventos.*;
-import Deventos.enlaceJS.*;
-import componentes.*;
+import metainformacion.ClienteMetaInformacion;
+import util.ListaElementos;
+import Deventos.DMIEvent;
+import Deventos.enlaceJS.DConector;
+
 import componentes.base.DComponenteBase;
-import metainformacion.*;
-import util.*;
 
 /**
  * Con este componente podemos cambiar el rol que estamos desempeñando. Aparte

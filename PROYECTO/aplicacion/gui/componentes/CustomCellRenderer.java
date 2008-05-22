@@ -1,7 +1,6 @@
 package aplicacion.gui.componentes;
 
 import javax.swing.Icon;
-import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;

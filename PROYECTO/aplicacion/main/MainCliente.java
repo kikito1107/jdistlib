@@ -1,13 +1,12 @@
 package aplicacion.main;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
+import javax.swing.UIManager;
+
+import Deventos.enlaceJS.DConector;
 import aplicacion.gui.FramePrincipal;
-
-
-
-import Deventos.enlaceJS.*;
 
 /**
  * 

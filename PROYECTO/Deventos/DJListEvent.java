@@ -1,10 +1,10 @@
 package Deventos;
 
-import java.util.*;
+import java.util.Vector;
 
-import javax.swing.*;
+import javax.swing.ImageIcon;
 
-import util.*;
+import util.ElementoLista;
 
 /**
  * <p>Title: </p>

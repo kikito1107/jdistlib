@@ -7,13 +7,27 @@
 
 package lookandfeel.Dmetal;
 
-import java.io.*;
-import java.util.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.GraphicsConfiguration;
+import java.awt.Image;
+import java.awt.Transparency;
+import java.awt.image.BufferedImage;
+import java.io.Serializable;
+import java.util.Enumeration;
+import java.util.Vector;
 
-import java.awt.*;
-import java.awt.image.*;
-import javax.swing.*;
-import javax.swing.plaf.*;
+import javax.swing.ButtonModel;
+import javax.swing.Icon;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JRadioButton;
+import javax.swing.JSlider;
+import javax.swing.plaf.UIResource;
 
 /**
  * Factory object that vends <code>Icon</code>s for

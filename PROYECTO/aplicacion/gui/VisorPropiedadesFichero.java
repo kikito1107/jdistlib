@@ -9,6 +9,7 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
@@ -19,7 +20,6 @@ import javax.swing.border.TitledBorder;
 
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.documentos.FicheroBD;
-import javax.swing.ImageIcon;
 
 public class VisorPropiedadesFichero extends JDialog
 {

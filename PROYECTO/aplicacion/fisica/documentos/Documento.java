@@ -1,6 +1,13 @@
 package aplicacion.fisica.documentos;
 
+import java.awt.Font;
+import java.awt.Frame;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.JobAttributes;
+import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.JobAttributes.DialogType;
 import java.awt.image.BufferedImage;
@@ -8,35 +15,26 @@ import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
-import java.awt.Frame;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.JobAttributes;
-import java.awt.Rectangle;
-import java.awt.Font;
-import java.awt.RenderingHints;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.RandomAccessFile;
+import java.io.Serializable;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.util.Vector;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
-import java.util.Vector;
-
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.RandomAccessFile;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.Serializable;
-import java.io.FileReader;
-import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
-
-import com.sun.pdfview.PDFPage;
 import com.sun.pdfview.PDFFile;
+import com.sun.pdfview.PDFPage;
 
 public class Documento implements Serializable, Printable
 {

@@ -7,15 +7,25 @@
 
 package lookandfeel.Dmetal;
 
-import java.beans.*;
+import java.awt.Component;
+import java.awt.GraphicsEnvironment;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.event.ContainerListener;
+import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeListener;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.event.*;
-import javax.swing.plaf.*;
-import javax.swing.plaf.basic.*;
+import javax.swing.AbstractButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComponent;
+import javax.swing.JToggleButton;
+import javax.swing.JToolBar;
+import javax.swing.border.Border;
+import javax.swing.event.MouseInputListener;
+import javax.swing.plaf.BorderUIResource;
+import javax.swing.plaf.ComponentUI;
+import javax.swing.plaf.UIResource;
+import javax.swing.plaf.basic.BasicToolBarUI;
 
 /**
  * A Metal Look and Feel implementation of ToolBarUI.  This implementation

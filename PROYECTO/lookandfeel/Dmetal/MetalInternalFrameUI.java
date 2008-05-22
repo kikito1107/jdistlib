@@ -7,13 +7,20 @@
 
 package lookandfeel.Dmetal;
 
-import java.beans.*;
+import java.awt.Container;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.plaf.*;
-import javax.swing.plaf.basic.*;
+import javax.swing.ActionMap;
+import javax.swing.JComponent;
+import javax.swing.JInternalFrame;
+import javax.swing.LookAndFeel;
+import javax.swing.SwingUtilities;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.ComponentUI;
+import javax.swing.plaf.UIResource;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
  * Metal implementation of JInternalFrame.

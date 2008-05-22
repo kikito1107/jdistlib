@@ -1,8 +1,12 @@
 package Deventos;
 
-import java.util.*;
+import java.util.Vector;
 
-import metainformacion.*;
+import metainformacion.MICompleta;
+import metainformacion.MIComponente;
+import metainformacion.MIInformacionConexion;
+import metainformacion.MIRol;
+import metainformacion.MIUsuario;
 
 /**
  * <p>Title: </p>

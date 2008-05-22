@@ -1,6 +1,6 @@
 package Deventos.enlaceJS;
 
-import net.jini.core.entry.*;
+import net.jini.core.entry.Entry;
 
 /**
  * Token usado para el algoritmo de escritura ordenada de eventos.

@@ -1,14 +1,8 @@
 package aplicacion.plugin.example.pizarra;
 
-import java.awt.Color;
-import java.awt.Rectangle;
 import java.util.Vector;
 
-import javax.swing.ImageIcon;
-
 import Deventos.DJViewerEvent;
-import aplicacion.fisica.documentos.Anotacion;
-import aplicacion.fisica.documentos.Pagina;
 
 import componentes.gui.imagen.figuras.Figura;
 

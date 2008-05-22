@@ -1,6 +1,6 @@
 package util;
 
-import javax.swing.*;
+import javax.swing.JComboBox;
 
 /**
  * Lista desplegable con multitud de metodos útiles que facilitan su uso

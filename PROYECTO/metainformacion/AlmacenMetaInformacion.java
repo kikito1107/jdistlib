@@ -1,8 +1,6 @@
 package metainformacion;
 
-import java.util.*;
-
-import util.*;
+import java.util.Vector;
 
 /**
  * Clase para ayudar al almacenaje y consulta de toda la informacion

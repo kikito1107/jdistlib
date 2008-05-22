@@ -1,15 +1,21 @@
 package componentes.base;
 
-import javax.swing.JTree;
 import java.util.Hashtable;
 import java.util.Vector;
-import javax.swing.tree.*;
 
-import componentes.listeners.*;
+import javax.swing.JTree;
+import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreeSelectionModel;
 
-import Deventos.*;
-import Deventos.enlaceJS.*;
-import lookandfeel.Dmetal.*;
+import lookandfeel.Dmetal.DMetalTreeUI;
+import Deventos.ColaEventos;
+import Deventos.DEvent;
+import Deventos.DJTreeEvent;
+import Deventos.enlaceJS.DConector;
+
+import componentes.listeners.DJTreeListener;
+import componentes.listeners.LJTreeListener;
 
 public class DJTree
 	 extends JTree {

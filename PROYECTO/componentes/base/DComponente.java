@@ -1,7 +1,8 @@
 package componentes.base;
 
-import Deventos.*;
-import componentes.*;
+import Deventos.ColaEventos;
+import Deventos.DEvent;
+import Deventos.DMIEvent;
 
 /**
  * <p>Title: </p>

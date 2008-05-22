@@ -1,6 +1,6 @@
 package Deventos;
 
-import java.util.*;
+import java.util.Vector;
 
 /**
  * <p>Title: </p>

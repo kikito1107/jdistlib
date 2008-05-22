@@ -1,6 +1,6 @@
 package componentes.listeners;
 
-import Deventos.*;
+import Deventos.DJTextFieldEvent;
 
 /**
  * <p>Title: </p>

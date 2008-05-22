@@ -7,17 +7,29 @@
 
 package lookandfeel.Dmetal;
 
-import java.security.*;
+import java.awt.Component;
+import java.awt.Insets;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.security.AccessController;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.plaf.*;
-import javax.swing.plaf.basic.*;
-import javax.swing.text.*;
+import javax.swing.Action;
+import javax.swing.ActionMap;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JRootPane;
+import javax.swing.JTextField;
+import javax.swing.LookAndFeel;
+import javax.swing.UIDefaults;
+import javax.swing.UIManager;
+import javax.swing.plaf.ColorUIResource;
+import javax.swing.plaf.FontUIResource;
+import javax.swing.plaf.InsetsUIResource;
+import javax.swing.plaf.basic.BasicLookAndFeel;
+import javax.swing.text.DefaultEditorKit;
 
-import sun.awt.*;
-import sun.security.action.*;
+import sun.awt.AppContext;
+import sun.security.action.GetPropertyAction;
 
 /**
  * Implements the Java look and feel (codename: Metal).

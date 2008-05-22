@@ -1,6 +1,6 @@
 package Deventos;
 
-import java.util.*;
+import java.util.Vector;
 
 /**
  * Cola FIFO de eventos. Permite un esquema productor-consumidor de forma sencilla.

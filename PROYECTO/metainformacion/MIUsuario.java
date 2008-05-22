@@ -1,7 +1,8 @@
 package metainformacion;
 
-import java.io.*;
-import java.util.*;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.Vector;
 
 /**
  * <p>Description: Clase que representa un usuario de una aplicacion. Guardamos

@@ -1,16 +1,17 @@
 package componentes.gui;
 
-import java.util.*;
+import java.awt.BorderLayout;
+import java.awt.Font;
+import java.util.Vector;
 
-import java.awt.*;
+import Deventos.DJChatEvent;
 
-import Deventos.*;
-import componentes.*;
 import componentes.base.DComponente;
 import componentes.base.DComponenteBase;
 import componentes.base.DJChat;
 import componentes.base.HebraProcesadoraBase;
-import componentes.listeners.*;
+import componentes.listeners.DJChatListener;
+import componentes.listeners.LJChatListener;
 
 /**
  * Chat con el que pueden hablar todos los usuarios de la aplicacion

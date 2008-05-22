@@ -1,7 +1,7 @@
 package metainformacion;
 
-import java.io.*;
-import java.util.*;
+import java.io.Serializable;
+import java.util.Vector;
 
 public class MIInformacionConexion
 	 implements Serializable {

@@ -7,10 +7,12 @@
 
 package lookandfeel.Dmetal;
 
-import java.io.*;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.io.Serializable;
 
-import java.awt.*;
-import javax.swing.*;
+import javax.swing.Icon;
+import javax.swing.JComponent;
 
 /**
  * This utility class draws the horizontal bars which indicate a MetalComboBox

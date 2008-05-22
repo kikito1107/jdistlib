@@ -1,12 +1,16 @@
 package util;
 
-import javax.swing.JList;
+import java.awt.Component;
 import java.util.Vector;
-import javax.swing.*;
+
+import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.ListCellRenderer;
+import javax.swing.ListSelectionModel;
 
 import Deventos.enlaceJS.DialogoSincronizacion;
-
-import java.awt.*;
 
 /**
  * <p>Title: </p>

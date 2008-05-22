@@ -1,14 +1,18 @@
 package componentes.base;
 
+import java.awt.Color;
 import java.util.Vector;
 
-import Deventos.*;
+import util.ElementoLista;
+import util.ListaElementos;
+import Deventos.ColaEventos;
+import Deventos.DEvent;
+import Deventos.DJListEvent;
+import Deventos.DMIEvent;
 import Deventos.enlaceJS.DConector;
-import java.awt.Color;
 
-import componentes.listeners.*;
-
-import util.*;
+import componentes.listeners.DJListListener;
+import componentes.listeners.LJListListener;
 
 /**
  * <p>Title: </p>

@@ -1,18 +1,21 @@
 package metainformacion;
 
-import java.util.*;
+import java.util.Date;
+import java.util.Random;
+import java.util.Vector;
+
 import javaspaces.SpaceLocator;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
-import componentes.listeners.*;
-
-import Deventos.*;
-import Deventos.enlaceJS.DConector;
 import metainformacion.gui.DialogoMetaInformacion;
-import net.jini.space.*;
 import net.jini.core.lease.Lease;
-import util.*;
+import net.jini.space.JavaSpace;
+import Deventos.DMIEvent;
+import Deventos.enlaceJS.DConector;
+
+import componentes.listeners.DMIListener;
 
 /**
  * Cliente del modulo de metainformacion

@@ -1,6 +1,7 @@
 package util;
 
-import javax.swing.*;
+import javax.swing.MenuElement;
+import javax.swing.MenuSelectionManager;
 
 /**
  * <p>Title: </p>

@@ -1,19 +1,23 @@
 package componentes.gui;
 
-import java.util.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.util.Vector;
 
-import java.awt.*;
-import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.JScrollPane;
 
-import Deventos.*;
-import Deventos.enlaceJS.*;
-import componentes.*;
+import util.ElementoLista;
+import Deventos.DEvent;
+import Deventos.DJListEvent;
+import Deventos.enlaceJS.DConector;
+
 import componentes.base.DComponente;
 import componentes.base.DComponenteBase;
 import componentes.base.DJList;
 import componentes.base.HebraProcesadoraBase;
-import componentes.listeners.*;
-import util.*;
+import componentes.listeners.DJListListener;
+import componentes.listeners.LJListListener;
 
 /**
  * Lista de elementos distribuida. Consultar documentacion del proyecto

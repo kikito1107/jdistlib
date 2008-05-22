@@ -1,21 +1,35 @@
 package componentes.base;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Vector;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
+import Deventos.ColaEventos;
+import Deventos.DEvent;
+import Deventos.DJChatEvent;
+import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.webcam.VideoConferencia;
 import aplicacion.fisica.webcam.VideoFrame;
 
 import componentes.gui.chat.PanelChatPrivado;
-import componentes.listeners.*;
-
-import java.awt.event.*;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.util.*;
-import Deventos.*;
-import Deventos.enlaceJS.DConector;
+import componentes.listeners.DJChatListener;
+import componentes.listeners.LJChatListener;
 
 /**
  * <p>

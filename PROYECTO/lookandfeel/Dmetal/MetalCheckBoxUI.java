@@ -7,8 +7,10 @@
 
 package lookandfeel.Dmetal;
 
-import javax.swing.*;
-import javax.swing.plaf.*;
+import javax.swing.AbstractButton;
+import javax.swing.JComponent;
+import javax.swing.UIManager;
+import javax.swing.plaf.ComponentUI;
 
 /**
  * CheckboxUI implementation for MetalCheckboxUI

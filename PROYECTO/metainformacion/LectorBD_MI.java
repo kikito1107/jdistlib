@@ -1,9 +1,10 @@
 package metainformacion;
 
-import java.util.*;
-import util.*;
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Vector;
 
+import util.Fecha;
 import aplicacion.fisica.ConectorBD;
 
 /**

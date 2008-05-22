@@ -1,15 +1,19 @@
 package componentes.base;
 
-import javax.swing.JButton;
-import Deventos.*;
+import java.awt.Color;
+import java.util.Vector;
+
 import javax.swing.Action;
 import javax.swing.Icon;
+import javax.swing.JButton;
 
-import componentes.listeners.*;
+import Deventos.ColaEventos;
+import Deventos.DEvent;
+import Deventos.DJButtonEvent;
+import Deventos.enlaceJS.DConector;
 
-import java.util.*;
-import Deventos.enlaceJS.*;
-import java.awt.*;
+import componentes.listeners.DJButtonListener;
+import componentes.listeners.LJButtonListener;
 
 /**
  * <p>Title: </p>

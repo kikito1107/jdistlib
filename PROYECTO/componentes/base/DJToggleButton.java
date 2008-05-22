@@ -1,15 +1,19 @@
 package componentes.base;
 
-import javax.swing.JToggleButton;
+import java.awt.Color;
+import java.util.Vector;
+
 import javax.swing.Action;
 import javax.swing.Icon;
+import javax.swing.JToggleButton;
 
-import componentes.listeners.*;
+import Deventos.ColaEventos;
+import Deventos.DEvent;
+import Deventos.DJToggleButtonEvent;
+import Deventos.enlaceJS.DConector;
 
-import java.util.*;
-import Deventos.*;
-import Deventos.enlaceJS.*;
-import java.awt.*;
+import componentes.listeners.DJToggleButtonListener;
+import componentes.listeners.LJToggleButtonListener;
 
 /**
  * <p>Title: </p>

@@ -1,10 +1,15 @@
 package util;
 
-import javax.swing.*;
+import java.awt.Canvas;
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.image.MemoryImageSource;
+import java.awt.image.PixelGrabber;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.awt.*;
-import java.awt.image.*;
-import java.io.*;
+
+import javax.swing.ImageIcon;
 
 public class ElementoLista implements Serializable{
   transient public ImageIcon imagen = null;

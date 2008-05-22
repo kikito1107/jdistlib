@@ -7,8 +7,9 @@
 
 package lookandfeel.Dmetal;
 
-import javax.swing.*;
-import javax.swing.plaf.*;
+import javax.swing.UIDefaults;
+import javax.swing.plaf.ColorUIResource;
+import javax.swing.plaf.FontUIResource;
 
 /**
  * This interface acts as a generic way to describe the colors

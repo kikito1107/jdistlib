@@ -1,7 +1,11 @@
 package metainformacion.gui;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Frame;
+import java.awt.Point;
+
+import javax.swing.JDialog;
+import javax.swing.JPanel;
 
 
 /**
