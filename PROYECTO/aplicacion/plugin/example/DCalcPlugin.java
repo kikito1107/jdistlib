@@ -18,9 +18,6 @@ public class DCalcPlugin extends DAbstractPlugin
 		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -8085076836531967376L;
 
 	@Override
@@ -60,5 +57,4 @@ public class DCalcPlugin extends DAbstractPlugin
 		ventana.setVisible(false);
 		ventana.dispose();
 	}
-
 }

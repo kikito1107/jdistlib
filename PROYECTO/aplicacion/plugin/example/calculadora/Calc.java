@@ -122,7 +122,7 @@ public class Calc extends Applet
  */
 class Keypad extends Panel
 {
-
+	private static final long serialVersionUID = -2027493051307560236L;
 	Display d;
 	
 	/**
@@ -419,6 +419,7 @@ class Keypad extends Panel
  */
 class Display extends Panel
 {
+	private static final long serialVersionUID = 4565678797237286940L;
 
 	double last = 0;
 
