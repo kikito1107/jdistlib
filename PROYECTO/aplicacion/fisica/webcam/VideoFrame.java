@@ -178,8 +178,19 @@ public class VideoFrame extends JFrame
 
 	private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)
 	{// GEN-FIRST:event_jButton1ActionPerformed
-		// System.out.println("Saliendo del programa");
-		// System.exit(0);
+		this.setVisible(false);
+		
+		try
+		{
+			init = false;
+			VideoConferencia.stopped = true;
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		
+		this.dispose();
 	}// GEN-LAST:event_jButton1ActionPerformed
 
 	private void ini_stopActionPerformed(java.awt.event.ActionEvent evt)
