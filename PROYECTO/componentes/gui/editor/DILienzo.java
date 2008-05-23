@@ -998,7 +998,14 @@ public class DILienzo extends DIViewer implements MouseListener,
 				a.setUsuario(evt.usuario);
 				a.setRol(evt.rol);
 
-				doc.getPagina(evt.numPagina.intValue()).addAnotacion(a);
+				try
+				{
+					doc.getPagina(evt.numPagina.intValue()).addAnotacion(a);
+				}
+				catch (NullPointerException ex)
+				{
+				}
+
 				this.repaint();
 			}
 		}
