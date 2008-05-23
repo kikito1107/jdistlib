@@ -16,10 +16,14 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.documentos.FicheroBD;
+import javax.swing.JTextArea;
+import java.awt.Color;
+import java.util.Vector;
 
 public class VisorPropiedadesFichero extends JDialog
 {
@@ -76,6 +80,10 @@ public class VisorPropiedadesFichero extends JDialog
 
 	private JLabel Directorio = null;
 
+	private JTextArea areaTextoEditores = null;
+
+	private JPanel panelEditores = null;
+
 	/**
 	 * @param owner
 	 */
@@ -93,7 +101,7 @@ public class VisorPropiedadesFichero extends JDialog
 	 */
 	private void initialize()
 	{
-		this.setSize(273, 357);
+		this.setSize(273, 473);
 		this.setContentPane(getJContentPane());
 	}
 
@@ -112,6 +120,7 @@ public class VisorPropiedadesFichero extends JDialog
 			jContentPane.add(getPanelPermisos(), null);
 			jContentPane.add(getJButton(), null);
 			jContentPane.add(getJButton1(), null);
+			jContentPane.add(getPanelEditores(), null);
 		}
 		return jContentPane;
 	}
@@ -126,7 +135,7 @@ public class VisorPropiedadesFichero extends JDialog
 		if (nombreFichero == null)
 		{
 			nombreFichero = new JTextField(fichero.getNombre());
-			nombreFichero.setPreferredSize(new Dimension(150, 22));
+			nombreFichero.setPreferredSize(new Dimension(140, 22));
 		}
 		return nombreFichero;
 	}
@@ -141,7 +150,7 @@ public class VisorPropiedadesFichero extends JDialog
 		if (usuario == null)
 		{
 			usuario = new JTextField(fichero.getUsuario().getNombreUsuario());
-			usuario.setPreferredSize(new Dimension(150, 22));
+			usuario.setPreferredSize(new Dimension(140, 22));
 			usuario.setEditable(false);
 		}
 		return usuario;
@@ -206,7 +215,7 @@ public class VisorPropiedadesFichero extends JDialog
 			panelPermisos.setBorder(BorderFactory.createTitledBorder(null,
 					"Permisos", TitledBorder.DEFAULT_JUSTIFICATION,
 					TitledBorder.DEFAULT_POSITION, null, null));
-			panelPermisos.setBounds(new Rectangle(17, 165, 240, 117));
+			panelPermisos.setBounds(new Rectangle(14, 286, 240, 117));
 			panelPermisos.add(getLecturaU(), gridBagConstraints);
 			panelPermisos.add(getEscrituraU(), gridBagConstraints1);
 			panelPermisos.add(getLecturaR(), gridBagConstraints2);
@@ -374,8 +383,9 @@ public class VisorPropiedadesFichero extends JDialog
 			gridBagConstraints11.gridx = 1;
 			panelDatos = new JPanel();
 			panelDatos.setLayout(new GridBagLayout());
-			panelDatos.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-			panelDatos.setBounds(new Rectangle(15, 18, 242, 133));
+			panelDatos.setBorder(BorderFactory.createTitledBorder(null, "B‡sico", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
+			panelDatos.setBounds(new Rectangle(15, 18, 242, 106));
+			panelDatos.setBackground(new Color(238, 238, 238));
 			panelDatos.add(getNombreFichero(), gridBagConstraints11);
 			panelDatos.add(getPathFichero(), gridBagConstraints12);
 			panelDatos.add(jLabel, gridBagConstraints13);
@@ -384,6 +394,8 @@ public class VisorPropiedadesFichero extends JDialog
 			panelDatos.add(jLabel2, gridBagConstraints16);
 			panelDatos.add(getEsDirectorio(), gridBagConstraints17);
 			panelDatos.add(Directorio, gridBagConstraints18);
+			
+			panelDatos.setBackground(this.getContentPane().getBackground());
 		}
 		return panelDatos;
 	}
@@ -398,7 +410,7 @@ public class VisorPropiedadesFichero extends JDialog
 		if (rol == null)
 		{
 			rol = new JTextField(fichero.getRol().getNombreRol());
-			rol.setPreferredSize(new Dimension(150, 22));
+			rol.setPreferredSize(new Dimension(140, 22));
 			rol.setEditable(false);
 		}
 		return rol;
@@ -414,7 +426,7 @@ public class VisorPropiedadesFichero extends JDialog
 		if (jButton == null)
 		{
 			jButton = new JButton();
-			jButton.setBounds(new Rectangle(139, 293, 116, 29));
+			jButton.setBounds(new Rectangle(137, 415, 116, 29));
 			jButton.setIcon(new ImageIcon(getClass().getResource(
 					"/Resources/tick.png")));
 			jButton.setText("Aceptar");
@@ -493,7 +505,7 @@ public class VisorPropiedadesFichero extends JDialog
 		if (jButton1 == null)
 		{
 			jButton1 = new JButton();
-			jButton1.setBounds(new Rectangle(17, 292, 116, 29));
+			jButton1.setBounds(new Rectangle(15, 414, 116, 29));
 			jButton1.setIcon(new ImageIcon(getClass().getResource(
 					"/Resources/cancel.png")));
 			jButton1.setText("Cancelar");
@@ -513,7 +525,7 @@ public class VisorPropiedadesFichero extends JDialog
 	{
 		setTitle("Propiedades " + this.fichero.getNombre());
 
-		setSize(273, 357);
+		setSize(273,504);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		Dimension frameSize = getSize();
 		if (frameSize.height > screenSize.height)
@@ -558,6 +570,61 @@ public class VisorPropiedadesFichero extends JDialog
 			else esDirectorio.setSelected(false);
 		}
 		return esDirectorio;
+	}
+
+	/**
+	 * This method initializes areaTextoEditores	
+	 * 	
+	 * @return javax.swing.JTextArea	
+	 */
+	private JTextArea getAreaTextoEditores()
+	{
+		if (areaTextoEditores == null)
+		{
+			areaTextoEditores = new JTextArea();
+			areaTextoEditores.setLineWrap(true);
+			areaTextoEditores.setWrapStyleWord(true);
+			areaTextoEditores.setAutoscrolls(true);
+			
+			Vector<String> editores = DConector.obtenerDC().consultarEditores(fichero.getRutaLocal());
+			
+			if (editores != null) 
+			{
+				int numEditores = editores.size();
+				
+				for(int i=0; i<numEditores; ++i)
+					areaTextoEditores.append(editores.get(i)+'\n');
+			}
+			
+			areaTextoEditores.setEditable(false);
+			areaTextoEditores.setToolTipText("Usuarios que est‡n editando el documento en este momento");
+			areaTextoEditores.setBackground(this.getContentPane().getBackground());
+		}
+		return areaTextoEditores;
+	}
+
+	/**
+	 * This method initializes panelEditores	
+	 * 	
+	 * @return javax.swing.JPanel	
+	 */
+	private JPanel getPanelEditores()
+	{
+		if (panelEditores == null)
+		{
+			GridBagConstraints gridBagConstraints19 = new GridBagConstraints();
+			gridBagConstraints19.fill = GridBagConstraints.BOTH;
+			gridBagConstraints19.gridy = 0;
+			gridBagConstraints19.weightx = 1.0;
+			gridBagConstraints19.weighty = 1.0;
+			gridBagConstraints19.gridx = 0;
+			panelEditores = new JPanel();
+			panelEditores.setLayout(new GridBagLayout());
+			panelEditores.setBorder(BorderFactory.createTitledBorder(null, "Editores", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
+			panelEditores.setBounds(new Rectangle(14, 136, 243, 139));
+			panelEditores.add(getAreaTextoEditores(), gridBagConstraints19);
+		}
+		return panelEditores;
 	}
 
 } // @jve:decl-index=0:visual-constraint="6,-2"

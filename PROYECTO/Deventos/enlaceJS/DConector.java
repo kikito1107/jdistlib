@@ -565,6 +565,43 @@ public class DConector
 		return dconector;
 
 	}
+	
+	
+	public Vector<String> consultarEditores(String path){
+		
+		TokenFichero plantilla = new TokenFichero();
+		plantilla.Fichero = new String(path);
+		plantilla.aplicacion = new String(Daplicacion + "_");
+		
+		
+		try
+		{
+			tk = (TokenFichero) space.readIfExists(plantilla, null, 500L);
+		}
+		catch (RemoteException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (UnusableEntryException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (TransactionException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (InterruptedException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if (tk == null) return null;
+		else return tk.editores;
+	}
 
 	/**
 	 * Comprueba si el token correspondiente al fichero se encuentra en el JS
@@ -619,7 +656,8 @@ public class DConector
 			tk.Fichero = new String(fichero);
 			tk.aplicacion = new String(Daplicacion + "_");
 			tk.sec = new Long(1L);
-			tk.nuevoUsuario();
+			tk.editores = new Vector<String>();
+			tk.nuevoUsuario(DConector.Dusuario);
 
 			return false;
 		}
@@ -631,7 +669,7 @@ public class DConector
 		{
 			System.err.println("El token para el " + fichero
 					+ " existe: incrementando el contador de usuarios");
-			tk.nuevoUsuario();
+			tk.nuevoUsuario(DConector.Dusuario);
 			tk.sec = new Long(tk.sec.longValue() + 1L);
 			return true;
 		}
@@ -678,12 +716,12 @@ public class DConector
 			{
 
 				System.err.println("Numero de usuarios activos "
-						+ ( tk.NumUsuarios - 1 ));
+						+ ( tk.editores.size() - 1 ));
 
 				// si todav’a quedan usuarios editando ese documento
-				if (tk.NumUsuarios.intValue() > 1)
+				if (tk.editores.size() > 1)
 				{
-					tk.bajaUsuario();
+					tk.bajaUsuario(Dusuario);
 					space.write(tk, null, 10000L);
 				}
 				return true;

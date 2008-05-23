@@ -1,5 +1,7 @@
 package Deventos.enlaceJS;
 
+import java.util.Vector;
+
 public class TokenFichero extends Token
 {
 	/**
@@ -11,14 +13,13 @@ public class TokenFichero extends Token
 
 	public String ip = null;
 
-	public Integer NumUsuarios = null;
-
 	public Boolean sincronizar = null;
+	
+	public Vector<String> editores = null;
 
 	public TokenFichero( String aplicacion, String fichero )
 	{
 		this.aplicacion = aplicacion;
-		this.NumUsuarios = null;
 		this.Fichero = fichero;
 
 	}
@@ -28,18 +29,19 @@ public class TokenFichero extends Token
 		super();
 	}
 
-	public void bajaUsuario()
+	public void bajaUsuario(String usuario)
 	{
-		if (NumUsuarios == null)
-			NumUsuarios = new Integer(0);
-		else if (NumUsuarios.intValue() > 0)
-			NumUsuarios = new Integer(NumUsuarios.intValue() - 1);
+		if (editores != null && editores.size()>0) {
+			editores.remove(usuario);
+			System.err.println("El usuario " + usuario + " se da de baja");
+		}
 	}
 
-	public void nuevoUsuario()
+	public void nuevoUsuario(String usuario)
 	{
-		if (NumUsuarios == null)
-			NumUsuarios = new Integer(1);
-		else NumUsuarios = new Integer(NumUsuarios.intValue() + 1);
+		if (editores != null) {
+			editores.add(usuario);
+			System.err.println("El usuario " + usuario + " se da de alta");
+		}
 	}
 }
