@@ -21,27 +21,36 @@ import componentes.listeners.DMIListener;
  * Cliente del modulo de metainformacion
  */
 
-public class ClienteMetaInformacion {
+public class ClienteMetaInformacion
+{
 	public static ClienteMetaInformacion cmi = null;
+
 	public static String usuario = null;
+
 	public static String clave = null;
+
 	public static String aplicacion = null;
+
 	private DialogoMetaInformacion dmi = null;
 
 	private static final long leaseWriteTime = Lease.FOREVER;
+
 	private static final long leaseReadTime = 10000L;
 
 	private JavaSpace space = null;
+
 	private static final Vector<DMIListener> dmilisteners = new Vector<DMIListener>();
+
 	private static boolean permisoAdministracion = false;
 
 	private Monitor monitor = new Monitor();
+
 	private long contador = -1;
 
-	@SuppressWarnings("static-access")
-	public ClienteMetaInformacion(String aplicacion2, String usuario2, String clave2) {
-
-
+	@SuppressWarnings( "static-access" )
+	public ClienteMetaInformacion( String aplicacion2, String usuario2,
+			String clave2 )
+	{
 
 		this.aplicacion = new String(aplicacion2);
 		this.usuario = new String(usuario2);
@@ -49,16 +58,16 @@ public class ClienteMetaInformacion {
 		localizarJavaSpace();
 		cmi = this;
 
-
 		JFrame fr = new JFrame();
 		dmi = new DialogoMetaInformacion(fr, ".:: MetaInformacion ::.", false);
 
 		inicializar();
 	}
 
-	@SuppressWarnings("static-access" )
-	public ClienteMetaInformacion(String aplicacion, String usuario, String clave,
-			JFrame frame, JavaSpace space) {
+	@SuppressWarnings( "static-access" )
+	public ClienteMetaInformacion( String aplicacion, String usuario,
+			String clave, JFrame frame, JavaSpace space )
+	{
 		this.aplicacion = new String(aplicacion);
 		this.usuario = new String(usuario);
 		this.clave = clave;
@@ -71,7 +80,8 @@ public class ClienteMetaInformacion {
 		inicializar();
 	}
 
-	private void localizarJavaSpace() {
+	private void localizarJavaSpace()
+	{
 		// Encargada de localizar el JavaSpace
 		Thread t1 = new Thread(new HebraLocalizadora("JavaSpace"));
 		t1.start();
@@ -81,34 +91,38 @@ public class ClienteMetaInformacion {
 		Thread t2 = new Thread(new HebraDetectoraError(10));
 		t2.start();
 		// Espera un evento sobre la inicializacion
-		if (monitor.inicializacionCorrecta()) {
+		if (monitor.inicializacionCorrecta())
 			inicializar();
-			//System.out.println("Localizacion correcta");
-		}
-		else {
-			//System.out.println("Error localizando el JavaSpace");
-			System.exit(1);
-		}
+		// System.out.println("Localizacion correcta");
+		else // System.out.println("Error localizando el JavaSpace");
+		System.exit(1);
 	}
 
-	public static ClienteMetaInformacion obtenerCMI() {
+	public static ClienteMetaInformacion obtenerCMI()
+	{
 		return cmi;
 	}
 
 	/**
-	 * inicializa el cliente enviando una solicitud de sincronizaci—n al servidor de Metainformaci—n
+	 * inicializa el cliente enviando una solicitud de sincronizaci—n al
+	 * servidor de Metainformaci—n
 	 */
-	public void inicializar() {
-		try {
-			//********** SINCRONIZACION CON EL SERVIDOR DE METAINFORMACION *********//
+	public void inicializar()
+	{
+		try
+		{
+			// ********** SINCRONIZACION CON EL SERVIDOR DE METAINFORMACION
+			// *********//
 
-			// evento en el que se almacenar‡ la respuesta del servidor a la petici—n de sincronizaci—n
+			// evento en el que se almacenar‡ la respuesta del servidor a la
+			// petici—n de sincronizaci—n
 			DMIEvent leido = null;
 
 			// evento que ser‡ enviado al servidor para solicitar sincronizaci—n
 			DMIEvent evento = new DMIEvent();
 
-			// evento "template" utilizado para leer la respuesta a la petici—n de sincronizaci—n del servidor
+			// evento "template" utilizado para leer la respuesta a la petici—n
+			// de sincronizaci—n del servidor
 			DMIEvent plantilla = new DMIEvent();
 
 			// aleatorio que servir‡ de ID de la petici—n de sincronizacion
@@ -118,7 +132,7 @@ public class ClienteMetaInformacion {
 			evento.origen = new Integer(11); // Cliente MetaInformacion
 			evento.destino = new Integer(10); // Servidor MetaInformacion
 
-			// tipo de evento 
+			// tipo de evento
 			evento.tipo = new Integer(DMIEvent.SINCRONIZACION.intValue());
 			evento.aplicacion = new String(aplicacion);
 			evento.entero = new Integer(idEvento);
@@ -130,38 +144,45 @@ public class ClienteMetaInformacion {
 			// inicializamos la plantilla
 			plantilla.origen = new Integer(10); // Servidor MetaInformacion
 			plantilla.destino = new Integer(11); // Cliente MetaInformacion
-			plantilla.tipo = new Integer(DMIEvent.RESPUESTA_SINCRONIZACION.intValue());
+			plantilla.tipo = new Integer(DMIEvent.RESPUESTA_SINCRONIZACION
+					.intValue());
 			plantilla.entero = new Integer(idEvento);
 			plantilla.aplicacion = new String(aplicacion);
 
-
 			// leemos la respuesta a la solicitud
-			leido = (DMIEvent) space.take(plantilla, null, leaseReadTime);	
+			leido = (DMIEvent) space.take(plantilla, null, leaseReadTime);
 
-			if (leido == null) { // Sin respuesta del coordinador
-				JOptionPane.showMessageDialog(null,
-						"Error sincronizando con el Servidor de MetaInformacion",
-						"Error", JOptionPane.ERROR_MESSAGE);
+			if (leido == null)
+			{ // Sin respuesta del coordinador
+				JOptionPane
+						.showMessageDialog(
+								null,
+								"Error sincronizando con el Servidor de MetaInformacion",
+								"Error", JOptionPane.ERROR_MESSAGE);
 				System.exit(1);
 			}
-			else {
-				contador = leido.contador.longValue();
-			}
+			else contador = leido.contador.longValue();
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null,
-					"Hubo un error en la comunicacion en el cliente de metainformacion\nDebera identificarse de nuevo lalala.",
-					"Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane
+					.showMessageDialog(
+							null,
+							"Hubo un error en la comunicacion en el cliente de metainformacion\nDebera identificarse de nuevo lalala.",
+							"Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
 	}
 
 	/**
-	 * Identificamos al usuario para concederle, o no, el acceso a la aplicaci—n en cuesti—n
+	 * Identificamos al usuario para concederle, o no, el acceso a la aplicaci—n
+	 * en cuesti—n
+	 * 
 	 * @return
 	 */
-	public MIInformacionConexion identificar() {
+	public MIInformacionConexion identificar()
+	{
 
 		// inicializamos los eventos a null
 		DMIEvent evento = null;
@@ -173,8 +194,9 @@ public class ClienteMetaInformacion {
 
 		// ID del evento
 		int idEvento = aleatorio();
-		try {
-			//*********** IDENTIFICANDO USUARIO *****************************//
+		try
+		{
+			// *********** IDENTIFICANDO USUARIO *****************************//
 			evento = new DMIEvent();
 			plantilla = new DMIEvent();
 			idEvento = aleatorio();
@@ -183,69 +205,76 @@ public class ClienteMetaInformacion {
 			evento.tipo = new Integer(DMIEvent.IDENTIFICACION.intValue());
 			evento.aplicacion = new String(aplicacion);
 			evento.usuario = new String(usuario);
-			evento.clave = new String(clave); //********************************************************
+			evento.clave = new String(clave); // ********************************************************
 			evento.entero = new Integer(idEvento);
 			evento.sincrono = new Boolean(true);
 			space.write(evento, null, leaseWriteTime);
 
 			plantilla.origen = new Integer(10); // Servidor MetaInformacion
 			plantilla.destino = new Integer(11); // Cliente MetaInformacion
-			plantilla.tipo = new Integer(DMIEvent.RESPUESTA_IDENTIFICACION.intValue());
+			plantilla.tipo = new Integer(DMIEvent.RESPUESTA_IDENTIFICACION
+					.intValue());
 			plantilla.entero = new Integer(idEvento);
 			plantilla.aplicacion = new String(aplicacion);
 
 			leido = (DMIEvent) space.take(plantilla, null, leaseReadTime);
-			if (leido == null) { // Sin respuesta del coordinador
-				JOptionPane.showMessageDialog(null,
-						"Error de identificacion",
+			if (leido == null)
+			{ // Sin respuesta del coordinador
+				JOptionPane.showMessageDialog(null, "Error de identificacion",
 						"Error", JOptionPane.ERROR_MESSAGE);
 				System.exit(1);
 			}
-			else {
+			else
+			{
 				info = leido.infoConexion;
-				if (leido.infoConexion.identificacionValida.booleanValue()) {
-					permisoAdministracion = leido.infoConexion.esAdministrador.
-					booleanValue();
-
-				}
+				if (leido.infoConexion.identificacionValida.booleanValue())
+					permisoAdministracion = leido.infoConexion.esAdministrador
+							.booleanValue();
 			}
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null,
-					"Hubo un error en la comunicacion en el cliente de metainformacion\nDebera identificarse de nuevo.",
-					"Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane
+					.showMessageDialog(
+							null,
+							"Hubo un error en la comunicacion en el cliente de metainformacion\nDebera identificarse de nuevo.",
+							"Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
 
-		dmi.inicializar(info.rol); //***************************************************************************************
+		dmi.inicializar(info.rol); // ***************************************************************************************
 
-//		***************************************************************//
+		// ***************************************************************//
 
 		return info;
 	}
 
-	public void addDMIListener(DMIListener listener) {
+	public void addDMIListener(DMIListener listener)
+	{
 		dmilisteners.add(listener);
 	}
 
-	public void hacerVisibleDialogo() {
-		if (dmi != null && permisoAdministracion) {
+	public void hacerVisibleDialogo()
+	{
+		if (( dmi != null ) && permisoAdministracion)
+		{
 			System.out.println("intentando iniciar dmi");
 			dmi.setVisible(true);
 		}
-		else
-			System.out.println("=> problemas con dmi!!!!");
+		else System.out.println("=> problemas con dmi!!!!");
 	}
 
-	@SuppressWarnings("static-access")
-	public MICompleta conectarUsuario(String usuario, String clave) {
+	@SuppressWarnings( "static-access" )
+	public MICompleta conectarUsuario(String usuario, String clave)
+	{
 		DMIEvent leido = null;
 		DMIEvent evento = new DMIEvent();
 		DMIEvent plantilla = new DMIEvent();
 		MICompleta info = null;
 
-		try {
+		try
+		{
 			int idEvento = aleatorio();
 			evento.origen = new Integer(11); // Cliente MetaInformacion
 			evento.destino = new Integer(10); // Servidor MetaInformacion
@@ -261,50 +290,62 @@ public class ClienteMetaInformacion {
 			plantilla.destino = new Integer(11); // Cliente MetaInformacion
 			plantilla.usuario = new String(usuario);
 			plantilla.clave = new String(clave);
-			plantilla.tipo = new Integer(DMIEvent.RESPUESTA_IDENTIFICACION.intValue());
+			plantilla.tipo = new Integer(DMIEvent.RESPUESTA_IDENTIFICACION
+					.intValue());
 			plantilla.entero = new Integer(idEvento);
 			plantilla.aplicacion = new String(aplicacion);
 			plantilla.sincrono = new Boolean(true);
 
 			leido = (DMIEvent) space.take(plantilla, null, leaseReadTime);
-			if (leido == null) { // Sin respuesta del servidor
+			if (leido == null)
+			{ // Sin respuesta del servidor
 				info = new MICompleta();
-				info.mensajeError = new String("No hubo respuesta desde el servidor");
+				info.mensajeError = new String(
+						"No hubo respuesta desde el servidor");
 			}
-			else {
+			else
+			{
 				info = leido.infoCompleta;
-				this.permisoAdministracion = info.esAdministrador.booleanValue();
-				if (info.identificacionValida.booleanValue()) {
-					//********** PREPARANDO HEBRA RECOLECTORA DE EVENTOS ************//
+				this.permisoAdministracion = info.esAdministrador
+						.booleanValue();
+				if (info.identificacionValida.booleanValue())
+				{
+					// ********** PREPARANDO HEBRA RECOLECTORA DE EVENTOS
+					// ************//
 					Thread recolectora = new Thread(new HebraRecolectora());
 					recolectora.start();
 					recolectora.setPriority(Thread.MAX_PRIORITY);
-					//***************************************************************//
-					//********** PREPARANDO HEBRA ENVIO DE KEEPALIVE ************//
+					// ***************************************************************//
+					// ********** PREPARANDO HEBRA ENVIO DE KEEPALIVE
+					// ************//
 					Thread envioKA = new Thread(new HebraEnvioKeepAlive());
 					envioKA.start();
-					//***************************************************************//
+					// ***************************************************************//
 				}
 			}
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null,
-					"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
-					"Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane
+					.showMessageDialog(
+							null,
+							"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
+							"Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
 		return info;
 	}
 
-	public MICompleta cambiarRolUsuario(String usuario,
-			String nuevoRol) {
+	public MICompleta cambiarRolUsuario(String usuario, String nuevoRol)
+	{
 		MICompleta info = new MICompleta();
 		DMIEvent leido = null;
 		DMIEvent evento = new DMIEvent();
 		DMIEvent plantilla = new DMIEvent();
 
-		try {
+		try
+		{
 			int idEvento = aleatorio();
 			evento.origen = new Integer(11); // Cliente MetaInformacion
 			evento.destino = new Integer(10); // Servidor MetaInformacion
@@ -319,41 +360,48 @@ public class ClienteMetaInformacion {
 			plantilla.origen = new Integer(10); // Servidor MetaInformacion
 			plantilla.destino = new Integer(11); // Cliente MetaInformacion
 			plantilla.usuario = new String(usuario);
-			plantilla.tipo = new Integer(DMIEvent.RESPUESTA_CAMBIO_ROL.intValue());
+			plantilla.tipo = new Integer(DMIEvent.RESPUESTA_CAMBIO_ROL
+					.intValue());
 			plantilla.entero = new Integer(idEvento);
 			plantilla.aplicacion = new String(aplicacion);
 			plantilla.sincrono = new Boolean(true);
 
 			leido = (DMIEvent) space.take(plantilla, null, leaseReadTime);
-			if (leido == null) { // Sin respuesta del servidor
+			if (leido == null)
+			{ // Sin respuesta del servidor
 				info = new MICompleta();
-				info.mensajeError = new String("No hubo respuesta desde el servidor");
+				info.mensajeError = new String(
+						"No hubo respuesta desde el servidor");
 			}
-			else {
-				info = leido.infoCompleta;
-			}
+			else info = leido.infoCompleta;
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null,
-					"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
-					"Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane
+					.showMessageDialog(
+							null,
+							"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
+							"Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
 		return info;
 	}
 
-	public Vector obtenerUsuariosBajoRol(String rol) {
+	public Vector obtenerUsuariosBajoRol(String rol)
+	{
 		Vector v = null;
 		DMIEvent leido = null;
 		DMIEvent evento = new DMIEvent();
 		DMIEvent plantilla = new DMIEvent();
 
-		try {
+		try
+		{
 			int idEvento = aleatorio();
 			evento.origen = new Integer(11); // Cliente MetaInformacion
 			evento.destino = new Integer(10); // Servidor MetaInformacion
-			evento.tipo = new Integer(DMIEvent.OBTENER_USUARIOS_BAJO_ROL.intValue());
+			evento.tipo = new Integer(DMIEvent.OBTENER_USUARIOS_BAJO_ROL
+					.intValue());
 			evento.rol = new String(rol);
 			evento.sincrono = new Boolean(true);
 			evento.aplicacion = new String(aplicacion);
@@ -362,37 +410,41 @@ public class ClienteMetaInformacion {
 
 			plantilla.origen = new Integer(10); // Servidor MetaInformacion
 			plantilla.destino = new Integer(11); // Cliente MetaInformacion
-			plantilla.tipo = new Integer(DMIEvent.RESPUESTA_OBTENER_USUARIOS_BAJO_ROL.
-					intValue());
+			plantilla.tipo = new Integer(
+					DMIEvent.RESPUESTA_OBTENER_USUARIOS_BAJO_ROL.intValue());
 			plantilla.sincrono = new Boolean(true);
 			plantilla.aplicacion = new String(aplicacion);
 			plantilla.entero = new Integer(idEvento);
 
 			leido = (DMIEvent) space.take(plantilla, null, leaseReadTime);
-			if (leido == null) { // Sin respuesta del servidor
+			if (leido == null)
+			{ // Sin respuesta del servidor
 			}
-			else {
-				v = leido.v1;
-			}
+			else v = leido.v1;
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null,
-					"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
-					"Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane
+					.showMessageDialog(
+							null,
+							"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
+							"Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
 		return v;
 
 	}
 
-	public Vector obtenerUsuarios() {
+	public Vector obtenerUsuarios()
+	{
 		Vector v = null;
 		DMIEvent leido = null;
 		DMIEvent evento = new DMIEvent();
 		DMIEvent plantilla = new DMIEvent();
 
-		try {
+		try
+		{
 			int idEvento = aleatorio();
 			evento.origen = new Integer(11); // Cliente MetaInformacion
 			evento.destino = new Integer(10); // Servidor MetaInformacion
@@ -404,36 +456,41 @@ public class ClienteMetaInformacion {
 
 			plantilla.origen = new Integer(10); // Servidor MetaInformacion
 			plantilla.destino = new Integer(11); // Cliente MetaInformacion
-			plantilla.tipo = new Integer(DMIEvent.RESPUESTA_OBTENER_USUARIOS.intValue());
+			plantilla.tipo = new Integer(DMIEvent.RESPUESTA_OBTENER_USUARIOS
+					.intValue());
 			plantilla.sincrono = new Boolean(true);
 			plantilla.aplicacion = new String(aplicacion);
 			plantilla.entero = new Integer(idEvento);
 
 			leido = (DMIEvent) space.take(plantilla, null, leaseReadTime);
-			if (leido == null) { // Sin respuesta del servidor
+			if (leido == null)
+			{ // Sin respuesta del servidor
 			}
-			else {
-				v = leido.v1;
-			}
+			else v = leido.v1;
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null,
-					"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
-					"Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane
+					.showMessageDialog(
+							null,
+							"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
+							"Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
 		return v;
 
 	}
 
-	public Vector obtenerRoles() {
+	public Vector obtenerRoles()
+	{
 		Vector v = null;
 		DMIEvent leido = null;
 		DMIEvent evento = new DMIEvent();
 		DMIEvent plantilla = new DMIEvent();
 
-		try {
+		try
+		{
 			int idEvento = aleatorio();
 			evento.origen = new Integer(11); // Cliente MetaInformacion
 			evento.destino = new Integer(10); // Servidor MetaInformacion
@@ -445,31 +502,35 @@ public class ClienteMetaInformacion {
 
 			plantilla.origen = new Integer(10); // Servidor MetaInformacion
 			plantilla.destino = new Integer(11); // Cliente MetaInformacion
-			plantilla.tipo = new Integer(DMIEvent.RESPUESTA_OBTENER_ROLES.intValue());
+			plantilla.tipo = new Integer(DMIEvent.RESPUESTA_OBTENER_ROLES
+					.intValue());
 			plantilla.sincrono = new Boolean(true);
 			plantilla.aplicacion = new String(aplicacion);
 			plantilla.entero = new Integer(idEvento);
 
 			leido = (DMIEvent) space.take(plantilla, null, leaseReadTime);
-			if (leido == null) { // Sin respuesta del servidor
+			if (leido == null)
+			{ // Sin respuesta del servidor
 			}
-			else {
-				v = leido.v1;
-			}
+			else v = leido.v1;
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null,
-					"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
-					"Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane
+					.showMessageDialog(
+							null,
+							"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
+							"Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
 		return v;
 
 	}
 
-	@SuppressWarnings("unchecked")
-	public MIUsuario getUsuario(String Nombre) {
+	@SuppressWarnings( "unchecked" )
+	public MIUsuario getUsuario(String Nombre)
+	{
 
 		Vector<MIUsuario> v = null;
 		MIUsuario u = null;
@@ -477,7 +538,8 @@ public class ClienteMetaInformacion {
 		DMIEvent evento = new DMIEvent();
 		DMIEvent plantilla = new DMIEvent();
 
-		try {
+		try
+		{
 			int idEvento = aleatorio();
 			evento.origen = new Integer(11); // Cliente MetaInformacion
 			evento.destino = new Integer(10); // Servidor MetaInformacion
@@ -489,50 +551,55 @@ public class ClienteMetaInformacion {
 
 			plantilla.origen = new Integer(10); // Servidor MetaInformacion
 			plantilla.destino = new Integer(11); // Cliente MetaInformacion
-			plantilla.tipo = new Integer(DMIEvent.RESPUESTA_DATOS_USUARIO.intValue());
+			plantilla.tipo = new Integer(DMIEvent.RESPUESTA_DATOS_USUARIO
+					.intValue());
 			plantilla.sincrono = new Boolean(true);
 			plantilla.aplicacion = new String(aplicacion);
 			plantilla.entero = new Integer(idEvento);
 
 			leido = (DMIEvent) space.take(plantilla, null, leaseReadTime);
-			if (leido == null) { // Sin respuesta del servidor
+			if (leido == null)
 				System.out.println("enviada vacio");
-			}
-			else {
-				if (leido.usuarios != null) {
-					v = leido.usuarios;
-					
-					System.out.println("TAma–o v " + v.size());
-					
-					for (int i=0; i<v.size(); ++i) {
-						
-						System.out.println("Comparando con: "+v.get(i).getNombreUsuario());
-						
-						if (v.get(i).getNombreUsuario().equals(Nombre))
-							u = v.get(i);
-					}
+			else if (leido.usuarios != null)
+			{
+				v = leido.usuarios;
+
+				System.out.println("TAma–o v " + v.size());
+
+				for (int i = 0; i < v.size(); ++i)
+				{
+
+					System.out.println("Comparando con: "
+							+ v.get(i).getNombreUsuario());
+
+					if (v.get(i).getNombreUsuario().equals(Nombre))
+						u = v.get(i);
 				}
-				else
-					System.out.println("v vacio");
 			}
+			else System.out.println("v vacio");
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null,
-					"Hubo un error en la comunicacion a la hora de obtener los datos de usuario\nDebera identificarse de nuevo.",
-					"Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane
+					.showMessageDialog(
+							null,
+							"Hubo un error en la comunicacion a la hora de obtener los datos de usuario\nDebera identificarse de nuevo.",
+							"Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
 		return u;
 	}
 
-	public Vector obtenerComponentes() {
+	public Vector obtenerComponentes()
+	{
 		Vector v = null;
 		DMIEvent leido = null;
 		DMIEvent evento = new DMIEvent();
 		DMIEvent plantilla = new DMIEvent();
 
-		try {
+		try
+		{
 			int idEvento = aleatorio();
 			evento.origen = new Integer(11); // Cliente MetaInformacion
 			evento.destino = new Integer(10); // Servidor MetaInformacion
@@ -544,41 +611,46 @@ public class ClienteMetaInformacion {
 
 			plantilla.origen = new Integer(10); // Servidor MetaInformacion
 			plantilla.destino = new Integer(11); // Cliente MetaInformacion
-			plantilla.tipo = new Integer(DMIEvent.RESPUESTA_OBTENER_COMPONENTES.
-					intValue());
+			plantilla.tipo = new Integer(DMIEvent.RESPUESTA_OBTENER_COMPONENTES
+					.intValue());
 			plantilla.sincrono = new Boolean(true);
 			plantilla.aplicacion = new String(aplicacion);
 			plantilla.entero = new Integer(idEvento);
 
 			leido = (DMIEvent) space.take(plantilla, null, leaseReadTime);
-			if (leido == null) { // Sin respuesta del servidor
+			if (leido == null)
+			{ // Sin respuesta del servidor
 			}
-			else {
-				v = leido.v1;
-			}
+			else v = leido.v1;
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null,
-					"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
-					"Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane
+					.showMessageDialog(
+							null,
+							"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
+							"Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
 		return v;
 
 	}
 
-	public Vector obtenerUsuariosConectados() {
+	public Vector obtenerUsuariosConectados()
+	{
 		Vector v = null;
 		DMIEvent leido = null;
 		DMIEvent evento = new DMIEvent();
 		DMIEvent plantilla = new DMIEvent();
 
-		try {
+		try
+		{
 			int idEvento = aleatorio();
 			evento.origen = new Integer(11); // Cliente MetaInformacion
 			evento.destino = new Integer(10); // Servidor MetaInformacion
-			evento.tipo = new Integer(DMIEvent.OBTENER_USUARIOS_CONECTADOS.intValue());
+			evento.tipo = new Integer(DMIEvent.OBTENER_USUARIOS_CONECTADOS
+					.intValue());
 			evento.sincrono = new Boolean(true);
 			evento.aplicacion = new String(aplicacion);
 			evento.entero = new Integer(idEvento);
@@ -586,43 +658,47 @@ public class ClienteMetaInformacion {
 
 			plantilla.origen = new Integer(10); // Servidor MetaInformacion
 			plantilla.destino = new Integer(11); // Cliente MetaInformacion
-			plantilla.tipo = new Integer(DMIEvent.
-					RESPUESTA_OBTENER_USUARIOS_CONECTADOS.
-					intValue());
+			plantilla.tipo = new Integer(
+					DMIEvent.RESPUESTA_OBTENER_USUARIOS_CONECTADOS.intValue());
 			plantilla.sincrono = new Boolean(true);
 			plantilla.aplicacion = new String(aplicacion);
 			plantilla.entero = new Integer(idEvento);
 
 			leido = (DMIEvent) space.take(plantilla, null, leaseReadTime);
-			if (leido == null) { // Sin respuesta del servidor
+			if (leido == null)
+			{ // Sin respuesta del servidor
 			}
-			else {
-				v = leido.v1;
-			}
+			else v = leido.v1;
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null,
-					"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
-					"Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane
+					.showMessageDialog(
+							null,
+							"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
+							"Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
 		return v;
 
 	}
 
-	public Vector obtenerRolesPermitidos(String usuario) {
+	public Vector obtenerRolesPermitidos(String usuario)
+	{
 		Vector v = null;
 		DMIEvent leido = null;
 		DMIEvent evento = new DMIEvent();
 		DMIEvent plantilla = new DMIEvent();
 
-		try {
+		try
+		{
 			int idEvento = aleatorio();
 			evento.origen = new Integer(11); // Cliente MetaInformacion
 			evento.destino = new Integer(10); // Servidor MetaInformacion
 			evento.usuario = new String(usuario);
-			evento.tipo = new Integer(DMIEvent.OBTENER_ROLES_PERMITIDOS.intValue());
+			evento.tipo = new Integer(DMIEvent.OBTENER_ROLES_PERMITIDOS
+					.intValue());
 			evento.sincrono = new Boolean(true);
 			evento.aplicacion = new String(aplicacion);
 			evento.entero = new Integer(idEvento);
@@ -631,23 +707,25 @@ public class ClienteMetaInformacion {
 			plantilla.origen = new Integer(10); // Servidor MetaInformacion
 			plantilla.destino = new Integer(11); // Cliente MetaInformacion
 			plantilla.usuario = new String(usuario);
-			plantilla.tipo = new Integer(DMIEvent.RESPUESTA_OBTENER_ROLES_PERMITIDOS.
-					intValue());
+			plantilla.tipo = new Integer(
+					DMIEvent.RESPUESTA_OBTENER_ROLES_PERMITIDOS.intValue());
 			plantilla.sincrono = new Boolean(true);
 			plantilla.aplicacion = new String(aplicacion);
 			plantilla.entero = new Integer(idEvento);
 
 			leido = (DMIEvent) space.take(plantilla, null, leaseReadTime);
-			if (leido == null) { // Sin respuesta del servidor
+			if (leido == null)
+			{ // Sin respuesta del servidor
 			}
-			else {
-				v = leido.v1;
-			}
+			else v = leido.v1;
 		}
-		catch (Exception e) {
-			JOptionPane.showMessageDialog(null,
-					"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
-					"Error", JOptionPane.ERROR_MESSAGE);
+		catch (Exception e)
+		{
+			JOptionPane
+					.showMessageDialog(
+							null,
+							"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
+							"Error", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 			System.exit(1);
 		}
@@ -656,22 +734,23 @@ public class ClienteMetaInformacion {
 	}
 
 	public boolean cambiarPermisoComponenteUsuario(String usuario,
-			String componente,
-			int nuevoPermiso) {
+			String componente, int nuevoPermiso)
+	{
 		DMIEvent leido = null;
 		DMIEvent evento = new DMIEvent();
 		DMIEvent plantilla = new DMIEvent();
 		boolean cambiado = false;
 
-		try {
+		try
+		{
 			int aleatorio = aleatorio();
 			evento.origen = new Integer(11); // Cliente MetaInformacion
 			evento.destino = new Integer(10); // Servidor MetaInformacion
 			evento.usuario = new String(usuario);
 			evento.componente = new String(componente);
 			evento.permiso = new Integer(nuevoPermiso);
-			evento.tipo = new Integer(DMIEvent.CAMBIO_PERMISO_COMPONENTE_USUARIO.
-					intValue());
+			evento.tipo = new Integer(
+					DMIEvent.CAMBIO_PERMISO_COMPONENTE_USUARIO.intValue());
 			evento.sincrono = new Boolean(true);
 			evento.aplicacion = new String(aplicacion);
 			evento.entero = new Integer(aleatorio);
@@ -681,38 +760,42 @@ public class ClienteMetaInformacion {
 			plantilla.destino = new Integer(11); // Cliente MetaInformacion
 			plantilla.usuario = new String(usuario);
 			plantilla.componente = new String(componente);
-			plantilla.tipo = new Integer(DMIEvent.
-					RESPUESTA_CAMBIO_PERMISO_COMPONENTE_USUARIO.
-					intValue());
+			plantilla.tipo = new Integer(
+					DMIEvent.RESPUESTA_CAMBIO_PERMISO_COMPONENTE_USUARIO
+							.intValue());
 			plantilla.entero = new Integer(aleatorio);
 			plantilla.aplicacion = new String(aplicacion);
 			plantilla.sincrono = new Boolean(true);
 
 			leido = (DMIEvent) space.take(plantilla, null, leaseReadTime);
-			if (leido == null) { // Sin respuesta del servidor
+			if (leido == null)
+			{ // Sin respuesta del servidor
 			}
-			else {
-				cambiado = leido.bool.booleanValue();
-			}
+			else cambiado = leido.bool.booleanValue();
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null,
-					"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
-					"Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane
+					.showMessageDialog(
+							null,
+							"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
+							"Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
 		return cambiado;
 	}
 
 	public boolean cambiarPermisoComponenteRol(String rol, String componente,
-			int nuevoPermiso) {
+			int nuevoPermiso)
+	{
 		DMIEvent leido = null;
 		DMIEvent evento = new DMIEvent();
 		DMIEvent plantilla = new DMIEvent();
 		boolean cambiado = false;
 
-		try {
+		try
+		{
 			int aleatorio = aleatorio();
 			evento.origen = new Integer(11); // Cliente MetaInformacion
 			evento.destino = new Integer(10); // Servidor MetaInformacion
@@ -720,7 +803,8 @@ public class ClienteMetaInformacion {
 			evento.rol = new String(rol);
 			evento.componente = new String(componente);
 			evento.permiso = new Integer(nuevoPermiso);
-			evento.tipo = new Integer(DMIEvent.CAMBIO_PERMISO_COMPONENTE_ROL.intValue());
+			evento.tipo = new Integer(DMIEvent.CAMBIO_PERMISO_COMPONENTE_ROL
+					.intValue());
 			evento.sincrono = new Boolean(true);
 			evento.aplicacion = new String(aplicacion);
 			evento.entero = new Integer(aleatorio);
@@ -730,44 +814,47 @@ public class ClienteMetaInformacion {
 			plantilla.destino = new Integer(11); // Cliente MetaInformacion
 			plantilla.rol = new String(rol);
 			plantilla.componente = new String(componente);
-			plantilla.tipo = new Integer(DMIEvent.
-					RESPUESTA_CAMBIO_PERMISO_COMPONENTE_ROL.
-					intValue());
+			plantilla.tipo = new Integer(
+					DMIEvent.RESPUESTA_CAMBIO_PERMISO_COMPONENTE_ROL.intValue());
 			plantilla.entero = new Integer(aleatorio);
 			plantilla.aplicacion = new String(aplicacion);
 			plantilla.sincrono = new Boolean(true);
 
 			leido = (DMIEvent) space.take(plantilla, null, leaseReadTime);
-			if (leido == null) { // Sin respuesta del servidor
+			if (leido == null)
+			{ // Sin respuesta del servidor
 			}
-			else {
-				cambiado = leido.bool.booleanValue();
-			}
+			else cambiado = leido.bool.booleanValue();
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null,
-					"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
-					"Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane
+					.showMessageDialog(
+							null,
+							"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
+							"Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
 		return cambiado;
 	}
 
-	public int obtenerPermisoComponenteUsuario(String usuario, String componente) {
+	public int obtenerPermisoComponenteUsuario(String usuario, String componente)
+	{
 		DMIEvent leido = null;
 		DMIEvent evento = new DMIEvent();
 		DMIEvent plantilla = new DMIEvent();
 		int permiso = -1;
 
-		try {
+		try
+		{
 			int aleatorio = aleatorio();
 			evento.origen = new Integer(11); // Cliente MetaInformacion
 			evento.destino = new Integer(10); // Servidor MetaInformacion
 			evento.usuario = new String(usuario);
 			evento.componente = new String(componente);
-			evento.tipo = new Integer(DMIEvent.OBTENER_PERMISO_COMPONENTE_USUARIO.
-					intValue());
+			evento.tipo = new Integer(
+					DMIEvent.OBTENER_PERMISO_COMPONENTE_USUARIO.intValue());
 			evento.sincrono = new Boolean(true);
 			evento.aplicacion = new String(aplicacion);
 			evento.entero = new Integer(aleatorio);
@@ -777,44 +864,48 @@ public class ClienteMetaInformacion {
 			plantilla.destino = new Integer(11); // Cliente MetaInformacion
 			plantilla.usuario = new String(usuario);
 			plantilla.componente = new String(componente);
-			plantilla.tipo = new Integer(DMIEvent.
-					RESPUESTA_OBTENER_PERMISO_COMPONENTE_USUARIO.
-					intValue());
+			plantilla.tipo = new Integer(
+					DMIEvent.RESPUESTA_OBTENER_PERMISO_COMPONENTE_USUARIO
+							.intValue());
 			plantilla.entero = new Integer(aleatorio);
 			plantilla.aplicacion = new String(aplicacion);
 			plantilla.sincrono = new Boolean(true);
 
 			leido = (DMIEvent) space.take(plantilla, null, leaseReadTime);
-			if (leido == null) { // Sin respuesta del servidor
+			if (leido == null)
+			{ // Sin respuesta del servidor
 			}
-			else {
-				permiso = leido.permiso.intValue();
-			}
+			else permiso = leido.permiso.intValue();
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null,
-					"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
-					"Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane
+					.showMessageDialog(
+							null,
+							"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
+							"Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
 		return permiso;
 	}
 
-	public int obtenerPermisoComponenteRol(String rol, String componente) {
+	public int obtenerPermisoComponenteRol(String rol, String componente)
+	{
 		DMIEvent leido = null;
 		DMIEvent evento = new DMIEvent();
 		DMIEvent plantilla = new DMIEvent();
 		int permiso = -1;
 
-		try {
+		try
+		{
 			int aleatorio = aleatorio();
 			evento.origen = new Integer(11); // Cliente MetaInformacion
 			evento.destino = new Integer(10); // Servidor MetaInformacion
 			evento.rol = new String(rol);
 			evento.componente = new String(componente);
-			evento.tipo = new Integer(DMIEvent.OBTENER_PERMISO_COMPONENTE_ROL.
-					intValue());
+			evento.tipo = new Integer(DMIEvent.OBTENER_PERMISO_COMPONENTE_ROL
+					.intValue());
 			evento.sincrono = new Boolean(true);
 			evento.aplicacion = new String(aplicacion);
 			evento.entero = new Integer(aleatorio);
@@ -824,33 +915,37 @@ public class ClienteMetaInformacion {
 			plantilla.destino = new Integer(11); // Cliente MetaInformacion
 			plantilla.rol = new String(rol);
 			plantilla.componente = new String(componente);
-			plantilla.tipo = new Integer(DMIEvent.
-					RESPUESTA_OBTENER_PERMISO_COMPONENTE_ROL.
-					intValue());
+			plantilla.tipo = new Integer(
+					DMIEvent.RESPUESTA_OBTENER_PERMISO_COMPONENTE_ROL
+							.intValue());
 			plantilla.entero = new Integer(aleatorio);
 			plantilla.aplicacion = new String(aplicacion);
 			plantilla.sincrono = new Boolean(true);
 
 			leido = (DMIEvent) space.take(plantilla, null, leaseReadTime);
-			if (leido == null) { // Sin respuesta del servidor
+			if (leido == null)
+			{ // Sin respuesta del servidor
 			}
-			else {
-				permiso = leido.permiso.intValue();
-			}
+			else permiso = leido.permiso.intValue();
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null,
-					"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
-					"Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane
+					.showMessageDialog(
+							null,
+							"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
+							"Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
 		return permiso;
 	}
 
-	public void desconectarUsuario(String usuario) {
+	public void desconectarUsuario(String usuario)
+	{
 		DMIEvent evento = new DMIEvent();
-		try {
+		try
+		{
 			evento.origen = new Integer(11); // Cliente MetaInformacion
 			evento.destino = new Integer(10); // Servidor MetaInformacion
 			evento.usuario = new String(usuario);
@@ -859,23 +954,28 @@ public class ClienteMetaInformacion {
 			evento.aplicacion = new String(aplicacion);
 			space.write(evento, null, leaseWriteTime);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null,
-					"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
-					"Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane
+					.showMessageDialog(
+							null,
+							"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
+							"Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
 	}
 
 	public String nuevoUsuario(String nombreUsuario, String clave,
-			String rolDefecto, boolean administrador) {
+			String rolDefecto, boolean administrador)
+	{
 		DMIEvent leido = null;
 		DMIEvent evento = new DMIEvent();
 		DMIEvent plantilla = new DMIEvent();
 		String mensaje = new String();
 
-		try {
+		try
+		{
 			int aleatorio = aleatorio();
 			evento.origen = new Integer(11); // Cliente MetaInformacion
 			evento.destino = new Integer(10); // Servidor MetaInformacion
@@ -892,37 +992,41 @@ public class ClienteMetaInformacion {
 			plantilla.origen = new Integer(10); // Servidor MetaInformacion
 			plantilla.destino = new Integer(11); // Cliente MetaInformacion
 			plantilla.nuevoUsuario = new String(nombreUsuario);
-			plantilla.tipo = new Integer(DMIEvent.RESPUESTA_NUEVO_USUARIO.
-					intValue());
+			plantilla.tipo = new Integer(DMIEvent.RESPUESTA_NUEVO_USUARIO
+					.intValue());
 			plantilla.entero = new Integer(aleatorio);
 			plantilla.aplicacion = new String(aplicacion);
 			plantilla.sincrono = new Boolean(true);
 
 			leido = (DMIEvent) space.take(plantilla, null, leaseReadTime);
-			if (leido == null) { // Sin respuesta del servidor
+			if (leido == null)
+			{ // Sin respuesta del servidor
 			}
-			else {
-				mensaje = leido.mensaje;
-			}
+			else mensaje = leido.mensaje;
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null,
-					"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
-					"Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane
+					.showMessageDialog(
+							null,
+							"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
+							"Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
 		return mensaje;
 
 	}
 
-	public String nuevoRol(String rol) {
+	public String nuevoRol(String rol)
+	{
 		DMIEvent leido = null;
 		DMIEvent evento = new DMIEvent();
 		DMIEvent plantilla = new DMIEvent();
 		String mensaje = new String();
 
-		try {
+		try
+		{
 			int aleatorio = aleatorio();
 			evento.origen = new Integer(11); // Cliente MetaInformacion
 			evento.destino = new Integer(10); // Servidor MetaInformacion
@@ -936,37 +1040,41 @@ public class ClienteMetaInformacion {
 			plantilla.origen = new Integer(10); // Servidor MetaInformacion
 			plantilla.destino = new Integer(11); // Cliente MetaInformacion
 			plantilla.rol = new String(rol);
-			plantilla.tipo = new Integer(DMIEvent.RESPUESTA_NUEVO_ROL.
-					intValue());
+			plantilla.tipo = new Integer(DMIEvent.RESPUESTA_NUEVO_ROL
+					.intValue());
 			plantilla.entero = new Integer(aleatorio);
 			plantilla.aplicacion = new String(aplicacion);
 			plantilla.sincrono = new Boolean(true);
 
 			leido = (DMIEvent) space.take(plantilla, null, leaseReadTime);
-			if (leido == null) { // Sin respuesta del servidor
+			if (leido == null)
+			{ // Sin respuesta del servidor
 			}
-			else {
-				mensaje = leido.mensaje;
-			}
+			else mensaje = leido.mensaje;
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null,
-					"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
-					"Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane
+					.showMessageDialog(
+							null,
+							"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
+							"Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
 		return mensaje;
 
 	}
 
-	public String nuevoRolPermitido(String usuario, String rol) {
+	public String nuevoRolPermitido(String usuario, String rol)
+	{
 		DMIEvent leido = null;
 		DMIEvent evento = new DMIEvent();
 		DMIEvent plantilla = new DMIEvent();
 		String mensaje = new String();
 
-		try {
+		try
+		{
 			int aleatorio = aleatorio();
 			evento.origen = new Integer(11); // Cliente MetaInformacion
 			evento.destino = new Integer(10); // Servidor MetaInformacion
@@ -982,43 +1090,48 @@ public class ClienteMetaInformacion {
 			plantilla.destino = new Integer(11); // Cliente MetaInformacion
 			plantilla.usuario = new String(usuario);
 			plantilla.rol = new String(rol);
-			plantilla.tipo = new Integer(DMIEvent.RESPUESTA_NUEVO_ROL_PERMITIDO.
-					intValue());
+			plantilla.tipo = new Integer(DMIEvent.RESPUESTA_NUEVO_ROL_PERMITIDO
+					.intValue());
 			plantilla.entero = new Integer(aleatorio);
 			plantilla.aplicacion = new String(aplicacion);
 			plantilla.sincrono = new Boolean(true);
 
 			leido = (DMIEvent) space.take(plantilla, null, leaseReadTime);
-			if (leido == null) { // Sin respuesta del servidor
+			if (leido == null)
+			{ // Sin respuesta del servidor
 			}
-			else {
-				mensaje = leido.mensaje;
-			}
+			else mensaje = leido.mensaje;
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null,
-					"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
-					"Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane
+					.showMessageDialog(
+							null,
+							"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
+							"Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
 		return mensaje;
 
 	}
 
-	public String eliminarRolPermitido(String usuario, String rol) {
+	public String eliminarRolPermitido(String usuario, String rol)
+	{
 		DMIEvent leido = null;
 		DMIEvent evento = new DMIEvent();
 		DMIEvent plantilla = new DMIEvent();
 		String mensaje = new String();
 
-		try {
+		try
+		{
 			int aleatorio = aleatorio();
 			evento.origen = new Integer(11); // Cliente MetaInformacion
 			evento.destino = new Integer(10); // Servidor MetaInformacion
 			evento.usuario = new String(usuario);
 			evento.rol = new String(rol);
-			evento.tipo = new Integer(DMIEvent.ELIMINAR_ROL_PERMITIDO.intValue());
+			evento.tipo = new Integer(DMIEvent.ELIMINAR_ROL_PERMITIDO
+					.intValue());
 			evento.sincrono = new Boolean(true);
 			evento.aplicacion = new String(aplicacion);
 			evento.entero = new Integer(aleatorio);
@@ -1028,37 +1141,41 @@ public class ClienteMetaInformacion {
 			plantilla.destino = new Integer(11); // Cliente MetaInformacion
 			plantilla.usuario = new String(usuario);
 			plantilla.rol = new String(rol);
-			plantilla.tipo = new Integer(DMIEvent.RESPUESTA_ELIMINAR_ROL_PERMITIDO.
-					intValue());
+			plantilla.tipo = new Integer(
+					DMIEvent.RESPUESTA_ELIMINAR_ROL_PERMITIDO.intValue());
 			plantilla.entero = new Integer(aleatorio);
 			plantilla.aplicacion = new String(aplicacion);
 			plantilla.sincrono = new Boolean(true);
 
 			leido = (DMIEvent) space.take(plantilla, null, leaseReadTime);
-			if (leido == null) { // Sin respuesta del servidor
+			if (leido == null)
+			{ // Sin respuesta del servidor
 			}
-			else {
-				mensaje = leido.mensaje;
-			}
+			else mensaje = leido.mensaje;
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null,
-					"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
-					"Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane
+					.showMessageDialog(
+							null,
+							"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
+							"Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
 		return mensaje;
 
 	}
 
-	public String eliminarUsuario(String nombreUsuario) {
+	public String eliminarUsuario(String nombreUsuario)
+	{
 		DMIEvent leido = null;
 		DMIEvent evento = new DMIEvent();
 		DMIEvent plantilla = new DMIEvent();
 		String mensaje = new String();
 
-		try {
+		try
+		{
 			int aleatorio = aleatorio();
 			evento.origen = new Integer(11); // Cliente MetaInformacion
 			evento.destino = new Integer(10); // Servidor MetaInformacion
@@ -1072,37 +1189,41 @@ public class ClienteMetaInformacion {
 			plantilla.origen = new Integer(10); // Servidor MetaInformacion
 			plantilla.destino = new Integer(11); // Cliente MetaInformacion
 			plantilla.usuario = new String(nombreUsuario);
-			plantilla.tipo = new Integer(DMIEvent.RESPUESTA_ELIMINAR_USUARIO.
-					intValue());
+			plantilla.tipo = new Integer(DMIEvent.RESPUESTA_ELIMINAR_USUARIO
+					.intValue());
 			plantilla.entero = new Integer(aleatorio);
 			plantilla.aplicacion = new String(aplicacion);
 			plantilla.sincrono = new Boolean(true);
 
 			leido = (DMIEvent) space.take(plantilla, null, leaseReadTime);
-			if (leido == null) { // Sin respuesta del servidor
+			if (leido == null)
+			{ // Sin respuesta del servidor
 			}
-			else {
-				mensaje = leido.mensaje;
-			}
+			else mensaje = leido.mensaje;
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null,
-					"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
-					"Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane
+					.showMessageDialog(
+							null,
+							"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
+							"Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
 		return mensaje;
 
 	}
 
-	public String eliminarRol(String rol) {
+	public String eliminarRol(String rol)
+	{
 		DMIEvent leido = null;
 		DMIEvent evento = new DMIEvent();
 		DMIEvent plantilla = new DMIEvent();
 		String mensaje = new String();
 
-		try {
+		try
+		{
 			int aleatorio = aleatorio();
 			evento.origen = new Integer(11); // Cliente MetaInformacion
 			evento.destino = new Integer(10); // Servidor MetaInformacion
@@ -1116,31 +1237,34 @@ public class ClienteMetaInformacion {
 			plantilla.origen = new Integer(10); // Servidor MetaInformacion
 			plantilla.destino = new Integer(11); // Cliente MetaInformacion
 			plantilla.rol = new String(rol);
-			plantilla.tipo = new Integer(DMIEvent.RESPUESTA_ELIMINAR_ROL.
-					intValue());
+			plantilla.tipo = new Integer(DMIEvent.RESPUESTA_ELIMINAR_ROL
+					.intValue());
 			plantilla.entero = new Integer(aleatorio);
 			plantilla.aplicacion = new String(aplicacion);
 			plantilla.sincrono = new Boolean(true);
 
 			leido = (DMIEvent) space.take(plantilla, null, leaseReadTime);
-			if (leido == null) { // Sin respuesta del servidor
+			if (leido == null)
+			{ // Sin respuesta del servidor
 			}
-			else {
-				mensaje = leido.mensaje;
-			}
+			else mensaje = leido.mensaje;
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null,
-					"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
-					"Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane
+					.showMessageDialog(
+							null,
+							"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
+							"Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
 		return mensaje;
 
 	}
 
-	private int aleatorio() {
+	private int aleatorio()
+	{
 		Date fecha = new Date();
 		Random r = new Random(fecha.getTime());
 		int aleatorio = r.nextInt(50000);
@@ -1151,16 +1275,20 @@ public class ClienteMetaInformacion {
 	/**
 	 * Encargada de localizar el JavaSpace
 	 */
-	private class HebraLocalizadora
-	implements Runnable {
+	private class HebraLocalizadora implements Runnable
+	{
 		String nombre = null;
+
 		Thread t = null;
+
 		int i = 0;
 
 		/**
-		 * @param nombreJavaSpace String Nombre del JavaSpace que deseamos localizar
+		 * @param nombreJavaSpace
+		 *            String Nombre del JavaSpace que deseamos localizar
 		 */
-		public HebraLocalizadora(String nombreJavaSpace) {
+		public HebraLocalizadora( String nombreJavaSpace )
+		{
 			this.nombre = nombreJavaSpace;
 
 			t = new Thread(this);
@@ -1170,40 +1298,47 @@ public class ClienteMetaInformacion {
 		/**
 		 * Método que ejecuta la hebra
 		 */
-		public void run() {
-			try {
+		public void run()
+		{
+			try
+			{
 				// Intentamos localizar el JavaSpace
 				space = SpaceLocator.getSpace(nombre);
 				// Localizacion del JavaSpace exitosa
 				monitor.setInicializado(true);
 			}
-			catch (Exception e) {
+			catch (Exception e)
+			{
 				e.printStackTrace();
-				JOptionPane.showMessageDialog(null,
-						"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
-						"Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane
+						.showMessageDialog(
+								null,
+								"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
+								"Error", JOptionPane.ERROR_MESSAGE);
 				System.exit(1);
 			}
 		}
 	}
 
 	/**
-	 *
-	 * Mediante esta clase podemos indicar que no ha sido posible
-	 * localizar el JavaSpace pasado el tiempo indicado. De esta forma evitamos
-	 * que el programa se quede bloqueado en la fase de localizacion del
-	 * JavasPace
+	 * 
+	 * Mediante esta clase podemos indicar que no ha sido posible localizar el
+	 * JavaSpace pasado el tiempo indicado. De esta forma evitamos que el
+	 * programa se quede bloqueado en la fase de localizacion del JavasPace
 	 */
-	private class HebraDetectoraError
-	implements Runnable {
+	private class HebraDetectoraError implements Runnable
+	{
 
 		int tiempoEspera = -1;
+
 		Thread t = null;
 
 		/**
-		 * @param tiempoEspera int Tiempo que deseamos esperar
+		 * @param tiempoEspera
+		 *            int Tiempo que deseamos esperar
 		 */
-		public HebraDetectoraError(int tiempoEspera) {
+		public HebraDetectoraError( int tiempoEspera )
+		{
 			this.tiempoEspera = tiempoEspera;
 
 			t = new Thread(this);
@@ -1213,43 +1348,53 @@ public class ClienteMetaInformacion {
 		/**
 		 * Método que ejecuta la hebra
 		 */
-		public void run() {
-			try {
+		public void run()
+		{
+			try
+			{
 				Thread.sleep(tiempoEspera * 1000);
-				if (!monitor.getInicializado()) {
-					monitor.setError(true);
-				}
+				if (!monitor.getInicializado()) monitor.setError(true);
 			}
-			catch (Exception e) {
+			catch (Exception e)
+			{
 				e.printStackTrace();
-				JOptionPane.showMessageDialog(null,
-						"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
-						"Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane
+						.showMessageDialog(
+								null,
+								"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
+								"Error", JOptionPane.ERROR_MESSAGE);
 				System.exit(1);
 			}
 		}
 	}
 
-	private class HebraEnvioKeepAlive
-	implements Runnable {
+	private class HebraEnvioKeepAlive implements Runnable
+	{
 		DMIEvent evento = new DMIEvent();
-		public void run() {
+
+		public void run()
+		{
 			evento.origen = new Integer(11); // Cliente MetaInformacion
 			evento.destino = new Integer(10); // Servidor MetaInformacion
 			evento.aplicacion = new String(aplicacion);
 			evento.usuario = new String(usuario);
 			evento.tipo = new Integer(DMIEvent.KEEPALIVE.intValue());
-			try {
-				while (true) {
+			try
+			{
+				while (true)
+				{
 					Thread.sleep(30000);
 					space.write(evento, null, leaseWriteTime);
 				}
 			}
-			catch (Exception e) {
+			catch (Exception e)
+			{
 				e.printStackTrace();
-				JOptionPane.showMessageDialog(null,
-						"Hubo un error en la comunicacion a la hora de enviar el KeepAlive\nDebera identificarse de nuevo.",
-						"Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane
+						.showMessageDialog(
+								null,
+								"Hubo un error en la comunicacion a la hora de enviar el KeepAlive\nDebera identificarse de nuevo.",
+								"Error", JOptionPane.ERROR_MESSAGE);
 				System.exit(1);
 			}
 		}
@@ -1259,30 +1404,38 @@ public class ClienteMetaInformacion {
 	 * Dado el comportamiento concurrente de las 2 Hebras mediante este Monitor
 	 * gestionamos la informacion sobre la inicializacion. La clase DConector
 	 * realizara una llamada a inicializacionCorrecta() quedándose bloqueada
-	 * hasta que se producza la correcta localizacion del JavaSpace o se sobrepase
-	 * el tiempo de espera sin haber sido localizado.
+	 * hasta que se producza la correcta localizacion del JavaSpace o se
+	 * sobrepase el tiempo de espera sin haber sido localizado.
 	 */
-	private class Monitor {
+	private class Monitor
+	{
 		private boolean inicializado = false;
+
 		private boolean error = false;
+
 		private boolean sincronizado = false;
 
 		/**
 		 * Bloquea al llamante hasta que se produzca una actualizacion de las
 		 * variables inicializado o error
+		 * 
 		 * @return boolean Devuelve si se ha producido o no la inicializacion
 		 */
-		public synchronized boolean inicializacionCorrecta() {
-			try {
-				while (!inicializado && !error) {
+		public synchronized boolean inicializacionCorrecta()
+		{
+			try
+			{
+				while (!inicializado && !error)
 					wait();
-				}
 			}
-			catch (Exception e) {
+			catch (Exception e)
+			{
 				e.printStackTrace();
-				JOptionPane.showMessageDialog(null,
-						"Hubo un error en la comunicacion al inicializar el CMI\nDebera identificarse de nuevo.",
-						"Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane
+						.showMessageDialog(
+								null,
+								"Hubo un error en la comunicacion al inicializar el CMI\nDebera identificarse de nuevo.",
+								"Error", JOptionPane.ERROR_MESSAGE);
 				System.exit(1);
 			}
 
@@ -1290,18 +1443,22 @@ public class ClienteMetaInformacion {
 		}
 
 		/**
-		 * Devuelve si se ha sobrepasado el tiempo de espera sin haber sido localizado
-		 * el JavaSpace
+		 * Devuelve si se ha sobrepasado el tiempo de espera sin haber sido
+		 * localizado el JavaSpace
 		 */
-		public synchronized boolean getError() {
+		public synchronized boolean getError()
+		{
 			return error;
 		}
 
 		/**
 		 * Cambamos el valor d ela variable error
-		 * @param b boolean Valor deseado
+		 * 
+		 * @param b
+		 *            boolean Valor deseado
 		 */
-		public synchronized void setError(boolean b) {
+		public synchronized void setError(boolean b)
+		{
 			error = b;
 			notifyAll();
 		}
@@ -1309,15 +1466,19 @@ public class ClienteMetaInformacion {
 		/**
 		 * Devuelve si se ha localizado el JavaSpace
 		 */
-		public synchronized boolean getInicializado() {
+		public synchronized boolean getInicializado()
+		{
 			return inicializado;
 		}
 
 		/**
 		 * Cambiamos el valor de la variable inicializado
-		 * @param b boolean Valor deseado
+		 * 
+		 * @param b
+		 *            boolean Valor deseado
 		 */
-		public synchronized void setInicializado(boolean b) {
+		public synchronized void setInicializado(boolean b)
+		{
 			inicializado = b;
 			notifyAll();
 		}
@@ -1325,145 +1486,164 @@ public class ClienteMetaInformacion {
 		/**
 		 * Devuelve si se ha sincronizado
 		 */
-		public synchronized boolean getSincronizado() {
+		public synchronized boolean getSincronizado()
+		{
 			return sincronizado;
 		}
 
 		/**
 		 * Cambiamos el valor de la variable sincronizado
-		 * @param b boolean Valor deseado
+		 * 
+		 * @param b
+		 *            boolean Valor deseado
 		 */
-		public synchronized void setSincronizado(boolean b) {
+		public synchronized void setSincronizado(boolean b)
+		{
 			sincronizado = b;
 			notifyAll();
 		}
 	}
 
-	private class HebraRecolectora
-	implements Runnable {
+	private class HebraRecolectora implements Runnable
+	{
 
-		public void run() {
+		public void run()
+		{
 			DMIEvent leido = null;
 			DMIEvent plantilla = new DMIEvent();
-			plantilla.origen = new Integer(10); // El Servidor de MetaInformacion
-			plantilla.destino = new Integer(11); // El Cliente de MetaInformacion
+			plantilla.origen = new Integer(10); // El Servidor de
+			// MetaInformacion
+			plantilla.destino = new Integer(11); // El Cliente de
+			// MetaInformacion
 			plantilla.sincrono = new Boolean(false);
-			while (true) {
-				try {
+			while (true)
+				try
+				{
 					plantilla.contador = new Long(contador);
-					//System.out.println("ClienteMI: Esperando evento " + contador);
-					leido = (DMIEvent) space.read(plantilla, null, Long.MAX_VALUE);
+					// System.out.println("ClienteMI: Esperando evento " +
+					// contador);
+					leido = (DMIEvent) space.read(plantilla, null,
+							Long.MAX_VALUE);
 					contador++;
 
-					if (leido.tipo.intValue() ==
-						DMIEvent.NOTIFICACION_CONEXION_USUARIO.intValue()) {
+					if (leido.tipo.intValue() == DMIEvent.NOTIFICACION_CONEXION_USUARIO
+							.intValue())
+					{
 						String usuario = leido.usuario;
 						String rol = leido.rol;
-						for (int i = 0; i < dmilisteners.size(); i++) {
-							( (DMIListener) dmilisteners.elementAt(i)).conexionUsuario(
+						for (int i = 0; i < dmilisteners.size(); i++)
+							( dmilisteners.elementAt(i) ).conexionUsuario(
 									usuario, rol);
-						}
 
 					}
-					if (leido.tipo.intValue() ==
-						DMIEvent.NOTIFICACION_DESCONEXION_USUARIO.intValue()) {
+					if (leido.tipo.intValue() == DMIEvent.NOTIFICACION_DESCONEXION_USUARIO
+							.intValue())
+					{
 						String usuario = leido.usuario;
-						for (int i = 0; i < dmilisteners.size(); i++) {
-							( (DMIListener) dmilisteners.elementAt(i)).desconexionUsuario(
-									usuario);
-						}
+						for (int i = 0; i < dmilisteners.size(); i++)
+							( dmilisteners.elementAt(i) )
+									.desconexionUsuario(usuario);
 					}
-					if (leido.tipo.intValue() ==
-						DMIEvent.NOTIFICACION_CAMBIO_ROL_USUARIO.intValue()) {
+					if (leido.tipo.intValue() == DMIEvent.NOTIFICACION_CAMBIO_ROL_USUARIO
+							.intValue())
+					{
 						String usuario = leido.usuario;
 						String rol = leido.rol;
 						String rolAntiguo = leido.rolAntiguo;
-						for (int i = 0; i < dmilisteners.size(); i++) {
-							( (DMIListener) dmilisteners.elementAt(i)).cambioRolUsuario(
-									usuario, rol, rolAntiguo, leido.infoCompleta);
-						}
+						for (int i = 0; i < dmilisteners.size(); i++)
+							( dmilisteners.elementAt(i) ).cambioRolUsuario(
+									usuario, rol, rolAntiguo,
+									leido.infoCompleta);
 					}
-					if (leido.tipo.intValue() ==
-						DMIEvent.NOTIFICACION_CAMBIO_PERMISO_COMPONENTE_USUARIO.intValue()) {
+					if (leido.tipo.intValue() == DMIEvent.NOTIFICACION_CAMBIO_PERMISO_COMPONENTE_USUARIO
+							.intValue())
+					{
 						String usuario = leido.usuario;
 						String componente = leido.componente;
 						int permiso = leido.permiso.intValue();
-						for (int i = 0; i < dmilisteners.size(); i++) {
-							( (DMIListener) dmilisteners.elementAt(i)).
-							cambioPermisoComponenteUsuario(usuario, componente, permiso);
-						}
+						for (int i = 0; i < dmilisteners.size(); i++)
+							( dmilisteners.elementAt(i) )
+									.cambioPermisoComponenteUsuario(usuario,
+											componente, permiso);
 					}
-					if (leido.tipo.intValue() ==
-						DMIEvent.NOTIFICACION_CAMBIO_PERMISO_COMPONENTE_ROL.intValue()) {
+					if (leido.tipo.intValue() == DMIEvent.NOTIFICACION_CAMBIO_PERMISO_COMPONENTE_ROL
+							.intValue())
+					{
 						String rol = leido.rol;
 						String componente = leido.componente;
 						int permiso = leido.permiso.intValue();
-						for (int i = 0; i < dmilisteners.size(); i++) {
-							( (DMIListener) dmilisteners.elementAt(i)).
-							cambioPermisoComponenteRol(rol, componente, permiso);
-						}
+						for (int i = 0; i < dmilisteners.size(); i++)
+							( dmilisteners.elementAt(i) )
+									.cambioPermisoComponenteRol(rol,
+											componente, permiso);
 					}
-					if (leido.tipo.intValue() ==
-						DMIEvent.NOTIFICACION_NUEVO_ROL_PERMITIDO.intValue()) {
+					if (leido.tipo.intValue() == DMIEvent.NOTIFICACION_NUEVO_ROL_PERMITIDO
+							.intValue())
+					{
 						String usuario = leido.usuario;
 						String rol = leido.rol;
-						for (int i = 0; i < dmilisteners.size(); i++) {
-							( (DMIListener) dmilisteners.elementAt(i)).nuevoRolPermitido(
+						for (int i = 0; i < dmilisteners.size(); i++)
+							( dmilisteners.elementAt(i) ).nuevoRolPermitido(
 									usuario, rol);
-						}
 					}
-					if (leido.tipo.intValue() ==
-						DMIEvent.NOTIFICACION_ELIMINAR_ROL_PERMITIVO.intValue()) {
+					if (leido.tipo.intValue() == DMIEvent.NOTIFICACION_ELIMINAR_ROL_PERMITIVO
+							.intValue())
+					{
 						String usuario = leido.usuario;
 						String rol = leido.rol;
-						for (int i = 0; i < dmilisteners.size(); i++) {
-							( (DMIListener) dmilisteners.elementAt(i)).eliminarRolPermitido(
+						for (int i = 0; i < dmilisteners.size(); i++)
+							( dmilisteners.elementAt(i) ).eliminarRolPermitido(
 									usuario, rol);
-						}
 					}
-					if (leido.tipo.intValue() ==
-						DMIEvent.NOTIFICACION_USUARIO_ELIMINADO.intValue()) {
+					if (leido.tipo.intValue() == DMIEvent.NOTIFICACION_USUARIO_ELIMINADO
+							.intValue())
+					{
 						String usuario = leido.usuario;
 						dmi.eliminarUsuario(usuario);
-						for (int i = 0; i < dmilisteners.size(); i++) {
-							( (DMIListener) dmilisteners.elementAt(i)).usuarioEliminado(
-									usuario);
-						}
+						for (int i = 0; i < dmilisteners.size(); i++)
+							( dmilisteners.elementAt(i) )
+									.usuarioEliminado(usuario);
 					}
-					if (leido.tipo.intValue() ==
-						DMIEvent.NOTIFICACION_ROL_ELIMINADO.intValue()) {
+					if (leido.tipo.intValue() == DMIEvent.NOTIFICACION_ROL_ELIMINADO
+							.intValue())
+					{
 						String rol = leido.rol;
 						dmi.eliminarRol(rol);
-						for (int i = 0; i < dmilisteners.size(); i++) {
-							( (DMIListener) dmilisteners.elementAt(i)).rolEliminado(rol);
-						}
+						for (int i = 0; i < dmilisteners.size(); i++)
+							( dmilisteners.elementAt(i) ).rolEliminado(rol);
 					}
-					if (leido.tipo.intValue() ==
-						DMIEvent.NOTIFICACION_NUEVO_USUARIO.intValue()) {
+					if (leido.tipo.intValue() == DMIEvent.NOTIFICACION_NUEVO_USUARIO
+							.intValue())
+					{
 						String usuario = leido.usuario;
 						dmi.nuevoUsuario(usuario);
 					}
-					if (leido.tipo.intValue() ==
-						DMIEvent.NOTIFICACION_NUEVO_ROL.intValue()) {
+					if (leido.tipo.intValue() == DMIEvent.NOTIFICACION_NUEVO_ROL
+							.intValue())
+					{
 						String rol = leido.rol;
 						dmi.nuevoRol(rol);
 					}
 				}
-				catch (Exception e) {
+				catch (Exception e)
+				{
 					e.printStackTrace();
-					JOptionPane.showMessageDialog(null,
-							"Hubo un error en la comunicacion en la hebra recolectora\nDebera identificarse de nuevo.",
-							"Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane
+							.showMessageDialog(
+									null,
+									"Hubo un error en la comunicacion en la hebra recolectora\nDebera identificarse de nuevo.",
+									"Error", JOptionPane.ERROR_MESSAGE);
 					System.exit(1);
 				}
-			}
 		}
 	}
 
-	public static void main(String[] args) {
-		//ClienteMetaInformacion cmi = new ClienteMetaInformacion("AplicacionDePrueba");
-		//cmi.desconectarUsuario("Looper");
-		//System.out.println(cmi.obtenerRoles());
+	public static void main(String[] args)
+	{
+		// ClienteMetaInformacion cmi = new
+		// ClienteMetaInformacion("AplicacionDePrueba");
+		// cmi.desconectarUsuario("Looper");
+		// System.out.println(cmi.obtenerRoles());
 	}
 
 	public MIRol getRol(String drol)
@@ -1473,7 +1653,8 @@ public class ClienteMetaInformacion {
 		DMIEvent evento = new DMIEvent();
 		DMIEvent plantilla = new DMIEvent();
 
-		try {
+		try
+		{
 			int idEvento = aleatorio();
 			evento.origen = new Integer(11); // Cliente MetaInformacion
 			evento.destino = new Integer(10); // Servidor MetaInformacion
@@ -1484,31 +1665,34 @@ public class ClienteMetaInformacion {
 			evento.clave = new String(drol);
 			evento.rol = new String(DConector.Drol);
 			space.write(evento, null, leaseWriteTime);
-			
+
 			System.err.println(drol);
 
 			plantilla.origen = new Integer(10); // Servidor MetaInformacion
 			plantilla.destino = new Integer(11); // Cliente MetaInformacion
-			plantilla.tipo = new Integer(DMIEvent.RESPUESTA_DATOS_ROL.intValue());
+			plantilla.tipo = new Integer(DMIEvent.RESPUESTA_DATOS_ROL
+					.intValue());
 			plantilla.sincrono = new Boolean(true);
 			plantilla.aplicacion = new String(aplicacion);
 			plantilla.entero = new Integer(idEvento);
 
 			leido = (DMIEvent) space.take(plantilla, null, leaseReadTime);
-			if (leido == null) { // Sin respuesta del servidor
+			if (leido == null)
+			{ // Sin respuesta del servidor
 			}
-			else {
-				rol = leido.datosRol;
-			}
+			else rol = leido.datosRol;
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null,
-					"Hubo un error en la comunicacion a la hora de obtener rol en el CMI\nDebera identificarse de nuevo.",
-					"Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane
+					.showMessageDialog(
+							null,
+							"Hubo un error en la comunicacion a la hora de obtener rol en el CMI\nDebera identificarse de nuevo.",
+							"Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
-		
+
 		return rol;
 	}
 }

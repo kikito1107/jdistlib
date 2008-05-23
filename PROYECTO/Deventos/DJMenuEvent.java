@@ -3,19 +3,35 @@ package Deventos;
 import java.util.Vector;
 
 /**
- * <p>Title: </p>
- * <p>Description: </p>
- * <p>Copyright: Copyright (c) 2004</p>
- * <p>Company: </p>
+ * <p>
+ * Title:
+ * </p>
+ * <p>
+ * Description:
+ * </p>
+ * <p>
+ * Copyright: Copyright (c) 2004
+ * </p>
+ * <p>
+ * Company:
+ * </p>
+ * 
  * @author not attributable
  * @version 1.0
  */
 
-public class DJMenuEvent
-	 extends DEvent {
-  public static final Integer SINCRONIZACION = new Integer(0);
-  public static final Integer RESPUESTA_SINCRONIZACION = new Integer(1);
-  public static final Integer CAMBIO_ESTADO = new Integer(2);
+public class DJMenuEvent extends DEvent
+{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8785660228126158590L;
 
-  public Vector path = null;
+	public static final Integer SINCRONIZACION = new Integer(0);
+
+	public static final Integer RESPUESTA_SINCRONIZACION = new Integer(1);
+
+	public static final Integer CAMBIO_ESTADO = new Integer(2);
+
+	public Vector path = null;
 }

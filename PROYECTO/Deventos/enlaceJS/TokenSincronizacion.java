@@ -7,16 +7,23 @@ import net.jini.core.entry.Entry;
  * sincronizando sus componentes
  */
 
-public class TokenSincronizacion
-	 implements Entry {
-  String aplicacion = null;
+public class TokenSincronizacion implements Entry
+{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2869940658610568333L;
 
-  public TokenSincronizacion() {
+	String aplicacion = null;
 
-  }
+	public TokenSincronizacion()
+	{
 
-  public TokenSincronizacion(String aplicacion) {
-	 this.aplicacion = aplicacion;
-  }
+	}
+
+	public TokenSincronizacion( String aplicacion )
+	{
+		this.aplicacion = aplicacion;
+	}
 
 }

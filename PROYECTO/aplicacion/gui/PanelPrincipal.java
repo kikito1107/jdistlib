@@ -1,7 +1,5 @@
 package aplicacion.gui;
 
-
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -48,7 +46,6 @@ import componentes.base.DComponente;
 import componentes.base.DComponenteBase;
 import componentes.gui.editor.FramePanelDibujo;
 import componentes.gui.usuarios.ArbolUsuariosConectadosRol;
-
 
 public class PanelPrincipal extends DComponenteBase
 {
@@ -126,12 +123,9 @@ public class PanelPrincipal extends DComponenteBase
 	DefaultMutableTreeNode raiz = null;
 
 	private JButton botonSubir = null;
-	
+
 	public static Vector<DAbstractPlugin> plugins = null;
-	
-	
-	
-	
+
 	private JButton getButonSubir()
 	{
 		if (botonSubir == null)
@@ -146,30 +140,26 @@ public class PanelPrincipal extends DComponenteBase
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
-					
+
 					// obtenemos el path hasta el nodo seleccionado
-					TreePath camino = arbolDocumentos
-							.getSelectionPath();
+					TreePath camino = arbolDocumentos.getSelectionPath();
 					Object[] objetos = null;
-					if (camino != null) 
+					if (camino != null)
 						objetos = camino.getPath();
-					else
-						return;
-					
+					else return;
+
 					String path = "/";
 
 					// obtenemos la carpeta en donde queremos subir el
 					// nuevo fichero
 					DefaultMutableTreeNode nodo = (DefaultMutableTreeNode) objetos[objetos.length - 1];
-					
+
 					// obtenemos los datos del fichero asociados a ese
 					// nodo
-					FicheroBD carpeta = (FicheroBD) nodo
-							.getUserObject();
+					FicheroBD carpeta = (FicheroBD) nodo.getUserObject();
 
 					MIUsuario user = null;
 					MIRol rol = null;
-
 
 					// comprobamos que el nodo elegido es una carpeta
 					if (carpeta.esDirectorio())
@@ -182,14 +172,10 @@ public class PanelPrincipal extends DComponenteBase
 						// recuperamos el usuario y el rol
 						user = ClienteMetaInformacion.cmi
 								.getUsuario(DConector.Dusuario);
-						rol = ClienteMetaInformacion.cmi
-								.getRol(DConector.Drol);
+						rol = ClienteMetaInformacion.cmi.getRol(DConector.Drol);
 					}
-					else
-					{
-						return;
-					}
-					
+					else return;
+
 					JFileChooser jfc = new JFileChooser(
 							"Guardar Documento Localmente");
 
@@ -197,9 +183,7 @@ public class PanelPrincipal extends DComponenteBase
 
 					if (op == JFileChooser.APPROVE_OPTION)
 					{
-						
-						
-						
+
 						java.io.File f = jfc.getSelectedFile();
 						byte[] bytes = null;
 						try
@@ -219,10 +203,9 @@ public class PanelPrincipal extends DComponenteBase
 
 							raf.close();
 
-							
-
 							// si todo ha ido OK
-							if (user != null && rol != null && path != "")
+							if (( user != null ) && ( rol != null )
+									&& ( path != "" ))
 							{
 								// creamos el nuevo fichero a almacenar
 								FicheroBD fbd = new FicheroBD(-1, f.getName(),
@@ -248,27 +231,23 @@ public class PanelPrincipal extends DComponenteBase
 										ClienteFicheros.ipConexion, path + "/"
 												+ f.getName());
 								if (!t.sendFile(bytes))
-								{
 									JOptionPane
 											.showMessageDialog(
 													null,
 													"No se ha podido subir el fichero.\nSe ha producido un error en la transmisi—n del documento",
 													"Error",
 													JOptionPane.ERROR_MESSAGE);
-								}
-								
-								VisorPropiedadesFichero.verInfoFichero(fbd, null);
+
+								VisorPropiedadesFichero.verInfoFichero(fbd,
+										null);
 							}
-							else
-							{
-								if (path == "")
-									JOptionPane
-											.showMessageDialog(
-													null,
-													"No se ha podido subir el fichero. No se ha podido escribir el fichero en la direcci—n de destino",
-													"Error",
-													JOptionPane.ERROR_MESSAGE);
-							}
+							else if (path == "")
+								JOptionPane
+										.showMessageDialog(
+												null,
+												"No se ha podido subir el fichero. No se ha podido escribir el fichero en la direcci—n de destino",
+												"Error",
+												JOptionPane.ERROR_MESSAGE);
 						}
 						catch (FileNotFoundException ex)
 						{
@@ -300,20 +279,18 @@ public class PanelPrincipal extends DComponenteBase
 		super(nombre, conexionDC, padre);
 		try
 		{
-			
+
 			plugins = DPluginLoader.getAllPlugins("aplicacion/plugin/example");
-			
+
 			BorderLayout borderLayout = new BorderLayout();
 			borderLayout.setHgap(0);
 			this.setLayout(null);
 			this.add(getPanelLateral(), BorderLayout.WEST);
 			this.add(getBarraHerramientas(), null);
-			
-			
 
 			inicializarEditor();
-			
-			//inicializarChat();
+
+			// inicializarChat();
 
 			this.add(getPanelEspacioTrabajo(), null);
 		}
@@ -322,8 +299,9 @@ public class PanelPrincipal extends DComponenteBase
 			ex.printStackTrace();
 		}
 	}
-	
-	private void inicializarEditor(){
+
+	private void inicializarEditor()
+	{
 		frame = new FramePanelDibujo(false);
 		frame.setVisible(false);
 		frame.pack();
@@ -333,13 +311,9 @@ public class PanelPrincipal extends DComponenteBase
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		Dimension frameSize = frame.getSize();
 		if (frameSize.height > screenSize.height)
-		{
 			frameSize.height = screenSize.height;
-		}
 		if (frameSize.width > screenSize.width)
-		{
 			frameSize.width = screenSize.width;
-		}
 		frame.setLocation(( screenSize.width - frameSize.width ) / 2,
 				( screenSize.height - frameSize.height ) / 2);
 	}
@@ -552,11 +526,10 @@ public class PanelPrincipal extends DComponenteBase
 
 			String[] data = new String[plugins.size()];
 
-			for (int i=0; i<data.length; ++i)
+			for (int i = 0; i < data.length; ++i)
 				data[i] = plugins.get(i).getName();
-			
-			
-			//String[] data = {"hola","adios"};
+
+			// String[] data = {"hola","adios"};
 			listaAplicaciones = new JList(data);
 			listaAplicaciones.setBounds(new Rectangle(1, 26, 186, 140));
 			listaAplicaciones.setBorder(new LineBorder(Color.GRAY));
@@ -564,35 +537,30 @@ public class PanelPrincipal extends DComponenteBase
 			listaAplicaciones
 					.addMouseListener(new java.awt.event.MouseAdapter()
 					{
+						@Override
 						public void mouseClicked(java.awt.event.MouseEvent e)
 						{
-							
-							if (e.getClickCount() == 2){
-							/*		&& listaAplicaciones.getSelectedIndex() == 0)
-							{
-								iniciarChat();
-								
-							}
-							*/
-							
+
+							if (e.getClickCount() == 2)
 								try
 								{
-									plugins.get(listaAplicaciones.getSelectedIndex()).start();
+									plugins.get(
+											listaAplicaciones
+													.getSelectedIndex())
+											.start();
 								}
 								catch (Exception e1)
 								{
 									// TODO Auto-generated catch block
 									e1.printStackTrace();
 								}
-							}
 						}
 					});
 
 		}
 		return listaAplicaciones;
 	}
-	
-	
+
 	/**
 	 * This method initializes arbolUsuario
 	 * 
@@ -895,8 +863,6 @@ public class PanelPrincipal extends DComponenteBase
 							FicheroBD f = getDocumentoSeleccionado();
 
 							if (f != null)
-							{
-
 								if (!f.esDirectorio())
 								{
 
@@ -921,22 +887,21 @@ public class PanelPrincipal extends DComponenteBase
 													"ÀDesea continuar?",
 													JOptionPane.OK_CANCEL_OPTION);
 
-									System.out.println("Res = " +res);
-									
+									System.out.println("Res = " + res);
+
 									if (res == 0)
-									{
 										if (!comprobarDirectorio(f))
-										{
 											JOptionPane
 													.showMessageDialog(
 															null,
-															"No se puede eliminar el directorio: contiene\ndocumentos y/o carpetas de las cuales usted " +
-															"\nno tiene permiso de borrado",
+															"No se puede eliminar el directorio: contiene\ndocumentos y/o carpetas de las cuales usted "
+																	+ "\nno tiene permiso de borrado",
 															"No se puede borrar la carpeta",
 															JOptionPane.ERROR_MESSAGE);
-										}
-										else { 
-											System.out.println("Si se puede borrar");
+										else
+										{
+											System.out
+													.println("Si se puede borrar");
 											DFileEvent evento = new DFileEvent();
 											evento.fichero = f;
 											evento.tipo = new Integer(
@@ -944,14 +909,14 @@ public class PanelPrincipal extends DComponenteBase
 															.intValue());
 											enviarEvento(evento);
 
-											ClienteFicheros.obtenerClienteFicheros()
-													.borrarFichero(f,
+											ClienteFicheros
+													.obtenerClienteFicheros()
+													.borrarFichero(
+															f,
 															DConector.Daplicacion);
 										}
-									}
 
 								}
-							}
 						}
 					});
 
@@ -968,9 +933,7 @@ public class PanelPrincipal extends DComponenteBase
 				FicheroBD.PERMISO_ESCRITURA);
 
 		if (!dir.esDirectorio())
-		{
 			return permisosDir;
-		}
 		else if (permisosDir)
 		{
 			// si es un directorio
@@ -1019,25 +982,29 @@ public class PanelPrincipal extends DComponenteBase
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
 					FicheroBD f = getDocumentoSeleccionado();
-					
-					if ( f==null) return;
-					
+
+					if (f == null) return;
+
 					f = VisorPropiedadesFichero.verInfoFichero(
 							getDocumentoSeleccionado(), null);
-					
+
 					if (f != null)
 					{
 						DFileEvent evento = new DFileEvent();
 						evento.fichero = f;
-						
-						DefaultMutableTreeNode r = (DefaultMutableTreeNode)getNodoSeleccionado().getParent();
-						
-						evento.padre = (FicheroBD)r.getUserObject(); 
-						
-						//evento.padre = buscarDirectorioPadre((DefaultMutableTreeNode)r.getChildAt(0), f.getId());
-						
-						System.err.println("directorio padre: " + evento.padre.getNombre());
-						
+
+						DefaultMutableTreeNode r = (DefaultMutableTreeNode) getNodoSeleccionado()
+								.getParent();
+
+						evento.padre = (FicheroBD) r.getUserObject();
+
+						// evento.padre =
+						// buscarDirectorioPadre((DefaultMutableTreeNode)r.getChildAt(0),
+						// f.getId());
+
+						System.err.println("directorio padre: "
+								+ evento.padre.getNombre());
+
 						evento.tipo = new Integer(
 								DFileEvent.NOTIFICAR_MODIFICACION_FICHERO
 										.intValue());
@@ -1062,7 +1029,8 @@ public class PanelPrincipal extends DComponenteBase
 		{
 			botonAbrirDoc = new JButton();
 			botonAbrirDoc.setText("Abrir");
-			botonAbrirDoc.setIcon(new ImageIcon("./Resources/folder-open_16x16.png"));
+			botonAbrirDoc.setIcon(new ImageIcon(
+					"./Resources/folder-open_16x16.png"));
 			botonAbrirDoc.setBorderPainted(false);
 			botonAbrirDoc.addActionListener(new java.awt.event.ActionListener()
 			{
@@ -1089,13 +1057,15 @@ public class PanelPrincipal extends DComponenteBase
 			arbolDocumentos.setRootVisible(false);
 
 			arbolDocumentos.setBorder(new LineBorder(Color.GRAY, 1));
-			
-			ArbolDocumentos.cambiarIconosArbol(arbolDocumentos, "./Resources/folder.gif", "./Resources/page_white.png"); 
+
+			ArbolDocumentos.cambiarIconosArbol(arbolDocumentos,
+					"./Resources/folder.gif", "./Resources/page_white.png");
 
 			arbolDocumentos.expandRow(0);
 
 			arbolDocumentos.addMouseListener(new java.awt.event.MouseAdapter()
 			{
+				@Override
 				public void mouseClicked(java.awt.event.MouseEvent e)
 				{
 					if (e.getClickCount() == 2) accionAbrir();
@@ -1108,54 +1078,43 @@ public class PanelPrincipal extends DComponenteBase
 	private FicheroBD getDocumentoSeleccionado()
 	{
 		TreePath camino = arbolDocumentos.getSelectionPath();
-		
-		
-		Object[] objetos = null;
-		
-		if (camino != null)
-			objetos = camino.getPath();
 
-		if (objetos != null && objetos.length > 0)
+		Object[] objetos = null;
+
+		if (camino != null) objetos = camino.getPath();
+
+		if (( objetos != null ) && ( objetos.length > 0 ))
 			return (FicheroBD) ( (DefaultMutableTreeNode) objetos[objetos.length - 1] )
-				.getUserObject();
-		else 
-			return null;
+					.getUserObject();
+		else return null;
 	}
-	
-	private DefaultMutableTreeNode getNodoSeleccionado(){
-		TreePath camino = arbolDocumentos.getSelectionPath();
-		
-		Object[] objetos = null;
-		
-		if (camino != null)
-			objetos = camino.getPath();
 
-		if (objetos != null && objetos.length > 0)
+	private DefaultMutableTreeNode getNodoSeleccionado()
+	{
+		TreePath camino = arbolDocumentos.getSelectionPath();
+
+		Object[] objetos = null;
+
+		if (camino != null) objetos = camino.getPath();
+
+		if (( objetos != null ) && ( objetos.length > 0 ))
 			return (DefaultMutableTreeNode) objetos[objetos.length - 1];
-		else 
-			return null;	
+		else return null;
 	}
 
 	private void accionAbrir()
 	{
 		TreePath camino = arbolDocumentos.getSelectionPath();
 
-		if (camino == null)
-			return;
-		
+		if (camino == null) return;
+
 		Object[] objetos = camino.getPath();
 
 		String path = "";
 
 		if (( (DefaultMutableTreeNode) objetos[objetos.length - 1] ).isLeaf())
-		{
-
 			for (int i = 2; i < objetos.length; ++i)
-			{
 				path += '/' + objetos[i].toString();
-
-			}
-		}
 		else return;
 
 		FicheroBD f = (FicheroBD) ( (DefaultMutableTreeNode) objetos[objetos.length - 1] )
@@ -1175,7 +1134,7 @@ public class PanelPrincipal extends DComponenteBase
 		Documento p = new Documento();
 		p.setDatosBD(this.getDocumentoSeleccionado());
 		p.setPath(path);
-		
+
 		if (frame == null)
 		{
 			frame = new FramePanelDibujo(false);
@@ -1187,13 +1146,9 @@ public class PanelPrincipal extends DComponenteBase
 			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 			Dimension frameSize = frame.getSize();
 			if (frameSize.height > screenSize.height)
-			{
 				frameSize.height = screenSize.height;
-			}
 			if (frameSize.width > screenSize.width)
-			{
 				frameSize.width = screenSize.width;
-			}
 			frame.setLocation(( screenSize.width - frameSize.width ) / 2,
 					( screenSize.height - frameSize.height ) / 2);
 
@@ -1219,11 +1174,11 @@ public class PanelPrincipal extends DComponenteBase
 	 * llamado de forma automatica cuando sea necesario realizar la
 	 * sincronizacion
 	 */
-	public void sincronizar(){
+	@Override
+	public void sincronizar()
+	{
 
 	}
-
-
 
 	/**
 	 * Obtiene el numero de componentes hijos de este componente. SIEMPRE
@@ -1235,6 +1190,7 @@ public class PanelPrincipal extends DComponenteBase
 	 *         lista de usuarios conectados con la informacion del rol actual,
 	 *         el componente de cambio de rol y la etiqueta del rol actual)
 	 */
+	@Override
 	public int obtenerNumComponentesHijos()
 	{
 		return 1;
@@ -1249,6 +1205,7 @@ public class PanelPrincipal extends DComponenteBase
 	 * @return DComponente Componente indicado. Si el indice no es v‡lido
 	 *         devuelve null
 	 */
+	@Override
 	public DComponente obtenerComponente(int i)
 	{
 		DComponente dc = null;
@@ -1273,6 +1230,7 @@ public class PanelPrincipal extends DComponenteBase
 	 * @param evento
 	 *            DEvent Evento recibido
 	 */
+	@Override
 	synchronized public void procesarEventoHijo(DEvent evento)
 	{
 
@@ -1284,23 +1242,24 @@ public class PanelPrincipal extends DComponenteBase
 		if (evento.tipo.intValue() == DFileEvent.NOTIFICAR_INSERTAR_FICHERO)
 		{
 			DFileEvent dfe = (DFileEvent) evento;
-			
-			
-			if (dfe.fichero.comprobarPermisos(DConector.Dusuario, DConector.Drol, FicheroBD.PERMISO_LECTURA)){
-			
+
+			if (dfe.fichero.comprobarPermisos(DConector.Dusuario,
+					DConector.Drol, FicheroBD.PERMISO_LECTURA))
+			{
+
 				DefaultTreeModel modelo = (DefaultTreeModel) arbolDocumentos
 						.getModel();
 				DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) modelo
 						.getRoot();
-	
+
 				int id_papa = dfe.padre.getId();
 				DefaultMutableTreeNode papi = buscarFichero(raiz, id_papa);
-	
+
 				modelo.insertNodeInto(new DefaultMutableTreeNode(dfe.fichero),
 						papi, 0);
-				
+
 			}
-			
+
 			comprobarPermisosDocumentoActual(dfe.fichero, true);
 		}
 		else if (evento.tipo.intValue() == DFileEvent.NOTIFICAR_MODIFICACION_FICHERO)
@@ -1314,24 +1273,30 @@ public class PanelPrincipal extends DComponenteBase
 
 			int id_doc = dfe.fichero.getId();
 			DefaultMutableTreeNode nodo = buscarFichero(raiz, id_doc);
-			
-			//System.err.println("Fichero a cambiar " + dfe.fichero.getNombre());
-			
-			if (nodo == null){
-				
-				if (dfe.fichero.comprobarPermisos(DConector.Dusuario, DConector.Drol, FicheroBD.PERMISO_LECTURA)){
-					
-					DefaultMutableTreeNode padre = buscarFichero(raiz, dfe.padre.getId());					
-					modelo.insertNodeInto(new DefaultMutableTreeNode(dfe.fichero), padre, modelo.getChildCount(padre));
+
+			// System.err.println("Fichero a cambiar " +
+			// dfe.fichero.getNombre());
+
+			if (nodo == null)
+			{
+
+				if (dfe.fichero.comprobarPermisos(DConector.Dusuario,
+						DConector.Drol, FicheroBD.PERMISO_LECTURA))
+				{
+
+					DefaultMutableTreeNode padre = buscarFichero(raiz,
+							dfe.padre.getId());
+					modelo.insertNodeInto(new DefaultMutableTreeNode(
+							dfe.fichero), padre, modelo.getChildCount(padre));
 				}
 			}
-			else if (dfe.fichero.comprobarPermisos(DConector.Dusuario, DConector.Drol, FicheroBD.PERMISO_LECTURA))
+			else if (dfe.fichero.comprobarPermisos(DConector.Dusuario,
+					DConector.Drol, FicheroBD.PERMISO_LECTURA))
 				nodo.setUserObject(dfe.fichero);
-			else 
-				modelo.removeNodeFromParent(nodo);
-			
+			else modelo.removeNodeFromParent(nodo);
+
 			this.arbolDocumentos.repaint();
-			
+
 			comprobarPermisosDocumentoActual(dfe.fichero, false);
 
 		}
@@ -1351,77 +1316,76 @@ public class PanelPrincipal extends DComponenteBase
 			comprobarPermisosDocumentoActual(dfe.fichero, true);
 
 		}
-		
+
 	}
 
 	private DefaultMutableTreeNode buscarFichero(DefaultMutableTreeNode n,
 			int id)
 	{
-		if (!n.isRoot() && ( (FicheroBD) n.getUserObject() ).getId() == id)
-		{
+		if (!n.isRoot() && ( ( (FicheroBD) n.getUserObject() ).getId() == id ))
 			return n;
-		}
-		else
+		else if (n.getChildCount() > 0)
 		{
-			if (n.getChildCount() > 0)
+			DefaultMutableTreeNode nodo = null;
+
+			for (int i = 0; i < n.getChildCount(); ++i)
 			{
-				DefaultMutableTreeNode nodo = null;
+				nodo = buscarFichero((DefaultMutableTreeNode) n.getChildAt(i),
+						id);
 
-				for (int i = 0; i < n.getChildCount(); ++i)
-				{
-					nodo = buscarFichero((DefaultMutableTreeNode) n
-							.getChildAt(i), id);
-
-					if (nodo != null) return nodo;
-				}
-				return nodo;
+				if (nodo != null) return nodo;
 			}
-			else return null;
+			return nodo;
 		}
+		else return null;
 	}
-	
-	private FicheroBD buscarDirectorioPadre(DefaultMutableTreeNode n, int id){
+
+	private FicheroBD buscarDirectorioPadre(DefaultMutableTreeNode n, int id)
+	{
 
 		System.err.println("comparando: " + n.getUserObject());
-		
-			if (n!= null&&!n.isRoot() && ((FicheroBD)n.getUserObject()).getId() == id)
-				return (FicheroBD)n.getUserObject();
-		
-			if (n!=null && n.getChildCount() > 0)
+
+		if (( n != null ) && !n.isRoot()
+				&& ( ( (FicheroBD) n.getUserObject() ).getId() == id ))
+			return (FicheroBD) n.getUserObject();
+
+		if (( n != null ) && ( n.getChildCount() > 0 ))
+		{
+			FicheroBD nodo = null;
+
+			for (int i = 0; i < n.getChildCount(); ++i)
 			{
-				FicheroBD nodo = null;
+				nodo = buscarDirectorioPadre((DefaultMutableTreeNode) n
+						.getChildAt(i), id);
 
-				for (int i = 0; i < n.getChildCount(); ++i)
-				{
-					nodo = buscarDirectorioPadre((DefaultMutableTreeNode) n
-							.getChildAt(i), id);
-
-					if (nodo != null) 
-						return (FicheroBD)n.getUserObject();
-				}
-				return null;
+				if (nodo != null) return (FicheroBD) n.getUserObject();
 			}
-			else return null;
+			return null;
+		}
+		else return null;
 	}
-	
-	
-	public void comprobarPermisosDocumentoActual(FicheroBD f, boolean eliminado) {
-		if (!f.comprobarPermisos(DConector.Dusuario, DConector.Drol, FicheroBD.PERMISO_LECTURA) || eliminado)
-			if (frame.isVisible() && frame.getLienzo().getLienzo().getDocumento().getPath().equals(f.getRutaLocal())) {
-				
-				
-			JOptionPane.showMessageDialog(null, "Los permisos del fichero han cambiado y usted" +
-						"\n no puede seguir accediendo a este documento");
-			
-			
-			this.frame.setVisible(false);
-			Documento d = new Documento();
-			d.setPath("");
-			frame.setDocumento(d);
-		}		
-	}
-		
 
-	
+	public void comprobarPermisosDocumentoActual(FicheroBD f, boolean eliminado)
+	{
+		if (!f.comprobarPermisos(DConector.Dusuario, DConector.Drol,
+				FicheroBD.PERMISO_LECTURA)
+				|| eliminado)
+			if (frame.isVisible()
+					&& frame.getLienzo().getLienzo().getDocumento().getPath()
+							.equals(f.getRutaLocal()))
+			{
+
+				JOptionPane
+						.showMessageDialog(
+								null,
+								"Los permisos del fichero han cambiado y usted"
+										+ "\n no puede seguir accediendo a este documento");
+
+				this.frame.setVisible(false);
+				Documento d = new Documento();
+				d.setPath("");
+				frame.setDocumento(d);
+			}
+	}
 
 }

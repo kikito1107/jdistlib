@@ -1,10 +1,10 @@
 package componentes.gui.editor;
 
-
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 import Deventos.DEvent;
 import Deventos.DJLienzoEvent;
@@ -19,16 +19,19 @@ public class DIPanelDibujo extends DComponenteBase
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
 	private DILienzo lienzo = null;
+
 	private ControlesDibujo controles = null;
+
 	private BarraEstado barra = null;
-	
 
 	private JFrame padre = null;
+
 	private JScrollPane jsp = null;
+
 	private String pathDocumento;
-	
-	
+
 	public String getPathDocumento()
 	{
 		return pathDocumento;
@@ -39,13 +42,16 @@ public class DIPanelDibujo extends DComponenteBase
 		this.pathDocumento = pathDocumento;
 	}
 
-	public void setPadre(JFrame unaVentana) {
+	public void setPadre(JFrame unaVentana)
+	{
 		padre = unaVentana;
 	}
-	
+
 	/**
 	 * Crea un nuevo objeto de la clase DIPanelDibujo
-	 * @param nombre nombre del objeto en la BD
+	 * 
+	 * @param nombre
+	 *            nombre del objeto en la BD
 	 * @param conexionDC
 	 * @param padre
 	 */
@@ -53,99 +59,107 @@ public class DIPanelDibujo extends DComponenteBase
 			DComponenteBase padre )
 	{
 		super(nombre, conexionDC, padre);
-		
+
 		lienzo = new DILienzo("lienzo", true, this);
 		lienzo.setPadre(this.padre);
-		
+
 		barra = new BarraEstado(lienzo);
 		controles = new ControlesDibujo(lienzo, barra);
 		controles.setPadre(this.padre);
-		
+
 		init();
 	}
-	
+
 	/**
 	 * Inicializa el objeto
 	 */
-	public void init() {
+	public void init()
+	{
 		this.setLayout(new BorderLayout());
-		
-		/*JPanel aux = new JPanel( new BorderLayout() );
-		aux.setBorder(new EtchedBorder(4));
-		aux.add(lienzo, BorderLayout.CENTER);
-		*/
-		
-		//JScrollPane jsp = new JScrollPane(lienzo,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		//jsp.setLayout(new BorderLayout());
-		if (jsp==null) jsp = new JScrollPane(lienzo, 
-				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, 
-				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		
-		this.add(jsp , 
-				BorderLayout.CENTER);
-		
+
+		/*
+		 * JPanel aux = new JPanel( new BorderLayout() ); aux.setBorder(new
+		 * EtchedBorder(4)); aux.add(lienzo, BorderLayout.CENTER);
+		 */
+
+		// JScrollPane jsp = new
+		// JScrollPane(lienzo,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED,
+		// JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		// jsp.setLayout(new BorderLayout());
+		if (jsp == null)
+			jsp = new JScrollPane(lienzo,
+					ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+					ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+		this.add(jsp, BorderLayout.CENTER);
+
 		this.add(controles, BorderLayout.NORTH);
 		this.add(barra, BorderLayout.SOUTH);
 	}
-	
-	
-	public DILienzo getLienzo(){
+
+	public DILienzo getLienzo()
+	{
 		return lienzo;
 	}
-	
-	
-	
-	
+
+	@Override
 	public void sincronizar()
 	{
-		if (conectadoDC()) {
+		if (conectadoDC())
+		{
 			DJLienzoEvent peticion = new DJLienzoEvent();
 			peticion.tipo = new Integer(DJLienzoEvent.SINCRONIZACION.intValue());
 
-			
 			enviarEvento(peticion);
-		 }
+		}
 	}
-	
-	
-	
+
 	/**
 	 * Obtiene la informaci—n actual y la carga en un evento de lienzo
+	 * 
 	 * @return el evento con los datos actuales
 	 */
 	public DJLienzoEvent obtenerInfoEstado()
 	{
 		DJLienzoEvent de = new DJLienzoEvent();
-		
-		
+
 		return de;
 	}
 
+	@Override
 	public int obtenerNumComponentesHijos()
 	{
 		return 1;
 	}
-	
-	public DComponente obtenerComponente(int i) {
-		return lienzo;
-		
-	}
-	
-	synchronized public void procesarEventoHijo(DEvent evento) {
-		 try {
-			if (evento.tipo.intValue() == DJLienzoEvent.NUEVA_ANOTACION) {
-			  enviarEvento(evento);
-			}
-		 }
-		 catch (Exception e) {
 
-		 }
-	  }
+	@Override
+	public DComponente obtenerComponente(int i)
+	{
+		return lienzo;
+
+	}
+
+	@Override
+	synchronized public void procesarEventoHijo(DEvent evento)
+	{
+		try
+		{
+			if (evento.tipo.intValue() == DJLienzoEvent.NUEVA_ANOTACION)
+				enviarEvento(evento);
+		}
+		catch (Exception e)
+		{
+
+		}
+	}
 
 	public void setDocumento(Documento d)
 	{
 		lienzo.setDocumento(d);
-		
-		lienzo.setSize(this.getSize().width-jsp.getHorizontalScrollBar().getWidth(), this.getSize().height-controles.getHeight()-barra.getHeight()-4);
+
+		lienzo.setSize(this.getSize().width
+				- jsp.getHorizontalScrollBar().getWidth(),
+				this.getSize().height - controles.getHeight()
+						- barra.getHeight() - 4);
 	}
 }

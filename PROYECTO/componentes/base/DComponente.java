@@ -5,58 +5,69 @@ import Deventos.DEvent;
 import Deventos.DMIEvent;
 
 /**
- * <p>Title: </p>
- * <p>Description: </p>
- * <p>Copyright: Copyright (c) 2004</p>
- * <p>Company: </p>
+ * <p>
+ * Title:
+ * </p>
+ * <p>
+ * Description:
+ * </p>
+ * <p>
+ * Copyright: Copyright (c) 2004
+ * </p>
+ * <p>
+ * Company:
+ * </p>
+ * 
  * @author not attributable
  * @version 1.0
  */
 
-public interface DComponente {
-  ColaEventos colaRecepcion = null;
-  ColaEventos colaEnvio = null;
+public interface DComponente
+{
+	ColaEventos colaRecepcion = null;
 
-  public void activar();
+	ColaEventos colaEnvio = null;
 
-  public void desactivar();
+	public void activar();
 
-  public void iniciarHebraProcesadora();
+	public void desactivar();
 
-  public void procesarEvento(DEvent evento);
+	public void iniciarHebraProcesadora();
 
-  public void sincronizar();
+	public void procesarEvento(DEvent evento);
 
-  public void setNivelPermisos(int nivel);
+	public void sincronizar();
 
-  public int getNivelPermisos();
+	public void setNivelPermisos(int nivel);
 
-  public Integer getID();
+	public int getNivelPermisos();
 
-  public String getNombre();
+	public Integer getID();
 
-  public ColaEventos obtenerColaRecepcion();
+	public String getNombre();
 
-  public ColaEventos obtenerColaEnvio();
+	public ColaEventos obtenerColaRecepcion();
 
-  public HebraProcesadoraBase crearHebraProcesadora();
+	public ColaEventos obtenerColaEnvio();
 
-  public int obtenerNumComponentesHijos();
+	public HebraProcesadoraBase crearHebraProcesadora();
 
-  public DComponente obtenerComponente(int num);
+	public int obtenerNumComponentesHijos();
 
-  public DComponente obtenerComponente(String nombre);
+	public DComponente obtenerComponente(int num);
 
-  public void procesarEventoHijo(DEvent evento);
+	public DComponente obtenerComponente(String nombre);
 
-  public void procesarMetaInformacion(DMIEvent evento);
+	public void procesarEventoHijo(DEvent evento);
 
-  public boolean oculto();
+	public void procesarMetaInformacion(DMIEvent evento);
 
-  public DComponente obtenerPadre();
+	public boolean oculto();
 
-  public void padreOcultado();
+	public DComponente obtenerPadre();
 
-  public void padreMostrado();
+	public void padreOcultado();
+
+	public void padreMostrado();
 
 }

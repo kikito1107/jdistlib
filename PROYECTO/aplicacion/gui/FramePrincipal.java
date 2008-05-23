@@ -70,6 +70,7 @@ class FrameEjemplo_this_windowAdapter extends java.awt.event.WindowAdapter
 		this.adaptee = adaptee;
 	}
 
+	@Override
 	public void windowClosing(WindowEvent e)
 	{
 		adaptee.this_windowClosing(e);

@@ -18,156 +18,168 @@ import javax.swing.plaf.basic.BasicBorders;
 /**
  * A high contrast theme. This is used on Windows if the system property
  * awt.highContrast.on is true.
- *
- * @version @(#)MetalHighContrastTheme.java	1.3 03/01/23
+ * 
+ * @version
+ * @(#)MetalHighContrastTheme.java 1.3 03/01/23
  * @author Michael C. Albers
  */
-class MetalHighContrastTheme
-	 extends DefaultMetalTheme {
-  private static final ColorUIResource primary1 = new
-		ColorUIResource(0, 0, 0);
-  private static final ColorUIResource primary2 = new ColorUIResource(
-		204, 204, 204);
-  private static final ColorUIResource primary3 = new ColorUIResource(255,
-		255, 255);
-  private static final ColorUIResource primaryHighlight = new
-		ColorUIResource(102, 102, 102);
-  private static final ColorUIResource secondary2 = new ColorUIResource(
-		204, 204, 204);
-  private static final ColorUIResource secondary3 = new ColorUIResource(
-		255, 255, 255);
-  private static final ColorUIResource controlHighlight = new
-		ColorUIResource(102, 102, 102);
+class MetalHighContrastTheme extends DefaultMetalTheme
+{
+	private static final ColorUIResource primary1 = new ColorUIResource(0, 0, 0);
 
-  // This does not override getSecondary1 (102,102,102)
+	private static final ColorUIResource primary2 = new ColorUIResource(204,
+			204, 204);
 
-  public String getName() {
-	 return "Contrast";
-  }
+	private static final ColorUIResource primary3 = new ColorUIResource(255,
+			255, 255);
 
-  protected ColorUIResource getPrimary1() {
-	 return primary1;
-  }
+	private static final ColorUIResource primaryHighlight = new ColorUIResource(
+			102, 102, 102);
 
-  protected ColorUIResource getPrimary2() {
-	 return primary2;
-  }
+	private static final ColorUIResource secondary2 = new ColorUIResource(204,
+			204, 204);
 
-  protected ColorUIResource getPrimary3() {
-	 return primary3;
-  }
+	private static final ColorUIResource secondary3 = new ColorUIResource(255,
+			255, 255);
 
-  public ColorUIResource getPrimaryControlHighlight() {
-	 return primaryHighlight;
-  }
+	private static final ColorUIResource controlHighlight = new ColorUIResource(
+			102, 102, 102);
 
-  protected ColorUIResource getSecondary2() {
-	 return secondary2;
-  }
+	// This does not override getSecondary1 (102,102,102)
 
-  protected ColorUIResource getSecondary3() {
-	 return secondary3;
-  }
+	public String getName()
+	{
+		return "Contrast";
+	}
 
-  public ColorUIResource getControlHighlight() {
-	 // This was super.getSecondary3();
-	 return secondary2;
-  }
+	protected ColorUIResource getPrimary1()
+	{
+		return primary1;
+	}
 
-  public ColorUIResource getFocusColor() {
-	 return getBlack();
-  }
+	protected ColorUIResource getPrimary2()
+	{
+		return primary2;
+	}
 
-  public ColorUIResource getTextHighlightColor() {
-	 return getBlack();
-  }
+	protected ColorUIResource getPrimary3()
+	{
+		return primary3;
+	}
 
-  public ColorUIResource getHighlightedTextColor() {
-	 return getWhite();
-  }
+	public ColorUIResource getPrimaryControlHighlight()
+	{
+		return primaryHighlight;
+	}
 
-  public ColorUIResource getMenuSelectedBackground() {
-	 return getBlack();
-  }
+	protected ColorUIResource getSecondary2()
+	{
+		return secondary2;
+	}
 
-  public ColorUIResource getMenuSelectedForeground() {
-	 return getWhite();
-  }
+	protected ColorUIResource getSecondary3()
+	{
+		return secondary3;
+	}
 
-  public ColorUIResource getAcceleratorForeground() {
-	 return getBlack();
-  }
+	public ColorUIResource getControlHighlight()
+	{
+		// This was super.getSecondary3();
+		return secondary2;
+	}
 
-  public ColorUIResource getAcceleratorSelectedForeground() {
-	 return getWhite();
-  }
+	public ColorUIResource getFocusColor()
+	{
+		return getBlack();
+	}
 
-  public void addCustomEntriesToTable(UIDefaults table) {
-	 Border blackLineBorder = new BorderUIResource(new LineBorder(
-		  getBlack()));
-	 //Border whiteLineBorder = new BorderUIResource(new LineBorder(
-	//	  getWhite()));
-	 Object textBorder = new BorderUIResource(new CompoundBorder(
-		  blackLineBorder, new BasicBorders.MarginBorder()));
+	public ColorUIResource getTextHighlightColor()
+	{
+		return getBlack();
+	}
 
-	 Object[] defaults = new Object[] {
-		  "ToolTip.border", blackLineBorder,
+	public ColorUIResource getHighlightedTextColor()
+	{
+		return getWhite();
+	}
 
-		  "TitledBorder.border", blackLineBorder,
+	public ColorUIResource getMenuSelectedBackground()
+	{
+		return getBlack();
+	}
 
-		  "TextField.border", textBorder,
+	public ColorUIResource getMenuSelectedForeground()
+	{
+		return getWhite();
+	}
 
-		  "PasswordField.border", textBorder,
+	public ColorUIResource getAcceleratorForeground()
+	{
+		return getBlack();
+	}
 
-		  "TextArea.border", textBorder,
+	public ColorUIResource getAcceleratorSelectedForeground()
+	{
+		return getWhite();
+	}
 
-		  "TextPane.border", textBorder,
+	public void addCustomEntriesToTable(UIDefaults table)
+	{
+		Border blackLineBorder = new BorderUIResource(
+				new LineBorder(getBlack()));
+		// Border whiteLineBorder = new BorderUIResource(new LineBorder(
+		// getWhite()));
+		Object textBorder = new BorderUIResource(new CompoundBorder(
+				blackLineBorder, new BasicBorders.MarginBorder()));
 
-		  "EditorPane.border", textBorder,
+		Object[] defaults = new Object[]
+		{ "ToolTip.border", blackLineBorder,
 
-		  "ComboBox.background", getWindowBackground(),
-		  "ComboBox.foreground", getUserTextColor(),
-		  "ComboBox.selectionBackground", getTextHighlightColor(),
-		  "ComboBox.selectionForeground", getHighlightedTextColor(),
+		"TitledBorder.border", blackLineBorder,
 
-		  "ProgressBar.foreground", getUserTextColor(),
-		  "ProgressBar.background", getWindowBackground(),
-		  "ProgressBar.selectionForeground", getWindowBackground(),
-		  "ProgressBar.selectionBackground", getUserTextColor(),
+		"TextField.border", textBorder,
 
-		  "OptionPane.errorDialog.border.background",
-		  getPrimary1(),
-		  "OptionPane.errorDialog.titlePane.foreground",
-		  getPrimary3(),
-		  "OptionPane.errorDialog.titlePane.background",
-		  getPrimary1(),
-		  "OptionPane.errorDialog.titlePane.shadow",
-		  getPrimary2(),
-		  "OptionPane.questionDialog.border.background",
-		  getPrimary1(),
-		  "OptionPane.questionDialog.titlePane.foreground",
-		  getPrimary3(),
-		  "OptionPane.questionDialog.titlePane.background",
-		  getPrimary1(),
-		  "OptionPane.questionDialog.titlePane.shadow",
-		  getPrimary2(),
-		  "OptionPane.warningDialog.border.background",
-		  getPrimary1(),
-		  "OptionPane.warningDialog.titlePane.foreground",
-		  getPrimary3(),
-		  "OptionPane.warningDialog.titlePane.background",
-		  getPrimary1(),
-		  "OptionPane.warningDialog.titlePane.shadow",
-		  getPrimary2(),
-	 };
+		"PasswordField.border", textBorder,
 
-	 table.putDefaults(defaults);
-  }
+		"TextArea.border", textBorder,
 
-  /**
-	* Returns true if this is a theme provided by the core platform.
-	*/
-  boolean isSystemTheme() {
-	 return (getClass() == MetalHighContrastTheme.class);
-  }
+		"TextPane.border", textBorder,
+
+		"EditorPane.border", textBorder,
+
+		"ComboBox.background", getWindowBackground(), "ComboBox.foreground",
+				getUserTextColor(), "ComboBox.selectionBackground",
+				getTextHighlightColor(), "ComboBox.selectionForeground",
+				getHighlightedTextColor(),
+
+				"ProgressBar.foreground", getUserTextColor(),
+				"ProgressBar.background", getWindowBackground(),
+				"ProgressBar.selectionForeground", getWindowBackground(),
+				"ProgressBar.selectionBackground", getUserTextColor(),
+
+				"OptionPane.errorDialog.border.background", getPrimary1(),
+				"OptionPane.errorDialog.titlePane.foreground", getPrimary3(),
+				"OptionPane.errorDialog.titlePane.background", getPrimary1(),
+				"OptionPane.errorDialog.titlePane.shadow", getPrimary2(),
+				"OptionPane.questionDialog.border.background", getPrimary1(),
+				"OptionPane.questionDialog.titlePane.foreground",
+				getPrimary3(),
+				"OptionPane.questionDialog.titlePane.background",
+				getPrimary1(), "OptionPane.questionDialog.titlePane.shadow",
+				getPrimary2(), "OptionPane.warningDialog.border.background",
+				getPrimary1(), "OptionPane.warningDialog.titlePane.foreground",
+				getPrimary3(), "OptionPane.warningDialog.titlePane.background",
+				getPrimary1(), "OptionPane.warningDialog.titlePane.shadow",
+				getPrimary2(), };
+
+		table.putDefaults(defaults);
+	}
+
+	/**
+	 * Returns true if this is a theme provided by the core platform.
+	 */
+	boolean isSystemTheme()
+	{
+		return ( getClass() == MetalHighContrastTheme.class );
+	}
 }

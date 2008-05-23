@@ -22,34 +22,46 @@ import aplicacion.fisica.net.Transfer;
  * Implementacion del servidor de ficheros
  */
 
-public class ServidorFicheros {
+public class ServidorFicheros
+{
 	GestorFicherosBD gestor = null;
+
 	JavaSpace space = null;
+
 	Thread hebraProcesadora = null;
+
 	Thread hebraEnvio = null;
+
 	Thread hebraDesconexionUsuarios = null;
+
 	ColaEventos colaRecepcion = new ColaEventos();
+
 	ColaEventos colaEnvio = new ColaEventos();
+
 	long contador = 0;
 
 	private static long leaseWriteTime = Lease.FOREVER;
+
 	private static long leaseReadTime = Long.MAX_VALUE;
 
-	public ServidorFicheros() {
+	public ServidorFicheros()
+	{
 
 		System.out.println("");
 
-
 		gestor = new GestorFicherosBD();
-		System.out.println(
-		"ServidorFicheros: Almacen de ficheros creado");
+		System.out.println("ServidorFicheros: Almacen de ficheros creado");
 		System.out.println("ServidorFicheros: Localizando JavaSpace");
-		try {
+		try
+		{
 			space = SpaceLocator.getSpace("JavaSpace");
 			System.out.println("ServidorFicheros: JavaSpace localizado");
 		}
-		catch (Exception e) {
-			System.out.println("ServidorFicheros: Error localizando JavaSpace  " + e.getMessage());
+		catch (Exception e)
+		{
+			System.out
+					.println("ServidorFicheros: Error localizando JavaSpace  "
+							+ e.getMessage());
 			System.exit(1);
 		}
 
@@ -61,25 +73,21 @@ public class ServidorFicheros {
 		System.out.println("ServidorFicheros: HebraEnvio creada");
 		hebraEnvio.start();
 		System.out.println("ServidorFicheros: HebraEnvio iniciada");
-		System.out.println(
-		"ServidorFicheros: HebraDesconexionUsuarios iniciada");
+		System.out
+				.println("ServidorFicheros: HebraDesconexionUsuarios iniciada");
 
 		Transfer.establecerServidor();
 	}
 
-
-
-	public void salvar() {
+	public void salvar()
+	{
 		gestor.salvar();
 	}
 
+	public DefaultMutableTreeNode obtenerArbol(String usuario, String rol)
+	{
 
-
-
-	public DefaultMutableTreeNode obtenerArbol(String usuario, String rol) {
-
-		if (gestor == null)
-			gestor = new GestorFicherosBD();
+		if (gestor == null) gestor = new GestorFicherosBD();
 
 		DefaultMutableTreeNode raiz = new DefaultMutableTreeNode();
 
@@ -87,147 +95,170 @@ public class ServidorFicheros {
 
 		this.agregarFichero(fich.get(0), raiz, usuario, rol);
 
-
 		return raiz;
 	}
 
-	private void agregarFichero(FicheroBD f, DefaultMutableTreeNode padre, String usuario, String rol) {
+	private void agregarFichero(FicheroBD f, DefaultMutableTreeNode padre,
+			String usuario, String rol)
+	{
 
 		// agregamos una nueva hoja al arbol
-		if ( ParserPermisos.comprobarPermisoLectura(f, usuario, rol) ) {
+		if (ParserPermisos.comprobarPermisoLectura(f, usuario, rol))
+		{
 
 			DefaultMutableTreeNode nodo = new DefaultMutableTreeNode(f);
 
-			if (f.esDirectorio()) {
+			if (f.esDirectorio())
+			{
 				Vector<FicheroBD> fs = gestor.recuperarDirectorio(f.getId());
 
-				for (int i=1; i<fs.size(); ++i)
+				for (int i = 1; i < fs.size(); ++i)
 					agregarFichero(fs.get(i), nodo, usuario, rol);
 			}
 
 			padre.add(nodo);
 		}
 	}
-	
-	
-	
 
-	private class HebraProcesadora
-	implements Runnable {
+	private class HebraProcesadora implements Runnable
+	{
 		DEvent leido = null;
+
 		DEvent plantilla = new DEvent();
 
-		public void run() {
-			plantilla.destino =  new Integer(30); // Servidor ficheros
-			///plantilla.tipo = null;
+		public void run()
+		{
+			plantilla.destino = new Integer(30); // Servidor ficheros
+			// /plantilla.tipo = null;
 
-			while (true) {
-				try {
+			while (true)
+			{
+				try
+				{
 
 					System.out.println("preparado para leer evento");
 
 					leido = (DEvent) space.take(plantilla, null, leaseReadTime);
-					System.out.println("ServidorFicheros: evento leido: " +
-							leido);
+					System.out.println("ServidorFicheros: evento leido: "
+							+ leido);
 
-					if (leido.tipo.intValue() == DNodeEvent.SINCRONIZACION.intValue()) {
-						System.out.println("Recibido evento de sincronizcion ficheros");
-
+					if (leido.tipo.intValue() == DNodeEvent.SINCRONIZACION
+							.intValue())
+					{
+						System.out
+								.println("Recibido evento de sincronizcion ficheros");
 
 						DNodeEvent nuevo = new DNodeEvent();
 
-						nuevo.tipo = new Integer(DNodeEvent.RESPUESTA_SINCRONIZACION.intValue());
+						nuevo.tipo = new Integer(
+								DNodeEvent.RESPUESTA_SINCRONIZACION.intValue());
 						nuevo.origen = new Integer(30);
 						nuevo.destino = new Integer(31);
 						nuevo.aplicacion = new String(leido.aplicacion);
 						nuevo.raiz = obtenerArbol(leido.usuario, leido.rol);
-						nuevo.direccionRMI = new String(InetAddress.getLocalHost().getHostName());
+						nuevo.direccionRMI = new String(InetAddress
+								.getLocalHost().getHostName());
 
 						colaEnvio.nuevoEvento(nuevo);
 					}
-					else if(leido.tipo.intValue() == DFileEvent.NOTIFICAR_INSERTAR_FICHERO.intValue()) {
+					else if (leido.tipo.intValue() == DFileEvent.NOTIFICAR_INSERTAR_FICHERO
+							.intValue())
+					{
 
-						System.out.println("Leido evento insercion nuevo fichero");
+						System.out
+								.println("Leido evento insercion nuevo fichero");
 
-						//TODO insertar un nuevo fichero en la BD
+						// TODO insertar un nuevo fichero en la BD
 
-						if (gestor == null)
-							gestor = new GestorFicherosBD();
+						if (gestor == null) gestor = new GestorFicherosBD();
 
-						gestor.insertarNuevoFichero(((DFileEvent)leido).fichero);
-						
+						gestor
+								.insertarNuevoFichero(( (DFileEvent) leido ).fichero);
+
 					}
-					else if(leido.tipo.intValue() == DFileEvent.NOTIFICAR_ELIMINAR_FICHERO.intValue()) {
+					else if (leido.tipo.intValue() == DFileEvent.NOTIFICAR_ELIMINAR_FICHERO
+							.intValue())
+					{
 						System.out.println("Leido evento eliminacion  fichero");
 
-						if (gestor == null)
-							gestor = new GestorFicherosBD();
+						if (gestor == null) gestor = new GestorFicherosBD();
 
-						gestor.eliminarFichero(((DFileEvent)leido).fichero);
-						
-						String path = ((DFileEvent)leido).fichero.getRutaLocal();
-						
-						System.out.println("Fichero a borrar: " +path);
-						
+						gestor.eliminarFichero(( (DFileEvent) leido ).fichero);
+
+						String path = ( (DFileEvent) leido ).fichero
+								.getRutaLocal();
+
+						System.out.println("Fichero a borrar: " + path);
+
 						File f = new File(path);
 						File fAnot = new File(path + ".anot");
-						
+
 						if (!f.delete() || !fAnot.delete())
-							System.err.println("Error borrando el archivo: " + path);
-						
+							System.err.println("Error borrando el archivo: "
+									+ path);
+
 					}
-					else if(leido.tipo.intValue() == DFileEvent.NOTIFICAR_MODIFICACION_FICHERO.intValue()) {
-						System.out.println("Leido evento modificacion  fichero");
+					else if (leido.tipo.intValue() == DFileEvent.NOTIFICAR_MODIFICACION_FICHERO
+							.intValue())
+					{
+						System.out
+								.println("Leido evento modificacion  fichero");
 
-						if (gestor == null)
-							gestor = new GestorFicherosBD();
-						
+						if (gestor == null) gestor = new GestorFicherosBD();
 
-						int id = ((DFileEvent)leido).fichero.getId();
-						
-						// cambiar el nombre del fichero 
+						int id = ( (DFileEvent) leido ).fichero.getId();
+
+						// cambiar el nombre del fichero
 						String old = gestor.buscarFichero(id).getRutaLocal();
-						String new_ = ((DFileEvent)leido).fichero.getRutaLocal();
+						String new_ = ( (DFileEvent) leido ).fichero
+								.getRutaLocal();
 						File f = new File(old);
-						
+
 						File f2 = new File(new_);
-						
+
 						System.err.println("Ruta local: " + old);
 						System.err.println("Ruta nueva " + new_);
-						
-						if(!f.renameTo(f2))
+
+						if (!f.renameTo(f2))
 							System.err.println("Error al renombrar el fichero");
-						else {
-	
-							f = new File(old+".anot");
-							f2 = new File(new_+".anot");
-							
-							if(!f.renameTo(f2))
-								System.err.println("Error al renombrar el fichero de anotaciones");
-							else
-								System.err.println("Fichero renombrado con Žxito");
-							
+						else
+						{
+
+							f = new File(old + ".anot");
+							f2 = new File(new_ + ".anot");
+
+							if (!f.renameTo(f2))
+								System.err
+										.println("Error al renombrar el fichero de anotaciones");
+							else System.err
+									.println("Fichero renombrado con Žxito");
+
 						}
-						gestor.modificarFichero(((DFileEvent)leido).fichero);
+						gestor.modificarFichero(( (DFileEvent) leido ).fichero);
 					}
 				}
-				catch (Exception e) {
+				catch (Exception e)
+				{
 					e.printStackTrace();
 				}
 			}
 		}
 	}
 
-	private class HebraEnvio
-	implements Runnable {
-		public void run() {
-			while (true) {
-				try {
+	private class HebraEnvio implements Runnable
+	{
+		public void run()
+		{
+			while (true)
+			{
+				try
+				{
 					DEvent evento = colaEnvio.extraerEvento();
 					space.write(evento, null, leaseWriteTime);
-					System.out.println("Escrito evento: " +  (DEvent)evento);
+					System.out.println("Escrito evento: " + (DEvent) evento);
 				}
-				catch (Exception e) {
+				catch (Exception e)
+				{
 					e.printStackTrace();
 				}
 			}

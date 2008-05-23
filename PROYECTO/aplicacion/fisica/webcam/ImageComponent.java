@@ -13,7 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 /**
- *
+ * 
  * @author carlosrodriguezdominguez
  */
 public class ImageComponent extends JComponent
@@ -44,7 +44,7 @@ public class ImageComponent extends JComponent
 	public void setImageSize(Dimension newSize)
 	{
 		if (!newSize.equals(size))
-		{ //System.out.println("New size " + newSize + " from " + size);
+		{ // System.out.println("New size " + newSize + " from " + size);
 			size = newSize;
 			setSize(size);
 			parent.pack();
@@ -86,15 +86,13 @@ public class ImageComponent extends JComponent
 	@Override
 	public synchronized void paint(Graphics g)
 	{
-		if (image != null)
-		{
-			//g.drawImage(image, 0, 0, this);
+		if (image != null) // g.drawImage(image, 0, 0, this);
 			g.drawImage(image, image.getWidth(this), 0, 0, image
 					.getHeight(this), 0, 0, image.getWidth(this), image
 					.getHeight(this), this);
-		}
 	}
 
+	@Override
 	public synchronized Dimension getPreferredSize()
 	{
 		return size;

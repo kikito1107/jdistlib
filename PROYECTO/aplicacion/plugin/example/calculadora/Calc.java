@@ -28,6 +28,7 @@ public class Calc extends Applet
 	/**
 	 * inicializa el applet Calc
 	 */
+	@Override
 	public void init()
 	{
 
@@ -41,6 +42,7 @@ public class Calc extends Applet
 	/**
 	 * manipulador para las funciones de la calculadora.
 	 */
+	@Override
 	public boolean action(Event ev, Object arg)
 	{
 
@@ -123,13 +125,15 @@ public class Calc extends Applet
 class Keypad extends Panel
 {
 	private static final long serialVersionUID = -2027493051307560236L;
+
 	Display d;
-	
+
 	/**
 	 * inicializa keypad, a–ade los botones, establece los colores, etc.
-	 * @param display 
+	 * 
+	 * @param display
 	 */
-	Keypad(Display display)
+	Keypad( Display display )
 	{
 
 		Button b = new Button();
@@ -140,32 +144,33 @@ class Keypad extends Panel
 		setFont(font);
 		b.setForeground(Color.black);
 		d = display;
-		
+
 		this.addKeyListener(new java.awt.event.KeyAdapter()
 		{
+			@Override
 			public void keyPressed(java.awt.event.KeyEvent e)
 			{
 				funcionTecla(e);
 			}
 		});
 
-		
 		b = new Button("7");
 		b.addKeyListener(new java.awt.event.KeyAdapter()
 		{
+			@Override
 			public void keyPressed(java.awt.event.KeyEvent e)
 			{
 				funcionTecla(e);
 			}
 		});
-		
+
 		add(b);
 		b.setBackground(numberColor);
-		
-		
+
 		b = new Button("8");
 		b.addKeyListener(new java.awt.event.KeyAdapter()
 		{
+			@Override
 			public void keyPressed(java.awt.event.KeyEvent e)
 			{
 				funcionTecla(e);
@@ -173,11 +178,11 @@ class Keypad extends Panel
 		});
 		add(b);
 		b.setBackground(numberColor);
-		
-		
+
 		b = new Button("9");
 		b.addKeyListener(new java.awt.event.KeyAdapter()
 		{
+			@Override
 			public void keyPressed(java.awt.event.KeyEvent e)
 			{
 				funcionTecla(e);
@@ -185,142 +190,144 @@ class Keypad extends Panel
 		});
 		add(b);
 		b.setBackground(numberColor);
-		
-		
-		
 
 		add(b = new Button("/"));
-		b.setBackground(functionColor);		
+		b.setBackground(functionColor);
 		b.addKeyListener(new java.awt.event.KeyAdapter()
 		{
+			@Override
 			public void keyPressed(java.awt.event.KeyEvent e)
 			{
 				funcionTecla(e);
 			}
 		});
-		
-		
+
 		add(b = new Button("4"));
 		b.setBackground(numberColor);
 		b.addKeyListener(new java.awt.event.KeyAdapter()
 		{
+			@Override
 			public void keyPressed(java.awt.event.KeyEvent e)
 			{
 				funcionTecla(e);
 			}
 		});
-		
-		
+
 		add(b = new Button("5"));
 		b.setBackground(numberColor);
 		b.addKeyListener(new java.awt.event.KeyAdapter()
 		{
+			@Override
 			public void keyPressed(java.awt.event.KeyEvent e)
 			{
 				funcionTecla(e);
 			}
 		});
-		
-		
+
 		add(b = new Button("6"));
 		b.setBackground(numberColor);
 		b.addKeyListener(new java.awt.event.KeyAdapter()
 		{
+			@Override
 			public void keyPressed(java.awt.event.KeyEvent e)
 			{
 				funcionTecla(e);
 			}
 		});
-		
-		
+
 		add(b = new Button("x"));
 		b.setBackground(functionColor);
 		b.addKeyListener(new java.awt.event.KeyAdapter()
 		{
+			@Override
 			public void keyPressed(java.awt.event.KeyEvent e)
 			{
 				funcionTecla(e);
 			}
 		});
-		
 
 		add(b = new Button("1"));
 		b.setBackground(numberColor);
 		b.addKeyListener(new java.awt.event.KeyAdapter()
 		{
+			@Override
 			public void keyPressed(java.awt.event.KeyEvent e)
 			{
 				funcionTecla(e);
 			}
 		});
-		
+
 		add(b = new Button("2"));
 		b.setBackground(numberColor);
 		b.addKeyListener(new java.awt.event.KeyAdapter()
 		{
+			@Override
 			public void keyPressed(java.awt.event.KeyEvent e)
 			{
 				funcionTecla(e);
 			}
 		});
-		
-		
+
 		add(b = new Button("3"));
 		b.setBackground(numberColor);
 		b.addKeyListener(new java.awt.event.KeyAdapter()
 		{
+			@Override
 			public void keyPressed(java.awt.event.KeyEvent e)
 			{
 				funcionTecla(e);
 			}
 		});
-		
-		
+
 		add(b = new Button("-"));
 		b.setBackground(functionColor);
 		b.addKeyListener(new java.awt.event.KeyAdapter()
 		{
+			@Override
 			public void keyPressed(java.awt.event.KeyEvent e)
 			{
 				funcionTecla(e);
 			}
 		});
-		
-		
+
 		add(b = new Button("."));
 		b.setBackground(functionColor);
 		b.addKeyListener(new java.awt.event.KeyAdapter()
 		{
+			@Override
 			public void keyPressed(java.awt.event.KeyEvent e)
 			{
 				funcionTecla(e);
 			}
 		});
-		
+
 		add(b = new Button("0"));
 		b.setBackground(numberColor);
 		b.addKeyListener(new java.awt.event.KeyAdapter()
 		{
+			@Override
 			public void keyPressed(java.awt.event.KeyEvent e)
 			{
 				funcionTecla(e);
 			}
 		});
-		
+
 		add(b = new Button("+/-"));
 		b.setBackground(functionColor);
 		b.addKeyListener(new java.awt.event.KeyAdapter()
 		{
+			@Override
 			public void keyPressed(java.awt.event.KeyEvent e)
 			{
 				funcionTecla(e);
 			}
 		});
-		
+
 		add(b = new Button("+"));
 		b.setBackground(functionColor);
 		b.addKeyListener(new java.awt.event.KeyAdapter()
 		{
+			@Override
 			public void keyPressed(java.awt.event.KeyEvent e)
 			{
 				funcionTecla(e);
@@ -331,12 +338,13 @@ class Keypad extends Panel
 		b.setBackground(functionColor);
 		b.addKeyListener(new java.awt.event.KeyAdapter()
 		{
+			@Override
 			public void keyPressed(java.awt.event.KeyEvent e)
 			{
 				funcionTecla(e);
 			}
 		});
-		
+
 		add(new Label(""));
 		add(new Label(""));
 		add(b = new Button("="));
@@ -344,6 +352,7 @@ class Keypad extends Panel
 		b.setBackground(functionColor);
 		b.addKeyListener(new java.awt.event.KeyAdapter()
 		{
+			@Override
 			public void keyPressed(java.awt.event.KeyEvent e)
 			{
 				funcionTecla(e);
@@ -352,10 +361,11 @@ class Keypad extends Panel
 
 		setLayout(new GridLayout(5, 4, 4, 4));
 	}
-	
-	
-	private void funcionTecla(KeyEvent e){
-		switch( e.getKeyChar() ){
+
+	private void funcionTecla(KeyEvent e)
+	{
+		switch (e.getKeyChar())
+		{
 			case '1':
 				d.Digit("1");
 				break;
@@ -458,8 +468,8 @@ class Display extends Panel
 		/*
 		 * quita los ceros precedentes
 		 */
-		if (s.length() == 1 && s.charAt(0) == '0' && digit.charAt(0) != '.')
-			s = s.substring(1);
+		if (( s.length() == 1 ) && ( s.charAt(0) == '0' )
+				&& ( digit.charAt(0) != '.' )) s = s.substring(1);
 
 		if (s.length() < maxlen) s = s + digit;
 		showacc();
@@ -599,7 +609,7 @@ class Display extends Panel
 	}
 
 	/**
-	 * limpia la visualizaci—n y el œltimo valor interno 
+	 * limpia la visualizaci—n y el œltimo valor interno
 	 */
 	void Clear()
 	{

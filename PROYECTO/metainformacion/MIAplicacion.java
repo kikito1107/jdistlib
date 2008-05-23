@@ -5,44 +5,57 @@ import java.util.Date;
 import java.util.Vector;
 
 /**
- * <p>Description: Clase para guardar metainformacion sobre una aplicacion.
- * Guardamos informacion sobre: Nombre de la aplicacion, permiso por defecto
- * de los componentes, usuarios definidos, roles definidos y componentes definidos.</p>
+ * <p>
+ * Description: Clase para guardar metainformacion sobre una aplicacion.
+ * Guardamos informacion sobre: Nombre de la aplicacion, permiso por defecto de
+ * los componentes, usuarios definidos, roles definidos y componentes definidos.
+ * </p>
+ * 
  * @author Juan Antonio Ibañez Santorum (looper@telefonica.net)
  */
 
-public class MIAplicacion
-implements Serializable {
+public class MIAplicacion implements Serializable
+{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
 	private Integer permisoDefault = new Integer(20);
+
 	private Vector<MIUsuario> usuarios = new Vector<MIUsuario>();
+
 	private Vector<MIRol> roles = new Vector<MIRol>();
+
 	private Vector<MIComponente> componentes = new Vector<MIComponente>();
+
 	private String nombre = null;
+
 	private int identificador;
 
-	public MIAplicacion() {
+	public MIAplicacion()
+	{
 	}
 
-	public MIRol getRolByName(String nombreRol) {
+	public MIRol getRolByName(String nombreRol)
+	{
 		MIRol rol = null;
-		
-		for (int i = 0; i<roles.size(); ++i){
+
+		for (int i = 0; i < roles.size(); ++i)
 			if (roles.get(i).getNombreRol().equals(nombreRol))
 				rol = roles.get(i);
-		}
-		
+
 		return rol;
 	}
-	
+
 	/**
 	 * Especificamos el nombre de la aplicacion
-	 * @param nombre String Nombre deseado
+	 * 
+	 * @param nombre
+	 *            String Nombre deseado
 	 */
-	public void setNombre(String nombre) {
+	public void setNombre(String nombre)
+	{
 		this.nombre = nombre;
 	}
 
@@ -58,66 +71,77 @@ implements Serializable {
 
 	/**
 	 * Obtenemos el nombre de la aplicacion
+	 * 
 	 * @return String Nombre de la aplicacion
 	 */
-	public String getNombre() {
+	public String getNombre()
+	{
 		return nombre;
 	}
 
 	/**
 	 * Especificamos el permiso por defecto de los componentes.
-	 * @param permiso int Permiso por defecto
+	 * 
+	 * @param permiso
+	 *            int Permiso por defecto
 	 */
-	public void setPermisoDefault(int permiso) {
+	public void setPermisoDefault(int permiso)
+	{
 		permisoDefault = new Integer(permiso);
 	}
 
 	/**
 	 * Obtenemos el permiso por defecto de los componentes.
+	 * 
 	 * @return int Permiso por defecto
 	 */
-	public int getPermisoDefault() {
+	public int getPermisoDefault()
+	{
 		return permisoDefault.intValue();
 	}
 
 	/**
 	 * Definimos un nuevo rol para esta aplicacion
-	 * @param rol MIRol Nuevo rol
+	 * 
+	 * @param rol
+	 *            MIRol Nuevo rol
 	 */
-	public String nuevoRol(MIRol rol) {
+	public String nuevoRol(MIRol rol)
+	{
 		String mensaje = "";
-		if (getRol(rol.getNombreRol()) == null) {
+		if (getRol(rol.getNombreRol()) == null)
 			roles.add(rol);
-		}
-		else {
-			mensaje = "No se ha podido añadir al rol";
-		}
+		else mensaje = "No se ha podido añadir al rol";
 		return mensaje;
 	}
 
 	/**
-	 * Definimos un nuevo usuario para esta aplicacion. Si el rol por defecto es nulo no lo a–ade
-	 * @param usuario MIUsuario Nuevo usuario
+	 * Definimos un nuevo usuario para esta aplicacion. Si el rol por defecto es
+	 * nulo no lo a–ade
+	 * 
+	 * @param usuario
+	 *            MIUsuario Nuevo usuario
 	 */
-	public String nuevoUsuario(MIUsuario usuario) {
+	public String nuevoUsuario(MIUsuario usuario)
+	{
 		String mensaje = "";
-		if (getUsuario(usuario.getNombreUsuario()) == null &&
-				getRol(usuario.getRolPorDefecto()) != null) {
+		if (( getUsuario(usuario.getNombreUsuario()) == null )
+				&& ( getRol(usuario.getRolPorDefecto()) != null ))
 			usuarios.add(usuario);
-		}
-		else {
-			mensaje = "No se ha podido añadir al usuario";
-		}
+		else mensaje = "No se ha podido añadir al usuario";
 		return mensaje;
 	}
 
-	public boolean eliminarUsuario(String usuario) {
+	public boolean eliminarUsuario(String usuario)
+	{
 		boolean encontrado = false;
 		int i = 0;
 		MIUsuario aux = null;
-		while (!encontrado && i < usuarios.size()) {
-			aux = (MIUsuario) usuarios.elementAt(i);
-			if (aux.getNombreUsuario().equals(usuario)) {
+		while (!encontrado && ( i < usuarios.size() ))
+		{
+			aux = usuarios.elementAt(i);
+			if (aux.getNombreUsuario().equals(usuario))
+			{
 				encontrado = true;
 				usuarios.remove(i);
 			}
@@ -126,39 +150,45 @@ implements Serializable {
 		return encontrado;
 	}
 
-	public void actualizarMarcaTiempoUsuario(String usuario) {
+	public void actualizarMarcaTiempoUsuario(String usuario)
+	{
 		MIUsuario aux = getUsuario(usuario);
-		if (aux != null) {
-			aux.actualizarMarcaTiempo();
-		}
+		if (aux != null) aux.actualizarMarcaTiempo();
 	}
 
-	public String eliminarRol(String rol) {
+	public String eliminarRol(String rol)
+	{
 		String mensaje = "";
 		boolean rolPorDefecto = false;
 		int i = 0;
 		MIRol aux = null;
 		MIUsuario usr = null;
 		boolean encontrado = false;
-		for (i = 0; i < usuarios.size(); i++) {
-			usr = (MIUsuario) usuarios.elementAt(i);
-			if (usr.getRolPorDefecto().equals(rol)) {
+		for (i = 0; i < usuarios.size(); i++)
+		{
+			usr = usuarios.elementAt(i);
+			if (usr.getRolPorDefecto().equals(rol))
+			{
 				rolPorDefecto = true;
 				mensaje = "No se pude eliminar un rol que alguien tiene por defecto";
 			}
 		}
 
-		if (!rolPorDefecto) {
-			while (!encontrado && i < roles.size()) {
-				aux = (MIRol) roles.elementAt(i);
-				if (aux.getNombreRol().equals(rol)) {
+		if (!rolPorDefecto)
+		{
+			while (!encontrado && ( i < roles.size() ))
+			{
+				aux = roles.elementAt(i);
+				if (aux.getNombreRol().equals(rol))
+				{
 					encontrado = true;
 					roles.remove(i);
 				}
 				i++;
 			}
-			for (i = 0; i < usuarios.size(); i++) {
-				usr = (MIUsuario) usuarios.elementAt(i);
+			for (i = 0; i < usuarios.size(); i++)
+			{
+				usr = usuarios.elementAt(i);
 				usr.eliminarRolPermitido(rol);
 			}
 		}
@@ -167,14 +197,18 @@ implements Serializable {
 	}
 
 	/**
-	 * Pone al usuario especificado el estado de conectado. Si no existe el usuario
-	 * no se realiza ninguna accion
-	 * @param usuario String Usuario que deseamos especificar como conectado
+	 * Pone al usuario especificado el estado de conectado. Si no existe el
+	 * usuario no se realiza ninguna accion
+	 * 
+	 * @param usuario
+	 *            String Usuario que deseamos especificar como conectado
 	 */
-	public String setUsuarioConectado(String usuario) {
+	public String setUsuarioConectado(String usuario)
+	{
 		String rolPorDefecto = null;
 		MIUsuario usr = getUsuario(usuario);
-		if (usr != null) {
+		if (usr != null)
+		{
 			usr.setOnline(true);
 			usr.setRolActual(usr.getRolPorDefecto());
 			rolPorDefecto = usr.getRolActual();
@@ -182,32 +216,33 @@ implements Serializable {
 		return rolPorDefecto;
 	}
 
-	public String setRolActualUsuario(String usuario, String nuevoRol) {
+	public String setRolActualUsuario(String usuario, String nuevoRol)
+	{
 		String mensaje = new String("");
 		MIUsuario usr = getUsuario(usuario);
 		MIRol rol = getRol(nuevoRol);
-		if (usr != null) {
-			if (rol != null) {
+		if (usr != null)
+		{
+			if (rol != null)
 				usr.setRolActual(nuevoRol);
-			}
-			else {
-				mensaje = new String("No existe el rol " + nuevoRol);
-			}
+			else mensaje = new String("No existe el rol " + nuevoRol);
 		}
-		else {
-			mensaje = new String("No existe el usuario " + usuario);
-		}
+		else mensaje = new String("No existe el usuario " + usuario);
 		return mensaje;
 	}
 
 	/**
-	 * Pone al usuario especificado el estado de desconectado. Si no existe el usuario
-	 * no se realiza ningun accion
-	 * @param usuario String Usuario que deseamos especificar como desconectado
+	 * Pone al usuario especificado el estado de desconectado. Si no existe el
+	 * usuario no se realiza ningun accion
+	 * 
+	 * @param usuario
+	 *            String Usuario que deseamos especificar como desconectado
 	 */
-	public void setUsuarioDesconectado(String usuario) {
+	public void setUsuarioDesconectado(String usuario)
+	{
 		MIUsuario usr = getUsuario(usuario);
-		if (usr != null) {
+		if (usr != null)
+		{
 			usr.setOnline(false);
 			usr.setRolActual(null);
 		}
@@ -215,108 +250,127 @@ implements Serializable {
 
 	/**
 	 * Definimos un nuevo componente para esta aplicacion
-	 * @param componente MIComponente Nuevo componente
+	 * 
+	 * @param componente
+	 *            MIComponente Nuevo componente
 	 */
-	public void nuevoComponente(MIComponente componente) {
+	public void nuevoComponente(MIComponente componente)
+	{
 		componentes.add(componente);
 	}
 
 	/**
-	 * Especificamos un permiso para un cierto componente para un rol. Si el
-	 * rol no existe no se realiza accion alguna.
-	 * @param rol String Rol sobre el que queremos definir el permiso
-	 * @param componente String Componente al que queremos especificar el permiso
-	 * @param permiso int Permiso para el componente
+	 * Especificamos un permiso para un cierto componente para un rol. Si el rol
+	 * no existe no se realiza accion alguna.
+	 * 
+	 * @param rol
+	 *            String Rol sobre el que queremos definir el permiso
+	 * @param componente
+	 *            String Componente al que queremos especificar el permiso
+	 * @param permiso
+	 *            int Permiso para el componente
 	 */
-	public void nuevoPermisoRol(String rol, String componente, int permiso) {
+	public void nuevoPermisoRol(String rol, String componente, int permiso)
+	{
 		MIRol aux = getRol(rol);
-		if (aux != null) {
-			aux.nuevoPermisoComponente(componente, permiso);
-		}
+		if (aux != null) aux.nuevoPermisoComponente(componente, permiso);
 	}
 
 	/**
-	 * Especificamos un permiso para un cierto componente para un usuario.. Si el
-	 * usuario no existe no se realiza accion alguna
-	 * @param usuario String Usuario sobre el que queremos definir el permiso
-	 * @param componente String Componente al que queremos especificar el permiso
-	 * @param permiso int Permiso para el componente
+	 * Especificamos un permiso para un cierto componente para un usuario.. Si
+	 * el usuario no existe no se realiza accion alguna
+	 * 
+	 * @param usuario
+	 *            String Usuario sobre el que queremos definir el permiso
+	 * @param componente
+	 *            String Componente al que queremos especificar el permiso
+	 * @param permiso
+	 *            int Permiso para el componente
 	 */
 	public void nuevoPermisoUsuario(String usuario, String componente,
-			int permiso) {
+			int permiso)
+	{
 		MIUsuario aux = getUsuario(usuario);
-		if (aux != null) {
-			aux.nuevoPermisoComponente(componente, permiso);
-		}
+		if (aux != null) aux.nuevoPermisoComponente(componente, permiso);
 	}
 
 	/**
 	 * Especificamos un nuevo rol permitido par un cierto usuario. Si el usuario
 	 * no existe no se realiza accion alguna
-	 * @param usuario String Usuario al que queremos añadir un nuevo rol permitido
-	 * @param rol String Nuevo rol que le permitimos al usuario
+	 * 
+	 * @param usuario
+	 *            String Usuario al que queremos añadir un nuevo rol permitido
+	 * @param rol
+	 *            String Nuevo rol que le permitimos al usuario
 	 */
-	public String nuevoRolPermitidoUsuario(String usuario, String rol) {
+	public String nuevoRolPermitidoUsuario(String usuario, String rol)
+	{
 		String mensaje = "";
 		MIUsuario aux = getUsuario(usuario);
 		MIRol rl = getRol(rol);
-		if (aux != null) {
-			if (rl != null) {
-				if (!aux.nuevoRolPermitido(rol)) {
+		if (aux != null)
+		{
+			if (rl != null)
+			{
+				if (!aux.nuevoRolPermitido(rol))
 					mensaje = "El usuario ya tiene ese rol permitido";
-				}
 			}
-			else {
-				mensaje = "No existe el rol";
-			}
+			else mensaje = "No existe el rol";
 		}
-		else {
-			mensaje = "No se ha podido añadir el rol";
-		}
+		else mensaje = "No se ha podido añadir el rol";
 		return mensaje;
 	}
 
 	/**
-	 * Eliminamos un rol de entre los permitidos al usuario. Si el usuario no existe
-	 * no se realiza accion alguna
-	 * @param usuario String Usuario al que queremos eliminar un rol permitido
-	 * @param rol String Rol que deseamos eliminar
+	 * Eliminamos un rol de entre los permitidos al usuario. Si el usuario no
+	 * existe no se realiza accion alguna
+	 * 
+	 * @param usuario
+	 *            String Usuario al que queremos eliminar un rol permitido
+	 * @param rol
+	 *            String Rol que deseamos eliminar
 	 */
-	public String eliminarRolPermitidoUsuario(String usuario, String rol) {
+	public String eliminarRolPermitidoUsuario(String usuario, String rol)
+	{
 		String mensaje = "";
 		MIUsuario aux = getUsuario(usuario);
-		if (aux != null) {
-			if (!aux.eliminarRolPermitido(rol)) {
+		if (aux != null)
+		{
+			if (!aux.eliminarRolPermitido(rol))
 				mensaje = "No se ha podido eliminar el rol";
-			}
 		}
-		else {
-			mensaje = "No se ha podido eliminar el rol";
-		}
+		else mensaje = "No se ha podido eliminar el rol";
 		return mensaje;
 	}
 
 	/**
 	 * Obtenemos los roles definidos para esta aplicacion
+	 * 
 	 * @return Vector Vector de MIRol con los roles definidos
 	 */
-	public Vector getRoles() {
+	public Vector getRoles()
+	{
 		return roles;
 	}
 
 	/**
 	 * Obtenemos una instancia del rol especificado
-	 * @param rol String Rol que deseamos buscar
+	 * 
+	 * @param rol
+	 *            String Rol que deseamos buscar
 	 * @return MIRol Rol deseado. Si no existe se devuelve null
 	 */
-	public MIRol getRol(String rol) {
+	public MIRol getRol(String rol)
+	{
 		boolean encontrado = false;
 		int i = 0;
 		MIRol aux = null;
 		MIRol rolEncontrado = null;
-		while (!encontrado && i < roles.size()) {
-			aux = (MIRol) roles.elementAt(i);
-			if (aux.getNombreRol().equals(rol)) {
+		while (!encontrado && ( i < roles.size() ))
+		{
+			aux = roles.elementAt(i);
+			if (aux.getNombreRol().equals(rol))
+			{
 				encontrado = true;
 				rolEncontrado = aux;
 			}
@@ -327,23 +381,26 @@ implements Serializable {
 
 	/**
 	 * Obtenemos los usuarios definidos para esta aplicacion
+	 * 
 	 * @return Vector Vector de MIUsuario con los usuarios definidos
 	 */
-	public Vector getUsuarios() {
+	public Vector getUsuarios()
+	{
 		return usuarios;
 	}
 
-	public Vector getUsuariosNoActualizados() {
+	public Vector getUsuariosNoActualizados()
+	{
 		MIUsuario usr = null;
 		Vector<MIUsuario> v = new Vector<MIUsuario>();
 		long tiempoMargen = 60000;
 		long tiempoActual = new Date().getTime();
-		for (int i = 0; i < usuarios.size(); i++) {
-			usr = (MIUsuario) usuarios.elementAt(i);
-			if (usr.online() &&
-					( (tiempoActual - usr.getActualizado()) > tiempoMargen)) {
+		for (int i = 0; i < usuarios.size(); i++)
+		{
+			usr = usuarios.elementAt(i);
+			if (usr.online()
+					&& ( ( tiempoActual - usr.getActualizado() ) > tiempoMargen ))
 				v.add(usr);
-			}
 		}
 
 		return v;
@@ -352,19 +409,22 @@ implements Serializable {
 	/**
 	 * Obtenemos aquellos usuarios que estan bajo un determinado rol en el
 	 * momento de la consulta
-	 * @param rol String Rol sobre el que deseamos hacer la consulta
-	 * @return Vector Vector de String con los nombres de los usuarios que
-	 * estan bajo el rol pasado como parametro.
+	 * 
+	 * @param rol
+	 *            String Rol sobre el que deseamos hacer la consulta
+	 * @return Vector Vector de String con los nombres de los usuarios que estan
+	 *         bajo el rol pasado como parametro.
 	 */
-	public Vector<String> getUsuariosBajoRol(String rol) {
+	public Vector<String> getUsuariosBajoRol(String rol)
+	{
 		Vector v = getUsuarios();
 		Vector<String> conectados = new Vector<String>();
 		MIUsuario usr = null;
-		for (int i = 0; i < v.size(); i++) {
+		for (int i = 0; i < v.size(); i++)
+		{
 			usr = (MIUsuario) v.elementAt(i);
-			if (usr.online() && usr.getRolActual().equals(rol)) {
+			if (usr.online() && usr.getRolActual().equals(rol))
 				conectados.add(new String(usr.getNombreUsuario()));
-			}
 		}
 
 		return conectados;
@@ -372,24 +432,29 @@ implements Serializable {
 
 	/**
 	 * Obtiene los usuarios conectados
+	 * 
 	 * @return Vector Vector de tamaño 2. En la primera posicion tiene un vector
-	 * con los nombres de los usuarios conectados. En la segunda posicion tiene
-	 * un vector con los roles con los que estan conectados esos usuarios. Un
-	 * posible valor devuelto podria ser:<br><br>
-	 * Vector1 -> [LooPer,PeTer]<br>
-	 * Vector2 -> [Jefe,Empleado]<br>
-	 * Esto nos indicaria que LooPer esta conectado con el rol Jefe y PeTer
-	 * con el rol Empleado.
+	 *         con los nombres de los usuarios conectados. En la segunda
+	 *         posicion tiene un vector con los roles con los que estan
+	 *         conectados esos usuarios. Un posible valor devuelto podria ser:<br>
+	 *         <br>
+	 *         Vector1 -> [LooPer,PeTer]<br>
+	 *         Vector2 -> [Jefe,Empleado]<br>
+	 *         Esto nos indicaria que LooPer esta conectado con el rol Jefe y
+	 *         PeTer con el rol Empleado.
 	 */
-	@SuppressWarnings("unchecked")
-	public Vector getUsuariosConectados() {
+	@SuppressWarnings( "unchecked" )
+	public Vector getUsuariosConectados()
+	{
 		Vector<Vector<String>> v = new Vector<Vector<String>>();
 		Vector<String> usu = new Vector<String>();
 		Vector<String> rol = new Vector<String>();
 		MIUsuario usr = null;
-		for (int i = 0; i < usuarios.size(); i++) {
-			usr = (MIUsuario) usuarios.elementAt(i);
-			if (usr.online()) {
+		for (int i = 0; i < usuarios.size(); i++)
+		{
+			usr = usuarios.elementAt(i);
+			if (usr.online())
+			{
 				usu.add(usr.getNombreUsuario());
 				rol.add(usr.getRolActual());
 			}
@@ -400,16 +465,16 @@ implements Serializable {
 		return v;
 	}
 
-	@SuppressWarnings("unchecked")
-	public Vector<MIUsuario> getUsuariosConectadosInfo() {
-		
+	@SuppressWarnings( "unchecked" )
+	public Vector<MIUsuario> getUsuariosConectadosInfo()
+	{
+
 		Vector<MIUsuario> usu = new Vector<MIUsuario>();
 		MIUsuario usr = null;
-		for (int i = 0; i < usuarios.size(); i++) {
-			usr = (MIUsuario) usuarios.elementAt(i);
-			if (usr.online()) {
-				usu.add(usr);
-			}
+		for (int i = 0; i < usuarios.size(); i++)
+		{
+			usr = usuarios.elementAt(i);
+			if (usr.online()) usu.add(usr);
 		}
 
 		return usu;
@@ -417,17 +482,22 @@ implements Serializable {
 
 	/**
 	 * Obtenemos una instancia del usuario especificado
-	 * @param usuario String Usuario que deseamos buscar
+	 * 
+	 * @param usuario
+	 *            String Usuario que deseamos buscar
 	 * @return MIUsuario Usuario deseado. Si no existe se devuelve null
 	 */
-	public MIUsuario getUsuario(String usuario) {
+	public MIUsuario getUsuario(String usuario)
+	{
 		boolean encontrado = false;
 		int i = 0;
 		MIUsuario aux = null;
 		MIUsuario usuarioEncontrado = null;
-		while (!encontrado && i < usuarios.size()) {
-			aux = (MIUsuario) usuarios.elementAt(i);
-			if (aux.getNombreUsuario().equals(usuario)) {
+		while (!encontrado && ( i < usuarios.size() ))
+		{
+			aux = usuarios.elementAt(i);
+			if (aux.getNombreUsuario().equals(usuario))
+			{
 				encontrado = true;
 				usuarioEncontrado = aux;
 			}
@@ -439,39 +509,47 @@ implements Serializable {
 	/**
 	 * Obtiene el rol actual del usuario. Solo tiene sentido cuando el usuario
 	 * esta conectado
-	 * @param usuario String Usuario sobre el que queremos la informacion
+	 * 
+	 * @param usuario
+	 *            String Usuario sobre el que queremos la informacion
 	 * @return String Rol actual. Si no existe el usuario valdra null;
 	 */
-	public String getRolActualUsuario(String usuario) {
+	public String getRolActualUsuario(String usuario)
+	{
 		MIUsuario usr = getUsuario(usuario);
 		String rol = null;
-		if (usr != null) {
-			rol = usr.getRolActual();
-		}
+		if (usr != null) rol = usr.getRolActual();
 		return rol;
 	}
 
 	/**
 	 * Obtenemos los componentes definidos para esta aplicacion
+	 * 
 	 * @return Vector Vector de MIComponente con los componentes definidos
 	 */
-	public Vector getComponentes() {
+	public Vector getComponentes()
+	{
 		return componentes;
 	}
 
 	/**
 	 * Obtenemos una instancia del componente especificado
-	 * @param componente String Componente que deseamos buscar
+	 * 
+	 * @param componente
+	 *            String Componente que deseamos buscar
 	 * @return MIComponente Componente deseado. Si no existe se devuelve null
 	 */
-	public MIComponente getComponente(String componente) {
+	public MIComponente getComponente(String componente)
+	{
 		boolean encontrado = false;
 		int i = 0;
 		MIComponente aux = null;
 		MIComponente componenteEncontrado = null;
-		while (!encontrado && i < componentes.size()) {
-			aux = (MIComponente) componentes.elementAt(i);
-			if (aux.getNombreComponente().equals(componente)) {
+		while (!encontrado && ( i < componentes.size() ))
+		{
+			aux = componentes.elementAt(i);
+			if (aux.getNombreComponente().equals(componente))
+			{
 				encontrado = true;
 				componenteEncontrado = aux;
 			}
@@ -480,51 +558,54 @@ implements Serializable {
 		return componenteEncontrado;
 	}
 
-	public int getPermisoComponenteUsuario(String usuario, String componente) {
+	public int getPermisoComponenteUsuario(String usuario, String componente)
+	{
 		int permiso = -1;
 		MIUsuario usr = null;
 		usr = getUsuario(usuario);
-		if (usr != null) {
+		if (usr != null)
+		{
 			permiso = usr.getPermisoComponente(componente);
-			if (permiso == -1) {
-				permiso = permisoDefault.intValue();
-			}
+			if (permiso == -1) permiso = permisoDefault.intValue();
 		}
 		return permiso;
 	}
 
 	public boolean setPermisoComponenteUsuario(String nombreUsuario,
-			String componente,
-			int nuevoPermiso) {
+			String componente, int nuevoPermiso)
+	{
 		boolean cambiado = false;
 		MIUsuario usuario = getUsuario(nombreUsuario);
 		MIComponente cmp = getComponente(componente);
-		if (usuario != null && cmp != null) {
+		if (( usuario != null ) && ( cmp != null ))
+		{
 			usuario.setPermisoComponente(componente, nuevoPermiso);
 			cambiado = true;
 		}
 		return cambiado;
 	}
 
-	public int getPermisoComponenteRol(String rol, String componente) {
+	public int getPermisoComponenteRol(String rol, String componente)
+	{
 		int permiso = -1;
 		MIRol aux = null;
 		aux = getRol(rol);
-		if (aux != null) {
+		if (aux != null)
+		{
 			permiso = aux.getPermisoComponente(componente);
-			if (permiso == -1) {
-				permiso = permisoDefault.intValue();
-			}
+			if (permiso == -1) permiso = permisoDefault.intValue();
 		}
 		return permiso;
 	}
 
 	public boolean setPermisoComponenteRol(String nombreRol, String componente,
-			int nuevoPermiso) {
+			int nuevoPermiso)
+	{
 		boolean cambiado = false;
 		MIRol rol = getRol(nombreRol);
 		MIComponente cmp = getComponente(componente);
-		if (rol != null && cmp != null) {
+		if (( rol != null ) && ( cmp != null ))
+		{
 			rol.setPermisoComponente(componente, nuevoPermiso);
 			cambiado = true;
 		}
@@ -533,54 +614,63 @@ implements Serializable {
 
 	/**
 	 * Obtenemos si un cierto rol existe o no
-	 * @param rol String Rol sobre el que queremos buscar si existe
+	 * 
+	 * @param rol
+	 *            String Rol sobre el que queremos buscar si existe
 	 * @return boolean True si existe. False en otro caso
 	 */
-	public boolean existeRol(String rol) {
-		return (getRol(rol) != null);
+	public boolean existeRol(String rol)
+	{
+		return ( getRol(rol) != null );
 	}
 
 	/**
 	 * Obtenemos si un cierto usuario existe.
-	 * @param usuario String Usuario sobre el que queremos buscar si existe
+	 * 
+	 * @param usuario
+	 *            String Usuario sobre el que queremos buscar si existe
 	 * @return boolean True si existe. False en otro caso
 	 */
-	public boolean existeUsuario(String usuario) {
-		return (getUsuario(usuario) != null);
+	public boolean existeUsuario(String usuario)
+	{
+		return ( getUsuario(usuario) != null );
 	}
 
 	/**
 	 * Obtenemos si un cierto componente existe
-	 * @param componente String Componente sobre el que queremos buscar si existe
+	 * 
+	 * @param componente
+	 *            String Componente sobre el que queremos buscar si existe
 	 * @return boolean True si existe. False en otro caso
 	 */
-	public boolean existeComponente(String componente) {
-		return (getComponente(componente) != null);
+	public boolean existeComponente(String componente)
+	{
+		return ( getComponente(componente) != null );
 	}
 
-	public String toString() {
+	@Override
+	public String toString()
+	{
 		int i = 0;
-		String cadena = new String("------------- " + nombre +
-		" ----------------\n");
-		cadena = new String(cadena + "Permiso default: " + permisoDefault + "\n");
-		cadena = new String(cadena +
-		"................ USUARIOS ...................\n");
-		for (i = 0; i < usuarios.size(); i++) {
-			cadena = new String(cadena + (MIUsuario) usuarios.elementAt(i));
-		}
-		cadena = new String(cadena + "................ ROLES ...................\n");
-		for (i = 0; i < roles.size(); i++) {
-			cadena = new String(cadena + (MIRol) roles.elementAt(i));
-		}
-		cadena = new String(cadena +
-		"................ COMPONENTES ...................\n");
-		for (i = 0; i < componentes.size(); i++) {
-			cadena = new String(cadena + (MIComponente) componentes.elementAt(i) +
-			"\n");
-		}
+		String cadena = new String("------------- " + nombre
+				+ " ----------------\n");
+		cadena = new String(cadena + "Permiso default: " + permisoDefault
+				+ "\n");
+		cadena = new String(cadena
+				+ "................ USUARIOS ...................\n");
+		for (i = 0; i < usuarios.size(); i++)
+			cadena = new String(cadena + usuarios.elementAt(i));
+		cadena = new String(cadena
+				+ "................ ROLES ...................\n");
+		for (i = 0; i < roles.size(); i++)
+			cadena = new String(cadena + roles.elementAt(i));
+		cadena = new String(cadena
+				+ "................ COMPONENTES ...................\n");
+		for (i = 0; i < componentes.size(); i++)
+			cadena = new String(cadena + componentes.elementAt(i) + "\n");
 
-		cadena = new String(cadena + "------------- " + nombre +
-		" ----------------\n");
+		cadena = new String(cadena + "------------- " + nombre
+				+ " ----------------\n");
 
 		return cadena;
 	}

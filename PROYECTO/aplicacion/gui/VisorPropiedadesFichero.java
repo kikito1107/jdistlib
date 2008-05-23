@@ -69,6 +69,7 @@ public class VisorPropiedadesFichero extends JDialog
 	private JButton jButton = null;
 
 	private JButton jButton1 = null;
+
 	private FicheroBD fichero = null;
 
 	private JCheckBox esDirectorio = null;
@@ -116,40 +117,40 @@ public class VisorPropiedadesFichero extends JDialog
 	}
 
 	/**
-	 * This method initializes nombreFichero	
-	 * 	
-	 * @return javax.swing.JTextField	
+	 * This method initializes nombreFichero
+	 * 
+	 * @return javax.swing.JTextField
 	 */
 	private JTextField getNombreFichero()
 	{
 		if (nombreFichero == null)
 		{
 			nombreFichero = new JTextField(fichero.getNombre());
-			nombreFichero.setPreferredSize(new Dimension(150,22));
+			nombreFichero.setPreferredSize(new Dimension(150, 22));
 		}
 		return nombreFichero;
 	}
 
 	/**
-	 * This method initializes pathFichero	
-	 * 	
-	 * @return javax.swing.JTextField	
+	 * This method initializes pathFichero
+	 * 
+	 * @return javax.swing.JTextField
 	 */
 	private JTextField getPathFichero()
 	{
 		if (usuario == null)
 		{
 			usuario = new JTextField(fichero.getUsuario().getNombreUsuario());
-			usuario.setPreferredSize(new Dimension(150,22));
+			usuario.setPreferredSize(new Dimension(150, 22));
 			usuario.setEditable(false);
 		}
 		return usuario;
 	}
 
 	/**
-	 * This method initializes panelPermisos	
-	 * 	
-	 * @return javax.swing.JPanel	
+	 * This method initializes panelPermisos
+	 * 
+	 * @return javax.swing.JPanel
 	 */
 	private JPanel getPanelPermisos()
 	{
@@ -202,7 +203,9 @@ public class VisorPropiedadesFichero extends JDialog
 			gridBagConstraints.gridy = 1;
 			panelPermisos = new JPanel();
 			panelPermisos.setLayout(new GridBagLayout());
-			panelPermisos.setBorder(BorderFactory.createTitledBorder(null, "Permisos", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
+			panelPermisos.setBorder(BorderFactory.createTitledBorder(null,
+					"Permisos", TitledBorder.DEFAULT_JUSTIFICATION,
+					TitledBorder.DEFAULT_POSITION, null, null));
 			panelPermisos.setBounds(new Rectangle(17, 165, 240, 117));
 			panelPermisos.add(getLecturaU(), gridBagConstraints);
 			panelPermisos.add(getEscrituraU(), gridBagConstraints1);
@@ -220,118 +223,112 @@ public class VisorPropiedadesFichero extends JDialog
 	}
 
 	/**
-	 * This method initializes lecturaU	
-	 * 	
-	 * @return javax.swing.JCheckBox	
+	 * This method initializes lecturaU
+	 * 
+	 * @return javax.swing.JCheckBox
 	 */
 	private JCheckBox getLecturaU()
 	{
 		if (lecturaU == null)
 		{
 			lecturaU = new JCheckBox();
-			if (fichero.getPermisos().charAt(0) == FicheroBD.PERMISO_LECTURA )
+			if (fichero.getPermisos().charAt(0) == FicheroBD.PERMISO_LECTURA)
 				lecturaU.setSelected(true);
-			else
-				lecturaU.setSelected(false);
-			
+			else lecturaU.setSelected(false);
+
 		}
 		return lecturaU;
 	}
 
 	/**
-	 * This method initializes escrituraU	
-	 * 	
-	 * @return javax.swing.JCheckBox	
+	 * This method initializes escrituraU
+	 * 
+	 * @return javax.swing.JCheckBox
 	 */
 	private JCheckBox getEscrituraU()
 	{
 		if (escrituraU == null)
 		{
 			escrituraU = new JCheckBox();
-			if (fichero.getPermisos().charAt(1) == FicheroBD.PERMISO_ESCRITURA )
+			if (fichero.getPermisos().charAt(1) == FicheroBD.PERMISO_ESCRITURA)
 				escrituraU.setSelected(true);
-			else
-				escrituraU.setSelected(false);
+			else escrituraU.setSelected(false);
 		}
 		return escrituraU;
 	}
 
 	/**
-	 * This method initializes lecturaR	
-	 * 	
-	 * @return javax.swing.JCheckBox	
+	 * This method initializes lecturaR
+	 * 
+	 * @return javax.swing.JCheckBox
 	 */
 	private JCheckBox getLecturaR()
 	{
 		if (lecturaR == null)
 		{
 			lecturaR = new JCheckBox();
-			if (fichero.getPermisos().charAt(2) == FicheroBD.PERMISO_LECTURA )
+			if (fichero.getPermisos().charAt(2) == FicheroBD.PERMISO_LECTURA)
 				lecturaR.setSelected(true);
-			else
-				lecturaR.setSelected(false);
+			else lecturaR.setSelected(false);
 		}
 		return lecturaR;
 	}
 
 	/**
-	 * This method initializes escrituraR	
-	 * 	
-	 * @return javax.swing.JCheckBox	
+	 * This method initializes escrituraR
+	 * 
+	 * @return javax.swing.JCheckBox
 	 */
 	private JCheckBox getEscrituraR()
 	{
 		if (escrituraR == null)
 		{
 			escrituraR = new JCheckBox();
-			if (fichero.getPermisos().charAt(3) == FicheroBD.PERMISO_ESCRITURA )
+			if (fichero.getPermisos().charAt(3) == FicheroBD.PERMISO_ESCRITURA)
 				escrituraR.setSelected(true);
-			else
-				escrituraR.setSelected(false);
+			else escrituraR.setSelected(false);
 		}
 		return escrituraR;
 	}
 
 	/**
-	 * This method initializes lecturaO	
-	 * 	
-	 * @return javax.swing.JCheckBox	
+	 * This method initializes lecturaO
+	 * 
+	 * @return javax.swing.JCheckBox
 	 */
 	private JCheckBox getLecturaO()
 	{
 		if (lecturaO == null)
 		{
 			lecturaO = new JCheckBox();
-			if (fichero.getPermisos().charAt(4) == FicheroBD.PERMISO_LECTURA )
+			if (fichero.getPermisos().charAt(4) == FicheroBD.PERMISO_LECTURA)
 				lecturaO.setSelected(true);
-			else
-				lecturaO.setSelected(false);
+			else lecturaO.setSelected(false);
 		}
 		return lecturaO;
 	}
 
 	/**
-	 * This method initializes escrituraO	
-	 * 	
-	 * @return javax.swing.JCheckBox	
+	 * This method initializes escrituraO
+	 * 
+	 * @return javax.swing.JCheckBox
 	 */
 	private JCheckBox getEscrituraO()
 	{
 		if (escrituraO == null)
 		{
 			escrituraO = new JCheckBox();
-			if (fichero.getPermisos().charAt(5) == FicheroBD.PERMISO_ESCRITURA )
+			if (fichero.getPermisos().charAt(5) == FicheroBD.PERMISO_ESCRITURA)
 				escrituraO.setSelected(true);
-			else
-				escrituraO.setSelected(false);
+			else escrituraO.setSelected(false);
 		}
 		return escrituraO;
 	}
 
 	/**
-	 * This method initializes panelDatos	
-	 * 	
-	 * @return javax.swing.JPanel	
+	 * This method initializes panelDatos
+	 * 
+	 * @return javax.swing.JPanel
 	 */
 	private JPanel getPanelDatos()
 	{
@@ -392,25 +389,25 @@ public class VisorPropiedadesFichero extends JDialog
 	}
 
 	/**
-	 * This method initializes jTextField	
-	 * 	
-	 * @return javax.swing.JTextField	
+	 * This method initializes jTextField
+	 * 
+	 * @return javax.swing.JTextField
 	 */
 	private JTextField getJTextField()
 	{
 		if (rol == null)
 		{
 			rol = new JTextField(fichero.getRol().getNombreRol());
-			rol.setPreferredSize(new Dimension(150,22));
+			rol.setPreferredSize(new Dimension(150, 22));
 			rol.setEditable(false);
 		}
 		return rol;
 	}
 
 	/**
-	 * This method initializes jButton	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes jButton
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getJButton()
 	{
@@ -418,65 +415,67 @@ public class VisorPropiedadesFichero extends JDialog
 		{
 			jButton = new JButton();
 			jButton.setBounds(new Rectangle(139, 293, 116, 29));
-			jButton.setIcon(new ImageIcon(getClass().getResource("/Resources/tick.png")));
+			jButton.setIcon(new ImageIcon(getClass().getResource(
+					"/Resources/tick.png")));
 			jButton.setText("Aceptar");
 			jButton.addActionListener(new java.awt.event.ActionListener()
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
-					if (fichero.comprobarPermisos(DConector.Dusuario, DConector.Drol, FicheroBD.PERMISO_ESCRITURA)){
+					if (fichero.comprobarPermisos(DConector.Dusuario,
+							DConector.Drol, FicheroBD.PERMISO_ESCRITURA))
+					{
 						fichero.setNombre(nombreFichero.getText());
-						
+
 						String path = fichero.getRutaLocal();
-						
+
 						String[] carpetas = path.split("/");
 						path = "";
-						
-						for (int i=0; i<carpetas.length-1; ++i){
-							
-							if (carpetas[i] != "")
-								path += carpetas[i] + "/";
+
+						for (int i = 0; i < carpetas.length - 1; ++i)
+						{
+
+							if (carpetas[i] != "") path += carpetas[i] + "/";
 							System.err.print(carpetas[i] + ",\t");
 						}
-						
+
 						path += fichero.getNombre();
-						
+
 						System.err.println("\n\nnueva ruta local " + path);
-						
+
 						fichero.setRutaLocal(path);
-						
+
 						String permisos = "";
-						
+
 						if (lecturaU.isSelected())
 							permisos += "r";
 						else permisos += "-";
-						
-						if(escrituraU.isSelected())
+
+						if (escrituraU.isSelected())
 							permisos += "w";
 						else permisos += "-";
-						
+
 						if (lecturaR.isSelected())
 							permisos += "r";
 						else permisos += "-";
-						
-						if(escrituraR.isSelected())
+
+						if (escrituraR.isSelected())
 							permisos += "w";
 						else permisos += "-";
-						
+
 						if (lecturaO.isSelected())
 							permisos += "r";
 						else permisos += "-";
-						
-						if(escrituraO.isSelected())
+
+						if (escrituraO.isSelected())
 							permisos += "w";
 						else permisos += "-";
-						
+
 						fichero.setPermisos(permisos);
 					}
-					
-					else 
-						fichero = null;
-					
+
+					else fichero = null;
+
 					setVisible(false);
 				}
 			});
@@ -485,9 +484,9 @@ public class VisorPropiedadesFichero extends JDialog
 	}
 
 	/**
-	 * This method initializes jButton1	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes jButton1
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getJButton1()
 	{
@@ -495,7 +494,8 @@ public class VisorPropiedadesFichero extends JDialog
 		{
 			jButton1 = new JButton();
 			jButton1.setBounds(new Rectangle(17, 292, 116, 29));
-			jButton1.setIcon(new ImageIcon(getClass().getResource("/Resources/cancel.png")));
+			jButton1.setIcon(new ImageIcon(getClass().getResource(
+					"/Resources/cancel.png")));
 			jButton1.setText("Cancelar");
 			jButton1.addActionListener(new java.awt.event.ActionListener()
 			{
@@ -508,58 +508,56 @@ public class VisorPropiedadesFichero extends JDialog
 		}
 		return jButton1;
 	}
-	
-	
-	private void verPropiedades(){
+
+	private void verPropiedades()
+	{
 		setTitle("Propiedades " + this.fichero.getNombre());
-		
-		 setSize(273, 357);
-		 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		 Dimension frameSize = getSize();
-		 if (frameSize.height > screenSize.height) {
+
+		setSize(273, 357);
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		Dimension frameSize = getSize();
+		if (frameSize.height > screenSize.height)
 			frameSize.height = screenSize.height;
-		 }
-		 if (frameSize.width > screenSize.width) {
+		if (frameSize.width > screenSize.width)
 			frameSize.width = screenSize.width;
-		 }
-		 setLocation( (screenSize.width - frameSize.width) / 2,
-						 (screenSize.height - frameSize.height) / 2);
-		 
-		 this.setResizable(false);
-		
-		 this.setModal(true);
-		 
-		setVisible(true); 
+		setLocation(( screenSize.width - frameSize.width ) / 2,
+				( screenSize.height - frameSize.height ) / 2);
+
+		this.setResizable(false);
+
+		this.setModal(true);
+
+		setVisible(true);
 	}
-	
-	public static FicheroBD verInfoFichero(FicheroBD fichero, Frame owner){
-		
+
+	public static FicheroBD verInfoFichero(FicheroBD fichero, Frame owner)
+	{
+
 		VisorPropiedadesFichero f = new VisorPropiedadesFichero(owner, fichero);
-		
+
 		f.verPropiedades();
-		
+
 		return f.fichero;
 	}
 
 	/**
-	 * This method initializes esDirectorio	
-	 * 	
-	 * @return javax.swing.JCheckBox	
+	 * This method initializes esDirectorio
+	 * 
+	 * @return javax.swing.JCheckBox
 	 */
 	private JCheckBox getEsDirectorio()
 	{
 		if (esDirectorio == null)
 		{
 			esDirectorio = new JCheckBox();
-			
+
 			esDirectorio.setEnabled(false);
-			
+
 			if (fichero.esDirectorio())
 				esDirectorio.setSelected(true);
-			else
-				esDirectorio.setSelected(false);
+			else esDirectorio.setSelected(false);
 		}
 		return esDirectorio;
 	}
 
-}  //  @jve:decl-index=0:visual-constraint="6,-2"
+} // @jve:decl-index=0:visual-constraint="6,-2"

@@ -6,34 +6,36 @@ import componentes.gui.imagen.figuras.Figura;
 
 public class Anotacion implements Serializable
 {
-	private static final long serialVersionUID=1L;
-	
+	private static final long serialVersionUID = 1L;
+
 	private Documento documento;
+
 	private Figura contenido;
+
 	private String usuario;
+
 	private String rol;
-	
+
 	public Anotacion()
 	{
-		
+
 	}
-	
+
 	public void setDocumento(Documento doc)
 	{
 		documento = doc;
 	}
-	
+
 	public void setContenido(Figura cont)
 	{
 		contenido = cont;
 	}
-	
-	
+
 	public Documento getDocumento()
 	{
 		return documento;
 	}
-	
+
 	public Figura getContenido()
 	{
 		return contenido;
@@ -48,7 +50,6 @@ public class Anotacion implements Serializable
 	{
 		return rol;
 	}
-	
 
 	public void setUsuario(String usuario)
 	{

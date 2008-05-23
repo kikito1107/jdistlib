@@ -19,321 +19,392 @@ import componentes.listeners.DJButtonListener;
 import componentes.listeners.LJButtonListener;
 
 /**
- * Boton compartido. Consultar documentacion del proyecto para ver su funcionamiento
+ * Boton compartido. Consultar documentacion del proyecto para ver su
+ * funcionamiento
  */
 
-public class DIButton
-	 extends DComponenteBase {
-  BorderLayout borderLayout1 = new BorderLayout();
-  JScrollPane jScrollPane1 = new JScrollPane();
-  DJButton boton = null;
+public class DIButton extends DComponenteBase
+{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7807193484457835590L;
 
-  /**
-	* @param nombre String Nombre del componente.
-	* @param conexionDC boolean TRUE si esta en contacto directo con el DConector
-	* (no es hijo de ningun otro componente) y FALSE en otro caso
-	* @param padre DComponenteBase Componente padre de este componente. Si no
-	* tiene padre establecer a null
-	*/
-  public DIButton(String nombre, boolean conexionDC, DComponenteBase padre) {
-	 super(nombre, conexionDC, padre);
-	 this.boton = new DJButton("Boton");
-	 try {
-		jbInit();
-	 }
-	 catch (Exception e) {
-		e.printStackTrace();
-	 }
-  }
+	BorderLayout borderLayout1 = new BorderLayout();
 
-  /**
-	* @param textoBoton String Cadena de texto que presentara el boton
-	* @param nombre String Nombre del componente.
-	* @param conexionDC boolean TRUE si esta en contacto directo con el DConector
-	* (no es hijo de ningun otro componente) y FALSE en otro caso
-	* @param padre DComponenteBase Componente padre de este componente. Si no
-	* tiene padre establecer a null
-	*/
-  public DIButton(String textoBoton, String nombre, boolean conexionDC,
-						DComponenteBase padre) {
-	 super(nombre, conexionDC, padre);
-	 this.boton = new DJButton(textoBoton);
+	JScrollPane jScrollPane1 = new JScrollPane();
 
-	 try {
-		jbInit();
-	 }
-	 catch (Exception e) {
-		e.printStackTrace();
-	 }
-  }
+	DJButton boton = null;
 
-  private void jbInit() throws Exception {
-	 this.setLayout(new FlowLayout());
-	 this.add(boton, null);
-	 boton.addDJButtonListener(crearDJListener());
-	 //desactivar();//*******************************************************************************
-  }
+	/**
+	 * @param nombre
+	 *            String Nombre del componente.
+	 * @param conexionDC
+	 *            boolean TRUE si esta en contacto directo con el DConector (no
+	 *            es hijo de ningun otro componente) y FALSE en otro caso
+	 * @param padre
+	 *            DComponenteBase Componente padre de este componente. Si no
+	 *            tiene padre establecer a null
+	 */
+	public DIButton( String nombre, boolean conexionDC, DComponenteBase padre )
+	{
+		super(nombre, conexionDC, padre);
+		this.boton = new DJButton("Boton");
+		try
+		{
+			jbInit();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 
-  /**
-	* Devuelve la instancia de la clase captadora que está usando.
-	* @return DJButton Clase captadora
-	*/
-  public DJButton obtenerJComponente() {
-	 return boton;
-  }
+	/**
+	 * @param textoBoton
+	 *            String Cadena de texto que presentara el boton
+	 * @param nombre
+	 *            String Nombre del componente.
+	 * @param conexionDC
+	 *            boolean TRUE si esta en contacto directo con el DConector (no
+	 *            es hijo de ningun otro componente) y FALSE en otro caso
+	 * @param padre
+	 *            DComponenteBase Componente padre de este componente. Si no
+	 *            tiene padre establecer a null
+	 */
+	public DIButton( String textoBoton, String nombre, boolean conexionDC,
+			DComponenteBase padre )
+	{
+		super(nombre, conexionDC, padre);
+		this.boton = new DJButton(textoBoton);
 
-  /**
-	* Establece el nivel de permisos de este componente. No se recomienda
-	* llamar a este método desde el programa. Será llamado de forma automática
-	* cuando sea necesario
-	* @param nivel int Nivel que queremos establecer
-	*/
-  public void setNivelPermisos(int nivel) {
-	 super.setNivelPermisos(nivel);
-	 if (nivel < 20) {
-		boton.setForeground(Color.GRAY);
-	 }
-	 else {
-		boton.setForeground(Color.BLACK);
-	 }
-  }
+		try
+		{
+			jbInit();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 
-  /**
-	* Obtiene la información de estado del componente que normalmente
-	* sera adjuntada aun evento de respuesta de sincronizacion
-	* @return DJButtonEvent Evento que describe el estado del componente
-	*/
-  public DJButtonEvent obtenerInfoEstado() {
-	 return boton.obtenerInfoEstado();
-  }
+	private void jbInit() throws Exception
+	{
+		this.setLayout(new FlowLayout());
+		this.add(boton, null);
+		boton.addDJButtonListener(crearDJListener());
+		// desactivar();//*******************************************************************************
+	}
 
-  /**
-	* Establece el estado del componente a partir de un evento que contiene
-	* una informacion de estado. Este evento sera normalmente una respuesta
-	* recibida tras una peticion de sincronizacion
-	* @param evento DJButtonEvent Evento con la informacion del estado
-	*/
-  public void procesarInfoEstado(DJButtonEvent evento) {
-	 boton.getModel().setPressed(evento.pulsado.booleanValue());
-	 boton.getModel().setArmed(evento.pulsado.booleanValue());
-  }
+	/**
+	 * Devuelve la instancia de la clase captadora que está usando.
+	 * 
+	 * @return DJButton Clase captadora
+	 */
+	public DJButton obtenerJComponente()
+	{
+		return boton;
+	}
 
-  /**
-	* Obtiene el numero de componentes hijos de este componente. SIEMPRE devuelve 0
-	* @return int Número de componentes hijos. SIEMPRE devuelve 0.
-	*/
-  public int obtenerNumComponentesHijos() {
-	 return 0;
-  }
+	/**
+	 * Establece el nivel de permisos de este componente. No se recomienda
+	 * llamar a este método desde el programa. Será llamado de forma automática
+	 * cuando sea necesario
+	 * 
+	 * @param nivel
+	 *            int Nivel que queremos establecer
+	 */
+	@Override
+	public void setNivelPermisos(int nivel)
+	{
+		super.setNivelPermisos(nivel);
+		if (nivel < 20)
+			boton.setForeground(Color.GRAY);
+		else boton.setForeground(Color.BLACK);
+	}
 
-  /**
-	* Añade un DJListener a la clase captadora para recibir los eventos generados
-	* por la interaccion del usuario con el componente
-	* @param listener DJButtonListener Listener a añadir
-	*/
-  public void addDJButtonListener(DJButtonListener listener) {
-	 boton.addDJButtonListener(listener);
-  }
+	/**
+	 * Obtiene la información de estado del componente que normalmente sera
+	 * adjuntada aun evento de respuesta de sincronizacion
+	 * 
+	 * @return DJButtonEvent Evento que describe el estado del componente
+	 */
+	public DJButtonEvent obtenerInfoEstado()
+	{
+		return boton.obtenerInfoEstado();
+	}
 
-  /**
-	* Añade un LListener al componente para ser notificado cuando cambie el
-	* estado del componente
-	* @param listener LJButtonListener Listener a añadir
-	*/
-  public void addLJButtonListener(LJButtonListener listener) {
-	 boton.addLJButtonListener(listener);
-  }
+	/**
+	 * Establece el estado del componente a partir de un evento que contiene una
+	 * informacion de estado. Este evento sera normalmente una respuesta
+	 * recibida tras una peticion de sincronizacion
+	 * 
+	 * @param evento
+	 *            DJButtonEvent Evento con la informacion del estado
+	 */
+	public void procesarInfoEstado(DJButtonEvent evento)
+	{
+		boton.getModel().setPressed(evento.pulsado.booleanValue());
+		boton.getModel().setArmed(evento.pulsado.booleanValue());
+	}
 
-  /**
-	* Añade un LUListener al componente para ser notificado cuando cambie el
-	* estado del componente. Solo sera notificado cuando el cambio de estado
-	* se deba a una accion realizada por el usuario de la aplicacion.
-	* @param listener LJButtonListener Listener a añadir
-	*/
-  public void addLUJButtonListener(LJButtonListener listener) {
-	 boton.addLUJButtonListener(listener);
-  }
+	/**
+	 * Obtiene el numero de componentes hijos de este componente. SIEMPRE
+	 * devuelve 0
+	 * 
+	 * @return int Número de componentes hijos. SIEMPRE devuelve 0.
+	 */
+	@Override
+	public int obtenerNumComponentesHijos()
+	{
+		return 0;
+	}
 
-  /**
-	* Obtiene los DJListener que tiene asociado el componente
-	* @return Vector Vector de listeners DJButtonListener
-	*/
-  public Vector getDJButtonListeners() {
-	 return boton.getDJButtonListeners();
-  }
+	/**
+	 * Añade un DJListener a la clase captadora para recibir los eventos
+	 * generados por la interaccion del usuario con el componente
+	 * 
+	 * @param listener
+	 *            DJButtonListener Listener a añadir
+	 */
+	public void addDJButtonListener(DJButtonListener listener)
+	{
+		boton.addDJButtonListener(listener);
+	}
 
-  /**
-	* Obtiene los LJListener que tiene asociado el componente
-	* @return Vector Vector de listeners LJButtonListener
-	*/
-  public Vector getLJButtonListeners() {
-	 return boton.getLJButtonListeners();
-  }
+	/**
+	 * Añade un LListener al componente para ser notificado cuando cambie el
+	 * estado del componente
+	 * 
+	 * @param listener
+	 *            LJButtonListener Listener a añadir
+	 */
+	public void addLJButtonListener(LJButtonListener listener)
+	{
+		boton.addLJButtonListener(listener);
+	}
 
-  /**
-	* Obtiene los LUJListener que tiene asociado el componente
-	* @return Vector Vector de listeners LJButtonListener
-	*/
-  public Vector getLUJButtonListeners() {
-	 return boton.getLUJButtonListeners();
-  }
+	/**
+	 * Añade un LUListener al componente para ser notificado cuando cambie el
+	 * estado del componente. Solo sera notificado cuando el cambio de estado se
+	 * deba a una accion realizada por el usuario de la aplicacion.
+	 * 
+	 * @param listener
+	 *            LJButtonListener Listener a añadir
+	 */
+	public void addLUJButtonListener(LJButtonListener listener)
+	{
+		boton.addLUJButtonListener(listener);
+	}
 
-  /**
-	* Elimina todos los DJListeners que tiene asociado el componente
-	*/
-  public void removeDJButtonListeners() {
-	 boton.removeDJButtonListeners();
-  }
+	/**
+	 * Obtiene los DJListener que tiene asociado el componente
+	 * 
+	 * @return Vector Vector de listeners DJButtonListener
+	 */
+	public Vector getDJButtonListeners()
+	{
+		return boton.getDJButtonListeners();
+	}
 
-  /**
-	* Elimina todos los LJListeners que tiene asociado el componente
-	*/
-  public void removeLJButtonListeners() {
-	 boton.removeLJButtonListeners();
-  }
+	/**
+	 * Obtiene los LJListener que tiene asociado el componente
+	 * 
+	 * @return Vector Vector de listeners LJButtonListener
+	 */
+	public Vector getLJButtonListeners()
+	{
+		return boton.getLJButtonListeners();
+	}
 
-  /**
-	* Elimina todos los LUJListeners que tiene asociado el componente
-	*/
-  public void removeLUJButtonListeners() {
-	 boton.removeLUJButtonListeners();
-  }
+	/**
+	 * Obtiene los LUJListener que tiene asociado el componente
+	 * 
+	 * @return Vector Vector de listeners LJButtonListener
+	 */
+	public Vector getLUJButtonListeners()
+	{
+		return boton.getLUJButtonListeners();
+	}
 
-  /**
-	* Activa el componente. No se recomienda llamar a este metodo desde el
-	* programa. Sera llamado de forma automatica cuando sea necesario
-	*/
-  public void activar() {
-	 boton.activar();
-  }
+	/**
+	 * Elimina todos los DJListeners que tiene asociado el componente
+	 */
+	public void removeDJButtonListeners()
+	{
+		boton.removeDJButtonListeners();
+	}
 
-  /**
-	* Desctiva el componente. No se recomienda llamar a este metodo desde el
-	* programa. Sera llamado de forma automatica cuando sea necesario
-	*/
-  public void desactivar() {
-	 boton.desactivar();
-  }
+	/**
+	 * Elimina todos los LJListeners que tiene asociado el componente
+	 */
+	public void removeLJButtonListeners()
+	{
+		boton.removeLJButtonListeners();
+	}
 
-  /**
-	* Mediante una llamada a este método se envía un mensaje de peticion de
-	* sincronizacion. No se debe llamar a este método de forma directa. Será
-	* llamado de forma automatica cuando sea necesario realizar la sincronizacion
-	*/
-  public void sincronizar() {
-	 if (conectadoDC()) {
-		DJButtonEvent peticion = new DJButtonEvent();
-		peticion.tipo = new Integer(DJButtonEvent.SINCRONIZACION.intValue());
-		enviarEvento(peticion);
-	 }
-  }
+	/**
+	 * Elimina todos los LUJListeners que tiene asociado el componente
+	 */
+	public void removeLUJButtonListeners()
+	{
+		boton.removeLUJButtonListeners();
+	}
 
-  /**
-	* Devuelve una nueva instancia de la hebra que se encargara de procesar
-	* los eventos que se reciban. Este metodo no debe llamarse de forma directa.
-	* Sera llamado de forma automatica cuando sea necesario.
-	* @return HebraProcesadoraBase Nueva hebra procesadora
-	*/
-  public HebraProcesadoraBase crearHebraProcesadora() {
-	 return new HebraProcesadora(this);
-  }
+	/**
+	 * Activa el componente. No se recomienda llamar a este metodo desde el
+	 * programa. Sera llamado de forma automatica cuando sea necesario
+	 */
+	@Override
+	public void activar()
+	{
+		boton.activar();
+	}
 
-  /**
-	* Devuelve una instancia de un listener que se encargara de tratar los
-	* eventos que se reciben desde la clase captadora. Normalmente este tratamiento
-	* se reduce a enviar el evento.
-	* @return DJButtonListener Listener creado
-	*/
-  public DJButtonListener crearDJListener() {
-	 return new Listener();
-  }
+	/**
+	 * Desctiva el componente. No se recomienda llamar a este metodo desde el
+	 * programa. Sera llamado de forma automatica cuando sea necesario
+	 */
+	@Override
+	public void desactivar()
+	{
+		boton.desactivar();
+	}
 
-  /**
-	* Listener encargado de gestionar los eventos procedentes de la clase
-	* captadora
-	*/
-  private class Listener
-		implements DJButtonListener {
+	/**
+	 * Mediante una llamada a este método se envía un mensaje de peticion de
+	 * sincronizacion. No se debe llamar a este método de forma directa. Será
+	 * llamado de forma automatica cuando sea necesario realizar la
+	 * sincronizacion
+	 */
+	@Override
+	public void sincronizar()
+	{
+		if (conectadoDC())
+		{
+			DJButtonEvent peticion = new DJButtonEvent();
+			peticion.tipo = new Integer(DJButtonEvent.SINCRONIZACION.intValue());
+			enviarEvento(peticion);
+		}
+	}
 
-	 public void presionado(DJButtonEvent evento) {
-		enviarEvento(evento);
-	 }
+	/**
+	 * Devuelve una nueva instancia de la hebra que se encargara de procesar los
+	 * eventos que se reciban. Este metodo no debe llamarse de forma directa.
+	 * Sera llamado de forma automatica cuando sea necesario.
+	 * 
+	 * @return HebraProcesadoraBase Nueva hebra procesadora
+	 */
+	@Override
+	public HebraProcesadoraBase crearHebraProcesadora()
+	{
+		return new HebraProcesadora(this);
+	}
 
-	 public void soltado(DJButtonEvent evento) {
-		enviarEvento(evento);
-	 }
-  }
+	/**
+	 * Devuelve una instancia de un listener que se encargara de tratar los
+	 * eventos que se reciben desde la clase captadora. Normalmente este
+	 * tratamiento se reduce a enviar el evento.
+	 * 
+	 * @return DJButtonListener Listener creado
+	 */
+	public DJButtonListener crearDJListener()
+	{
+		return new Listener();
+	}
 
-  /**
-	* Hebra procesadora de eventos. Se encarga de realizar las acciones que
-	* correspondan cuando recibe un evento. Tambén se encarga en su inicio
-	* de sincronizar el componente.
-	*/
-  class HebraProcesadora
-		extends HebraProcesadoraBase {
+	/**
+	 * Listener encargado de gestionar los eventos procedentes de la clase
+	 * captadora
+	 */
+	private class Listener implements DJButtonListener
+	{
 
-	 HebraProcesadora(DComponente dc) {
-		super(dc);
-	 }
-
-	 public void run() {
-		//System.out.println("iniciada hebra procesadora");
-		DJButtonEvent evento = null;
-		DJButtonEvent saux = null;
-		DJButtonEvent respSincr = null;
-		Vector vaux = new Vector();
-
-		DEvent[] eventos = obtenerEventosColaRecepcion();
-		int numEventos = eventos.length;
-		int i = 0;
-
-		// Buscamos si se ha recibido una respuesta de sincronizacion
-		for (int j = 0; j < numEventos; j++) {
-		  saux = (DJButtonEvent) eventos[j];
-		  if ( (respSincr == null) &&
-				(saux.tipo.intValue() ==
-				 DJButtonEvent.RESPUESTA_SINCRONIZACION.intValue())) {
-			 respSincr = saux;
-		  }
-		  else {
-			 vaux.add(saux);
-		  }
+		public void presionado(DJButtonEvent evento)
+		{
+			enviarEvento(evento);
 		}
 
-		activar();
+		public void soltado(DJButtonEvent evento)
+		{
+			enviarEvento(evento);
+		}
+	}
 
-		if (respSincr != null) { // Se ha recibido respuesta de sincronizacion
-		  ultimoProcesado = new Integer(respSincr.ultimoProcesado.intValue());
-		  boton.getModel().setPressed(respSincr.pulsado.booleanValue());
-		  boton.getModel().setArmed(respSincr.pulsado.booleanValue());
+	/**
+	 * Hebra procesadora de eventos. Se encarga de realizar las acciones que
+	 * correspondan cuando recibe un evento. Tambén se encarga en su inicio de
+	 * sincronizar el componente.
+	 */
+	class HebraProcesadora extends HebraProcesadoraBase
+	{
+
+		HebraProcesadora( DComponente dc )
+		{
+			super(dc);
 		}
 
-		// Colocamos en la cola de recepcion los eventos que deben ser
-		// procesados (recibidos mientras se realizaba la sincronizacion )
-		numEventos = vaux.size();
-		for (int j = 0; j < numEventos; j++) {
-		  saux = (DJButtonEvent) vaux.elementAt(j);
-		  if (saux.ultimoProcesado.intValue() > ultimoProcesado.intValue()) {
-			 boton.procesarEvento(saux);
-		  }
-		}
+		@Override
+		public void run()
+		{
+			// System.out.println("iniciada hebra procesadora");
+			DJButtonEvent evento = null;
+			DJButtonEvent saux = null;
+			DJButtonEvent respSincr = null;
+			Vector vaux = new Vector();
 
-		while (true) {
-		  evento = (DJButtonEvent) leerSiguienteEvento();
-		  ultimoProcesado = new Integer(evento.contador.intValue());
-		  if (evento.tipo.intValue() == DJButtonEvent.SINCRONIZACION.intValue() &&
-				!evento.usuario.equals(DConector.Dusuario)) {
-			 DJButtonEvent infoEstado = obtenerInfoEstado();
-			 infoEstado.tipo = new Integer(DJButtonEvent.RESPUESTA_SINCRONIZACION.
-													 intValue());
-			 enviarEvento(infoEstado);
-		  }
-		  else {
-			 boton.procesarEvento(evento);
-		  }
-		}
+			DEvent[] eventos = obtenerEventosColaRecepcion();
+			int numEventos = eventos.length;
+			int i = 0;
 
-	 }
-  }
+			// Buscamos si se ha recibido una respuesta de sincronizacion
+			for (int j = 0; j < numEventos; j++)
+			{
+				saux = (DJButtonEvent) eventos[j];
+				if (( respSincr == null )
+						&& ( saux.tipo.intValue() == DJButtonEvent.RESPUESTA_SINCRONIZACION
+								.intValue() ))
+					respSincr = saux;
+				else vaux.add(saux);
+			}
+
+			activar();
+
+			if (respSincr != null)
+			{ // Se ha recibido respuesta de sincronizacion
+				ultimoProcesado = new Integer(respSincr.ultimoProcesado
+						.intValue());
+				boton.getModel().setPressed(respSincr.pulsado.booleanValue());
+				boton.getModel().setArmed(respSincr.pulsado.booleanValue());
+			}
+
+			// Colocamos en la cola de recepcion los eventos que deben ser
+			// procesados (recibidos mientras se realizaba la sincronizacion )
+			numEventos = vaux.size();
+			for (int j = 0; j < numEventos; j++)
+			{
+				saux = (DJButtonEvent) vaux.elementAt(j);
+				if (saux.ultimoProcesado.intValue() > ultimoProcesado
+						.intValue()) boton.procesarEvento(saux);
+			}
+
+			while (true)
+			{
+				evento = (DJButtonEvent) leerSiguienteEvento();
+				ultimoProcesado = new Integer(evento.contador.intValue());
+				if (( evento.tipo.intValue() == DJButtonEvent.SINCRONIZACION
+						.intValue() )
+						&& !evento.usuario.equals(DConector.Dusuario))
+				{
+					DJButtonEvent infoEstado = obtenerInfoEstado();
+					infoEstado.tipo = new Integer(
+							DJButtonEvent.RESPUESTA_SINCRONIZACION.intValue());
+					enviarEvento(infoEstado);
+				}
+				else boton.procesarEvento(evento);
+			}
+
+		}
+	}
 
 }

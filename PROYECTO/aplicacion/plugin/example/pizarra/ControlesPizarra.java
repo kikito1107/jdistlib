@@ -19,53 +19,73 @@ public class ControlesPizarra extends JPanel
 {
 
 	private static final long serialVersionUID = 1L;
+
 	private JComboBox listaPinceles = null;
+
 	DefaultComboBoxModel modeloPincel = null;
+
 	DefaultComboBoxModel modeloColores = null;
-	
+
 	private Pizarra pizarra = null;
 
 	private int colorActual;
+
 	private int trazoActual;
+
 	private JButton botonLimpiarLienzo = null;
+
 	private JButton botonDeshacer = null;
+
 	private JButton botonBorrar = null;
+
 	private JButton botonAnterior = null;
+
 	private JButton botonSiguiente = null;
+
 	private JButton botonRehacer = null;
+
 	private JToolBar barraHerramientas = null;
+
 	private JLabel jLabel1 = null;
+
 	private JLabel jLabel2 = null;
+
 	private JButton botonPaletaColores = null;
+
 	/**
 	 * Devuelve el color actual
+	 * 
 	 * @return el nœmero asociado al color actual
 	 */
-	public int getColorActual() {
+	public int getColorActual()
+	{
 		return colorActual;
 	}
-	
+
 	/**
 	 * Obtiene el tipo de trazo usado en este momento
+	 * 
 	 * @return el entero que representa el tipo de trazo
 	 */
-	public int getTrazoActual() {
+	public int getTrazoActual()
+	{
 		return trazoActual;
 	}
-	
+
 	/**
 	 * This is the default constructor
 	 */
-	public ControlesPizarra(Pizarra l)
+	public ControlesPizarra( Pizarra l )
 	{
 		super();
 		pizarra = l;
-		initialize();	
+		initialize();
 	}
 
-	public void setPadre(JFrame p){
+	public void setPadre(JFrame p)
+	{
 	}
-	
+
 	/**
 	 * This method initializes this
 	 * 
@@ -80,42 +100,44 @@ public class ControlesPizarra extends JPanel
 		gridLayout.setHgap(2);
 		this.setLayout(gridLayout);
 		this.setSize(551, 39);
-		
+
 		this.setMinimumSize(new Dimension(552, 103));
 		this.add(getBarraHerramientas(), null);
 	}
 
 	/**
-	 * This method initializes jComboBox	
-	 * 	
-	 * @return javax.swing.JComboBox	
+	 * This method initializes jComboBox
+	 * 
+	 * @return javax.swing.JComboBox
 	 */
-	
-	private Color elegirColor() {
-		Color c = javax.swing.JColorChooser.showDialog(null, "Escoge el Color", pizarra.getColor());
+
+	private Color elegirColor()
+	{
+		Color c = javax.swing.JColorChooser.showDialog(null, "Escoge el Color",
+				pizarra.getColor());
 		return c;
 	}
 
 	/**
-	 * This method initializes jComboBox1	
-	 * 	
-	 * @return javax.swing.JComboBox	
+	 * This method initializes jComboBox1
+	 * 
+	 * @return javax.swing.JComboBox
 	 */
 	private JComboBox getListaPinceles()
 	{
 		if (listaPinceles == null)
 		{
 			listaPinceles = new JComboBox();
-			
+
 			modeloPincel = new DefaultComboBoxModel();
 			modeloPincel.addElement("Lineas");
 			modeloPincel.addElement("Mano Alzada");
 			modeloPincel.addElement("Texto");
 			modeloPincel.addElement("Rectangulo");
 			modeloPincel.addElement("Ovalo");
-			
+
 			listaPinceles.setModel(modeloPincel);
-			
+
 			listaPinceles.addActionListener(new java.awt.event.ActionListener()
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
@@ -124,18 +146,17 @@ public class ControlesPizarra extends JPanel
 					pizarra.setTrazo(trazoActual);
 				}
 			});
-			
+
 			listaPinceles.setSelectedIndex(0);
 			listaPinceles.setPreferredSize(new Dimension(100, 20));
 		}
 		return listaPinceles;
 	}
 
-
 	/**
-	 * This method initializes jButton4	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes jButton4
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getBotonLimpiar()
 	{
@@ -144,33 +165,36 @@ public class ControlesPizarra extends JPanel
 			botonLimpiarLienzo = new JButton();
 			botonLimpiarLienzo.setText("");
 			botonLimpiarLienzo.setToolTipText("Limpia el lienzo");
-			
+
 			botonLimpiarLienzo.setBorder(null);
 			botonLimpiarLienzo.setBorderPainted(false);
 			botonLimpiarLienzo.setPreferredSize(new Dimension(30, 24));
 			botonLimpiarLienzo.setSize(new Dimension(30, 24));
-			
-			botonLimpiarLienzo.setIcon(new ImageIcon("./Resources/edit-clear_16x16.png"));
-			
-			botonLimpiarLienzo.addActionListener(new java.awt.event.ActionListener()
-			{
-				public void actionPerformed(java.awt.event.ActionEvent e)
-				{
-					
-					// enviamos el evento para sincronizar el borrado del lienzo
-					DJPizarraEvent el = new DJPizarraEvent();					
-					el.tipo = DJPizarraEvent.LIMPIEZA_LIENZO;
-					pizarra.enviarEvento(el);
-				}
-			});
+
+			botonLimpiarLienzo.setIcon(new ImageIcon(
+					"./Resources/edit-clear_16x16.png"));
+
+			botonLimpiarLienzo
+					.addActionListener(new java.awt.event.ActionListener()
+					{
+						public void actionPerformed(java.awt.event.ActionEvent e)
+						{
+
+							// enviamos el evento para sincronizar el borrado
+							// del lienzo
+							DJPizarraEvent el = new DJPizarraEvent();
+							el.tipo = DJPizarraEvent.LIMPIEZA_LIENZO;
+							pizarra.enviarEvento(el);
+						}
+					});
 		}
 		return botonLimpiarLienzo;
 	}
 
 	/**
-	 * This method initializes jButton	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes jButton
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getBotonDeshacer()
 	{
@@ -188,22 +212,22 @@ public class ControlesPizarra extends JPanel
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
-					// creamos un nuevo evento para indicar la accion de deshacer
+					// creamos un nuevo evento para indicar la accion de
+					// deshacer
 					DJPizarraEvent evt = new DJPizarraEvent();
 					evt.tipo = DJPizarraEvent.DESHACER;
 					pizarra.enviarEvento(evt);
-					
+
 				}
 			});
 		}
 		return botonDeshacer;
 	}
 
-
 	/**
-	 * This method initializes jButton3	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes jButton3
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getBotonBorrar()
 	{
@@ -230,11 +254,10 @@ public class ControlesPizarra extends JPanel
 		return botonBorrar;
 	}
 
-
 	/**
-	 * This method initializes jButton21	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes jButton21
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getBotonAnterior()
 	{
@@ -247,10 +270,11 @@ public class ControlesPizarra extends JPanel
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
-					pizarra.setObjetoSeleccionado(pizarra.getObjetoSeleccionado() -1);
+					pizarra.setObjetoSeleccionado(pizarra
+							.getObjetoSeleccionado() - 1);
 				}
 			});
-			
+
 			botonAnterior.setBorder(null);
 			botonAnterior.setText("");
 			botonAnterior.setBorderPainted(false);
@@ -259,24 +283,28 @@ public class ControlesPizarra extends JPanel
 	}
 
 	/**
-	 * This method initializes jButton211	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes jButton211
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getJButton211()
 	{
-		if (botonSiguiente == null)		{
+		if (botonSiguiente == null)
+		{
 			botonSiguiente = new JButton();
-			botonSiguiente.setIcon(new ImageIcon("./Resources/arrow_right.png"));
+			botonSiguiente
+					.setIcon(new ImageIcon("./Resources/arrow_right.png"));
 			botonSiguiente.setToolTipText("Seleccionar el siguiente elemento");
-			botonSiguiente.addActionListener(new java.awt.event.ActionListener()
-			{
-				public void actionPerformed(java.awt.event.ActionEvent e)
-				{
-					pizarra.setObjetoSeleccionado(pizarra.getObjetoSeleccionado() + 1);
-				}
-			});
-			
+			botonSiguiente
+					.addActionListener(new java.awt.event.ActionListener()
+					{
+						public void actionPerformed(java.awt.event.ActionEvent e)
+						{
+							pizarra.setObjetoSeleccionado(pizarra
+									.getObjetoSeleccionado() + 1);
+						}
+					});
+
 			botonSiguiente.setBorder(null);
 			botonSiguiente.setBorderPainted(false);
 		}
@@ -284,9 +312,9 @@ public class ControlesPizarra extends JPanel
 	}
 
 	/**
-	 * This method initializes jButton	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes jButton
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getBotonRehacer()
 	{
@@ -312,12 +340,10 @@ public class ControlesPizarra extends JPanel
 		return botonRehacer;
 	}
 
-
-
 	/**
-	 * This method initializes jToolBar	
-	 * 	
-	 * @return javax.swing.JToolBar	
+	 * This method initializes jToolBar
+	 * 
+	 * @return javax.swing.JToolBar
 	 */
 	private JToolBar getBarraHerramientas()
 	{
@@ -328,12 +354,12 @@ public class ControlesPizarra extends JPanel
 			jLabel1 = new JLabel();
 			jLabel1.setIcon(new ImageIcon("./Resources/pencil.png"));
 			jLabel1.setText(" ");
-			
+
 			Separador separator1 = new Separador();
 			Separador separator2 = new Separador();
 			Separador separator3 = new Separador();
 			Separador separator4 = new Separador();
-			
+
 			barraHerramientas = new JToolBar();
 			barraHerramientas.setFloatable(false);
 			barraHerramientas.setPreferredSize(new Dimension(533, 35));
@@ -348,7 +374,7 @@ public class ControlesPizarra extends JPanel
 			barraHerramientas.add(separator4);
 			barraHerramientas.add(jLabel1);
 			barraHerramientas.add(jLabel2);
-			
+
 			barraHerramientas.add(getListaPinceles());
 			barraHerramientas.add(separator1);
 			barraHerramientas.add(getBotonColores());
@@ -357,9 +383,9 @@ public class ControlesPizarra extends JPanel
 	}
 
 	/**
-	 * This method initializes botonLimpiarImagen1	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes botonLimpiarImagen1
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getBotonColores()
 	{
@@ -368,22 +394,22 @@ public class ControlesPizarra extends JPanel
 			botonPaletaColores = new JButton("Colores");
 			botonPaletaColores.setBorder(null);
 			botonPaletaColores.setBorderPainted(false);
-			botonPaletaColores.setIcon(new ImageIcon("./Resources/palette.png"));
+			botonPaletaColores
+					.setIcon(new ImageIcon("./Resources/palette.png"));
 			botonPaletaColores.setText("Colores   ");
 			botonPaletaColores.setToolTipText("Elimina la imagen de fondo");
-			botonPaletaColores.addActionListener(new java.awt.event.ActionListener()
-			{
-				public void actionPerformed(java.awt.event.ActionEvent e)
-				{
-					Color c = elegirColor();
-					
-					if (c != null) {
-						pizarra.setColor(c);
-					}
-				}
-			});
+			botonPaletaColores
+					.addActionListener(new java.awt.event.ActionListener()
+					{
+						public void actionPerformed(java.awt.event.ActionEvent e)
+						{
+							Color c = elegirColor();
+
+							if (c != null) pizarra.setColor(c);
+						}
+					});
 		}
 		return botonPaletaColores;
 	}
 
-}  //  @jve:decl-index=0:visual-constraint="-78,19"
+} // @jve:decl-index=0:visual-constraint="-78,19"

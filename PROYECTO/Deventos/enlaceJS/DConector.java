@@ -78,11 +78,13 @@ public class DConector
 
 	private DialogoLogin dialogoLogin = new DialogoLogin(new JFrame(),
 			"Introduzca su usuario y contrase–a", false);
+
 	private int tiempoSincronizacion = 4000;
+
 	public static DefaultMutableTreeNode raiz = null;
-	
+
 	private ClienteFicheros cf = null;
-	
+
 	private TokenFichero tk = null;
 
 	/**
@@ -199,12 +201,7 @@ public class DConector
 			// Espera un evento sobre la inicializacion
 
 			if (monitor.inicializacionCorrecta())
-			{
-
 				dialogo.mostrar("Localizacion correcta", false);
-
-			}
-
 			else
 			{
 
@@ -241,16 +238,13 @@ public class DConector
 				// ***************************************************************//
 
 				if (cmi == null)
-				{
-
 					cmi = new ClienteMetaInformacion(Daplicacion, Dusuario,
 							Dclave);
 
-				}
-
-				//cmi.desconectarUsuario(Dusuario); // ****************************************
-													// QUITAR
-													// **********************************************
+				// cmi.desconectarUsuario(Dusuario); //
+				// ****************************************
+				// QUITAR
+				// **********************************************
 
 				dialogo.mostrar("Identificando usuario...", true);
 
@@ -287,7 +281,6 @@ public class DConector
 					infoCompleta.mensajeError,
 
 					"Error", JOptionPane.ERROR_MESSAGE);
-					
 
 				}
 
@@ -337,30 +330,14 @@ public class DConector
 				contador = 0;
 
 			}
-
-			else
-			{
-
-				contador = tk.sec.intValue();
-
-			}
+			else contador = tk.sec.intValue();
 
 			tk = (Token) space.readIfExists(tkplantilla, null, tiempo);
 
 			if (tk == null)
-			{ // Sigue sin haber token (Comprobacion de seguridad)
-
 				txn.commit(); // Confirmamos escritura del token el el
-								// JavaSpace
-
-			}
-
-			else
-			{
-
-				contador = tk.sec.intValue();
-
-			}
+			// JavaSpace
+			else contador = tk.sec.intValue();
 
 			// System.out.println("Contador = " + contador);
 
@@ -393,10 +370,10 @@ public class DConector
 			// ***************************************************************//
 
 			dialogo.ocultar();
-			
+
 			if (cf == null)
 				cf = new ClienteFicheros(Daplicacion, Dusuario, Dclave, Drol);
-			
+
 			raiz = cf.getRaiz();
 
 		}
@@ -510,7 +487,7 @@ public class DConector
 		for (int i = 0; i < v.size(); i++)
 		{
 
-			componente = (DComponente) v.elementAt(i);
+			componente = v.elementAt(i);
 
 			componente.sincronizar();
 
@@ -535,7 +512,7 @@ public class DConector
 		for (int i = 0; i < v.size(); i++)
 		{
 
-			componente = (DComponente) v.elementAt(i);
+			componente = v.elementAt(i);
 
 			componente.iniciarHebraProcesadora();
 
@@ -588,22 +565,25 @@ public class DConector
 		return dconector;
 
 	}
-	
+
 	/**
 	 * Comprueba si el token correspondiente al fichero se encuentra en el JS
-	 * @param fichero nombre del fichero
+	 * 
+	 * @param fichero
+	 *            nombre del fichero
 	 * @return true si el token esta en el JS y false en caso contrario
 	 */
-	public boolean leerToken(String fichero){
-		
-		//1. Buscamos el token asociado al fichero
+	public boolean leerToken(String fichero)
+	{
+
+		// 1. Buscamos el token asociado al fichero
 		TokenFichero plantilla = new TokenFichero();
 		plantilla.Fichero = new String(fichero);
-		plantilla.aplicacion = new String(Daplicacion+"_");
-		
+		plantilla.aplicacion = new String(Daplicacion + "_");
+
 		try
 		{
-			tk =  (TokenFichero) space.take(plantilla, null, 5000L);
+			tk = (TokenFichero) space.take(plantilla, null, 5000L);
 		}
 		catch (RemoteException e)
 		{
@@ -625,34 +605,40 @@ public class DConector
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		//2. Si no existe:
-		//	2.1. Creamos el token
-		//  2.2. Devolvemos false
-		if (tk == null) {
-			
-			System.err.println("El token para el fichero " + fichero +" no existe: creando nuevo token");
-			
+
+		// 2. Si no existe:
+		// 2.1. Creamos el token
+		// 2.2. Devolvemos false
+		if (tk == null)
+		{
+
+			System.err.println("El token para el fichero " + fichero
+					+ " no existe: creando nuevo token");
+
 			tk = new TokenFichero();
 			tk.Fichero = new String(fichero);
-			tk.aplicacion = new String(Daplicacion+"_");
+			tk.aplicacion = new String(Daplicacion + "_");
 			tk.sec = new Long(1L);
 			tk.nuevoUsuario();
-			
+
 			return false;
 		}
-		//3. Si existe el token
-		//	3.1. Incrementamos el numero de usuarios que actualmente estan anotando en el documento 
-		//  3.2. Devolvemos true
-		else {
-			System.err.println("El token para el " + fichero + " existe: incrementando el contador de usuarios");
+		// 3. Si existe el token
+		// 3.1. Incrementamos el numero de usuarios que actualmente estan
+		// anotando en el documento
+		// 3.2. Devolvemos true
+		else
+		{
+			System.err.println("El token para el " + fichero
+					+ " existe: incrementando el contador de usuarios");
 			tk.nuevoUsuario();
-			tk.sec = new Long(tk.sec.longValue()+1L);
+			tk.sec = new Long(tk.sec.longValue() + 1L);
 			return true;
 		}
 	}
-	
-	public boolean escribirToken(){
+
+	public boolean escribirToken()
+	{
 		try
 		{
 			space.write(tk, null, Long.MAX_VALUE);
@@ -672,34 +658,37 @@ public class DConector
 			return false;
 		}
 	}
-	
-	public boolean cerrarFichero(String fichero){
-		//1. Buscamos el token asociado al fichero
+
+	public boolean cerrarFichero(String fichero)
+	{
+		// 1. Buscamos el token asociado al fichero
 		TokenFichero plantilla = new TokenFichero();
 		plantilla.Fichero = new String(fichero);
-		plantilla.aplicacion = new String(Daplicacion+"_");
-		
+		plantilla.aplicacion = new String(Daplicacion + "_");
+
 		System.err.println("Decrementando el numero de usuaris del documento");
-		
+
 		try
 		{
 			// buscamos el token en el JS
-			tk =  (TokenFichero) space.take(plantilla, null, 1000L);
-			
-			//Si existe el token:
-			if (tk != null) {
-				
-				System.err.println("Numero de usuarios activos " +  (tk.NumUsuarios-1));
-				
+			tk = (TokenFichero) space.take(plantilla, null, 1000L);
+
+			// Si existe el token:
+			if (tk != null)
+			{
+
+				System.err.println("Numero de usuarios activos "
+						+ ( tk.NumUsuarios - 1 ));
+
 				// si todav’a quedan usuarios editando ese documento
-				if (tk.NumUsuarios.intValue() > 1) {
+				if (tk.NumUsuarios.intValue() > 1)
+				{
 					tk.bajaUsuario();
-					space.write(tk, null, 10000L);	
+					space.write(tk, null, 10000L);
 				}
 				return true;
 			}
-			else
-				return false;
+			else return false;
 		}
 		catch (RemoteException e)
 		{
@@ -722,10 +711,8 @@ public class DConector
 			e.printStackTrace();
 		}
 		return false;
-		
 
 	}
-	
 
 	private void broadCastMI(DMIEvent evento)
 	{
@@ -737,7 +724,7 @@ public class DConector
 		for (int j = 0; j < v.size(); j++)
 		{
 
-			dc = (DComponente) v.elementAt(j);
+			dc = v.elementAt(j);
 
 			dc.procesarMetaInformacion(evento);
 
@@ -780,7 +767,7 @@ public class DConector
 		for (int i = 0; i < v.size(); i++)
 		{
 
-			c = (DComponente) v.elementAt(i);
+			c = v.elementAt(i);
 
 			if (c.getNombre().equals(componente.getNombre()))
 			{
@@ -810,7 +797,6 @@ public class DConector
 		return v.size();
 
 	}
-	
 
 	/**
 	 * 
@@ -960,11 +946,7 @@ public class DConector
 				Thread.sleep(tiempoEspera * 1000);
 
 				if (!conector.monitor.getInicializado())
-				{
-
 					conector.monitor.setError(true);
-
-				}
 
 			}
 
@@ -1020,11 +1002,7 @@ public class DConector
 			{
 
 				while (!inicializado && !error)
-				{
-
 					wait();
-
-				}
 
 			}
 
@@ -1169,8 +1147,6 @@ public class DConector
 			long numSalida = -1;
 
 			while (true)
-			{
-
 				try
 				{
 
@@ -1234,8 +1210,6 @@ public class DConector
 
 				}
 
-			}
-
 		}
 
 	}
@@ -1276,8 +1250,6 @@ public class DConector
 			// plantilla.usuario = new String(usuario);
 
 			while (true)
-			{
-
 				try
 				{
 
@@ -1289,22 +1261,17 @@ public class DConector
 					evento = (DEvent) space.read(plantilla, null,
 							Long.MAX_VALUE);
 
-					 System.out.println("DConector: Leido evento "+evento);
+					System.out.println("DConector: Leido evento " + evento);
 
 					contador++;
 
 					for (int i = 0; i < v.size(); i++)
 					{
 
-						componente = (DComponente) v.elementAt(i);
+						componente = v.elementAt(i);
 
 						if (componente.getID().intValue() == evento.componente
-								.intValue())
-						{
-
-							componente.procesarEvento(evento);
-
-						}
+								.intValue()) componente.procesarEvento(evento);
 
 					}
 
@@ -1330,8 +1297,6 @@ public class DConector
 					System.exit(1);
 
 				}
-
-			}
 
 		}
 
@@ -1384,12 +1349,7 @@ public class DConector
 				MICompleta info)
 		{
 
-			if (usuario.equals(Dusuario))
-			{
-
-				Drol = info.rol;
-
-			}
+			if (usuario.equals(Dusuario)) Drol = info.rol;
 
 			DMIEvent evento = new DMIEvent();
 
@@ -1478,13 +1438,9 @@ public class DConector
 		{
 
 			if (usuario.equals(Dusuario) && rol.equals(Drol))
-			{
-
 				ClienteMetaInformacion.obtenerCMI().cambiarRolUsuario(Dusuario,
 
 				DrolDefecto);
-
-			}
 
 			DMIEvent evento = new DMIEvent();
 
@@ -1542,13 +1498,9 @@ public class DConector
 		{
 
 			if (rol.equals(Drol))
-			{
-
 				ClienteMetaInformacion.obtenerCMI().cambiarRolUsuario(Dusuario,
 
 				DrolDefecto);
-
-			}
 
 			DMIEvent evento = new DMIEvent();
 

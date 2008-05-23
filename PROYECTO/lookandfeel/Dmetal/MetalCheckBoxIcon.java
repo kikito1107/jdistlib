@@ -19,79 +19,94 @@ import javax.swing.plaf.UIResource;
 /**
  * CheckboxIcon implementation for OrganicCheckBoxUI
  * <p>
- * <strong>Warning:</strong>
- * Serialized objects of this class will not be compatible with
- * future Swing releases. The current serialization support is
- * appropriate for short term storage or RMI between applications running
- * the same version of Swing.  As of 1.4, support for long term storage
- * of all JavaBeans<sup><font size="-2">TM</font></sup>
- * has been added to the <code>java.beans</code> package.
- * Please see {@link java.beans.XMLEncoder}.
- *
+ * <strong>Warning:</strong> Serialized objects of this class will not be
+ * compatible with future Swing releases. The current serialization support is
+ * appropriate for short term storage or RMI between applications running the
+ * same version of Swing. As of 1.4, support for long term storage of all
+ * JavaBeans<sup><font size="-2">TM</font></sup> has been added to the
+ * <code>java.beans</code> package. Please see {@link java.beans.XMLEncoder}.
+ * 
  * @version 1.16 01/23/03
  * @author Steve Wilson
  */
-public class MetalCheckBoxIcon
-	 implements Icon, UIResource, Serializable {
+public class MetalCheckBoxIcon implements Icon, UIResource, Serializable
+{
 
-  protected int getControlSize() {
-	 return 13;
-  }
+	protected int getControlSize()
+	{
+		return 13;
+	}
 
-  public void paintIcon(Component c, Graphics g, int x, int y) {
+	public void paintIcon(Component c, Graphics g, int x, int y)
+	{
 
-	 JCheckBox cb = (JCheckBox) c;
-	 ButtonModel model = cb.getModel();
-	 int controlSize = getControlSize();
+		JCheckBox cb = (JCheckBox) c;
+		ButtonModel model = cb.getModel();
+		int controlSize = getControlSize();
 
-	 boolean drawCheck = model.isSelected();
+		boolean drawCheck = model.isSelected();
 
-	 if (model.isEnabled()) {
-		if (cb.isBorderPaintedFlat()) {
-		  g.setColor(MetalLookAndFeel.getControlDarkShadow());
-		  g.drawRect(x + 1, y, controlSize - 1, controlSize - 1);
+		if (model.isEnabled())
+		{
+			if (cb.isBorderPaintedFlat())
+			{
+				g.setColor(MetalLookAndFeel.getControlDarkShadow());
+				g.drawRect(x + 1, y, controlSize - 1, controlSize - 1);
+			}
+			if (model.isPressed() && model.isArmed())
+			{
+				if (cb.isBorderPaintedFlat())
+				{
+					g.setColor(MetalLookAndFeel.getControlShadow());
+					g.fillRect(x + 2, y + 1, controlSize - 2, controlSize - 2);
+				}
+				else
+				{
+					g.setColor(MetalLookAndFeel.getControlShadow());
+					g.fillRect(x, y, controlSize - 1, controlSize - 1);
+					MetalUtils.drawPressed3DBorder(g, x, y, controlSize,
+							controlSize);
+				}
+			}
+			else if (!cb.isBorderPaintedFlat())
+			{
+				MetalUtils.drawFlush3DBorder(g, x, y, controlSize, controlSize);
+			}
+			g.setColor(MetalLookAndFeel.getControlInfo());
 		}
-		if (model.isPressed() && model.isArmed()) {
-		  if (cb.isBorderPaintedFlat()) {
-			 g.setColor(MetalLookAndFeel.getControlShadow());
-			 g.fillRect(x + 2, y + 1, controlSize - 2, controlSize - 2);
-		  }
-		  else {
-			 g.setColor(MetalLookAndFeel.getControlShadow());
-			 g.fillRect(x, y, controlSize - 1, controlSize - 1);
-			 MetalUtils.drawPressed3DBorder(g, x, y, controlSize, controlSize);
-		  }
+		else
+		{
+			g.setColor(MetalLookAndFeel.getControlShadow());
+			g.drawRect(x, y, controlSize - 1, controlSize - 1);
 		}
-		else if (!cb.isBorderPaintedFlat()) {
-		  MetalUtils.drawFlush3DBorder(g, x, y, controlSize, controlSize);
+
+		if (drawCheck)
+		{
+			if (cb.isBorderPaintedFlat())
+			{
+				x++;
+			}
+			drawCheck(c, g, x, y);
 		}
-		g.setColor(MetalLookAndFeel.getControlInfo());
-	 }
-	 else {
-		g.setColor(MetalLookAndFeel.getControlShadow());
-		g.drawRect(x, y, controlSize - 1, controlSize - 1);
-	 }
+	}
 
-	 if (drawCheck) {
-		if (cb.isBorderPaintedFlat()) {
-		  x++;
-		}
-		drawCheck(c, g, x, y);
-	 }
-  }
+	protected void drawCheck(Component c, Graphics g, int x, int y)
+	{
+		int controlSize = getControlSize();
+		g.fillRect(x + 3, y + 5, 2, controlSize - 8);
+		g.drawLine(x + ( controlSize - 4 ), y + 3, x + 5, y
+				+ ( controlSize - 6 ));
+		g.drawLine(x + ( controlSize - 4 ), y + 4, x + 5, y
+				+ ( controlSize - 5 ));
+	}
 
-  protected void drawCheck(Component c, Graphics g, int x, int y) {
-	 int controlSize = getControlSize();
-	 g.fillRect(x + 3, y + 5, 2, controlSize - 8);
-	 g.drawLine(x + (controlSize - 4), y + 3, x + 5, y + (controlSize - 6));
-	 g.drawLine(x + (controlSize - 4), y + 4, x + 5, y + (controlSize - 5));
-  }
+	public int getIconWidth()
+	{
+		return getControlSize();
+	}
 
-  public int getIconWidth() {
-	 return getControlSize();
-  }
-
-  public int getIconHeight() {
-	 return getControlSize();
-  }
+	public int getIconHeight()
+	{
+		return getControlSize();
+	}
 }

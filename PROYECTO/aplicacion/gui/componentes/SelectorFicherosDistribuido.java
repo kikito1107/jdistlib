@@ -32,13 +32,13 @@ public class SelectorFicherosDistribuido extends JDialog
 	private JButton botonCancelar = null;
 
 	private JPanel jPanel1 = null;
-	
+
 	private DefaultMutableTreeNode root = null;
 
 	private JTree arbol = null;
-	
-	private String path = null;  //  @jve:decl-index=0:
-	
+
+	private String path = null; // @jve:decl-index=0:
+
 	private FicheroBD fichero = null;
 
 	/**
@@ -81,9 +81,9 @@ public class SelectorFicherosDistribuido extends JDialog
 	}
 
 	/**
-	 * This method initializes jPanel	
-	 * 	
-	 * @return javax.swing.JPanel	
+	 * This method initializes jPanel
+	 * 
+	 * @return javax.swing.JPanel
 	 */
 	private JPanel getJPanel()
 	{
@@ -104,68 +104,72 @@ public class SelectorFicherosDistribuido extends JDialog
 	}
 
 	/**
-	 * This method initializes jButton	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes jButton
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getJButton()
 	{
 		if (botonAceptar == null)
 		{
 			botonAceptar = new JButton();
-			botonAceptar.setIcon(new ImageIcon(getClass().getResource("/Resources/folder-open_16x16.png")));
+			botonAceptar.setIcon(new ImageIcon(getClass().getResource(
+					"/Resources/folder-open_16x16.png")));
 			botonAceptar.setText("Abrir");
 			botonAceptar.addActionListener(new java.awt.event.ActionListener()
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
-					accionAceptar();				}
+					accionAceptar();
+				}
 			});
 		}
 		return botonAceptar;
 	}
-	
-	public static FicheroBD getDatosFichero(Frame owner, DefaultMutableTreeNode raiz){
-		SelectorFicherosDistribuido sfd = 
-			new SelectorFicherosDistribuido( owner, raiz );
-		
+
+	public static FicheroBD getDatosFichero(Frame owner,
+			DefaultMutableTreeNode raiz)
+	{
+		SelectorFicherosDistribuido sfd = new SelectorFicherosDistribuido(
+				owner, raiz);
+
 		sfd.getPath();
-		
+
 		return sfd.fichero;
-		
+
 	}
-	
-	private void getPath(){
+
+	private void getPath()
+	{
 		setTitle("Selecciona el documento");
-		
-		 setSize(330, 200);
-		 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		 Dimension frameSize = getSize();
-		 if (frameSize.height > screenSize.height) {
+
+		setSize(330, 200);
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		Dimension frameSize = getSize();
+		if (frameSize.height > screenSize.height)
 			frameSize.height = screenSize.height;
-		 }
-		 if (frameSize.width > screenSize.width) {
+		if (frameSize.width > screenSize.width)
 			frameSize.width = screenSize.width;
-		 }
-		 setLocation( (screenSize.width - frameSize.width) / 2,
-						 (screenSize.height - frameSize.height) / 2);
-		
-		 this.setModal(true);
-		 
-		setVisible(true); 
+		setLocation(( screenSize.width - frameSize.width ) / 2,
+				( screenSize.height - frameSize.height ) / 2);
+
+		this.setModal(true);
+
+		setVisible(true);
 	}
 
 	/**
-	 * This method initializes jButton1	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes jButton1
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getJButton1()
 	{
 		if (botonCancelar == null)
 		{
 			botonCancelar = new JButton();
-			botonCancelar.setIcon(new ImageIcon(getClass().getResource("/Resources/cancel.png")));
+			botonCancelar.setIcon(new ImageIcon(getClass().getResource(
+					"/Resources/cancel.png")));
 			botonCancelar.setText("Cancelar");
 			botonCancelar.addActionListener(new java.awt.event.ActionListener()
 			{
@@ -180,9 +184,9 @@ public class SelectorFicherosDistribuido extends JDialog
 	}
 
 	/**
-	 * This method initializes jPanel1	
-	 * 	
-	 * @return javax.swing.JPanel	
+	 * This method initializes jPanel1
+	 * 
+	 * @return javax.swing.JPanel
 	 */
 	private JPanel getJPanel1()
 	{
@@ -196,9 +200,9 @@ public class SelectorFicherosDistribuido extends JDialog
 	}
 
 	/**
-	 * This method initializes jTree	
-	 * 	
-	 * @return javax.swing.JTree	
+	 * This method initializes jTree
+	 * 
+	 * @return javax.swing.JTree
 	 */
 	private JTree getArbol()
 	{
@@ -208,19 +212,19 @@ public class SelectorFicherosDistribuido extends JDialog
 			arbol.setRootVisible(false);
 			arbol.addKeyListener(new java.awt.event.KeyAdapter()
 			{
+				@Override
 				public void keyPressed(java.awt.event.KeyEvent e)
 				{
-					if (e.getKeyChar() == '\n') 
-						accionAceptar();
-						
+					if (e.getKeyChar() == '\n') accionAceptar();
+
 				}
 			});
 			arbol.addMouseListener(new java.awt.event.MouseAdapter()
 			{
+				@Override
 				public void mouseClicked(java.awt.event.MouseEvent e)
 				{
-					if (e.getClickCount() == 2)
-						accionAceptar();
+					if (e.getClickCount() == 2) accionAceptar();
 				}
 			});
 			arbol.expandRow(0);
@@ -228,17 +232,20 @@ public class SelectorFicherosDistribuido extends JDialog
 		return arbol;
 	}
 
-	private void accionAceptar(){
+	private void accionAceptar()
+	{
 		TreePath[] dtp = arbol.getSelectionPaths();
 
-		if (dtp != null && dtp.length > 0) {
+		if (( dtp != null ) && ( dtp.length > 0 ))
+		{
 
 			Object[] objetos = dtp[0].getPath();
 
-			fichero = (FicheroBD)((DefaultMutableTreeNode)objetos[objetos.length - 1]).getUserObject();
-			
+			fichero = (FicheroBD) ( (DefaultMutableTreeNode) objetos[objetos.length - 1] )
+					.getUserObject();
+
 			setVisible(false);
 		}
 	}
 
-}  //  @jve:decl-index=0:visual-constraint="10,10"
+} // @jve:decl-index=0:visual-constraint="10,10"

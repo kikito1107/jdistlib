@@ -31,60 +31,86 @@ public class ControlesDibujo extends JPanel
 {
 
 	private static final long serialVersionUID = 1L;
+
 	private JComboBox listaPinceles = null;
+
 	DefaultComboBoxModel modeloPincel = null;
+
 	DefaultComboBoxModel modeloColores = null;
-	
+
 	private DILienzo lienzo = null;
 
 	private int colorActual;
+
 	private BarraEstado barra = null;
+
 	private int trazoActual;
+
 	private JButton botonLimpiarLienzo = null;
+
 	private JButton botonDeshacer = null;
+
 	private JButton botonBorrar = null;
+
 	private JButton botonAnterior = null;
+
 	private JButton botonSiguiente = null;
+
 	private JButton botonRehacer = null;
+
 	private JToolBar barraHerramientas = null;
+
 	private JLabel jLabel1 = null;
+
 	private JLabel jLabel2 = null;
+
 	private Separador separator41 = null;
+
 	private JButton botonPaletaColores = null;
+
 	private JButton botonAbrir = null;
+
 	private JButton botonGuardar = null;
+
 	private JButton botonImprimir = null;
+
 	private JButton botonGuardarLocal = null;
+
 	/**
 	 * Devuelve el color actual
+	 * 
 	 * @return el nœmero asociado al color actual
 	 */
-	public int getColorActual() {
+	public int getColorActual()
+	{
 		return colorActual;
 	}
-	
+
 	/**
 	 * Obtiene el tipo de trazo usado en este momento
+	 * 
 	 * @return el entero que representa el tipo de trazo
 	 */
-	public int getTrazoActual() {
+	public int getTrazoActual()
+	{
 		return trazoActual;
 	}
-	
+
 	/**
 	 * This is the default constructor
 	 */
-	public ControlesDibujo(DILienzo l, BarraEstado be)
+	public ControlesDibujo( DILienzo l, BarraEstado be )
 	{
 		super();
 		lienzo = l;
 		barra = be;
-		initialize();	
+		initialize();
 	}
 
-	public void setPadre(JFrame p){
+	public void setPadre(JFrame p)
+	{
 	}
-	
+
 	/**
 	 * This method initializes this
 	 * 
@@ -99,42 +125,44 @@ public class ControlesDibujo extends JPanel
 		gridLayout.setHgap(2);
 		this.setLayout(gridLayout);
 		this.setSize(551, 39);
-		
+
 		this.setMinimumSize(new Dimension(552, 103));
 		this.add(getBarraHerramientas(), null);
 	}
 
 	/**
-	 * This method initializes jComboBox	
-	 * 	
-	 * @return javax.swing.JComboBox	
+	 * This method initializes jComboBox
+	 * 
+	 * @return javax.swing.JComboBox
 	 */
-	
-	private Color elegirColor() {
-		Color c = javax.swing.JColorChooser.showDialog(null, "Escoge el Color", lienzo.getColor());
+
+	private Color elegirColor()
+	{
+		Color c = javax.swing.JColorChooser.showDialog(null, "Escoge el Color",
+				lienzo.getColor());
 		return c;
 	}
 
 	/**
-	 * This method initializes jComboBox1	
-	 * 	
-	 * @return javax.swing.JComboBox	
+	 * This method initializes jComboBox1
+	 * 
+	 * @return javax.swing.JComboBox
 	 */
 	private JComboBox getListaPinceles()
 	{
 		if (listaPinceles == null)
 		{
 			listaPinceles = new JComboBox();
-			
+
 			modeloPincel = new DefaultComboBoxModel();
 			modeloPincel.addElement("Lineas");
 			modeloPincel.addElement("Mano Alzada");
 			modeloPincel.addElement("Texto");
 			modeloPincel.addElement("Rectangulo");
 			modeloPincel.addElement("Ovalo");
-			
+
 			listaPinceles.setModel(modeloPincel);
-			
+
 			listaPinceles.addActionListener(new java.awt.event.ActionListener()
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
@@ -143,18 +171,17 @@ public class ControlesDibujo extends JPanel
 					lienzo.setTrazo(trazoActual);
 				}
 			});
-			
+
 			listaPinceles.setSelectedIndex(0);
 			listaPinceles.setPreferredSize(new Dimension(100, 20));
 		}
 		return listaPinceles;
 	}
 
-
 	/**
-	 * This method initializes jButton4	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes jButton4
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getBotonLimpiar()
 	{
@@ -163,35 +190,39 @@ public class ControlesDibujo extends JPanel
 			botonLimpiarLienzo = new JButton();
 			botonLimpiarLienzo.setText("");
 			botonLimpiarLienzo.setToolTipText("Limpia el lienzo");
-			
+
 			botonLimpiarLienzo.setBorder(null);
 			botonLimpiarLienzo.setBorderPainted(false);
 			botonLimpiarLienzo.setPreferredSize(new Dimension(30, 24));
 			botonLimpiarLienzo.setSize(new Dimension(30, 24));
-			
-			botonLimpiarLienzo.setIcon(new ImageIcon("./Resources/edit-clear_16x16.png"));
-			
-			botonLimpiarLienzo.addActionListener(new java.awt.event.ActionListener()
-			{
-				public void actionPerformed(java.awt.event.ActionEvent e)
-				{
-					lienzo.limpiarLienzo();
-					
-					// enviamos el evento para sincronizar el borrado del lienzo
-					DJLienzoEvent el = new DJLienzoEvent();					
-					el.tipo = DJLienzoEvent.LIMPIEZA_LIENZO;
-					el.path = new String(lienzo.getDocumento().getPath());
-					lienzo.enviarEvento(el);
-				}
-			});
+
+			botonLimpiarLienzo.setIcon(new ImageIcon(
+					"./Resources/edit-clear_16x16.png"));
+
+			botonLimpiarLienzo
+					.addActionListener(new java.awt.event.ActionListener()
+					{
+						public void actionPerformed(java.awt.event.ActionEvent e)
+						{
+							lienzo.limpiarLienzo();
+
+							// enviamos el evento para sincronizar el borrado
+							// del lienzo
+							DJLienzoEvent el = new DJLienzoEvent();
+							el.tipo = DJLienzoEvent.LIMPIEZA_LIENZO;
+							el.path = new String(lienzo.getDocumento()
+									.getPath());
+							lienzo.enviarEvento(el);
+						}
+					});
 		}
 		return botonLimpiarLienzo;
 	}
 
 	/**
-	 * This method initializes jButton	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes jButton
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getBotonDeshacer()
 	{
@@ -209,25 +240,25 @@ public class ControlesDibujo extends JPanel
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
-					lienzo.deshacer(lienzo.getPaginaActual()-1);
-					// creamos un nuevo evento para indicar la accion de deshacer
+					lienzo.deshacer(lienzo.getPaginaActual() - 1);
+					// creamos un nuevo evento para indicar la accion de
+					// deshacer
 					DJLienzoEvent evt = new DJLienzoEvent();
-					evt.numPagina = new Integer(lienzo.getPaginaActual()-1);
+					evt.numPagina = new Integer(lienzo.getPaginaActual() - 1);
 					evt.tipo = DJLienzoEvent.DESHACER;
 					evt.path = new String(lienzo.getDocumento().getPath());
 					lienzo.enviarEvento(evt);
-					
+
 				}
 			});
 		}
 		return botonDeshacer;
 	}
 
-
 	/**
-	 * This method initializes jButton3	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes jButton3
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getBotonBorrar()
 	{
@@ -247,8 +278,9 @@ public class ControlesDibujo extends JPanel
 					DJLienzoEvent ev = new DJLienzoEvent();
 					ev.tipo = DJLienzoEvent.BORRADO;
 					ev.aBorrar = lienzo.getObjetoSeleccionado();
-					ev.numPagina = new Integer(lienzo.getPaginaActual()-1);
-					lienzo.borrarObjeto(lienzo.getObjetoSeleccionado(), lienzo.getPaginaActual()-1);
+					ev.numPagina = new Integer(lienzo.getPaginaActual() - 1);
+					lienzo.borrarObjeto(lienzo.getObjetoSeleccionado(), lienzo
+							.getPaginaActual() - 1);
 					ev.path = new String(lienzo.getDocumento().getPath());
 					lienzo.enviarEvento(ev);
 				}
@@ -257,11 +289,10 @@ public class ControlesDibujo extends JPanel
 		return botonBorrar;
 	}
 
-
 	/**
-	 * This method initializes jButton21	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes jButton21
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getBotonAnterior()
 	{
@@ -274,10 +305,12 @@ public class ControlesDibujo extends JPanel
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
-					lienzo.setObjetoSeleccionado(lienzo.getObjetoSeleccionado() -1);
+					lienzo
+							.setObjetoSeleccionado(lienzo
+									.getObjetoSeleccionado() - 1);
 				}
 			});
-			
+
 			botonAnterior.setBorder(null);
 			botonAnterior.setText("");
 			botonAnterior.setBorderPainted(false);
@@ -286,24 +319,28 @@ public class ControlesDibujo extends JPanel
 	}
 
 	/**
-	 * This method initializes jButton211	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes jButton211
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getJButton211()
 	{
-		if (botonSiguiente == null)		{
+		if (botonSiguiente == null)
+		{
 			botonSiguiente = new JButton();
-			botonSiguiente.setIcon(new ImageIcon("./Resources/arrow_right.png"));
+			botonSiguiente
+					.setIcon(new ImageIcon("./Resources/arrow_right.png"));
 			botonSiguiente.setToolTipText("Seleccionar el siguiente elemento");
-			botonSiguiente.addActionListener(new java.awt.event.ActionListener()
-			{
-				public void actionPerformed(java.awt.event.ActionEvent e)
-				{
-					lienzo.setObjetoSeleccionado(lienzo.getObjetoSeleccionado() + 1);
-				}
-			});
-			
+			botonSiguiente
+					.addActionListener(new java.awt.event.ActionListener()
+					{
+						public void actionPerformed(java.awt.event.ActionEvent e)
+						{
+							lienzo.setObjetoSeleccionado(lienzo
+									.getObjetoSeleccionado() + 1);
+						}
+					});
+
 			botonSiguiente.setBorder(null);
 			botonSiguiente.setBorderPainted(false);
 		}
@@ -311,9 +348,9 @@ public class ControlesDibujo extends JPanel
 	}
 
 	/**
-	 * This method initializes jButton	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes jButton
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getBotonRehacer()
 	{
@@ -330,7 +367,7 @@ public class ControlesDibujo extends JPanel
 					lienzo.rehacer();
 					DJLienzoEvent ev = new DJLienzoEvent();
 					ev.tipo = DJLienzoEvent.REHACER;
-					ev.path = new String(lienzo.getDocumento().getPath());	
+					ev.path = new String(lienzo.getDocumento().getPath());
 					lienzo.enviarEvento(ev);
 				}
 			});
@@ -341,12 +378,10 @@ public class ControlesDibujo extends JPanel
 		return botonRehacer;
 	}
 
-
-
 	/**
-	 * This method initializes jToolBar	
-	 * 	
-	 * @return javax.swing.JToolBar	
+	 * This method initializes jToolBar
+	 * 
+	 * @return javax.swing.JToolBar
 	 */
 	private JToolBar getBarraHerramientas()
 	{
@@ -357,12 +392,12 @@ public class ControlesDibujo extends JPanel
 			jLabel1 = new JLabel();
 			jLabel1.setIcon(new ImageIcon("./Resources/pencil.png"));
 			jLabel1.setText(" ");
-			
+
 			Separador separator1 = new Separador();
 			Separador separator2 = new Separador();
 			Separador separator3 = new Separador();
 			Separador separator4 = new Separador();
-			
+
 			barraHerramientas = new JToolBar();
 			barraHerramientas.setFloatable(false);
 			barraHerramientas.setPreferredSize(new Dimension(533, 35));
@@ -382,7 +417,7 @@ public class ControlesDibujo extends JPanel
 			barraHerramientas.add(separator4);
 			barraHerramientas.add(jLabel1);
 			barraHerramientas.add(jLabel2);
-			
+
 			barraHerramientas.add(getListaPinceles());
 			barraHerramientas.add(separator1);
 			barraHerramientas.add(getBotonColores());
@@ -391,23 +426,20 @@ public class ControlesDibujo extends JPanel
 	}
 
 	/**
-	 * This method initializes separator41	
-	 * 	
-	 * @return util.Separador	
+	 * This method initializes separator41
+	 * 
+	 * @return util.Separador
 	 */
 	private Separador getSeparator41()
 	{
-		if (separator41 == null)
-		{
-			separator41 = new Separador();
-		}
+		if (separator41 == null) separator41 = new Separador();
 		return separator41;
 	}
 
 	/**
-	 * This method initializes botonLimpiarImagen1	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes botonLimpiarImagen1
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getBotonColores()
 	{
@@ -416,28 +448,28 @@ public class ControlesDibujo extends JPanel
 			botonPaletaColores = new JButton("Colores");
 			botonPaletaColores.setBorder(null);
 			botonPaletaColores.setBorderPainted(false);
-			botonPaletaColores.setIcon(new ImageIcon("./Resources/palette.png"));
+			botonPaletaColores
+					.setIcon(new ImageIcon("./Resources/palette.png"));
 			botonPaletaColores.setText("Colores   ");
 			botonPaletaColores.setToolTipText("Elimina la imagen de fondo");
-			botonPaletaColores.addActionListener(new java.awt.event.ActionListener()
-			{
-				public void actionPerformed(java.awt.event.ActionEvent e)
-				{
-					Color c = elegirColor();
-					
-					if (c != null) {
-						lienzo.setColor(c);
-					}
-				}
-			});
+			botonPaletaColores
+					.addActionListener(new java.awt.event.ActionListener()
+					{
+						public void actionPerformed(java.awt.event.ActionEvent e)
+						{
+							Color c = elegirColor();
+
+							if (c != null) lienzo.setColor(c);
+						}
+					});
 		}
 		return botonPaletaColores;
 	}
 
 	/**
-	 * This method initializes botonCargarImagen11	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes botonCargarImagen11
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getBotonAbrir()
 	{
@@ -447,20 +479,22 @@ public class ControlesDibujo extends JPanel
 			botonAbrir.setBorder(null);
 			botonAbrir.setToolTipText("Carga la imagen de fondo");
 			botonAbrir.setBorderPainted(false);
-			botonAbrir.setIcon(new ImageIcon(getClass().getResource("/Resources/folder-open_16x16.png")));
+			botonAbrir.setIcon(new ImageIcon(getClass().getResource(
+					"/Resources/folder-open_16x16.png")));
 			botonAbrir.setPreferredSize(new Dimension(35, 24));
 			botonAbrir.addActionListener(new java.awt.event.ActionListener()
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
-					
-					FicheroBD f = SelectorFicherosDistribuido.getDatosFichero(lienzo.getPadre(), DConector.raiz);
-					
 
-					if (f!=null && !f.getRutaLocal().equals("")) {
-						
+					FicheroBD f = SelectorFicherosDistribuido.getDatosFichero(
+							lienzo.getPadre(), DConector.raiz);
+
+					if (( f != null ) && !f.getRutaLocal().equals(""))
+					{
+
 						lienzo.getDocumento().setPath(f.getRutaLocal());
-						
+
 						lienzo.sincronizar();
 					}
 
@@ -471,9 +505,9 @@ public class ControlesDibujo extends JPanel
 	}
 
 	/**
-	 * This method initializes botonCargarImagen1	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes botonCargarImagen1
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getBotonGuardar()
 	{
@@ -483,22 +517,28 @@ public class ControlesDibujo extends JPanel
 			botonGuardar.setBorder(null);
 			botonGuardar.setToolTipText("Guarda el documento en la red");
 			botonGuardar.setBorderPainted(false);
-			botonGuardar.setIcon(new ImageIcon(getClass().getResource("/Resources/disk_share.png")));
+			botonGuardar.setIcon(new ImageIcon(getClass().getResource(
+					"/Resources/disk_share.png")));
 			botonGuardar.setPreferredSize(new Dimension(35, 24));
-			
+
 			botonGuardar.addActionListener(new java.awt.event.ActionListener()
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
-					
+
 					FicheroBD f = lienzo.getDocumento().getDatosBD();
-					if (f.comprobarPermisos(DConector.Dusuario, DConector.Drol, FicheroBD.PERMISO_ESCRITURA)) {
-						if (!(new Transfer(ClienteFicheros.ipConexion, "")).sendDocumento(lienzo.getDocumento()))
-							JOptionPane.showMessageDialog(null, "Error: no se ha podido guardar el documento en el servidor");
+					if (f.comprobarPermisos(DConector.Dusuario, DConector.Drol,
+							FicheroBD.PERMISO_ESCRITURA))
+					{
+						if (!( new Transfer(ClienteFicheros.ipConexion, "") )
+								.sendDocumento(lienzo.getDocumento()))
+							JOptionPane
+									.showMessageDialog(null,
+											"Error: no se ha podido guardar el documento en el servidor");
 					}
-					else {
-						JOptionPane.showMessageDialog(null, "No tiene suficientes permisos para guardar el documento");
-					}
+					else JOptionPane
+							.showMessageDialog(null,
+									"No tiene suficientes permisos para guardar el documento");
 
 				}
 			});
@@ -507,9 +547,9 @@ public class ControlesDibujo extends JPanel
 	}
 
 	/**
-	 * This method initializes botonImprimir	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes botonImprimir
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getBotonImprimir()
 	{
@@ -519,7 +559,8 @@ public class ControlesDibujo extends JPanel
 			botonImprimir.setBorder(null);
 			botonImprimir.setToolTipText("Imprime el documento");
 			botonImprimir.setBorderPainted(false);
-			botonImprimir.setIcon(new ImageIcon(getClass().getResource("/Resources/printer.png")));
+			botonImprimir.setIcon(new ImageIcon(getClass().getResource(
+					"/Resources/printer.png")));
 			botonImprimir.setText("");
 			botonImprimir.setPreferredSize(new Dimension(35, 24));
 			botonImprimir.addActionListener(new java.awt.event.ActionListener()
@@ -534,9 +575,9 @@ public class ControlesDibujo extends JPanel
 	}
 
 	/**
-	 * This method initializes botonGuardarLocal	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes botonGuardarLocal
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getBotonGuardarLocal()
 	{
@@ -544,55 +585,59 @@ public class ControlesDibujo extends JPanel
 		{
 			botonGuardarLocal = new JButton();
 			botonGuardarLocal.setBorder(null);
-			botonGuardarLocal.setToolTipText("Guarda el documento actual localmente");
+			botonGuardarLocal
+					.setToolTipText("Guarda el documento actual localmente");
 			botonGuardarLocal.setBorderPainted(false);
-			botonGuardarLocal.setIcon(new ImageIcon(getClass().getResource("/Resources/disk_local.png")));
+			botonGuardarLocal.setIcon(new ImageIcon(getClass().getResource(
+					"/Resources/disk_local.png")));
 			botonGuardarLocal.setPreferredSize(new Dimension(35, 24));
-			botonGuardarLocal.addActionListener(new java.awt.event.ActionListener()
-			{
-				public void actionPerformed(java.awt.event.ActionEvent e)
-				{
-					 JFileChooser jfc = new JFileChooser("Guardar Documento Localmente");
-					 
-					 int op = jfc.showDialog(null, "Aceptar");
-					  
-					 if (op == JFileChooser.APPROVE_OPTION)
-					 {
-						  java.io.File f = jfc.getSelectedFile();
-						  Documento d = lienzo.getDocumento();
-						  
-						  
-						  Transfer t = new Transfer(ClienteFicheros.ipConexion, d.getPath());
-						  
-						  byte[] datos = t.receiveFileBytes();
-						  
-						  try
+			botonGuardarLocal
+					.addActionListener(new java.awt.event.ActionListener()
+					{
+						public void actionPerformed(java.awt.event.ActionEvent e)
 						{
-							RandomAccessFile acf = new RandomAccessFile(f.getAbsolutePath(), "rw");
-							
-							acf.write(datos);
-							
-							acf.close();
-							Documento.saveDocument(d, f.getAbsolutePath());
+							JFileChooser jfc = new JFileChooser(
+									"Guardar Documento Localmente");
+
+							int op = jfc.showDialog(null, "Aceptar");
+
+							if (op == JFileChooser.APPROVE_OPTION)
+							{
+								java.io.File f = jfc.getSelectedFile();
+								Documento d = lienzo.getDocumento();
+
+								Transfer t = new Transfer(
+										ClienteFicheros.ipConexion, d.getPath());
+
+								byte[] datos = t.receiveFileBytes();
+
+								try
+								{
+									RandomAccessFile acf = new RandomAccessFile(
+											f.getAbsolutePath(), "rw");
+
+									acf.write(datos);
+
+									acf.close();
+									Documento.saveDocument(d, f
+											.getAbsolutePath());
+								}
+								catch (FileNotFoundException e1)
+								{
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+								catch (IOException e3)
+								{
+									// TODO Auto-generated catch block
+									e3.printStackTrace();
+								}
+
+							}
 						}
-						catch (FileNotFoundException e1)
-						{
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-						catch (IOException e3)
-						{
-							// TODO Auto-generated catch block
-							e3.printStackTrace();
-						}
-						  
-						 
-						  
-					 }
-				}
-			});
+					});
 		}
 		return botonGuardarLocal;
 	}
 
-}  //  @jve:decl-index=0:visual-constraint="-78,19"
+} // @jve:decl-index=0:visual-constraint="-78,19"

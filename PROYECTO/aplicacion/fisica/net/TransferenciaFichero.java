@@ -8,32 +8,34 @@ import java.rmi.server.UnicastRemoteObject;
 
 import aplicacion.fisica.documentos.Documento;
 
-public class TransferenciaFichero extends UnicastRemoteObject implements InterfazTransferenciaFichero
+public class TransferenciaFichero extends UnicastRemoteObject implements
+		InterfazTransferenciaFichero
 {
 	private static final long serialVersionUID = 1L;
-	
+
 	public TransferenciaFichero() throws RemoteException
 	{
 		super();
 	}
-	
+
 	public Documento getDocument(String path)
-	{	
+	{
 		return Documento.openDocument(path, "", "");
 	}
-	
-	public  byte[]  getByteFiles(String path){
-		byte[] bytes = null; 
+
+	public byte[] getByteFiles(String path)
+	{
+		byte[] bytes = null;
 		try
 		{
 			RandomAccessFile raf = new RandomAccessFile(path, "r");
-			
-			int tamanio = (int)raf.length();
-			
+
+			int tamanio = (int) raf.length();
+
 			bytes = new byte[tamanio];
-			
+
 			raf.read(bytes);
-			
+
 			raf.close();
 		}
 		catch (FileNotFoundException e)
@@ -44,7 +46,7 @@ public class TransferenciaFichero extends UnicastRemoteObject implements Interfa
 		{
 			e.printStackTrace();
 		}
-		
+
 		return bytes;
 	}
 
@@ -53,7 +55,7 @@ public class TransferenciaFichero extends UnicastRemoteObject implements Interfa
 		try
 		{
 			RandomAccessFile raf = new RandomAccessFile(path, "rw");
-			//System.out.println("RECIBIDO FICHERO");
+			// System.out.println("RECIBIDO FICHERO");
 			raf.write(bytes);
 			raf.close();
 			return true;
@@ -72,8 +74,9 @@ public class TransferenciaFichero extends UnicastRemoteObject implements Interfa
 			return false;
 		}
 	}
-	
-	public  boolean  sendDocument(Documento d) throws RemoteException{
+
+	public boolean sendDocument(Documento d) throws RemoteException
+	{
 		return Documento.saveDocument(d, d.getPath());
 	}
 }

@@ -64,7 +64,7 @@ public class FramePanelDibujo extends DJFrame
 
 		this.setTitle(".:: Panel Edici—n Compartido : " + DConector.Dusuario
 				+ " ::.");
-		
+
 		lienzo.setPadre(this);
 	}
 
@@ -84,6 +84,7 @@ public class FramePanelDibujo extends DJFrame
 		}
 	}
 
+	@Override
 	public void setVisible(boolean b)
 	{
 
@@ -92,12 +93,14 @@ public class FramePanelDibujo extends DJFrame
 		if (!b)
 		{
 
-			//String path = this.getLienzo().getPathDocumento();
+			// String path = this.getLienzo().getPathDocumento();
 
-			/*if (path != null && path != "")
-				DConector.obtenerDC().cerrarFichero(path);
-
-			System.out.println("Cerrando el editor");*/
+			/*
+			 * if (path != null && path != "")
+			 * DConector.obtenerDC().cerrarFichero(path);
+			 * 
+			 * System.out.println("Cerrando el editor");
+			 */
 		}
 		repaint();
 		validate();
@@ -111,6 +114,7 @@ public class FramePanelDibujo extends DJFrame
 		return lienzo;
 	}
 
+	@Override
 	public void paint(Graphics g)
 	{
 		super.paint(g);
@@ -150,6 +154,7 @@ class FrameDrawPanel_this_windowAdapter extends java.awt.event.WindowAdapter
 		this.adaptee = adaptee;
 	}
 
+	@Override
 	public void windowClosing(WindowEvent e)
 	{
 		adaptee.this_windowClosing(e);

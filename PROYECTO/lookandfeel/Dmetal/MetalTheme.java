@@ -12,215 +12,264 @@ import javax.swing.plaf.ColorUIResource;
 import javax.swing.plaf.FontUIResource;
 
 /**
- * This interface acts as a generic way to describe the colors
- * used by Metal.  Classes which implement this interface can
- * be used to swap the colors in a Metal application.
- *
+ * This interface acts as a generic way to describe the colors used by Metal.
+ * Classes which implement this interface can be used to swap the colors in a
+ * Metal application.
+ * 
  * @version 1.23 01/23/03
  * @author Steve Wilson
  */
 
-public abstract class MetalTheme {
+public abstract class MetalTheme
+{
 
-  // Contants identifying the various Fonts that are Theme can support
-  static final int CONTROL_TEXT_FONT = 0;
-  static final int SYSTEM_TEXT_FONT = 1;
-  static final int USER_TEXT_FONT = 2;
-  static final int MENU_TEXT_FONT = 3;
-  static final int WINDOW_TITLE_FONT = 4;
-  static final int SUB_TEXT_FONT = 5;
+	// Contants identifying the various Fonts that are Theme can support
+	static final int CONTROL_TEXT_FONT = 0;
 
-  private static ColorUIResource white = new ColorUIResource(255, 255, 255);
-  private static ColorUIResource black = new ColorUIResource(0, 0, 0);
+	static final int SYSTEM_TEXT_FONT = 1;
 
-  public abstract String getName();
+	static final int USER_TEXT_FONT = 2;
 
-  protected abstract ColorUIResource getPrimary1(); // these are blue in Metal Default Theme
+	static final int MENU_TEXT_FONT = 3;
 
-  protected abstract ColorUIResource getPrimary2();
+	static final int WINDOW_TITLE_FONT = 4;
 
-  protected abstract ColorUIResource getPrimary3();
+	static final int SUB_TEXT_FONT = 5;
 
-  protected abstract ColorUIResource getSecondary1(); // these are gray in Metal Default Theme
+	private static ColorUIResource white = new ColorUIResource(255, 255, 255);
 
-  protected abstract ColorUIResource getSecondary2();
+	private static ColorUIResource black = new ColorUIResource(0, 0, 0);
 
-  protected abstract ColorUIResource getSecondary3();
+	public abstract String getName();
 
-  public abstract FontUIResource getControlTextFont();
+	protected abstract ColorUIResource getPrimary1(); // these are blue in
+														// Metal Default Theme
 
-  public abstract FontUIResource getSystemTextFont();
+	protected abstract ColorUIResource getPrimary2();
 
-  public abstract FontUIResource getUserTextFont();
+	protected abstract ColorUIResource getPrimary3();
 
-  public abstract FontUIResource getMenuTextFont();
+	protected abstract ColorUIResource getSecondary1(); // these are gray in
+														// Metal Default Theme
 
-  public abstract FontUIResource getWindowTitleFont();
+	protected abstract ColorUIResource getSecondary2();
 
-  public abstract FontUIResource getSubTextFont();
+	protected abstract ColorUIResource getSecondary3();
 
-  protected ColorUIResource getWhite() {
-	 return white;
-  }
+	public abstract FontUIResource getControlTextFont();
 
-  protected ColorUIResource getBlack() {
-	 return black;
-  }
+	public abstract FontUIResource getSystemTextFont();
 
-  public ColorUIResource getFocusColor() {
-	 return getPrimary2();
-  }
+	public abstract FontUIResource getUserTextFont();
 
-  public ColorUIResource getDesktopColor() {
-	 return getPrimary2();
-  }
+	public abstract FontUIResource getMenuTextFont();
 
-  public ColorUIResource getControl() {
-	 return getSecondary3();
-  }
+	public abstract FontUIResource getWindowTitleFont();
 
-  public ColorUIResource getControlShadow() {
-	 return getSecondary2();
-  }
+	public abstract FontUIResource getSubTextFont();
 
-  public ColorUIResource getControlDarkShadow() {
-	 return getSecondary1();
-  }
+	protected ColorUIResource getWhite()
+	{
+		return white;
+	}
 
-  public ColorUIResource getControlInfo() {
-	 return getBlack();
-  }
+	protected ColorUIResource getBlack()
+	{
+		return black;
+	}
 
-  public ColorUIResource getControlHighlight() {
-	 return getWhite();
-  }
+	public ColorUIResource getFocusColor()
+	{
+		return getPrimary2();
+	}
 
-  public ColorUIResource getControlDisabled() {
-	 return getSecondary2();
-  }
+	public ColorUIResource getDesktopColor()
+	{
+		return getPrimary2();
+	}
 
-  public ColorUIResource getPrimaryControl() {
-	 return getPrimary3();
-  }
+	public ColorUIResource getControl()
+	{
+		return getSecondary3();
+	}
 
-  public ColorUIResource getPrimaryControlShadow() {
-	 return getPrimary2();
-  }
+	public ColorUIResource getControlShadow()
+	{
+		return getSecondary2();
+	}
 
-  public ColorUIResource getPrimaryControlDarkShadow() {
-	 return getPrimary1();
-  }
+	public ColorUIResource getControlDarkShadow()
+	{
+		return getSecondary1();
+	}
 
-  public ColorUIResource getPrimaryControlInfo() {
-	 return getBlack();
-  }
+	public ColorUIResource getControlInfo()
+	{
+		return getBlack();
+	}
 
-  public ColorUIResource getPrimaryControlHighlight() {
-	 return getWhite();
-  }
+	public ColorUIResource getControlHighlight()
+	{
+		return getWhite();
+	}
 
-  /**
-	* Returns the color used, by default, for the text in labels
-	* and titled borders.
-	*/
-  public ColorUIResource getSystemTextColor() {
-	 return getBlack();
-  }
+	public ColorUIResource getControlDisabled()
+	{
+		return getSecondary2();
+	}
 
-  public ColorUIResource getControlTextColor() {
-	 return getControlInfo();
-  }
+	public ColorUIResource getPrimaryControl()
+	{
+		return getPrimary3();
+	}
 
-  public ColorUIResource getInactiveControlTextColor() {
-	 return getControlDisabled();
-  }
+	public ColorUIResource getPrimaryControlShadow()
+	{
+		return getPrimary2();
+	}
 
-  public ColorUIResource getInactiveSystemTextColor() {
-	 return getSecondary2();
-  }
+	public ColorUIResource getPrimaryControlDarkShadow()
+	{
+		return getPrimary1();
+	}
 
-  public ColorUIResource getUserTextColor() {
-	 return getBlack();
-  }
+	public ColorUIResource getPrimaryControlInfo()
+	{
+		return getBlack();
+	}
 
-  public ColorUIResource getTextHighlightColor() {
-	 return getPrimary3();
-  }
+	public ColorUIResource getPrimaryControlHighlight()
+	{
+		return getWhite();
+	}
 
-  public ColorUIResource getHighlightedTextColor() {
-	 return getControlTextColor();
-  }
+	/**
+	 * Returns the color used, by default, for the text in labels and titled
+	 * borders.
+	 */
+	public ColorUIResource getSystemTextColor()
+	{
+		return getBlack();
+	}
 
-  public ColorUIResource getWindowBackground() {
-	 return getWhite();
-  }
+	public ColorUIResource getControlTextColor()
+	{
+		return getControlInfo();
+	}
 
-  public ColorUIResource getWindowTitleBackground() {
-	 return getPrimary3();
-  }
+	public ColorUIResource getInactiveControlTextColor()
+	{
+		return getControlDisabled();
+	}
 
-  public ColorUIResource getWindowTitleForeground() {
-	 return getBlack();
-  }
+	public ColorUIResource getInactiveSystemTextColor()
+	{
+		return getSecondary2();
+	}
 
-  public ColorUIResource getWindowTitleInactiveBackground() {
-	 return getSecondary3();
-  }
+	public ColorUIResource getUserTextColor()
+	{
+		return getBlack();
+	}
 
-  public ColorUIResource getWindowTitleInactiveForeground() {
-	 return getBlack();
-  }
+	public ColorUIResource getTextHighlightColor()
+	{
+		return getPrimary3();
+	}
 
-  public ColorUIResource getMenuBackground() {
-	 return getSecondary3();
-  }
+	public ColorUIResource getHighlightedTextColor()
+	{
+		return getControlTextColor();
+	}
 
-  public ColorUIResource getMenuForeground() {
-	 return getBlack();
-  }
+	public ColorUIResource getWindowBackground()
+	{
+		return getWhite();
+	}
 
-  public ColorUIResource getMenuSelectedBackground() {
-	 return getPrimary2();
-  }
+	public ColorUIResource getWindowTitleBackground()
+	{
+		return getPrimary3();
+	}
 
-  public ColorUIResource getMenuSelectedForeground() {
-	 return getBlack();
-  }
+	public ColorUIResource getWindowTitleForeground()
+	{
+		return getBlack();
+	}
 
-  public ColorUIResource getMenuDisabledForeground() {
-	 return getSecondary2();
-  }
+	public ColorUIResource getWindowTitleInactiveBackground()
+	{
+		return getSecondary3();
+	}
 
-  public ColorUIResource getSeparatorBackground() {
-	 return getWhite();
-  }
+	public ColorUIResource getWindowTitleInactiveForeground()
+	{
+		return getBlack();
+	}
 
-  public ColorUIResource getSeparatorForeground() {
-	 return getPrimary1();
-  }
+	public ColorUIResource getMenuBackground()
+	{
+		return getSecondary3();
+	}
 
-  public ColorUIResource getAcceleratorForeground() {
-	 return getPrimary1();
-  }
+	public ColorUIResource getMenuForeground()
+	{
+		return getBlack();
+	}
 
-  public ColorUIResource getAcceleratorSelectedForeground() {
-	 return getBlack();
-  }
+	public ColorUIResource getMenuSelectedBackground()
+	{
+		return getPrimary2();
+	}
 
-  public void addCustomEntriesToTable(UIDefaults table) {}
+	public ColorUIResource getMenuSelectedForeground()
+	{
+		return getBlack();
+	}
 
-  /**
-	* This is invoked when a MetalLookAndFeel is installed and about to
-	* start using this theme. When we can add API this should be nuked
-	* in favor of DefaultMetalTheme overriding addCustomEntriesToTable.
-	*/
-  void install() {
-  }
+	public ColorUIResource getMenuDisabledForeground()
+	{
+		return getSecondary2();
+	}
 
-  /**
-	* Returns true if this is a theme provided by the core platform.
-	*/
-  boolean isSystemTheme() {
-	 return false;
-  }
+	public ColorUIResource getSeparatorBackground()
+	{
+		return getWhite();
+	}
+
+	public ColorUIResource getSeparatorForeground()
+	{
+		return getPrimary1();
+	}
+
+	public ColorUIResource getAcceleratorForeground()
+	{
+		return getPrimary1();
+	}
+
+	public ColorUIResource getAcceleratorSelectedForeground()
+	{
+		return getBlack();
+	}
+
+	public void addCustomEntriesToTable(UIDefaults table)
+	{
+	}
+
+	/**
+	 * This is invoked when a MetalLookAndFeel is installed and about to start
+	 * using this theme. When we can add API this should be nuked in favor of
+	 * DefaultMetalTheme overriding addCustomEntriesToTable.
+	 */
+	void install()
+	{
+	}
+
+	/**
+	 * Returns true if this is a theme provided by the core platform.
+	 */
+	boolean isSystemTheme()
+	{
+		return false;
+	}
 }

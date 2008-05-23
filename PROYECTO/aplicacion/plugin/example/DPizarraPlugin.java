@@ -12,9 +12,9 @@ import componentes.base.DJFrame;
 
 public class DPizarraPlugin extends DAbstractPlugin
 {
-	
-	
+
 	private DJFrame ventanaPizarra = null;
+
 	Pizarra p = null;
 
 	/**
@@ -22,10 +22,10 @@ public class DPizarraPlugin extends DAbstractPlugin
 	 */
 	private static final long serialVersionUID = -6310087937591625336L;
 
-	public DPizarraPlugin(  ) throws Exception
+	public DPizarraPlugin() throws Exception
 	{
 		super("pizarra plugin", false, null);
-		ventanaPizarra = new DJFrame(true,"mousesRemotos3");
+		ventanaPizarra = new DJFrame(true, "mousesRemotos3");
 		init();
 	}
 
@@ -41,33 +41,35 @@ public class DPizarraPlugin extends DAbstractPlugin
 		version = 5;
 		nombre = "Pizarra";
 		jarFile = "ejemplo.jar";
-		
-		
+
 		p = new Pizarra(nombre, true, null);
-		
+
 		ventanaPizarra.getContentPane().setLayout(new BorderLayout());
 		ventanaPizarra.getContentPane().add(p, BorderLayout.CENTER);
-		ventanaPizarra.getContentPane().add(new ControlesPizarra(p), BorderLayout.NORTH);
+		ventanaPizarra.getContentPane().add(new ControlesPizarra(p),
+				BorderLayout.NORTH);
 		ventanaPizarra.setTitle(":: Pizarra ::");
 	}
-	
+
+	@Override
 	public int obtenerNumComponentesHijos()
 	{
-		return 1;	
+		return 1;
 	}
-	
-	public void procesarEventoHijo(DEvent e){
+
+	@Override
+	public void procesarEventoHijo(DEvent e)
+	{
 		p.procesarEvento(e);
 	}
 
-	
-	public DComponenteBase obtenerComponente(int i){
-		if (i==0)
-			return p;
+	@Override
+	public DComponenteBase obtenerComponente(int i)
+	{
+		if (i == 0) return p;
 		return null;
 	}
-	
-	
+
 	@Override
 	public void start() throws Exception
 	{
@@ -75,8 +77,7 @@ public class DPizarraPlugin extends DAbstractPlugin
 		ventanaPizarra.pack();
 		ventanaPizarra.setSize(530, 445);
 		ventanaPizarra.setLocationRelativeTo(null);
-		
-		
+
 		ventanaPizarra.setVisible(true);
 	}
 

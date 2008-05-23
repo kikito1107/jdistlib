@@ -9,9 +9,10 @@ public class DCalcPlugin extends DAbstractPlugin
 {
 
 	private Calc eco;
+
 	private JFrame ventana;
-	
-	public DCalcPlugin(  ) throws Exception
+
+	public DCalcPlugin() throws Exception
 	{
 		super("CalcPlugin", false, null);
 		init();
@@ -41,7 +42,7 @@ public class DCalcPlugin extends DAbstractPlugin
 	@Override
 	public void start() throws Exception
 	{
-		//eco.pack();
+		// eco.pack();
 		eco.init();
 
 		ventana.setSize(210, 200);

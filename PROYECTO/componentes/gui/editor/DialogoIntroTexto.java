@@ -31,8 +31,8 @@ public class DialogoIntroTexto extends JDialog
 	private JScrollPane jScrollPane = null;
 
 	private JTextArea jTextArea = null;
-	
-	private String texto = "";  //  @jve:decl-index=0:
+
+	private String texto = ""; // @jve:decl-index=0:
 
 	private JPanel jPanel1 = null;
 
@@ -78,9 +78,9 @@ public class DialogoIntroTexto extends JDialog
 	}
 
 	/**
-	 * This method initializes jPanel	
-	 * 	
-	 * @return javax.swing.JPanel	
+	 * This method initializes jPanel
+	 * 
+	 * @return javax.swing.JPanel
 	 */
 	private JPanel getJPanel()
 	{
@@ -94,9 +94,9 @@ public class DialogoIntroTexto extends JDialog
 	}
 
 	/**
-	 * This method initializes jButton	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes jButton
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getJButton()
 	{
@@ -104,9 +104,9 @@ public class DialogoIntroTexto extends JDialog
 		{
 			botonCancelar = new JButton();
 			botonCancelar.setText("Cancelar");
-			
+
 			botonCancelar.setIcon(new ImageIcon("./Resources/cancel.png"));
-			
+
 			botonCancelar.addActionListener(new java.awt.event.ActionListener()
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
@@ -120,9 +120,9 @@ public class DialogoIntroTexto extends JDialog
 	}
 
 	/**
-	 * This method initializes jButton1	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes jButton1
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getJButton1()
 	{
@@ -130,9 +130,9 @@ public class DialogoIntroTexto extends JDialog
 		{
 			botonAceptar = new JButton();
 			botonAceptar.setText("Aceptar");
-			
+
 			botonAceptar.setIcon(new ImageIcon("./Resources/tick.png"));
-			
+
 			botonAceptar.addActionListener(new java.awt.event.ActionListener()
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
@@ -146,9 +146,9 @@ public class DialogoIntroTexto extends JDialog
 	}
 
 	/**
-	 * This method initializes jScrollPane	
-	 * 	
-	 * @return javax.swing.JScrollPane	
+	 * This method initializes jScrollPane
+	 * 
+	 * @return javax.swing.JScrollPane
 	 */
 	private JScrollPane getJScrollPane()
 	{
@@ -161,9 +161,9 @@ public class DialogoIntroTexto extends JDialog
 	}
 
 	/**
-	 * This method initializes jTextArea	
-	 * 	
-	 * @return javax.swing.JTextArea	
+	 * This method initializes jTextArea
+	 * 
+	 * @return javax.swing.JTextArea
 	 */
 	private JTextArea getJTextArea()
 	{
@@ -172,44 +172,42 @@ public class DialogoIntroTexto extends JDialog
 			jTextArea = new JTextArea();
 			jTextArea.addKeyListener(new java.awt.event.KeyAdapter()
 			{
+				@Override
 				public void keyTyped(java.awt.event.KeyEvent e)
 				{
-					if (e.getKeyChar() == '\t') {
-						botonAceptar.requestFocus();
-					}
+					if (e.getKeyChar() == '\t') botonAceptar.requestFocus();
 				}
 			});
 		}
 		return jTextArea;
 	}
-	
-	public String obtenerTexto() {
-		 setTitle("Introduce el texto");
-		
-		 setSize(330, 200);
-		 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		 Dimension frameSize = getSize();
-		 if (frameSize.height > screenSize.height) {
+
+	public String obtenerTexto()
+	{
+		setTitle("Introduce el texto");
+
+		setSize(330, 200);
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		Dimension frameSize = getSize();
+		if (frameSize.height > screenSize.height)
 			frameSize.height = screenSize.height;
-		 }
-		 if (frameSize.width > screenSize.width) {
+		if (frameSize.width > screenSize.width)
 			frameSize.width = screenSize.width;
-		 }
-		 setLocation( (screenSize.width - frameSize.width) / 2,
-						 (screenSize.height - frameSize.height) / 2);
-		
-		 this.setModal(true);
-		 
-		setVisible(true); 
-		
+		setLocation(( screenSize.width - frameSize.width ) / 2,
+				( screenSize.height - frameSize.height ) / 2);
+
+		this.setModal(true);
+
+		setVisible(true);
+
 		return texto;
 
 	}
 
 	/**
-	 * This method initializes jPanel1	
-	 * 	
-	 * @return javax.swing.JPanel	
+	 * This method initializes jPanel1
+	 * 
+	 * @return javax.swing.JPanel
 	 */
 	private JPanel getJPanel1()
 	{
@@ -234,4 +232,4 @@ public class DialogoIntroTexto extends JDialog
 		}
 		return jPanel1;
 	}
-}  //  @jve:decl-index=0:visual-constraint="10,10"
+} // @jve:decl-index=0:visual-constraint="10,10"

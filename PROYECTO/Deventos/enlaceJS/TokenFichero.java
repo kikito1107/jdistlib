@@ -2,19 +2,29 @@ package Deventos.enlaceJS;
 
 public class TokenFichero extends Token
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6362232361013310234L;
+
 	public String Fichero = null;
+
 	public String ip = null;
+
 	public Integer NumUsuarios = null;
+
 	public Boolean sincronizar = null;
-	
-	public TokenFichero(String aplicacion, String fichero){
+
+	public TokenFichero( String aplicacion, String fichero )
+	{
 		this.aplicacion = aplicacion;
 		this.NumUsuarios = null;
 		this.Fichero = fichero;
-		
+
 	}
-	
-	public TokenFichero(){
+
+	public TokenFichero()
+	{
 		super();
 	}
 
@@ -30,7 +40,6 @@ public class TokenFichero extends Token
 	{
 		if (NumUsuarios == null)
 			NumUsuarios = new Integer(1);
-		else
-			NumUsuarios = new Integer(NumUsuarios.intValue() + 1);
+		else NumUsuarios = new Integer(NumUsuarios.intValue() + 1);
 	}
 }

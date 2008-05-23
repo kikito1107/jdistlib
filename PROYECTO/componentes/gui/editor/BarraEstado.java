@@ -11,22 +11,31 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class BarraEstado extends JPanel
 {
 
 	private static final long serialVersionUID = 1L;
+
 	private JPanel jPanel = null;
+
 	private JTextField jTextField = null;
+
 	private JPanel jPanel1 = null;
+
 	private JLabel jLabel = null;
+
 	private JButton jButton = null;
+
 	private JButton jButton1 = null;
+
 	DILienzo lienzo;
+
 	/**
 	 * This is the default constructor
 	 */
-	public BarraEstado(DILienzo lienzo1)
+	public BarraEstado( DILienzo lienzo1 )
 	{
 		super();
 		lienzo = lienzo1;
@@ -55,14 +64,14 @@ public class BarraEstado extends JPanel
 		this.setSize(562, 37);
 		this.add(getJPanel(), gridBagConstraints1);
 		this.add(getJPanel1(), gridBagConstraints4);
-		
-		(new Thread(new HebraActualizacionPaginas())).start();
+
+		( new Thread(new HebraActualizacionPaginas()) ).start();
 	}
 
 	/**
-	 * This method initializes jPanel	
-	 * 	
-	 * @return javax.swing.JPanel	
+	 * This method initializes jPanel
+	 * 
+	 * @return javax.swing.JPanel
 	 */
 	private JPanel getJPanel()
 	{
@@ -75,34 +84,36 @@ public class BarraEstado extends JPanel
 	}
 
 	/**
-	 * This method initializes jTextField	
-	 * 	
-	 * @return javax.swing.JTextField	
+	 * This method initializes jTextField
+	 * 
+	 * @return javax.swing.JTextField
 	 */
 	private JTextField getJTextField()
 	{
 		if (jTextField == null)
 		{
 			jTextField = new JTextField();
-			jTextField.setText(lienzo.getPaginaActual()+"");
+			jTextField.setText(lienzo.getPaginaActual() + "");
 			jTextField.setPreferredSize(new Dimension(35, 22));
-			jTextField.setHorizontalAlignment(JTextField.CENTER);
-			
-			jTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-				public void keyTyped(java.awt.event.KeyEvent e) {
-					if (e.getKeyChar() == '\n') {
-						try {
-							int numPagina = Integer.parseInt(jTextField.getText());
-							System.out.println("valor introducido: " + numPagina);
-							
-							if (numPagina <= lienzo.getNumPaginas())
-								lienzo.setPaginaActual(numPagina);
-							else
-								jTextField.setText(""+lienzo.getPaginaActual());
-						}
-						catch (NumberFormatException ex) {
-							jTextField.setText(""+lienzo.getPaginaActual());
-						}
+			jTextField.setHorizontalAlignment(SwingConstants.CENTER);
+
+			jTextField.addKeyListener(new java.awt.event.KeyAdapter()
+			{
+				@Override
+				public void keyTyped(java.awt.event.KeyEvent e)
+				{
+					if (e.getKeyChar() == '\n') try
+					{
+						int numPagina = Integer.parseInt(jTextField.getText());
+						System.out.println("valor introducido: " + numPagina);
+
+						if (numPagina <= lienzo.getNumPaginas())
+							lienzo.setPaginaActual(numPagina);
+						else jTextField.setText("" + lienzo.getPaginaActual());
+					}
+					catch (NumberFormatException ex)
+					{
+						jTextField.setText("" + lienzo.getPaginaActual());
 					}
 				}
 			});
@@ -111,20 +122,22 @@ public class BarraEstado extends JPanel
 		return jTextField;
 	}
 
-	public void setNumTotalPaginas(int numTotal) {
-		if (numTotal > 0 && numTotal <= lienzo.getNumPaginas())
-			jLabel.setText("/ "+numTotal);
+	public void setNumTotalPaginas(int numTotal)
+	{
+		if (( numTotal > 0 ) && ( numTotal <= lienzo.getNumPaginas() ))
+			jLabel.setText("/ " + numTotal);
 	}
-	
-	public void setPaginaActual(int numTotal) {
-		//if (numTotal < lienzo.getNumPaginas())
-			jTextField.setText(""+numTotal);
+
+	public void setPaginaActual(int numTotal)
+	{
+		// if (numTotal < lienzo.getNumPaginas())
+		jTextField.setText("" + numTotal);
 	}
-	
+
 	/**
-	 * This method initializes jPanel1	
-	 * 	
-	 * @return javax.swing.JPanel	
+	 * This method initializes jPanel1
+	 * 
+	 * @return javax.swing.JPanel
 	 */
 	private JPanel getJPanel1()
 	{
@@ -149,31 +162,31 @@ public class BarraEstado extends JPanel
 	}
 
 	/**
-	 * This method initializes jButton	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes jButton
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getJButton()
 	{
 		if (jButton == null)
 		{
-			
+
 			jButton = new JButton();
 			jButton.setBorder(null);
 			jButton.setBorderPainted(false);
 			jButton.setPreferredSize(new Dimension(30, 22));
-			jButton.setIcon(new ImageIcon(getClass().getResource("/Resources/resultset_previous.png")));
+			jButton.setIcon(new ImageIcon(getClass().getResource(
+					"/Resources/resultset_previous.png")));
 			jButton.addActionListener(new java.awt.event.ActionListener()
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
-					lienzo.setPaginaActual(lienzo.getPaginaActual()-1);
+					lienzo.setPaginaActual(lienzo.getPaginaActual() - 1);
 					setNumTotalPaginas(lienzo.getNumPaginas());
 					setPaginaActual(lienzo.getPaginaActual());
-					
-					if(lienzo.getPaginaActual() == 1){
+
+					if (lienzo.getPaginaActual() == 1)
 						jButton.setEnabled(false);
-					}
 					jButton1.setEnabled(true);
 				}
 			});
@@ -182,9 +195,9 @@ public class BarraEstado extends JPanel
 	}
 
 	/**
-	 * This method initializes jButton1	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes jButton1
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getJButton1()
 	{
@@ -194,54 +207,61 @@ public class BarraEstado extends JPanel
 			jButton1.setBorder(null);
 			jButton1.setBorderPainted(false);
 			jButton1.setPreferredSize(new Dimension(30, 22));
-			jButton1.setIcon(new ImageIcon(getClass().getResource("/Resources/resultset_next.png")));
-			
+			jButton1.setIcon(new ImageIcon(getClass().getResource(
+					"/Resources/resultset_next.png")));
+
 			jButton1.addActionListener(new java.awt.event.ActionListener()
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
-					lienzo.setPaginaActual(lienzo.getPaginaActual()+1);
+					lienzo.setPaginaActual(lienzo.getPaginaActual() + 1);
 					setNumTotalPaginas(lienzo.getNumPaginas());
 					setPaginaActual(lienzo.getPaginaActual());
-					
-					if (lienzo.getPaginaActual() == lienzo.getNumPaginas()){
+
+					if (lienzo.getPaginaActual() == lienzo.getNumPaginas())
 						jButton1.setEnabled(false);
-					}
 					jButton.setEnabled(true);
 				}
 			});
 		}
 		return jButton1;
 	}
-	
+
 	private class HebraActualizacionPaginas extends Thread
 	{
-		public void run(){
-			while(true){
+		@Override
+		public void run()
+		{
+			while (true)
+			{
 				setNumTotalPaginas(lienzo.getNumPaginas());
 				setPaginaActual(lienzo.getPaginaActual());
-				
-				
-				if (lienzo.getNumPaginas() == 1) {
+
+				if (lienzo.getNumPaginas() == 1)
+				{
 					jButton.setEnabled(false);
 					jButton1.setEnabled(false);
 				}
-				else if(lienzo.getPaginaActual() == 1){
+				else if (lienzo.getPaginaActual() == 1)
+				{
 					jButton.setEnabled(false);
 					jButton1.setEnabled(true);
 				}
-				else if (lienzo.getPaginaActual() == lienzo.getNumPaginas()){
+				else if (lienzo.getPaginaActual() == lienzo.getNumPaginas())
+				{
 					jButton1.setEnabled(false);
 					jButton.setEnabled(true);
 				}
-				
+
 				try
 				{
 					Thread.sleep(1000L);
 				}
-				catch (InterruptedException e){}
+				catch (InterruptedException e)
+				{
+				}
 			}
 		}
 	}
 
-}  //  @jve:decl-index=0:visual-constraint="41,14"
+} // @jve:decl-index=0:visual-constraint="41,14"

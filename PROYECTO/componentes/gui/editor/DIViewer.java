@@ -25,35 +25,33 @@ import componentes.base.DComponenteBase;
 public class DIViewer extends DComponenteBase
 {
 	private static final long serialVersionUID = 1L;
-	
+
 	private Image imagen;
-	
-	
-	
-	public DIViewer(String nombre, boolean conexionDC, DComponenteBase padre)
+
+	public DIViewer( String nombre, boolean conexionDC, DComponenteBase padre )
 	{
 		super(nombre, conexionDC, padre);
-		
-		try{
-		 jbInit();
+
+		try
+		{
+			jbInit();
 		}
-		catch(Exception ex)
+		catch (Exception ex)
 		{
 			ex.printStackTrace();
 		}
 	}
-	
-	
+
 	private void jbInit() throws Exception
 	{
 		imagen = null;
 	}
-	
+
 	public Image getImage()
 	{
 		return imagen;
 	}
-	
+
 	public void setImage(String filename)
 	{
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
@@ -63,7 +61,8 @@ public class DIViewer extends DComponenteBase
 		try
 		{
 			mediaTracker.waitForID(0);
-			imagen = imagen.getScaledInstance(getSize().width, getSize().height, Image.SCALE_DEFAULT);
+			imagen = imagen.getScaledInstance(getSize().width,
+					getSize().height, Image.SCALE_DEFAULT);
 			repaint();
 		}
 		catch (InterruptedException ie)
@@ -71,108 +70,113 @@ public class DIViewer extends DComponenteBase
 			System.err.println(ie);
 		}
 	}
-	
+
 	public void setImage(Image img)
 	{
 		MediaTracker mediatracker = new MediaTracker(this);
-		imagen = img.getScaledInstance(img.getWidth(null), img.getHeight(null), Image.SCALE_DEFAULT);
+		imagen = img.getScaledInstance(img.getWidth(null), img.getHeight(null),
+				Image.SCALE_DEFAULT);
 		mediatracker.addImage(imagen, 0);
-		
-		try{
+
+		try
+		{
 			mediatracker.waitForID(0);
 			repaint();
 		}
-		catch(InterruptedException ex)
+		catch (InterruptedException ex)
 		{
 			ex.printStackTrace();
 		}
 	}
-	
+
 	public DJViewerEvent obtenerInfoEstado()
 	{
 		DJViewerEvent de = new DJViewerEvent();
 		de.contenido = new ImageIcon(imagen);
-		
+
 		return de;
 	}
-	
+
 	public void procesarInfoEstado(DJViewerEvent evento)
 	{
 		setImage(evento.contenido.getImage());
 	}
-	
-	
-	
-	
+
+	@Override
 	public void activar()
 	{
 		this.setEnabled(true);
 	}
-	
+
+	@Override
 	public void desactivar()
 	{
 		this.setEnabled(false);
 	}
 
-	
+	@Override
 	public void procesarEvento(DEvent evento)
 	{
-		if (evento.tipo.intValue() == DJViewerEvent.SINCRONIZACION &&
-										!evento.usuario.equals(DConector.Dusuario)) 
+		if (( evento.tipo.intValue() == DJViewerEvent.SINCRONIZACION )
+				&& !evento.usuario.equals(DConector.Dusuario))
 		{
 			DJViewerEvent infoEstado = obtenerInfoEstado();
-			infoEstado.tipo = new Integer(DJViewerEvent.RESPUESTA_SINCRONIZACION.intValue());
+			infoEstado.tipo = new Integer(
+					DJViewerEvent.RESPUESTA_SINCRONIZACION.intValue());
 			infoEstado.contenido = new ImageIcon(imagen);
 			enviarEvento(infoEstado);
 		}
-		
+
 		else if (evento.tipo.intValue() == DJViewerEvent.CARGADO.intValue())
 		{
-			DJViewerEvent evt = (DJViewerEvent)evento;
+			DJViewerEvent evt = (DJViewerEvent) evento;
 			setImage(evt.contenido.getImage());
-			
+
 		}
-		
-		else if (evento.tipo.intValue() == DJViewerEvent.RESPUESTA_SINCRONIZACION.intValue())
+
+		else if (evento.tipo.intValue() == DJViewerEvent.RESPUESTA_SINCRONIZACION
+				.intValue())
 		{
-			DJViewerEvent evt = (DJViewerEvent)evento;
-			
-			if (evt.contenido != null)
-				setImage(evt.contenido.getImage());
-		}	
+			DJViewerEvent evt = (DJViewerEvent) evento;
+
+			if (evt.contenido != null) setImage(evt.contenido.getImage());
+		}
 	}
-	
+
+	@Override
 	public int obtenerNumComponentesHijos()
 	{
 		return 0;
 	}
-	
+
+	@Override
 	public void sincronizar()
 	{
-		if (conectadoDC()) {
+		if (conectadoDC())
+		{
 			DJViewerEvent peticion = new DJViewerEvent();
 			peticion.tipo = new Integer(DJViewerEvent.SINCRONIZACION.intValue());
-			if (imagen != null) peticion.contenido = new ImageIcon(imagen);
+			if (imagen != null)
+				peticion.contenido = new ImageIcon(imagen);
 			else peticion.contenido = null;
 
-			
 			enviarEvento(peticion);
-		 }
-	}
-	
-	public void paint(Graphics g)
-	{	
-		try{
-		  int img_x = getSize().width/2 - imagen.getWidth(this)/2;
-	      int img_y = getSize().height/2 - imagen.getHeight(this)/2;
-		
-	      g.drawImage(imagen, img_x, img_y, this);
 		}
-		catch(NullPointerException ex)
-		{}
 	}
-	
 
-	
-	
+	@Override
+	public void paint(Graphics g)
+	{
+		try
+		{
+			int img_x = getSize().width / 2 - imagen.getWidth(this) / 2;
+			int img_y = getSize().height / 2 - imagen.getHeight(this) / 2;
+
+			g.drawImage(imagen, img_x, img_y, this);
+		}
+		catch (NullPointerException ex)
+		{
+		}
+	}
+
 }

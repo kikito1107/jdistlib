@@ -10,64 +10,73 @@ import aplicacion.gui.FramePrincipal;
 
 /**
  * 
- * <p>Title: </p>
- * <p>Description: </p>
- * <p>Copyright: Copyright (c) 2004</p>
- * <p>Company: </p>
+ * <p>
+ * Title:
+ * </p>
+ * <p>
+ * Description:
+ * </p>
+ * <p>
+ * Copyright: Copyright (c) 2004
+ * </p>
+ * <p>
+ * Company:
+ * </p>
+ * 
  * @author not attributable
  * @version 1.0
  */
 
-public class MainCliente {
-  boolean packFrame = false;
-  DConector d = null;
+public class MainCliente
+{
+	boolean packFrame = false;
 
-  //Construct the application
-  public MainCliente() {
-	 d = new DConector("AplicacionDePrueba");
-	 d.inicializar();
+	DConector d = null;
 
-	 FramePrincipal frame = new FramePrincipal();
+	// Construct the application
+	public MainCliente()
+	{
+		d = new DConector("AplicacionDePrueba");
+		d.inicializar();
 
-	 if (packFrame) {
-		frame.pack();
-	 }
-	 else {
-		frame.validate();
-	 }
+		FramePrincipal frame = new FramePrincipal();
 
-	 frame.setSize(568, 545);
-	 d.sincronizarComponentes();
-	 
-	 //Center the window
-	 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	 Dimension frameSize = frame.getSize();
-	 if (frameSize.height > screenSize.height) {
-		frameSize.height = screenSize.height;
-	 }
-	 if (frameSize.width > screenSize.width) {
-		frameSize.width = screenSize.width;
-	 }
-	 frame.setLocation( (screenSize.width - frameSize.width) / 2,
-							 (screenSize.height - frameSize.height) / 2);
-	 frame.setVisible(true);
+		if (packFrame)
+			frame.pack();
+		else frame.validate();
 
-	 
-	 String nombreUsuario = d.Dusuario;
-	 frame.setTitle(".:: Grupo de trabajo : " + nombreUsuario + "  ::.");
-  }
+		frame.setSize(568, 545);
+		d.sincronizarComponentes();
 
-  //Main method
-  public static void main(String[] args) {
+		// Center the window
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		Dimension frameSize = frame.getSize();
+		if (frameSize.height > screenSize.height)
+			frameSize.height = screenSize.height;
+		if (frameSize.width > screenSize.width)
+			frameSize.width = screenSize.width;
+		frame.setLocation(( screenSize.width - frameSize.width ) / 2,
+				( screenSize.height - frameSize.height ) / 2);
+		frame.setVisible(true);
 
-	 try {
-		UIManager.setLookAndFeel("lookandfeel.Dmetal.MetalLookAndFeel");
-		// UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-	 }
-	 catch (Exception e) {
-		e.printStackTrace();
-	 }
-	 new MainCliente();
-  }
+		String nombreUsuario = DConector.Dusuario;
+		frame.setTitle(".:: Grupo de trabajo : " + nombreUsuario + "  ::.");
+	}
+
+	// Main method
+	public static void main(String[] args)
+	{
+
+		try
+		{
+			UIManager.setLookAndFeel("lookandfeel.Dmetal.MetalLookAndFeel");
+			// UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		new MainCliente();
+	}
 
 }

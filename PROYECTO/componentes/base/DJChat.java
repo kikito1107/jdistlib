@@ -19,6 +19,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.WindowConstants;
 
 import Deventos.ColaEventos;
 import Deventos.DEvent;
@@ -77,8 +79,8 @@ public class DJChat extends JPanel
 	JScrollPane PanelScroll = new JScrollPane();
 
 	JScrollPane PanelScroll2 = new JScrollPane(
-			JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-			JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+			ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
 	BorderLayout borderLayout2 = new BorderLayout();
 
@@ -126,10 +128,10 @@ public class DJChat extends JPanel
 
 		campoTexto.addKeyListener(new java.awt.event.KeyAdapter()
 		{
+			@Override
 			public void keyTyped(java.awt.event.KeyEvent e)
 			{
 				if (e.getKeyChar() == '\n')
-				{
 					if (campoTexto.getText().length() > 0)
 					{
 						DJChatEvent evento = new DJChatEvent();
@@ -137,14 +139,11 @@ public class DJChat extends JPanel
 								.intValue());
 						evento.mensaje = new String(campoTexto.getText());
 						for (int i = 0; i < djchatlisteners.size(); i++)
-						{
 							( (DJChatListener) djchatlisteners.elementAt(i) )
 									.nuevoMensaje(evento);
-						}
 
 						campoTexto.setText("");
 					}
-				}
 			}
 		});
 
@@ -202,10 +201,8 @@ public class DJChat extends JPanel
 
 			Vector v = getLJChatListeners();
 			for (i = 0; i < v.size(); i++)
-			{
 				( (LJChatListener) v.elementAt(i) ).nuevoMensaje(
 						evento.usuario, ev.mensaje);
-			}
 
 		}
 		else if (evento.tipo.intValue() == DJChatEvent.MENSAJE_PRIVADO
@@ -214,9 +211,7 @@ public class DJChat extends JPanel
 
 			DJChatEvent ev1 = (DJChatEvent) evento;
 
-			if (ev1.usuario.equals(DConector.Dusuario)) { 
-				return;
-			}
+			if (ev1.usuario.equals(DConector.Dusuario)) return;
 
 			if (!ev1.receptores.contains(DConector.Dusuario)) return;
 
@@ -228,10 +223,11 @@ public class DJChat extends JPanel
 				nuevaVentana.setTitle(":: Conversaci—n privada con "
 						+ ev1.usuario + " ::");
 				nuevaVentana.getContentPane().add(conversaciones.lastElement());
-				
+
 				conversaciones.lastElement().agregarReceptor(evento.usuario);
 
-				nuevaVentana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				nuevaVentana
+						.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
 				nuevaVentana.addWindowListener(new WindowAdapter()
 				{
@@ -240,6 +236,7 @@ public class DJChat extends JPanel
 
 					int index = nombres.size() - 1;
 
+					@Override
 					public void windowClosing(WindowEvent e)
 					{
 						p.cerrarConversacion();
@@ -267,10 +264,8 @@ public class DJChat extends JPanel
 
 			Vector v = getLJChatListeners();
 			for (i = 0; i < v.size(); i++)
-			{
 				( (LJChatListener) v.elementAt(i) ).nuevoMensaje(
 						evento.usuario, ev1.mensaje);
-			}
 		}
 		else if (evento.tipo.intValue() == DJChatEvent.FIN_CONVERSACION_PRIVADA
 				.intValue())
@@ -294,37 +289,30 @@ public class DJChat extends JPanel
 
 			Vector v = getLJChatListeners();
 			for (i = 0; i < v.size(); i++)
-			{
 				( (LJChatListener) v.elementAt(i) ).nuevoMensaje(
 						evento.usuario, ev2.mensaje);
-			}
 		}
 		else if (evento.tipo.intValue() == DJChatEvent.INICIAR_VC.intValue())
 		{
 
-			
-			
 			DJChatEvent ev2 = (DJChatEvent) evento;
-			
-			if (ev2.usuario.equals(DConector.Dusuario)) { 
-				return;
-			}
+
+			if (ev2.usuario.equals(DConector.Dusuario)) return;
 
 			if (!ev2.receptores.contains(DConector.Dusuario)) return;
-			
-			if (ev2.ipVC != null && ev2.ipVC != ""){
-				
-				
+
+			if (( ev2.ipVC != null ) && ( ev2.ipVC != "" ))
+			{
+
 				VideoConferencia.establecerOrigen();
 				VideoFrame ventana = new VideoFrame(ev2.ipVC);
 				ventana.setSize(400, 400);
 				ventana.setLocationRelativeTo(null);
 				ventana.run();
 			}
-			
-			
+
 			DJChatEvent respuesta = new DJChatEvent();
-			
+
 			respuesta.tipo = new Integer(DJChatEvent.RESPUESTA_INICIAR_VC);
 			try
 			{
@@ -335,28 +323,30 @@ public class DJChat extends JPanel
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 			respuesta.receptores.add(ev2.usuario);
-			
+
 			this.enviarEvento(respuesta);
 		}
-		else if (evento.tipo.intValue() == DJChatEvent.RESPUESTA_INICIAR_VC.intValue())
+		else if (evento.tipo.intValue() == DJChatEvent.RESPUESTA_INICIAR_VC
+				.intValue())
 		{
 
 			DJChatEvent ev2 = (DJChatEvent) evento;
 
-			// chequeamos que no sea un auto mensaje o que no seamos los receptores del mensaje
-			if (ev2.usuario.equals(DConector.Dusuario))  return;
+			// chequeamos que no sea un auto mensaje o que no seamos los
+			// receptores del mensaje
+			if (ev2.usuario.equals(DConector.Dusuario)) return;
 
 			if (!ev2.receptores.contains(DConector.Dusuario)) return;
-			
-			
+
 			// iniciamos la VC
-			if (ev2.ipVC != null && ev2.ipVC != ""){
-				
-				
-				JOptionPane.showMessageDialog(null, "IP de la nueva conversaci—n " + ev2.ipVC);
-				
+			if (( ev2.ipVC != null ) && ( ev2.ipVC != "" ))
+			{
+
+				JOptionPane.showMessageDialog(null,
+						"IP de la nueva conversaci—n " + ev2.ipVC);
+
 				VideoConferencia.establecerOrigen();
 				VideoFrame ventana = new VideoFrame(ev2.ipVC);
 				ventana.setSize(400, 400);
@@ -369,9 +359,7 @@ public class DJChat extends JPanel
 	public void enviarEvento(DJChatEvent e)
 	{
 		for (int i = 0; i < djchatlisteners.size(); i++)
-		{
 			( (DJChatListener) djchatlisteners.elementAt(i) ).nuevoMensaje(e);
-		}
 	}
 
 	public void sincronizar()
@@ -476,10 +464,8 @@ public class DJChat extends JPanel
 			evento.tipo = new Integer(DJChatEvent.MENSAJE.intValue());
 			evento.mensaje = new String(campoTexto.getText());
 			for (int i = 0; i < djchatlisteners.size(); i++)
-			{
 				( (DJChatListener) djchatlisteners.elementAt(i) )
 						.nuevoMensaje(evento);
-			}
 
 			campoTexto.setText("");
 		}
@@ -531,7 +517,6 @@ public class DJChat extends JPanel
 				evento = (DJChatEvent) cola.extraerEvento();
 				ultimoProcesado = new Integer(evento.contador.intValue());
 				if (nivelPermisos >= 10)
-				{
 					/*
 					 * System.out.println("HebraProcesadora(" + DID + "):
 					 * Procesado: Tipo=" + evento.tipo + " Ult. Proc.=" +
@@ -551,13 +536,10 @@ public class DJChat extends JPanel
 
 						Vector v = getLJChatListeners();
 						for (i = 0; i < v.size(); i++)
-						{
 							( (LJChatListener) v.elementAt(i) ).nuevoMensaje(
 									evento.usuario, evento.mensaje);
-						}
 
 					}
-				}
 			}
 		}
 	}

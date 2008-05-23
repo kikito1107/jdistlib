@@ -11,32 +11,42 @@ public class FicheroBD implements Serializable
 	 * 
 	 */
 	private static final long serialVersionUID = -6727437732098052591L;
+
 	private String nombre;
+
 	private int id_documento;
+
 	private boolean es_directorio;
+
 	private String permisos;
+
 	private MIUsuario usuario;
+
 	private MIRol rol;
+
 	private int padre;
+
 	private String ruta_local;
+
 	private String tipo;
-	
-	
+
 	public final static char PERMISO_LECTURA = 'r';
+
 	public final static char PERMISO_ESCRITURA = 'w';
-	
+
 	public FicheroBD()
 	{
-		
+
 	}
-	
-	public FicheroBD(int id, String nom, boolean dir, String perm, MIUsuario usu, MIRol ro, int pad, String ruta, String tip)
+
+	public FicheroBD( int id, String nom, boolean dir, String perm,
+			MIUsuario usu, MIRol ro, int pad, String ruta, String tip )
 	{
 		nombre = nom;
 		id_documento = id;
 		es_directorio = dir;
 		permisos = perm;
-		usuario = usu;	
+		usuario = usu;
 		rol = ro;
 		padre = pad;
 		ruta_local = ruta;
@@ -72,7 +82,7 @@ public class FicheroBD implements Serializable
 	{
 		return rol;
 	}
-	
+
 	public int getPadre()
 	{
 		return padre;
@@ -82,7 +92,7 @@ public class FicheroBD implements Serializable
 	{
 		return ruta_local;
 	}
-	
+
 	public String getTipo()
 	{
 		return tipo;
@@ -127,43 +137,38 @@ public class FicheroBD implements Serializable
 	{
 		this.ruta_local = ruta_local;
 	}
-	
+
 	public void setTipo(String tip)
 	{
 		this.tipo = tip;
 	}
-	
+
+	@Override
 	public String toString()
 	{
 		return this.nombre;
 	}
-	
-	public boolean comprobarPermisos(String u, String r, char modo){
-		
+
+	public boolean comprobarPermisos(String u, String r, char modo)
+	{
+
 		int index = -1;
-		
-		
-		
+
 		if (modo == FicheroBD.PERMISO_LECTURA)
 			index = 0;
 		else if (modo == FicheroBD.PERMISO_ESCRITURA)
 			index = 1;
-		else 
-			return false;
-		
+		else return false;
+
 		if (getUsuario().getNombreUsuario().equals(u))
 			index += 0;
-			
-		else if (getRol().getNombreRol().equals(r)){
+
+		else if (getRol().getNombreRol().equals(r))
 			index += 2;
-		}
-		else {
-			index += 4;
-		}
-		
+		else index += 4;
+
 		if (getPermisos().charAt(index) == modo)
 			return true;
-		else
-			return false;
+		else return false;
 	}
 }

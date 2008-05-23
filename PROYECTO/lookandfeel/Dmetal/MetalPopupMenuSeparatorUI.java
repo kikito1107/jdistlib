@@ -14,32 +14,35 @@ import javax.swing.JComponent;
 import javax.swing.plaf.ComponentUI;
 
 /**
- * A Metal L&F implementation of PopupMenuSeparatorUI.  This implementation
- * is a "combined" view/controller.
- *
+ * A Metal L&F implementation of PopupMenuSeparatorUI. This implementation is a
+ * "combined" view/controller.
+ * 
  * @version 1.7 01/23/03
  * @author Jeff Shapiro
  */
 
-public class MetalPopupMenuSeparatorUI
-	 extends MetalSeparatorUI {
-  public static ComponentUI createUI(JComponent c) {
-	 return new MetalPopupMenuSeparatorUI();
-  }
+public class MetalPopupMenuSeparatorUI extends MetalSeparatorUI
+{
+	public static ComponentUI createUI(JComponent c)
+	{
+		return new MetalPopupMenuSeparatorUI();
+	}
 
-  public void paint(Graphics g, JComponent c) {
-	 Dimension s = c.getSize();
+	public void paint(Graphics g, JComponent c)
+	{
+		Dimension s = c.getSize();
 
-	 g.setColor(c.getForeground());
-	 g.drawLine(0, 1, s.width, 1);
+		g.setColor(c.getForeground());
+		g.drawLine(0, 1, s.width, 1);
 
-	 g.setColor(c.getBackground());
-	 g.drawLine(0, 2, s.width, 2);
-	 g.drawLine(0, 0, 0, 0);
-	 g.drawLine(0, 3, 0, 3);
-  }
+		g.setColor(c.getBackground());
+		g.drawLine(0, 2, s.width, 2);
+		g.drawLine(0, 0, 0, 0);
+		g.drawLine(0, 3, 0, 3);
+	}
 
-  public Dimension getPreferredSize(JComponent c) {
-	 return new Dimension(0, 4);
-  }
+	public Dimension getPreferredSize(JComponent c)
+	{
+		return new Dimension(0, 4);
+	}
 }

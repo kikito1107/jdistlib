@@ -39,10 +39,10 @@ public class AudioCapture extends JFrame
 	public static void main(String args[])
 	{
 		new AudioCapture();
-	}//end main
+	}// end main
 
 	public AudioCapture()
-	{//constructor
+	{// constructor
 		final JButton captureBtn = new JButton("Capture");
 		final JButton stopBtn = new JButton("Stop");
 		final JButton playBtn = new JButton("Playback");
@@ -51,7 +51,7 @@ public class AudioCapture extends JFrame
 		stopBtn.setEnabled(false);
 		playBtn.setEnabled(false);
 
-		//Register anonymous listeners
+		// Register anonymous listeners
 		captureBtn.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -59,14 +59,14 @@ public class AudioCapture extends JFrame
 				captureBtn.setEnabled(false);
 				stopBtn.setEnabled(true);
 				playBtn.setEnabled(false);
-				//Capture input data from the
+				// Capture input data from the
 				// microphone until the Stop
 				// button is clicked.
 				captureAudio();
-			}//end actionPerformed
-		}//end ActionListener
-		);//end addActionListener()
-		
+			}// end actionPerformed
+		}// end ActionListener
+				);// end addActionListener()
+
 		getContentPane().add(captureBtn);
 
 		stopBtn.addActionListener(new ActionListener()
@@ -76,26 +76,26 @@ public class AudioCapture extends JFrame
 				captureBtn.setEnabled(true);
 				stopBtn.setEnabled(false);
 				playBtn.setEnabled(true);
-				//Terminate the capturing of
+				// Terminate the capturing of
 				// input data from the
 				// microphone.
 				stopCapture = true;
-			}//end actionPerformed
-		}//end ActionListener
-				);//end addActionListener()
+			}// end actionPerformed
+		}// end ActionListener
+				);// end addActionListener()
 		getContentPane().add(stopBtn);
 
 		playBtn.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				//Play back all of the data
+				// Play back all of the data
 				// that was saved during
 				// capture.
 				playAudio();
-			}//end actionPerformed
-		}//end ActionListener
-				);//end addActionListener()
+			}// end actionPerformed
+		}// end ActionListener
+				);// end addActionListener()
 		getContentPane().add(playBtn);
 
 		getContentPane().setLayout(new FlowLayout());
@@ -103,16 +103,16 @@ public class AudioCapture extends JFrame
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(250, 70);
 		setVisible(true);
-	}//end constructor
+	}// end constructor
 
-	//This method captures audio input
+	// This method captures audio input
 	// from a microphone and saves it in
 	// a ByteArrayOutputStream object.
 	private void captureAudio()
 	{
 		try
 		{
-			//Get everything set up for
+			// Get everything set up for
 			// capture
 			audioFormat = getAudioFormat();
 			DataLine.Info dataLineInfo = new DataLine.Info(
@@ -121,9 +121,9 @@ public class AudioCapture extends JFrame
 			targetDataLine.open(audioFormat);
 			targetDataLine.start();
 
-			//Create a thread to capture the
+			// Create a thread to capture the
 			// microphone data and start it
-			// running.  It will run until
+			// running. It will run until
 			// the Stop button is clicked.
 			Thread captureThread = new Thread(new CaptureThread());
 
@@ -132,23 +132,23 @@ public class AudioCapture extends JFrame
 		catch (Exception e)
 		{
 			System.out.println(e);
-			//System.exit(0);
-		}//end catch
-	}//end captureAudio method
+			// System.exit(0);
+		}// end catch
+	}// end captureAudio method
 
-	//This method plays back the audio
+	// This method plays back the audio
 	// data that has been saved in the
 	// ByteArrayOutputStream
 	private void playAudio()
 	{
 		try
 		{
-			//Get everything set up for
+			// Get everything set up for
 			// playback.
-			//Get the previously-saved data
+			// Get the previously-saved data
 			// into a byte array object.
 			byte audioData[] = byteArrayOutputStream.toByteArray();
-			//Get an input stream on the
+			// Get an input stream on the
 			// byte array containing the data
 			InputStream byteArrayInputStream = new ByteArrayInputStream(
 					audioData);
@@ -161,9 +161,9 @@ public class AudioCapture extends JFrame
 			sourceDataLine.open(audioFormat);
 			sourceDataLine.start();
 
-			//Create a thread to play back
+			// Create a thread to play back
 			// the data and start it
-			// running.  It will run until
+			// running. It will run until
 			// all the data has been played
 			// back.
 			Thread playThread = new Thread(new PlayThread());
@@ -172,13 +172,13 @@ public class AudioCapture extends JFrame
 		catch (Exception e)
 		{
 			System.out.println(e);
-			//System.exit(0);
-		}//end catch
-	}//end playAudio
+			// System.exit(0);
+		}// end catch
+	}// end playAudio
 
-	//This method creates and returns an
+	// This method creates and returns an
 	// AudioFormat object for a given set
-	// of format parameters.  If these
+	// of format parameters. If these
 	// parameters don't work well for
 	// you, try some of the other
 	// allowable parameter values, which
@@ -187,87 +187,83 @@ public class AudioCapture extends JFrame
 	private AudioFormat getAudioFormat()
 	{
 		float sampleRate = 8000.0F;
-		//8000,11025,16000,22050,44100
+		// 8000,11025,16000,22050,44100
 		int sampleSizeInBits = 16;
-		//8,16
+		// 8,16
 		int channels = 1;
-		//1,2
+		// 1,2
 		boolean signed = true;
-		//true,false
+		// true,false
 		boolean bigEndian = false;
-		//true,false
+		// true,false
 		return new AudioFormat(sampleRate, sampleSizeInBits, channels, signed,
 				bigEndian);
-	}//end getAudioFormat
-	//===================================//
+	}// end getAudioFormat
 
-	//Inner class to capture data from
+	// ===================================//
+
+	// Inner class to capture data from
 	// microphone
 	class CaptureThread extends Thread
 	{
-		//An arbitrary-size temporary holding
+		// An arbitrary-size temporary holding
 		// buffer
 		byte tempBuffer[] = new byte[10000];
 
+		@Override
 		public void run()
 		{
 			byteArrayOutputStream = new ByteArrayOutputStream();
 			stopCapture = false;
 			try
-			{//Loop until stopCapture is set
+			{// Loop until stopCapture is set
 				// by another thread that
 				// services the Stop button.
 				while (!stopCapture)
 				{
-					//Read data from the internal
+					// Read data from the internal
 					// buffer of the data line.
 					int cnt = targetDataLine.read(tempBuffer, 0,
 							tempBuffer.length);
-					if (cnt > 0)
-					{
-						//Save data in output stream
+					if (cnt > 0) // Save data in output stream
 						// object.
 						byteArrayOutputStream.write(tempBuffer, 0, cnt);
-					}//end if
-				}//end while
+				}// end while
 				byteArrayOutputStream.close();
 			}
 			catch (Exception e)
 			{
 				System.out.println(e);
-				//System.exit(0);
-			}//end catch
-		}//end run
-	}//end inner class CaptureThread
-	//===================================//
-	//Inner class to play back the data
+				// System.exit(0);
+			}// end catch
+		}// end run
+	}// end inner class CaptureThread
+
+	// ===================================//
+	// Inner class to play back the data
 	// that was saved.
 
 	class PlayThread extends Thread
 	{
 		byte tempBuffer[] = new byte[10000];
 
+		@Override
 		public void run()
 		{
 			try
 			{
 				int cnt;
-				//Keep looping until the input
+				// Keep looping until the input
 				// read method returns -1 for
 				// empty stream.
 				while (( cnt = audioInputStream.read(tempBuffer, 0,
 						tempBuffer.length) ) != -1)
-				{
-					if (cnt > 0)
-					{
-						//Write data to the internal
+					if (cnt > 0) // Write data to the internal
 						// buffer of the data line
 						// where it will be delivered
 						// to the speaker.
 						sourceDataLine.write(tempBuffer, 0, cnt);
-					}//end if
-				}//end while
-				//Block and wait for internal
+				// Block and wait for internal
 				// buffer of the data line to
 				// empty.
 				sourceDataLine.drain();
@@ -276,10 +272,10 @@ public class AudioCapture extends JFrame
 			catch (Exception e)
 			{
 				System.out.println(e);
-				//System.exit(0);
-			}//end catch
-		}//end run
-	}//end inner class PlayThread
-	//===================================//
+				// System.exit(0);
+			}// end catch
+		}// end run
+	}// end inner class PlayThread
+	// ===================================//
 
-}//end outer class AudioCapture01.java
+}// end outer class AudioCapture01.java

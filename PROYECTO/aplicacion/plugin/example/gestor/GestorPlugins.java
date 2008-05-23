@@ -32,11 +32,11 @@ public class GestorPlugins extends JFrame
 	private JButton EliminarPlugin = null;
 
 	private JButton AgregarPlugin = null;
-	
+
 	private DefaultTableModel defaultTableModel = null;
-	
+
 	private JScrollPane panelScroll = null;
-	
+
 	Vector<DAbstractPlugin> plugins = null;
 
 	/**
@@ -56,17 +56,19 @@ public class GestorPlugins extends JFrame
 	private void initialize()
 	{
 		this.setSize(379, 379);
-		this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Resources/brick.png")));
+		this.setIconImage(Toolkit.getDefaultToolkit().getImage(
+				getClass().getResource("/Resources/brick.png")));
 		this.setContentPane(getJContentPane());
 		this.setTitle(":: Gestor de Plugins ::");
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 
-	public void setPlugins(Vector<DAbstractPlugin> plgs){
+	public void setPlugins(Vector<DAbstractPlugin> plgs)
+	{
 		plugins = plgs;
-		
+
 	}
-	
+
 	/**
 	 * This method initializes jContentPane
 	 * 
@@ -83,20 +85,22 @@ public class GestorPlugins extends JFrame
 		}
 		return jContentPane;
 	}
-	
-	private JScrollPane getScroll(){
-		if (panelScroll == null){
+
+	private JScrollPane getScroll()
+	{
+		if (panelScroll == null)
+		{
 			panelScroll = new JScrollPane();
 			panelScroll.setViewportView(getTablaPluginsInstalados());
 		}
-		
+
 		return panelScroll;
 	}
 
 	/**
-	 * This method initializes TablaPluginsInstalados	
-	 * 	
-	 * @return javax.swing.JTable	
+	 * This method initializes TablaPluginsInstalados
+	 * 
+	 * @return javax.swing.JTable
 	 */
 	private JTable getTablaPluginsInstalados()
 	{
@@ -108,15 +112,15 @@ public class GestorPlugins extends JFrame
 			tablaPlugins.setShowGrid(true);
 			tablaPlugins.setCellSelectionEnabled(false);
 			tablaPlugins.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-			tablaPlugins.setRowSelectionAllowed(true);    
+			tablaPlugins.setRowSelectionAllowed(true);
 		}
 		return tablaPlugins;
 	}
 
 	/**
-	 * This method initializes PanelBotones	
-	 * 	
-	 * @return javax.swing.JPanel	
+	 * This method initializes PanelBotones
+	 * 
+	 * @return javax.swing.JPanel
 	 */
 	private JPanel getPanelBotones()
 	{
@@ -137,9 +141,9 @@ public class GestorPlugins extends JFrame
 	}
 
 	/**
-	 * This method initializes EliminarPlugin	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes EliminarPlugin
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getEliminarPlugin()
 	{
@@ -147,30 +151,30 @@ public class GestorPlugins extends JFrame
 		{
 			EliminarPlugin = new JButton();
 			EliminarPlugin.setText("Eliminar Plugin");
-			EliminarPlugin.setIcon(new ImageIcon(getClass().getResource("/Resources/brick_delete.png")));
-			EliminarPlugin.addActionListener(new java.awt.event.ActionListener()
-			{
-				public void actionPerformed(java.awt.event.ActionEvent e)
-				{
-					eliminarPlugin(tablaPlugins.getSelectedRow());
-				}
-			});
+			EliminarPlugin.setIcon(new ImageIcon(getClass().getResource(
+					"/Resources/brick_delete.png")));
+			EliminarPlugin
+					.addActionListener(new java.awt.event.ActionListener()
+					{
+						public void actionPerformed(java.awt.event.ActionEvent e)
+						{
+							eliminarPlugin(tablaPlugins.getSelectedRow());
+						}
+					});
 		}
 		return EliminarPlugin;
 	}
-	
-	
-	
+
 	private void eliminarPlugin(int numPlugin)
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	/**
-	 * This method initializes AgregarPlugin	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes AgregarPlugin
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getAgregarPlugin()
 	{
@@ -178,7 +182,8 @@ public class GestorPlugins extends JFrame
 		{
 			AgregarPlugin = new JButton();
 			AgregarPlugin.setText("Agregar nuevo plugin");
-			AgregarPlugin.setIcon(new ImageIcon(getClass().getResource("/Resources/brick_add.png")));
+			AgregarPlugin.setIcon(new ImageIcon(getClass().getResource(
+					"/Resources/brick_add.png")));
 			AgregarPlugin.addActionListener(new java.awt.event.ActionListener()
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
@@ -189,17 +194,18 @@ public class GestorPlugins extends JFrame
 		}
 		return AgregarPlugin;
 	}
-	
-	
-	
-	private void agregarNuevoPlugin(){
-		
-	}
-	
-	@SuppressWarnings("deprecation")
-	private DefaultTableModel getDefaultTableModel() {
 
-		if (defaultTableModel == null) {
+	private void agregarNuevoPlugin()
+	{
+
+	}
+
+	@SuppressWarnings( "deprecation" )
+	private DefaultTableModel getDefaultTableModel()
+	{
+
+		if (defaultTableModel == null)
+		{
 
 			defaultTableModel = new DefaultTableModel();
 			defaultTableModel.setRowCount(3);
@@ -210,26 +216,27 @@ public class GestorPlugins extends JFrame
 
 		return defaultTableModel;
 	}
-	
-	
-	
+
 	public void inicializarModelo()
 	{
 		if (PanelPrincipal.plugins == null) return;
-			
+
 		defaultTableModel.setNumRows(PanelPrincipal.plugins.size());
-		
-		for (int i=0; i<PanelPrincipal.plugins.size(); ++i) {
-			defaultTableModel.setValueAt(PanelPrincipal.plugins.get(i).getName(), i, 0);
-			defaultTableModel.setValueAt(PanelPrincipal.plugins.get(i).getVersion(), i, 1);
+
+		for (int i = 0; i < PanelPrincipal.plugins.size(); ++i)
+		{
+			defaultTableModel.setValueAt(PanelPrincipal.plugins.get(i)
+					.getName(), i, 0);
+			defaultTableModel.setValueAt(PanelPrincipal.plugins.get(i)
+					.getVersion(), i, 1);
 		}
 	}
 
-	public static void main(String[] args){
+	public static void main(String[] args)
+	{
 
 		new GestorPlugins().setVisible(true);
-		
+
 	}
 
-
-}  //  @jve:decl-index=0:visual-constraint="10,10"
+} // @jve:decl-index=0:visual-constraint="10,10"

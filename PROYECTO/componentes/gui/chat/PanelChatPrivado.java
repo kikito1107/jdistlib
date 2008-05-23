@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 
 import Deventos.DJChatEvent;
 import Deventos.enlaceJS.DConector;
@@ -20,30 +21,37 @@ public class PanelChatPrivado extends JPanel
 {
 
 	private static final long serialVersionUID = 1L;
+
 	private JPanel PanelIntroTexto = null;
+
 	private JTextField Texto = null;
+
 	private JButton botonEviar = null;
+
 	private JTextArea textoChat = null;
+
 	private String destinatario = null;
+
 	private DJChat padre = null;
-	
+
 	private Vector<String> receptores;
+
 	private JScrollPane jScrollPane = null;
+
 	/**
 	 * This is the default constructor
 	 */
-	public PanelChatPrivado(DJChat p)
+	public PanelChatPrivado( DJChat p )
 	{
 		super();
 		padre = p;
 		initialize();
 		receptores = new Vector<String>();
 	}
-	
-	
-	public void agregarReceptor(String nombre){
-		if ( !receptores.contains(nombre) )
-			receptores.add(nombre);
+
+	public void agregarReceptor(String nombre)
+	{
+		if (!receptores.contains(nombre)) receptores.add(nombre);
 	}
 
 	/**
@@ -64,9 +72,9 @@ public class PanelChatPrivado extends JPanel
 	}
 
 	/**
-	 * This method initializes PanelIntroTexto	
-	 * 	
-	 * @return javax.swing.JPanel	
+	 * This method initializes PanelIntroTexto
+	 * 
+	 * @return javax.swing.JPanel
 	 */
 	private JPanel getPanelIntroTexto()
 	{
@@ -84,9 +92,9 @@ public class PanelChatPrivado extends JPanel
 	}
 
 	/**
-	 * This method initializes Texto	
-	 * 	
-	 * @return javax.swing.JTextField	
+	 * This method initializes Texto
+	 * 
+	 * @return javax.swing.JTextField
 	 */
 	private JTextField getTexto()
 	{
@@ -96,9 +104,11 @@ public class PanelChatPrivado extends JPanel
 			Texto.setPreferredSize(new Dimension(200, 16));
 			Texto.addKeyListener(new java.awt.event.KeyAdapter()
 			{
+				@Override
 				public void keyTyped(java.awt.event.KeyEvent e)
 				{
-					if (e.getKeyChar() == '\n') {
+					if (e.getKeyChar() == '\n')
+					{
 						enviarMensaje(Texto.getText());
 						Texto.setText("");
 					}
@@ -109,9 +119,9 @@ public class PanelChatPrivado extends JPanel
 	}
 
 	/**
-	 * This method initializes botonEviar	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes botonEviar
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getBotonEviar()
 	{
@@ -119,7 +129,8 @@ public class PanelChatPrivado extends JPanel
 		{
 			botonEviar = new JButton();
 			botonEviar.setText("");
-			botonEviar.setIcon(new ImageIcon(getClass().getResource("/Resources/comment.png")));
+			botonEviar.setIcon(new ImageIcon(getClass().getResource(
+					"/Resources/comment.png")));
 			botonEviar.setPreferredSize(new Dimension(48, 42));
 			botonEviar.addActionListener(new java.awt.event.ActionListener()
 			{
@@ -128,34 +139,38 @@ public class PanelChatPrivado extends JPanel
 					// TODO Evento de env’o de mensaje
 					enviarMensaje(Texto.getText());
 					Texto.setText("");
-					
+
 				}
 			});
 		}
 		return botonEviar;
 	}
-	
+
 	/**
 	 * Envia un mesaje al usuario con el que estamos conversando
-	 * @param mensaje mensaje 
+	 * 
+	 * @param mensaje
+	 *            mensaje
 	 */
-	public void enviarMensaje(String mensaje){
-		
-		if (!mensaje.equals("") && destinatario != null) {
+	public void enviarMensaje(String mensaje)
+	{
+
+		if (!mensaje.equals("") && ( destinatario != null ))
+		{
 			DJChatEvent ev = new DJChatEvent();
 			ev.mensaje = new String(mensaje);
 			ev.tipo = new Integer(DJChatEvent.MENSAJE_PRIVADO);
 			ev.receptores = receptores;
-			
+
 			this.nuevoMensaje(DConector.Dusuario, Texto.getText());
 			padre.enviarEvento(ev);
 		}
 	}
 
 	/**
-	 * This method initializes textoChat	
-	 * 	
-	 * @return javax.swing.JTextArea	
+	 * This method initializes textoChat
+	 * 
+	 * @return javax.swing.JTextArea
 	 */
 	private JTextArea getTextoChat()
 	{
@@ -171,7 +186,8 @@ public class PanelChatPrivado extends JPanel
 
 	public void setDestinatario(String d)
 	{
-		if (destinatario == null || !destinatario.equals(d)) {
+		if (( destinatario == null ) || !destinatario.equals(d))
+		{
 			destinatario = d;
 			textoChat.setText("");
 		}
@@ -192,25 +208,25 @@ public class PanelChatPrivado extends JPanel
 
 	public void nuevoMensaje(String usuario, String mensaje)
 	{
-		textoChat.setText( textoChat.getText() + "\n[" + usuario + "]: " + mensaje );
+		textoChat.setText(textoChat.getText() + "\n[" + usuario + "]: "
+				+ mensaje);
 	}
 
-
 	/**
-	 * This method initializes jScrollPane	
-	 * 	
-	 * @return javax.swing.JScrollPane	
+	 * This method initializes jScrollPane
+	 * 
+	 * @return javax.swing.JScrollPane
 	 */
 	private JScrollPane getJScrollPane()
 	{
 		if (jScrollPane == null)
 		{
 			jScrollPane = new JScrollPane(getTextoChat(),
-					JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-					JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+					ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+					ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 			jScrollPane.setViewportView(getTextoChat());
 		}
 		return jScrollPane;
 	}
 
-}  //  @jve:decl-index=0:visual-constraint="7,19"
+} // @jve:decl-index=0:visual-constraint="7,19"

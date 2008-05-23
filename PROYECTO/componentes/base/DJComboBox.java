@@ -126,10 +126,7 @@ public class DJComboBox extends JComboBox
 	public boolean ocultoEnJerarquia()
 	{
 		boolean oculto = false;
-		if (padre.oculto() || padre.ocultoEnJerarquia())
-		{
-			oculto = true;
-		}
+		if (padre.oculto() || padre.ocultoEnJerarquia()) oculto = true;
 		return oculto;
 	}
 
@@ -157,6 +154,7 @@ public class DJComboBox extends JComboBox
 		return 0;
 	}
 
+	@Override
 	public String getUIClassID()
 	{
 		return uiClassID;
@@ -187,9 +185,7 @@ public class DJComboBox extends JComboBox
 			Container container = padre.getParent();
 			// System.out.print("");
 			while (!( container instanceof JFrame ))
-			{
 				container = container.getParent();
-			}
 			lmf = new ListenerMovimientoFrame();
 			( (JFrame) container ).addComponentListener(lmf);
 		}
@@ -198,10 +194,7 @@ public class DJComboBox extends JComboBox
 		DJComboBoxEvent evento = (DJComboBoxEvent) ev;
 		if (evento.tipo.intValue() == DJComboBoxEvent.ABIERTO.intValue())
 		{
-			if (!ocultoEnJerarquia())
-			{
-				showPopup();
-			}
+			if (!ocultoEnJerarquia()) showPopup();
 			popupVisible = true;
 		}
 		if (evento.tipo.intValue() == DJComboBoxEvent.CERRADO.intValue())
@@ -218,34 +211,28 @@ public class DJComboBox extends JComboBox
 
 			Vector v = getLJComboBoxListeners();
 			for (int i = 0; i < v.size(); i++)
-			{
 				( (LJComboBoxListener) v.elementAt(i) )
 						.elementoSeleccionado(evento.itemSeleccionado
 								.intValue());
-			}
 
 			if (evento.usuario.equals(DConector.Dusuario))
 			{
 				v = getLUJComboBoxListeners();
 				for (int i = 0; i < v.size(); i++)
-				{
 					( (LJComboBoxListener) v.elementAt(i) )
 							.elementoSeleccionado(evento.itemSeleccionado
 									.intValue());
-				}
 			}
 
 		}
 		if (evento.tipo.intValue() == DJComboBoxEvent.CAMBIO_SELECCION_LISTA
 				.intValue())
-		{
 			if (popupVisible)
 			{
 				( (DMetalComboBoxUI) getUI() )
 						.setItemLista(evento.seleccionLista.intValue());
 				itemSeleccionado = evento.seleccionLista.intValue();
 			}
-		}
 
 	}
 
@@ -275,13 +262,8 @@ public class DJComboBox extends JComboBox
 	{
 		nivelPermisos = nivel;
 		if (nivel >= 20)
-		{
 			setForeground(Color.BLACK);
-		}
-		else
-		{
-			setForeground(Color.GRAY);
-		}
+		else setForeground(Color.GRAY);
 	}
 
 	public Integer getID()
@@ -492,20 +474,15 @@ public class DJComboBox extends JComboBox
 			java.awt.event.ComponentAdapter
 	{
 
+		@Override
 		public void componentMoved(ComponentEvent e)
 		{
-			if (isPopupVisible())
+			if (isPopupVisible()) synchronized (this)
 			{
-				synchronized (this)
-				{
-					DMetalComboBoxUI ui = (DMetalComboBoxUI) getUI();
-					int index = ui.getItemSeleccionado();
-					showPopup();
-					if (index >= 0)
-					{
-						ui.setItemLista(index);
-					}
-				}
+				DMetalComboBoxUI ui = (DMetalComboBoxUI) getUI();
+				int index = ui.getItemSeleccionado();
+				showPopup();
+				if (index >= 0) ui.setItemLista(index);
 			}
 		}
 	}
@@ -603,7 +580,7 @@ public class DJComboBox extends JComboBox
 			ColaEventos colaAux = new ColaEventos();
 
 			int numEventos = colaRecepcion.tamanio(); // Para evitar quedarnos
-														// bloqueados
+			// bloqueados
 
 			// Buscamos si se ha recibido una respuesta de sincronizacion
 			for (int j = 0; j < numEventos; j++)
@@ -612,13 +589,8 @@ public class DJComboBox extends JComboBox
 				if (( respSincr == null )
 						&& ( saux.tipo.intValue() == DJComboBoxEvent.RESPUESTA_SINCRONIZACION
 								.intValue() ))
-				{
 					respSincr = saux;
-				}
-				else
-				{
-					colaAux.nuevoEvento(saux);
-				}
+				else colaAux.nuevoEvento(saux);
 			}
 
 			// addDJComboBoxListener(new Listener());
@@ -645,10 +617,7 @@ public class DJComboBox extends JComboBox
 			{
 				saux = (DJComboBoxEvent) colaAux.extraerEvento();
 				if (saux.ultimoProcesado.intValue() > ultimoProcesado
-						.intValue())
-				{
-					colaRecepcion.nuevoEvento(saux);
-				}
+						.intValue()) colaRecepcion.nuevoEvento(saux);
 			}
 
 			// Comenzamos a escuchar eventos del usuario
@@ -666,8 +635,8 @@ public class DJComboBox extends JComboBox
 					// Indicamos cual ha sido el último evento procesado
 					ultimoProcesado = new Integer(evento.contador.intValue());
 
-					if (evento.tipo.intValue() == DJComboBoxEvent.SINCRONIZACION
-							.intValue()
+					if (( evento.tipo.intValue() == DJComboBoxEvent.SINCRONIZACION
+							.intValue() )
 							&& !evento.usuario.equals(DConector.Dusuario))
 					{
 						DJComboBoxEvent aux = new DJComboBoxEvent();
@@ -688,16 +657,11 @@ public class DJComboBox extends JComboBox
 						colaEnvio.nuevoEvento(aux);
 					}
 					if (evento.tipo.intValue() == DJComboBoxEvent.ABIERTO
-							.intValue())
-					{
-						combobox.showPopup();
-					}
+							.intValue()) combobox.showPopup();
 					if (evento.tipo.intValue() == DJComboBoxEvent.CERRADO
 							.intValue())
-					{
 						( (DMetalComboBoxUI) combobox.getUI() ).mcp
 								.setVisible(false);
-					}
 					if (evento.tipo.intValue() == DJComboBoxEvent.SELECCIONADO
 							.intValue())
 					{
@@ -709,14 +673,10 @@ public class DJComboBox extends JComboBox
 					}
 					if (evento.tipo.intValue() == DJComboBoxEvent.CAMBIO_SELECCION_LISTA
 							.intValue())
-					{
 						if (combobox.isPopupVisible())
-						{
 							( (DMetalComboBoxUI) combobox.getUI() )
 									.setItemLista(evento.seleccionLista
 											.intValue());
-						}
-					}
 				}
 			}
 		}

@@ -5,8 +5,7 @@ import aplicacion.plugin.example.gestor.GestorPlugins;
 
 public class DGestorPlugins extends DAbstractPlugin
 {
-	
-	
+
 	private GestorPlugins gestorPlugin = null;
 
 	/**
@@ -14,7 +13,7 @@ public class DGestorPlugins extends DAbstractPlugin
 	 */
 	private static final long serialVersionUID = -6310087937591625336L;
 
-	public DGestorPlugins(  ) throws Exception
+	public DGestorPlugins() throws Exception
 	{
 		super("GestorPlugin", false, null);
 		init();
@@ -34,16 +33,15 @@ public class DGestorPlugins extends DAbstractPlugin
 		version = 1;
 		nombre = "Gestor Plugins";
 		jarFile = "ejemplo.jar";
-		
+
 		gestorPlugin = new GestorPlugins();
 	}
-	
-	
+
 	@Override
 	public void start() throws Exception
 	{
 		// TODO Auto-generated method stub
-		
+
 		gestorPlugin.inicializarModelo();
 		gestorPlugin.pack();
 		gestorPlugin.setLocationRelativeTo(null);

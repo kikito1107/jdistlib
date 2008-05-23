@@ -7,59 +7,57 @@ import java.util.Vector;
 
 public class DPluginLoader
 {
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public static DAbstractPlugin getPlugin(String file) throws Exception
-	{						
+	{
 		String classname = file.replaceAll("/", ".");
 		classname = classname.replaceAll(".class", "");
-		
+
 		System.out.println(classname);
-		
+
 		Class c = Class.forName(classname);
-		
-		DAbstractPlugin dap = (DAbstractPlugin)c.newInstance();
-				
+
+		DAbstractPlugin dap = (DAbstractPlugin) c.newInstance();
+
 		return dap;
 	}
-	
-	public static Vector<DAbstractPlugin> getAllPlugins(String directory) throws Exception
+
+	public static Vector<DAbstractPlugin> getAllPlugins(String directory)
+			throws Exception
 	{
 		Vector<DAbstractPlugin> res = new Vector<DAbstractPlugin>();
-		
+
 		File dir = new File(directory);
 		String children[] = dir.list();
 		if (children == null)
-		{
-			throw new Exception("El directorio no existe o el path no corresponde a un directorio");
-		}
-		
+			throw new Exception(
+					"El directorio no existe o el path no corresponde a un directorio");
 		else
 		{
-			BufferedReader br = new BufferedReader(new FileReader(directory+"/dplugin.cnf"));
-			
+			BufferedReader br = new BufferedReader(new FileReader(directory
+					+ "/dplugin.cnf"));
+
 			Vector<String> tipos = new Vector<String>();
-			
+
 			boolean fin = false;
-			while(!fin)
+			while (!fin)
 			{
 				String aux = br.readLine();
-				
+
 				System.out.println(aux);
-				
-				if (aux != null) tipos.add(aux);
+
+				if (aux != null)
+					tipos.add(aux);
 				else fin = true;
 			}
-			
+
 			File childs[] = dir.listFiles();
-			for (int i=0; i<childs.length; i++)
-			{
-				if (!childs[i].isDirectory() && tipos.contains(childs[i].getPath()))
-				{
+			for (int i = 0; i < childs.length; i++)
+				if (!childs[i].isDirectory()
+						&& tipos.contains(childs[i].getPath()))
 					res.add(getPlugin(childs[i].getPath()));
-				}
-			}
 		}
-		
+
 		return res;
 	}
 }

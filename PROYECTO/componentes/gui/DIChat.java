@@ -17,192 +17,237 @@ import componentes.listeners.LJChatListener;
  * Chat con el que pueden hablar todos los usuarios de la aplicacion
  */
 
-public class DIChat
-	 extends DComponenteBase {
-  DJChat chat = new DJChat();
+public class DIChat extends DComponenteBase
+{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 370978067165523554L;
 
-  /**
-	* @param nombre String Nombre del componente.
-	* @param conexionDC boolean TRUE si esta en contacto directo con el DConector
-	* (no es hijo de ningun otro componente) y FALSE en otro caso
-	* @param padre DComponenteBase Componente padre de este componente. Si no
-	* tiene padre establecer a null
-	*/
-  public DIChat(String nombre, boolean conexionDC, DComponenteBase padre) {
-	 super(nombre, conexionDC, padre);
+	DJChat chat = new DJChat();
 
-	 try {
-		jbInit();
-	 }
-	 catch (Exception e) {
-		e.printStackTrace();
-	 }
-  }
+	/**
+	 * @param nombre
+	 *            String Nombre del componente.
+	 * @param conexionDC
+	 *            boolean TRUE si esta en contacto directo con el DConector (no
+	 *            es hijo de ningun otro componente) y FALSE en otro caso
+	 * @param padre
+	 *            DComponenteBase Componente padre de este componente. Si no
+	 *            tiene padre establecer a null
+	 */
+	public DIChat( String nombre, boolean conexionDC, DComponenteBase padre )
+	{
+		super(nombre, conexionDC, padre);
 
-  private void jbInit() throws Exception {
-	 this.setLayout(new BorderLayout());
-	 this.add(chat, null);
-	 chat.addDJChatListener(crearDJListener());
-	 //desactivar();//*******************************************************************************
-  }
-  
-  
-  public void limpiarTexto(){
-	  chat.limpiarTexto();
-  }
-  
-  public String getTexto(){
-	  return chat.getTexto();
-  }
- 
-  
-  public void setFuente(Font f){
-	  chat.setFuente(f);
-  }
+		try
+		{
+			jbInit();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 
-  /**
-	* Establece el nivel de permisos de este componente. No se recomienda
-	* llamar a este método desde el programa. Será llamado de forma automática
-	* cuando sea necesario
-	* @param nivel int Nivel que queremos establecer
-	*/
-  public void setNivelPermisos(int nivel) {
-	 super.setNivelPermisos(nivel);
-	 if (nivel < 20) {
-		chat.permisoLectura();
-	 }
-	 else {
-		chat.permisoLecturaEscritura();
-	 }
-  }
+	private void jbInit() throws Exception
+	{
+		this.setLayout(new BorderLayout());
+		this.add(chat, null);
+		chat.addDJChatListener(crearDJListener());
+		// desactivar();//*******************************************************************************
+	}
 
-  /**
-	* Obtiene el numero de componentes hijos de este componente. SIEMPRE devuelve 0
-	* @return int Número de componentes hijos. SIEMPRE devuelve 0.
-	*/
-  public int obtenerNumComponentesHijos() {
-	 return 0;
-  }
+	public void limpiarTexto()
+	{
+		chat.limpiarTexto();
+	}
 
-  /**
-	* Añade un DJListener a la clase captadora para recibir los eventos generados
-	* por la interaccion del usuario con el componente
-	* @param listener DJChatListener Listener a añadir
-	*/
-  public void addDJChatListener(DJChatListener listener) {
-	 chat.addDJChatListener(listener);
-  }
+	public String getTexto()
+	{
+		return chat.getTexto();
+	}
 
-  /**
-	* Añade un LListener al componente para ser notificado cuando cambie el
-	* estado del componente
-	* @param listener LJChatListener Listener a añadir
-	*/
-  public void addLJChatListener(LJChatListener listener) {
-	 chat.addLJChatListener(listener);
-  }
+	public void setFuente(Font f)
+	{
+		chat.setFuente(f);
+	}
 
-  /**
-	* Obtiene los DJListener que tiene asociado el componente
-	* @return Vector Vector de listeners DJChatListener
-	*/
-  public Vector getDJChatListeners() {
-	 return chat.getDJChatListeners();
-  }
+	/**
+	 * Establece el nivel de permisos de este componente. No se recomienda
+	 * llamar a este método desde el programa. Será llamado de forma automática
+	 * cuando sea necesario
+	 * 
+	 * @param nivel
+	 *            int Nivel que queremos establecer
+	 */
+	@Override
+	public void setNivelPermisos(int nivel)
+	{
+		super.setNivelPermisos(nivel);
+		if (nivel < 20)
+			chat.permisoLectura();
+		else chat.permisoLecturaEscritura();
+	}
 
-  /**
-	* Obtiene los LJListener que tiene asociado el componente
-	* @return Vector Vector de listeners LJChatListener
-	*/
-  public Vector getLJChatListeners() {
-	 return chat.getLJChatListeners();
-  }
+	/**
+	 * Obtiene el numero de componentes hijos de este componente. SIEMPRE
+	 * devuelve 0
+	 * 
+	 * @return int Número de componentes hijos. SIEMPRE devuelve 0.
+	 */
+	@Override
+	public int obtenerNumComponentesHijos()
+	{
+		return 0;
+	}
 
-  /**
-	* Elimina todos los DJListeners que tiene asociado el componente
-	*/
-  public void removeDJChatListeners() {
-	 chat.removeDJChatListeners();
-  }
+	/**
+	 * Añade un DJListener a la clase captadora para recibir los eventos
+	 * generados por la interaccion del usuario con el componente
+	 * 
+	 * @param listener
+	 *            DJChatListener Listener a añadir
+	 */
+	public void addDJChatListener(DJChatListener listener)
+	{
+		chat.addDJChatListener(listener);
+	}
 
-  /**
-	* Elimina todos los LJListeners que tiene asociado el componente
-	*/
-  public void removeLJChatListeners() {
-	 chat.removeLJChatListeners();
-  }
+	/**
+	 * Añade un LListener al componente para ser notificado cuando cambie el
+	 * estado del componente
+	 * 
+	 * @param listener
+	 *            LJChatListener Listener a añadir
+	 */
+	public void addLJChatListener(LJChatListener listener)
+	{
+		chat.addLJChatListener(listener);
+	}
 
-  /**
-	* Activa el componente. No se recomienda llamar a este metodo desde el
-	* programa. Sera llamado de forma automatica cuando sea necesario
-	*/
-  public void activar() {
-	 chat.activar();
-  }
+	/**
+	 * Obtiene los DJListener que tiene asociado el componente
+	 * 
+	 * @return Vector Vector de listeners DJChatListener
+	 */
+	public Vector getDJChatListeners()
+	{
+		return chat.getDJChatListeners();
+	}
 
-  /**
-	* Desctiva el componente. No se recomienda llamar a este metodo desde el
-	* programa. Sera llamado de forma automatica cuando sea necesario
-	*/
-  public void desactivar() {
-	 chat.desactivar();
-  }
+	/**
+	 * Obtiene los LJListener que tiene asociado el componente
+	 * 
+	 * @return Vector Vector de listeners LJChatListener
+	 */
+	public Vector getLJChatListeners()
+	{
+		return chat.getLJChatListeners();
+	}
 
-  /**
-	* Mediante una llamada a este método se envía un mensaje de peticion de
-	* sincronizacion. En este componente no se realiza sincronizacion por lo
-	* que no tiene utilidad ninguna.
-	*/
-  public void sincronizar() {
-	 // Este componente no realiza sincronizacion
-  }
+	/**
+	 * Elimina todos los DJListeners que tiene asociado el componente
+	 */
+	public void removeDJChatListeners()
+	{
+		chat.removeDJChatListeners();
+	}
 
-  public DJChatListener crearDJListener() {
-	 return new Listener();
-  }
+	/**
+	 * Elimina todos los LJListeners que tiene asociado el componente
+	 */
+	public void removeLJChatListeners()
+	{
+		chat.removeLJChatListeners();
+	}
 
-  /**
-	* Devuelve una nueva instancia de la hebra que se encargara de procesar
-	* los eventos que se reciban. Este metodo no debe llamarse de forma directa.
-	* Sera llamado de forma automatica cuando sea necesario.
-	* @return HebraProcesadoraBase Nueva hebra procesadora
-	*/
-  public HebraProcesadoraBase crearHebraProcesadora() {
-	 return new HebraProcesadora(this);
-  }
+	/**
+	 * Activa el componente. No se recomienda llamar a este metodo desde el
+	 * programa. Sera llamado de forma automatica cuando sea necesario
+	 */
+	@Override
+	public void activar()
+	{
+		chat.activar();
+	}
 
-  private class Listener
-		implements DJChatListener {
-	 public void nuevoMensaje(DJChatEvent evento) {
-		enviarEvento(evento);
-	 }
-  }
+	/**
+	 * Desctiva el componente. No se recomienda llamar a este metodo desde el
+	 * programa. Sera llamado de forma automatica cuando sea necesario
+	 */
+	@Override
+	public void desactivar()
+	{
+		chat.desactivar();
+	}
 
-  /**
-	* Hebra procesadora de eventos. Se encarga de realizar las acciones que
-	* correspondan cuando recibe un evento. En este caso no se realiza
-	* sincronizacion dado que no es necesario.
-	*/
-  class HebraProcesadora
-		extends HebraProcesadoraBase {
+	/**
+	 * Mediante una llamada a este método se envía un mensaje de peticion de
+	 * sincronizacion. En este componente no se realiza sincronizacion por lo
+	 * que no tiene utilidad ninguna.
+	 */
+	@Override
+	public void sincronizar()
+	{
+		// Este componente no realiza sincronizacion
+	}
 
-	 HebraProcesadora(DComponente dc) {
-		super(dc);
-	 }
+	public DJChatListener crearDJListener()
+	{
+		return new Listener();
+	}
 
-	 public void run() {
-		DJChatEvent evento = null;
-		//System.out.println("iniciada hebra procesadora");
+	/**
+	 * Devuelve una nueva instancia de la hebra que se encargara de procesar los
+	 * eventos que se reciban. Este metodo no debe llamarse de forma directa.
+	 * Sera llamado de forma automatica cuando sea necesario.
+	 * 
+	 * @return HebraProcesadoraBase Nueva hebra procesadora
+	 */
+	@Override
+	public HebraProcesadoraBase crearHebraProcesadora()
+	{
+		return new HebraProcesadora(this);
+	}
 
-		activar();
+	private class Listener implements DJChatListener
+	{
+		public void nuevoMensaje(DJChatEvent evento)
+		{
+			enviarEvento(evento);
+		}
+	}
 
-		while (true) {
-		  evento = (DJChatEvent) leerSiguienteEvento();
-		  ultimoProcesado = new Integer(evento.contador.intValue());
-		  chat.procesarEvento(evento);
+	/**
+	 * Hebra procesadora de eventos. Se encarga de realizar las acciones que
+	 * correspondan cuando recibe un evento. En este caso no se realiza
+	 * sincronizacion dado que no es necesario.
+	 */
+	class HebraProcesadora extends HebraProcesadoraBase
+	{
+
+		HebraProcesadora( DComponente dc )
+		{
+			super(dc);
 		}
 
-	 }
-  }
+		@Override
+		public void run()
+		{
+			DJChatEvent evento = null;
+			// System.out.println("iniciada hebra procesadora");
+
+			activar();
+
+			while (true)
+			{
+				evento = (DJChatEvent) leerSiguienteEvento();
+				ultimoProcesado = new Integer(evento.contador.intValue());
+				chat.procesarEvento(evento);
+			}
+
+		}
+	}
 
 }
