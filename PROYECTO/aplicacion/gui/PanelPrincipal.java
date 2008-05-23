@@ -280,7 +280,7 @@ public class PanelPrincipal extends DComponenteBase
 		try
 		{
 
-			plugins = DPluginLoader.getAllPlugins("aplicacion/plugin/example");
+			plugins = DPluginLoader.getAllPlugins("plugin");
 
 			BorderLayout borderLayout = new BorderLayout();
 			borderLayout.setHgap(0);
