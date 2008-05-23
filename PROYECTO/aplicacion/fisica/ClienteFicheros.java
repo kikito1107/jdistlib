@@ -33,12 +33,18 @@ public class ClienteFicheros
 
 	public static String clave = null;
 
+
 	public static String aplicacion = null;
 
 	public static String rol = null;
 
 	private static final long leaseWriteTime = Lease.FOREVER;
 
+  
+  public DefaultMutableTreeNode getRaiz() {
+	  return raiz;
+  }
+  
 	private static final long leaseReadTime = 10000L;
 
 	private JavaSpace space = null;
@@ -66,18 +72,6 @@ public class ClienteFicheros
 		inicializar();
 	}
 
-	@SuppressWarnings( "static-access" )
-	public ClienteFicheros( String aplicacion, String usuario, String clave,
-			JFrame frame, JavaSpace space )
-	{
-		this.aplicacion = new String(aplicacion);
-		this.usuario = new String(usuario);
-		this.clave = clave;
-		this.space = space;
-		cf = this;
-
-		inicializar();
-	}
 
 	private void localizarJavaSpace()
 	{
@@ -103,8 +97,8 @@ public class ClienteFicheros
 	}
 
 	/**
-	 * inicializa el cliente enviando una solicitud de sincronizaci—n al
-	 * servidor de Metainformaci—n
+	 * inicializa el cliente enviando una solicitud de sincronizaciï¿½n al
+	 * servidor de Metainformaciï¿½n
 	 */
 	public void inicializar()
 	{
@@ -112,18 +106,18 @@ public class ClienteFicheros
 		{
 			// ********** SINCRONIZACION CON EL SERVIDOR DE ficheros *********//
 
-			// evento en el que se almacenar‡ la respuesta del servidor a la
-			// petici—n de sincronizaci—n del SF
+			// evento en el que se almacenarï¿½ la respuesta del servidor a la
+			// peticiï¿½n de sincronizaciï¿½n del SF
 			DNodeEvent leido = null;
 
-			// evento que ser‡ enviado al servidor para solicitar sincronizaci—n
+			// evento que serï¿½ enviado al servidor para solicitar sincronizaciï¿½n
 			DEvent evento = new DEvent();
 
-			// evento "template" utilizado para leer la respuesta a la petici—n
-			// de sincronizaci—n del servidor
+			// evento "template" utilizado para leer la respuesta a la peticiï¿½n
+			// de sincronizaciï¿½n del servidor
 			DNodeEvent plantilla = new DNodeEvent();
 
-			// aleatorio que servir‡ de ID de la petici—n de sincronizacion
+			// aleatorio que servirï¿½ de ID de la peticiï¿½n de sincronizacion
 			int idEvento = aleatorio();
 
 			// origen y destino del evento
@@ -176,11 +170,6 @@ public class ClienteFicheros
 							"Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
-	}
-
-	public DefaultMutableTreeNode getRaiz()
-	{
-		return raiz;
 	}
 
 	public void borrarFichero(FicheroBD f, String aplicacion)
@@ -304,7 +293,7 @@ public class ClienteFicheros
 			leido = (DDocumentEvent) space.take(plantilla, null,
 					4 * leaseReadTime);
 
-			System.out.println("Recibida respuesta direcci—n "
+			System.out.println("Recibida respuesta direcciï¿½n "
 					+ leido.direccionRespuesta);
 			System.out.println("para el path " + leido.path);
 			System.out.println("para el usuario " + leido.direccionRespuesta);
@@ -373,7 +362,7 @@ public class ClienteFicheros
 		}
 
 		/**
-		 * Método que ejecuta la hebra
+		 * Mï¿½todo que ejecuta la hebra
 		 */
 		public void run()
 		{
@@ -477,7 +466,7 @@ public class ClienteFicheros
 	/**
 	 * Dado el comportamiento concurrente de las 2 Hebras mediante este Monitor
 	 * gestionamos la informacion sobre la inicializacion. La clase DConector
-	 * realizara una llamada a inicializacionCorrecta() quedándose bloqueada
+	 * realizara una llamada a inicializacionCorrecta() quedï¿½ndose bloqueada
 	 * hasta que se producza la correcta localizacion del JavaSpace o se
 	 * sobrepase el tiempo de espera sin haber sido localizado.
 	 */
