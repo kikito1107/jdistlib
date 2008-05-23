@@ -116,30 +116,17 @@ public class TransferP2P
 				System.setProperty("java.rmi.server.codebase", "file:/" + ruta
 						+ "/");
 
-				boolean registrado;
-
-				try
-				{
-					LocateRegistry.getRegistry(port);
-					registrado = true;
-				}
-				catch (Exception e)
-				{
-					e.printStackTrace();
-					registrado = false;
-				}
-
 				try
 				{
 					// Iniciamos el servidor RMIRegistry
-					if (!registrado) LocateRegistry.createRegistry(port);
+					LocateRegistry.createRegistry(port);
 				}
 				catch (Exception e)
 				{
-					e.printStackTrace();
-					port = 8867;
-					LocateRegistry.createRegistry(port);
-					System.out.println("Registrado RMI en el puerto " + port);
+					//e.printStackTrace();
+					
+					//se lanza una excepcion esperada, porque se hace un registro
+					//duplicado. no modificar nada.
 				}
 
 				// Se publica el objeto AccesoMesa
