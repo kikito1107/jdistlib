@@ -17,7 +17,7 @@ public class TransferP2P
 
 	private int puerto;
 
-	public static int port = 1101;
+	public static int port = 8866;
 
 	private static boolean serverExecuted = false;
 
@@ -135,7 +135,7 @@ public class TransferP2P
 				}
 				catch (Exception e)
 				{
-					port = 1333;
+					port = 8867;
 					LocateRegistry.createRegistry(port);
 					System.out.println("Registrado RMI en el puerto " + port);
 				}
