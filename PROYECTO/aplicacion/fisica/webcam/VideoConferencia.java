@@ -30,7 +30,7 @@ public class VideoConferencia
 
 	private static final int port = 4445;
 
-	public static boolean serverExecuted = false;
+	private static boolean serverExecuted = false;
 
 	private Vector<ObjectOutputStream> salida = null;
 

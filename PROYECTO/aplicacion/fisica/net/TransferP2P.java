@@ -19,7 +19,7 @@ public class TransferP2P
 
 	public static int port = 1101;
 
-	public static boolean serverExecuted = false;
+	private static boolean serverExecuted = false;
 
 	private static Thread hebra = null;
 
@@ -29,9 +29,19 @@ public class TransferP2P
 		id = identificador;
 	}
 
-	public static void establecerServidor(int id, Documento doc)
+	private static synchronized void setServerExecuted(boolean b)
 	{
-		if (!serverExecuted)
+		serverExecuted = b;
+	}
+	
+	private static synchronized boolean getServerExecuted()
+	{
+		return serverExecuted;
+	}
+	
+	public synchronized static void establecerServidor(int id, Documento doc)
+	{
+		if (!getServerExecuted())
 		{
 			TransferP2P ts = new TransferP2P("", 0, 0);
 
@@ -39,20 +49,20 @@ public class TransferP2P
 			hebra = new Thread(s);
 			hebra.start();
 
-			serverExecuted = true;
+			setServerExecuted(true);
 		}
 	}
 
-	public static void pararHebra()
+	public synchronized static void pararHebra()
 	{
-		if (serverExecuted)
+		if (getServerExecuted())
 		{
 
-			serverExecuted = false;
+			setServerExecuted(false);
 			System.out.println("PARANDO LA HEBRA");
 			try
 			{
-				Thread.sleep(1000L);
+				Thread.sleep(2000L);
 			}
 			catch (InterruptedException e)
 			{
@@ -152,10 +162,10 @@ public class TransferP2P
 
 			// esperamos hasta que se le indique a la hebra parar: serverExectud
 			// == false
-			while (serverExecuted)
+			while (getServerExecuted())
 				try
 				{
-					Thread.sleep(1000);
+					Thread.sleep(1000L);
 				}
 				catch (Exception ex)
 				{

@@ -14,7 +14,7 @@ public class Transfer
 
 	private static final int port = 1099;
 
-	public static boolean serverExecuted = false;
+	private static boolean serverExecuted = false;
 
 	public Transfer( String ip_orig, String fich )
 	{

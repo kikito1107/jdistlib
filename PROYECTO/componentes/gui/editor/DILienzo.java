@@ -901,6 +901,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 				TransferP2P.pararHebra();
 
 				TransferP2P.establecerServidor(id, doc);
+				
 				try
 				{
 					evt.direccionRMI = new String(InetAddress.getLocalHost()
