@@ -127,6 +127,7 @@ public class TransferP2P
 				}
 				catch (Exception e)
 				{
+					e.printStackTrace();
 					registrado = false;
 				}
 
@@ -137,6 +138,7 @@ public class TransferP2P
 				}
 				catch (Exception e)
 				{
+					e.printStackTrace();
 					port = 8867;
 					LocateRegistry.createRegistry(port);
 					System.out.println("Registrado RMI en el puerto " + port);
