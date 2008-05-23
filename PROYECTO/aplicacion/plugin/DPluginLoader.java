@@ -55,23 +55,6 @@ public class DPluginLoader
 					"El directorio no existe o el path no corresponde a un directorio");
 		else
 		{
-			BufferedReader br = new BufferedReader(new FileReader(directory
-					+ "/dplugin.cnf"));
-			
-			Vector<String> tipos = new Vector<String>();
-
-			boolean fin = false;
-			while (!fin)
-			{
-				String aux = br.readLine();
-
-				if (aux != null)
-					tipos.add(aux);
-				else fin = true;
-			}
-			
-			br.close();
-
 			File childs[] = dir.listFiles();
 			for (int i = 0; i < childs.length; i++)
 				if (!childs[i].isDirectory() && childs[i].getPath().toLowerCase().endsWith(".jar"))
