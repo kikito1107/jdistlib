@@ -4,7 +4,7 @@
 <options buildIfNeeded="true" compress="true" descriptionLocation="/PROYECTO/jarServidorFicheros.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="true" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
 <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
 <selectedProjects/>
-<manifest generateManifest="false" mainClassHandleIdentifier="=PROYECTO/&lt;aplicacion.main{MainServidorFicheros.java[MainServidorFicheros" manifestLocation="/PROYECTO/MANIFEST.MF" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
+<manifest generateManifest="false" mainClassHandleIdentifier="=PROYECTO/&lt;aplicacion.main{MainServidorFicheros.java[MainServidorFicheros" manifestLocation="/PROYECTO/MANIFEST_SERVIDOR_FICHEROS.MF" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
 <sealing sealJar="false">
 <packagesToSeal/>
 <packagesToUnSeal/>
