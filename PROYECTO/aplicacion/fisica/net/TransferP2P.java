@@ -15,8 +15,6 @@ public class TransferP2P
 
 	private int id;
 
-	private int puerto;
-
 	public static int port = 8866;
 
 	private static boolean serverExecuted = false;
@@ -78,7 +76,7 @@ public class TransferP2P
 		try
 		{
 			InterfazTransferenciaFicheroP2P ar = (InterfazTransferenciaFicheroP2P) Naming
-					.lookup("//" + ip_origen + ":" + puerto
+					.lookup("//" + ip_origen + ":" + port
 							+ "/TransferenciaFicheroP2P" + id);
 
 			return ar.getDocumento();
@@ -150,7 +148,7 @@ public class TransferP2P
 				
 				host = InetAddress.getLocalHost().getHostName();
 				
-				Naming.rebind("//"+host+":" + puerto
+				Naming.rebind("//"+host+":" + port
 						+ "/TransferenciaFicheroP2P" + id, tf);
 
 				System.out.println("Servicio RMI activo en " + host
@@ -162,6 +160,7 @@ public class TransferP2P
 			}
 			catch (Exception e)
 			{
+				e.printStackTrace();
 				System.err.println("Error en la ejecucion de RMI: "
 						+ e.getMessage());
 			}
@@ -182,7 +181,7 @@ public class TransferP2P
 			try
 			{
 				// desligamos el nombre del objeto anteriormente registrado
-				Naming.unbind("//"+host+":" + puerto
+				Naming.unbind("//"+host+":" + port
 						+ "/TransferenciaFicheroP2P" + id);
 				System.out.println("Objeto desligado!!!");
 			}
