@@ -6,7 +6,6 @@ import java.util.Random;
 
 import javaspaces.SpaceLocator;
 
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -33,18 +32,17 @@ public class ClienteFicheros
 
 	public static String clave = null;
 
-
 	public static String aplicacion = null;
 
 	public static String rol = null;
 
 	private static final long leaseWriteTime = Lease.FOREVER;
 
-  
-  public DefaultMutableTreeNode getRaiz() {
-	  return raiz;
-  }
-  
+	public DefaultMutableTreeNode getRaiz()
+	{
+		return raiz;
+	}
+
 	private static final long leaseReadTime = 10000L;
 
 	private JavaSpace space = null;
@@ -71,7 +69,6 @@ public class ClienteFicheros
 
 		inicializar();
 	}
-
 
 	private void localizarJavaSpace()
 	{
@@ -110,10 +107,12 @@ public class ClienteFicheros
 			// petici�n de sincronizaci�n del SF
 			DNodeEvent leido = null;
 
-			// evento que ser� enviado al servidor para solicitar sincronizaci�n
+			// evento que ser� enviado al servidor para solicitar
+			// sincronizaci�n
 			DEvent evento = new DEvent();
 
-			// evento "template" utilizado para leer la respuesta a la petici�n
+			// evento "template" utilizado para leer la respuesta a la
+			// petici�n
 			// de sincronizaci�n del servidor
 			DNodeEvent plantilla = new DNodeEvent();
 
