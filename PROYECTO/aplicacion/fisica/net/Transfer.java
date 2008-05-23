@@ -22,16 +22,26 @@ public class Transfer
 		ip_origen = ip_orig;
 	}
 
+	private static synchronized void setServerExecuted(boolean b)
+	{
+		serverExecuted = b;
+	}
+	
+	private static synchronized boolean getServerExecuted()
+	{
+		return serverExecuted;
+	}
+	
 	public static void establecerServidor()
 	{
-		if (!serverExecuted)
+		if (!getServerExecuted())
 		{
 			Transfer ts = new Transfer("", "");
 
 			ServerThread s = ts.new ServerThread();
 			new Thread(s).start();
 
-			serverExecuted = true;
+			setServerExecuted(true);
 		}
 	}
 
@@ -108,6 +118,8 @@ public class Transfer
 		@Override
 		public void run()
 		{
+			String host = null;
+			
 			try
 			{
 				// Se indica a rmiregistry d—nde est‡n las clases.
@@ -123,10 +135,11 @@ public class Transfer
 				LocateRegistry.createRegistry(port);
 
 				// Se publica el objeto AccesoMesa
+				host = InetAddress.getLocalHost().getHostName();
+				
 				InterfazTransferenciaFichero tf = new TransferenciaFichero();
-				Naming.rebind("//localhost/TransferenciaFichero", tf);
+				Naming.rebind("//"+host+"/TransferenciaFichero", tf);
 
-				String host = InetAddress.getLocalHost().getHostName();
 				System.out.println("Servicio RMI activo en " + host
 						+ " sobre el puerto " + port);
 

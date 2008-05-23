@@ -105,6 +105,8 @@ public class TransferP2P
 		@Override
 		public void run()
 		{
+			String host = null;
+			
 			try
 			{
 				// Se indica a rmiregistry d—nde est‡n las clases.
@@ -143,10 +145,12 @@ public class TransferP2P
 				// Se publica el objeto AccesoMesa
 				InterfazTransferenciaFicheroP2P tf = new TransferenciaFicheroP2P(
 						d);
-				Naming.rebind("//localhost:" + puerto
+				
+				host = InetAddress.getLocalHost().getHostName();
+				
+				Naming.rebind("//"+host+":" + puerto
 						+ "/TransferenciaFicheroP2P" + id, tf);
 
-				String host = InetAddress.getLocalHost().getHostName();
 				System.out.println("Servicio RMI activo en " + host
 						+ " sobre el puerto " + port);
 				System.out
@@ -176,7 +180,7 @@ public class TransferP2P
 			try
 			{
 				// desligamos el nombre del objeto anteriormente registrado
-				Naming.unbind("//localhost:" + puerto
+				Naming.unbind("//"+host+":" + puerto
 						+ "/TransferenciaFicheroP2P" + id);
 				System.out.println("Objeto desligado!!!");
 			}
