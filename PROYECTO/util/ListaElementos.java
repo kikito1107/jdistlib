@@ -35,8 +35,7 @@ public class ListaElementos extends JList
 
 	private static final long serialVersionUID = 1L;
 
-	ImageIcon img = new ImageIcon(DialogoSincronizacion.class
-			.getResource("../../Resources/openFile.png"));
+	ImageIcon img = new ImageIcon("Resources/openFile.png");
 
 	private Modelo model = null;
 
