@@ -23,6 +23,8 @@ public abstract class DAbstractPlugin extends DComponenteBase
 			DComponenteBase padre ) throws Exception
 	{
 		super(nombre, conexionDC, padre);
+
+		register();
 	}
 
 	protected String nombre;
@@ -39,7 +41,13 @@ public abstract class DAbstractPlugin extends DComponenteBase
 
 	public void register()
 	{
+		HebraProcesadora th = new HebraProcesadora(this);
+		th.iniciarHebra();
 
+		DPluginRegisterEvent evt = obtenerInfoEstado();
+		evt.tipo = new Integer(DPluginRegisterEvent.SINCRONIZACION.intValue());
+
+		enviarEvento(evt);
 	}
 
 	@Override
@@ -148,15 +156,47 @@ public abstract class DAbstractPlugin extends DComponenteBase
 
 	private void procesarEvento(DPluginRegisterEvent dp)
 	{
+		int res; // para almacenar el resultado de los confirm dialog's
 		if (dp.tipo == DPluginRegisterEvent.RESPUESTA_SINCRONIZACION)
-			if (( dp.version > getVersion() ) && this.versioningEnabled)
-				JOptionPane.showMessageDialog(null,
+			if (( dp.version > getVersion() ) && this.versioningEnabled
+					&& !dp.usuario.equals(DConector.Dusuario)
+					&& ( getName() == dp.nombre ))
+			{
+				res = JOptionPane.showConfirmDialog(null,
 						"Hay una nueva version del plug-in " + getName()
 								+ " (Version Actual: " + getVersion()
-								+ ", Version Nueva: " + dp.version);
+								+ ", Version Nueva: " + dp.version, "Aviso",
+						JOptionPane.YES_NO_OPTION);
+
+				if (res == JOptionPane.YES_OPTION)
+				{
+					// hacer una recepcion del fichero plugin remoto y
+					// sobreescribir fichero local
+					receiveMe(dp.ip, dp.jarPath);
+
+					// pedir reiniciar la aplicacion
+					res = JOptionPane
+							.showConfirmDialog(
+									null,
+									"Debera reiniciar la aplicacion para que la nueva version del plugin: "
+											+ getName()
+											+ " funcione correctamente. ÀCerrarla ahora?",
+									"Aviso", JOptionPane.YES_NO_OPTION);
+					if (res == JOptionPane.YES_OPTION)
+					{
+						System.exit(0);
+					}
+				}
+			}
+
+			else if (( dp.version < getVersion() ) && this.versioningEnabled
+					&& !dp.usuario.equals(DConector.Dusuario)
+					&& ( getName() == dp.nombre )) // enviar nuestro fichero
+													// jar
+				sendMe(dp.ip, dp.jarPath);
 	}
 
-	class HebraProcesadora extends HebraProcesadoraBase
+	private class HebraProcesadora extends HebraProcesadoraBase
 	{
 		HebraProcesadora( DComponente dc )
 		{
@@ -211,18 +251,6 @@ public abstract class DAbstractPlugin extends DComponenteBase
 					infoEstado.tipo = new Integer(
 							DPluginRegisterEvent.RESPUESTA_SINCRONIZACION
 									.intValue());
-					infoEstado.nombre = getName();
-					try
-					{
-						infoEstado.ip = InetAddress.getLocalHost()
-								.getHostName();
-					}
-					catch (UnknownHostException e)
-					{
-						e.printStackTrace();
-					}
-					infoEstado.version = getVersion();
-					infoEstado.jarPath = getJarFileName();
 
 					enviarEvento(infoEstado);
 				}
