@@ -209,11 +209,10 @@ public abstract class DAbstractPlugin extends DComponenteBase
 			DPluginRegisterEvent evento = null;
 			DPluginRegisterEvent saux = null;
 			DPluginRegisterEvent respSincr = null;
-			Vector vaux = new Vector();
+			Vector<DPluginRegisterEvent> vaux = new Vector<DPluginRegisterEvent>();
 
 			DEvent[] eventos = obtenerEventosColaRecepcion();
 			int numEventos = eventos.length;
-			int i = 0;
 
 			// Buscamos si se ha recibido una respuesta de sincronizacion
 			for (int j = 0; j < numEventos; j++)
