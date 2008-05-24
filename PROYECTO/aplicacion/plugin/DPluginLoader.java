@@ -11,7 +11,7 @@ import aplicacion.plugin.jar.JarClassLoader;
 public class DPluginLoader
 {
 	@SuppressWarnings( "unchecked" )
-	public static DAbstractPlugin getPlugin(String file) throws Exception
+	public static synchronized DAbstractPlugin getPlugin(String file) throws Exception
 	{
 		JarClassLoader jcl = new JarClassLoader(file);
 
@@ -41,7 +41,7 @@ public class DPluginLoader
 		return null;
 	}
 
-	public static Vector<DAbstractPlugin> getAllPlugins(String directory)
+	public static synchronized Vector<DAbstractPlugin> getAllPlugins(String directory)
 			throws Exception
 	{
 		Vector<DAbstractPlugin> res = new Vector<DAbstractPlugin>();
