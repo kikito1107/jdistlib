@@ -75,6 +75,10 @@ public class ArbolUsuariosConectadosRol extends DComponenteBase
 			e.printStackTrace();
 		}
 	}
+	
+	public ArbolUsuariosConectadosRol(){
+		
+	}
 
 	/**
 	 * Procesa los eventos de Metainformacion que le llegan

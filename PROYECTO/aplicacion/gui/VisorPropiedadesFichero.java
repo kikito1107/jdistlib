@@ -1,6 +1,5 @@
 package aplicacion.gui;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.GridBagConstraints;
@@ -19,13 +18,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.documentos.FicheroBD;
-
-import componentes.base.DJButton;
 import componentes.gui.DIButton;
+import componentes.base.DComponenteBase;
+import componentes.base.DJFrame;
 
 public class VisorPropiedadesFichero extends JDialog
 {
@@ -64,13 +64,13 @@ public class VisorPropiedadesFichero extends JDialog
 
 	private JPanel panelDatos = null;
 
-	private JLabel jLabel = null;
+	private JLabel etiquetaNombreFichero = null;
 
-	private JLabel jLabel1 = null;
+	private JLabel etiquetaOwner = null;
 
 	private JTextField rol = null;
 
-	private JLabel jLabel2 = null;
+	private JLabel etiquetaRol = null;
 
 	private JButton jButton = null;
 
@@ -103,7 +103,7 @@ public class VisorPropiedadesFichero extends JDialog
 	 */
 	private void initialize()
 	{
-		this.setSize(273, 473);
+		this.setSize(312, 473);
 		this.setContentPane(getJContentPane());
 	}
 
@@ -137,7 +137,7 @@ public class VisorPropiedadesFichero extends JDialog
 		if (nombreFichero == null)
 		{
 			nombreFichero = new JTextField(fichero.getNombre());
-			nombreFichero.setPreferredSize(new Dimension(100, 22));
+			nombreFichero.setPreferredSize(new Dimension(160, 22));
 		}
 		return nombreFichero;
 	}
@@ -152,7 +152,7 @@ public class VisorPropiedadesFichero extends JDialog
 		if (usuario == null)
 		{
 			usuario = new JTextField(fichero.getUsuario().getNombreUsuario());
-			usuario.setPreferredSize(new Dimension(100, 22));
+			usuario.setPreferredSize(new Dimension(160, 22));
 			usuario.setEditable(false);
 		}
 		return usuario;
@@ -172,13 +172,13 @@ public class VisorPropiedadesFichero extends JDialog
 			gridBagConstraints10.insets = new Insets(1, 2, 0, 2);
 			gridBagConstraints10.gridy = 0;
 			etqEscritura = new JLabel();
-			etqEscritura.setText(" Escritura  ");
+			etqEscritura.setText("  Escritura    ");
 			GridBagConstraints gridBagConstraints9 = new GridBagConstraints();
 			gridBagConstraints9.gridx = 1;
 			gridBagConstraints9.insets = new Insets(1, 2, 0, 7);
 			gridBagConstraints9.gridy = 0;
 			Lectura = new JLabel();
-			Lectura.setText("  Lectura  ");
+			Lectura.setText("    Lectura    ");
 			GridBagConstraints gridBagConstraints8 = new GridBagConstraints();
 			gridBagConstraints8.gridx = 0;
 			gridBagConstraints8.gridy = 3;
@@ -193,7 +193,7 @@ public class VisorPropiedadesFichero extends JDialog
 			gridBagConstraints6.gridx = 0;
 			gridBagConstraints6.gridy = 1;
 			etqUsuario = new JLabel();
-			etqUsuario.setText("Usuario");
+			etqUsuario.setText("  Usuario");
 			GridBagConstraints gridBagConstraints5 = new GridBagConstraints();
 			gridBagConstraints5.gridx = 2;
 			gridBagConstraints5.gridy = 3;
@@ -217,7 +217,7 @@ public class VisorPropiedadesFichero extends JDialog
 			panelPermisos.setBorder(BorderFactory.createTitledBorder(null,
 					"Permisos", TitledBorder.DEFAULT_JUSTIFICATION,
 					TitledBorder.DEFAULT_POSITION, null, null));
-			panelPermisos.setBounds(new Rectangle(14, 286, 240, 117));
+			panelPermisos.setBounds(new Rectangle(13, 286, 288, 117));
 			panelPermisos.add(getLecturaU(), gridBagConstraints);
 			panelPermisos.add(getEscrituraU(), gridBagConstraints1);
 			panelPermisos.add(getLecturaR(), gridBagConstraints2);
@@ -345,6 +345,21 @@ public class VisorPropiedadesFichero extends JDialog
 	{
 		if (panelDatos == null)
 		{
+			GridBagConstraints gridBagConstraints24 = new GridBagConstraints();
+			gridBagConstraints24.fill = GridBagConstraints.VERTICAL;  // Generated
+			gridBagConstraints24.gridy = 3;  // Generated
+			gridBagConstraints24.weightx = 1.0;  // Generated
+			gridBagConstraints24.gridx = 1;  // Generated
+			GridBagConstraints gridBagConstraints23 = new GridBagConstraints();
+			gridBagConstraints23.fill = GridBagConstraints.VERTICAL;  // Generated
+			gridBagConstraints23.gridy = 1;  // Generated
+			gridBagConstraints23.weightx = 1.0;  // Generated
+			gridBagConstraints23.gridx = 1;  // Generated
+			GridBagConstraints gridBagConstraints22 = new GridBagConstraints();
+			gridBagConstraints22.fill = GridBagConstraints.VERTICAL;  // Generated
+			gridBagConstraints22.gridy = 0;  // Generated
+			gridBagConstraints22.weightx = 1.0;  // Generated
+			gridBagConstraints22.gridx = 1;  // Generated
 			GridBagConstraints gridBagConstraints21 = new GridBagConstraints();
 			gridBagConstraints21.gridx = 0;  // Generated
 			gridBagConstraints21.gridy = 6;  // Generated
@@ -362,8 +377,8 @@ public class VisorPropiedadesFichero extends JDialog
 			GridBagConstraints gridBagConstraints16 = new GridBagConstraints();
 			gridBagConstraints16.gridx = 0;
 			gridBagConstraints16.gridy = 3;
-			jLabel2 = new JLabel();
-			jLabel2.setText("Rol");
+			etiquetaRol = new JLabel();
+			etiquetaRol.setText("Rol");
 			GridBagConstraints gridBagConstraints15 = new GridBagConstraints();
 			gridBagConstraints15.fill = GridBagConstraints.VERTICAL;
 			gridBagConstraints15.gridy = 3;
@@ -372,13 +387,13 @@ public class VisorPropiedadesFichero extends JDialog
 			GridBagConstraints gridBagConstraints14 = new GridBagConstraints();
 			gridBagConstraints14.gridx = 0;
 			gridBagConstraints14.gridy = 0;
-			jLabel1 = new JLabel();
-			jLabel1.setText("Due–o");
+			etiquetaOwner = new JLabel();
+			etiquetaOwner.setText("Due–o");
 			GridBagConstraints gridBagConstraints13 = new GridBagConstraints();
 			gridBagConstraints13.gridx = 0;
 			gridBagConstraints13.gridy = 1;
-			jLabel = new JLabel();
-			jLabel.setText("Nombre");
+			etiquetaNombreFichero = new JLabel();
+			etiquetaNombreFichero.setText("Nombre");
 			GridBagConstraints gridBagConstraints12 = new GridBagConstraints();
 			gridBagConstraints12.fill = GridBagConstraints.VERTICAL;
 			gridBagConstraints12.gridy = 2;
@@ -392,18 +407,20 @@ public class VisorPropiedadesFichero extends JDialog
 			panelDatos = new JPanel();
 			panelDatos.setLayout(new GridBagLayout());
 			panelDatos.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-			panelDatos.setBackground(new Color(238, 238, 238));
-			panelDatos.setBounds(new Rectangle(15, 15, 242, 110));
-			panelDatos.add(getNombreFichero(), gridBagConstraints11);
-			panelDatos.add(getPathFichero(), gridBagConstraints12);
-			panelDatos.add(jLabel, gridBagConstraints13);
-			panelDatos.add(jLabel1, gridBagConstraints14);
-			panelDatos.add(getJTextField(), gridBagConstraints15);
-			panelDatos.add(jLabel2, gridBagConstraints16);
+			panelDatos.setBounds(new Rectangle(13, 15, 288, 103));
+			//panelDatos.add(getNombreFichero(), gridBagConstraints11);
+			//panelDatos.add(getPathFichero(), gridBagConstraints12);
+			panelDatos.add(etiquetaOwner, gridBagConstraints13);
+			panelDatos.add(etiquetaNombreFichero, gridBagConstraints14);
+			//panelDatos.add(getJTextField(), gridBagConstraints15);
+			panelDatos.add(etiquetaRol, gridBagConstraints16);
 			panelDatos.add(getEsDirectorio(), gridBagConstraints17);
 			panelDatos.add(Directorio, gridBagConstraints18);
 			
 			panelDatos.setBackground(this.getContentPane().getBackground());
+			panelDatos.add(getNombreFichero(), gridBagConstraints22);  // Generated
+			panelDatos.add(getPathFichero(), gridBagConstraints23);  // Generated
+			panelDatos.add(getJTextField(), gridBagConstraints24);  // Generated
 		}
 		return panelDatos;
 	}
@@ -418,7 +435,7 @@ public class VisorPropiedadesFichero extends JDialog
 		if (rol == null)
 		{
 			rol = new JTextField(fichero.getRol().getNombreRol());
-			rol.setPreferredSize(new Dimension(100, 22));
+			rol.setPreferredSize(new Dimension(160, 22));
 			rol.setEditable(false);
 		}
 		return rol;
@@ -434,7 +451,7 @@ public class VisorPropiedadesFichero extends JDialog
 		if (jButton == null)
 		{
 			jButton = new JButton();
-			jButton.setBounds(new Rectangle(137, 414, 116, 29));
+			jButton.setBounds(new Rectangle(176, 414, 125, 29));
 			jButton.setIcon(new ImageIcon(getClass().getResource(
 					"/Resources/tick.png")));
 			jButton.setText("Aceptar");
@@ -513,7 +530,7 @@ public class VisorPropiedadesFichero extends JDialog
 		if (jButton1 == null)
 		{
 			jButton1 = new JButton();
-			jButton1.setBounds(new Rectangle(15, 414, 116, 29));
+			jButton1.setBounds(new Rectangle(13, 414, 116, 29));
 			jButton1.setIcon(new ImageIcon(getClass().getResource(
 					"/Resources/cancel.png")));
 			jButton1.setText("Cancelar");
@@ -533,7 +550,7 @@ public class VisorPropiedadesFichero extends JDialog
 	{
 		setTitle("Propiedades " + this.fichero.getNombre());
 
-		setSize(273,504);
+		setSize(312,473);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		Dimension frameSize = getSize();
 		if (frameSize.height > screenSize.height)
@@ -629,11 +646,9 @@ public class VisorPropiedadesFichero extends JDialog
 			panelEditores = new JPanel();
 			panelEditores.setLayout(new GridBagLayout());
 			panelEditores.setBorder(BorderFactory.createTitledBorder(null, "Editores", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
-			panelEditores.setBounds(new Rectangle(14, 136, 243, 139));
+			panelEditores.setBounds(new Rectangle(13, 129, 288, 146));
 			panelEditores.add(getAreaTextoEditores(), gridBagConstraints19);
 		}
 		return panelEditores;
 	}
-
-
-} // @jve:decl-index=0:visual-constraint="6,-2"
+}  //  @jve:decl-index=0:visual-constraint="-28,-36"

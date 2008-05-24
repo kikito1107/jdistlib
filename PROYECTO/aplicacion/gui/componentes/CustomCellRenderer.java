@@ -3,6 +3,7 @@ package aplicacion.gui.componentes;
 import java.util.Vector;
 
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
@@ -20,6 +21,12 @@ public class CustomCellRenderer extends DefaultTreeCellRenderer
 	Icon iconoCarpeta = null;
 
 	private Icon iconoEditar = null;
+
+	private Icon iconoPDF = new ImageIcon("./Resources/file_acrobat.gif");
+	
+	private Icon iconoIMG = new ImageIcon("./Resources/image.gif");
+	
+	private Icon iconoTXT = new ImageIcon("./Resources/page.gif");
 
 	public CustomCellRenderer( Icon cn, Icon edit)
 	{
@@ -43,11 +50,38 @@ public class CustomCellRenderer extends DefaultTreeCellRenderer
 		}
 		else if(leaf && estaEditandose(value))
 			setIcon(iconoEditar);
+		else if(leaf && isPDF(value))
+			setIcon(iconoPDF );
+		else if (leaf && isIMG(value))
+			setIcon(this.iconoIMG);
 	
 
 		return this;
 	}
 	
+	private boolean isIMG(Object value)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	private boolean isPDF(Object value)
+	{
+		if (value != null) 
+		{
+		
+			DefaultMutableTreeNode dftn = (DefaultMutableTreeNode) value;
+
+			FicheroBD f = (FicheroBD) dftn.getUserObject();
+			
+			String extension  = f.getTipo();
+			
+			if (extension.equals("pdf")) return true;
+			else return false;
+		}
+		return false;
+	}
+
 	private boolean estaEditandose(Object value){
 		
 

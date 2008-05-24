@@ -34,7 +34,7 @@ public class DIButton extends DComponenteBase implements java.io.Serializable
 	public DIButton(){
 		super("boton", false, null);
 		
-		this.boton = new DJButton("Boton");
+		this.boton = new DJButton();
 		try
 		{
 			jbInit();
@@ -59,7 +59,7 @@ public class DIButton extends DComponenteBase implements java.io.Serializable
 	public DIButton( String nombre, boolean conexionDC, DComponenteBase padre )
 	{
 		super(nombre, conexionDC, padre);
-		this.boton = new DJButton("Boton");
+		this.boton = new DJButton();
 		try
 		{
 			jbInit();

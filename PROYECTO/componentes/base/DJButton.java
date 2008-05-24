@@ -98,11 +98,7 @@ public class DJButton extends JButton
 
 	private void extrasConstructor()
 	{
-		/*
-		 * addDJButtonListener(new Listener()); DID = new
-		 * Integer(DConector.alta(this)); colaEnvio =
-		 * DConector.getColaEventos(); setForeground(Color.GRAY);
-		 */
+
 	}
 
 	@Override

@@ -483,6 +483,16 @@ public class PanelPrincipal extends DComponenteBase
 			botonPersonalizar.setBorderPainted(false);
 			botonPersonalizar
 					.setIcon(new ImageIcon("./Resources/customize.png"));
+			
+			botonPersonalizar
+			.addActionListener(new java.awt.event.ActionListener()
+			{
+				public void actionPerformed(java.awt.event.ActionEvent e)
+				{
+					ClienteMetaInformacion.obtenerCMI().hacerVisibleDialogo();
+				}
+			});
+
 		}
 		return botonPersonalizar;
 	}

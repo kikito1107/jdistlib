@@ -864,6 +864,9 @@ public class DILienzo extends DIViewer implements MouseListener,
 			{
 				e.sincronizarFichero = new Boolean(true);
 				this.sincronizada = false;
+				if (!DConector.obtenerDC().escribirToken())
+					JOptionPane.showMessageDialog(padre,
+							"Error al guardar el token");
 			}
 
 			this.enviarEvento(e);
@@ -980,9 +983,6 @@ public class DILienzo extends DIViewer implements MouseListener,
 					sincronizada = true;
 				}
 
-				if (!DConector.obtenerDC().escribirToken())
-					JOptionPane.showMessageDialog(padre,
-							"Error al guardar el token");
 			}
 		}
 

@@ -81,6 +81,19 @@ public class DJFrame extends JFrame
 			ex.printStackTrace();
 		}
 	}
+	
+	public DJFrame(){
+		DJFrame.frame = this;
+		
+		try
+		{
+			jbInit();
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
 
 	public DJFrame( String nombreAplicacion, String nombreJS,
 			boolean mostrarPunterosRemotos, String nombreGestorMousesRemotos )

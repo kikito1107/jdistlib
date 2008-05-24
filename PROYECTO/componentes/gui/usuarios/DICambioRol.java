@@ -47,6 +47,20 @@ public class DICambioRol extends DComponenteBase
 	JPanel jPanel2 = new JPanel();
 
 	JButton botonCambiar = new JButton();
+	
+	public DICambioRol(){
+		super( "CambioRol", true, null);
+		
+		try
+		{
+			jbInit();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+	}
 
 	public DICambioRol( String nombre, boolean conexionDC, DComponenteBase padre )
 	{

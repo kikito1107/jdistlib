@@ -1,7 +1,6 @@
 package Deventos.enlaceJS;
 
 import java.rmi.RemoteException;
-import java.util.Date;
 import java.util.Random;
 import java.util.Vector;
 
@@ -85,7 +84,7 @@ public class DConector
 
 	private ClienteFicheros cf = null;
 
-	private TokenFichero tk = null;
+	private static TokenFichero tk = null;
 
 	/**
 	 * 
@@ -582,21 +581,22 @@ public class DConector
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
 		}
 		catch (UnusableEntryException e)
 		{
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return null;
 		}
 		catch (TransactionException e)
 		{
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return null;
 		}
 		catch (InterruptedException e)
 		{
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return null;
 		}
 		
 		if (tk == null) return null;
@@ -626,21 +626,25 @@ public class DConector
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
 		catch (UnusableEntryException e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
 		catch (TransactionException e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
 		catch (InterruptedException e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
 
 		// 2. Si no existe:
@@ -679,9 +683,16 @@ public class DConector
 	{
 		try
 		{
-			space.write(tk, null, Long.MAX_VALUE);
-			System.err.println("escribiendo el token");
-			return true;
+			
+			if (tk != null) {
+				space.write(tk, null, Long.MAX_VALUE);
+				System.err.println("escribiendo el token");
+				return true;
+			}
+			else {
+				System.err.println("ERROR: NO SE HA PODIDO ESCRIBIR EL TOKEN!!!");
+				return false;
+			}
 		}
 		catch (RemoteException e)
 		{
@@ -767,29 +778,6 @@ public class DConector
 			dc.procesarMetaInformacion(evento);
 
 		}
-
-	}
-
-	/**
-	 * 
-	 * Genera un número aleatorio entre 1000 y 50000
-	 * 
-	 * @return int El numero aleatorio
-	 * 
-	 */
-
-	private int aleatorio()
-	{
-
-		Date fecha = new Date();
-
-		Random r = new Random(fecha.getTime());
-
-		int aleatorio = r.nextInt(50000);
-
-		aleatorio += 1000;
-
-		return aleatorio;
 
 	}
 

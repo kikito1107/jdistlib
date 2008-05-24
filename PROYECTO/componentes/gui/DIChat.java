@@ -49,6 +49,10 @@ public class DIChat extends DComponenteBase implements java.io.Serializable
 			e.printStackTrace();
 		}
 	}
+	
+	public DIChat(){
+		super();
+	}
 
 	private void jbInit() throws Exception
 	{
