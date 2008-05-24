@@ -61,9 +61,6 @@ public class CustomCellRenderer extends DefaultTreeCellRenderer
 		else if (leaf && isTXT(value))
 			setIcon(this.iconoTXT);
 		
-		
-	
-
 		return this;
 	}
 	
@@ -78,7 +75,7 @@ public class CustomCellRenderer extends DefaultTreeCellRenderer
 			
 			String extension  = f.getTipo();
 			
-			if (extension.equals("doc")) return true;
+			if (extension != null && extension.equals("doc")) return true;
 			else return false;
 		}
 		return false;
@@ -95,7 +92,7 @@ public class CustomCellRenderer extends DefaultTreeCellRenderer
 			
 			String extension  = f.getTipo();
 			
-			if (extension.equals("img")) return true;
+			if (extension != null && extension.equals("img")) return true;
 			else return false;
 		}
 		return false;
@@ -112,7 +109,8 @@ public class CustomCellRenderer extends DefaultTreeCellRenderer
 			
 			String extension  = f.getTipo();
 			
-			if (extension.equals("pdf")) return true;
+			
+			if ( extension != null && extension.equals("pdf")) return true;
 			else return false;
 		}
 		return false;
@@ -129,7 +127,7 @@ public class CustomCellRenderer extends DefaultTreeCellRenderer
 			
 			String extension  = f.getTipo();
 			
-			if (extension.equals("txt")) return true;
+			if (extension != null && extension.equals("txt")) return true;
 			else return false;
 		}
 		return false;

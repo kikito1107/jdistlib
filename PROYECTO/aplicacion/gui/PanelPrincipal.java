@@ -177,7 +177,7 @@ public class PanelPrincipal extends DComponenteBase
 					else return;
 
 					JFileChooser jfc = new JFileChooser(
-							"Guardar Documento Localmente");
+							"Subir Documento Servidor");
 
 					int op = jfc.showDialog(null, "Aceptar");
 
@@ -207,11 +207,26 @@ public class PanelPrincipal extends DComponenteBase
 							if (( user != null ) && ( rol != null )
 									&& ( path != "" ))
 							{
+								
+								String nombreFichero = f.getName();
+								nombreFichero = nombreFichero.replace('.', ':');
+
+								String[] desc = nombreFichero.split(":");
+								
+								
+								
+								String extension = desc[desc.length-1];
+								
+								extension = PanelPrincipal.getTipoFichero(extension);
+		
+								
+								System.out.println("Extension " + extension);
+								
 								// creamos el nuevo fichero a almacenar
 								FicheroBD fbd = new FicheroBD(-1, f.getName(),
 										false, "rwrw--", user, rol, carpeta
 												.getId(), path + f.getName(),
-										"");
+										extension);
 
 								// notificamos al resto de usuarios la "novedad"
 								DFileEvent evento = new DFileEvent();
@@ -266,6 +281,23 @@ public class PanelPrincipal extends DComponenteBase
 			});
 		}
 		return botonSubir;
+	}
+
+	public static String getTipoFichero(String extension)
+	{
+		String res = "";
+		
+		extension = extension.toLowerCase();
+		
+		
+		if (extension.equals("gif") || extension.equals("png") || extension.equals("jpg")
+				|| extension.equals("jpeg") || extension.equals("tiff") || extension.equals("tif")
+				|| extension.equals("bmp"))
+			res = "img";
+		else
+			res = extension;
+		
+		return res;
 	}
 
 	/**
@@ -1351,7 +1383,7 @@ public class PanelPrincipal extends DComponenteBase
 			
 			String pathEditor = frame.getLienzo().getPathDocumento();
 			
-			if (pathEditor.equals(dfe.fichero.getRutaLocal())) {
+			if (pathEditor != null && pathEditor.equals(dfe.fichero.getRutaLocal())) {
 				JOptionPane.showMessageDialog(frame, "El fichero ha sido eliminado\nNo puede seguir editandolo");
 				frame.setDocumento(new Documento());
 				frame.dispose();
