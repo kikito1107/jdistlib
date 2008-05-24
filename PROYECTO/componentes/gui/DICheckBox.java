@@ -23,7 +23,7 @@ import componentes.listeners.LJCheckBoxListener;
  * funcionamiento
  */
 
-public class DICheckBox extends DComponenteBase
+public class DICheckBox extends DComponenteBase implements java.io.Serializable
 {
 
 	private static final long serialVersionUID = 1L;
@@ -33,6 +33,10 @@ public class DICheckBox extends DComponenteBase
 	JScrollPane jScrollPane1 = new JScrollPane();
 
 	DJCheckBox checkbox = null;
+	
+	public DICheckBox(){
+		super();
+	}
 
 	/**
 	 * @param nombre

@@ -1,11 +1,8 @@
 package componentes.gui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.util.Vector;
-
-import javax.swing.JScrollPane;
 
 import Deventos.DEvent;
 import Deventos.DJButtonEvent;
@@ -23,19 +20,32 @@ import componentes.listeners.LJButtonListener;
  * funcionamiento
  */
 
-public class DIButton extends DComponenteBase
+public class DIButton extends DComponenteBase implements java.io.Serializable
 {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 7807193484457835590L;
 
-	BorderLayout borderLayout1 = new BorderLayout();
-
-	JScrollPane jScrollPane1 = new JScrollPane();
-
-	DJButton boton = null;
-
+	private DJButton boton = null;
+	
+	private String text = "";
+	
+	public DIButton(){
+		super("boton", false, null);
+		
+		this.boton = new DJButton("Boton");
+		try
+		{
+			jbInit();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+	};
+	
 	/**
 	 * @param nombre
 	 *            String Nombre del componente.
@@ -92,6 +102,8 @@ public class DIButton extends DComponenteBase
 	{
 		this.setLayout(new FlowLayout());
 		this.add(boton, null);
+		boton.setText(text);
+		
 		boton.addDJButtonListener(crearDJListener());
 		// desactivar();//*******************************************************************************
 	}
@@ -104,6 +116,16 @@ public class DIButton extends DComponenteBase
 	public DJButton obtenerJComponente()
 	{
 		return boton;
+	}
+	
+	public String getText()
+	{
+		return boton.getText();
+	}
+
+	public void setText(String text)
+	{
+		boton.setText(text);
 	}
 
 	/**
@@ -129,7 +151,7 @@ public class DIButton extends DComponenteBase
 	 * 
 	 * @return DJButtonEvent Evento que describe el estado del componente
 	 */
-	public DJButtonEvent obtenerInfoEstado()
+	public DJButtonEvent getInfoEstado()
 	{
 		return boton.obtenerInfoEstado();
 	}
@@ -396,7 +418,7 @@ public class DIButton extends DComponenteBase
 						.intValue() )
 						&& !evento.usuario.equals(DConector.Dusuario))
 				{
-					DJButtonEvent infoEstado = obtenerInfoEstado();
+					DJButtonEvent infoEstado = getInfoEstado();
 					infoEstado.tipo = new Integer(
 							DJButtonEvent.RESPUESTA_SINCRONIZACION.intValue());
 					enviarEvento(infoEstado);

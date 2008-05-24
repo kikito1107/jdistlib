@@ -23,7 +23,7 @@ import Deventos.enlaceJS.DConector;
  * sus necesidades
  */
 
-public class DComponenteBase extends JPanel implements DComponente
+public class DComponenteBase extends JPanel implements DComponente, java.io.Serializable
 {
 
 	private static final long serialVersionUID = 1L;
@@ -63,6 +63,10 @@ public class DComponenteBase extends JPanel implements DComponente
 	private BorderLayout borderLayout2 = new BorderLayout();// *******************************
 
 	private boolean oculto = true;
+	
+	public DComponenteBase(){
+		super();
+	}
 
 	public DComponenteBase( String nombre, boolean conexionDC,
 			DComponenteBase padre )

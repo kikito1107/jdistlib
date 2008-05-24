@@ -22,7 +22,7 @@ import componentes.listeners.LJTreeListener;
  * Arbol compartido. Consultar documentación del proyecto para ver su
  * funcionamiento
  */
-public class DITree extends DComponenteBase
+public class DITree extends DComponenteBase implements java.io.Serializable
 {
 	/**
 	 * 

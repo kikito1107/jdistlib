@@ -22,7 +22,7 @@ import componentes.listeners.LJComboBoxListener;
  * funcionamiento.
  */
 
-public class DIComboBox extends DComponenteBase
+public class DIComboBox extends DComponenteBase implements java.io.Serializable
 {
 
 	private static final long serialVersionUID = 1L;
@@ -30,6 +30,10 @@ public class DIComboBox extends DComponenteBase
 	DJComboBox combobox = null;
 
 	BorderLayout borderLayout1 = new BorderLayout();
+	
+	public DIComboBox(){
+		super();
+	}
 
 	/**
 	 * @param nombre

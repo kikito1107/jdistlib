@@ -24,7 +24,7 @@ import componentes.listeners.LJListListener;
  * su funcionamiento.
  */
 
-public class DILista extends DComponenteBase
+public class DILista extends DComponenteBase implements java.io.Serializable
 {
 	/**
 	 * 

@@ -110,9 +110,10 @@ public class ArbolDocumentos
 		// Retrieve the three icons
 		Icon leafIcon = new ImageIcon(leaf);
 		Icon closedIcon = new ImageIcon(close);
+		Icon editIcon = new ImageIcon("./Resources/nodo_edit.png");
 
 		// Update only one tree instance
-		CustomCellRenderer renderer = new CustomCellRenderer(closedIcon);
+		CustomCellRenderer renderer = new CustomCellRenderer(closedIcon, editIcon);
 		renderer.setLeafIcon(leafIcon);
 		renderer.setClosedIcon(closedIcon);
 		renderer.setOpenIcon(closedIcon);

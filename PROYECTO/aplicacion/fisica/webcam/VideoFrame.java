@@ -11,6 +11,7 @@ import java.awt.Image;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
@@ -172,6 +173,7 @@ public class VideoFrame extends JFrame
 														.add(jButton1).add(
 																ini_stop))
 										.addContainerGap(21, Short.MAX_VALUE)));
+		ini_stop.setIcon(new ImageIcon("./Resuorces/control_play_blue.png"));
 
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
@@ -200,6 +202,9 @@ public class VideoFrame extends JFrame
 			{
 				init = false;
 				this.ini_stop.setText("Iniciar");
+				
+				ini_stop.setIcon(new ImageIcon("./Resuorces/control_play_blue.png"));
+				
 				VideoConferencia.stopped = true;
 			}
 			catch (Exception ex)
@@ -213,6 +218,7 @@ public class VideoFrame extends JFrame
 			th.start();
 			init = true;
 			this.ini_stop.setText("Detener");
+			ini_stop.setIcon(new ImageIcon("./Resuorces/control_pause_blue.png"));
 		}
 		catch (Exception ex)
 		{
@@ -334,6 +340,10 @@ public class VideoFrame extends JFrame
 
 		setVisible(true);
 		pack();
+	}
+	
+	public void capturar(){
+		//img_remota
 	}
 
 	public static void main(String args[])

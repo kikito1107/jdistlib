@@ -1,10 +1,13 @@
 package aplicacion.gui.componentes;
 
+import java.util.Vector;
+
 import javax.swing.Icon;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
+import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.documentos.FicheroBD;
 
 public class CustomCellRenderer extends DefaultTreeCellRenderer
@@ -16,9 +19,12 @@ public class CustomCellRenderer extends DefaultTreeCellRenderer
 
 	Icon iconoCarpeta = null;
 
-	public CustomCellRenderer( Icon cn )
+	private Icon iconoEditar = null;
+
+	public CustomCellRenderer( Icon cn, Icon edit)
 	{
 		iconoCarpeta = cn;
+		iconoEditar = edit;
 	}
 
 	@Override
@@ -35,8 +41,29 @@ public class CustomCellRenderer extends DefaultTreeCellRenderer
 			setIcon(iconoCarpeta);
 			setToolTipText("Carpeta vac’a");
 		}
+		else if(leaf && estaEditandose(value))
+			setIcon(iconoEditar);
+	
 
 		return this;
+	}
+	
+	private boolean estaEditandose(Object value){
+		
+
+		if (value != null) 
+		{
+		
+			DefaultMutableTreeNode dftn = (DefaultMutableTreeNode) value;
+
+			FicheroBD f = (FicheroBD) dftn.getUserObject();
+			
+			Vector<String> v = DConector.obtenerDC().consultarEditores(f.getRutaLocal());
+			
+			if (v == null) return false;
+			else return true;
+		}
+		return false;
 	}
 
 	private boolean isFolder(Object value)

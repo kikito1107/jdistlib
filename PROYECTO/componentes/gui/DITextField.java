@@ -35,7 +35,7 @@ import componentes.listeners.DJTextFieldListener;
  * @version 1.0
  */
 
-public class DITextField extends DComponenteBase
+public class DITextField extends DComponenteBase implements java.io.Serializable
 {
 	/**
 	 * 

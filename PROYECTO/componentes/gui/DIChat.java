@@ -17,7 +17,7 @@ import componentes.listeners.LJChatListener;
  * Chat con el que pueden hablar todos los usuarios de la aplicacion
  */
 
-public class DIChat extends DComponenteBase
+public class DIChat extends DComponenteBase implements java.io.Serializable
 {
 	/**
 	 * 
