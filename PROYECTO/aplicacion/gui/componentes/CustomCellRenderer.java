@@ -26,7 +26,9 @@ public class CustomCellRenderer extends DefaultTreeCellRenderer
 	
 	private Icon iconoIMG = new ImageIcon("./Resources/image.gif");
 	
-	private Icon iconoTXT = new ImageIcon("./Resources/page.gif");
+	private Icon iconoDOC = new ImageIcon("./Resources/page_white_word.png");
+	
+	private Icon iconoTXT = new ImageIcon("./Resources/page_white_text.png");
 
 	public CustomCellRenderer( Icon cn, Icon edit)
 	{
@@ -54,14 +56,48 @@ public class CustomCellRenderer extends DefaultTreeCellRenderer
 			setIcon(iconoPDF );
 		else if (leaf && isIMG(value))
 			setIcon(this.iconoIMG);
+		else if (leaf && isDOC(value))
+			setIcon(this.iconoDOC);
+		else if (leaf && isTXT(value))
+			setIcon(this.iconoTXT);
+		
+		
 	
 
 		return this;
 	}
 	
+	private boolean isDOC(Object value)
+	{
+		if (value != null) 
+		{
+		
+			DefaultMutableTreeNode dftn = (DefaultMutableTreeNode) value;
+
+			FicheroBD f = (FicheroBD) dftn.getUserObject();
+			
+			String extension  = f.getTipo();
+			
+			if (extension.equals("doc")) return true;
+			else return false;
+		}
+		return false;
+	}
+
 	private boolean isIMG(Object value)
 	{
-		// TODO Auto-generated method stub
+		if (value != null) 
+		{
+		
+			DefaultMutableTreeNode dftn = (DefaultMutableTreeNode) value;
+
+			FicheroBD f = (FicheroBD) dftn.getUserObject();
+			
+			String extension  = f.getTipo();
+			
+			if (extension.equals("img")) return true;
+			else return false;
+		}
 		return false;
 	}
 
@@ -82,6 +118,23 @@ public class CustomCellRenderer extends DefaultTreeCellRenderer
 		return false;
 	}
 
+	private boolean isTXT(Object value)
+	{
+		if (value != null) 
+		{
+		
+			DefaultMutableTreeNode dftn = (DefaultMutableTreeNode) value;
+
+			FicheroBD f = (FicheroBD) dftn.getUserObject();
+			
+			String extension  = f.getTipo();
+			
+			if (extension.equals("txt")) return true;
+			else return false;
+		}
+		return false;
+	}
+	
 	private boolean estaEditandose(Object value){
 		
 
