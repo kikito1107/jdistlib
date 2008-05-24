@@ -174,7 +174,7 @@ public abstract class DAbstractPlugin extends DComponenteBase
 					// sobreescribir fichero local
 					receiveMe(dp.ip, dp.jarPath);
 
-					// pedir reiniciar la aplicacion
+					// reconstruir los plugins
 					res = JOptionPane
 							.showConfirmDialog(
 									null,
@@ -186,6 +186,9 @@ public abstract class DAbstractPlugin extends DComponenteBase
 					{
 						System.exit(0);
 					}
+					
+					//podria probarse: aplicacion.gui.PanelPrincipal.removeAll(); 
+					//                 aplicacion.gui.PanelPrincipal.add(DPluginLoader.getAllPlugins(...))
 				}
 			}
 
