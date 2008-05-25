@@ -18,6 +18,7 @@ public class DPluginLoader
 		String className = null;
 		JarEntry je = null;
 		Class cls = null;
+		Class superclass = null;
 
 		JarFile jarFile = new JarFile(file);
 		Enumeration<JarEntry> enu = jarFile.entries();
@@ -31,9 +32,11 @@ public class DPluginLoader
 						"/", ".");
 				cls = jcl.loadClass(className, true);
 
-				if (cls.getSuperclass().getName().compareTo(
-						DAbstractPlugin.class.getName()) == 0)
-					return (DAbstractPlugin) cls.newInstance();
+				superclass = cls.getSuperclass();
+				
+				if (superclass != null) //si la clase es Object o una interfaz, la superclase es null
+					if (superclass.getName().compareTo(DAbstractPlugin.class.getName()) == 0)
+						return (DAbstractPlugin) cls.newInstance();
 			}
 		}
 
