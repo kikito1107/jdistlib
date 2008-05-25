@@ -31,6 +31,12 @@ public class BarraEstado extends JPanel
 	private JButton jButton1 = null;
 
 	DILienzo lienzo;
+	
+	public BarraEstado(){
+		super();
+		lienzo = new DILienzo("",false, null);
+		initialize();
+	}
 
 	/**
 	 * This is the default constructor

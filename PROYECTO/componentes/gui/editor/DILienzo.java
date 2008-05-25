@@ -17,6 +17,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JToolTip;
 import javax.swing.border.EtchedBorder;
 
+import util.DialogoIntroTexto;
+
 import Deventos.DEvent;
 import Deventos.DJLienzoEvent;
 import Deventos.enlaceJS.DConector;
@@ -156,6 +158,20 @@ public class DILienzo extends DIViewer implements MouseListener,
 		}
 	}
 
+	public DILienzo( )
+	{
+		super("", false, null);
+		try
+		{
+			init();
+		}
+		catch (Exception e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * Establece el color actual para dibujar
 	 * 

@@ -169,6 +169,8 @@ public class DMIEvent extends DEvent
 	public static final Integer RESPUESTA_DATOS_ROL = new Integer(57);
 
 	public static final Integer KEEPALIVE = new Integer(500);
+	
+	public static final Integer SAVE_CHANGES = new Integer(58);
 
 	public Vector v1 = null;
 

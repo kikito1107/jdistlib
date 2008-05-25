@@ -1263,6 +1263,35 @@ public class ClienteMetaInformacion
 
 	}
 
+	public String guardarCambiosBD()
+	{
+		DMIEvent evento = new DMIEvent();
+		String mensaje = new String();
+
+		try
+		{
+			int aleatorio = aleatorio();
+			evento.origen = new Integer(11); // Cliente MetaInformacion
+			evento.destino = new Integer(10); // Servidor MetaInformacion
+			evento.tipo = new Integer(DMIEvent.SAVE_CHANGES.intValue());
+			evento.entero = new Integer(aleatorio);
+			space.write(evento, null, leaseWriteTime);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			JOptionPane
+					.showMessageDialog(
+							null,
+							"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
+							"Error", JOptionPane.ERROR_MESSAGE);
+			System.exit(1);
+		}
+		return mensaje;
+
+	}
+
+
 	private int aleatorio()
 	{
 		Date fecha = new Date();

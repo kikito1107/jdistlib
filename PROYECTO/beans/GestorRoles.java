@@ -14,6 +14,11 @@ import javax.swing.UIManager;
 
 import java.awt.BorderLayout;
 import componentes.gui.usuarios.DICambioRol;
+import componentes.gui.editor.ControlesDibujo;
+import Deventos.DJLienzoEvent;
+import componentes.gui.editor.BarraEstado;
+import componentes.base.DJChat;
+import componentes.base.DJTree;
 
 /**
  * @author anab
@@ -27,6 +32,8 @@ public class GestorRoles extends DJFrame
 	 */
 	private static final long serialVersionUID = -3982683797632001181L;
 	private JPanel PanelPrincipal = null;
+	private ControlesDibujo controlesDibujo = null;
+	private BarraEstado barraEstado = null;
 	/**
 	 * @param mostrarPunterosRemotos
 	 * @param nombreGestorMousesRemotos
@@ -76,7 +83,7 @@ public class GestorRoles extends DJFrame
 		try {
             this.setTitle(":: Gestor Roles ::");  // Generated
             this.setContentPane(getPanelPrincipal());  // Generated
-            this.setSize(new Dimension(403, 376));  // Generated
+            this.setSize(new Dimension(610, 429));  // Generated
 				
 		}
 		catch (java.lang.Throwable e) {
@@ -97,6 +104,8 @@ public class GestorRoles extends DJFrame
 			{
 				PanelPrincipal = new JPanel();
 				PanelPrincipal.setLayout(new BorderLayout());  // Generated
+				PanelPrincipal.add(getControlesDibujo(), BorderLayout.NORTH);  // Generated
+				PanelPrincipal.add(getBarraEstado(), BorderLayout.SOUTH);  // Generated
 			}
 			catch (java.lang.Throwable e)
 			{
@@ -104,6 +113,48 @@ public class GestorRoles extends DJFrame
 			}
 		}
 		return PanelPrincipal;
+	}
+
+	/**
+	 * This method initializes controlesDibujo	
+	 * 	
+	 * @return componentes.gui.editor.ControlesDibujo	
+	 */
+	private ControlesDibujo getControlesDibujo()
+	{
+		if (controlesDibujo == null)
+		{
+			try
+			{
+				controlesDibujo = new ControlesDibujo();
+			}
+			catch (java.lang.Throwable e)
+			{
+				// TODO: Something
+			}
+		}
+		return controlesDibujo;
+	}
+
+	/**
+	 * This method initializes barraEstado	
+	 * 	
+	 * @return componentes.gui.editor.BarraEstado	
+	 */
+	private BarraEstado getBarraEstado()
+	{
+		if (barraEstado == null)
+		{
+			try
+			{
+				barraEstado = new BarraEstado();
+			}
+			catch (java.lang.Throwable e)
+			{
+				// TODO: Something
+			}
+		}
+		return barraEstado;
 	}
 
 	/**

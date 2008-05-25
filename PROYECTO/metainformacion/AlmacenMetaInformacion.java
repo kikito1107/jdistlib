@@ -440,7 +440,7 @@ public class AlmacenMetaInformacion
 		usr.setEsAdministrador(administrador);
 		if (apl != null)
 			mensaje = apl.nuevoUsuario(usr);
-		else mensaje = "No se ha podido añadir el usuario";
+		else mensaje = "No se ha podido a–adir el usuario";
 		return mensaje;
 	}
 

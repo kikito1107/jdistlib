@@ -128,7 +128,7 @@ public class MIAplicacion implements Serializable
 		if (( getUsuario(usuario.getNombreUsuario()) == null )
 				&& ( getRol(usuario.getRolPorDefecto()) != null ))
 			usuarios.add(usuario);
-		else mensaje = "No se ha podido añadir al usuario";
+		else mensaje = "No se ha podido a–adir al usuario";
 		return mensaje;
 	}
 

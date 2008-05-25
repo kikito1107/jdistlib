@@ -320,7 +320,7 @@ public class ServidorMetaInformacion
 
 						colaEnvio.nuevoEvento(evento);
 					}
-					if (leido.tipo.intValue() == DMIEvent.IDENTIFICACION
+					else if (leido.tipo.intValue() == DMIEvent.IDENTIFICACION
 							.intValue())
 					{
 						DMIEvent evento = new DMIEvent();
@@ -353,7 +353,7 @@ public class ServidorMetaInformacion
 						colaEnvio.nuevoEvento(evento);
 					}
 
-					if (leido.tipo.intValue() == DMIEvent.DESCONEXION
+					else if (leido.tipo.intValue() == DMIEvent.DESCONEXION
 							.intValue())
 					{
 						String aplicacion = new String(leido.aplicacion);
@@ -363,7 +363,7 @@ public class ServidorMetaInformacion
 
 						notificarDesconexionUsuario(aplicacion, usuario);
 					}
-					if (leido.tipo.intValue() == DMIEvent.KEEPALIVE.intValue())
+					else if (leido.tipo.intValue() == DMIEvent.KEEPALIVE.intValue())
 					{
 						String aplicacion = new String(leido.aplicacion);
 						String usuario = ( (DMIEvent) leido ).usuario;
@@ -371,7 +371,7 @@ public class ServidorMetaInformacion
 						almacen.actualizarMarcaTiempoUsuario(aplicacion,
 								usuario);
 					}
-					if (leido.tipo.intValue() == DMIEvent.CAMBIO_ROL.intValue())
+					else if (leido.tipo.intValue() == DMIEvent.CAMBIO_ROL.intValue())
 					{
 						DMIEvent evento = new DMIEvent();
 						String aplicacion = new String(leido.aplicacion);
@@ -402,7 +402,7 @@ public class ServidorMetaInformacion
 									evento.rolAntiguo, evento.infoCompleta);
 						colaEnvio.nuevoEvento(evento);
 					}
-					if (leido.tipo.intValue() == DMIEvent.CAMBIO_PERMISO_COMPONENTE_USUARIO
+					else if (leido.tipo.intValue() == DMIEvent.CAMBIO_PERMISO_COMPONENTE_USUARIO
 							.intValue())
 					{
 						DMIEvent evento = new DMIEvent();
@@ -452,7 +452,7 @@ public class ServidorMetaInformacion
 						colaEnvio.nuevoEvento(evento);
 					}
 
-					if (leido.tipo.intValue() == DMIEvent.CAMBIO_PERMISO_COMPONENTE_ROL
+					else if (leido.tipo.intValue() == DMIEvent.CAMBIO_PERMISO_COMPONENTE_ROL
 							.intValue())
 					{
 						DMIEvent evento = new DMIEvent();
@@ -524,7 +524,7 @@ public class ServidorMetaInformacion
 						colaEnvio.nuevoEvento(evento);
 					}
 
-					if (leido.tipo.intValue() == DMIEvent.OBTENER_PERMISO_COMPONENTE_ROL
+					else if (leido.tipo.intValue() == DMIEvent.OBTENER_PERMISO_COMPONENTE_ROL
 							.intValue())
 					{
 						DMIEvent evento = new DMIEvent();
@@ -553,7 +553,7 @@ public class ServidorMetaInformacion
 						colaEnvio.nuevoEvento(evento);
 					}
 
-					if (leido.tipo.intValue() == DMIEvent.OBTENER_USUARIOS_BAJO_ROL
+					else if (leido.tipo.intValue() == DMIEvent.OBTENER_USUARIOS_BAJO_ROL
 							.intValue())
 					{
 						DMIEvent evento = new DMIEvent();
@@ -576,7 +576,7 @@ public class ServidorMetaInformacion
 
 						colaEnvio.nuevoEvento(evento);
 					}
-					if (leido.tipo.intValue() == DMIEvent.OBTENER_USUARIOS
+					else if (leido.tipo.intValue() == DMIEvent.OBTENER_USUARIOS
 							.intValue())
 					{
 						DMIEvent evento = new DMIEvent();
@@ -597,7 +597,7 @@ public class ServidorMetaInformacion
 						colaEnvio.nuevoEvento(evento);
 					}
 
-					if (leido.tipo.intValue() == DMIEvent.DATOS_USUARIOS)
+					else if (leido.tipo.intValue() == DMIEvent.DATOS_USUARIOS)
 					{
 						DMIEvent evento = new DMIEvent();
 						String aplicacion = new String(leido.aplicacion);
@@ -622,7 +622,7 @@ public class ServidorMetaInformacion
 						colaEnvio.nuevoEvento(evento);
 					}
 
-					if (leido.tipo.intValue() == DMIEvent.DATOS_ROL)
+					else if (leido.tipo.intValue() == DMIEvent.DATOS_ROL)
 					{
 						DMIEvent evento = new DMIEvent();
 						String aplicacion = new String(leido.aplicacion);
@@ -647,7 +647,7 @@ public class ServidorMetaInformacion
 						colaEnvio.nuevoEvento(evento);
 					}
 
-					if (leido.tipo.intValue() == DMIEvent.OBTENER_ROLES
+					else if (leido.tipo.intValue() == DMIEvent.OBTENER_ROLES
 							.intValue())
 					{
 						DMIEvent evento = new DMIEvent();
@@ -668,7 +668,7 @@ public class ServidorMetaInformacion
 						colaEnvio.nuevoEvento(evento);
 					}
 
-					if (leido.tipo.intValue() == DMIEvent.OBTENER_COMPONENTES
+					else if (leido.tipo.intValue() == DMIEvent.OBTENER_COMPONENTES
 							.intValue())
 					{
 						DMIEvent evento = new DMIEvent();
@@ -689,7 +689,7 @@ public class ServidorMetaInformacion
 
 						colaEnvio.nuevoEvento(evento);
 					}
-					if (leido.tipo.intValue() == DMIEvent.OBTENER_ROLES_PERMITIDOS
+					else if (leido.tipo.intValue() == DMIEvent.OBTENER_ROLES_PERMITIDOS
 							.intValue())
 					{
 						DMIEvent evento = new DMIEvent();
@@ -712,7 +712,7 @@ public class ServidorMetaInformacion
 
 						colaEnvio.nuevoEvento(evento);
 					}
-					if (leido.tipo.intValue() == DMIEvent.OBTENER_USUARIOS_CONECTADOS
+					else if (leido.tipo.intValue() == DMIEvent.OBTENER_USUARIOS_CONECTADOS
 							.intValue())
 					{
 						DMIEvent evento = new DMIEvent();
@@ -734,7 +734,7 @@ public class ServidorMetaInformacion
 
 						colaEnvio.nuevoEvento(evento);
 					}
-					if (leido.tipo.intValue() == DMIEvent.NUEVO_USUARIO
+					else if (leido.tipo.intValue() == DMIEvent.NUEVO_USUARIO
 							.intValue())
 					{
 						DMIEvent evento = new DMIEvent();
@@ -764,8 +764,9 @@ public class ServidorMetaInformacion
 							notificarNuevoUsuario(aplicacion, usuario);
 
 						colaEnvio.nuevoEvento(evento);
+						
 					}
-					if (leido.tipo.intValue() == DMIEvent.ELIMINAR_USUARIO
+					else if (leido.tipo.intValue() == DMIEvent.ELIMINAR_USUARIO
 							.intValue())
 					{
 						DMIEvent evento = new DMIEvent();
@@ -792,7 +793,7 @@ public class ServidorMetaInformacion
 
 						colaEnvio.nuevoEvento(evento);
 					}
-					if (leido.tipo.intValue() == DMIEvent.NUEVO_ROL.intValue())
+					else if (leido.tipo.intValue() == DMIEvent.NUEVO_ROL.intValue())
 					{
 						DMIEvent evento = new DMIEvent();
 						String aplicacion = new String(leido.aplicacion);
@@ -816,7 +817,7 @@ public class ServidorMetaInformacion
 
 						colaEnvio.nuevoEvento(evento);
 					}
-					if (leido.tipo.intValue() == DMIEvent.ELIMINAR_ROL
+					else if (leido.tipo.intValue() == DMIEvent.ELIMINAR_ROL
 							.intValue())
 					{
 						DMIEvent evento = new DMIEvent();
@@ -841,7 +842,7 @@ public class ServidorMetaInformacion
 
 						colaEnvio.nuevoEvento(evento);
 					}
-					if (leido.tipo.intValue() == DMIEvent.NUEVO_ROL_PERMITIDO
+					else if (leido.tipo.intValue() == DMIEvent.NUEVO_ROL_PERMITIDO
 							.intValue())
 					{
 						DMIEvent evento = new DMIEvent();
@@ -871,7 +872,7 @@ public class ServidorMetaInformacion
 
 						colaEnvio.nuevoEvento(evento);
 					}
-					if (leido.tipo.intValue() == DMIEvent.ELIMINAR_ROL_PERMITIDO
+					else if (leido.tipo.intValue() == DMIEvent.ELIMINAR_ROL_PERMITIDO
 							.intValue())
 					{
 						DMIEvent evento = new DMIEvent();
@@ -901,6 +902,9 @@ public class ServidorMetaInformacion
 									rol);
 
 						colaEnvio.nuevoEvento(evento);
+					}
+					else if (leido.tipo.intValue() == DMIEvent.SAVE_CHANGES) {
+						salvar();
 					}
 				}
 				catch (Exception e)

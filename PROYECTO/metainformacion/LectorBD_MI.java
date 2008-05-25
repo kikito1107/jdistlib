@@ -320,6 +320,7 @@ public class LectorBD_MI
 					else
 					// insertarlo
 					{
+						System.out.println("Insertando el usuario con id " + id_usuario);
 						id_usuario = conexion.generaId("usuario", "id_usuario");
 						conexion.insert("INSERT INTO usuario VALUES('"
 								+ id_usuario + "','" + nombre_usuario + "','"
@@ -408,6 +409,8 @@ public class LectorBD_MI
 					v2 = usuario.getRolesPermitidos();
 					for (k = 0; k < v2.size(); k++)
 					{
+						
+						
 						String aux = (String) v2.elementAt(k);
 						rs = conexion
 								.select("SELECT id_rol FROM rol WHERE nombre_rol='"
@@ -416,8 +419,10 @@ public class LectorBD_MI
 						int id_rol = rs.getInt(1);
 						rs.close();
 
+						System.out.println("Usuario " + id_usuario + " Rol " + id_rol);
+						
 						conexion.insert("INSERT INTO permitidos VALUES('"
-								+ id_usuario + "','" + id_rol + "')");
+								+ id_rol + "','" + id_usuario + "')");
 					}
 				}
 

@@ -1,4 +1,4 @@
-package componentes.gui.editor;
+package util;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

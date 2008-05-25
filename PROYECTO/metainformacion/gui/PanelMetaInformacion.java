@@ -276,13 +276,13 @@ public class PanelMetaInformacion extends JPanel
 						this));
 		jPanel2.setLayout(null);
 		campoNombre.setText("");
-		campoNombre.setBounds(new Rectangle(117, 28, 115, 20));
+		campoNombre.setBounds(new Rectangle(125, 27, 160, 20));
 		campoClave.setText("");
-		campoClave.setBounds(new Rectangle(117, 56, 104, 20));
+		campoClave.setBounds(new Rectangle(125, 55, 160, 20));
 		checkAdmin.setSelected(false);
 		checkAdmin.setText("Administrador");
-		checkAdmin.setBounds(new Rectangle(116, 113, 130, 23));
-		listaRoles.setBounds(new Rectangle(117, 84, 98, 19));
+		checkAdmin.setBounds(new Rectangle(140, 112, 130, 23));
+		listaRoles.setBounds(new Rectangle(125, 83, 160, 20));
 		jLabel1.setText("Nombre:");
 		jLabel1.setBounds(new Rectangle(20, 31, 53, 15));
 		jLabel3.setText("Clave:");
@@ -302,7 +302,7 @@ public class PanelMetaInformacion extends JPanel
 		botonEliminar
 				.addActionListener(new PanelMetaInformacion_botonEliminar_actionAdapter(
 						this));
-		botonCrear.setBounds(new Rectangle(136, 163, 71, 23));
+		botonCrear.setBounds(new Rectangle(126, 163, 87, 23));
 		botonCrear.setText("Crear");
 		botonCrear
 				.addActionListener(new PanelMetaInformacion_botonCrear_actionAdapter(
@@ -653,6 +653,8 @@ public class PanelMetaInformacion extends JPanel
 			usuario = campoNombre.getText();
 			clave = campoClave.getText();
 			rolDefecto = listaRoles.getSeleccionado();
+			
+			
 			if (usuario.length() == 0)
 			{
 				JOptionPane.showMessageDialog(null,
@@ -668,6 +670,7 @@ public class PanelMetaInformacion extends JPanel
 						JOptionPane.ERROR_MESSAGE);
 				error = true;
 			}
+			
 			if (( listaRoles.getSelectedIndex() == 0 ) && !error)
 			{
 				JOptionPane.showMessageDialog(null, "Debes seleccionar un rol",
@@ -679,11 +682,19 @@ public class PanelMetaInformacion extends JPanel
 				String mensaje = ClienteMetaInformacion.obtenerCMI()
 						.nuevoUsuario(usuario, clave, rolDefecto,
 								checkAdmin.isSelected());
-				if (mensaje.length() == 0)
+				
+				String mensaje2 = ClienteMetaInformacion.obtenerCMI()
+				.nuevoRolPermitido(usuario, rolDefecto);
+				
+				if (mensaje.length() == 0 && mensaje2.length() == 0)
 					JOptionPane.showMessageDialog(null, "Usuario creado",
 							"Creacion de usuario",
 							JOptionPane.INFORMATION_MESSAGE);
-				else JOptionPane.showMessageDialog(null, mensaje, "Error",
+				if (mensaje.length() != 0)
+					JOptionPane.showMessageDialog(null, mensaje, "Error",
+						JOptionPane.ERROR_MESSAGE);
+				if (mensaje2.length() != 0)
+					JOptionPane.showMessageDialog(null, mensaje2, "Error",
 						JOptionPane.ERROR_MESSAGE);
 			}
 		}

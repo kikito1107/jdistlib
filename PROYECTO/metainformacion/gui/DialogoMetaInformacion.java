@@ -6,6 +6,12 @@ import java.awt.Point;
 
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import java.awt.GridBagLayout;
+import javax.swing.JButton;
+import java.awt.GridBagConstraints;
+import javax.swing.ImageIcon;
+
+import metainformacion.ClienteMetaInformacion;
 
 /**
  * <p>
@@ -32,17 +38,24 @@ public class DialogoMetaInformacion extends JDialog
 
 	Frame frame = null;
 
-	JPanel panel1 = new JPanel();
-
 	BorderLayout borderLayout1 = new BorderLayout();
 
 	private final int anchura = 240;
 
 	PanelMetaInformacion jPanel1 = new PanelMetaInformacion();
 
+	private JPanel content = null;
+
+	private JPanel panelInferior = null;
+
+	private JButton botonGuardar = null;
+
+	private JButton botonSalir = null;
+
 	public DialogoMetaInformacion( Frame frame, String title, boolean modal )
 	{
 		super(frame, title, modal);
+		initialize();
 		try
 		{
 			this.frame = frame;
@@ -60,6 +73,20 @@ public class DialogoMetaInformacion extends JDialog
 	public DialogoMetaInformacion()
 	{
 		this(null, "", false);
+	}
+
+	/**
+	 * This method initializes this
+	 * 
+	 */
+	private void initialize() {
+		try {
+            this.setContentPane(getContent());  // Generated
+				
+		}
+		catch (java.lang.Throwable e) {
+			//  Do Something
+		}
 	}
 
 	public void nuevoUsuario(String usuario)
@@ -84,10 +111,7 @@ public class DialogoMetaInformacion extends JDialog
 
 	private void jbInit() throws Exception
 	{
-		panel1.setLayout(borderLayout1);
-		getContentPane().add(panel1);
-		panel1.add(jPanel1, BorderLayout.CENTER);
-
+		
 	}
 
 	public void inicializar(String rol)
@@ -127,6 +151,120 @@ public class DialogoMetaInformacion extends JDialog
 		posFrame.y = posDialogo.y;
 
 		return posFrame;
+	}
+
+	/**
+	 * This method initializes content	
+	 * 	
+	 * @return javax.swing.JPanel	
+	 */
+	private JPanel getContent()
+	{
+		if (content == null)
+		{
+			try
+			{
+				content = new JPanel();
+				content.setLayout(new BorderLayout());  // Generated
+				content.add(jPanel1, BorderLayout.CENTER);  // Generated
+				content.add(getPanelInferior(), BorderLayout.SOUTH);  // Generated
+			}
+			catch (java.lang.Throwable e)
+			{
+				// TODO: Something
+			}
+		}
+		return content;
+	}
+
+	/**
+	 * This method initializes panelInferior	
+	 * 	
+	 * @return javax.swing.JPanel	
+	 */
+	private JPanel getPanelInferior()
+	{
+		if (panelInferior == null)
+		{
+			try
+			{
+				GridBagConstraints gridBagConstraints1 = new GridBagConstraints();
+				gridBagConstraints1.gridx = 1;  // Generated
+				GridBagConstraints gridBagConstraints = new GridBagConstraints();
+				gridBagConstraints.gridx = 0;  // Generated
+				gridBagConstraints.gridy = 0;  // Generated
+				panelInferior = new JPanel();
+				panelInferior.setLayout(new GridBagLayout());  // Generated
+				panelInferior.add(getBotonGuardar(), gridBagConstraints1);  // Generated
+				panelInferior.add(getBotonSalir(), gridBagConstraints);  // Generated
+			}
+			catch (java.lang.Throwable e)
+			{
+				// TODO: Something
+			}
+		}
+		return panelInferior;
+	}
+
+	/**
+	 * This method initializes botonGuardar	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private JButton getBotonGuardar()
+	{
+		if (botonGuardar == null)
+		{
+			try
+			{
+				botonGuardar = new JButton();
+				botonGuardar.setText("Guardar");  // Generated
+				botonGuardar.setIcon(new ImageIcon(getClass().getResource("/Resources/disk.png")));  // Generated
+				botonGuardar.addActionListener(new java.awt.event.ActionListener()
+				{
+					public void actionPerformed(java.awt.event.ActionEvent e)
+					{
+						ClienteMetaInformacion.obtenerCMI().guardarCambiosBD();
+						setVisible(false);
+					}
+				});
+			}
+			catch (java.lang.Throwable e)
+			{
+				// TODO: Something
+			}
+		}
+		return botonGuardar;
+	}
+
+	/**
+	 * This method initializes botonSalir	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private JButton getBotonSalir()
+	{
+		if (botonSalir == null)
+		{
+			try
+			{
+				botonSalir = new JButton();
+				botonSalir.setText("Salir");  // Generated
+				botonSalir.setIcon(new ImageIcon(getClass().getResource("/Resources/door_open.png")));  // Generated
+				botonSalir.addActionListener(new java.awt.event.ActionListener()
+				{
+					public void actionPerformed(java.awt.event.ActionEvent e)
+					{
+						setVisible(false);
+					}
+				});
+			}
+			catch (java.lang.Throwable e)
+			{
+				// TODO: Something
+			}
+		}
+		return botonSalir;
 	}
 
 }

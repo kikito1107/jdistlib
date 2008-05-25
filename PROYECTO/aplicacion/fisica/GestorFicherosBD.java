@@ -273,7 +273,7 @@ public class GestorFicherosBD
 						+ ", '" + f.getNombre() + "', " + isdir + ", '"
 						+ f.getPermisos() + "'," + id_user + ", " + id_rol
 						+ "," + f.getPadre() + ",'" + f.getRutaLocal()
-						+ "', NULL";
+						+ "', '" + f.getTipo() + "'";
 
 				// insertamos la nueva tupla en fichero
 				if (!conexion.insert("INSERT INTO fichero values(" + parametros

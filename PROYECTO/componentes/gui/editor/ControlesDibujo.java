@@ -75,6 +75,13 @@ public class ControlesDibujo extends JPanel
 	private JButton botonImprimir = null;
 
 	private JButton botonGuardarLocal = null;
+	
+	public ControlesDibujo(){
+		
+		lienzo = new DILienzo("", false, null);
+		
+		initialize();
+	}
 
 	/**
 	 * Devuelve el color actual
