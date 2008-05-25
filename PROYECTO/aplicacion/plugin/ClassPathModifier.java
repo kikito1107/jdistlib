@@ -7,6 +7,7 @@ import java.net.URLClassLoader;
 
 public class ClassPathModifier
 {
+	@SuppressWarnings("unchecked")
 	private static final Class[] parameters = new Class[]
 	{ URL.class };
 
