@@ -13,6 +13,7 @@ public class DPluginLoader
 	@SuppressWarnings( "unchecked" )
 	public static synchronized DAbstractPlugin getPlugin(String file) throws Exception
 	{
+		ClassPathModifier.addFile(new File(file));
 		JarClassLoader jcl = new JarClassLoader(file);
 
 		String className = null;
