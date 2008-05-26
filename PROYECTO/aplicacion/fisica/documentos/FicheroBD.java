@@ -171,4 +171,20 @@ public class FicheroBD implements Serializable
 			return true;
 		else return false;
 	}
+	
+	public static String getTipoFichero(String extension)
+	{
+		String res = "";
+
+		extension = extension.toLowerCase();
+
+		if (extension.equals("gif") || extension.equals("png")
+				|| extension.equals("jpg") || extension.equals("jpeg")
+				|| extension.equals("tiff") || extension.equals("tif")
+				|| extension.equals("bmp"))
+			res = "img";
+		else res = extension;
+
+		return res;
+	}
 }

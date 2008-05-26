@@ -121,6 +121,7 @@ public class VideoFrame extends JFrame
 												org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)));
 
 		jButton1.setText("Salir");
+		jButton1.setIcon(new ImageIcon(getClass().getResource("/Resources/door_open.png")));  // Generated
 		jButton1.addActionListener(new java.awt.event.ActionListener()
 		{
 			public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -173,7 +174,7 @@ public class VideoFrame extends JFrame
 														.add(jButton1).add(
 																ini_stop))
 										.addContainerGap(21, Short.MAX_VALUE)));
-		ini_stop.setIcon(new ImageIcon("./Resuorces/control_play_blue.png"));
+		ini_stop.setIcon(new ImageIcon(getClass().getResource("/Resources/control_play_blue.png")));
 
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
@@ -186,6 +187,7 @@ public class VideoFrame extends JFrame
 		{
 			init = false;
 			VideoConferencia.stopped = true;
+			
 		}
 		catch (Exception ex)
 		{
@@ -203,7 +205,7 @@ public class VideoFrame extends JFrame
 				init = false;
 				this.ini_stop.setText("Iniciar");
 				
-				ini_stop.setIcon(new ImageIcon("./Resuorces/control_play_blue.png"));
+				ini_stop.setIcon(new ImageIcon(getClass().getResource("/Resources/control_play_blue.png")));
 				
 				VideoConferencia.stopped = true;
 			}
@@ -218,7 +220,7 @@ public class VideoFrame extends JFrame
 			th.start();
 			init = true;
 			this.ini_stop.setText("Detener");
-			ini_stop.setIcon(new ImageIcon("./Resuorces/control_pause_blue.png"));
+			ini_stop.setIcon(new ImageIcon(getClass().getResource("/Resources/control_pause_blue.png")));
 		}
 		catch (Exception ex)
 		{

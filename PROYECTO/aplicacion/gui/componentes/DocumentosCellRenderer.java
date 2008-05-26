@@ -11,16 +11,17 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.documentos.FicheroBD;
 
-public class CustomCellRenderer extends DefaultTreeCellRenderer
+public class DocumentosCellRenderer extends DefaultTreeCellRenderer
 {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	Icon iconoCarpeta = null;
+	private Icon iconoCarpeta = new ImageIcon("./Resources/folder.gif");
 
-	private Icon iconoEditar = null;
+	private Icon iconoEditar = new ImageIcon("./Resources/nodo_edit.png");;
+	
 
 	private Icon iconoPDF = new ImageIcon("./Resources/file_acrobat.gif");
 	
@@ -29,11 +30,14 @@ public class CustomCellRenderer extends DefaultTreeCellRenderer
 	private Icon iconoDOC = new ImageIcon("./Resources/page_white_word.png");
 	
 	private Icon iconoTXT = new ImageIcon("./Resources/page_white_text.png");
+	
+	private Icon iconoUNK = new ImageIcon("./Resources/page_white.png");
 
-	public CustomCellRenderer( Icon cn, Icon edit)
+	public DocumentosCellRenderer( )
 	{
-		iconoCarpeta = cn;
-		iconoEditar = edit;
+		setLeafIcon(iconoUNK);
+		setClosedIcon(iconoCarpeta);
+		setOpenIcon(iconoCarpeta);
 	}
 
 	@Override
