@@ -4,8 +4,6 @@ import java.rmi.RemoteException;
 
 import javax.swing.JFrame;
 
-import aplicacion.plugin.example.appparalelaprimos.PrimeTask;
-
 import javaspaces.SpaceLocator;
 import net.jini.core.entry.Entry;
 import net.jini.core.entry.UnusableEntryException;
