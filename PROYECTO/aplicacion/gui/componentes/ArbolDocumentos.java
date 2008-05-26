@@ -12,6 +12,10 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
+import metainformacion.ClienteMetaInformacion;
+import metainformacion.MIRol;
+import metainformacion.MIUsuario;
+
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.ClienteFicheros;
 import aplicacion.fisica.documentos.Documento;
@@ -159,24 +163,19 @@ public class ArbolDocumentos extends JTree
 			}
 			else
 			{
-				int res = JOptionPane.showConfirmDialog(
-								null,
-								"Si elimina un directorio también se eliminarán todos\nlos "
-										+ "ficheros contenidos en la carpeta y/o en las subcarpetas.\n¿Seguro que desea continuar?",
-								"¿Desea continuar?",
-								JOptionPane.OK_CANCEL_OPTION);
-
-				if (res == 0)
-					if (!comprobarDirectorio(f))
-						return false;
-					else
-					{
-
-						ClienteFicheros.obtenerClienteFicheros().borrarFichero(f,DConector.Daplicacion);
-						return true;
-					}
+				DefaultMutableTreeNode nodo = this.getNodoSeleccionado();
 				
-				else return false;
+				if (nodo.getChildCount() == 0) {
+					ClienteFicheros.obtenerClienteFicheros().borrarFichero(f,DConector.Daplicacion);
+					return true;
+				}
+				else {
+					JOptionPane.showMessageDialog(
+									null,
+									"No se puede eliminar la carpeta dado que esta tiene documentos y/o carpetas en su interior");
+					
+					return false;
+				}
 
 			}
 		}
@@ -231,5 +230,38 @@ public class ArbolDocumentos extends JTree
 			return res;
 		}
 		else return false;
+	}
+	
+	public FicheroBD agregarCarpeta(String nombre){
+		FicheroBD f = this.getDocumentoSeleccionado();
+		
+		if (f.esDirectorio()){
+			
+			System.err.println("LA carpeta padre existe");
+			
+			//creamos el nodo
+			FicheroBD nuevo = new FicheroBD();
+			
+			//recuperamos el usuario y el rol
+			MIUsuario user = ClienteMetaInformacion.cmi.getUsuario(DConector.Dusuario);
+			MIRol rol = ClienteMetaInformacion.cmi.getRol(DConector.Drol);
+			
+			if (user==null || rol == null) return null;
+			
+			nuevo.setNombre(nombre);
+			nuevo.setPadre(f.getId());
+			nuevo.setRol(rol);
+			nuevo.setUsuario(user);
+			nuevo.setPermisos("rwrw--");
+			nuevo.setTipo("NULL");
+			if (!f.getRutaLocal().equals("/"))
+				nuevo.setRutaLocal(f.getRutaLocal()+"/"+nombre);
+			else
+				nuevo.setRutaLocal("/"+nombre);
+			nuevo.esDirectorio(true);
+			
+			return nuevo;
+		}
+		else  return null;
 	}
 }

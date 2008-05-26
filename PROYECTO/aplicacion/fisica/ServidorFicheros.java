@@ -171,9 +171,35 @@ public class ServidorFicheros
 						// TODO insertar un nuevo fichero en la BD
 
 						if (gestor == null) gestor = new GestorFicherosBD();
+						
+						DFileEvent evt = (DFileEvent) leido;
 
-						gestor
-								.insertarNuevoFichero(( (DFileEvent) leido ).fichero);
+						if (evt.fichero.esDirectorio()) {
+							File f = new File(evt.fichero.getRutaLocal());
+							f.mkdir();
+							System.err.println("Carpeta creada");
+						}
+						
+						FicheroBD res = gestor
+								.insertarNuevoFichero(evt.fichero);
+						
+						
+ 						
+							DFileEvent nuevo = new DFileEvent();
+	
+							nuevo.tipo = new Integer(
+									DFileEvent.RESPUESTA_INSERTAR_FICHERO);
+							nuevo.origen = new Integer(30);
+							nuevo.destino = new Integer(31);
+							nuevo.aplicacion = new String(leido.aplicacion);
+							nuevo.fichero = res;
+							
+							if (res != null)
+								nuevo.res = new Boolean(true);
+							else
+								nuevo.res = new Boolean(false);
+							
+							colaEnvio.nuevoEvento(nuevo);
 
 					}
 					else if (leido.tipo.intValue() == DFileEvent.NOTIFICAR_ELIMINAR_FICHERO

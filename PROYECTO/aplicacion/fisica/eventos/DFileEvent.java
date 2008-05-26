@@ -36,6 +36,8 @@ public class DFileEvent extends DEvent
 	public FicheroBD fichero = null;
 
 	public FicheroBD padre = null;
+	
+	public Boolean res = null;
 
 	public DFileEvent()
 	{

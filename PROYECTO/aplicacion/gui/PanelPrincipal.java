@@ -114,6 +114,8 @@ public class PanelPrincipal extends DComponenteBase
 	private JButton botonAbrirDoc = null;
 
 	private JButton botonDescargar = null;
+	
+	private JButton agregarCarpeta = null;
 
 	private JButton botonImprimirDocumento = null;
 
@@ -162,7 +164,7 @@ public class PanelPrincipal extends DComponenteBase
 		FicheroBD carpeta = arbolDocumentos.getDocumentoSeleccionado();
 
 		// si el fichero escogido no es directorio, salimos
-		if (!carpeta.esDirectorio()) return;
+		if (carpeta == null || !carpeta.esDirectorio()) return;
 
 		String path = carpeta.getRutaLocal() + "/";
 
@@ -224,7 +226,7 @@ public class PanelPrincipal extends DComponenteBase
 				rol, carpeta.getId(), path + f.getName(), extension);
 
 		// enviamos el nuevo fichero al servidor
-		Transfer t = new Transfer(ClienteFicheros.ipConexion, path + "/"
+		Transfer t = new Transfer(ClienteFicheros.ipConexion, path
 				+ f.getName());
 
 		if (!t.sendFile(bytes))
@@ -239,18 +241,26 @@ public class PanelPrincipal extends DComponenteBase
 		else
 		{
 
+			FicheroBD f2 = ClienteFicheros.cf.insertarNuevoFichero(fbd, DConector.Daplicacion);
+			
+			if (f2 == null) return;
+
+			
+			System.out.println("ID del nuevo fichero " + f2.getId());
+			
+			
 			// notificamos al resto de usuarios la "novedad"
 			DFileEvent evento = new DFileEvent();
-			evento.fichero = fbd;
+			evento.fichero = f2;
 			evento.padre = carpeta;
 			evento.tipo = new Integer(DFileEvent.NOTIFICAR_INSERTAR_FICHERO
 					.intValue());
 			enviarEvento(evento);
 
 			// insertamos el nuevo fichero en el servidor
-			ClienteFicheros.cf.insertarNuevoFichero(fbd, DConector.Daplicacion);
+			
 
-			VisorPropiedadesFichero.verInfoFichero(fbd, null);
+			//VisorPropiedadesFichero.verInfoFichero(fbd, null);
 		}				
 		
 	}
@@ -840,6 +850,8 @@ public class PanelPrincipal extends DComponenteBase
 			herramientasDocumentos.add(getButonSubir());
 			herramientasDocumentos.add(getBotonDescargar());
 			herramientasDocumentos.add(new Separador());
+			herramientasDocumentos.add(this.getAgregarCarpeta());
+			herramientasDocumentos.add(new Separador());
 			herramientasDocumentos.add(getBotonEliminarFichero());
 			herramientasDocumentos.add(new Separador());
 			herramientasDocumentos.add(getBotonInfo());
@@ -1039,6 +1051,8 @@ public class PanelPrincipal extends DComponenteBase
 	{
 		
 		FicheroBD f = arbolDocumentos.getDocumentoSeleccionado();
+		
+		if (f == null) return;
 
 		if (f.esDirectorio()
 				|| !f.comprobarPermisos(DConector.Dusuario, DConector.Drol,
@@ -1273,6 +1287,51 @@ public class PanelPrincipal extends DComponenteBase
 			}
 	}
 
+	private JButton getAgregarCarpeta()
+	{
+		
+		if (agregarCarpeta == null){
+			agregarCarpeta = new JButton();
+			agregarCarpeta.setBorderPainted(false);
+			agregarCarpeta.setText("");
+
+			
+			agregarCarpeta
+					.setIcon(new ImageIcon("./Resources/folder_add.png"));
+			agregarCarpeta.addActionListener(new java.awt.event.ActionListener()
+			{
+				public void actionPerformed(java.awt.event.ActionEvent e)
+				{
+					
+					String nombre = JOptionPane.showInputDialog("Introduce el nuevo nombre para la carpeta");
+					
+					FicheroBD f = arbolDocumentos.agregarCarpeta(nombre);
+					
+					if (f== null) return;
+					
+					f = ClienteFicheros.cf.insertarNuevoFichero(f, DConector.Daplicacion);
+					
+					if (f!= null){
+						
+						System.out.println("ID de la nueva carpeta " + f.getId());
+						
+						DFileEvent evento = new DFileEvent();
+						evento.padre = arbolDocumentos.getDocumentoSeleccionado();
+						evento.fichero = f;
+						evento.tipo = new Integer(DFileEvent.NOTIFICAR_INSERTAR_FICHERO
+								.intValue());
+						enviarEvento(evento);
+					}
+					
+				}
+			});
+		}
+		
+		return agregarCarpeta;
+	}
 
 
+
+	
+	
 }

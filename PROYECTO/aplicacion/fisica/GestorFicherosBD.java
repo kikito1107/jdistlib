@@ -258,7 +258,7 @@ public class GestorFicherosBD
 	 * 
 	 * @param f
 	 */
-	public void insertarNuevoFichero(FicheroBD f)
+	public FicheroBD insertarNuevoFichero(FicheroBD f)
 	{
 		try
 		{
@@ -269,7 +269,9 @@ public class GestorFicherosBD
 				int isdir = f.esDirectorio() ? 1 : 0;
 				int id_user = f.getUsuario().getIdentificador();
 				int id_rol = f.getRol().getIdentificador();
-				String parametros = conexion.generaId("Fichero", "id_fichero")
+				int id = conexion.generaId("Fichero", "id_fichero");
+				f.setId(id);
+				String parametros = id
 						+ ", '" + f.getNombre() + "', " + isdir + ", '"
 						+ f.getPermisos() + "'," + id_user + ", " + id_rol
 						+ "," + f.getPadre() + ",'" + f.getRutaLocal()
@@ -277,13 +279,21 @@ public class GestorFicherosBD
 
 				// insertamos la nueva tupla en fichero
 				if (!conexion.insert("INSERT INTO fichero values(" + parametros
-						+ ")")) System.err.println("ERROR en el insert");
+						+ ")")) 
+					{
+					 	System.err.println("ERROR en el insert");
+					 	return null;
+					}
+				else
+					return f;
 			}
+			else return null;
 
 		}
 		catch (Exception ex)
 		{
 			ex.printStackTrace();
+			return null;
 		}
 	}
 
