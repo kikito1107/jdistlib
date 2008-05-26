@@ -1327,4 +1327,10 @@ public class PanelPrincipal extends DComponenteBase
 		
 		return agregarCarpeta;
 	}
+	
+	public void salir(){
+		
+		if (frame != null && frame.getLienzo() != null && frame.getLienzo().getPathDocumento() != null)
+			DConector.obtenerDC().cerrarFichero(frame.getLienzo().getPathDocumento());
+	}
 }

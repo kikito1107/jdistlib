@@ -118,6 +118,7 @@ public class DialogoLogin extends JDialog
 		setLocation(( screenSize.width - frameSize.width ) / 2,
 				( screenSize.height - frameSize.height ) / 2);
 
+		campoUsuario.select(0, campoUsuario.getText().length());
 		setVisible(true);
 		return datosLogin;
 	}

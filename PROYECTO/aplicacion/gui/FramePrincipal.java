@@ -56,6 +56,7 @@ public class FramePrincipal extends DJFrame
 
 	void this_windowClosing(WindowEvent e)
 	{
+		componente.salir();
 		DConector.obtenerDC().salir();
 	}
 
