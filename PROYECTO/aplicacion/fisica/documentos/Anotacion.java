@@ -1,6 +1,8 @@
 package aplicacion.fisica.documentos;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import figuras.Figura;
 
@@ -15,10 +17,13 @@ public class Anotacion implements Serializable
 	private String usuario;
 
 	private String rol;
+	
+	private Date fecha = null;
 
 	public Anotacion()
 	{
-
+		fecha = new Date();
+		
 	}
 
 	public void setDocumento(Documento doc)
@@ -59,5 +64,13 @@ public class Anotacion implements Serializable
 	public void setRol(String rol)
 	{
 		this.rol = rol;
+	}
+
+	public String getFecha()
+	{
+		SimpleDateFormat formato = new SimpleDateFormat("dd/MMMMM/yyyy 'a las' hh:mm");
+		
+		
+		return formato.format(fecha);
 	}
 }

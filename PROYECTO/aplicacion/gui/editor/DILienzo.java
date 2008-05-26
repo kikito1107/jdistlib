@@ -432,6 +432,8 @@ public class DILienzo extends DIViewer implements MouseListener,
 					String texto = "Usuario: " + v.get(i).getUsuario();
 
 					texto += "    Rol: " + v.get(i).getRol();
+					
+					texto += "    Fecha: " + v.get(i).getFecha();
 
 					this.setToolTipText(texto);
 					encontrado = true;
