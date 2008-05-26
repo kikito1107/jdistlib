@@ -18,14 +18,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.documentos.FicheroBD;
-import componentes.gui.DIButton;
-import componentes.base.DComponenteBase;
-import componentes.base.DJFrame;
 
 public class VisorPropiedadesFichero extends JDialog
 {

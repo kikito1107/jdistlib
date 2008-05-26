@@ -4,6 +4,8 @@
 package beans;
 
 import Deventos.enlaceJS.DConector;
+import aplicacion.gui.editor.BarraEstado;
+import aplicacion.gui.editor.ControlesDibujo;
 import componentes.base.DJFrame;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -14,9 +16,7 @@ import javax.swing.UIManager;
 
 import java.awt.BorderLayout;
 import componentes.gui.usuarios.DICambioRol;
-import componentes.gui.editor.ControlesDibujo;
 import Deventos.DJLienzoEvent;
-import componentes.gui.editor.BarraEstado;
 import componentes.base.DJChat;
 import componentes.base.DJTree;
 

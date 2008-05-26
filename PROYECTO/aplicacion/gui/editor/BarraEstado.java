@@ -1,4 +1,4 @@
-package componentes.gui.editor;
+package aplicacion.gui.editor;
 
 import java.awt.Color;
 import java.awt.Dimension;

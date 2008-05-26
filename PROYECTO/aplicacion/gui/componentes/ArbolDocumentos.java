@@ -9,18 +9,15 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
 import metainformacion.ClienteMetaInformacion;
 import metainformacion.MIRol;
 import metainformacion.MIUsuario;
-
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.ClienteFicheros;
 import aplicacion.fisica.documentos.Documento;
 import aplicacion.fisica.documentos.FicheroBD;
-import aplicacion.fisica.eventos.DFileEvent;
 import aplicacion.fisica.net.Transfer;
 
 /**
@@ -172,7 +169,7 @@ public class ArbolDocumentos extends JTree
 				else {
 					JOptionPane.showMessageDialog(
 									null,
-									"No se puede eliminar la carpeta dado que esta tiene documentos y/o carpetas en su interior");
+									"No se puede eliminar la carpeta dado que esta tiene documentos y/o otras carpetas");
 					
 					return false;
 				}
@@ -182,55 +179,6 @@ public class ArbolDocumentos extends JTree
 		else return false;
 	}
 	
-	/**
-	 * Comprueba los permisos que se tienen sobre un direcotorio
-	 * @param dir directorio
-	 * @return true si tenemos pleno acceso al directorio y false en caso contrario
-	 */
-	private boolean comprobarDirectorio(FicheroBD dir)
-	{
-		String u = DConector.Dusuario;
-		String r = DConector.Drol;
-
-		boolean permisosDir = dir.comprobarPermisos(u, r,
-				FicheroBD.PERMISO_ESCRITURA);
-
-		if (!dir.esDirectorio())
-			return permisosDir;
-		else if (permisosDir)
-		{
-			// si es un directorio
-			boolean res = true;
-
-			DefaultTreeModel modelo = (DefaultTreeModel) this
-					.getModel();
-			DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) modelo
-					.getRoot();
-
-			DefaultMutableTreeNode nodo = ArbolDocumentos.buscarFichero(raiz, dir.getId());
-
-			// tenemos que recorrer todos los directorios que cuelgan de dir
-			int numHijos = modelo.getChildCount(nodo);
-
-			for (int i = 0; i < numHijos; ++i)
-			{
-				FicheroBD h = (FicheroBD) ( (DefaultMutableTreeNode) modelo
-						.getChild(nodo, i) ).getUserObject();
-
-				// comprobamos si tenemos permiso escritura en el fichero
-				if (!h.comprobarPermisos(u, r, FicheroBD.PERMISO_ESCRITURA))
-					return false;
-
-				// si es un directorio nos aseguramos de que tengamso acceso a
-				// todos los ficheros
-				if (h.esDirectorio())
-					if (!comprobarDirectorio(h)) return false;
-			}
-
-			return res;
-		}
-		else return false;
-	}
 	
 	public FicheroBD agregarCarpeta(String nombre){
 		FicheroBD f = this.getDocumentoSeleccionado();

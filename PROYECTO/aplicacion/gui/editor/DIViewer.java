@@ -1,7 +1,7 @@
 /**
  * 
  */
-package componentes.gui.editor;
+package aplicacion.gui.editor;
 
 import java.awt.Graphics;
 import java.awt.Image;

@@ -1,4 +1,4 @@
-package componentes.gui.editor;
+package aplicacion.gui.editor;
 
 import java.awt.BorderLayout;
 import java.awt.Graphics;
@@ -32,7 +32,7 @@ public class FramePanelDibujo extends DJFrame
 
 	BorderLayout borderLayout1 = new BorderLayout();
 
-	DIPanelDibujo lienzo = null;
+	DIPanelEditor lienzo = null;
 
 	static boolean standalone;
 
@@ -59,7 +59,7 @@ public class FramePanelDibujo extends DJFrame
 		else this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.addWindowListener(new FrameDrawPanel_this_windowAdapter(this));
-		lienzo = new DIPanelDibujo("panelDibujo", true, null);
+		lienzo = new DIPanelEditor("panelDibujo", true, null);
 		this.getContentPane().add(lienzo, BorderLayout.CENTER);
 
 		this.setTitle(".:: Panel Edici—n Compartido : " + DConector.Dusuario
@@ -109,7 +109,7 @@ public class FramePanelDibujo extends DJFrame
 		lienzo.validate();
 	}
 
-	public DIPanelDibujo getLienzo()
+	public DIPanelEditor getLienzo()
 	{
 		return lienzo;
 	}

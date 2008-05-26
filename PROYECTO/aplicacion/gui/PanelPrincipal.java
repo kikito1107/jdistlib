@@ -7,7 +7,6 @@ import java.awt.GridBagConstraints;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -26,7 +25,6 @@ import javax.swing.JTree;
 import javax.swing.border.LineBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreePath;
 
 import metainformacion.ClienteMetaInformacion;
 import metainformacion.MIRol;
@@ -40,12 +38,12 @@ import aplicacion.fisica.documentos.FicheroBD;
 import aplicacion.fisica.eventos.DFileEvent;
 import aplicacion.fisica.net.Transfer;
 import aplicacion.gui.componentes.ArbolDocumentos;
+import aplicacion.gui.editor.FramePanelDibujo;
 import aplicacion.plugin.DAbstractPlugin;
 import aplicacion.plugin.DPluginLoader;
 
 import componentes.base.DComponente;
 import componentes.base.DComponenteBase;
-import componentes.gui.editor.FramePanelDibujo;
 import componentes.gui.usuarios.ArbolUsuariosConectadosRol;
 
 public class PanelPrincipal extends DComponenteBase
@@ -1329,9 +1327,4 @@ public class PanelPrincipal extends DComponenteBase
 		
 		return agregarCarpeta;
 	}
-
-
-
-	
-	
 }

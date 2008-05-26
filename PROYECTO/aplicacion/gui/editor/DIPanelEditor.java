@@ -1,4 +1,4 @@
-package componentes.gui.editor;
+package aplicacion.gui.editor;
 
 import java.awt.BorderLayout;
 
@@ -13,7 +13,7 @@ import aplicacion.fisica.documentos.Documento;
 import componentes.base.DComponente;
 import componentes.base.DComponenteBase;
 
-public class DIPanelDibujo extends DComponenteBase
+public class DIPanelEditor extends DComponenteBase
 {
 	/**
 	 * 
@@ -55,7 +55,7 @@ public class DIPanelDibujo extends DComponenteBase
 	 * @param conexionDC
 	 * @param padre
 	 */
-	public DIPanelDibujo( String nombre, boolean conexionDC,
+	public DIPanelEditor( String nombre, boolean conexionDC,
 			DComponenteBase padre )
 	{
 		super(nombre, conexionDC, padre);
