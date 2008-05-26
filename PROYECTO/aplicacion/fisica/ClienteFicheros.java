@@ -116,9 +116,6 @@ public class ClienteFicheros
 			// de sincronizaci�n del servidor
 			DNodeEvent plantilla = new DNodeEvent();
 
-			// aleatorio que servir� de ID de la petici�n de sincronizacion
-			int idEvento = aleatorio();
-
 			// origen y destino del evento
 			evento.origen = new Integer(31); // Cliente ficheros
 			evento.destino = new Integer(30); // Servidor ficheros
@@ -357,16 +354,6 @@ public class ClienteFicheros
 		}
 		return null;
 	}
-
-	private int aleatorio()
-	{
-		Date fecha = new Date();
-		Random r = new Random(fecha.getTime());
-		int aleatorio = r.nextInt(50000);
-		aleatorio += 1000;
-		return aleatorio;
-	}
-
 
 	/**
 	 * Encargada de localizar el JavaSpace

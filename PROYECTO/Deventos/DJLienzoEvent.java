@@ -8,7 +8,7 @@ import javax.swing.ImageIcon;
 import aplicacion.fisica.documentos.Anotacion;
 import aplicacion.fisica.documentos.Pagina;
 
-import componentes.gui.imagen.figuras.Figura;
+import figuras.Figura;
 
 /**
  * 

@@ -21,12 +21,12 @@ import Deventos.enlaceJS.DConector;
 import componentes.base.DComponente;
 import componentes.base.DComponenteBase;
 import componentes.base.HebraProcesadoraBase;
-import componentes.gui.imagen.figuras.Elipse;
-import componentes.gui.imagen.figuras.Figura;
-import componentes.gui.imagen.figuras.Linea;
-import componentes.gui.imagen.figuras.Rectangulo;
-import componentes.gui.imagen.figuras.Texto;
-import componentes.gui.imagen.figuras.TrazoManoAlzada;
+import figuras.Elipse;
+import figuras.Figura;
+import figuras.Linea;
+import figuras.Rectangulo;
+import figuras.Texto;
+import figuras.TrazoManoAlzada;
 
 /**
  * Implementacion de un editor basico de imagenes distribuido

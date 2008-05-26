@@ -1,4 +1,4 @@
-package componentes.gui.imagen.figuras;
+package figuras;
 
 import java.awt.Graphics;
 import java.util.Vector;

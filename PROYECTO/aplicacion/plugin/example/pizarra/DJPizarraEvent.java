@@ -4,7 +4,7 @@ import java.util.Vector;
 
 import Deventos.DJViewerEvent;
 
-import componentes.gui.imagen.figuras.Figura;
+import figuras.Figura;
 
 /**
  * 

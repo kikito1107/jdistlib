@@ -31,12 +31,12 @@ import aplicacion.fisica.net.Transfer;
 import aplicacion.fisica.net.TransferP2P;
 
 import componentes.base.DComponenteBase;
-import componentes.gui.imagen.figuras.Elipse;
-import componentes.gui.imagen.figuras.Figura;
-import componentes.gui.imagen.figuras.Linea;
-import componentes.gui.imagen.figuras.Rectangulo;
-import componentes.gui.imagen.figuras.Texto;
-import componentes.gui.imagen.figuras.TrazoManoAlzada;
+import figuras.Elipse;
+import figuras.Figura;
+import figuras.Linea;
+import figuras.Rectangulo;
+import figuras.Texto;
+import figuras.TrazoManoAlzada;
 
 /**
  * Implementacion de un editor basico de imagenes distribuido

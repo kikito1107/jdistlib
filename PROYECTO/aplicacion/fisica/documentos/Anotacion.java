@@ -2,7 +2,7 @@ package aplicacion.fisica.documentos;
 
 import java.io.Serializable;
 
-import componentes.gui.imagen.figuras.Figura;
+import figuras.Figura;
 
 public class Anotacion implements Serializable
 {
