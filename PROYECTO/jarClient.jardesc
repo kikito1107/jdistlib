@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="MacRoman"?>
 <jardesc>
-<jar path="/Users/carlosrodriguezdominguez/Documents/UNIVERSIDAD GRANADA/PROYECTO/bin/jDistFramework.jar"/>
+<jar path="/Users/carlosrodriguezdominguez/Documents/UGR/PROYECTO/bin/jDistFramework.jar"/>
 <options buildIfNeeded="true" compress="true" descriptionLocation="/PROYECTO/jarClient.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="true" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
 <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
 <selectedProjects/>
