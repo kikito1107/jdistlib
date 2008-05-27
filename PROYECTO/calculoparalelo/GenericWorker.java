@@ -3,6 +3,11 @@ package calculoparalelo;
 import java.io.IOException;
 import java.rmi.RemoteException;
 
+import javax.swing.JTextArea;
+
+import calculoparalelo.eventos.ResultEntry;
+import calculoparalelo.eventos.TaskEntry;
+
 import javaspaces.SpaceLocator;
 import javaspaces.TransactionManagerAccessor;
 
@@ -20,15 +25,18 @@ import net.jini.space.JavaSpace;
  * @author anab
  *
  */
-public class GenericWorker implements Runnable
+public final class GenericWorker implements Runnable
 {
 	private JavaSpace space;
+	
+	private JTextArea output = null;
 
-	public GenericWorker()
+	public GenericWorker(JTextArea t)
 	{
 		try
 		{
 			space = SpaceLocator.getSpace();
+			output = t;
 		}
 		catch (Exception e)
 		{
@@ -53,7 +61,7 @@ public class GenericWorker implements Runnable
 
 		while (true)
 		{
-			System.out.println("getting task");
+			output.append("getting task\n");
 
 			Transaction txn = getTransaction();
 			if (txn == null)
@@ -65,10 +73,11 @@ public class GenericWorker implements Runnable
 			{
 				TaskEntry task = (TaskEntry) space.take(taskTmpl, txn,
 						Long.MAX_VALUE);
-				Entry result = task.execute(space);
+				ResultEntry result = task.execute(space);
 				if (result != null)
 				{
 					space.write(result, txn, task.resultLeaseTime());
+					output.append(result.mensaje + "\n");
 				}
 				txn.commit();
 			}
@@ -96,7 +105,7 @@ public class GenericWorker implements Runnable
 					// lease expiration will take care of the 
 					// transaction
 				}
-				System.out.println("Task cancelled");
+				output.append("Task cancelled\n");
 			}
 		}
 	}
@@ -145,6 +154,6 @@ public class GenericWorker implements Runnable
 
 	public static void main(String[] args) throws Throwable
 	{
-		new GenericWorker();
+		new GenericWorker(new JTextArea());
 	}
 }

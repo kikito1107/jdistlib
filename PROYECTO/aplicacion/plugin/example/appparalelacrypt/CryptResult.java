@@ -1,8 +1,8 @@
 package aplicacion.plugin.example.appparalelacrypt;
 
-import net.jini.core.entry.Entry;
+import calculoparalelo.eventos.ResultEntry;
 
-public class CryptResult implements Entry
+public class CryptResult extends ResultEntry
 {
 	/**
 	 * 

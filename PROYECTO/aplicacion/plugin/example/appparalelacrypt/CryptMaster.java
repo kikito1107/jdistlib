@@ -7,8 +7,10 @@ import java.rmi.RemoteException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import aplicacion.plugin.DAbstractPlugin;
+
 import calculoparalelo.GenericMaster;
-import calculoparalelo.PoisonPill;
+import calculoparalelo.eventos.PoisonPill;
 
 
 import net.jini.core.entry.Entry;
@@ -71,18 +73,20 @@ public class CryptMaster extends GenericMaster implements ActionListener
 	private String unencrypted;
 	
 	private JPanel panel = new JPanel();
+	
+	JFrame ventana = new JFrame();
 
-	public CryptMaster(){
-		init();
+	public CryptMaster() throws Exception{
+		super("", false, null);
 	}
 	
 	public void init()
 	{
 		super.init();
 		
-		this.setSize(426, 246);
+		ventana.setSize(426, 246);
 		
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		
 		panel.setLayout(null);
@@ -147,12 +151,22 @@ public class CryptMaster extends GenericMaster implements ActionListener
 		saltTextField.setText("js");
 		startButton.addActionListener(this);
 		
-		this.setContentPane(panel);
+		ventana.setContentPane(panel);
 	}
 	
 	public static void main(String[] args){
-		CryptMaster m = new CryptMaster();
-		m.setVisible(true);
+		CryptMaster m;
+		try
+		{
+			m = new CryptMaster();
+			m.setVisible(true);
+		}
+		catch (Exception e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	public void actionPerformed(ActionEvent event)
@@ -364,5 +378,26 @@ public class CryptMaster extends GenericMaster implements ActionListener
 			wordRate = Long.MAX_VALUE;
 			
 		perfLabel.setText(wordRate + " words per second.");
+	}
+
+	@Override
+	public DAbstractPlugin getInstance() throws Exception
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void start() throws Exception
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void stop() throws Exception
+	{
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -2,27 +2,35 @@ package calculoparalelo;
 
 import java.rmi.RemoteException;
 
-import javax.swing.JFrame;
-
 import javaspaces.SpaceLocator;
 import net.jini.core.entry.Entry;
 import net.jini.core.entry.UnusableEntryException;
 import net.jini.core.lease.Lease;
 import net.jini.core.transaction.TransactionException;
 import net.jini.space.JavaSpace;
+import aplicacion.plugin.DAbstractPlugin;
+import calculoparalelo.eventos.TaskEntry;
+
+import componentes.base.DComponenteBase;
 
 /**
  * Maestro genérico para aplicaciones paralelas con estructura Master/Slave. Es necesario
  * modificarlo para cada problema concreto
  * @author anab
  */
-public abstract class GenericMaster extends JFrame {
+public abstract class GenericMaster extends DAbstractPlugin {
     protected JavaSpace space;
+    
+    protected GenericWorker esclavo = null;
 
-    public GenericMaster(){
-    }
+    protected GenericMaster( String nombre, boolean conexionDC,
+			DComponenteBase padre ) throws Exception
+	{
+		super(nombre, conexionDC, padre);
+	}
     
     public void init() {
+    	
         try
 		{
 			space = SpaceLocator.getSpace();
@@ -43,7 +51,7 @@ public abstract class GenericMaster extends JFrame {
     protected abstract void collectResults();
 
 
-        protected void writeTask(TaskEntry task) {
+        protected final void writeTask(TaskEntry task) {
             try {
                     space.write(task, null, Lease.FOREVER);
             } catch (RemoteException e) {
@@ -53,7 +61,7 @@ public abstract class GenericMaster extends JFrame {
             }
         }
         
-        protected Entry takeTask(Entry template) {
+        protected  final Entry takeTask(Entry template) {
             try {
                     Entry result =
                         (Entry) space.take(template, null, Long.MAX_VALUE);

@@ -49,6 +49,8 @@ public class PluginCalculoPrimos extends DAbstractPlugin
 		nombre = "Calculo Distribuido";
 		jarFile = "ejemplo.jar";
 		versioningEnabled = false;
+		
+		p = new PrimeMaster(false);
 	}
 
 	/* (non-Javadoc)
@@ -57,8 +59,7 @@ public class PluginCalculoPrimos extends DAbstractPlugin
 	@Override
 	public void start() throws Exception
 	{
-		p = new PrimeMaster();
-		p.setVisible(true);
+		p.start();
 	}
 
 	/* (non-Javadoc)
@@ -67,7 +68,7 @@ public class PluginCalculoPrimos extends DAbstractPlugin
 	@Override
 	public void stop() throws Exception
 	{
-		p.dispose();
+		p.stop();
 	}
 
 }

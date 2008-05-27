@@ -1,5 +1,7 @@
-package calculoparalelo;
+package calculoparalelo.eventos;
 
+import Deventos.DEvent;
+import calculoparalelo.Command;
 import net.jini.core.entry.Entry;
 import net.jini.space.JavaSpace;
 
@@ -9,14 +11,14 @@ import net.jini.space.JavaSpace;
  * @author anab
  *
  */
-public class TaskEntry implements Command
+public class TaskEntry extends DEvent implements Command
 {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 7525622146532357726L;
 
-	public Entry execute(JavaSpace space)
+	public ResultEntry execute(JavaSpace space)
 	{
 		throw new RuntimeException("TaskEntry.execute() not implemented");
 	}

@@ -1,8 +1,8 @@
 package aplicacion.plugin.example.appparalelaprimos;
 
-import net.jini.core.entry.Entry;
+import calculoparalelo.eventos.ResultEntry;
 
-public class PrimeResult implements Entry
+public class PrimeResult extends ResultEntry
 {
 	
 	public int primos[] = null;
@@ -11,9 +11,9 @@ public class PrimeResult implements Entry
 		
 	}
 	
-	public PrimeResult(int[] pr, int numPrimos) {
+	public PrimeResult(int[] pr, int numPrimos, String mensaje) {
 		this.primos = pr;
-
+		this.mensaje = mensaje;
 	}
 	/**
 	 * 

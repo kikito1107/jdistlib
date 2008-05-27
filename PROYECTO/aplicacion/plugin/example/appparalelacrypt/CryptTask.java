@@ -1,7 +1,8 @@
 package aplicacion.plugin.example.appparalelacrypt;
 
-import calculoparalelo.PoisonPill;
-import calculoparalelo.TaskEntry;
+import calculoparalelo.eventos.PoisonPill;
+import calculoparalelo.eventos.ResultEntry;
+import calculoparalelo.eventos.TaskEntry;
 import net.jini.core.entry.Entry;
 import net.jini.space.JavaSpace;
 
@@ -29,7 +30,7 @@ public class CryptTask extends TaskEntry
 		this.encrypted = encrypted;
 	}
 
-	public Entry execute(JavaSpace space)
+	public ResultEntry execute(JavaSpace space)
 	{
 		PoisonPill template = new PoisonPill();
 		try
