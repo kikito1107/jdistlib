@@ -10,6 +10,9 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileOutputStream;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -36,6 +39,15 @@ public class VideoFrame extends JFrame
 	String ip = null;
 
 	Hebra th = new Hebra();
+	
+	 public static BufferedImage convert(Image im)
+	 {
+	    BufferedImage bi = new BufferedImage(im.getWidth(null),im.getHeight(null),BufferedImage.TYPE_INT_RGB);
+	    Graphics bg = bi.getGraphics();
+	    bg.drawImage(im, 0, 0, null);
+	    bg.dispose();
+	    return bi;
+	 }
 
 	HebraMiWebcam th2 = new HebraMiWebcam();
 
@@ -46,9 +58,9 @@ public class VideoFrame extends JFrame
 
 		webcamPanel = new javax.swing.JPanel();
 		myWebcam = new javax.swing.JPanel();
-		jButton1 = new javax.swing.JButton();
+		botonCaptura = new javax.swing.JButton();
 		ini_stop = new javax.swing.JButton();
-
+		
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
 		this.addWindowListener(new WindowAdapter()
@@ -120,9 +132,9 @@ public class VideoFrame extends JFrame
 												org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
 												org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)));
 
-		jButton1.setText("Salir");
-		jButton1.setIcon(new ImageIcon(getClass().getResource("/Resources/door_open.png")));  // Generated
-		jButton1.addActionListener(new java.awt.event.ActionListener()
+		botonCaptura.setText("Captura");
+		botonCaptura.setIcon(new ImageIcon(getClass().getResource("/Resources/camera_16x16.png")));  // Generated
+		botonCaptura.addActionListener(new java.awt.event.ActionListener()
 		{
 			public void actionPerformed(java.awt.event.ActionEvent evt)
 			{
@@ -148,7 +160,7 @@ public class VideoFrame extends JFrame
 				layout.createSequentialGroup().add(29, 29, 29).add(ini_stop)
 						.addPreferredGap(
 								org.jdesktop.layout.LayoutStyle.RELATED, 299,
-								Short.MAX_VALUE).add(jButton1).add(60, 60, 60))
+								Short.MAX_VALUE).add(botonCaptura).add(60, 60, 60))
 				.add(org.jdesktop.layout.GroupLayout.TRAILING, webcamPanel,
 						org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
 						org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
@@ -171,7 +183,7 @@ public class VideoFrame extends JFrame
 												layout
 														.createParallelGroup(
 																org.jdesktop.layout.GroupLayout.BASELINE)
-														.add(jButton1).add(
+														.add(botonCaptura).add(
 																ini_stop))
 										.addContainerGap(21, Short.MAX_VALUE)));
 		ini_stop.setIcon(new ImageIcon(getClass().getResource("/Resources/control_play_blue.png")));
@@ -181,20 +193,22 @@ public class VideoFrame extends JFrame
 
 	private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)
 	{// GEN-FIRST:event_jButton1ActionPerformed
-		this.setVisible(false);
+		//this.setVisible(false);
 		
 		try
 		{
-			init = false;
-			VideoConferencia.stopped = true;
+			BufferedImage bi = VideoFrame.convert(img_remota.getImage());
 			
+			File f = new File("captura.jpg");
+			
+			FileOutputStream flujoSalida = new FileOutputStream(f);
+			
+			javax.imageio.ImageIO.write(bi, "jpg", flujoSalida);
 		}
 		catch (Exception ex)
 		{
 			ex.printStackTrace();
 		}
-		
-		this.dispose();
 	}// GEN-LAST:event_jButton1ActionPerformed
 
 	private void ini_stopActionPerformed(java.awt.event.ActionEvent evt)
@@ -361,7 +375,7 @@ public class VideoFrame extends JFrame
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JButton ini_stop;
 
-	private javax.swing.JButton jButton1;
+	private javax.swing.JButton botonCaptura;
 
 	private javax.swing.JPanel myWebcam;
 

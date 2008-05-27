@@ -97,4 +97,8 @@ public class ImageComponent extends JComponent
 	{
 		return size;
 	}
+	
+	public synchronized Image getImage(){
+		return image;
+	}
 }
