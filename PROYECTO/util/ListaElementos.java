@@ -10,8 +10,6 @@ import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
 
-import Deventos.enlaceJS.DialogoSincronizacion;
-
 /**
  * <p>
  * Title:
@@ -29,7 +27,7 @@ import Deventos.enlaceJS.DialogoSincronizacion;
  * @author not attributable
  * @version 1.0
  */
-
+@SuppressWarnings("unchecked")
 public class ListaElementos extends JList
 {
 
@@ -86,6 +84,7 @@ public class ListaElementos extends JList
 		return model.getSize();
 	}
 
+	@SuppressWarnings("unchecked")
 	public Vector obtenerElementos()
 	{
 		Vector v = new Vector();
@@ -171,10 +170,6 @@ public class ListaElementos extends JList
 		public Component getListCellRendererComponent(JList list, Object value,
 				int index, boolean isSelected, boolean cellHasFocus)
 		{
-			// Get the selected index. (The index param isn't
-			// always valid, so just use the value.)
-			int selectedIndex = index;
-
 			if (isSelected)
 			{
 				setBackground(list.getSelectionBackground());

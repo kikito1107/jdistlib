@@ -37,6 +37,11 @@ import javax.swing.UIManager;
  */
 public class MetalComboBoxButton extends JButton
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2526303716068388036L;
+
 	protected JComboBox comboBox;
 
 	protected JList listBox;

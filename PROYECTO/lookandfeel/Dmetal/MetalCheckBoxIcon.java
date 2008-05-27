@@ -29,8 +29,14 @@ import javax.swing.plaf.UIResource;
  * @version 1.16 01/23/03
  * @author Steve Wilson
  */
+@SuppressWarnings("unchecked")
 public class MetalCheckBoxIcon implements Icon, UIResource, Serializable
 {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 178791995612410902L;
 
 	protected int getControlSize()
 	{

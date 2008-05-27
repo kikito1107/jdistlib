@@ -1,10 +1,9 @@
 package aplicacion.plugin.example.appparalelacrypt;
 
+import net.jini.space.JavaSpace;
 import calculoparalelo.eventos.PoisonPill;
 import calculoparalelo.eventos.ResultEntry;
 import calculoparalelo.eventos.TaskEntry;
-import net.jini.core.entry.Entry;
-import net.jini.space.JavaSpace;
 
 public class CryptTask extends TaskEntry
 {

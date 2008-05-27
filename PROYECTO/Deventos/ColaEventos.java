@@ -7,6 +7,7 @@ import java.util.Vector;
  * sencilla. Cuando un usuario intenta extraer un evento y no hay ninguno
  * quedara bloqueado hasta que se reciba alguno.
  */
+@SuppressWarnings("unchecked")
 public class ColaEventos
 {
 	private Vector v = null;
@@ -22,6 +23,7 @@ public class ColaEventos
 	 * @param e
 	 *            DEvent Evento a introducir
 	 */
+	
 	public synchronized void nuevoEvento(DEvent e)
 	{
 		v.add(e);

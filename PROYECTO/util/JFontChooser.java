@@ -548,6 +548,10 @@ public class JFontChooser extends JComponent
 
 	protected class DialogOKAction extends AbstractAction
 	{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 8802274939066478971L;
 		private JDialog dialog;
 
 		protected DialogOKAction( JDialog dialog )
@@ -566,6 +570,10 @@ public class JFontChooser extends JComponent
 
 	protected class DialogCancelAction extends AbstractAction
 	{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 3190442527102418607L;
 		private JDialog dialog;
 
 		protected DialogCancelAction( JDialog dialog )

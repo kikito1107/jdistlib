@@ -213,6 +213,7 @@ public class TablaElementos extends JTable
 		 * @param fila
 		 *            Fila que queremos insertar
 		 */
+		@SuppressWarnings("unchecked")
 		public void aniadirFila(String[] fila)
 		{
 			v.add(fila);

@@ -73,6 +73,7 @@ import javax.swing.plaf.basic.DefaultMenuLayout;
  * @author David Karlton
  * @author Arnaud Weber
  */
+@SuppressWarnings("unchecked")
 public class DMenuMetalPopupMenuUI extends PopupMenuUI
 {
 	protected JPopupMenu popupMenu = null;

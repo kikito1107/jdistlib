@@ -458,7 +458,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 				break;
 			case MANO_ALZADA:
 
-				trazo = new TrazoManoAlzada(x1, y1);
+				trazo = new TrazoManoAlzada();
 				trazo.setColor(colorActual);
 
 				Linea l = new Linea(e.getX(), e.getY(), e.getX() + 1,

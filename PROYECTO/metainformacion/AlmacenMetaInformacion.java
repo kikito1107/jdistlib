@@ -266,7 +266,7 @@ public class AlmacenMetaInformacion
 		return v; // Vector de String
 	}
 
-	public Vector obtenerUsuarios(String aplicacion)
+	public Vector<String> obtenerUsuarios(String aplicacion)
 	{
 		Vector v = null;
 		Vector<String> usr = new Vector<String>();
@@ -284,7 +284,7 @@ public class AlmacenMetaInformacion
 		return usr; // Vector de String
 	}
 
-	public Vector obtenerUsuariosNoActualizados(String aplicacion)
+	public Vector<String> obtenerUsuariosNoActualizados(String aplicacion)
 	{
 		Vector v = null;
 		Vector<String> usr = new Vector<String>();
@@ -347,6 +347,7 @@ public class AlmacenMetaInformacion
 	 *            String Usuario del cual queremos la informacion
 	 * @return Vector Vector de String que contiene los roles permitidos
 	 */
+	@SuppressWarnings("unchecked")
 	public Vector<String> obtenerRolesPermitidos(String aplicacion,
 			String usuario)
 	{
@@ -356,7 +357,10 @@ public class AlmacenMetaInformacion
 		if (apl != null)
 		{
 			usr = apl.getUsuario(usuario);
-			if (usr != null) v = usr.getRolesPermitidos();
+			if (usr != null)
+			{
+				v = usr.getRolesPermitidos();
+			}
 		}
 		return v; // Vector de String
 	}

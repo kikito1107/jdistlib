@@ -39,7 +39,7 @@ import componentes.listeners.DJButtonListener;
  * @author Jeff Dinkins
  * @author Arnaud Weber (keyboard UI support)
  */
-
+@SuppressWarnings("unchecked")
 public class DMetalButtonListener implements MouseListener,
 		MouseMotionListener, FocusListener, ChangeListener,
 		PropertyChangeListener

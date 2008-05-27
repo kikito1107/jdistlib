@@ -48,6 +48,7 @@ import componentes.listeners.DJComboBoxListener;
  * @version 1.42 01/23/03
  * @author Tom Santos
  */
+@SuppressWarnings("unchecked")
 public class DMetalComboBoxUI extends BasicComboBoxUI
 {
 	public DMetalComboPopup mcp = null;

@@ -271,7 +271,7 @@ public class Pizarra extends DIViewer implements MouseListener,
 				break;
 			case MANO_ALZADA:
 
-				trazo = new TrazoManoAlzada(x1, y1);
+				trazo = new TrazoManoAlzada();
 				trazo.setColor(colorActual);
 
 				Linea l = new Linea(e.getX(), e.getY(), e.getX() + 1,
@@ -647,6 +647,7 @@ public class Pizarra extends DIViewer implements MouseListener,
 		 * Inicia la ejecucion de la hebra
 		 */
 		@Override
+		@SuppressWarnings({ "unused", "unchecked" })
 		public void run()
 		{
 			DJPizarraEvent evento = null;
@@ -656,6 +657,7 @@ public class Pizarra extends DIViewer implements MouseListener,
 
 			DEvent[] eventos = obtenerEventosColaRecepcion();
 			int numEventos = eventos.length;
+			
 			int i = 0;
 
 			// Buscamos si se ha recibido una respuesta de sincronizacion

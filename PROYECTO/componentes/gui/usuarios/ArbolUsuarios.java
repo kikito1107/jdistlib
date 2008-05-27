@@ -226,7 +226,6 @@ public class ArbolUsuarios extends JTree
 		int numHojas = modelo.getChildCount(ramaRol);
 		DefaultMutableTreeNode unaHoja = null, hijo = null;
 
-		int indice = -1;
 		boolean seguir = true;
 
 		for (int i = 0; ( i < numHojas ) && seguir; ++i)
@@ -235,7 +234,6 @@ public class ArbolUsuarios extends JTree
 
 			if (unaHoja.getUserObject().equals(usuario))
 			{
-				indice = i;
 				seguir = false;
 				hijo = unaHoja;
 			}

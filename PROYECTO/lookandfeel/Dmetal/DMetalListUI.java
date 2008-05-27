@@ -34,7 +34,7 @@ import componentes.listeners.DJListListener;
  * @author not attributable
  * @version 1.0
  */
-
+@SuppressWarnings("unchecked")
 public class DMetalListUI extends BasicListUI
 {
 	public DMetalListUI()

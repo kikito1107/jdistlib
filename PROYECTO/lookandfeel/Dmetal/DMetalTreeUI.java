@@ -80,6 +80,7 @@ import componentes.listeners.DJTreeListener;
  * @author Tom Santos
  * @author Steve Wilson (value add stuff)
  */
+@SuppressWarnings("unchecked")
 public class DMetalTreeUI extends BasicTreeUI
 {
 

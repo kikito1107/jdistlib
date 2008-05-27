@@ -36,9 +36,11 @@ import componentes.listeners.DJMenuItemListener;
  * @author not attributable
  * @version 1.0
  */
-
+@SuppressWarnings("unused")
 public class DMenuMetalMenuItemUI extends BasicMenuItemUI
 {
+	
+	
 
 	public static ComponentUI createUI(JComponent x)
 	{
@@ -97,6 +99,9 @@ public class DMenuMetalMenuItemUI extends BasicMenuItemUI
 		return new DMouseInputHandler();
 	}
 
+	
+	
+	@SuppressWarnings("unchecked")
 	private Vector pathToVector(MenuElement[] path)
 	{
 		Vector v = new Vector();
@@ -163,6 +168,7 @@ public class DMenuMetalMenuItemUI extends BasicMenuItemUI
 
 		public void mouseEntered(MouseEvent e)
 		{
+			
 			MenuSelectionManager manager = DMenuSelectionManager
 					.defaultManager();
 			// int modifiers = e.getModifiers();

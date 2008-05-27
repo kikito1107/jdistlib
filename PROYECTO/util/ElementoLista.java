@@ -13,6 +13,11 @@ import javax.swing.ImageIcon;
 
 public class ElementoLista implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7133828227559355237L;
+
 	transient public ImageIcon imagen = null;
 
 	transient public String texto = null;

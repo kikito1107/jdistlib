@@ -329,6 +329,7 @@ public class DICheckBox extends DComponenteBase implements java.io.Serializable
 			super(dc);
 		}
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public void run()
 		{

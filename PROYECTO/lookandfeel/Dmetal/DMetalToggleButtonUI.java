@@ -57,6 +57,7 @@ import componentes.listeners.DJToggleButtonListener;
  * @version 1.21 01/23/03
  * @author Tom Santos
  */
+@SuppressWarnings("unchecked")
 public class DMetalToggleButtonUI extends BasicToggleButtonUI
 {
 

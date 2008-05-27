@@ -34,6 +34,7 @@ import javax.swing.plaf.basic.BasicGraphicsUtils;
  * @version 1.29 01/23/03
  * @author Tom Santos
  */
+@SuppressWarnings("unchecked")
 public class DMetalButtonUI extends BasicButtonUI
 {
 

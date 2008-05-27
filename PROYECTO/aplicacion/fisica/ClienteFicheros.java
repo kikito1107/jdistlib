@@ -1,8 +1,6 @@
 package aplicacion.fisica;
 
 import java.rmi.RemoteException;
-import java.util.Date;
-import java.util.Random;
 
 import javaspaces.SpaceLocator;
 
@@ -14,7 +12,6 @@ import net.jini.core.lease.Lease;
 import net.jini.core.transaction.TransactionException;
 import net.jini.space.JavaSpace;
 import Deventos.DEvent;
-import Deventos.DMIEvent;
 import aplicacion.fisica.documentos.FicheroBD;
 import aplicacion.fisica.eventos.DDocumentEvent;
 import aplicacion.fisica.eventos.DFileEvent;
@@ -48,8 +45,6 @@ public class ClienteFicheros
 	private JavaSpace space = null;
 
 	private Monitor monitor = new Monitor();
-
-	private long contador = -1;
 
 	private DefaultMutableTreeNode raiz = null;
 
@@ -449,37 +444,6 @@ public class ClienteFicheros
 		}
 	}
 
-	private class HebraEnvioKeepAlive implements Runnable
-	{
-		DMIEvent evento = new DMIEvent();
-
-		public void run()
-		{
-			evento.origen = new Integer(11); // Cliente ficheros
-			evento.destino = new Integer(10); // Servidor ficheros
-			evento.aplicacion = new String(aplicacion);
-			evento.usuario = new String(usuario);
-			evento.tipo = new Integer(DMIEvent.KEEPALIVE.intValue());
-			try
-			{
-				while (true)
-				{
-					Thread.sleep(30000);
-					space.write(evento, null, leaseWriteTime);
-				}
-			}
-			catch (Exception e)
-			{
-				JOptionPane
-						.showMessageDialog(
-								null,
-								"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
-								"Error", JOptionPane.ERROR_MESSAGE);
-				System.exit(1);
-			}
-		}
-	}
-
 	/**
 	 * Dado el comportamiento concurrente de las 2 Hebras mediante este Monitor
 	 * gestionamos la informacion sobre la inicializacion. La clase DConector
@@ -581,61 +545,6 @@ public class ClienteFicheros
 		{
 			sincronizado = b;
 			notifyAll();
-		}
-	}
-
-	private class HebraRecolectora implements Runnable
-	{
-
-		public void run()
-		{
-
-			System.out.println("HEBRA RECOLECTORA CLIENTE FICHEROS INICIADA");
-
-			DDocumentEvent leido = null;
-			DDocumentEvent plantilla = new DDocumentEvent();
-			plantilla.destino = new Integer(31); // El Cliente de ficheros
-
-			while (true)
-				try
-				{
-					// plantilla.contador = new Long(contador);
-					// System.out.println("ClienteMI: Esperando evento " +
-					// contador);
-					leido = (DDocumentEvent) space.read(plantilla, null,
-							Long.MAX_VALUE);
-					contador++;
-
-					System.out.println("Leido evento de respuesta "
-							+ leido.tipo);
-
-					if (leido.tipo.intValue() == DDocumentEvent.RESPUESTA_FICHERO
-							.intValue())
-					{
-
-						DDocumentEvent evt = new DDocumentEvent();
-
-						evt.destino = new Integer(1);
-						evt.path = new String(( leido ).path);
-						evt.direccionRespuesta = new String(
-								( leido ).direccionRespuesta);
-						evt.rol = new String(rol);
-						evt.aplicacion = new String(aplicacion);
-						evt.usuario = new String(usuario);
-
-						space.write(evt, null, leaseWriteTime);
-					}
-				}
-				catch (Exception e)
-				{
-					e.printStackTrace();
-					JOptionPane
-							.showMessageDialog(
-									null,
-									"Hubo un error en la comunicacion en el cliente de ficheros\nDebera identificarse de nuevo.",
-									"Error", JOptionPane.ERROR_MESSAGE);
-					System.exit(1);
-				}
 		}
 	}
 

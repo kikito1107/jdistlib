@@ -12,12 +12,9 @@ public class TrazoManoAlzada extends Figura
 
 	private Vector<Linea> lineas = new Vector<Linea>();
 
-	public TrazoManoAlzada( int x1, int y1 )
+	public TrazoManoAlzada( )
 	{
-		super(x1, y1);
-		int x = x1;
-		int y = y1;
-		// TODO Auto-generated constructor stub
+		super(-1, -1);
 	}
 
 	public void agregarLinea(Linea l)

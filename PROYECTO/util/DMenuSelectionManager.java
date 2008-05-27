@@ -37,16 +37,12 @@ import componentes.listeners.DMenuSelectionManagerListener;
  * @author not attributable
  * @version 1.0
  */
-
+@SuppressWarnings("unchecked")
 public class DMenuSelectionManager extends MenuSelectionManager
 {
 	private static final DMenuSelectionManager dinstance = new DMenuSelectionManager();
 
-	private static final boolean TRACE = true; // trace creates and disposes
-
 	private boolean inicializado = false;
-
-	private int contador = 0;
 
 	private Vector dmenuselectionmanagerlisteners = new Vector(5);
 
@@ -58,17 +54,11 @@ public class DMenuSelectionManager extends MenuSelectionManager
 
 	private ColaEventos colaEnvio = null;
 
-	private boolean sincronizado = false;
-
-	private int estadoSincronizacion = 0;
-
 	private Integer ultimoProcesado = new Integer(-1);
 
 	private int nivelPermisos = 20;
 
 	private JMenuBar barraMenu = null;
-
-	private int setNivelPermisos = 20;
 
 	public void inicializar(JMenuBar barraMenu)
 	{
@@ -110,6 +100,7 @@ public class DMenuSelectionManager extends MenuSelectionManager
 		return 0;
 	}
 
+	
 	public void addDMenuSelectionManagerListener(
 			DMenuSelectionManagerListener listener)
 	{
@@ -252,7 +243,7 @@ public class DMenuSelectionManager extends MenuSelectionManager
 	{
 		MenuElement[] me = new MenuElement[v.size()];
 		MenuElement elementoActual = null;
-		int i, j;
+		int i;
 		if (me.length > 0)
 		{
 			me[0] = barraMenu;

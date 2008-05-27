@@ -40,7 +40,7 @@ import componentes.listeners.DJMenuListener;
  * @author not attributable
  * @version 1.0
  */
-
+@SuppressWarnings("unchecked")
 public class DMenuMetalMenuUI extends BasicMenuUI
 {
 	private static boolean instaladoListenerMovimiento = false;

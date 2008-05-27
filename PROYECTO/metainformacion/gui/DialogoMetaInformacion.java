@@ -2,14 +2,13 @@ package metainformacion.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Frame;
-import java.awt.Point;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import java.awt.GridBagLayout;
-import javax.swing.JButton;
-import java.awt.GridBagConstraints;
-import javax.swing.ImageIcon;
 
 import metainformacion.ClienteMetaInformacion;
 
@@ -39,8 +38,6 @@ public class DialogoMetaInformacion extends JDialog
 	Frame frame = null;
 
 	BorderLayout borderLayout1 = new BorderLayout();
-
-	private final int anchura = 240;
 
 	PanelMetaInformacion jPanel1 = new PanelMetaInformacion();
 
@@ -129,28 +126,6 @@ public class DialogoMetaInformacion extends JDialog
 			setLocation(10, 10);
 		}
 		super.setVisible(b);
-	}
-
-	private Point calcularPosicion()
-	{
-		Point posFrame = frame.getLocation();
-		Point posDialogo = new Point();
-
-		posDialogo.x = posFrame.x - anchura;
-		posDialogo.y = posFrame.y;
-
-		return posDialogo;
-	}
-
-	private Point calcularPosicionFrame()
-	{
-		Point posDialogo = getLocation();
-		Point posFrame = new Point();
-
-		posFrame.x = posDialogo.x + anchura;
-		posFrame.y = posDialogo.y;
-
-		return posFrame;
 	}
 
 	/**

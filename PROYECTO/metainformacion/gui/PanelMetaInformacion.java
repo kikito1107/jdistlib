@@ -22,7 +22,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
@@ -488,8 +487,6 @@ public class PanelMetaInformacion extends JPanel
 		Vector usuarios = cmi.obtenerUsuarios();
 		Vector roles = cmi.obtenerRoles();
 		Vector componentes = cmi.obtenerComponentes();
-		Vector rolesPermitidos = cmi
-				.obtenerRolesPermitidos(ClienteMetaInformacion.usuario);
 		int i = 0;
 
 		listaEliminarUsuarios.aniadir("Ninguno...");
@@ -611,8 +608,6 @@ public class PanelMetaInformacion extends JPanel
 	{
 		public void valueChanged(ListSelectionEvent e)
 		{
-			ListSelectionModel lsm = (ListSelectionModel) e.getSource();
-
 			if (!e.getValueIsAdjusting()) actualizarPermiso();
 		}
 

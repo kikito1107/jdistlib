@@ -42,8 +42,6 @@ public class ControlesDibujo extends JPanel
 
 	private int colorActual;
 
-	private BarraEstado barra = null;
-
 	private int trazoActual;
 
 	private JButton botonLimpiarLienzo = null;
@@ -110,7 +108,6 @@ public class ControlesDibujo extends JPanel
 	{
 		super();
 		lienzo = l;
-		barra = be;
 		initialize();
 	}
 

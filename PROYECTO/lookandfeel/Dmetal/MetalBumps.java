@@ -29,7 +29,7 @@ import javax.swing.Icon;
  * @author Tom Santos
  * @author Steve Wilson
  */
-
+@SuppressWarnings("unchecked")
 class MetalBumps implements Icon
 {
 

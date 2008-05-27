@@ -51,6 +51,7 @@ import componentes.listeners.DJCheckBoxListener;
  * @author Michael C. Albers
  * 
  */
+@SuppressWarnings("unchecked")
 public class DMetalCheckBoxUI extends MetalRadioButtonUI
 {
 

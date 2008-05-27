@@ -45,7 +45,7 @@ import javax.swing.text.JTextComponent;
  * @author Steve Wilson
  * @version 1.30 01/23/03
  */
-
+@SuppressWarnings("unused")
 public class MetalBorders
 {
 

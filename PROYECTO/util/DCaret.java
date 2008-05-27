@@ -1132,9 +1132,10 @@ public class DCaret extends Rectangle implements Caret, FocusListener,
 				visible = !visible;
 				try
 				{
-					TextUI mapper = component.getUI();
+					
 
 					/*
+					 * TextUI mapper = component.getUI();
 					 * for(int i=0; i<dJTextPane.grupoTrabajo.estaciones.size();
 					 * i++){ DEstacion estacion =
 					 * (DEstacion)dJTextPane.grupoTrabajo.estaciones.elementAt(i);
