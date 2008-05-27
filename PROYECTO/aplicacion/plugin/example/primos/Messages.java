@@ -5,8 +5,8 @@ import java.util.ResourceBundle;
 
 public class Messages
 {
-	private static final String SPANISH = "aplicacion.plugin.example.appparalelaprimos.messageses"; //$NON-NLS-1$
-	private static final String ENGLISH = "aplicacion.plugin.example.appparalelaprimos.messagesen";
+	private static final String SPANISH = "aplicacion.plugin.example.primos.messageses"; //$NON-NLS-1$
+	private static final String ENGLISH = "aplicacion.plugin.example.primos.messagesen";
 	
 	public static final String ES = "es";
 	public static final String EN = "en";
