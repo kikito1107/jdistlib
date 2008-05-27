@@ -19,7 +19,7 @@ public class DPluginLoader
 		String className = null;
 		JarEntry je = null;
 		Class cls = null;
-		Class superclass = null;
+		//Class superclass = null;
 
 		JarFile jarFile = new JarFile(file);
 		Enumeration<JarEntry> enu = jarFile.entries();
@@ -33,11 +33,21 @@ public class DPluginLoader
 						"/", ".");
 				cls = jcl.loadClass(className, true);
 
-				superclass = cls.getSuperclass();
+				/*superclass = cls.getSuperclass();
 				
 				if (superclass != null) //si la clase es Object o una interfaz, la superclase es null
 					if (superclass.getName().compareTo(DAbstractPlugin.class.getName()) == 0)
-						return (DAbstractPlugin) cls.newInstance();
+						return (DAbstractPlugin) cls.newInstance();*/
+				
+				try{
+					return (DAbstractPlugin)cls.newInstance();
+				}
+				catch(Exception ex)
+				{
+					//se dara una excepcion esperada si la clase del fichero no es subclase
+					//de DAbstractPlugin o si no se puede crear la instancia porque el
+					//constructor no es publico.
+				}
 			}
 		}
 

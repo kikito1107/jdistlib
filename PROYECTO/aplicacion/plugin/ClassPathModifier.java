@@ -17,7 +17,6 @@ public class ClassPathModifier
 		addFile(f);
 	}
 
-	/* File.toURL() was deprecated, so use File.toURI().toURL() */
 	public static void addFile(File f)
 	{
 		try
@@ -36,14 +35,10 @@ public class ClassPathModifier
 				.getSystemClassLoader();
 		try
 		{
-			/* Class was uncheched, so used URLClassLoader.class instead */
 			Method method = URLClassLoader.class.getDeclaredMethod("addURL",
 					parameters);
 			method.setAccessible(true);
-			method.invoke(sysloader, new Object[]
-			{ u });
-			System.out.println("Dynamically added " + u.toString()
-					+ " to classLoader");
+			method.invoke(sysloader, new Object[]{ u });
 		}
 		catch (Exception e)
 		{
