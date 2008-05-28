@@ -9,9 +9,9 @@ import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
 
 import util.TablaElementos;
-import Deventos.DMIEvent;
 
 import componentes.base.DComponenteBase;
+import Deventos.DMIEvent;
 
 /**
  * Con este componente podemos ver todos los usuarios conectados en cada momento

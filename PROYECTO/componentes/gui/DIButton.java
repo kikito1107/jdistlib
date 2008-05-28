@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.util.Vector;
 
-import Deventos.DEvent;
-import Deventos.DJButtonEvent;
 import Deventos.enlaceJS.DConector;
 
 import componentes.base.DComponente;
@@ -14,6 +12,8 @@ import componentes.base.DJButton;
 import componentes.base.HebraProcesadoraBase;
 import componentes.listeners.DJButtonListener;
 import componentes.listeners.LJButtonListener;
+import Deventos.DEvent;
+import Deventos.DJButtonEvent;
 
 /**
  * Boton compartido. Consultar documentacion del proyecto para ver su

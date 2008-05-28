@@ -9,16 +9,16 @@ import javax.swing.JPopupMenu;
 import javax.swing.MenuElement;
 import javax.swing.MenuSelectionManager;
 
-import Deventos.ColaEventos;
-import Deventos.DEvent;
-import Deventos.DJListEvent;
-import Deventos.DMIEvent;
-import Deventos.DMenuSelectionManagerEvent;
 import Deventos.enlaceJS.DConector;
 
 import componentes.base.DComponente;
 import componentes.base.HebraProcesadoraBase;
 import componentes.listeners.DMenuSelectionManagerListener;
+import Deventos.ColaEventos;
+import Deventos.DEvent;
+import Deventos.DJListEvent;
+import Deventos.DMIEvent;
+import Deventos.DMenuSelectionManagerEvent;
 
 /**
  * <p>

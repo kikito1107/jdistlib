@@ -9,13 +9,13 @@ import java.util.Vector;
 
 import javax.swing.JOptionPane;
 
-import Deventos.DEvent;
 import Deventos.enlaceJS.DConector;
 import aplicacion.plugin.deventos.DPluginRegisterEvent;
 
 import componentes.base.DComponente;
 import componentes.base.DComponenteBase;
 import componentes.base.HebraProcesadoraBase;
+import Deventos.DEvent;
 
 public abstract class DAbstractPlugin extends DComponenteBase
 {

@@ -2,12 +2,13 @@ package metainformacion;
 
 import java.util.Vector;
 
-import javaspaces.SpaceLocator;
-import net.jini.core.lease.Lease;
-import net.jini.space.JavaSpace;
 import Deventos.ColaEventos;
 import Deventos.DEvent;
 import Deventos.DMIEvent;
+
+import javaspaces.SpaceLocator;
+import net.jini.core.lease.Lease;
+import net.jini.space.JavaSpace;
 
 /**
  * Implementacion del servidor de metainformacion

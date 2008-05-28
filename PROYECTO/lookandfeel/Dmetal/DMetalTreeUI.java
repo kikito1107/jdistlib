@@ -26,10 +26,10 @@ import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicTreeUI;
 import javax.swing.tree.TreePath;
 
-import Deventos.DJTreeEvent;
 
 import componentes.base.DJTree;
 import componentes.listeners.DJTreeListener;
+import Deventos.DJTreeEvent;
 
 /**
  * The metal look and feel implementation of <code>TreeUI</code>.

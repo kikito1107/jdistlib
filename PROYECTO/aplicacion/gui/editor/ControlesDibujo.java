@@ -18,8 +18,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
-import util.Separador;
 import Deventos.DJLienzoEvent;
+
+import util.Separador;
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.ClienteFicheros;
 import aplicacion.fisica.documentos.Documento;

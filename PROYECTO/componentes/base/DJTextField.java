@@ -14,12 +14,12 @@ import javax.swing.text.JTextComponent;
 import javax.swing.text.TextAction;
 
 import util.DCaret;
-import Deventos.ColaEventos;
-import Deventos.DEvent;
-import Deventos.DJTextFieldEvent;
 import Deventos.enlaceJS.DConector;
 
 import componentes.listeners.DJTextFieldListener;
+import Deventos.ColaEventos;
+import Deventos.DEvent;
+import Deventos.DJTextFieldEvent;
 
 /**
  * <p>

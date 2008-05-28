@@ -12,10 +12,10 @@ import javax.swing.JOptionPane;
 import metainformacion.gui.DialogoMetaInformacion;
 import net.jini.core.lease.Lease;
 import net.jini.space.JavaSpace;
-import Deventos.DMIEvent;
 import Deventos.enlaceJS.DConector;
 
 import componentes.listeners.DMIListener;
+import Deventos.DMIEvent;
 
 /**
  * Cliente del modulo de metainformacion

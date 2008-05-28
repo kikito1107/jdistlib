@@ -7,13 +7,13 @@ import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.JCheckBox;
 
-import Deventos.ColaEventos;
-import Deventos.DEvent;
-import Deventos.DJCheckBoxEvent;
 import Deventos.enlaceJS.DConector;
 
 import componentes.listeners.DJCheckBoxListener;
 import componentes.listeners.LJCheckBoxListener;
+import Deventos.ColaEventos;
+import Deventos.DEvent;
+import Deventos.DJCheckBoxEvent;
 
 /**
  * <p>

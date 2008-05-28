@@ -7,8 +7,6 @@ import javax.swing.JScrollPane;
 import javax.swing.tree.TreeNode;
 
 import lookandfeel.Dmetal.DMetalTreeUI;
-import Deventos.DEvent;
-import Deventos.DJTreeEvent;
 import Deventos.enlaceJS.DConector;
 
 import componentes.base.DComponente;
@@ -17,6 +15,8 @@ import componentes.base.DJTree;
 import componentes.base.HebraProcesadoraBase;
 import componentes.listeners.DJTreeListener;
 import componentes.listeners.LJTreeListener;
+import Deventos.DEvent;
+import Deventos.DJTreeEvent;
 
 /**
  * Arbol compartido. Consultar documentación del proyecto para ver su

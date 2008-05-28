@@ -6,12 +6,12 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
-import Deventos.DEvent;
-import Deventos.DJLienzoEvent;
 import aplicacion.fisica.documentos.Documento;
 
 import componentes.base.DComponente;
 import componentes.base.DComponenteBase;
+import Deventos.DEvent;
+import Deventos.DJLienzoEvent;
 
 public class DIPanelEditor extends DComponenteBase
 {

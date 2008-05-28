@@ -28,10 +28,10 @@ import javax.swing.plaf.basic.BasicComboBoxUI;
 import javax.swing.plaf.basic.BasicComboPopup;
 import javax.swing.plaf.basic.ComboPopup;
 
-import Deventos.DJComboBoxEvent;
 
 import componentes.base.DJComboBox;
 import componentes.listeners.DJComboBoxListener;
+import Deventos.DJComboBoxEvent;
 
 /**
  * Metal UI for JComboBox

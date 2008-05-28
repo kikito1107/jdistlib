@@ -10,11 +10,11 @@ import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
 
-import Deventos.DEvent;
-import Deventos.DJViewerEvent;
 import Deventos.enlaceJS.DConector;
 
 import componentes.base.DComponenteBase;
+import Deventos.DEvent;
+import Deventos.DJViewerEvent;
 
 /**
  * Implementacion de un visor de imagenes distribuido

@@ -20,13 +20,13 @@ import javax.swing.MenuElement;
 import javax.swing.SwingConstants;
 
 import util.DMenuSelectionManager;
+import Deventos.enlaceJS.DConector;
+
+import componentes.listeners.DJMenuListener;
 import Deventos.ColaEventos;
 import Deventos.DEvent;
 import Deventos.DJMenuEvent;
 import Deventos.DMIEvent;
-import Deventos.enlaceJS.DConector;
-
-import componentes.listeners.DJMenuListener;
 
 public class DJMenu extends JMenu implements DComponente
 {

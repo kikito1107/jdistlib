@@ -15,12 +15,12 @@ import aplicacion.gui.editor.DIViewer;
 
 import util.DialogoIntroTexto;
 
-import Deventos.DEvent;
 import Deventos.enlaceJS.DConector;
 
 import componentes.base.DComponente;
 import componentes.base.DComponenteBase;
 import componentes.base.HebraProcesadoraBase;
+import Deventos.DEvent;
 import figuras.Elipse;
 import figuras.Figura;
 import figuras.Linea;

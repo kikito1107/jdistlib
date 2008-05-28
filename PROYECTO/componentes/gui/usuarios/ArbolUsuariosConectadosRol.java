@@ -13,9 +13,9 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreePath;
 
 import metainformacion.ClienteMetaInformacion;
-import Deventos.DMIEvent;
 
 import componentes.base.DComponenteBase;
+import Deventos.DMIEvent;
 
 /**
  * Con este componente podemos ver todos los usuarios que hay conectados que

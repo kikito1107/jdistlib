@@ -22,9 +22,6 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.WindowConstants;
 
-import Deventos.ColaEventos;
-import Deventos.DEvent;
-import Deventos.DJChatEvent;
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.webcam.VideoConferencia;
 import aplicacion.fisica.webcam.VideoFrame;
@@ -32,6 +29,9 @@ import aplicacion.fisica.webcam.VideoFrame;
 import componentes.gui.chat.PanelChatPrivado;
 import componentes.listeners.DJChatListener;
 import componentes.listeners.LJChatListener;
+import Deventos.ColaEventos;
+import Deventos.DEvent;
+import Deventos.DJChatEvent;
 
 /**
  * <p>

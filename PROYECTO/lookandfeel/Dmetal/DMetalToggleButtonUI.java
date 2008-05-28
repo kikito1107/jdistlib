@@ -39,10 +39,10 @@ import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicGraphicsUtils;
 import javax.swing.plaf.basic.BasicToggleButtonUI;
 
-import Deventos.DJToggleButtonEvent;
 
 import componentes.base.DJToggleButton;
 import componentes.listeners.DJToggleButtonListener;
+import Deventos.DJToggleButtonEvent;
 
 /**
  * MetalToggleButton implementation

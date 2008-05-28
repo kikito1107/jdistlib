@@ -1,8 +1,8 @@
 package calculoparalelo.eventos;
 
 import net.jini.space.JavaSpace;
-import Deventos.DEvent;
 import calculoparalelo.Command;
+import Deventos.DEvent;
 
 /**
  * Entrada en el JS, que implementa la tarea a ejecutar por los esclavos en una

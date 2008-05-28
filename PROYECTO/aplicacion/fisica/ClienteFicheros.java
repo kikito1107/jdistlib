@@ -7,11 +7,12 @@ import javaspaces.SpaceLocator;
 import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import Deventos.DEvent;
+
 import net.jini.core.entry.UnusableEntryException;
 import net.jini.core.lease.Lease;
 import net.jini.core.transaction.TransactionException;
 import net.jini.space.JavaSpace;
-import Deventos.DEvent;
 import aplicacion.fisica.documentos.FicheroBD;
 import aplicacion.fisica.eventos.DDocumentEvent;
 import aplicacion.fisica.eventos.DFileEvent;

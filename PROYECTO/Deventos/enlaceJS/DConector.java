@@ -20,13 +20,13 @@ import net.jini.core.transaction.TransactionFactory;
 import net.jini.core.transaction.server.TransactionManager;
 import net.jini.space.JavaSpace;
 import util.Fecha;
-import Deventos.ColaEventos;
-import Deventos.DEvent;
-import Deventos.DMIEvent;
 import aplicacion.fisica.ClienteFicheros;
 
 import componentes.base.DComponente;
 import componentes.listeners.DMIListener;
+import Deventos.ColaEventos;
+import Deventos.DEvent;
+import Deventos.DMIEvent;
 
 /**
  * 

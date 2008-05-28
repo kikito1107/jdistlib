@@ -10,10 +10,10 @@ import javax.swing.border.TitledBorder;
 
 import metainformacion.ClienteMetaInformacion;
 import util.ListaElementos;
-import Deventos.DMIEvent;
 import Deventos.enlaceJS.DConector;
 
 import componentes.base.DComponenteBase;
+import Deventos.DMIEvent;
 
 /**
  * Con este componente podemos ver todos los usuarios que hay conectados que

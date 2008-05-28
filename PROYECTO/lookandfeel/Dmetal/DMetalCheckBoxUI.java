@@ -32,10 +32,10 @@ import javax.swing.event.ChangeListener;
 import javax.swing.plaf.ComponentInputMapUIResource;
 import javax.swing.plaf.ComponentUI;
 
-import Deventos.DJCheckBoxEvent;
 
 import componentes.base.DJCheckBox;
 import componentes.listeners.DJCheckBoxListener;
+import Deventos.DJCheckBoxEvent;
 
 /**
  * CheckboxUI implementation for MetalCheckboxUI

@@ -16,9 +16,9 @@ import javax.swing.UIManager;
 
 import java.awt.BorderLayout;
 import componentes.gui.usuarios.DICambioRol;
-import Deventos.DJLienzoEvent;
 import componentes.base.DJChat;
 import componentes.base.DJTree;
+import Deventos.DJLienzoEvent;
 
 /**
  * @author anab

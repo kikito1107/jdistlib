@@ -19,8 +19,6 @@ import javax.swing.border.EtchedBorder;
 
 import util.DialogoIntroTexto;
 
-import Deventos.DEvent;
-import Deventos.DJLienzoEvent;
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.ClienteFicheros;
 import aplicacion.fisica.documentos.Anotacion;
@@ -31,6 +29,8 @@ import aplicacion.fisica.net.Transfer;
 import aplicacion.fisica.net.TransferP2P;
 
 import componentes.base.DComponenteBase;
+import Deventos.DEvent;
+import Deventos.DJLienzoEvent;
 import figuras.Elipse;
 import figuras.Figura;
 import figuras.Linea;

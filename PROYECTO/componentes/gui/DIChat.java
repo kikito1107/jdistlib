@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.util.Vector;
 
-import Deventos.DJChatEvent;
 
 import componentes.base.DComponente;
 import componentes.base.DComponenteBase;
@@ -12,6 +11,7 @@ import componentes.base.DJChat;
 import componentes.base.HebraProcesadoraBase;
 import componentes.listeners.DJChatListener;
 import componentes.listeners.LJChatListener;
+import Deventos.DJChatEvent;
 
 /**
  * Chat con el que pueden hablar todos los usuarios de la aplicacion

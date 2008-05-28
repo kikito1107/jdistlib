@@ -2,13 +2,13 @@ package aplicacion.plugin.example;
 
 import java.awt.BorderLayout;
 
-import Deventos.DEvent;
 import aplicacion.plugin.DAbstractPlugin;
 import aplicacion.plugin.example.pizarra.ControlesPizarra;
 import aplicacion.plugin.example.pizarra.Pizarra;
 
 import componentes.base.DComponenteBase;
 import componentes.base.DJFrame;
+import Deventos.DEvent;
 
 public class DPizarraPlugin extends DAbstractPlugin
 {

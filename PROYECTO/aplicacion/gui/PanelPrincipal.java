@@ -30,7 +30,6 @@ import metainformacion.ClienteMetaInformacion;
 import metainformacion.MIRol;
 import metainformacion.MIUsuario;
 import util.Separador;
-import Deventos.DEvent;
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.ClienteFicheros;
 import aplicacion.fisica.documentos.Documento;
@@ -45,6 +44,7 @@ import aplicacion.plugin.DPluginLoader;
 import componentes.base.DComponente;
 import componentes.base.DComponenteBase;
 import componentes.gui.usuarios.ArbolUsuariosConectadosRol;
+import Deventos.DEvent;
 
 public class PanelPrincipal extends DComponenteBase
 {

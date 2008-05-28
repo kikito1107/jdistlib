@@ -7,13 +7,13 @@ import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.JToggleButton;
 
-import Deventos.ColaEventos;
-import Deventos.DEvent;
-import Deventos.DJToggleButtonEvent;
 import Deventos.enlaceJS.DConector;
 
 import componentes.listeners.DJToggleButtonListener;
 import componentes.listeners.LJToggleButtonListener;
+import Deventos.ColaEventos;
+import Deventos.DEvent;
+import Deventos.DJToggleButtonEvent;
 
 /**
  * <p>
