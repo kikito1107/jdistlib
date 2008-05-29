@@ -10,6 +10,8 @@ import java.awt.Toolkit;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
@@ -167,8 +169,10 @@ public class PanelPrincipal extends DComponenteBase
 		java.io.File f = jfc.getSelectedFile();
 		
 		String nombre = f.getName();
+		
+		FicheroBD anterior = arbolDocumentos.buscarFichero( (DefaultMutableTreeNode)arbolDocumentos.getModel().getRoot() , path + nombre);
 
-		while (arbolDocumentos.existeFichero( (DefaultMutableTreeNode)arbolDocumentos.getModel().getRoot() , path + nombre)){
+		while (anterior != null){
 			int sel = JOptionPane.showConfirmDialog(this, "El documento ya existe ÀDesea sobrescribirlo?", "ÀSobrescribir?", JOptionPane.YES_NO_CANCEL_OPTION);
 			
 			// el usuario ha cancelado la accion
@@ -179,14 +183,26 @@ public class PanelPrincipal extends DComponenteBase
 				//aki es donde hay que hacer es:
 				// 1) Renombrar el fichero anterior en el servidor
 				// 2) Guardar el nuevo fichero
+								
+				String nombreVersion = anterior.getNombre() + Calendar.getInstance().getTimeInMillis();
 				
-				JOptionPane.showMessageDialog(null, "Under development");
-				return;
+				anterior.setNombre(nombreVersion);
+				
+				anterior.setRutaLocal(path+nombreVersion);
+				
+				anterior.setTipo("VER");
+				
+				ClienteFicheros.cf.modificarFichero(anterior, DConector.Daplicacion);
+				
+				JOptionPane.showMessageDialog(null, "Generada version: "+ anterior.getNombre());
+				
+				anterior = null;
 			}
 			
 			// el usuario no desea sobreescribir el fichero
 			else if(sel == 1){
 				nombre = JOptionPane.showInputDialog("Nuevo nombre");
+				anterior = arbolDocumentos.buscarFichero( (DefaultMutableTreeNode)arbolDocumentos.getModel().getRoot() , path + nombre);
 			}
 		}
 		
@@ -802,8 +818,8 @@ public class PanelPrincipal extends DComponenteBase
 		
 		if (f == null) return;
 
-		if (f.esDirectorio()
-				|| !f.comprobarPermisos(DConector.Dusuario, DConector.Drol,
+		if (f.esDirectorio()) return;
+		if (!f.comprobarPermisos(DConector.Dusuario, DConector.Drol,
 						FicheroBD.PERMISO_LECTURA))
 		{
 			JOptionPane
