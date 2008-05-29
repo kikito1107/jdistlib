@@ -157,16 +157,6 @@ public class Documento implements Serializable, Printable
 		filtros.add(flt);
 	}
 
-	public static void removeFilter(DocumentFilter flt)
-	{
-		filtros.remove(flt);
-	}
-
-	public static void removeAllFilters()
-	{
-		filtros.removeAllElements();
-	}
-
 	@SuppressWarnings( "unchecked" )
 	public static Documento openDocument(String path, String usuario, String rol)
 	{
