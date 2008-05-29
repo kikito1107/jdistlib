@@ -1070,14 +1070,15 @@ public class PanelPrincipal extends DComponenteBase
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
+					FicheroBD f = arbolDocumentos.getDocumentoSeleccionado();
 					
-					if (arbolDocumentos.getDocumentoSeleccionado() == null) return;
+					if (f == null || !f.esDirectorio()) return;
 					
 					String nombre = JOptionPane.showInputDialog("Introduce el nuevo nombre para la carpeta");
 					
 					if (nombre == null) return;
 					
-					FicheroBD f = arbolDocumentos.agregarCarpeta(nombre);
+					f = arbolDocumentos.agregarCarpeta(nombre);
 					
 					if (f== null) return;
 					
