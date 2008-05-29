@@ -73,7 +73,7 @@ public class VideoFrame extends JFrame
 				{
 					init = false;
 					ini_stop.setText("Iniciar");
-					VideoConferencia.stopped = true;
+					VideoConferencia.setStopped(true);
 				}
 				catch (Exception ex)
 				{
@@ -221,7 +221,7 @@ public class VideoFrame extends JFrame
 				
 				ini_stop.setIcon(new ImageIcon(getClass().getResource("/Resources/control_play_blue.png")));
 				
-				VideoConferencia.stopped = true;
+				VideoConferencia.setStopped(true);
 			}
 			catch (Exception ex)
 			{
@@ -229,7 +229,7 @@ public class VideoFrame extends JFrame
 			}
 		else try
 		{
-			VideoConferencia.stopped = false;
+			VideoConferencia.setStopped(false);
 			th = new Hebra();
 			th.start();
 			init = true;
@@ -319,9 +319,9 @@ public class VideoFrame extends JFrame
 				{
 					if (( myWebcam.getWidth() != 0 )
 							&& ( myWebcam.getHeight() != 0 )
-							&& ( VideoConferencia.image_now_local != null ))
+							&& ( VideoConferencia.getImageActualLocal() != null ))
 						img_local
-								.setImage(VideoConferencia.image_now_local
+								.setImage(VideoConferencia.getImageActualLocal()
 										.getImage().getScaledInstance(
 												myWebcam.getWidth(),
 												myWebcam.getHeight(),

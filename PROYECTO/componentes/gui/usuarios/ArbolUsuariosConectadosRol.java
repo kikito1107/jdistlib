@@ -29,7 +29,7 @@ import Deventos.DMIEvent;
 public class ArbolUsuariosConectadosRol extends DComponenteBase
 {
 
-	public static final String hojaVacia = "<No conectados>";
+	private static final String hojaVacia = "<No conectados>";
 
 	/**
 	 * Layout del panel

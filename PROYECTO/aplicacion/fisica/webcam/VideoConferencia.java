@@ -34,11 +34,11 @@ public class VideoConferencia
 
 	private Vector<ObjectOutputStream> salida = null;
 
-	public static boolean stopped = true;
+	private static boolean stopped = true;
 
-	public static ImageIcon image_now;
+	private static ImageIcon image_now;
 
-	public static ImageIcon image_now_local;
+	private static ImageIcon image_now_local;
 
 	public VideoConferencia( String ip_orig )
 	{
@@ -49,6 +49,16 @@ public class VideoConferencia
 	{
 		ip_origen = ip;
 
+	}
+	
+	public static void setStopped(boolean b)
+	{
+		stopped = b;
+	}
+	
+	public static ImageIcon getImageActualLocal()
+	{
+		return image_now_local;
 	}
 
 	public static void establecerOrigen()

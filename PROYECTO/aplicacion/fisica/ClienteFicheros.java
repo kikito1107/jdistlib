@@ -27,13 +27,13 @@ public class ClienteFicheros
 {
 	public static ClienteFicheros cf = null;
 
-	public static String usuario = null;
+	private static String usuario = null;
 
-	public static String clave = null;
+	private static String clave = null;
 
-	public static String aplicacion = null;
+	private static String aplicacion = null;
 
-	public static String rol = null;
+	private static String rol = null;
 
 	private static final long leaseWriteTime = Lease.FOREVER;
 
