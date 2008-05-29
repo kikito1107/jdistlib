@@ -4,6 +4,8 @@ import java.net.InetAddress;
 import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
 
+import javax.swing.JOptionPane;
+
 import aplicacion.fisica.documentos.Documento;
 
 public class Transfer
@@ -51,7 +53,7 @@ public class Transfer
 		{
 			InterfazTransferenciaFichero ar = (InterfazTransferenciaFichero) Naming
 					.lookup("//" + ip_origen + "/TransferenciaFichero");
-
+			
 			return ar.getDocument(path);
 		}
 		catch (Exception ex)
