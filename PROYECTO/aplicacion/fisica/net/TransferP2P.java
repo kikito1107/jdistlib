@@ -15,7 +15,7 @@ public class TransferP2P
 
 	private int id;
 
-	public static int port = 8866;
+	private static int port = 8866;
 
 	private static boolean serverExecuted = false;
 
@@ -25,6 +25,11 @@ public class TransferP2P
 	{
 		ip_origen = ip_orig;
 		id = identificador;
+	}
+	
+	public static int getPort()
+	{
+		return port;
 	}
 
 	private static synchronized void setServerExecuted(boolean b)

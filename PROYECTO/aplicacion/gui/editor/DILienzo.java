@@ -934,7 +934,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 					e.printStackTrace();
 				}
 				evt.idDestino = new Integer(id);
-				evt.puerto = new Integer(TransferP2P.port);
+				evt.puerto = new Integer(TransferP2P.getPort());
 				evt.tipo = DJLienzoEvent.RESPUESTA_SINCRONIZACION;
 				evt.path = new String(doc.getPath());
 
