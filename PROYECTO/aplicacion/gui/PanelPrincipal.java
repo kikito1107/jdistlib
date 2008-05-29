@@ -196,6 +196,13 @@ public class PanelPrincipal extends DComponenteBase
 				
 				JOptionPane.showMessageDialog(null, "Generada version: "+ anterior.getNombre());
 				
+				DefaultMutableTreeNode n = 
+					ArbolDocumentos.buscarFichero((DefaultMutableTreeNode)arbolDocumentos.getModel().getRoot(), anterior.getId());
+				
+				((DefaultTreeModel)arbolDocumentos.getModel()).removeNodeFromParent(n);
+				
+				arbolDocumentos.repaint();
+				
 				anterior = null;
 			}
 			

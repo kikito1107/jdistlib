@@ -54,7 +54,7 @@ public class FramePanelDibujo extends DJFrame
 	{
 		this.getContentPane().setLayout(borderLayout1);
 		if (!standalone)
-			this.setDefaultCloseOperation(HIDE_ON_CLOSE);
+			this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 		else this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
@@ -80,6 +80,8 @@ public class FramePanelDibujo extends DJFrame
 		else
 		{
 			setDocumento(new Documento());
+			this.lienzo.setPathDocumento("");
+			setVisible(false);
 			System.gc();
 		}
 	}
