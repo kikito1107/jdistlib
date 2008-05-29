@@ -102,6 +102,9 @@ public class ServidorFicheros
 	private void agregarFichero(FicheroBD f, DefaultMutableTreeNode padre,
 			String usuario, String rol)
 	{
+	
+		// si es una version la ocultamos al usuario
+		if (f.getTipo() != null && f.getTipo().equals("VER")) return;
 
 		// agregamos una nueva hoja al arbol
 		if (ParserPermisos.comprobarPermisoLectura(f, usuario, rol))
@@ -218,9 +221,17 @@ public class ServidorFicheros
 						System.out.println("Fichero a borrar: " + path);
 
 						File f = new File(path);
-						File fAnot = new File(path + ".anot");
+						
+						
+						if (!( (DFileEvent) leido ).fichero.esDirectorio()) {
+							File fAnot = new File(path + ".anot");
+							
+							if (fAnot.exists() && !fAnot.delete())
+								System.err.println("Error borrando el archivo de anotaciones: "
+										+ path);
+						}
 
-						if (!f.delete() || !fAnot.delete())
+						if (!f.delete())
 							System.err.println("Error borrando el archivo: "
 									+ path);
 
