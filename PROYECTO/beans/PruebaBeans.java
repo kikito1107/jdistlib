@@ -16,9 +16,7 @@ import javax.swing.UIManager;
 import Deventos.enlaceJS.DConector;
 
 import componentes.base.DJFrame;
-import componentes.gui.DIButton;
 import componentes.gui.usuarios.ArbolUsuariosConectadosRol;
-import java.awt.Rectangle;
 import java.awt.BorderLayout;
 import componentes.gui.DIChat;
 import componentes.gui.DIComboBox;

@@ -43,6 +43,7 @@ public class Lista extends JList
 		extrasConstructor();
 	}
 
+	@SuppressWarnings("unchecked")
 	public Lista( Vector p0 )
 	{
 		super(p0);

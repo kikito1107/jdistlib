@@ -15,10 +15,6 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 import java.awt.BorderLayout;
-import componentes.gui.usuarios.DICambioRol;
-import componentes.base.DJChat;
-import componentes.base.DJTree;
-import Deventos.DJLienzoEvent;
 
 /**
  * @author anab
@@ -198,7 +194,7 @@ public class GestorRoles extends DJFrame
 				( screenSize.height - frameSize.height ) / 2);
 		frame.setVisible(true);
 
-		String nombreUsuario = DConector.Dusuario;
+		//String nombreUsuario = DConector.Dusuario;
 
 	}
 
