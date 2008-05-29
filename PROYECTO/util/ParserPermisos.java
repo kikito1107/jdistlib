@@ -38,9 +38,9 @@ public class ParserPermisos
 			// 1) El usuario es due–o del fichero
 			if (u.equals(nombreUsuarioFichero))
 			{
-				if (permisos.charAt(0) == 'r')
+				/*if (permisos.charAt(0) == 'r')
 					res = true;
-				else res = false;
+				else res = false;*/ res = true;
 			}
 
 			// 2) el usuario pertenece al rol que le da acceso

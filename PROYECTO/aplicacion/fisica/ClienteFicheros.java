@@ -241,28 +241,8 @@ public class ClienteFicheros
 				return leido.fichero;
 			}
 		}
-		catch (RemoteException e)
+		catch (Exception e)
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-		catch (TransactionException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-		catch (UnusableEntryException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-		catch (InterruptedException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 			return null;
 		}
 	}
@@ -307,28 +287,8 @@ public class ClienteFicheros
 				return leido.fichero;
 			}
 		}
-		catch (RemoteException e)
+		catch (Exception e)
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-		catch (TransactionException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-		catch (UnusableEntryException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-		catch (InterruptedException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 			return null;
 		}
 	}

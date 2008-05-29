@@ -958,20 +958,23 @@ public class PanelPrincipal extends DComponenteBase
 			if (nodo == null)
 			{
 
-				if (dfe.fichero.comprobarPermisos(DConector.Dusuario,
+				if (dfe.fichero.getUsuario().getNombreUsuario().equals(DConector.Dusuario) 
+						||
+						dfe.fichero.comprobarPermisos(DConector.Dusuario,
 						DConector.Drol, FicheroBD.PERMISO_LECTURA))
 				{
-
 					DefaultMutableTreeNode padre = ArbolDocumentos.buscarFichero(raiz,
 							dfe.padre.getId());
 					modelo.insertNodeInto(new DefaultMutableTreeNode(
 							dfe.fichero), padre, modelo.getChildCount(padre));
 				}
 			}
-			else if (dfe.fichero.comprobarPermisos(DConector.Dusuario,
+			else 
+				if (dfe.fichero.getUsuario().getNombreUsuario().equals(DConector.Dusuario) 
+					|| dfe.fichero.comprobarPermisos(DConector.Dusuario,
 					DConector.Drol, FicheroBD.PERMISO_LECTURA))
-				nodo.setUserObject(dfe.fichero);
-			else modelo.removeNodeFromParent(nodo);
+						nodo.setUserObject(dfe.fichero);
+				else modelo.removeNodeFromParent(nodo);
 
 			this.arbolDocumentos.repaint();
 
