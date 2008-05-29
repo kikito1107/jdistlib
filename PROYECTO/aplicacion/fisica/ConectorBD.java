@@ -38,7 +38,7 @@ public class ConectorBD
 	 */
 	static
 	{
-		File f = new File("./IPGestorBD.txt");
+		File f = new File("./.IPGestorBD.txt");
 		FileReader fr = null;
 		try
 		{

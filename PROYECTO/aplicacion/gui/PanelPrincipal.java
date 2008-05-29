@@ -55,10 +55,6 @@ public class PanelPrincipal extends DComponenteBase
 
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * This is the default constructor
-	 */
-
 	private JPanel panelLateral = null;
 	
 	private JLabel jLabel = null;
@@ -193,8 +189,6 @@ public class PanelPrincipal extends DComponenteBase
 				
 				ClienteFicheros.cf.modificarFichero(anterior, DConector.Daplicacion);
 				
-				JOptionPane.showMessageDialog(null, "Generada version: "+ anterior.getNombre());
-				
 				DefaultMutableTreeNode n = 
 					ArbolDocumentos.buscarFichero((DefaultMutableTreeNode)arbolDocumentos.getModel().getRoot(), anterior.getId());
 				
@@ -277,8 +271,6 @@ public class PanelPrincipal extends DComponenteBase
 				JOptionPane.showMessageDialog(this, "Ha ocurrido un error: no se ha podido subir el documento al servidor");
 				return;
 			}
-
-			JOptionPane.showMessageDialog(this, "Nombre efectivo del fichero " + f2.getNombre());
 			
 			// notificamos al resto de usuarios la "novedad"
 			DFileEvent evento = new DFileEvent();
@@ -778,9 +770,9 @@ public class PanelPrincipal extends DComponenteBase
 		if (botonAbrirDoc == null)
 		{
 			botonAbrirDoc = new JButton();
-			botonAbrirDoc.setText("");
-			botonAbrirDoc.setIcon(new ImageIcon(
-					"/Resources/folder-open_16x16.png"));
+			
+			botonAbrirDoc.setIcon(new ImageIcon("./Resources/folder_page_white.png"));
+			
 			botonAbrirDoc.setBorderPainted(false);
 			botonAbrirDoc.addActionListener(new java.awt.event.ActionListener()
 			{
