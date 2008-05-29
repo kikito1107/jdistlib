@@ -402,7 +402,10 @@ public class PanelPrincipal extends DComponenteBase
 			String[] data = new String[plugins.size()];
 
 			for (int i = 0; i < data.length; ++i)
-				data[i] = plugins.get(i).getName();
+			{
+				if (plugins.get(i).shouldShowIt())
+					data[i] = plugins.get(i).getName();
+			}
 
 			// String[] data = {"hola","adios"};
 			listaAplicaciones = new JList(data);
@@ -424,10 +427,11 @@ public class PanelPrincipal extends DComponenteBase
 											&& plugins.size() > 0
 											&& listaAplicaciones
 													.getSelectedIndex() > -1)
-										plugins.get(
-												listaAplicaciones
-														.getSelectedIndex())
-												.start();
+									{
+										for (int i=0; i<plugins.size(); i++)
+											if (listaAplicaciones.getSelectedValue().toString().compareTo(plugins.get(i).getName())==0)
+												plugins.get(i).start();
+									}
 								}
 								catch (Exception e1)
 								{
