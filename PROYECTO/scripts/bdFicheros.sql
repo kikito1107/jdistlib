@@ -67,7 +67,7 @@ CREATE TABLE `Fichero` (
 
 LOCK TABLES `Fichero` WRITE;
 /*!40000 ALTER TABLE `Fichero` DISABLE KEYS */;
-INSERT INTO `Fichero` VALUES (1,'/',1,'rwrwrw',NULL,NULL,NULL,'/',NULL),(2,'Personal',1,'rwrwr-',1,1,1,'/Personal',NULL),(3,'memorandum.doc',0,'rwr-r-',1,1,2,'/Personal/memorandum.doc','doc'),(4,'noseque.pdf',0,'rw----',2,2,1,'/noseque.pdf','pdf'),(7,'Public',1,'rwrwrw',1,1,1,'/Public',NULL),(8,'informe.pdf',0,'rwrwrw',1,1,7,'/Public/informe.pdf','pdf'),(9,'topSecret',1,'rwr-r-',1,1,2,'/Personal/topSecret',NULL),(10,'planosEstrellaDeLaMuerte.dwg',0,'rwr-r-',1,1,9,'/Personal/topSecret/planosEstrellaDeLaMuerte.dwg','dwg'),(12,'hst_stingray_nebula.jpg',0,'r-r-r-',1,1,1,'/hst_stingray_nebula.jpg','img'),(14,'publico2.txt',0,'rwrw--',1,1,1,'/publico2.txt','txt'),(15,'curriculum.pdf',0,'rwrwr-',1,1,1,'/curriculum.pdf','pdf'),(16,'horario.pdf',0,'rwrw--',1,1,1,'/horario.pdf','pdf');
+INSERT INTO `Fichero` VALUES (1,'/',1,'rwrwrw',NULL,NULL,NULL,'/',NULL),(2,'Personal',1,'rwrwr-',1,1,1,'/Personal',NULL),(3,'memorandum.doc',0,'rwr-r-',1,1,2,'/Personal/memorandum.doc','doc'),(4,'noseque.pdf',0,'rw----',2,2,1,'/noseque.pdf','pdf'),(7,'Public',1,'rwrwrw',1,1,1,'/Public',NULL),(8,'informe.pdf',0,'------',1,1,7,'/Public/informe.pdf','pdf'),(9,'topSecret',1,'rwr-r-',1,1,2,'/Personal/topSecret',NULL),(10,'planosEstrellaDeLaMuerte.dwg',0,'rwr-r-',1,1,9,'/Personal/topSecret/planosEstrellaDeLaMuerte.dwg','dwg'),(12,'hst_stingray_nebula.jpg',0,'r-r-r-',1,1,1,'/hst_stingray_nebula.jpg','img'),(16,'horario.pdf',0,'rwrw--',1,1,1,'/horario.pdf','pdf'),(18,'hola.txt1212062574701',0,'rwrw--',1,1,1,'/hola.txt1212062574701','VER'),(19,'hola.txt1212062717873',0,'rwrw--',1,1,1,'/hola.txt1212062717873','VER'),(23,'hola.txt',0,'rwrw--',1,1,1,'/hola.txt','txt');
 /*!40000 ALTER TABLE `Fichero` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -80,4 +80,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2008-05-27 15:40:30
+-- Dump completed on 2008-05-29 22:05:34
