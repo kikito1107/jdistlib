@@ -21,8 +21,10 @@ public final class JarResources
 	public boolean debugOn = false;
 
 	// jar resource mapping tables
+	@SuppressWarnings("unchecked")
 	private Hashtable htSizes = new Hashtable();
 
+	@SuppressWarnings("unchecked")
 	private Hashtable htJarContents = new Hashtable();
 
 	// a jar file
@@ -53,6 +55,7 @@ public final class JarResources
 	}
 
 	/** initializes internal hash tables with Jar file resources. */
+	@SuppressWarnings("unchecked")
 	private void init()
 	{
 		try

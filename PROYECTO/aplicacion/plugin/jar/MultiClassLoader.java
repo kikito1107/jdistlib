@@ -20,6 +20,7 @@ public abstract class MultiClassLoader extends ClassLoader
 {
 
 	// ---------- Fields --------------------------------------
+	@SuppressWarnings("unchecked")
 	private Hashtable classes = new Hashtable();
 
 	private char classNameReplacementChar;
@@ -38,6 +39,7 @@ public abstract class MultiClassLoader extends ClassLoader
 	 * This is a simple version for external clients since they will always want
 	 * the class resolved before it is returned to them.
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public Class loadClass(String className) throws ClassNotFoundException
 	{
@@ -45,6 +47,7 @@ public abstract class MultiClassLoader extends ClassLoader
 	}
 
 	// ---------- Abstract Implementation ---------------------
+	@SuppressWarnings("unchecked")
 	@Override
 	public synchronized Class loadClass(String className, boolean resolveIt)
 			throws ClassNotFoundException
