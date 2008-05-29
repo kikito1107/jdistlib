@@ -32,6 +32,11 @@ public class DFileEvent extends DEvent
 	public static final Integer SINCRONIZACION = new Integer(184);
 
 	public static final Integer RESPUESTA_SINCRONIZACION = new Integer(185);
+	
+	public static final Integer NUEVA_VERSION = new Integer(184);
+
+	public static final Integer RESPUESTA_NUEVA_VERSION = new Integer(185);
+
 
 	public FicheroBD fichero = null;
 

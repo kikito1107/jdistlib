@@ -21,9 +21,7 @@ import aplicacion.fisica.documentos.FicheroBD;
 import aplicacion.fisica.net.Transfer;
 
 /**
- * Clase que se encargar‡ de almacenar los datos de los documentos NOTA: de
- * momento esto es una clase STUB, los datos son generados desde el programa.
- * 
+ * Clase que se encargar‡ de almacenar los datos de los documentos
  * @author anab
  */
 public class ArbolDocumentos extends JTree
@@ -34,6 +32,10 @@ public class ArbolDocumentos extends JTree
 	 */
 	private static final long serialVersionUID = -3359982437919729727L;
 
+	/**
+	 * 
+	 * @param raiz
+	 */
 	public ArbolDocumentos(DefaultMutableTreeNode raiz){
 		super(raiz);
 		this.setRootVisible(false);
@@ -41,6 +43,10 @@ public class ArbolDocumentos extends JTree
 		this.expandRow(0);
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public FicheroBD getDocumentoSeleccionado()
 	{
 		TreePath camino = getSelectionPath();
@@ -55,6 +61,10 @@ public class ArbolDocumentos extends JTree
 		else return null;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public DefaultMutableTreeNode getNodoSeleccionado()
 	{
 		TreePath camino = this.getSelectionPath();
@@ -68,6 +78,12 @@ public class ArbolDocumentos extends JTree
 		else return null;
 	}
 	
+	/**
+	 * 
+	 * @param n
+	 * @param id
+	 * @return
+	 */
 	public static DefaultMutableTreeNode buscarFichero(DefaultMutableTreeNode n,
 			int id)
 	{
@@ -89,6 +105,10 @@ public class ArbolDocumentos extends JTree
 		else return null;
 	}
 	
+	/**
+	 * 
+	 *
+	 */
 	public void imprimirFichero(){
 		FicheroBD doc = getDocumentoSeleccionado();
 		
@@ -102,6 +122,10 @@ public class ArbolDocumentos extends JTree
 		d.imprimir();
 	}
 	
+	/**
+	 * 
+	 *
+	 */
 	public void guardarDocumentoLocalmente(){
 		FicheroBD doc = this.getDocumentoSeleccionado();
 
@@ -148,6 +172,10 @@ public class ArbolDocumentos extends JTree
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public boolean eliminarFichero(){
 		FicheroBD f = this.getDocumentoSeleccionado();
 
@@ -179,16 +207,29 @@ public class ArbolDocumentos extends JTree
 		else return false;
 	}
 	
-	
+	/**
+	 * Agrega una carpeta a la carpeta seleccionada anteriormente
+	 * @param nombre nuevo nombre de la carpeta
+	 * @return el ficheroBD con los datos de la nueva carpeta
+	 */
 	public FicheroBD agregarCarpeta(String nombre){
 		FicheroBD f = this.getDocumentoSeleccionado();
 		
 		if (f.esDirectorio()){
 			
-			System.err.println("LA carpeta padre existe");
-			
 			//creamos el nodo
 			FicheroBD nuevo = new FicheroBD();
+			
+			if (!f.getRutaLocal().equals("/"))
+				nuevo.setRutaLocal(f.getRutaLocal()+"/"+nombre);
+			else
+				nuevo.setRutaLocal("/"+nombre);
+			
+			if (existeFichero((DefaultMutableTreeNode)this.getModel().getRoot(), nuevo.getRutaLocal())) {
+				JOptionPane.showMessageDialog(null, "La carpeta ya existe");
+				return null;
+			}
+				
 			
 			//recuperamos el usuario y el rol
 			MIUsuario user = ClienteMetaInformacion.cmi.getUsuario(DConector.Dusuario);
@@ -202,14 +243,38 @@ public class ArbolDocumentos extends JTree
 			nuevo.setUsuario(user);
 			nuevo.setPermisos("rwrw--");
 			nuevo.setTipo("NULL");
-			if (!f.getRutaLocal().equals("/"))
-				nuevo.setRutaLocal(f.getRutaLocal()+"/"+nombre);
-			else
-				nuevo.setRutaLocal("/"+nombre);
+			
+			
 			nuevo.esDirectorio(true);
 			
 			return nuevo;
 		}
 		else  return null;
+	}
+	
+	/**
+	 * Comprueba si un fichero determinado existe en un determinado nodo
+	 * @param n nodo nodo del arbol en el que buscamos el documento
+	 * @param ruta ruta del fichero
+	 * @return true si el fichero ya existe en la ruta y false en caso contrario
+	 */
+	public boolean existeFichero(DefaultMutableTreeNode n, String ruta){
+		
+		if (!n.isRoot() && ( ( (FicheroBD) n.getUserObject() ).getRutaLocal().equals(ruta) ))
+			return true;
+		
+		else if (n.getChildCount() > 0)
+		{
+
+			for (int i = 0; i < n.getChildCount(); ++i)
+			{
+				if (existeFichero((DefaultMutableTreeNode) n.getChildAt(i),
+						ruta))
+					return true;
+
+			}
+			return false;
+		}
+		else return false;
 	}
 }

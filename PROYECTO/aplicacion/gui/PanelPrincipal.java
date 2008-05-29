@@ -59,40 +59,14 @@ public class PanelPrincipal extends DComponenteBase
 	 */
 
 	private JPanel panelLateral = null;
-
-	private JToolBar barraHerramientas = null;
-
-	private JButton botonNuevo = null;
-
-	private JButton BotonAbrir = null;
-
-	private JButton botonGuardar = null;
-
-	private JButton botonEliminar = null;
-
-	private JButton botonPersonalizar = null;
-
+	
 	private JLabel jLabel = null;
 
 	private JToolBar herrmientasUsuarios = null;
 
 	private JList listaAplicaciones = null;
 
-	private JButton botonBuscar = null;
-
-	private JButton botonInspector = null;
-
 	private JButton botonInfo = null;
-
-	private JButton botonAtras = null;
-
-	private JButton botonRecargar = null;
-
-	private JButton botonAdelante = null;
-
-	private JButton botonImprimir = null;
-
-	private JButton botonAyuda = null;
 
 	private JButton nuevoUsuario = null;
 
@@ -142,7 +116,6 @@ public class PanelPrincipal extends DComponenteBase
 			botonSubir.setBorderPainted(false);
 			botonSubir.setText("");
 
-			// botonSubir.setPreferredSize(new Dimension(30,24));
 			botonSubir
 					.setIcon(new ImageIcon("./Resources/subir_documento.png"));
 			botonSubir.addActionListener(new java.awt.event.ActionListener()
@@ -156,25 +129,31 @@ public class PanelPrincipal extends DComponenteBase
 		return botonSubir;
 	}
 	
+	/**
+	 * Sube un fichero al servidor en la carpeta que esta seleccionada
+	 * actualmente. Si no hay seleccionada ninguana carpeta no hace nada.
+	 * Si se intenta subir un fichero duplicado, muestra un mensaje de error
+	 * indicando si el usuario desea: cancelar, cambiar el nombre o sobreescribir
+	 */
 	private void subirFicheroServidor()
 	{
-		// obtenemos el path hasta el nodo seleccionado
-
-		// obtenemos los datos del fichero asociados a ese
-		// nodo
+		// obtenemos los datos del fichero asociados a ese nodo
 		FicheroBD carpeta = arbolDocumentos.getDocumentoSeleccionado();
 
 		// si el fichero escogido no es directorio, salimos
 		if (carpeta == null || !carpeta.esDirectorio()) return;
 
 		String path = carpeta.getRutaLocal() + "/";
+		
+		if (path.equals("//"))
+			path = "/";
 
 		// recuperamos el usuario y el rol
 		MIUsuario user = ClienteMetaInformacion.cmi.getUsuario(DConector.Dusuario);
 		MIRol rol = ClienteMetaInformacion.cmi.getRol(DConector.Drol);
 
 		// si se ha producido algun error, salimos
-		if (( user == null ) || ( rol == null ) || ( path == "/" )) return;
+		if (( user == null ) || ( rol == null ) ) return;
 
 		// mostramos el selector de ficheros
 		JFileChooser jfc = new JFileChooser("Subir Documento Servidor");
@@ -186,6 +165,31 @@ public class PanelPrincipal extends DComponenteBase
 		if (op != JFileChooser.APPROVE_OPTION) return;
 
 		java.io.File f = jfc.getSelectedFile();
+		
+		String nombre = f.getName();
+
+		while (arbolDocumentos.existeFichero( (DefaultMutableTreeNode)arbolDocumentos.getModel().getRoot() , path + nombre)){
+			int sel = JOptionPane.showConfirmDialog(this, "El documento ya existe ÀDesea sobrescribirlo?", "ÀSobrescribir?", JOptionPane.YES_NO_CANCEL_OPTION);
+			
+			// el usuario ha cancelado la accion
+			if (sel == 2) return;
+			
+			// el usuario desea sobreescribir el documento
+			else if (sel == 0) {
+				//aki es donde hay que hacer es:
+				// 1) Renombrar el fichero anterior en el servidor
+				// 2) Guardar el nuevo fichero
+				
+				JOptionPane.showMessageDialog(null, "Under development");
+				return;
+			}
+			
+			// el usuario no desea sobreescribir el fichero
+			else if(sel == 1){
+				nombre = JOptionPane.showInputDialog("Nuevo nombre");
+			}
+		}
+		
 		byte[] bytes = null;
 		try
 		{
@@ -213,7 +217,7 @@ public class PanelPrincipal extends DComponenteBase
 			return;
 		}
 
-		String nombreFichero = f.getName();
+		String nombreFichero = nombre;
 		nombreFichero = nombreFichero.replace('.', ':');
 
 		String[] desc = nombreFichero.split(":");
@@ -222,13 +226,14 @@ public class PanelPrincipal extends DComponenteBase
 
 		extension = FicheroBD.getTipoFichero(extension);
 
+		
 		// creamos el nuevo fichero a almacenar
-		FicheroBD fbd = new FicheroBD(-1, f.getName(), false, "rwrw--", user,
-				rol, carpeta.getId(), path + f.getName(), extension);
+		FicheroBD fbd = new FicheroBD(-1, nombre, false, "rwrw--", user,
+				rol, carpeta.getId(), path + nombre, extension);
 
 		// enviamos el nuevo fichero al servidor
 		Transfer t = new Transfer(ClienteFicheros.ipConexion, path
-				+ f.getName());
+				+ nombre);
 
 		if (!t.sendFile(bytes))
 		{
@@ -242,13 +247,16 @@ public class PanelPrincipal extends DComponenteBase
 		else
 		{
 
+			//insertamos el nuevo fichero en el servidor
 			FicheroBD f2 = ClienteFicheros.cf.insertarNuevoFichero(fbd, DConector.Daplicacion);
 			
-			if (f2 == null) return;
+			// si ha habido algun error salimos
+			if (f2 == null) {
+				JOptionPane.showMessageDialog(this, "Ha ocurrido un error: no se ha podido subir el documento al servidor");
+				return;
+			}
 
-			
-			System.out.println("ID del nuevo fichero " + f2.getId());
-			
+			JOptionPane.showMessageDialog(this, "Nombre efectivo del fichero " + f2.getNombre());
 			
 			// notificamos al resto de usuarios la "novedad"
 			DFileEvent evento = new DFileEvent();
@@ -257,11 +265,6 @@ public class PanelPrincipal extends DComponenteBase
 			evento.tipo = new Integer(DFileEvent.NOTIFICAR_INSERTAR_FICHERO
 					.intValue());
 			enviarEvento(evento);
-
-			// insertamos el nuevo fichero en el servidor
-			
-
-			//VisorPropiedadesFichero.verInfoFichero(fbd, null);
 		}				
 		
 	}
@@ -290,7 +293,7 @@ public class PanelPrincipal extends DComponenteBase
 			borderLayout.setHgap(0);
 			this.setLayout(null);
 			this.add(getPanelLateral(), BorderLayout.WEST);
-			this.add(getBarraHerramientas(), null);
+
 
 			inicializarEditor();
 
@@ -344,7 +347,7 @@ public class PanelPrincipal extends DComponenteBase
 			jLabel.setBounds(new Rectangle(52, 4, 90, 21));
 			panelLateral = new JPanel();
 			panelLateral.setLayout(null);
-			panelLateral.setBounds(new Rectangle(6, 76, 188, 398));
+			panelLateral.setBounds(new Rectangle(6, 16, 188, 398));
 			panelLateral.add(jLabel, gridBagConstraints);
 			panelLateral.add(getHerrmientasUsuarios(), null);
 			panelLateral.add(getListaAplicaciones(), null);
@@ -355,151 +358,6 @@ public class PanelPrincipal extends DComponenteBase
 		return panelLateral;
 	}
 
-	/**
-	 * This method initializes barraHerramientas
-	 * 
-	 * @return javax.swing.JToolBar
-	 */
-	private JToolBar getBarraHerramientas()
-	{
-		if (barraHerramientas == null)
-		{
-			util.Separador separator1 = new util.Separador();
-			separator1.setPreferredSize(new Dimension(50, 35));
-
-			util.Separador separator2 = new util.Separador();
-			separator2.setPreferredSize(new Dimension(50, 35));
-
-			util.Separador separator3 = new util.Separador();
-			separator3.setPreferredSize(new Dimension(50, 35));
-
-			util.Separador separator4 = new util.Separador();
-			separator4.setPreferredSize(new Dimension(50, 35));
-
-			util.Separador separator5 = new util.Separador();
-			separator5.setPreferredSize(new Dimension(50, 35));
-
-			barraHerramientas = new JToolBar();
-			barraHerramientas.setBounds(new Rectangle(3, -2, 563, 67));
-			barraHerramientas.add(getBotonNuevo());
-			barraHerramientas.add(getBotonAbrir());
-			barraHerramientas.add(getBotonGuardar());
-			barraHerramientas.add(getBotonImprimir());
-			barraHerramientas.add(separator1);
-
-			barraHerramientas.add(getBotonEliminar());
-			barraHerramientas.add(separator2);
-			barraHerramientas.add(getBotonPersonalizar());
-			barraHerramientas.add(getBotonBuscar());
-			barraHerramientas.add(separator3);
-			barraHerramientas.add(getBotonInspector());
-			barraHerramientas.add(separator5);
-			barraHerramientas.add(getBotonAtras());
-			barraHerramientas.add(getBotonRecargar());
-			barraHerramientas.add(getBotonAdelante());
-			barraHerramientas.add(separator4);
-			barraHerramientas.add(getBotonAyuda());
-
-			barraHerramientas.setFloatable(false);
-		}
-		return barraHerramientas;
-	}
-
-	/**
-	 * This method initializes botonNuevo
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private JButton getBotonNuevo()
-	{
-		if (botonNuevo == null)
-		{
-			botonNuevo = new JButton();
-			botonNuevo.setBorder(null);
-			botonNuevo.setBorderPainted(false);
-			botonNuevo.setIcon(new ImageIcon("./Resources/document_new.png"));
-		}
-		return botonNuevo;
-	}
-
-	/**
-	 * This method initializes BotonAbrir
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private JButton getBotonAbrir()
-	{
-		if (BotonAbrir == null)
-		{
-			BotonAbrir = new JButton();
-			BotonAbrir.setBorder(null);
-			BotonAbrir.setBorderPainted(false);
-			BotonAbrir.setIcon(new ImageIcon("./Resources/folder_big.png"));
-		}
-		return BotonAbrir;
-	}
-
-	/**
-	 * This method initializes botonGuardar
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private JButton getBotonGuardar()
-	{
-		if (botonGuardar == null)
-		{
-			botonGuardar = new JButton();
-			botonGuardar.setBorder(null);
-			botonGuardar.setBorderPainted(false);
-			botonGuardar.setIcon(new ImageIcon("./Resources/save.png"));
-		}
-		return botonGuardar;
-	}
-
-	/**
-	 * This method initializes botonEliminar
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private JButton getBotonEliminar()
-	{
-		if (botonEliminar == null)
-		{
-			botonEliminar = new JButton();
-			botonEliminar.setBorder(null);
-			botonEliminar.setBorderPainted(false);
-			botonEliminar.setIcon(new ImageIcon("./Resources/delete.png"));
-		}
-		return botonEliminar;
-	}
-
-	/**
-	 * This method initializes botonPersonalizar
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private JButton getBotonPersonalizar()
-	{
-		if (botonPersonalizar == null)
-		{
-			botonPersonalizar = new JButton();
-			botonPersonalizar.setBorderPainted(false);
-			botonPersonalizar
-					.setIcon(new ImageIcon("./Resources/customize.png"));
-
-			botonPersonalizar
-					.addActionListener(new java.awt.event.ActionListener()
-					{
-						public void actionPerformed(java.awt.event.ActionEvent e)
-						{
-							ClienteMetaInformacion.obtenerCMI()
-									.hacerVisibleDialogo();
-						}
-					});
-
-		}
-		return botonPersonalizar;
-	}
 
 	/**
 	 * This method initializes herrmientasUsuarios
@@ -573,7 +431,6 @@ public class PanelPrincipal extends DComponenteBase
 								}
 								catch (Exception e1)
 								{
-									// TODO Auto-generated catch block
 									e1.printStackTrace();
 								}
 						}
@@ -597,124 +454,6 @@ public class PanelPrincipal extends DComponenteBase
 		return arbolUsuario;
 	}
 
-	/**
-	 * This method initializes botonBuscar
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private JButton getBotonBuscar()
-	{
-		if (botonBuscar == null)
-		{
-			botonBuscar = new JButton();
-			botonBuscar.setBorder(null);
-			botonBuscar.setIcon(new ImageIcon("./Resources/find.png"));
-			botonBuscar.setBorderPainted(false);
-		}
-		return botonBuscar;
-	}
-
-	/**
-	 * This method initializes botonInspector
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private JButton getBotonInspector()
-	{
-		if (botonInspector == null)
-		{
-			botonInspector = new JButton();
-			botonInspector.setBorder(null);
-			botonInspector.setIcon(new ImageIcon("./Resources/inspector.png"));
-			botonInspector.setBorderPainted(false);
-		}
-		return botonInspector;
-	}
-
-	/**
-	 * This method initializes botonAtras
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private JButton getBotonAtras()
-	{
-		if (botonAtras == null)
-		{
-			botonAtras = new JButton();
-			botonAtras.setBorder(null);
-			botonAtras.setIcon(new ImageIcon("./Resources/back.png"));
-			botonAtras.setBorderPainted(false);
-		}
-		return botonAtras;
-	}
-
-	/**
-	 * This method initializes botonRecargar
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private JButton getBotonRecargar()
-	{
-		if (botonRecargar == null)
-		{
-			botonRecargar = new JButton();
-			botonRecargar.setBorder(null);
-			botonRecargar.setIcon(new ImageIcon("./Resources/reload.png"));
-			botonRecargar.setBorderPainted(false);
-		}
-		return botonRecargar;
-	}
-
-	/**
-	 * This method initializes botonAdelante
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private JButton getBotonAdelante()
-	{
-		if (botonAdelante == null)
-		{
-			botonAdelante = new JButton();
-			botonAdelante.setBorder(null);
-			botonAdelante.setIcon(new ImageIcon("./Resources/forward.png"));
-			botonAdelante.setBorderPainted(false);
-		}
-		return botonAdelante;
-	}
-
-	/**
-	 * This method initializes botonImprimir
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private JButton getBotonImprimir()
-	{
-		if (botonImprimir == null)
-		{
-			botonImprimir = new JButton();
-			botonImprimir.setBorder(null);
-			botonImprimir.setIcon(new ImageIcon("./Resources/print.png"));
-			botonImprimir.setBorderPainted(false);
-		}
-		return botonImprimir;
-	}
-
-	/**
-	 * This method initializes botonAyuda
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private JButton getBotonAyuda()
-	{
-		if (botonAyuda == null)
-		{
-			botonAyuda = new JButton();
-			botonAyuda.setBorder(null);
-			botonAyuda.setIcon(new ImageIcon("./Resources/help.png"));
-			botonAyuda.setBorderPainted(false);
-		}
-		return botonAyuda;
-	}
 
 	/**
 	 * This method initializes nuevoUsuario
@@ -828,7 +567,7 @@ public class PanelPrincipal extends DComponenteBase
 			borderLayout2.setVgap(0);
 			panelEspacioTrabajo = new JPanel();
 			panelEspacioTrabajo.setLayout(borderLayout2);
-			panelEspacioTrabajo.setBounds(new Rectangle(210, 76, 349, 397));
+			panelEspacioTrabajo.setBounds(new Rectangle(210, 16, 349, 398));
 			panelEspacioTrabajo.setBorder(new LineBorder(Color.GRAY, 1));
 			panelEspacioTrabajo.add(getHerraminetasDocumentos(),
 					BorderLayout.NORTH);
@@ -921,10 +660,13 @@ public class PanelPrincipal extends DComponenteBase
 		return botonImprimirDocumento;
 	}
 
-	
+
+	/**
+	 * 
+	 * @return
+	 */
 	private JButton getBotonEliminarFichero()
 	{
-		// TODO Auto-generated method stub
 
 		if (botonEliminarFich == null)
 		{
@@ -1292,6 +1034,10 @@ public class PanelPrincipal extends DComponenteBase
 			}
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	private JButton getAgregarCarpeta()
 	{
 		

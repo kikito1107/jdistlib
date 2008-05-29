@@ -261,6 +261,72 @@ public class ClienteFicheros
 		}
 	}
 
+	public FicheroBD nuevaVersion(FicheroBD f, String aplicacion)
+	{
+		try
+		{
+			DFileEvent evt = new DFileEvent();
+			DFileEvent plantilla = new DFileEvent(), leido;
+			
+			
+			// origen y destino del evento
+			evt.origen = new Integer(31); // Cliente ficheros
+			evt.destino = new Integer(30); // Servidor ficheros
+
+			// tipo de evento
+			evt.tipo = new Integer(DFileEvent.NUEVA_VERSION
+					.intValue());
+			evt.aplicacion = new String(aplicacion);
+			evt.usuario = new String(usuario);
+			evt.rol = new String(rol);
+			evt.fichero = f;
+
+			space.write(evt, null, leaseWriteTime);
+			
+//			 inicializamos la plantilla
+			plantilla.origen = new Integer(30); // Servidor ficheros
+			plantilla.destino = new Integer(31); // Cliente ficheros
+			plantilla.tipo = new Integer(DFileEvent.RESPUESTA_NUEVA_VERSION
+					.intValue());
+
+			// leemos la respuesta a la solicitud
+			leido = (DFileEvent) space.take(plantilla, null, leaseReadTime);
+
+			if (leido == null)
+			{ // Sin respuesta del coordinador
+				return null;
+			}
+			else
+			{
+				return leido.fichero;
+			}
+		}
+		catch (RemoteException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		catch (TransactionException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		catch (UnusableEntryException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		catch (InterruptedException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	public void modificarFichero(FicheroBD f, String aplicacion)
 	{
 		try

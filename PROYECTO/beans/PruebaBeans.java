@@ -22,6 +22,7 @@ import java.awt.Rectangle;
 import java.awt.BorderLayout;
 import componentes.gui.DIChat;
 import componentes.gui.DIComboBox;
+import java.awt.SystemColor;
 
 /**
  * @author anab
@@ -139,6 +140,7 @@ public class PruebaBeans extends DJFrame
 			try
 			{
 				arbol = new ArbolUsuariosConectadosRol("Arbol", true, null);
+				arbol.setBackground(SystemColor.control);  // Generated
 			}
 			catch (java.lang.Throwable e)
 			{
@@ -160,6 +162,7 @@ public class PruebaBeans extends DJFrame
 			try
 			{
 				Chat = new DIChat("chat", true, null);
+				Chat.setBackground(SystemColor.control);  // Generated
 			}
 			catch (java.lang.Throwable e)
 			{

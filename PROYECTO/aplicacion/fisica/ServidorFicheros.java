@@ -263,6 +263,39 @@ public class ServidorFicheros
 						}
 						gestor.modificarFichero(( (DFileEvent) leido ).fichero);
 					}
+					else if (leido.tipo.intValue() == DFileEvent.NUEVA_VERSION
+							.intValue())
+					{
+						
+						if (gestor == null) gestor = new GestorFicherosBD();
+
+						int id = ( (DFileEvent) leido ).fichero.getId();
+
+						// cambiar el nombre del fichero
+						String old = gestor.buscarFichero(id).getRutaLocal();
+						String new_ = ( (DFileEvent) leido ).fichero
+								.getRutaLocal();
+						File f = new File(old);
+
+						File f2 = new File(new_);
+
+						if (!f.renameTo(f2))
+							System.err.println("Error al renombrar el fichero");
+						else
+						{
+
+							f = new File(old + ".anot");
+							f2 = new File(new_ + ".anot");
+
+							if (!f.renameTo(f2))
+								System.err
+										.println("Error al renombrar el fichero de anotaciones");
+							else System.err
+									.println("Fichero renombrado con Žxito");
+
+						}
+						gestor.modificarFichero(( (DFileEvent) leido ).fichero);
+					}
 				}
 				catch (Exception e)
 				{
