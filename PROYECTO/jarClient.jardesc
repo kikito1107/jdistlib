@@ -16,7 +16,7 @@
 <javaElement handleIdentifier="=PROYECTO/&lt;scripts"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;aplicacion.plugin.deventos"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;componentes.gui"/>
-<file path="/PROYECTO/IPGestorBDFicheros.txt"/>
+<file path="/PROYECTO/.IPGestorBDFicheros.txt"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;componentes"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;calculoparalelo.eventos"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;aplicacion.fisica.webcam"/>
@@ -28,7 +28,7 @@
 <javaElement handleIdentifier="=PROYECTO/&lt;aplicacion.gui.editor"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;aplicacion.fisica.net"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;componentes.listeners"/>
-<file path="/PROYECTO/IPGestorBD.txt"/>
+<file path="/PROYECTO/.IPGestorBD.txt"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;util"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;beans"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;Resources"/>
