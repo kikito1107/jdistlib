@@ -12,42 +12,42 @@
 </manifest>
 <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
 <javaElement handleIdentifier="=PROYECTO/&lt;aplicacion.fisica.documentos"/>
-<javaElement handleIdentifier="=PROYECTO/&lt;scripts"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;componentes.gui.chat"/>
+<javaElement handleIdentifier="=PROYECTO/&lt;scripts"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;aplicacion.plugin.deventos"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;componentes.gui"/>
 <file path="/PROYECTO/IPGestorBDFicheros.txt"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;componentes"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;calculoparalelo.eventos"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;aplicacion.fisica.webcam"/>
-<javaElement handleIdentifier="=PROYECTO/&lt;calculoparalelo"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;aplicacion"/>
+<javaElement handleIdentifier="=PROYECTO/&lt;calculoparalelo"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;aplicacion.main"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;Deventos"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;componentes.gui.usuarios"/>
-<javaElement handleIdentifier="=PROYECTO/&lt;componentes.listeners"/>
-<javaElement handleIdentifier="=PROYECTO/&lt;aplicacion.fisica.net"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;aplicacion.gui.editor"/>
+<javaElement handleIdentifier="=PROYECTO/&lt;aplicacion.fisica.net"/>
+<javaElement handleIdentifier="=PROYECTO/&lt;componentes.listeners"/>
 <file path="/PROYECTO/IPGestorBD.txt"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;util"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;beans"/>
-<javaElement handleIdentifier="=PROYECTO/&lt;componentes.base"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;Resources"/>
+<javaElement handleIdentifier="=PROYECTO/&lt;componentes.base"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;Deventos.enlaceJS"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;aplicacion.gui"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;lookandfeel.Dbasic"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;figuras"/>
-<javaElement handleIdentifier="=PROYECTO/&lt;javaspaces"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;aplicacion.plugin"/>
+<javaElement handleIdentifier="=PROYECTO/&lt;javaspaces"/>
 <file path="/PROYECTO/todo.policy"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;metainformacion"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;aplicacion.fisica"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;metainformacion.gui"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;aplicacion.fisica.eventos"/>
-<javaElement handleIdentifier="=PROYECTO/&lt;aplicacion.plugin.jar"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;aplicacion.gui.componentes"/>
+<javaElement handleIdentifier="=PROYECTO/&lt;aplicacion.plugin.jar"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;lookandfeel.Dmetal"/>
-<javaElement handleIdentifier="=PROYECTO/&lt;lookandfeel"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;aplicacion.fisica.documentos.filtros"/>
+<javaElement handleIdentifier="=PROYECTO/&lt;lookandfeel"/>
 </selectedElements>
 </jardesc>
