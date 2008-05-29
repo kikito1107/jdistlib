@@ -781,7 +781,7 @@ public class PanelPrincipal extends DComponenteBase
 			botonAbrirDoc = new JButton();
 			botonAbrirDoc.setText("");
 			botonAbrirDoc.setIcon(new ImageIcon(
-					"./Resources/folder-open_16x16.png"));
+					"/Resources/folder-open_16x16.png"));
 			botonAbrirDoc.setBorderPainted(false);
 			botonAbrirDoc.addActionListener(new java.awt.event.ActionListener()
 			{
