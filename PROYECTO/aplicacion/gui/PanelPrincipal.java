@@ -1065,7 +1065,7 @@ public class PanelPrincipal extends DComponenteBase
 
 			
 			agregarCarpeta
-					.setIcon(new ImageIcon("./Resources/folder_add.png"));
+					.setIcon(new ImageIcon("./Resources/nueva_carpeta.png"));
 			agregarCarpeta.addActionListener(new java.awt.event.ActionListener()
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
