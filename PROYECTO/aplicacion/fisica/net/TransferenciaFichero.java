@@ -6,6 +6,7 @@ import java.io.RandomAccessFile;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
+import aplicacion.fisica.ServidorFicheros;
 import aplicacion.fisica.documentos.Documento;
 import aplicacion.fisica.documentos.filtros.ImageFilter;
 import aplicacion.fisica.documentos.filtros.PDFFilter;
@@ -27,7 +28,7 @@ public class TransferenciaFichero extends UnicastRemoteObject implements
 		Documento.addFilter(new ImageFilter());
 		Documento.addFilter(new PDFFilter());
 		Documento.addFilter(new TXTFilter());
-		return Documento.openDocument(path, "", "");
+		return Documento.openDocument(ServidorFicheros.getDirectorioBase() + path, "", "");
 	}
 
 	public byte[] getByteFiles(String path)
@@ -35,7 +36,7 @@ public class TransferenciaFichero extends UnicastRemoteObject implements
 		byte[] bytes = null;
 		try
 		{
-			RandomAccessFile raf = new RandomAccessFile(path, "r");
+			RandomAccessFile raf = new RandomAccessFile(ServidorFicheros.getDirectorioBase()+ path, "r");
 
 			int tamanio = (int) raf.length();
 
@@ -61,7 +62,7 @@ public class TransferenciaFichero extends UnicastRemoteObject implements
 	{
 		try
 		{
-			RandomAccessFile raf = new RandomAccessFile(path, "rw");
+			RandomAccessFile raf = new RandomAccessFile(ServidorFicheros.getDirectorioBase() + path, "rw");
 			// System.out.println("RECIBIDO FICHERO");
 			raf.write(bytes);
 			raf.close();

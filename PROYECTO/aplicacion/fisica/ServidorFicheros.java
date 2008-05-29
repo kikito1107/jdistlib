@@ -1,6 +1,10 @@
 package aplicacion.fisica;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.util.Vector;
 
@@ -44,12 +48,44 @@ public class ServidorFicheros
 	private static long leaseWriteTime = Lease.FOREVER;
 
 	private static long leaseReadTime = Long.MAX_VALUE;
+	
+	private static String directorioBase = ".data";
 
+	
+	public static String getDirectorioBase(){
+		return directorioBase;
+	}
+	
 	public ServidorFicheros()
 	{
 
 		System.out.println("");
 
+		File f = new File(".config");
+		FileReader fr = null;
+		try
+		{
+			fr = new FileReader(f);
+		}
+		catch (FileNotFoundException e)
+		{
+			System.err
+					.println("Error en apertura de fichero. No se ha encontrado el fichero .config");
+			System.exit(1);
+		}
+		BufferedReader br = new BufferedReader(fr);
+		try
+		{
+			directorioBase = br.readLine();
+		}
+		catch (IOException e)
+		{
+			System.err
+					.println("Error en lectura de fichero: "
+							+ e.getMessage());
+			System.exit(2);
+		}
+		
 		gestor = new GestorFicherosBD();
 		System.out.println("ServidorFicheros: Almacen de ficheros creado");
 		System.out.println("ServidorFicheros: Localizando JavaSpace");
@@ -179,7 +215,7 @@ public class ServidorFicheros
 						DFileEvent evt = (DFileEvent) leido;
 
 						if (evt.fichero.esDirectorio()) {
-							File f = new File(evt.fichero.getRutaLocal());
+							File f = new File(directorioBase+evt.fichero.getRutaLocal());
 							f.mkdir();
 							System.err.println("Carpeta creada");
 						}
@@ -220,11 +256,11 @@ public class ServidorFicheros
 
 						System.out.println("Fichero a borrar: " + path);
 
-						File f = new File(path);
+						File f = new File(directorioBase+path);
 						
 						
 						if (!( (DFileEvent) leido ).fichero.esDirectorio()) {
-							File fAnot = new File(path + ".anot");
+							File fAnot = new File(directorioBase + path + ".anot");
 							
 							if (fAnot.exists() && !fAnot.delete())
 								System.err.println("Error borrando el archivo de anotaciones: "
@@ -250,9 +286,9 @@ public class ServidorFicheros
 						String old = gestor.buscarFichero(id).getRutaLocal();
 						String new_ = ( (DFileEvent) leido ).fichero
 								.getRutaLocal();
-						File f = new File(old);
+						File f = new File(directorioBase+old);
 
-						File f2 = new File(new_);
+						File f2 = new File(directorioBase+new_);
 
 						System.err.println("Ruta local: " + old);
 						System.err.println("Ruta nueva " + new_);
@@ -262,41 +298,8 @@ public class ServidorFicheros
 						else
 						{
 
-							f = new File(old + ".anot");
-							f2 = new File(new_ + ".anot");
-
-							if (!f.renameTo(f2))
-								System.err
-										.println("Error al renombrar el fichero de anotaciones");
-							else System.err
-									.println("Fichero renombrado con Žxito");
-
-						}
-						gestor.modificarFichero(( (DFileEvent) leido ).fichero);
-					}
-					else if (leido.tipo.intValue() == DFileEvent.NUEVA_VERSION
-							.intValue())
-					{
-						
-						if (gestor == null) gestor = new GestorFicherosBD();
-
-						int id = ( (DFileEvent) leido ).fichero.getId();
-
-						// cambiar el nombre del fichero
-						String old = gestor.buscarFichero(id).getRutaLocal();
-						String new_ = ( (DFileEvent) leido ).fichero
-								.getRutaLocal();
-						File f = new File(old);
-
-						File f2 = new File(new_);
-
-						if (!f.renameTo(f2))
-							System.err.println("Error al renombrar el fichero");
-						else
-						{
-
-							f = new File(old + ".anot");
-							f2 = new File(new_ + ".anot");
+							f = new File(directorioBase+old + ".anot");
+							f2 = new File(directorioBase+new_ + ".anot");
 
 							if (!f.renameTo(f2))
 								System.err
