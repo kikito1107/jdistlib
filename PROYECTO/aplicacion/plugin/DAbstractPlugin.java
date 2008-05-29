@@ -36,6 +36,8 @@ public abstract class DAbstractPlugin extends DComponenteBase
 	protected boolean started;
 
 	protected boolean versioningEnabled;
+	
+	protected boolean shouldShow = true;
 
 	private Integer ultimoProcesado = new Integer(-1);
 

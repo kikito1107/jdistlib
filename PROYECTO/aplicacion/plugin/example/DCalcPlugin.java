@@ -34,6 +34,7 @@ public class DCalcPlugin extends DAbstractPlugin
 		nombre = "Calculadora";
 		jarFile = "ejemplo.jar";
 		versioningEnabled = false;
+		shouldShow = true;
 		ventana = new JFrame(":: Calculadora ::");
 		eco = new Calc();
 
