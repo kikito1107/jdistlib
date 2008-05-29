@@ -183,6 +183,7 @@ public class VideoConferencia
 			}
 		}
 
+		@SuppressWarnings("unchecked")
 		private CaptureStream iniciarCaptura() throws IOException,
 				CaptureException
 		{
