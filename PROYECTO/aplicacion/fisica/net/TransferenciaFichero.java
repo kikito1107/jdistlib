@@ -7,6 +7,9 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 import aplicacion.fisica.documentos.Documento;
+import aplicacion.fisica.documentos.filtros.ImageFilter;
+import aplicacion.fisica.documentos.filtros.PDFFilter;
+import aplicacion.fisica.documentos.filtros.TXTFilter;
 
 public class TransferenciaFichero extends UnicastRemoteObject implements
 		InterfazTransferenciaFichero
@@ -20,6 +23,10 @@ public class TransferenciaFichero extends UnicastRemoteObject implements
 
 	public Documento getDocument(String path)
 	{
+		
+		Documento.addFilter(new ImageFilter());
+		Documento.addFilter(new PDFFilter());
+		Documento.addFilter(new TXTFilter());
 		return Documento.openDocument(path, "", "");
 	}
 
