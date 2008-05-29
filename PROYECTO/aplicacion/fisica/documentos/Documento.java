@@ -6,35 +6,23 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.JobAttributes;
-import java.awt.Rectangle;
 import java.awt.RenderingHints;
-import java.awt.Toolkit;
 import java.awt.JobAttributes.DialogType;
-import java.awt.image.BufferedImage;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.RandomAccessFile;
 import java.io.Serializable;
-import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
 import java.util.Vector;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
-import com.sun.pdfview.PDFFile;
-import com.sun.pdfview.PDFPage;
+import aplicacion.fisica.documentos.filtros.DocumentFilter;
 
 public class Documento implements Serializable, Printable
 {
@@ -49,6 +37,8 @@ public class Documento implements Serializable, Printable
 	private String path = "";
 
 	private FicheroBD datosBD = null;
+
+	private static Vector<DocumentFilter> filtros = new Vector<DocumentFilter>();
 
 	public Documento()
 	{
@@ -162,6 +152,21 @@ public class Documento implements Serializable, Printable
 		return rol;
 	}
 
+	public static void addFilter(DocumentFilter flt)
+	{
+		filtros.add(flt);
+	}
+
+	public static void removeFilter(DocumentFilter flt)
+	{
+		filtros.remove(flt);
+	}
+
+	public static void removeAllFilters()
+	{
+		filtros.removeAllElements();
+	}
+
 	@SuppressWarnings( "unchecked" )
 	public static Documento openDocument(String path, String usuario, String rol)
 	{
@@ -173,22 +178,12 @@ public class Documento implements Serializable, Printable
 
 		Documento doc = null;
 
-		// comprobar si es un pdf
-		if (sub.compareTo("pdf") == 0) doc = pdf2Documento(path, usuario, rol);
-
-		if (sub.compareTo("txt") == 0) doc = txt2Documento(path, usuario, rol);
-
-		// comprobar si es una imagen
-		String[] readFormats = ImageIO.getReaderFormatNames();
-		for (int i = 0; i < readFormats.length; i++)
-			if (readFormats[i].toLowerCase().compareTo(sub) == 0)
-			{
-				doc = img2Documento(path, usuario, rol);
-				break;
-			}
+		// comprobar si es fichero soportado
+		for (int i = 0; i < filtros.size(); i++)
+			if (filtros.get(i).isSupported(sub))
+				doc = filtros.get(i).getDocumento(path, usuario, rol);
 
 		// comprobar si el fichero .anot existe
-
 		if (doc != null)
 		{
 			File f = new File(path + ".anot");
@@ -218,177 +213,6 @@ public class Documento implements Serializable, Printable
 
 		// tipo no soportado
 		return doc;
-	}
-
-	private static Documento img2Documento(String path, String usuario,
-			String rol)
-	{
-		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		Image imagen = toolkit.getImage(path);
-
-		Documento doc = new Documento(usuario, rol);
-		doc.addPagina(imagen);
-		doc.setPath(path);
-		return doc;
-	}
-
-	private static Documento txt2Documento(String path, String usuario,
-			String rol)
-	{
-		StringBuffer contents = new StringBuffer();
-
-		try
-		{
-			// use buffering, reading one line at a time
-			// FileReader always assumes default encoding is OK!
-			File f = new File(path);
-			BufferedReader input = new BufferedReader(new FileReader(f));
-			try
-			{
-				String line = null; // not declared within while loop
-				/*
-				 * readLine is a bit quirky : it returns the content of a line
-				 * MINUS the newline. it returns null only for the END of the
-				 * stream. it returns an empty String if two newlines appear in
-				 * a row.
-				 */
-				while (( line = input.readLine() ) != null)
-				{
-					contents.append(line);
-					contents.append(System.getProperty("line.separator"));
-				}
-			}
-			finally
-			{
-				input.close();
-			}
-		}
-		catch (IOException ex)
-		{
-			ex.printStackTrace();
-		}
-
-		String contenido = contents.toString();
-
-		Font font = new Font("Arial", Font.PLAIN, 16);
-
-		BufferedImage bi = new BufferedImage(800, 1280,
-				BufferedImage.TYPE_INT_RGB);
-
-		Graphics g = bi.getGraphics();
-		g.setColor(java.awt.Color.white);
-		g.fillRect(0, 0, 800, 1280);
-		g.setColor(java.awt.Color.black);
-		g.setFont(font);
-
-		int k = 1;
-		Documento doc = new Documento(usuario, rol);
-		String[] lineas = contenido.split("\n");
-		String str;
-		int npag = 1;
-		for (int i = 0; i < lineas.length; i++)
-		{
-			str = lineas[i];
-
-			// Pintamos la linea. Si la longitud es mayor de 80 la dividimos
-			// sucesivamente.
-			do
-				if (str.length() < 80)
-				{
-					g.drawString(str, 25, ( 8 * k + 32 )
-							+ ( 8 * ( k - 1 ) + 32 ));
-					k++;
-					str = "";
-				}
-				else
-				{
-					String aux = str.substring(0, 79);
-					g.drawString(aux, 25, ( 8 * k + 32 )
-							+ ( 8 * ( k - 1 ) + 32 ));
-					k++;
-					str = str.substring(80);
-				}
-			while (!str.equals(""));
-
-			// si ya hemos llenado una pagina entera
-			if (( 8 * k + 32 ) + ( 8 * ( k - 1 ) + 32 ) >= 1240)
-			{
-				doc.addPagina(bi);
-				bi = new BufferedImage(800, 1280, BufferedImage.TYPE_INT_RGB);
-				g = bi.getGraphics();
-				g.setColor(java.awt.Color.white);
-				g.fillRect(0, 0, 800, 1280);
-				g.setColor(java.awt.Color.black);
-				g.setFont(font);
-				k = 1;
-				npag++;
-
-				System.gc();
-			}
-		}
-
-		if (doc.getNumeroPaginas() != npag) doc.addPagina(bi);
-		doc.setPath(path);
-		return doc;
-	}
-
-	private static Documento pdf2Documento(String path, String usuario,
-			String rol)
-	{
-		File file = new File(path);
-		RandomAccessFile raf;
-		Documento res = new Documento(usuario, rol);
-
-		try
-		{
-			raf = new RandomAccessFile(file, "r");
-
-			FileChannel channel = raf.getChannel();
-			ByteBuffer buf = channel.map(FileChannel.MapMode.READ_ONLY, 0,
-					channel.size());
-			PDFFile pdffile = new PDFFile(buf);
-
-			// pasar cada pagina a una imagen
-			int num = pdffile.getNumPages();
-			for (int i = 1; i <= num; i++)
-			{
-				PDFPage page = pdffile.getPage(i);
-
-				// Poner el zoom por defecto a la pagina
-				int width = (int) page.getBBox().getWidth();
-				int height = (int) page.getBBox().getHeight();
-
-				Rectangle rect = new Rectangle(0, 0, width, height);
-				int rotation = page.getRotation();
-				Rectangle rect1 = rect;
-				if (( rotation == 90 ) || ( rotation == 270 ))
-					rect1 = new Rectangle(0, 0, rect.height, rect.width);
-
-				// generar la imagen
-				BufferedImage img = (BufferedImage) page.getImage(
-						(int) ( ( rect.width * 1.1 ) + 0.5 ),
-						(int) ( ( rect.height * 1.1 ) + 0.5 ), rect1, null,
-						true, true);
-
-				res.addPagina(new ImageIcon(img));
-
-				System.gc();
-			}
-
-			res.setPath(path);
-
-			return res;
-		}
-		catch (FileNotFoundException e1)
-		{
-			System.err.println(e1.getLocalizedMessage());
-		}
-		catch (IOException e)
-		{
-			System.err.println(e.getLocalizedMessage());
-		}
-
-		return null;
 	}
 
 	public static boolean saveDocument(Documento doc, String path_original)

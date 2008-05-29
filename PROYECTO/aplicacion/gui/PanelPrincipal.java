@@ -34,6 +34,9 @@ import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.ClienteFicheros;
 import aplicacion.fisica.documentos.Documento;
 import aplicacion.fisica.documentos.FicheroBD;
+import aplicacion.fisica.documentos.filtros.ImageFilter;
+import aplicacion.fisica.documentos.filtros.PDFFilter;
+import aplicacion.fisica.documentos.filtros.TXTFilter;
 import aplicacion.fisica.eventos.DFileEvent;
 import aplicacion.fisica.net.Transfer;
 import aplicacion.gui.componentes.ArbolDocumentos;
@@ -276,7 +279,11 @@ public class PanelPrincipal extends DComponenteBase
 		super(nombre, conexionDC, padre);
 		try
 		{
-
+			//dar soporte para documentos
+			Documento.addFilter(new ImageFilter());
+			Documento.addFilter(new PDFFilter());
+			Documento.addFilter(new TXTFilter());
+			
 			plugins = DPluginLoader.getAllPlugins("plugin");
 
 			BorderLayout borderLayout = new BorderLayout();
