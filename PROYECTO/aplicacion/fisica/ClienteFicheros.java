@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import Deventos.DEvent;
+import Deventos.enlaceJS.DConector;
 
 import net.jini.core.entry.UnusableEntryException;
 import net.jini.core.lease.Lease;
@@ -80,8 +81,11 @@ public class ClienteFicheros
 		if (monitor.inicializacionCorrecta())
 			inicializar();
 		// System.out.println("Localizacion correcta");
-		else // System.out.println("Error localizando el JavaSpace");
-		System.exit(1);
+		else // System.out.println("Error localizando el JavaSpace");{
+		{
+			DConector.obtenerDC().salir();
+			System.exit(1);
+		}
 	}
 
 	public static ClienteFicheros obtenerClienteFicheros()
@@ -139,6 +143,7 @@ public class ClienteFicheros
 				JOptionPane.showMessageDialog(null,
 						"Error sincronizando con el Servidor de ficheros",
 						"Error", JOptionPane.ERROR_MESSAGE);
+				DConector.obtenerDC().salir();
 				System.exit(1);
 			}
 			else
@@ -160,6 +165,7 @@ public class ClienteFicheros
 							null,
 							"Hubo un error en la comunicacion en el cliente de fichero\nDebera identificarse de nuevo.",
 							"Error", JOptionPane.ERROR_MESSAGE);
+			DConector.obtenerDC().salir();
 			System.exit(1);
 		}
 	}
@@ -459,6 +465,7 @@ public class ClienteFicheros
 								null,
 								"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
 								"Error", JOptionPane.ERROR_MESSAGE);
+				DConector.obtenerDC().salir();
 				System.exit(1);
 			}
 		}
@@ -506,6 +513,7 @@ public class ClienteFicheros
 								null,
 								"Hubo un error en la comunicacion en el cliente de ficheros\nDebera identificarse de nuevo.",
 								"Error", JOptionPane.ERROR_MESSAGE);
+				DConector.obtenerDC().salir();
 				System.exit(1);
 			}
 		}
@@ -547,6 +555,7 @@ public class ClienteFicheros
 								null,
 								"Hubo un error en la comunicacion en el cliente de ficheros\nDebera identificarse de nuevo.",
 								"Error", JOptionPane.ERROR_MESSAGE);
+				DConector.obtenerDC().salir();
 				System.exit(1);
 			}
 
