@@ -277,4 +277,33 @@ public class ArbolDocumentos extends JTree
 		}
 		else return false;
 	}
+	
+	/**
+	 * Comprueba si un fichero determinado existe en un determinado nodo
+	 * @param n nodo nodo del arbol en el que buscamos el documento
+	 * @param ruta ruta del fichero
+	 * @return true si el fichero ya existe en la ruta y false en caso contrario
+	 */
+	public FicheroBD buscarFichero(DefaultMutableTreeNode n, String ruta){
+		
+		if (!n.isRoot() && ( ( (FicheroBD) n.getUserObject() ).getRutaLocal().equals(ruta) ))
+			return (FicheroBD)n.getUserObject();
+		
+		else if (n.getChildCount() > 0)
+		{
+
+			FicheroBD f;
+			
+			for (int i = 0; i < n.getChildCount(); ++i)
+			{
+				f = buscarFichero((DefaultMutableTreeNode) n.getChildAt(i),
+						ruta);
+				if (f != null)
+					return f;
+
+			}
+			return null;
+		}
+		else return null;
+	}
 }
