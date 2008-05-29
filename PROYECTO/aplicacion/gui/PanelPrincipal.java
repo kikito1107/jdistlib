@@ -399,16 +399,15 @@ public class PanelPrincipal extends DComponenteBase
 		if (listaAplicaciones == null)
 		{
 
-			String[] data = new String[plugins.size()];
-
-			for (int i = 0; i < data.length; ++i)
+			Vector<DAbstractPlugin> data = new Vector<DAbstractPlugin>();
+			
+			for (int i = 0; i < plugins.size(); ++i)
 			{
 				if (plugins.get(i).shouldShowIt())
-					data[i] = plugins.get(i).getName();
+					data.add(plugins.get(i));
 			}
-
-			// String[] data = {"hola","adios"};
-			listaAplicaciones = new JList(data);
+			
+			listaAplicaciones = new JList(data.toArray());
 			listaAplicaciones.setBounds(new Rectangle(1, 26, 186, 140));
 			listaAplicaciones.setBorder(new LineBorder(Color.GRAY));
 
@@ -428,9 +427,7 @@ public class PanelPrincipal extends DComponenteBase
 											&& listaAplicaciones
 													.getSelectedIndex() > -1)
 									{
-										for (int i=0; i<plugins.size(); i++)
-											if (listaAplicaciones.getSelectedValue().toString().compareTo(plugins.get(i).getName())==0)
-												plugins.get(i).start();
+										((DAbstractPlugin)listaAplicaciones.getSelectedValue()).start();
 									}
 								}
 								catch (Exception e1)
