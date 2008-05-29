@@ -58,7 +58,7 @@ public class DPizarraPlugin extends DAbstractPlugin
 	}
 
 	@Override
-	public void procesarEventoHijo(DEvent e)
+	public synchronized void procesarEventoHijo(DEvent e)
 	{
 		p.procesarEvento(e);
 	}

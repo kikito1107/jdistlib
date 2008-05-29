@@ -24,6 +24,8 @@ import java.io.Serializable;
 public class MIRol extends MIUsuario implements Serializable
 {
 
+	static final long serialVersionUID = 1L;
+
 	public MIRol( String nombreRol )
 	{
 		super(nombreRol, new String(""));

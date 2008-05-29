@@ -468,7 +468,7 @@ public class VisorPropiedadesFichero extends JDialog
 						for (int i = 0; i < carpetas.length - 1; ++i)
 						{
 
-							if (carpetas[i] != "") path += carpetas[i] + "/";
+							if (!carpetas[i].equals( "") ) path += carpetas[i] + "/";
 							System.err.print(carpetas[i] + ",\t");
 						}
 

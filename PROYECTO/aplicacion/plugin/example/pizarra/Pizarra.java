@@ -108,11 +108,6 @@ public class Pizarra extends DIViewer implements MouseListener,
 	private HebraProcesadoraBase hebraProcesadora = null;
 
 	/**
-	 * indica el zoom actual aplicado al documento
-	 */
-	private float zoom = 1;
-
-	/**
 	 * Constructor de la clase
 	 * 
 	 * @param nombre
@@ -123,10 +118,6 @@ public class Pizarra extends DIViewer implements MouseListener,
 	public Pizarra( String nombre, boolean conexionDC, DComponenteBase padre )
 	{
 		super(nombre, conexionDC, padre);
-
-		setBackground(Color.white);
-		addMouseMotionListener(this);
-		addMouseListener(this);
 
 		try
 		{
@@ -180,6 +171,10 @@ public class Pizarra extends DIViewer implements MouseListener,
 		this.setToolTipText("");
 
 		this.setBorder(new EtchedBorder(2));
+		
+		setBackground(Color.white);
+		addMouseMotionListener(this);
+		addMouseListener(this);
 	}
 
 	/**
@@ -391,7 +386,7 @@ public class Pizarra extends DIViewer implements MouseListener,
 				anotaciones.add(trazo);
 
 				trazo = null;
-
+				break;
 			default:
 				break;
 		}
@@ -419,6 +414,10 @@ public class Pizarra extends DIViewer implements MouseListener,
 				y1 = e.getY();
 
 				repaint();
+				break;
+				
+			default:
+					break;
 		}
 
 	}
@@ -445,7 +444,7 @@ public class Pizarra extends DIViewer implements MouseListener,
 				g.setColor(f.getColor());
 			else g.setColor(DILienzo.invertirColor(f.getColor()));
 
-			f.dibujar(g, zoom);
+			f.dibujar(g);
 		}
 
 		// si estamos dibujando una linea...
@@ -479,7 +478,7 @@ public class Pizarra extends DIViewer implements MouseListener,
 		else if (modoDibujo == Pizarra.MANO_ALZADA) if (trazo != null)
 		{
 			g.setColor(this.colorActual);
-			trazo.dibujar(g, 1);
+			trazo.dibujar(g);
 		}
 	}
 

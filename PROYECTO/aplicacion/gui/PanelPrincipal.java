@@ -904,6 +904,8 @@ public class PanelPrincipal extends DComponenteBase
 			case 1:
 				// dc = frame.obtenerComponente(0);
 				break;
+			default:
+				break;
 		}
 		return dc;
 	}

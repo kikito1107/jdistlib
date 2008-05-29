@@ -12,12 +12,27 @@ public class Texto extends Figura
 	 */
 	private static final long serialVersionUID = 6651266174731584301L;
 
-	String texto = "";
+	/**
+	 * Texto a pintar
+	 */
+	String texto = null;
 
+	/**
+	 * numero de lineas del texto
+	 */
 	int num_lineas = 0;
 
+	/**
+	 * numero de columnas del texto
+	 */
 	int num_columnas = 0;
 
+	/**
+	 * Crea un nuevo texto
+	 * @param x1 coordenada x de la esquina superior izquierda de la figura
+	 * @param y1 coordenada y  de la esquina superior izquierda de la figura
+	 * @param texto texto a pintar en pantalla
+	 */
 	public Texto( int x1, int y1, String texto1 )
 	{
 		super(x1, y1);
@@ -27,7 +42,7 @@ public class Texto extends Figura
 	}
 
 	@Override
-	public void dibujar(Graphics g, float factor)
+	public void dibujar(Graphics g)
 	{
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,

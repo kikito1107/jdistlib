@@ -89,7 +89,7 @@ public class Transfer
 		catch (Exception ex)
 		{
 			ex.printStackTrace();
-			return null;
+			return new byte[0];
 		}
 	}
 

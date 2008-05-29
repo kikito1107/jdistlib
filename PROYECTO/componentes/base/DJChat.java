@@ -301,7 +301,7 @@ public class DJChat extends JPanel
 
 			if (!ev2.receptores.contains(DConector.Dusuario)) return;
 
-			if (( ev2.ipVC != null ) && ( ev2.ipVC != "" ))
+			if (( ev2.ipVC != null ) && ( !ev2.ipVC.equals("") ))
 			{
 
 				VideoConferencia.establecerOrigen();
@@ -341,7 +341,7 @@ public class DJChat extends JPanel
 			if (!ev2.receptores.contains(DConector.Dusuario)) return;
 
 			// iniciamos la VC
-			if (( ev2.ipVC != null ) && ( ev2.ipVC != "" ))
+			if (( ev2.ipVC != null ) && ( !ev2.ipVC.equals( "") ))
 			{
 
 				JOptionPane.showMessageDialog(null,

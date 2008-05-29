@@ -34,7 +34,7 @@ public class FramePanelDibujo extends DJFrame
 
 	DIPanelEditor lienzo = null;
 
-	static boolean standalone;
+	private static boolean standalone = false;
 
 	public FramePanelDibujo( boolean sa )
 	{
@@ -140,6 +140,8 @@ public class FramePanelDibujo extends DJFrame
 		{
 			case 0:
 				dc = this.lienzo;
+				break;
+			default:
 				break;
 		}
 		return dc;

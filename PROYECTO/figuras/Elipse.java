@@ -15,6 +15,13 @@ public class Elipse extends Figura
 
 	private int yf;
 
+	/**
+	 * Crea una nueva elipse
+	 * @param x1 coordenada x de la esquina superior izquierda de la figura
+	 * @param y1 coordenada y de la esquina superior izquierda de la figura
+	 * @param xf1 coordenada x de la esquina inferior derecha de la figura
+	 * @param yf1 coordenada x de la esquina inferior derecha de la figura
+	 */
 	public Elipse( int x1, int y1, int xf1, int yf1 )
 	{
 		super(x1, y1);
@@ -25,13 +32,12 @@ public class Elipse extends Figura
 	}
 
 	@Override
-	public void dibujar(Graphics g, float factor)
+	public void dibujar(Graphics g)
 	{
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
-		g2.drawOval((int) ( x * factor ), (int) ( y * factor ),
-				(int) ( ( xf - x ) * factor ), (int) ( ( yf - y ) * factor ));
+		g2.drawOval(x, y, xf - x, yf - y);
 	}
 
 	@Override

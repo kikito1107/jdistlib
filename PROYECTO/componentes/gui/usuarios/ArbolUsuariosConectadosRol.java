@@ -29,8 +29,6 @@ import Deventos.DMIEvent;
 public class ArbolUsuariosConectadosRol extends DComponenteBase
 {
 
-	private static final String hojaVacia = "<No conectados>";
-
 	/**
 	 * Layout del panel
 	 */
@@ -92,10 +90,12 @@ public class ArbolUsuariosConectadosRol extends DComponenteBase
 		super.procesarMetaInformacion(evento);
 		if (evento.tipo.intValue() == DMIEvent.INFO_COMPLETA.intValue())
 		{
+			System.out.println("Iniciada actualizacion");
+			
 			this.obtenerPanelContenido().repaint();
 
 			this.actualizarLista();
-
+			System.out.println("Finalizada actualizacion");
 			arbol.eliminarUsuario(evento.usuario);
 			arbol.insertarNuevoUsuario(evento.rol, evento.usuario);
 
@@ -181,7 +181,10 @@ public class ArbolUsuariosConectadosRol extends DComponenteBase
 		Vector v2;
 		DefaultMutableTreeNode aux;
 
-		if (v != null)
+		if (v != null) {
+			
+			System.out.println("Numero de roles " +  v.size());
+			
 			for (int i = 0; i < v.size(); ++i)
 			{
 				aux = new DefaultMutableTreeNode(v.get(i));
@@ -189,12 +192,20 @@ public class ArbolUsuariosConectadosRol extends DComponenteBase
 				v2 = ClienteMetaInformacion.obtenerCMI()
 						.obtenerUsuariosBajoRol(v.get(i).toString());
 
-				if (( v2 != null ) && ( v2.size() > 0 ))
-					for (int j = 0; j < v2.size(); j++)
+				if (v2 != null)
+					System.out.println(v2.size() + " usuarios bajo rol " + v.get(i).toString());
+				else
+					System.out.println("Ningun usuario bajo rol " + v.get(i).toString());
+				
+				if (( v2 != null ) && ( v2.size() > 0 )) {
+					
+					for (int j = 0; j < v2.size(); j++) {
 						aux.insert(new DefaultMutableTreeNode(v2.get(j)), j);
-
+					}
+				}
 				raiz.insert(aux, i);
 			}
+		}
 	}
 
 	/**

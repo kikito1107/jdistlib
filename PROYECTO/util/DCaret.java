@@ -957,7 +957,7 @@ public class DCaret extends Rectangle implements Caret, FocusListener,
 	@Override
 	public boolean equals(Object obj)
 	{
-		return ( this == obj );
+		return super.equals(obj);
 	}
 
 	@Override

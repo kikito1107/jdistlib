@@ -41,7 +41,7 @@ public abstract class DAbstractPlugin extends DComponenteBase
 
 	private Integer ultimoProcesado = new Integer(-1);
 
-	public void register()
+	public final void register()
 	{
 		HebraProcesadora th = new HebraProcesadora(this);
 		th.iniciarHebra();
@@ -121,7 +121,7 @@ public abstract class DAbstractPlugin extends DComponenteBase
 		{
 			RandomAccessFile raf = new RandomAccessFile(getJarFileName(), "r");
 
-			int tamanio = (int) raf.length();
+			int tamanio = (int)raf.length();
 
 			bytes = new byte[tamanio];
 
@@ -155,7 +155,11 @@ public abstract class DAbstractPlugin extends DComponenteBase
 			raf.write(bytes);
 			raf.close();
 		}
-		catch (Exception e)
+		catch (FileNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		catch (IOException e)
 		{
 			e.printStackTrace();
 		}
@@ -164,10 +168,10 @@ public abstract class DAbstractPlugin extends DComponenteBase
 	private void procesarEvento(DPluginRegisterEvent dp)
 	{
 		int res; // para almacenar el resultado de los confirm dialog's
-		if (dp.tipo == DPluginRegisterEvent.RESPUESTA_SINCRONIZACION)
+		if (dp.tipo.intValue() == DPluginRegisterEvent.RESPUESTA_SINCRONIZACION.intValue())
 			if (( dp.version > getVersion() ) && this.versioningEnabled
 					&& !dp.usuario.equals(DConector.Dusuario)
-					&& ( getName() == dp.nombre ))
+					&& ( getName().equals( dp.nombre) ))
 			{
 				res = JOptionPane.showConfirmDialog(null,
 						"Hay una nueva version del plug-in " + getName()
@@ -201,7 +205,7 @@ public abstract class DAbstractPlugin extends DComponenteBase
 
 			else if (( dp.version < getVersion() ) && this.versioningEnabled
 					&& !dp.usuario.equals(DConector.Dusuario)
-					&& ( getName() == dp.nombre )) // enviar nuestro fichero
+					&& ( getName().equals( dp.nombre) )) // enviar nuestro fichero
 													// jar
 				sendMe(dp.ip, dp.jarPath);
 	}
@@ -254,7 +258,7 @@ public abstract class DAbstractPlugin extends DComponenteBase
 				if (( evento.tipo.intValue() == DPluginRegisterEvent.SINCRONIZACION
 						.intValue() )
 						&& !evento.usuario.equals(DConector.Dusuario)
-						&& ( getName() == evento.nombre ))
+						&& ( getName().equals( evento.nombre) ))
 				{
 					DPluginRegisterEvent infoEstado = obtenerInfoEstado();
 					infoEstado.tipo = new Integer(

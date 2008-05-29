@@ -30,6 +30,8 @@ public class ConectorBDFicheros
 	private static String pass = null;
 
 	private static String ip = null;
+	
+	private static final String fichero = ".IPGestorBDFicheros.txt";
 
 	/**
 	 * Inicialización de atributos estáticos: Este bloque se ejecutar√° al
@@ -38,7 +40,7 @@ public class ConectorBDFicheros
 	 */
 	static
 	{
-		File f = new File("./.IPGestorBDFicheros.txt");
+		File f = new File(fichero);
 		FileReader fr = null;
 		try
 		{
@@ -108,7 +110,7 @@ public class ConectorBDFicheros
 			System.out.println("Recuperando datos de la conexion...");
 			return true;
 		}
-		// System.out.print("Abriendo conexion con MySQL server...");
+		
 		try
 		{
 			con = DriverManager.getConnection(cadena_conexion, user, pass);

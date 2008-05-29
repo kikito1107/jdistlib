@@ -10,10 +10,23 @@ public class Rectangulo extends Figura
 	 */
 	private static final long serialVersionUID = -8639747747514475007L;
 
+	/**
+	 * coordenada x de la esquina superior izquierda de la figura
+	 */
 	private int xf;
 
+	/**
+	 * coordenada y de la esquina superior izquierda de la figura
+	 */
 	private int yf;
 
+	/**
+	 * Crea un nuevo rectangulo
+	 * @param x1 coordenada x de la esquina superior izquierda de la figura
+	 * @param y1 coordenada y de la esquina superior izquierda de la figura
+	 * @param xf1 coordenada x de la esquina inferior derecha de la figura
+	 * @param yf1 coordenada x de la esquina inferior derecha de la figura
+	 */
 	public Rectangulo( int x1, int y1, int xf1, int yf1 )
 	{
 		super(x1, y1);
@@ -24,11 +37,10 @@ public class Rectangulo extends Figura
 	}
 
 	@Override
-	public void dibujar(Graphics g, float factor)
+	public void dibujar(Graphics g)
 	{
 
-		g.drawRect((int) ( x * factor ), (int) ( y * factor ),
-				(int) ( ( xf - x ) * factor ), (int) ( ( yf - y ) * factor ));
+		g.drawRect(x , y , xf - x, yf - y);
 	}
 
 	@Override

@@ -342,7 +342,7 @@ public class DComponenteBase extends JPanel implements DComponente, java.io.Seri
 	 *            PopupMenu
 	 */
 	@Override
-	public void add(PopupMenu pm)
+	public synchronized void add(PopupMenu pm)
 	{
 		pcomponentes.add(pm);
 	}

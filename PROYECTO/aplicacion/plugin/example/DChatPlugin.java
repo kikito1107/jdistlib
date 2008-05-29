@@ -240,7 +240,7 @@ public class DChatPlugin extends DAbstractPlugin
 								String user = arbol.getUsuarioSeleccionado();
 
 								if (( user != null )
-										&& ( user != DConector.Dusuario ))
+										&& ( !user.equals(DConector.Dusuario ) ) )
 								{
 
 									DJChatEvent ev = new DJChatEvent();

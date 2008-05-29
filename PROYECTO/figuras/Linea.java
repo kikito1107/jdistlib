@@ -12,10 +12,23 @@ public class Linea extends Figura
 	 */
 	private static final long serialVersionUID = 3369752970214467809L;
 
+	/**
+	 * coordenada x de la esquina superior izquierda de la figura
+	 */
 	int xf;
 
+	/**
+	 * coordenada y de la esquina superior izquierda de la figura
+	 */
 	int yf;
 
+	/**
+	 * Crea una nueva e linea
+	 * @param x1 coordenada x de la esquina superior izquierda de la figura
+	 * @param y1 coordenada y de la esquina superior izquierda de la figura
+	 * @param xf1 coordenada x de la esquina inferior derecha de la figura
+	 * @param yf1 coordenada x de la esquina inferior derecha de la figura
+	 */
 	public Linea( int x1, int y1, int xf1, int yf1 )
 	{
 		super(x1, y1);
@@ -27,13 +40,12 @@ public class Linea extends Figura
 	}
 
 	@Override
-	public void dibujar(Graphics g, float factor)
+	public void dibujar(Graphics g)
 	{
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
-		g2.drawLine((int) ( x * factor ), (int) ( y * factor ),
-				(int) ( xf * factor ), (int) ( yf * factor ));
+		g2.drawLine(x, y, xf ,yf);
 	}
 
 	@Override

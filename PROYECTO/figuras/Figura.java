@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.io.Serializable;
 
-public class Figura implements Serializable
+public abstract class Figura implements Serializable
 {
 	/**
 	 * 
@@ -26,6 +26,11 @@ public class Figura implements Serializable
 	 */
 	Color color;
 
+	/**
+	 * Crea una nueva figura
+	 * @param x1 coordenada x de la esquina superior izquierda de la figura
+	 * @param y1 coordenada y de la esquina superior izquierda de la figura
+	 */
 	public Figura( int x1, int y1 )
 	{
 		x = x1;
@@ -33,19 +38,17 @@ public class Figura implements Serializable
 	}
 
 	/**
-	 * @return the x
+	 * @return coordenada x de la esquina superior izquierda de la figura
 	 */
 	public int getX()
 	{
 		return x;
 	}
 
-	public boolean pertenece(int x, int y)
-	{
-		return false;
-	}
+	public abstract boolean pertenece(int x, int y);
 
 	/**
+	 * Actualiza el valor de la coordenada x de la esquina superior izquierda de la figura
 	 * @param x
 	 *            the x to set
 	 */
@@ -55,7 +58,7 @@ public class Figura implements Serializable
 	}
 
 	/**
-	 * @return the y
+	 * @return coordenada y de la esquina superior izquierda de la figura
 	 */
 	public int getY()
 	{
@@ -63,6 +66,7 @@ public class Figura implements Serializable
 	}
 
 	/**
+	 * Acutaliza el valor de la coordenada y de la esquina superior izquierda de la figura
 	 * @param y
 	 *            the y to set
 	 */
@@ -72,6 +76,7 @@ public class Figura implements Serializable
 	}
 
 	/**
+	 * Consulta el color de la figura
 	 * @return the color
 	 */
 	public Color getColor()
@@ -80,6 +85,7 @@ public class Figura implements Serializable
 	}
 
 	/**
+	 * Establece el color de la figura
 	 * @param color
 	 *            the color to set
 	 */
@@ -88,7 +94,9 @@ public class Figura implements Serializable
 		this.color = color;
 	}
 
-	public void dibujar(Graphics g, float razon)
-	{
-	}
+	/**
+	 * Dibuja la figura el un objeto graphics
+	 * @param g el grafico sobre el que dibujar la figura
+	 */
+	public abstract void dibujar(Graphics g);
 }

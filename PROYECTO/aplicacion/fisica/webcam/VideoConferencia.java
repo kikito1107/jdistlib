@@ -36,9 +36,9 @@ public class VideoConferencia
 
 	private static boolean stopped = true;
 
-	private static ImageIcon image_now;
+	private static ImageIcon image_now = null;
 
-	private static ImageIcon image_now_local;
+	private static ImageIcon image_now_local = null;
 
 	public VideoConferencia( String ip_orig )
 	{

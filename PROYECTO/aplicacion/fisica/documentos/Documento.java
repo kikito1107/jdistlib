@@ -329,7 +329,7 @@ public class Documento implements Serializable, Printable
 			for (int i = 0; i < na; ++i)
 			{
 				graphics.setColor(v.get(i).getContenido().getColor());
-				v.get(i).getContenido().dibujar(graphics, 1);
+				v.get(i).getContenido().dibujar(graphics);
 			}
 
 			System.out.println("Solicitando p‡gina " + pageIndex);

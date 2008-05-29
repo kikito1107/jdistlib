@@ -113,21 +113,18 @@ public class DILienzo extends DIViewer implements MouseListener,
 	private int paginaActual = 0;
 
 	/**
-	 * Coordenadas del trazo actual
+	 * Coordenada x inicial del trazo actual
 	 */
-	int x1, y1;
+	private int x1;
+	private int y1;
 
-	int x2, y2;
+	private int x2; 
+	private int y2;
 
 	/**
 	 * identificador del lienzo
 	 */
 	private int id = ( new Random() ).nextInt(1000);
-
-	/**
-	 * indica el zoom actual aplicado al documento
-	 */
-	private float zoom = 1;
 
 	/**
 	 * Constructor de la clase
@@ -626,6 +623,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 					trazo = null;
 				}
 
+				break;
 			default:
 				break;
 		}
@@ -662,6 +660,9 @@ public class DILienzo extends DIViewer implements MouseListener,
 				y1 = e.getY();
 
 				repaint();
+				break;
+			default:
+				break;
 		}
 
 	}
@@ -672,7 +673,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 	@Override
 	public void paint(Graphics g)
 	{
-		if (( doc != null ) && ( doc.getNumeroPaginas() > 0 ))
+		if (( doc != null ) && ( doc.getNumeroPaginas() > 0 )) {
 			try
 			{
 				Image imagen = doc.getPagina(paginaActual - 1).getImagen();
@@ -706,6 +707,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 			catch (NullPointerException ex)
 			{
 			}
+		}
 		else
 		{
 			g.setColor(Color.WHITE);
@@ -729,7 +731,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 					g.setColor(f.getColor());
 				else g.setColor(DILienzo.invertirColor(f.getColor()));
 
-				f.dibujar(g, zoom);
+				f.dibujar(g);
 			}
 
 			// si estamos dibujando una linea...
@@ -763,7 +765,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 			else if (modoDibujo == DILienzo.MANO_ALZADA) if (trazo != null)
 			{
 				g.setColor(this.colorActual);
-				trazo.dibujar(g, 1);
+				trazo.dibujar(g);
 			}
 		}
 	}

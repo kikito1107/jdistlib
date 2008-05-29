@@ -93,7 +93,7 @@ public class ServiceLocator
 		}
 		catch (Exception E)
 		{
-			System.out.println("Error en la inicializaci—n del sistema"
+			System.err.println("Error en la inicializaci—n del sistema"
 					+ E.getMessage());
 		}
 

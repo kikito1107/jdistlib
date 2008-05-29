@@ -423,7 +423,7 @@ public class MIAplicacion implements Serializable
 		for (int i = 0; i < v.size(); i++)
 		{
 			usr = (MIUsuario) v.elementAt(i);
-			if (usr.online() && usr.getRolActual().equals(rol))
+			if (usr!=null && usr.online() && usr.getRolActual()!=null && usr.getRolActual().equals(rol))
 				conectados.add(new String(usr.getNombreUsuario()));
 		}
 

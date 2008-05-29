@@ -67,8 +67,8 @@ public class ArbolUsuarios extends JTree
 		DefaultMutableTreeNode unNodoRol = buscarRol(Rol), hijo = new DefaultMutableTreeNode(
 				usuario);
 
-		if (( Rol != null ) && ( usuario != null ) && ( usuario != "" )
-				&& ( Rol != "" ) && ( unNodoRol != null ))
+		if (( Rol != null ) && ( usuario != null ) && ( !usuario.equals("") )
+				&& ( !Rol.equals("") ) && ( unNodoRol != null ))
 		{
 
 			System.out.println("El rol encontrado es "
