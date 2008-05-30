@@ -162,7 +162,7 @@ public class DMIEvent extends DEvent
 
 	public static final Integer DATOS_USUARIOS = new Integer(54);
 
-	public static final Integer RESPUESTA_DATOS_USUARIO = new Integer(55);
+	public static final Integer RESPUESTA_DATOS_USUARIOS = new Integer(55);
 
 	public static final Integer DATOS_ROL = new Integer(56);
 

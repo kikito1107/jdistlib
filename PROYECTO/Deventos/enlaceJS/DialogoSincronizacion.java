@@ -48,7 +48,9 @@ public class DialogoSincronizacion extends JDialog
 
 	private final int y = 10;
 
-	protected ImageIcon icono = null;
+	protected ImageIcon icono1 = null;
+	protected ImageIcon icono2 = null;
+	protected ImageIcon icono3 = null;
 
 	private volatile Thread t = new Thread(new HebraParpadeo(this));
 
@@ -74,8 +76,10 @@ public class DialogoSincronizacion extends JDialog
 	{
 		panel1.setLayout(null);
 		etiquetaIcono.setFont(new java.awt.Font("Dialog", 1, 11));
-		icono = new ImageIcon("Resources/logo_36x36.png");
-		etiquetaIcono.setIcon(icono);
+		icono1 = new ImageIcon("Resources/logo_1.png");
+		icono2 = new ImageIcon("Resources/logo_2.png");
+		icono3 = new ImageIcon("Resources/logo_3.png");
+		etiquetaIcono.setIcon(icono1);
 		etiquetaIcono.setText("");
 		etiquetaIcono.setBounds(new Rectangle(7, 3, 53, 54));
 		etiqueta.setFont(new java.awt.Font("Dialog", 1, 11));
@@ -132,14 +136,14 @@ public class DialogoSincronizacion extends JDialog
 			while (true)
 				try
 				{
-					Graphics2D g = (Graphics2D) panel1.getGraphics();
-					
-					//g.
+
 					
 					
-					dialogo.etiquetaIcono.setIcon(null);
+					dialogo.etiquetaIcono.setIcon(dialogo.icono1);
 					Thread.sleep(tiempo);
-					dialogo.etiquetaIcono.setIcon(dialogo.icono);
+					dialogo.etiquetaIcono.setIcon(dialogo.icono2);
+					Thread.sleep(tiempo);
+					dialogo.etiquetaIcono.setIcon(dialogo.icono3);
 					Thread.sleep(tiempo);
 
 					// Si no debe parpadear se quedará bloqueado hasta que se
