@@ -19,7 +19,7 @@ import Deventos.DMIEvent;
 
 /**
  * Con este componente podemos ver todos los usuarios que hay conectados que
- * están desempeñando el mismo rol que nosotros
+ * estan desempe–ando el mismo rol que nosotros
  */
 
 @SuppressWarnings( "serial" )

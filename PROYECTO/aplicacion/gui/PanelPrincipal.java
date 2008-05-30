@@ -10,7 +10,8 @@ import java.awt.Toolkit;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.Calendar;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
@@ -34,7 +35,7 @@ import util.Separador;
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.ClienteFicheros;
 import aplicacion.fisica.documentos.Documento;
-import aplicacion.fisica.documentos.FicheroBD;
+import aplicacion.fisica.documentos.MetainformacionFichero;
 import aplicacion.fisica.documentos.filtros.ImageFilter;
 import aplicacion.fisica.documentos.filtros.PDFFilter;
 import aplicacion.fisica.documentos.filtros.TXTFilter;
@@ -135,7 +136,7 @@ public class PanelPrincipal extends DComponenteBase
 	private void subirFicheroServidor()
 	{
 		// obtenemos los datos del fichero asociados a ese nodo
-		FicheroBD carpeta = arbolDocumentos.getDocumentoSeleccionado();
+		MetainformacionFichero carpeta = arbolDocumentos.getDocumentoSeleccionado();
 
 		// si el fichero escogido no es directorio, salimos
 		if (carpeta == null || !carpeta.esDirectorio()) return;
@@ -165,7 +166,7 @@ public class PanelPrincipal extends DComponenteBase
 		
 		String nombre = f.getName();
 		
-		FicheroBD anterior = arbolDocumentos.buscarFichero( (DefaultMutableTreeNode)arbolDocumentos.getModel().getRoot() , path + nombre);
+		MetainformacionFichero anterior = ClienteFicheros.cf.existeFichero(path+nombre, DConector.Daplicacion);
 
 		while (anterior != null){
 			int sel = JOptionPane.showConfirmDialog(this, "El documento ya existe ÀDesea sobrescribirlo?", "ÀSobrescribir?", JOptionPane.YES_NO_CANCEL_OPTION);
@@ -178,8 +179,17 @@ public class PanelPrincipal extends DComponenteBase
 				//aki es donde hay que hacer es:
 				// 1) Renombrar el fichero anterior en el servidor
 				// 2) Guardar el nuevo fichero
-								
-				String nombreVersion = anterior.getNombre() + Calendar.getInstance().getTimeInMillis();
+				
+				Date fecha = new Date();
+				
+				SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yy_hh:mm:ss");
+				
+				String name = anterior.getNombre().substring(0, anterior.getNombre().lastIndexOf('.'));
+				String extension = anterior.getNombre().substring(anterior.getNombre().lastIndexOf('.')+1, anterior.getNombre().length());
+				
+				String fe = formato.format(fecha);
+			
+				String nombreVersion = name + "_" + fe + "." + extension;
 				
 				anterior.setNombre(nombreVersion);
 				
@@ -202,7 +212,7 @@ public class PanelPrincipal extends DComponenteBase
 			// el usuario no desea sobreescribir el fichero
 			else if(sel == 1){
 				nombre = JOptionPane.showInputDialog("Nuevo nombre");
-				anterior = arbolDocumentos.buscarFichero( (DefaultMutableTreeNode)arbolDocumentos.getModel().getRoot() , path + nombre);
+				anterior =  ClienteFicheros.cf.existeFichero(path+nombre, DConector.Daplicacion);
 			}
 		}
 		
@@ -240,11 +250,11 @@ public class PanelPrincipal extends DComponenteBase
 
 		String extension = desc[desc.length - 1];
 
-		extension = FicheroBD.getTipoFichero(extension);
+		extension = MetainformacionFichero.getTipoFichero(extension);
 
 		
 		// creamos el nuevo fichero a almacenar
-		FicheroBD fbd = new FicheroBD(-1, nombre, false, "rwrw--", user,
+		MetainformacionFichero fbd = new MetainformacionFichero(-1, nombre, false, "rwrw--", user,
 				rol, carpeta.getId(), path + nombre, extension);
 
 		// enviamos el nuevo fichero al servidor
@@ -264,7 +274,7 @@ public class PanelPrincipal extends DComponenteBase
 		{
 
 			//insertamos el nuevo fichero en el servidor
-			FicheroBD f2 = ClienteFicheros.cf.insertarNuevoFichero(fbd, DConector.Daplicacion);
+			MetainformacionFichero f2 = ClienteFicheros.cf.insertarNuevoFichero(fbd, DConector.Daplicacion);
 			
 			// si ha habido algun error salimos
 			if (f2 == null) {
@@ -310,8 +320,6 @@ public class PanelPrincipal extends DComponenteBase
 
 
 			inicializarEditor();
-
-			// inicializarChat();
 
 			this.add(getPanelEspacioTrabajo(), null);
 		}
@@ -695,7 +703,7 @@ public class PanelPrincipal extends DComponenteBase
 						public void actionPerformed(java.awt.event.ActionEvent e)
 						{
 
-							FicheroBD f = arbolDocumentos.getDocumentoSeleccionado();
+							MetainformacionFichero f = arbolDocumentos.getDocumentoSeleccionado();
 							
 							if (arbolDocumentos.eliminarFichero()){
 
@@ -728,7 +736,7 @@ public class PanelPrincipal extends DComponenteBase
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
-					FicheroBD f = arbolDocumentos.getDocumentoSeleccionado();
+					MetainformacionFichero f = arbolDocumentos.getDocumentoSeleccionado();
 
 					if (f == null) return;
 
@@ -742,7 +750,7 @@ public class PanelPrincipal extends DComponenteBase
 						DefaultMutableTreeNode r = (DefaultMutableTreeNode) arbolDocumentos.getNodoSeleccionado()
 								.getParent();
 
-						evento.padre = (FicheroBD) r.getUserObject();
+						evento.padre = (MetainformacionFichero) r.getUserObject();
 
 						System.err.println("directorio padre: "
 								+ evento.padre.getNombre());
@@ -812,13 +820,13 @@ public class PanelPrincipal extends DComponenteBase
 	private void accionAbrir()
 	{
 		
-		FicheroBD f = arbolDocumentos.getDocumentoSeleccionado();
+		MetainformacionFichero f = arbolDocumentos.getDocumentoSeleccionado();
 		
 		if (f == null) return;
 
 		if (f.esDirectorio()) return;
 		if (!f.comprobarPermisos(DConector.Dusuario, DConector.Drol,
-						FicheroBD.PERMISO_LECTURA))
+						MetainformacionFichero.PERMISO_LECTURA))
 		{
 			JOptionPane
 					.showMessageDialog(null,
@@ -918,7 +926,7 @@ public class PanelPrincipal extends DComponenteBase
 			DFileEvent dfe = (DFileEvent) evento;
 
 			if (dfe.fichero.comprobarPermisos(DConector.Dusuario,
-					DConector.Drol, FicheroBD.PERMISO_LECTURA))
+					DConector.Drol, MetainformacionFichero.PERMISO_LECTURA))
 			{
 
 				DefaultTreeModel modelo = (DefaultTreeModel) arbolDocumentos
@@ -955,7 +963,7 @@ public class PanelPrincipal extends DComponenteBase
 				if (dfe.fichero.getUsuario().getNombreUsuario().equals(DConector.Dusuario) 
 						||
 						dfe.fichero.comprobarPermisos(DConector.Dusuario,
-						DConector.Drol, FicheroBD.PERMISO_LECTURA))
+						DConector.Drol, MetainformacionFichero.PERMISO_LECTURA))
 				{
 					DefaultMutableTreeNode padre = ArbolDocumentos.buscarFichero(raiz,
 							dfe.padre.getId());
@@ -966,7 +974,7 @@ public class PanelPrincipal extends DComponenteBase
 			else 
 				if (dfe.fichero.getUsuario().getNombreUsuario().equals(DConector.Dusuario) 
 					|| dfe.fichero.comprobarPermisos(DConector.Dusuario,
-					DConector.Drol, FicheroBD.PERMISO_LECTURA))
+					DConector.Drol, MetainformacionFichero.PERMISO_LECTURA))
 						nodo.setUserObject(dfe.fichero);
 				else modelo.removeNodeFromParent(nodo);
 
@@ -980,7 +988,7 @@ public class PanelPrincipal extends DComponenteBase
 			if (pathEditor != null
 					&& pathEditor.equals(dfe.fichero.getRutaLocal())
 					&& !dfe.fichero.comprobarPermisos(DConector.Dusuario,
-							DConector.Drol, FicheroBD.PERMISO_LECTURA))
+							DConector.Drol, MetainformacionFichero.PERMISO_LECTURA))
 			{
 
 				JOptionPane
@@ -1031,10 +1039,10 @@ public class PanelPrincipal extends DComponenteBase
 	 * @param f fichero a comprobar
 	 * @param eliminado indica si el documentos ha sido editado
 	 */
-	public void comprobarPermisosDocumentoActual(FicheroBD f, boolean eliminado)
+	public void comprobarPermisosDocumentoActual(MetainformacionFichero f, boolean eliminado)
 	{
 		if (!f.comprobarPermisos(DConector.Dusuario, DConector.Drol,
-				FicheroBD.PERMISO_LECTURA)
+				MetainformacionFichero.PERMISO_LECTURA)
 				|| eliminado)
 			if (frame.isVisible()
 					&& frame.getLienzo().getLienzo().getDocumento().getPath()
@@ -1073,7 +1081,7 @@ public class PanelPrincipal extends DComponenteBase
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
-					FicheroBD f = arbolDocumentos.getDocumentoSeleccionado();
+					MetainformacionFichero f = arbolDocumentos.getDocumentoSeleccionado();
 					
 					if (f == null || !f.esDirectorio()) return;
 					

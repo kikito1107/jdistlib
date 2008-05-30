@@ -17,7 +17,7 @@ import metainformacion.MIUsuario;
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.ClienteFicheros;
 import aplicacion.fisica.documentos.Documento;
-import aplicacion.fisica.documentos.FicheroBD;
+import aplicacion.fisica.documentos.MetainformacionFichero;
 import aplicacion.fisica.net.Transfer;
 
 /**
@@ -47,7 +47,7 @@ public class ArbolDocumentos extends JTree
 	 * 
 	 * @return
 	 */
-	public FicheroBD getDocumentoSeleccionado()
+	public MetainformacionFichero getDocumentoSeleccionado()
 	{
 		TreePath camino = getSelectionPath();
 
@@ -56,7 +56,7 @@ public class ArbolDocumentos extends JTree
 		if (camino != null) objetos = camino.getPath();
 
 		if (( objetos != null ) && ( objetos.length > 0 ))
-			return (FicheroBD) ( (DefaultMutableTreeNode) objetos[objetos.length - 1] )
+			return (MetainformacionFichero) ( (DefaultMutableTreeNode) objetos[objetos.length - 1] )
 					.getUserObject();
 		else return null;
 	}
@@ -87,7 +87,7 @@ public class ArbolDocumentos extends JTree
 	public static DefaultMutableTreeNode buscarFichero(DefaultMutableTreeNode n,
 			int id)
 	{
-		if (!n.isRoot() && ( ( (FicheroBD) n.getUserObject() ).getId() == id ))
+		if (!n.isRoot() && ( ( (MetainformacionFichero) n.getUserObject() ).getId() == id ))
 			return n;
 		else if (n.getChildCount() > 0)
 		{
@@ -110,7 +110,7 @@ public class ArbolDocumentos extends JTree
 	 *
 	 */
 	public void imprimirFichero(){
-		FicheroBD doc = getDocumentoSeleccionado();
+		MetainformacionFichero doc = getDocumentoSeleccionado();
 		
 		if (doc.esDirectorio()) return;
 		
@@ -127,7 +127,7 @@ public class ArbolDocumentos extends JTree
 	 *
 	 */
 	public void guardarDocumentoLocalmente(){
-		FicheroBD doc = this.getDocumentoSeleccionado();
+		MetainformacionFichero doc = this.getDocumentoSeleccionado();
 
 		JFileChooser jfc = new JFileChooser(
 				"Guardar Documento Localmente");
@@ -177,10 +177,10 @@ public class ArbolDocumentos extends JTree
 	 * @return
 	 */
 	public boolean eliminarFichero(){
-		FicheroBD f = this.getDocumentoSeleccionado();
+		MetainformacionFichero f = this.getDocumentoSeleccionado();
 
 		if (f != null) {
-			if (!f.esDirectorio() && f.comprobarPermisos(DConector.Dusuario, DConector.Drol, FicheroBD.PERMISO_ESCRITURA))
+			if (!f.esDirectorio() && f.comprobarPermisos(DConector.Dusuario, DConector.Drol, MetainformacionFichero.PERMISO_ESCRITURA))
 			{
 
 				ClienteFicheros.obtenerClienteFicheros().borrarFichero(f,DConector.Daplicacion);
@@ -212,13 +212,13 @@ public class ArbolDocumentos extends JTree
 	 * @param nombre nuevo nombre de la carpeta
 	 * @return el ficheroBD con los datos de la nueva carpeta
 	 */
-	public FicheroBD agregarCarpeta(String nombre){
-		FicheroBD f = this.getDocumentoSeleccionado();
+	public MetainformacionFichero agregarCarpeta(String nombre){
+		MetainformacionFichero f = this.getDocumentoSeleccionado();
 		
 		if (f.esDirectorio()){
 			
 			//creamos el nodo
-			FicheroBD nuevo = new FicheroBD();
+			MetainformacionFichero nuevo = new MetainformacionFichero();
 			
 			if (!f.getRutaLocal().equals("/"))
 				nuevo.setRutaLocal(f.getRutaLocal()+"/"+nombre);
@@ -260,7 +260,7 @@ public class ArbolDocumentos extends JTree
 	 */
 	public boolean existeFichero(DefaultMutableTreeNode n, String ruta){
 		
-		if (!n.isRoot() && ( ( (FicheroBD) n.getUserObject() ).getRutaLocal().equals(ruta) ))
+		if (!n.isRoot() && ( ( (MetainformacionFichero) n.getUserObject() ).getRutaLocal().equals(ruta) ))
 			return true;
 		
 		else if (n.getChildCount() > 0)
@@ -284,15 +284,15 @@ public class ArbolDocumentos extends JTree
 	 * @param ruta ruta del fichero
 	 * @return true si el fichero ya existe en la ruta y false en caso contrario
 	 */
-	public FicheroBD buscarFichero(DefaultMutableTreeNode n, String ruta){
+	public MetainformacionFichero buscarFichero(DefaultMutableTreeNode n, String ruta){
 		
-		if (!n.isRoot() && ( ( (FicheroBD) n.getUserObject() ).getRutaLocal().equals(ruta) ))
-			return (FicheroBD)n.getUserObject();
+		if (!n.isRoot() && ( ( (MetainformacionFichero) n.getUserObject() ).getRutaLocal().equals(ruta) ))
+			return (MetainformacionFichero)n.getUserObject();
 		
 		else if (n.getChildCount() > 0)
 		{
 
-			FicheroBD f;
+			MetainformacionFichero f;
 			
 			for (int i = 0; i < n.getChildCount(); ++i)
 			{

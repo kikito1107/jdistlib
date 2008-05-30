@@ -18,7 +18,7 @@ import Deventos.DEvent;
 import net.jini.core.lease.Lease;
 import net.jini.space.JavaSpace;
 import util.ParserPermisos;
-import aplicacion.fisica.documentos.FicheroBD;
+import aplicacion.fisica.documentos.MetainformacionFichero;
 import aplicacion.fisica.eventos.DFileEvent;
 import aplicacion.fisica.eventos.DNodeEvent;
 import aplicacion.fisica.net.Transfer;
@@ -128,14 +128,14 @@ public class ServidorFicheros
 
 		DefaultMutableTreeNode raiz = new DefaultMutableTreeNode();
 
-		Vector<FicheroBD> fich = gestor.recuperar();
+		Vector<MetainformacionFichero> fich = gestor.recuperar();
 
 		this.agregarFichero(fich.get(0), raiz, usuario, rol);
 
 		return raiz;
 	}
 
-	private void agregarFichero(FicheroBD f, DefaultMutableTreeNode padre,
+	private void agregarFichero(MetainformacionFichero f, DefaultMutableTreeNode padre,
 			String usuario, String rol)
 	{
 	
@@ -150,7 +150,7 @@ public class ServidorFicheros
 
 			if (f.esDirectorio())
 			{
-				Vector<FicheroBD> fs = gestor.recuperarDirectorio(f.getId());
+				Vector<MetainformacionFichero> fs = gestor.recuperarDirectorio(f.getId());
 
 				for (int i = 1; i < fs.size(); ++i)
 					agregarFichero(fs.get(i), nodo, usuario, rol);
@@ -220,7 +220,7 @@ public class ServidorFicheros
 							System.err.println("Carpeta creada");
 						}
 						
-						FicheroBD res = gestor
+						MetainformacionFichero res = gestor
 								.insertarNuevoFichero(evt.fichero);
 						
 						
@@ -310,6 +310,35 @@ public class ServidorFicheros
 						}
 						gestor.modificarFichero(( (DFileEvent) leido ).fichero);
 					}
+					
+					else if (leido.tipo.intValue() == DFileEvent.EXISTE_FICHERO
+							.intValue())
+					{
+						System.out
+								.println("Leido evento modificacion  fichero");
+
+						if (gestor == null) gestor = new GestorFicherosBD();
+						
+						// cambiar el nombre del fichero
+						MetainformacionFichero f = gestor.buscarFicheroPath(( (DFileEvent) leido ).path);
+						
+						DFileEvent nuevo = new DFileEvent();
+						
+						nuevo.tipo = new Integer(
+								DFileEvent.RESPUESTA_INSERTAR_FICHERO);
+						nuevo.origen = new Integer(30);
+						nuevo.destino = new Integer(31);
+						nuevo.aplicacion = new String(leido.aplicacion);
+						nuevo.fichero = f;
+						
+						if (f.getId() == -100)
+							nuevo.res = new Boolean(true);
+						else
+							nuevo.res = new Boolean(false);
+						
+						colaEnvio.nuevoEvento(nuevo);
+					}
+
 				}
 				catch (Exception e)
 				{

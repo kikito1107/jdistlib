@@ -5,7 +5,7 @@ import java.io.Serializable;
 import metainformacion.MIRol;
 import metainformacion.MIUsuario;
 
-public class FicheroBD implements Serializable
+public class MetainformacionFichero implements Serializable
 {
 	/**
 	 * 
@@ -34,12 +34,12 @@ public class FicheroBD implements Serializable
 
 	public final static char PERMISO_ESCRITURA = 'w';
 
-	public FicheroBD()
+	public MetainformacionFichero()
 	{
 
 	}
 
-	public FicheroBD( int id, String nom, boolean dir, String perm,
+	public MetainformacionFichero( int id, String nom, boolean dir, String perm,
 			MIUsuario usu, MIRol ro, int pad, String ruta, String tip )
 	{
 		nombre = nom;
@@ -154,9 +154,9 @@ public class FicheroBD implements Serializable
 
 		int index = -1;
 
-		if (modo == FicheroBD.PERMISO_LECTURA)
+		if (modo == MetainformacionFichero.PERMISO_LECTURA)
 			index = 0;
-		else if (modo == FicheroBD.PERMISO_ESCRITURA)
+		else if (modo == MetainformacionFichero.PERMISO_ESCRITURA)
 			index = 1;
 		else return false;
 

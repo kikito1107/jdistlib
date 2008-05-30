@@ -14,7 +14,7 @@ import net.jini.core.entry.UnusableEntryException;
 import net.jini.core.lease.Lease;
 import net.jini.core.transaction.TransactionException;
 import net.jini.space.JavaSpace;
-import aplicacion.fisica.documentos.FicheroBD;
+import aplicacion.fisica.documentos.MetainformacionFichero;
 import aplicacion.fisica.eventos.DDocumentEvent;
 import aplicacion.fisica.eventos.DFileEvent;
 import aplicacion.fisica.eventos.DNodeEvent;
@@ -28,8 +28,6 @@ public class ClienteFicheros
 	public static ClienteFicheros cf = null;
 
 	private static String usuario = null;
-
-	private static String clave = null;
 
 	private static String aplicacion = null;
 
@@ -59,7 +57,6 @@ public class ClienteFicheros
 
 		this.aplicacion = new String(aplicacion2);
 		this.usuario = new String(usuario2);
-		this.clave = new String(clave2);
 		this.rol = new String(rol2);
 		localizarJavaSpace();
 		cf = this;
@@ -170,7 +167,7 @@ public class ClienteFicheros
 		}
 	}
 
-	public void borrarFichero(FicheroBD f, String aplicacion)
+	public void borrarFichero(MetainformacionFichero f, String aplicacion)
 	{
 		try
 		{
@@ -201,7 +198,7 @@ public class ClienteFicheros
 		}
 	}
 
-	public FicheroBD insertarNuevoFichero(FicheroBD f, String aplicacion)
+	public MetainformacionFichero insertarNuevoFichero(MetainformacionFichero f, String aplicacion)
 	{
 		try
 		{
@@ -247,8 +244,8 @@ public class ClienteFicheros
 		}
 	}
 
-	public FicheroBD nuevaVersion(FicheroBD f, String aplicacion)
-	{
+	
+	public MetainformacionFichero existeFichero(String  path, String aplicacion) {
 		try
 		{
 			DFileEvent evt = new DFileEvent();
@@ -260,19 +257,20 @@ public class ClienteFicheros
 			evt.destino = new Integer(30); // Servidor ficheros
 
 			// tipo de evento
-			evt.tipo = new Integer(DFileEvent.NUEVA_VERSION
+			evt.tipo = new Integer(DFileEvent.EXISTE_FICHERO
 					.intValue());
 			evt.aplicacion = new String(aplicacion);
 			evt.usuario = new String(usuario);
 			evt.rol = new String(rol);
-			evt.fichero = f;
-
+			evt.fichero = null;
+			evt.path = new String(path);
+			
 			space.write(evt, null, leaseWriteTime);
 			
-//			 inicializamos la plantilla
+			//inicializamos la plantilla
 			plantilla.origen = new Integer(30); // Servidor ficheros
 			plantilla.destino = new Integer(31); // Cliente ficheros
-			plantilla.tipo = new Integer(DFileEvent.RESPUESTA_NUEVA_VERSION
+			plantilla.tipo = new Integer(DFileEvent.RESPUESTA_EXISTE_FICHERO
 					.intValue());
 
 			// leemos la respuesta a la solicitud
@@ -280,11 +278,19 @@ public class ClienteFicheros
 
 			if (leido == null)
 			{ // Sin respuesta del coordinador
+				System.err.println("Sin respuesta del coordinador");
 				return null;
 			}
 			else
 			{
-				return leido.fichero;
+				if (leido.fichero.getId() != -100) {
+					System.err.println("encontrado fichero");
+					return leido.fichero;
+				}
+				else {
+					System.err.println("fichero no encontrado");
+					return null;
+				}
 			}
 		}
 		catch (Exception e)
@@ -293,7 +299,8 @@ public class ClienteFicheros
 		}
 	}
 	
-	public void modificarFichero(FicheroBD f, String aplicacion)
+	
+	public void modificarFichero(MetainformacionFichero f, String aplicacion)
 	{
 		try
 		{
@@ -407,7 +414,7 @@ public class ClienteFicheros
 		}
 
 		/**
-		 * M�todo que ejecuta la hebra
+		 * Metodo que ejecuta la hebra
 		 */
 		public void run()
 		{

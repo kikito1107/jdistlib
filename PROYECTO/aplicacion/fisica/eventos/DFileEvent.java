@@ -1,7 +1,7 @@
 package aplicacion.fisica.eventos;
 
 import Deventos.DEvent;
-import aplicacion.fisica.documentos.FicheroBD;
+import aplicacion.fisica.documentos.MetainformacionFichero;
 
 /**
  * Modificar la BD
@@ -33,14 +33,16 @@ public class DFileEvent extends DEvent
 
 	public static final Integer RESPUESTA_SINCRONIZACION = new Integer(185);
 	
-	public static final Integer NUEVA_VERSION = new Integer(184);
+	public static final Integer EXISTE_FICHERO = new Integer(184);
 
-	public static final Integer RESPUESTA_NUEVA_VERSION = new Integer(185);
+	public static final Integer RESPUESTA_EXISTE_FICHERO = new Integer(185);
+	
 
+	public String path = null;
 
-	public FicheroBD fichero = null;
+	public MetainformacionFichero fichero = null;
 
-	public FicheroBD padre = null;
+	public MetainformacionFichero padre = null;
 	
 	public Boolean res = null;
 

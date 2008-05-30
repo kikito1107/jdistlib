@@ -1,6 +1,6 @@
 package util;
 
-import aplicacion.fisica.documentos.FicheroBD;
+import aplicacion.fisica.documentos.MetainformacionFichero;
 
 public class ParserPermisos
 {
@@ -19,7 +19,7 @@ public class ParserPermisos
 	 * @return true si el usuario puede acceder al fichero y false en caso
 	 *         contrario
 	 */
-	public static boolean comprobarPermisoLectura(FicheroBD f, String u,
+	public static boolean comprobarPermisoLectura(MetainformacionFichero f, String u,
 			String r)
 	{
 
@@ -70,7 +70,7 @@ public class ParserPermisos
 	 * @return true si el usuario puede acceder al fichero y false en caso
 	 *         contrario
 	 */
-	public static boolean comprobarPermisoEscritura(FicheroBD f, String u,
+	public static boolean comprobarPermisoEscritura(MetainformacionFichero f, String u,
 			String r)
 	{
 

@@ -6,7 +6,7 @@ import java.util.Vector;
 
 import metainformacion.MIRol;
 import metainformacion.MIUsuario;
-import aplicacion.fisica.documentos.FicheroBD;
+import aplicacion.fisica.documentos.MetainformacionFichero;
 
 /**
  * @author Carlos Rodriguez Dominguez, Ana Belen Pelegrina Ortiz
@@ -31,7 +31,7 @@ public class GestorFicherosBD
 	 * @return un vector de FicheroBD con los ficheros y directorios del primer
 	 *         nivel
 	 */
-	public Vector<FicheroBD> recuperar()
+	public Vector<MetainformacionFichero> recuperar()
 	{
 		try
 		{
@@ -43,7 +43,7 @@ public class GestorFicherosBD
 			rs.next();
 
 			// recuperamos el contenido del directorio / (junto con el propio /)
-			Vector<FicheroBD> dir = recuperarDirectorio(rs.getInt("id_fichero"));
+			Vector<MetainformacionFichero> dir = recuperarDirectorio(rs.getInt("id_fichero"));
 
 			// cerramos la conexion
 			rs.close();
@@ -67,12 +67,12 @@ public class GestorFicherosBD
 	 *            identificador del directorio
 	 * @return un vector con los ficheros contenidos en el directorio
 	 */
-	public Vector<FicheroBD> recuperarDirectorio(int id)
+	public Vector<MetainformacionFichero> recuperarDirectorio(int id)
 	{
 		try
 		{
 			// creamos el vector de ficheros
-			Vector<FicheroBD> res = new Vector<FicheroBD>();
+			Vector<MetainformacionFichero> res = new Vector<MetainformacionFichero>();
 
 			// seleccionamos todos los ficheros cuyo padre sea el directorio en
 			// cuestion
@@ -108,7 +108,7 @@ public class GestorFicherosBD
 	 * @return el directoiro padre del fichero. Si el directorio no tiene padre
 	 *         ('/') devuelve null
 	 */
-	public FicheroBD obtenerPadre(int id)
+	public MetainformacionFichero obtenerPadre(int id)
 	{
 		try
 		{
@@ -125,7 +125,7 @@ public class GestorFicherosBD
 			if (!rs.wasNull())
 			{
 				// contruimos el fichero, cerramos la conexion y lo devolvemos
-				FicheroBD f = construirFicheroBD(id_padre);
+				MetainformacionFichero f = construirFicheroBD(id_padre);
 				rs.close();
 				return f;
 			}
@@ -152,7 +152,7 @@ public class GestorFicherosBD
 	 *            identificador del fichero
 	 * @return el fichero, si no existe ningœn fichero con ese id devuelve null
 	 */
-	private FicheroBD construirFicheroBD(int id)
+	private MetainformacionFichero construirFicheroBD(int id)
 	{
 		try
 		{
@@ -161,7 +161,7 @@ public class GestorFicherosBD
 							+ "'");
 			rs.next();
 
-			FicheroBD f = construirFicheroBD(rs);
+			MetainformacionFichero f = construirFicheroBD(rs);
 			rs.close();
 			return f;
 		}
@@ -181,7 +181,7 @@ public class GestorFicherosBD
 	 *            result set conteniendo los datos del fichero
 	 * @return el objeto FicheroBD
 	 */
-	private FicheroBD construirFicheroBD(ResultSet rs)
+	private MetainformacionFichero construirFicheroBD(ResultSet rs)
 	{
 		try
 		{
@@ -204,7 +204,7 @@ public class GestorFicherosBD
 			MIRol rol = null;
 			if (!rs.wasNull()) rol = obtenerRol(id_rol);
 
-			return new FicheroBD(id, nombre, es_directorio, permisos, mu, rol,
+			return new MetainformacionFichero(id, nombre, es_directorio, permisos, mu, rol,
 					id_padre, ruta_local, tipo);
 		}
 		catch (Exception ex)
@@ -258,7 +258,7 @@ public class GestorFicherosBD
 	 * 
 	 * @param f
 	 */
-	public FicheroBD insertarNuevoFichero(FicheroBD f)
+	public MetainformacionFichero insertarNuevoFichero(MetainformacionFichero f)
 	{
 		try
 		{
@@ -341,36 +341,80 @@ public class GestorFicherosBD
 	 * @param id
 	 * @return
 	 */
-	public FicheroBD buscarFichero(int id)
+	public MetainformacionFichero buscarFichero(int id)
 	{
-		FicheroBD f = new FicheroBD();
+		MetainformacionFichero f = new MetainformacionFichero();
+		
+		f.setId(-100);
 
 		ResultSet rs = conexion
 				.select("SELECT * FROM fichero WHERE id_fichero=" + id);
 
 		try
 		{
-			while (rs.next())
-			{
-				f.setId(id);
-				f.setNombre(rs.getString("nombre"));
-				f.setPadre(rs.getInt("padre"));
-				f.setPermisos(rs.getString("permisos"));
-				f.setRutaLocal(rs.getString("ruta_local"));
-				f.setTipo(rs.getString("tipo"));
+			if (rs != null) {
+				while (rs.next())
+				{
+					f.setId(id);
+					f.setNombre(rs.getString("nombre"));
+					f.setPadre(rs.getInt("padre"));
+					f.setPermisos(rs.getString("permisos"));
+					f.setRutaLocal(rs.getString("ruta_local"));
+					f.setTipo(rs.getString("tipo"));
+				}
+	
+				rs.close();
 			}
-
-			rs.close();
 		}
 		catch (SQLException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return f;
 		}
 
 		return f;
 	}
 
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public MetainformacionFichero buscarFicheroPath(String path)
+	{
+		MetainformacionFichero f = new MetainformacionFichero();
+		
+		f.setId(-100);
+
+		ResultSet rs = conexion
+				.select("SELECT * FROM fichero WHERE ruta_local=" + path);
+
+		try
+		{
+			if (rs != null) {
+			
+				while (rs.next())
+				{
+					f.setId(rs.getInt("id_fichero"));
+					f.setNombre(rs.getString("nombre"));
+					f.setPadre(rs.getInt("padre"));
+					f.setPermisos(rs.getString("permisos"));
+					f.setRutaLocal(rs.getString("ruta_local"));
+					f.setTipo(rs.getString("tipo"));
+				}
+				
+				rs.close();
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+			return f;
+		}
+
+		return f;
+	}
+	
 	/**
 	 * Cierra la conexi—n con la base de datos
 	 */
@@ -385,7 +429,7 @@ public class GestorFicherosBD
 
 	}
 
-	public void modificarFichero(FicheroBD f)
+	public void modificarFichero(MetainformacionFichero f)
 	{
 		try
 		{
@@ -411,8 +455,10 @@ public class GestorFicherosBD
 			ex.printStackTrace();
 		}
 	}
+	
 
-	public void eliminarFichero(FicheroBD f)
+
+	public void eliminarFichero(MetainformacionFichero f)
 	{
 		try
 		{
@@ -459,7 +505,6 @@ public class GestorFicherosBD
 		}
 		catch (SQLException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

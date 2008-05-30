@@ -21,7 +21,7 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import Deventos.enlaceJS.DConector;
-import aplicacion.fisica.documentos.FicheroBD;
+import aplicacion.fisica.documentos.MetainformacionFichero;
 
 public class VisorPropiedadesFichero extends JDialog
 {
@@ -72,7 +72,7 @@ public class VisorPropiedadesFichero extends JDialog
 
 	private JButton jButton1 = null;
 
-	private FicheroBD fichero = null;
+	private MetainformacionFichero fichero = null;
 
 	private JCheckBox esDirectorio = null;
 
@@ -85,7 +85,7 @@ public class VisorPropiedadesFichero extends JDialog
 	/**
 	 * @param owner
 	 */
-	public VisorPropiedadesFichero( Frame owner, FicheroBD f )
+	public VisorPropiedadesFichero( Frame owner, MetainformacionFichero f )
 	{
 		super(owner);
 		fichero = f;
@@ -239,7 +239,7 @@ public class VisorPropiedadesFichero extends JDialog
 		if (lecturaU == null)
 		{
 			lecturaU = new JCheckBox();
-			if (fichero.getPermisos().charAt(0) == FicheroBD.PERMISO_LECTURA)
+			if (fichero.getPermisos().charAt(0) == MetainformacionFichero.PERMISO_LECTURA)
 				lecturaU.setSelected(true);
 			else lecturaU.setSelected(false);
 
@@ -257,7 +257,7 @@ public class VisorPropiedadesFichero extends JDialog
 		if (escrituraU == null)
 		{
 			escrituraU = new JCheckBox();
-			if (fichero.getPermisos().charAt(1) == FicheroBD.PERMISO_ESCRITURA)
+			if (fichero.getPermisos().charAt(1) == MetainformacionFichero.PERMISO_ESCRITURA)
 				escrituraU.setSelected(true);
 			else escrituraU.setSelected(false);
 		}
@@ -274,7 +274,7 @@ public class VisorPropiedadesFichero extends JDialog
 		if (lecturaR == null)
 		{
 			lecturaR = new JCheckBox();
-			if (fichero.getPermisos().charAt(2) == FicheroBD.PERMISO_LECTURA)
+			if (fichero.getPermisos().charAt(2) == MetainformacionFichero.PERMISO_LECTURA)
 				lecturaR.setSelected(true);
 			else lecturaR.setSelected(false);
 		}
@@ -291,7 +291,7 @@ public class VisorPropiedadesFichero extends JDialog
 		if (escrituraR == null)
 		{
 			escrituraR = new JCheckBox();
-			if (fichero.getPermisos().charAt(3) == FicheroBD.PERMISO_ESCRITURA)
+			if (fichero.getPermisos().charAt(3) == MetainformacionFichero.PERMISO_ESCRITURA)
 				escrituraR.setSelected(true);
 			else escrituraR.setSelected(false);
 		}
@@ -308,7 +308,7 @@ public class VisorPropiedadesFichero extends JDialog
 		if (lecturaO == null)
 		{
 			lecturaO = new JCheckBox();
-			if (fichero.getPermisos().charAt(4) == FicheroBD.PERMISO_LECTURA)
+			if (fichero.getPermisos().charAt(4) == MetainformacionFichero.PERMISO_LECTURA)
 				lecturaO.setSelected(true);
 			else lecturaO.setSelected(false);
 		}
@@ -325,7 +325,7 @@ public class VisorPropiedadesFichero extends JDialog
 		if (escrituraO == null)
 		{
 			escrituraO = new JCheckBox();
-			if (fichero.getPermisos().charAt(5) == FicheroBD.PERMISO_ESCRITURA)
+			if (fichero.getPermisos().charAt(5) == MetainformacionFichero.PERMISO_ESCRITURA)
 				escrituraO.setSelected(true);
 			else escrituraO.setSelected(false);
 		}
@@ -456,7 +456,7 @@ public class VisorPropiedadesFichero extends JDialog
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
 					if (fichero.comprobarPermisos(DConector.Dusuario,
-							DConector.Drol, FicheroBD.PERMISO_ESCRITURA))
+							DConector.Drol, MetainformacionFichero.PERMISO_ESCRITURA))
 					{
 						fichero.setNombre(nombreFichero.getText());
 
@@ -563,7 +563,7 @@ public class VisorPropiedadesFichero extends JDialog
 		setVisible(true);
 	}
 
-	public static FicheroBD verInfoFichero(FicheroBD fichero, Frame owner)
+	public static MetainformacionFichero verInfoFichero(MetainformacionFichero fichero, Frame owner)
 	{
 
 		VisorPropiedadesFichero f = new VisorPropiedadesFichero(owner, fichero);

@@ -9,7 +9,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
 import Deventos.enlaceJS.DConector;
-import aplicacion.fisica.documentos.FicheroBD;
+import aplicacion.fisica.documentos.MetainformacionFichero;
 
 public class DocumentosCellRenderer extends DefaultTreeCellRenderer
 {
@@ -75,7 +75,7 @@ public class DocumentosCellRenderer extends DefaultTreeCellRenderer
 		
 			DefaultMutableTreeNode dftn = (DefaultMutableTreeNode) value;
 
-			FicheroBD f = (FicheroBD) dftn.getUserObject();
+			MetainformacionFichero f = (MetainformacionFichero) dftn.getUserObject();
 			
 			String extension  = f.getTipo();
 			
@@ -92,7 +92,7 @@ public class DocumentosCellRenderer extends DefaultTreeCellRenderer
 		
 			DefaultMutableTreeNode dftn = (DefaultMutableTreeNode) value;
 
-			FicheroBD f = (FicheroBD) dftn.getUserObject();
+			MetainformacionFichero f = (MetainformacionFichero) dftn.getUserObject();
 			
 			String extension  = f.getTipo();
 			
@@ -109,7 +109,7 @@ public class DocumentosCellRenderer extends DefaultTreeCellRenderer
 		
 			DefaultMutableTreeNode dftn = (DefaultMutableTreeNode) value;
 
-			FicheroBD f = (FicheroBD) dftn.getUserObject();
+			MetainformacionFichero f = (MetainformacionFichero) dftn.getUserObject();
 			
 			String extension  = f.getTipo();
 			
@@ -127,7 +127,7 @@ public class DocumentosCellRenderer extends DefaultTreeCellRenderer
 		
 			DefaultMutableTreeNode dftn = (DefaultMutableTreeNode) value;
 
-			FicheroBD f = (FicheroBD) dftn.getUserObject();
+			MetainformacionFichero f = (MetainformacionFichero) dftn.getUserObject();
 			
 			String extension  = f.getTipo();
 			
@@ -145,7 +145,7 @@ public class DocumentosCellRenderer extends DefaultTreeCellRenderer
 		
 			DefaultMutableTreeNode dftn = (DefaultMutableTreeNode) value;
 
-			FicheroBD f = (FicheroBD) dftn.getUserObject();
+			MetainformacionFichero f = (MetainformacionFichero) dftn.getUserObject();
 			
 			Vector<String> v = DConector.obtenerDC().consultarEditores(f.getRutaLocal());
 			
@@ -164,7 +164,7 @@ public class DocumentosCellRenderer extends DefaultTreeCellRenderer
 
 			DefaultMutableTreeNode dftn = (DefaultMutableTreeNode) value;
 
-			FicheroBD f = (FicheroBD) dftn.getUserObject();
+			MetainformacionFichero f = (MetainformacionFichero) dftn.getUserObject();
 
 			if (f.esDirectorio())
 				res = true;
