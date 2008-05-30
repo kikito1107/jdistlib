@@ -255,7 +255,7 @@ public class ClienteMetaInformacion
 		dmilisteners.add(listener);
 	}
 
-	public void hacerVisibleDialogo()
+	public void mostrarDialogo()
 	{
 		if (( dmi != null ) && permisoAdministracion)
 		{

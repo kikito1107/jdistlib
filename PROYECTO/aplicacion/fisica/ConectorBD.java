@@ -47,7 +47,7 @@ public class ConectorBD
 		catch (FileNotFoundException e)
 		{
 			System.err
-					.println("Error en apertura de fichero de Conexion de BD. No se ha encontrado el fichero IPGestorBD.txt");
+					.println("Error en apertura de fichero de Conexion de BD. No se ha encontrado el fichero config");
 			System.exit(1);
 		}
 		BufferedReader br = new BufferedReader(fr);

@@ -50,6 +50,7 @@ import componentes.base.DComponente;
 import componentes.base.DComponenteBase;
 import componentes.gui.usuarios.ArbolUsuariosConectadosRol;
 import Deventos.DEvent;
+import Deventos.DJChatEvent;
 
 public class PanelPrincipal extends DComponenteBase
 {
@@ -524,6 +525,14 @@ public class PanelPrincipal extends DComponenteBase
 			editarUsuario = new JButton();
 			editarUsuario.setIcon(new ImageIcon("./Resources/page_edit.gif"));
 			editarUsuario.setBorderPainted(false);
+			
+			editarUsuario.addActionListener(new java.awt.event.ActionListener()
+			{
+				public void actionPerformed(java.awt.event.ActionEvent e)
+				{
+					ClienteMetaInformacion.obtenerCMI().mostrarDialogo();
+				}
+			});
 		}
 		return editarUsuario;
 	}
@@ -540,6 +549,36 @@ public class PanelPrincipal extends DComponenteBase
 			iniciarChat = new JButton();
 			iniciarChat.setIcon(new ImageIcon("./Resources/comment.gif"));
 			iniciarChat.setBorderPainted(false);
+			
+			iniciarChat.addActionListener(new java.awt.event.ActionListener()
+			{
+				public void actionPerformed(java.awt.event.ActionEvent e)
+				{
+					for (int i=0; i<plugins.size(); ++i)
+						if (plugins.get(i).getName().equals("Chat")) {
+							
+							System.out.println("Encontrado plugin chat");
+							
+							String usuario = arbolUsuario.getUsuarioSeleccionado();
+
+							if (( usuario != null )
+									&& !usuario.equals(DConector.Dusuario))
+							{
+								DJChatEvent evento = new DJChatEvent();
+								evento.tipo = new Integer(
+										DJChatEvent.MENSAJE_PRIVADO);
+								evento.receptores.add(usuario);
+								evento.mensaje = "Solicita una nueva conversaci—n";
+
+								plugins.get(i).enviarEvento(evento);
+							}
+							else JOptionPane
+									.showMessageDialog(null,
+											"No puedes mantener una conversaci—n contigo mismo");
+						}
+							
+				}
+			});
 		}
 		return iniciarChat;
 	}
