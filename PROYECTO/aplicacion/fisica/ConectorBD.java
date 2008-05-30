@@ -38,7 +38,7 @@ public class ConectorBD
 	 */
 	static
 	{
-		File f = new File("./.IPGestorBD.txt");
+		File f = new File("config");
 		FileReader fr = null;
 		try
 		{
@@ -53,9 +53,24 @@ public class ConectorBD
 		BufferedReader br = new BufferedReader(fr);
 		try
 		{
-			ip = br.readLine();
-			user = br.readLine();
-			pass = br.readLine();
+			String datos;
+			
+			br.readLine();
+			br.readLine();
+			datos = br.readLine();
+			
+			String data[] = datos.split(" ");
+			
+			if (data.length != 4){
+				System.err
+				.println("Error en lectura de fichero de Conexion de BD");
+				System.exit(1);
+			}
+			
+			ip = data[1];
+			user = data[2];
+			pass = data[3];
+				
 		}
 		catch (IOException e)
 		{

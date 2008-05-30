@@ -49,7 +49,7 @@ public class ServidorFicheros
 
 	private static long leaseReadTime = Long.MAX_VALUE;
 	
-	private static String directorioBase = ".data";
+	private static String directorioBase = "data";
 
 	
 	public static String getDirectorioBase(){
@@ -61,7 +61,7 @@ public class ServidorFicheros
 
 		FrameServFich.println("");
 
-		File f = new File(".config");
+		File f = new File("config");
 		FileReader fr = null;
 		try
 		{
@@ -76,7 +76,19 @@ public class ServidorFicheros
 		BufferedReader br = new BufferedReader(fr);
 		try
 		{
-			directorioBase = br.readLine();
+			String datos;
+			
+			datos = br.readLine();
+			
+			String data[] = datos.split(" ");
+			
+			if (data.length != 2){
+				System.err
+				.println("Error en lectura de fichero de configuracion de directorio");
+				System.exit(1);
+			}
+			
+			directorioBase = data[1];
 		}
 		catch (IOException e)
 		{

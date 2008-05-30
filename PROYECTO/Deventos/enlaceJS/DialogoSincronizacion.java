@@ -2,6 +2,7 @@ package Deventos.enlaceJS;
 
 import java.awt.Color;
 import java.awt.Frame;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.WindowEvent;
 
@@ -47,7 +48,7 @@ public class DialogoSincronizacion extends JDialog
 
 	private final int y = 10;
 
-	protected Icon icono = null;
+	protected ImageIcon icono = null;
 
 	private volatile Thread t = new Thread(new HebraParpadeo(this));
 
@@ -73,7 +74,7 @@ public class DialogoSincronizacion extends JDialog
 	{
 		panel1.setLayout(null);
 		etiquetaIcono.setFont(new java.awt.Font("Dialog", 1, 11));
-		icono = new ImageIcon("Resources/logo.png");
+		icono = new ImageIcon("Resources/logo_36x36.png");
 		etiquetaIcono.setIcon(icono);
 		etiquetaIcono.setText("");
 		etiquetaIcono.setBounds(new Rectangle(7, 3, 53, 54));
@@ -131,6 +132,11 @@ public class DialogoSincronizacion extends JDialog
 			while (true)
 				try
 				{
+					Graphics2D g = (Graphics2D) panel1.getGraphics();
+					
+					//g.
+					
+					
 					dialogo.etiquetaIcono.setIcon(null);
 					Thread.sleep(tiempo);
 					dialogo.etiquetaIcono.setIcon(dialogo.icono);

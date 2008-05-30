@@ -31,7 +31,7 @@ public class ConectorBDFicheros
 
 	private static String ip = null;
 	
-	private static final String fichero = ".IPGestorBDFicheros.txt";
+	private static final String fichero = "config";
 
 	/**
 	 * Inicialización de atributos estáticos: Este bloque se ejecutar√° al
@@ -55,9 +55,23 @@ public class ConectorBDFicheros
 		BufferedReader br = new BufferedReader(fr);
 		try
 		{
-			ip = br.readLine();
-			user = br.readLine();
-			pass = br.readLine();
+String datos;
+			
+			br.readLine();
+
+			datos = br.readLine();
+			
+			String data[] = datos.split(" ");
+			
+			if (data.length != 4){
+				System.err
+				.println("Error en lectura de fichero de Conexion de BD");
+				System.exit(1);
+			}
+			
+			ip = data[1];
+			user = data[2];
+			pass = data[3];
 		}
 		catch (IOException e)
 		{
