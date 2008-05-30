@@ -80,7 +80,7 @@ public class TransferP2P
 	{
 		try
 		{
-			InterfazTransferenciaFicheroP2P ar = (InterfazTransferenciaFicheroP2P) Naming
+			TransmisorFicherosP2P ar = (TransmisorFicherosP2P) Naming
 					.lookup("//" + ip_origen + ":" + port
 							+ "/TransferenciaFicheroP2P" + id);
 
@@ -135,7 +135,7 @@ public class TransferP2P
 				}
 
 				// Se publica el objeto AccesoMesa
-				InterfazTransferenciaFicheroP2P tf = new TransferenciaFicheroP2P(
+				TransmisorFicherosP2P tf = new TransferenciaFicheroP2P(
 						d);
 				
 				host = InetAddress.getLocalHost().getHostName();

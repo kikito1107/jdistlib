@@ -45,14 +45,14 @@ public class Transfer
 		}
 	}
 
-	public Documento receiveDocumento()
+	public Documento receiveDocumento(boolean forceText)
 	{
 		try
 		{
-			InterfazTransferenciaFichero ar = (InterfazTransferenciaFichero) Naming
+			TransmisorFicheros ar = (TransmisorFicheros) Naming
 					.lookup("//" + ip_origen + "/TransferenciaFichero");
 			
-			return ar.getDocument(path);
+			return ar.getDocument(path, forceText);
 		}
 		catch (Exception ex)
 		{
@@ -65,7 +65,7 @@ public class Transfer
 	{
 		try
 		{
-			InterfazTransferenciaFichero ar = (InterfazTransferenciaFichero) Naming
+			TransmisorFicheros ar = (TransmisorFicheros) Naming
 					.lookup("//" + ip_origen + "/TransferenciaFichero");
 
 			return ar.sendDocument(d);
@@ -81,7 +81,7 @@ public class Transfer
 	{
 		try
 		{
-			InterfazTransferenciaFichero ar = (InterfazTransferenciaFichero) Naming
+			TransmisorFicheros ar = (TransmisorFicheros) Naming
 					.lookup("//" + ip_origen + "/TransferenciaFichero");
 
 			return ar.getByteFiles(path);
@@ -97,7 +97,7 @@ public class Transfer
 	{
 		try
 		{
-			InterfazTransferenciaFichero ar = (InterfazTransferenciaFichero) Naming
+			TransmisorFicheros ar = (TransmisorFicheros) Naming
 					.lookup("//" + ip_origen + "/TransferenciaFichero");
 
 			return ar.sendByteFile(datos, path);
@@ -137,7 +137,7 @@ public class Transfer
 				// Se publica el objeto AccesoMesa
 				host = InetAddress.getLocalHost().getHostName();
 				
-				InterfazTransferenciaFichero tf = new TransferenciaFichero();
+				TransmisorFicheros tf = new TransferenciaFichero();
 				Naming.rebind("//"+host+"/TransferenciaFichero", tf);
 
 				System.out.println("Servicio RMI activo en " + host

@@ -13,7 +13,7 @@ import aplicacion.fisica.documentos.filtros.PDFFilter;
 import aplicacion.fisica.documentos.filtros.TXTFilter;
 
 public class TransferenciaFichero extends UnicastRemoteObject implements
-		InterfazTransferenciaFichero
+		TransmisorFicheros
 {
 	private static final long serialVersionUID = 1L;
 
@@ -22,8 +22,11 @@ public class TransferenciaFichero extends UnicastRemoteObject implements
 		super();
 	}
 
-	public Documento getDocument(String path)
+	public Documento getDocument(String path, boolean force)
 	{
+		
+		if (force)
+			return new TXTFilter().getDocumento(ServidorFicheros.getDirectorioBase() +path, "", "");
 		
 		Documento.addFilter(new ImageFilter());
 		Documento.addFilter(new PDFFilter());
@@ -77,7 +80,7 @@ public class TransferenciaFichero extends UnicastRemoteObject implements
 		catch (Exception e)
 		{
 			// TODO Auto-generated catch block
-			System.out.println("SE ha producido un error");
+			System.out.println("Se ha producido un error");
 			e.printStackTrace();
 			return false;
 		}

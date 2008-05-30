@@ -59,7 +59,7 @@ public class ServidorFicheros
 	public ServidorFicheros()
 	{
 
-		System.out.println("");
+		FrameServFich.println("");
 
 		File f = new File(".config");
 		FileReader fr = null;
@@ -87,30 +87,30 @@ public class ServidorFicheros
 		}
 		
 		gestor = new GestorFicherosBD();
-		System.out.println("ServidorFicheros: Almacen de ficheros creado");
-		System.out.println("ServidorFicheros: Localizando JavaSpace");
+		FrameServFich.println("ServidorFicheros: Almacen de ficheros creado");
+		FrameServFich.println("ServidorFicheros: Localizando JavaSpace");
 		try
 		{
 			space = SpaceLocator.getSpace("JavaSpace");
-			System.out.println("ServidorFicheros: JavaSpace localizado");
+			FrameServFich.println("ServidorFicheros: JavaSpace localizado");
 		}
 		catch (Exception e)
 		{
-			System.out
+			FrameServFich
 					.println("ServidorFicheros: Error localizando JavaSpace  "
 							+ e.getMessage());
 			System.exit(1);
 		}
 
 		hebraProcesadora = new Thread(new HebraProcesadora());
-		System.out.println("ServidorFicheros: HebraProcesadora creada");
+		FrameServFich.println("ServidorFicheros: HebraProcesadora creada");
 		hebraProcesadora.start();
-		System.out.println("ServidorFicheros: HebraProcesadora iniciada");
+		FrameServFich.println("ServidorFicheros: HebraProcesadora iniciada");
 		hebraEnvio = new Thread(new HebraEnvio());
-		System.out.println("ServidorFicheros: HebraEnvio creada");
+		FrameServFich.println("ServidorFicheros: HebraEnvio creada");
 		hebraEnvio.start();
-		System.out.println("ServidorFicheros: HebraEnvio iniciada");
-		System.out
+		FrameServFich.println("ServidorFicheros: HebraEnvio iniciada");
+		FrameServFich
 				.println("ServidorFicheros: HebraDesconexionUsuarios iniciada");
 
 		Transfer.establecerServidor();
@@ -176,16 +176,16 @@ public class ServidorFicheros
 				try
 				{
 
-					System.out.println("preparado para leer evento");
+					FrameServFich.println("preparado para leer evento");
 
 					leido = (DEvent) space.take(plantilla, null, leaseReadTime);
-					System.out.println("ServidorFicheros: evento leido: "
+					FrameServFich.println("ServidorFicheros: evento leido: "
 							+ leido);
 
 					if (leido.tipo.intValue() == DNodeEvent.SINCRONIZACION
 							.intValue())
 					{
-						System.out
+						FrameServFich
 								.println("Recibido evento de sincronizcion ficheros");
 
 						DNodeEvent nuevo = new DNodeEvent();
@@ -205,7 +205,7 @@ public class ServidorFicheros
 							.intValue())
 					{
 
-						System.out
+						FrameServFich
 								.println("Leido evento insercion nuevo fichero");
 
 						// TODO insertar un nuevo fichero en la BD
@@ -245,7 +245,7 @@ public class ServidorFicheros
 					else if (leido.tipo.intValue() == DFileEvent.NOTIFICAR_ELIMINAR_FICHERO
 							.intValue())
 					{
-						System.out.println("Leido evento eliminacion  fichero");
+						FrameServFich.println("Leido evento eliminacion  fichero");
 
 						if (gestor == null) gestor = new GestorFicherosBD();
 
@@ -254,7 +254,7 @@ public class ServidorFicheros
 						String path = ( (DFileEvent) leido ).fichero
 								.getRutaLocal();
 
-						System.out.println("Fichero a borrar: " + path);
+						FrameServFich.println("Fichero a borrar: " + path);
 
 						File f = new File(directorioBase+path);
 						
@@ -275,7 +275,7 @@ public class ServidorFicheros
 					else if (leido.tipo.intValue() == DFileEvent.NOTIFICAR_MODIFICACION_FICHERO
 							.intValue())
 					{
-						System.out
+						FrameServFich
 								.println("Leido evento modificacion  fichero");
 
 						if (gestor == null) gestor = new GestorFicherosBD();
@@ -314,8 +314,8 @@ public class ServidorFicheros
 					else if (leido.tipo.intValue() == DFileEvent.EXISTE_FICHERO
 							.intValue())
 					{
-						System.out
-								.println("Leido evento modificacion  fichero");
+						System.err
+								.println("Leida solicitud info fichero");
 
 						if (gestor == null) gestor = new GestorFicherosBD();
 						
@@ -325,16 +325,20 @@ public class ServidorFicheros
 						DFileEvent nuevo = new DFileEvent();
 						
 						nuevo.tipo = new Integer(
-								DFileEvent.RESPUESTA_INSERTAR_FICHERO);
+								DFileEvent.RESPUESTA_EXISTE_FICHERO);
 						nuevo.origen = new Integer(30);
 						nuevo.destino = new Integer(31);
 						nuevo.aplicacion = new String(leido.aplicacion);
 						nuevo.fichero = f;
 						
-						if (f.getId() == -100)
-							nuevo.res = new Boolean(true);
-						else
+						if (f.getId() == -100) {
+							System.err.println("El fichero no existe");
 							nuevo.res = new Boolean(false);
+						}
+						else {
+							System.err.println("El fichero existe");
+							nuevo.res = new Boolean(true);
+						}
 						
 						colaEnvio.nuevoEvento(nuevo);
 					}
@@ -358,7 +362,7 @@ public class ServidorFicheros
 				{
 					DEvent evento = colaEnvio.extraerEvento();
 					space.write(evento, null, leaseWriteTime);
-					System.out.println("Escrito evento: " + (DEvent) evento);
+					FrameServFich.println("Escrito evento: " + (DEvent) evento);
 				}
 				catch (Exception e)
 				{

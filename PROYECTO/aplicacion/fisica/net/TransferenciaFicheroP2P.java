@@ -6,7 +6,7 @@ import java.rmi.server.UnicastRemoteObject;
 import aplicacion.fisica.documentos.Documento;
 
 public class TransferenciaFicheroP2P extends UnicastRemoteObject implements
-		InterfazTransferenciaFicheroP2P
+		TransmisorFicherosP2P
 {
 	private static final long serialVersionUID = 1L;
 

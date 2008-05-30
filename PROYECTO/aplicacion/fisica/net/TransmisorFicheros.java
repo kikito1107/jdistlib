@@ -5,9 +5,9 @@ import java.rmi.RemoteException;
 
 import aplicacion.fisica.documentos.Documento;
 
-public interface InterfazTransferenciaFichero extends Remote
+public interface TransmisorFicheros extends Remote
 {
-	public Documento getDocument(String path) throws RemoteException;
+	public Documento getDocument(String path, boolean force) throws RemoteException;
 
 	public byte[] getByteFiles(String path) throws RemoteException;
 

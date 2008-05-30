@@ -117,7 +117,7 @@ public class ArbolDocumentos extends JTree
 		Transfer t = new Transfer(
 				ClienteFicheros.ipConexion, doc.getRutaLocal());
 
-		Documento d = t.receiveDocumento();
+		Documento d = t.receiveDocumento(true);
 		
 		d.imprimir();
 	}

@@ -387,11 +387,12 @@ public class GestorFicherosBD
 		f.setId(-100);
 
 		ResultSet rs = conexion
-				.select("SELECT * FROM fichero WHERE ruta_local=" + path);
+				.select("SELECT * FROM fichero WHERE ruta_local='" + path + "'");
 
 		try
 		{
 			if (rs != null) {
+				
 			
 				while (rs.next())
 				{

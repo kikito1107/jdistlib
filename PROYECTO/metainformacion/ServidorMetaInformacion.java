@@ -7,6 +7,7 @@ import Deventos.DEvent;
 import Deventos.DMIEvent;
 
 import javaspaces.SpaceLocator;
+import metainformacion.gui.FrameAdminServMI;
 import net.jini.core.lease.Lease;
 import net.jini.space.JavaSpace;
 
@@ -39,39 +40,39 @@ public class ServidorMetaInformacion
 	public ServidorMetaInformacion()
 	{
 
-		System.out.println("");
+		//System.out.println("");
 
 		almacen = new AlmacenMetaInformacion();
-		System.out
+		FrameAdminServMI
 				.println("ServidorMetaInformacion: Almacen de MetaInformacion creado");
-		System.out.println("ServidorMetaInformacion: Localizando JavaSpace");
+		FrameAdminServMI.println("ServidorMetaInformacion: Localizando JavaSpace");
 		try
 		{
 			space = SpaceLocator.getSpace("JavaSpace");
-			System.out.println("ServidorMetaInformacion: JavaSpace localizado");
+			FrameAdminServMI.println("ServidorMetaInformacion: JavaSpace localizado");
 		}
 		catch (Exception e)
 		{
-			System.out
+			FrameAdminServMI
 					.println("ServidorMetaInformacion: Error localizando JavaSpace  "
 							+ e.getMessage());
 			System.exit(1);
 		}
 
 		hebraProcesadora = new Thread(new HebraProcesadora());
-		System.out.println("ServidorMetaInformacion: HebraProcesadora creada");
+		FrameAdminServMI.println("ServidorMetaInformacion: HebraProcesadora creada");
 		hebraProcesadora.start();
-		System.out
+		FrameAdminServMI
 				.println("ServidorMetaInformacion: HebraProcesadora iniciada");
 		hebraEnvio = new Thread(new HebraEnvio());
-		System.out.println("ServidorMetaInformacion: HebraEnvio creada");
+		FrameAdminServMI.println("ServidorMetaInformacion: HebraEnvio creada");
 		hebraEnvio.start();
-		System.out.println("ServidorMetaInformacion: HebraEnvio iniciada");
+		FrameAdminServMI.println("ServidorMetaInformacion: HebraEnvio iniciada");
 		hebraDesconexionUsuarios = new Thread(new HebraDesconexionUsuarios());
-		System.out
+		FrameAdminServMI
 				.println("ServidorMetaInformacion: HebraDesconexionUsuarios creada");
 		hebraDesconexionUsuarios.start();
-		System.out
+		FrameAdminServMI
 				.println("ServidorMetaInformacion: HebraDesconexionUsuarios iniciada");
 	}
 
@@ -155,7 +156,7 @@ public class ServidorMetaInformacion
 		evento.contador = new Long(contador);
 		evento.sincrono = new Boolean(false);
 
-		System.out.println("Notificado permiso componente=" + componente
+		FrameAdminServMI.println("Notificado permiso componente=" + componente
 				+ " permiso" + permiso);
 
 		colaEnvio.nuevoEvento(evento);
@@ -294,7 +295,7 @@ public class ServidorMetaInformacion
 				try
 				{
 					leido = (DEvent) space.take(plantilla, null, leaseReadTime);
-					System.out
+					FrameAdminServMI
 							.println("ServidorMetaInformacion: evento leido: "
 									+ leido);
 					if (leido.tipo.intValue() == DMIEvent.SINCRONIZACION
@@ -306,7 +307,7 @@ public class ServidorMetaInformacion
 						evento.destino = new Integer(11); // Cliente
 															// MetaInformacion
 
-						System.out
+						FrameAdminServMI
 								.println("ServidorMetaInformacion: evento leido "
 										+ leido);
 
@@ -345,7 +346,7 @@ public class ServidorMetaInformacion
 						evento.infoCompleta = (MICompleta) almacen.identificar(
 								aplicacion, usuario, clave);
 
-						System.out.println(evento.infoCompleta.mensajeError);
+						FrameAdminServMI.println(evento.infoCompleta.mensajeError);
 						if (evento.infoCompleta.identificacionValida
 								.booleanValue())
 							notificarConexionUsuario(aplicacion, usuario,
@@ -442,7 +443,7 @@ public class ServidorMetaInformacion
 							if (( aux != -1 )
 									&& ( permiso < aux/* && permiso < 20 */))
 								notificar = false;
-							System.out.println("Rol=" + rol + " Permiso rol="
+							FrameAdminServMI.println("Rol=" + rol + " Permiso rol="
 									+ aux + " permiso usuario=" + permiso);
 							if (notificar)
 								notificarCambioPermisoComponenteUsuario(
@@ -924,7 +925,7 @@ public class ServidorMetaInformacion
 				{
 					DEvent evento = colaEnvio.extraerEvento();
 					space.write(evento, null, leaseWriteTime);
-					System.out.println("Escrito evento: " + evento);
+					FrameAdminServMI.println("Escrito evento: " + evento);
 				}
 				catch (Exception e)
 				{

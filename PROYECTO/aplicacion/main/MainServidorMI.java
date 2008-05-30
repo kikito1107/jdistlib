@@ -1,9 +1,11 @@
-package metainformacion;
+package aplicacion.main;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import javax.swing.UIManager;
+
+import metainformacion.gui.FrameAdminServMI;
 
 /**
  * Clase para lanzar el servidor de Metainformacion

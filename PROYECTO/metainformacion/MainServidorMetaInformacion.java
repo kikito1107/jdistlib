@@ -2,6 +2,8 @@ package metainformacion;
 
 import javax.swing.UIManager;
 
+import aplicacion.main.MainServidorMI;
+
 public class MainServidorMetaInformacion
 {
 	public static void main(String args[])

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="borrar/ComponenteCompuesto4.java|borrar/PanelLista.java|borrar/MainBorrar2.java|borrar/MainBorrar.java|borrar/DListaDinamica.java|borrar/ComponenteCompuesto3.java|borrar/DComponenteCompuesto.java|borrar/DEventoComponenteCompuesto.java|borrar/DComponenteCompuesto2.java|borrar/DEventoListaDinamica.java|lib/|scriptsBD/|resources/|Resuorces/|icons/|aplicacion/fisica/DrawTest.java|doc/|scripts/|aplicacion/plugin/example/appparalelaprimos/" kind="src" path=""/>
+	<classpathentry excluding="borrar/ComponenteCompuesto4.java|borrar/PanelLista.java|borrar/MainBorrar2.java|borrar/MainBorrar.java|borrar/DListaDinamica.java|borrar/ComponenteCompuesto3.java|borrar/DComponenteCompuesto.java|borrar/DEventoComponenteCompuesto.java|borrar/DComponenteCompuesto2.java|borrar/DEventoListaDinamica.java|lib/|scriptsBD/|resources/|Resuorces/|icons/|aplicacion/fisica/DrawTest.java|doc/|scripts/|aplicacion/plugin/example/appparalelaprimos/|documentos/" kind="src" path=""/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="lib" path="mysql-connector-java-5.0.4-bin.jar"/>
-	<classpathentry kind="lib" path="/Users/anab/Documents/Estudios/quinto/proyecto/PROYECTO/3.implementacion/PROYECTO/lib/jini2_1/lib/jini-core.jar"/>
-	<classpathentry kind="lib" path="/Users/anab/Documents/Estudios/quinto/proyecto/PROYECTO/3.implementacion/PROYECTO/lib/jini2_1/lib/jini-ext.jar"/>
-	<classpathentry kind="lib" path="/Users/anab/Documents/Estudios/quinto/proyecto/PROYECTO/3.implementacion/PROYECTO/lib/jini2_1/lib/sun-util.jar"/>
 	<classpathentry kind="lib" path="PDFRenderer.jar"/>
 	<classpathentry kind="lib" path="lti-civil-no_s_w_t.jar"/>
 	<classpathentry kind="lib" path="swing-layout-1.0.3.jar"/>
+	<classpathentry kind="lib" path="/Users/anab/Documents/Estudios/quinto/proyecto/PROYECTO/3.implementacion/PROYECTO/lib/jini/lib/jini-core.jar"/>
+	<classpathentry kind="lib" path="/Users/anab/Documents/Estudios/quinto/proyecto/PROYECTO/3.implementacion/PROYECTO/lib/jini/lib/jini-ext.jar"/>
+	<classpathentry kind="lib" path="/Users/anab/Documents/Estudios/quinto/proyecto/PROYECTO/3.implementacion/PROYECTO/lib/jini/lib/sun-util.jar"/>
 	<classpathentry kind="output" path=""/>
 </classpath>

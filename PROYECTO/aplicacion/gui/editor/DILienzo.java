@@ -116,9 +116,11 @@ public class DILienzo extends DIViewer implements MouseListener,
 	 * Coordenada x inicial del trazo actual
 	 */
 	private int x1;
+
 	private int y1;
 
-	private int x2; 
+	private int x2;
+
 	private int y2;
 
 	/**
@@ -155,7 +157,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 		}
 	}
 
-	public DILienzo( )
+	public DILienzo()
 	{
 		super("", false, null);
 		try
@@ -168,7 +170,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Establece el color actual para dibujar
 	 * 
@@ -429,7 +431,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 					String texto = "Usuario: " + v.get(i).getUsuario();
 
 					texto += "    Rol: " + v.get(i).getRol();
-					
+
 					texto += "    Fecha: " + v.get(i).getFecha();
 
 					this.setToolTipText(texto);
@@ -673,7 +675,9 @@ public class DILienzo extends DIViewer implements MouseListener,
 	@Override
 	public void paint(Graphics g)
 	{
-		if (( doc != null ) && ( doc.getNumeroPaginas() > 0 )) {
+		// cargamos la imagen de la pagina actual
+		if (( doc != null ) && ( doc.getNumeroPaginas() > 0 ))
+		{
 			try
 			{
 				Image imagen = doc.getPagina(paginaActual - 1).getImagen();
@@ -721,7 +725,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 
 			int np = v.size();
 
-			/* Dibujamos las figuras actuales */
+			/* Dibujamos las figuras de la pagina actual */
 			for (int i = 0; i < np; i++)
 			{
 
@@ -734,39 +738,44 @@ public class DILienzo extends DIViewer implements MouseListener,
 				f.dibujar(g);
 			}
 
-			// si estamos dibujando una linea...
-			if (modoDibujo == LINEAS)
-			{
-				g.setColor(colorActual);
-				if (x2 != -1) g.drawLine(x1, y1, x2, y2);
-			}
-			else if (( modoDibujo == RECTANGULO ) || ( modoDibujo == ELIPSE ))
-			{
-				g.setColor(colorActual);
-				if (x2 != -1)
-				{
-					int X1 = x1, X2 = x2, Y1 = y1, Y2 = y2;
 
-					if (x1 >= x2)
+			// dibujamos el dibujo que se esta realizando en este momento
+			switch (modoDibujo) {
+				case LINEAS:
+					g.setColor(colorActual);
+					if (x2 != -1) g.drawLine(x1, y1, x2, y2);
+					break;
+				case RECTANGULO:
+				case ELIPSE:
+					g.setColor(colorActual);
+					if (x2 != -1)
 					{
-						X1 = x2;
-						X2 = x1;
+						int X1 = x1, X2 = x2, Y1 = y1, Y2 = y2;
+
+						if (x1 >= x2)
+						{
+							X1 = x2;
+							X2 = x1;
+						}
+						if (y1 >= y2)
+						{
+							Y1 = y2;
+							Y2 = y1;
+						}
+						if (modoDibujo == RECTANGULO)
+							g.drawRect(X1, Y1, X2 - X1, Y2 - Y1);
+						else g.drawOval(X1, Y1, X2 - X1, Y2 - Y1);
 					}
-					if (y1 >= y2)
-					{
-						Y1 = y2;
-						Y2 = y1;
-					}
-					if (modoDibujo == RECTANGULO)
-						g.drawRect(X1, Y1, X2 - X1, Y2 - Y1);
-					else g.drawOval(X1, Y1, X2 - X1, Y2 - Y1);
-				}
+					break;
+				case MANO_ALZADA:
+					g.setColor(this.colorActual);
+					trazo.dibujar(g);
+					break;
+				default:
+						break;
+					
 			}
-			else if (modoDibujo == DILienzo.MANO_ALZADA) if (trazo != null)
-			{
-				g.setColor(this.colorActual);
-				trazo.dibujar(g);
-			}
+			
 		}
 	}
 
@@ -852,10 +861,15 @@ public class DILienzo extends DIViewer implements MouseListener,
 			if (!DConector.obtenerDC().leerToken(doc.getPath()))
 			{
 
+				if (!DConector.obtenerDC().escribirToken())
+					JOptionPane.showMessageDialog(padre,
+							"Error al guardar el token");
+
 				Transfer t = new Transfer(ClienteFicheros.ipConexion, doc
 						.getPath());
 
-				Documento p = t.receiveDocumento();
+				// intentamos abrir el documento con su formato nativo
+				Documento p = t.receiveDocumento(false);
 
 				if (p != null)
 				{
@@ -866,19 +880,43 @@ public class DILienzo extends DIViewer implements MouseListener,
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(this.padre,
-							"Error al cargar el fichero " + doc.getPath()
-									+ " desde el servidor");
+					int eleccion = JOptionPane
+							.showConfirmDialog(
+									this,
+									"El formato del fichero no está soportado. ¿Desea abrirlo en modo texto?",
+									"Formato no soportado",
+									JOptionPane.YES_NO_OPTION);
 
-					if (padre != null) padre.dispose();
+					if (eleccion == 0)
+					{
+
+						// intentamos abrirlo forzando a documento de texto
+						p = t.receiveDocumento(true);
+
+						if (p == null)
+						{
+
+							JOptionPane.showMessageDialog(this.padre,
+									"Error al cargar el fichero "
+											+ doc.getPath()
+											+ " desde el servidor");
+
+							if (padre != null) padre.dispose();
+						}
+						else
+						{
+							p.setDatosBD(doc.getDatosBD());
+							doc = p;
+
+							repaint();
+
+						}
+					}
 				}
 
 				e.sincronizarFichero = new Boolean(false);
 				this.sincronizada = true;
 
-				if (!DConector.obtenerDC().escribirToken())
-					JOptionPane.showMessageDialog(padre,
-							"Error al guardar el token");
 			}
 			else
 			{
@@ -924,7 +962,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 				TransferP2P.pararHebra();
 
 				TransferP2P.establecerServidor(id, doc);
-				
+
 				try
 				{
 					evt.direccionRMI = new String(InetAddress.getLocalHost()
@@ -1075,15 +1113,14 @@ public class DILienzo extends DIViewer implements MouseListener,
 		{
 
 			DDocumentEvent evt = (DDocumentEvent) evento;
-
-			if (( evt.path != null ) && evt.path.equals(doc.getPath()))
-			{
-				Transfer ts = new Transfer(evt.direccionRespuesta, evt.path);
-
-				doc = ts.receiveDocumento();
-
-				repaint();
-			}
+			/**
+			 * if (( evt.path != null ) && evt.path.equals(doc.getPath())) {
+			 * Transfer ts = new Transfer(evt.direccionRespuesta, evt.path);
+			 * 
+			 * doc = ts.receiveDocumento();
+			 * 
+			 * repaint(); }
+			 */
 		}
 	}
 
