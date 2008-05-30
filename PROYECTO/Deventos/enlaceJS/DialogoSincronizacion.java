@@ -76,9 +76,9 @@ public class DialogoSincronizacion extends JDialog
 	{
 		panel1.setLayout(null);
 		etiquetaIcono.setFont(new java.awt.Font("Dialog", 1, 11));
-		icono1 = new ImageIcon("Resources/logo_1.png");
-		icono2 = new ImageIcon("Resources/logo_2.png");
-		icono3 = new ImageIcon("Resources/logo_3.png");
+		icono1 = new ImageIcon("Resources/logo_1_shadow.png");
+		icono2 = new ImageIcon("Resources/logo_2_shadow.png");
+		icono3 = new ImageIcon("Resources/logo_3_shadow.png");
 		etiquetaIcono.setIcon(icono1);
 		etiquetaIcono.setText("");
 		etiquetaIcono.setBounds(new Rectangle(7, 3, 53, 54));
@@ -132,7 +132,7 @@ public class DialogoSincronizacion extends JDialog
 
 		public void run()
 		{
-			int tiempo = 500;
+			int tiempo = 200;
 			while (true)
 				try
 				{
@@ -140,11 +140,11 @@ public class DialogoSincronizacion extends JDialog
 					
 					
 					dialogo.etiquetaIcono.setIcon(dialogo.icono1);
-					Thread.sleep(tiempo);
+					Thread.sleep(250L);
 					dialogo.etiquetaIcono.setIcon(dialogo.icono2);
-					Thread.sleep(tiempo);
+					Thread.sleep(200L);
 					dialogo.etiquetaIcono.setIcon(dialogo.icono3);
-					Thread.sleep(tiempo);
+					Thread.sleep(200L);
 
 					// Si no debe parpadear se quedará bloqueado hasta que se
 					// indique
