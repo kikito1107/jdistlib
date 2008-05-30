@@ -49,20 +49,24 @@ public class MetalComboBoxUI extends BasicComboBoxUI
 		return new MetalComboBoxUI();
 	}
 
+	@Override
 	public void paint(Graphics g, JComponent c)
 	{
 	}
 
+	@Override
 	protected ComboBoxEditor createEditor()
 	{
 		return new MetalComboBoxEditor.UIResource();
 	}
 
+	@Override
 	protected ComboPopup createPopup()
 	{
 		return new MetalComboPopup(comboBox);
 	}
 
+	@Override
 	protected JButton createArrowButton()
 	{
 		JButton button = new MetalComboBoxButton(comboBox,
@@ -72,6 +76,7 @@ public class MetalComboBoxUI extends BasicComboBoxUI
 		return button;
 	}
 
+	@Override
 	public PropertyChangeListener createPropertyChangeListener()
 	{
 		return new MetalPropertyChangeListener();
@@ -85,6 +90,7 @@ public class MetalComboBoxUI extends BasicComboBoxUI
 	public class MetalPropertyChangeListener extends
 			BasicComboBoxUI.PropertyChangeHandler
 	{
+		@Override
 		public void propertyChange(PropertyChangeEvent e)
 		{
 			super.propertyChange(e);
@@ -119,10 +125,12 @@ public class MetalComboBoxUI extends BasicComboBoxUI
 	 * 
 	 * @deprecated As of Java 2 platform v1.4.
 	 */
+	@Deprecated
 	protected void editablePropertyChanged(PropertyChangeEvent e)
 	{
 	}
 
+	@Override
 	protected LayoutManager createLayoutManager()
 	{
 		return new MetalComboBoxLayoutManager();
@@ -136,6 +144,7 @@ public class MetalComboBoxUI extends BasicComboBoxUI
 	public class MetalComboBoxLayoutManager extends
 			BasicComboBoxUI.ComboBoxLayoutManager
 	{
+		@Override
 		public void layoutContainer(Container parent)
 		{
 			layoutComboBox(parent, this);
@@ -154,20 +163,15 @@ public class MetalComboBoxUI extends BasicComboBoxUI
 			MetalComboBoxLayoutManager manager)
 	{
 		if (comboBox.isEditable())
-		{
 			manager.superLayout(parent);
-		}
-		else
+		else if (arrowButton != null)
 		{
-			if (arrowButton != null)
-			{
-				Insets insets = comboBox.getInsets();
-				int width = comboBox.getWidth();
-				int height = comboBox.getHeight();
-				arrowButton.setBounds(insets.left, insets.top, width
-						- ( insets.left + insets.right ), height
-						- ( insets.top + insets.bottom ));
-			}
+			Insets insets = comboBox.getInsets();
+			int width = comboBox.getWidth();
+			int height = comboBox.getHeight();
+			arrowButton.setBounds(insets.left, insets.top, width
+					- ( insets.left + insets.right ), height
+					- ( insets.top + insets.bottom ));
 		}
 	}
 
@@ -176,12 +180,11 @@ public class MetalComboBoxUI extends BasicComboBoxUI
 	 * 
 	 * @deprecated As of Java 2 platform v1.4.
 	 */
+	@Deprecated
 	protected void removeListeners()
 	{
 		if (propertyChangeListener != null)
-		{
 			comboBox.removePropertyChangeListener(propertyChangeListener);
-		}
 	}
 
 	// These two methods were overloaded and made public. This was probably a
@@ -189,27 +192,27 @@ public class MetalComboBoxUI extends BasicComboBoxUI
 	// provide is no longer necessary and should be removed. However,
 	// removing them will create an uncompatible API change.
 
+	@Override
 	public void configureEditor()
 	{
 		super.configureEditor();
 	}
 
+	@Override
 	public void unconfigureEditor()
 	{
 		super.unconfigureEditor();
 	}
 
+	@Override
 	public Dimension getMinimumSize(JComponent c)
 	{
-		if (!isMinimumSizeDirty)
-		{
-			return new Dimension(cachedMinimumSize);
-		}
+		if (!isMinimumSizeDirty) return new Dimension(cachedMinimumSize);
 
 		Dimension size = null;
 
-		if (!comboBox.isEditable() && arrowButton != null
-				&& arrowButton instanceof MetalComboBoxButton)
+		if (!comboBox.isEditable() && ( arrowButton != null )
+				&& ( arrowButton instanceof MetalComboBoxButton ))
 		{
 
 			MetalComboBoxButton button = (MetalComboBoxButton) arrowButton;
@@ -224,17 +227,15 @@ public class MetalComboBoxUI extends BasicComboBoxUI
 			size.height += insets.top + insets.bottom;
 			size.height += buttonInsets.top + buttonInsets.bottom;
 		}
-		else if (comboBox.isEditable() && arrowButton != null && editor != null)
+		else if (comboBox.isEditable() && ( arrowButton != null )
+				&& ( editor != null ))
 		{
 			size = super.getMinimumSize(c);
 			Insets margin = arrowButton.getMargin();
 			size.height += margin.top + margin.bottom;
 			size.width += margin.left + margin.right;
 		}
-		else
-		{
-			size = super.getMinimumSize(c);
-		}
+		else size = super.getMinimumSize(c);
 
 		cachedMinimumSize.setSize(size.width, size.height);
 		isMinimumSizeDirty = false;
@@ -252,6 +253,7 @@ public class MetalComboBoxUI extends BasicComboBoxUI
 	 * 
 	 * @deprecated As of Java 2 platform v1.4.
 	 */
+	@Deprecated
 	public class MetalComboPopup extends BasicComboPopup
 	{
 
@@ -267,6 +269,7 @@ public class MetalComboBoxUI extends BasicComboBoxUI
 		// provide is no longer necessary and should be removed. However,
 		// removing them will create an uncompatible API change.
 
+		@Override
 		public void delegateFocus(MouseEvent e)
 		{
 			super.delegateFocus(e);

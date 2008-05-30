@@ -12,10 +12,10 @@ import javax.swing.event.MouseInputListener;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicListUI;
 
+import Deventos.DJListEvent;
 
 import componentes.base.DJList;
 import componentes.listeners.DJListListener;
-import Deventos.DJListEvent;
 
 /**
  * <p>
@@ -34,7 +34,7 @@ import Deventos.DJListEvent;
  * @author not attributable
  * @version 1.0
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings( "unchecked" )
 public class DMetalListUI extends BasicListUI
 {
 	public DMetalListUI()
@@ -46,11 +46,13 @@ public class DMetalListUI extends BasicListUI
 		return new DMetalListUI();
 	}
 
+	@Override
 	protected MouseInputListener createMouseInputListener()
 	{
 		return new MouseInputHandler();
 	}
 
+	@Override
 	protected void installListeners()
 	{
 
@@ -66,18 +68,14 @@ public class DMetalListUI extends BasicListUI
 		list.addPropertyChangeListener(propertyChangeListener);
 
 		ListModel model = list.getModel();
-		if (model != null)
-		{
-			model.addListDataListener(listDataListener);
-		}
+		if (model != null) model.addListDataListener(listDataListener);
 
 		ListSelectionModel selectionModel = list.getSelectionModel();
 		if (selectionModel != null)
-		{
 			selectionModel.addListSelectionListener(listSelectionListener);
-		}
 	}
 
+	@Override
 	protected void installKeyboardActions()
 	{
 	}
@@ -86,48 +84,29 @@ public class DMetalListUI extends BasicListUI
 	{
 		int size = list.getModel().getSize();
 
-		if (size <= 0)
-		{
-			return -1;
-		}
+		if (size <= 0) return -1;
 		Insets insets = list.getInsets();
 		if (cellHeights == null)
 		{
 			int row = ( cellHeight == 0 ) ? 0
 					: ( ( y0 - insets.top ) / cellHeight );
-			if (closest)
-			{
-				if (row < 0)
-				{
-					row = 0;
-				}
-				else if (row >= size)
-				{
-					row = size - 1;
-				}
-			}
+			if (closest) if (row < 0)
+				row = 0;
+			else if (row >= size) row = size - 1;
 			return row;
 		}
 		else if (size > cellHeights.length)
-		{
 			return -1;
-		}
 		else
 		{
 			int y = insets.top;
 			int row = 0;
 
-			if (closest && y0 < y)
-			{
-				return 0;
-			}
+			if (closest && ( y0 < y )) return 0;
 			int i;
 			for (i = 0; i < size; i++)
 			{
-				if (( y0 >= y ) && ( y0 < y + cellHeights[i] ))
-				{
-					return row;
-				}
+				if (( y0 >= y ) && ( y0 < y + cellHeights[i] )) return row;
 				y += cellHeights[i];
 				row += 1;
 			}
@@ -138,10 +117,7 @@ public class DMetalListUI extends BasicListUI
 	private int convertirLocationToModel(int x, int y)
 	{
 		int row = convertirLocationToRow(x, y, true);
-		if (row >= 0)
-		{
-			return row;
-		}
+		if (row >= 0) return row;
 		return -1;
 	}
 
@@ -172,15 +148,9 @@ public class DMetalListUI extends BasicListUI
 
 		void adjustFocusAndSelection(MouseEvent e)
 		{
-			if (!SwingUtilities.isLeftMouseButton(e))
-			{
-				return;
-			}
+			if (!SwingUtilities.isLeftMouseButton(e)) return;
 
-			if (!list.isEnabled())
-			{
-				return;
-			}
+			if (!list.isEnabled()) return;
 
 			/*
 			 * Request focus before updating the list selection. This implies
@@ -189,9 +159,7 @@ public class DMetalListUI extends BasicListUI
 			 * (it is on Windows). See bug 4122345
 			 */
 			if (!list.hasFocus() && list.isRequestFocusEnabled())
-			{
 				list.requestFocus();
-			}
 
 			int row = convertirLocationToModel(e.getX(), e.getY());
 			if (row != -1)
@@ -202,9 +170,7 @@ public class DMetalListUI extends BasicListUI
 				evento.tipo = new Integer(DJListEvent.CAMBIO_POSICION
 						.intValue());
 				for (int i = 0; i < v.size(); i++)
-				{
 					( (DJListListener) v.elementAt(i) ).cambioPosicion(evento);
-				}
 
 				// list.setSelectedIndex(row);
 

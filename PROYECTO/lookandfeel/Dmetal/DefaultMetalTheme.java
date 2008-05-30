@@ -112,6 +112,7 @@ public class DefaultMetalTheme extends MetalTheme
 
 	private FontDelegate fontDelegate;
 
+	@Override
 	public String getName()
 	{
 		return "Steel";
@@ -123,62 +124,74 @@ public class DefaultMetalTheme extends MetalTheme
 	}
 
 	// these are blue in Metal Default Theme
+	@Override
 	protected ColorUIResource getPrimary1()
 	{
 		return primary1;
 	}
 
+	@Override
 	protected ColorUIResource getPrimary2()
 	{
 		return primary2;
 	}
 
+	@Override
 	protected ColorUIResource getPrimary3()
 	{
 		return primary3;
 	}
 
 	// these are gray in Metal Default Theme
+	@Override
 	protected ColorUIResource getSecondary1()
 	{
 		return secondary1;
 	}
 
+	@Override
 	protected ColorUIResource getSecondary2()
 	{
 		return secondary2;
 	}
 
+	@Override
 	protected ColorUIResource getSecondary3()
 	{
 		return secondary3;
 	}
 
+	@Override
 	public FontUIResource getControlTextFont()
 	{
 		return getFont(CONTROL_TEXT_FONT);
 	}
 
+	@Override
 	public FontUIResource getSystemTextFont()
 	{
 		return getFont(SYSTEM_TEXT_FONT);
 	}
 
+	@Override
 	public FontUIResource getUserTextFont()
 	{
 		return getFont(USER_TEXT_FONT);
 	}
 
+	@Override
 	public FontUIResource getMenuTextFont()
 	{
 		return getFont(MENU_TEXT_FONT);
 	}
 
+	@Override
 	public FontUIResource getWindowTitleFont()
 	{
 		return getFont(WINDOW_TITLE_FONT);
 	}
 
+	@Override
 	public FontUIResource getSubTextFont()
 	{
 		return getFont(SUB_TEXT_FONT);
@@ -189,21 +202,18 @@ public class DefaultMetalTheme extends MetalTheme
 		return fontDelegate.getFont(key);
 	}
 
+	@Override
 	void install()
 	{
 		if (MetalLookAndFeel.isWindows() && MetalLookAndFeel.useSystemFonts())
-		{
 			fontDelegate = new WindowsFontDelegate();
-		}
-		else
-		{
-			fontDelegate = new FontDelegate();
-		}
+		else fontDelegate = new FontDelegate();
 	}
 
 	/**
 	 * Returns true if this is a theme provided by the core platform.
 	 */
+	@Override
 	boolean isSystemTheme()
 	{
 		return ( getClass() == DefaultMetalTheme.class );
@@ -234,10 +244,8 @@ public class DefaultMetalTheme extends MetalTheme
 				Font f = getPrivilegedFont(type);
 
 				if (f == null)
-				{
 					f = new Font(getDefaultFontName(type),
 							getDefaultFontStyle(type), getDefaultFontSize(type));
-				}
 				fonts[type] = new FontUIResource(f);
 			}
 			return fonts[type];
@@ -278,12 +286,10 @@ public class DefaultMetalTheme extends MetalTheme
 			checkedPriviledged = new boolean[6];
 		}
 
+		@Override
 		public FontUIResource getFont(int type)
 		{
-			if (fonts[type] != null)
-			{
-				return fonts[type];
-			}
+			if (fonts[type] != null) return fonts[type];
 			if (!checkedPriviledged[type])
 			{
 				Font f = getPrivilegedFont(type);
@@ -296,9 +302,7 @@ public class DefaultMetalTheme extends MetalTheme
 				}
 			}
 			if (props[type] == null)
-			{
 				props[type] = new MetalFontDesktopProperty(type);
-			}
 			// While passing null may seem bad, we don't actually use
 			// the table and looking it up is rather expensive.
 			return (FontUIResource) props[type].createValue(null);

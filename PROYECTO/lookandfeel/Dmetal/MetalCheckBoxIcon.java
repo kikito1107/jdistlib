@@ -29,7 +29,7 @@ import javax.swing.plaf.UIResource;
  * @version 1.16 01/23/03
  * @author Steve Wilson
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings( "unchecked" )
 public class MetalCheckBoxIcon implements Icon, UIResource, Serializable
 {
 
@@ -75,9 +75,7 @@ public class MetalCheckBoxIcon implements Icon, UIResource, Serializable
 				}
 			}
 			else if (!cb.isBorderPaintedFlat())
-			{
 				MetalUtils.drawFlush3DBorder(g, x, y, controlSize, controlSize);
-			}
 			g.setColor(MetalLookAndFeel.getControlInfo());
 		}
 		else
@@ -88,10 +86,7 @@ public class MetalCheckBoxIcon implements Icon, UIResource, Serializable
 
 		if (drawCheck)
 		{
-			if (cb.isBorderPaintedFlat())
-			{
-				x++;
-			}
+			if (cb.isBorderPaintedFlat()) x++;
 			drawCheck(c, g, x, y);
 		}
 	}

@@ -14,7 +14,7 @@ import java.awt.Insets;
 import java.awt.Rectangle;
 
 import javax.swing.JComponent;
-import javax.swing.JProgressBar;
+import javax.swing.SwingConstants;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicProgressBarUI;
 
@@ -33,11 +33,6 @@ import javax.swing.plaf.basic.BasicProgressBarUI;
  */
 public class MetalProgressBarUI extends BasicProgressBarUI
 {
-
-	private Rectangle innards;
-
-	private Rectangle box;
-
 	public static ComponentUI createUI(JComponent c)
 	{
 		return new MetalProgressBarUI();
@@ -48,14 +43,12 @@ public class MetalProgressBarUI extends BasicProgressBarUI
 	 * painting is deferred to the BasicProgressBar's
 	 * <code>paintDeterminate</code> method.
 	 */
+	@Override
 	public void paintDeterminate(Graphics g, JComponent c)
 	{
 		super.paintDeterminate(g, c);
 
-		if (!( g instanceof Graphics2D ))
-		{
-			return;
-		}
+		if (!( g instanceof Graphics2D )) return;
 
 		if (progressBar.isBorderPainted())
 		{
@@ -77,7 +70,7 @@ public class MetalProgressBarUI extends BasicProgressBarUI
 			Graphics2D g2 = (Graphics2D) g;
 			g2.setStroke(new BasicStroke(1.f));
 
-			if (progressBar.getOrientation() == JProgressBar.HORIZONTAL)
+			if (progressBar.getOrientation() == SwingConstants.HORIZONTAL)
 			{
 				// Draw light line lengthwise across the progress bar.
 				g2.setColor(MetalLookAndFeel.getControlShadow());
@@ -89,19 +82,15 @@ public class MetalProgressBarUI extends BasicProgressBarUI
 					g2.setColor(MetalLookAndFeel.getPrimaryControlDarkShadow());
 
 					if (isLeftToRight)
-					{
 						g2.drawLine(startX, startY, startX + amountFull - 1,
 								startY);
-					}
 					else
 					{
 						g2
 								.drawLine(endX, startY, endX - amountFull + 1,
 										startY);
 						if (progressBar.getPercentComplete() != 1.f)
-						{
 							g2.setColor(MetalLookAndFeel.getControlShadow());
-						}
 					}
 				}
 				// Draw a line across the width. The color is determined by
@@ -126,9 +115,7 @@ public class MetalProgressBarUI extends BasicProgressBarUI
 				g2.setColor(MetalLookAndFeel.getControlShadow());
 
 				if (progressBar.getPercentComplete() == 1.f)
-				{
 					g2.setColor(MetalLookAndFeel.getPrimaryControlDarkShadow());
-				}
 				g2.drawLine(startX, startY, endX, startY);
 			}
 		}
@@ -139,20 +126,17 @@ public class MetalProgressBarUI extends BasicProgressBarUI
 	 * The core painting is deferred to the BasicProgressBar's
 	 * <code>paintIndeterminate</code> method.
 	 */
+	@Override
 	public void paintIndeterminate(Graphics g, JComponent c)
 	{
 		super.paintIndeterminate(g, c);
 
 		if (!progressBar.isBorderPainted() || ( !( g instanceof Graphics2D ) ))
-		{
 			return;
-		}
 
 		Insets b = progressBar.getInsets(); // area for border
 		int barRectWidth = progressBar.getWidth() - ( b.left + b.right );
 		int barRectHeight = progressBar.getHeight() - ( b.top + b.bottom );
-		int amountFull = getAmountFull(b, barRectWidth, barRectHeight);
-		boolean isLeftToRight = MetalUtils.isLeftToRight(c);
 		int startX, startY, endX, endY;
 		Rectangle box = null;
 		box = getBox(box);
@@ -168,7 +152,7 @@ public class MetalProgressBarUI extends BasicProgressBarUI
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setStroke(new BasicStroke(1.f));
 
-		if (progressBar.getOrientation() == JProgressBar.HORIZONTAL)
+		if (progressBar.getOrientation() == SwingConstants.HORIZONTAL)
 		{
 			// Draw light line lengthwise across the progress bar.
 			g2.setColor(MetalLookAndFeel.getControlShadow());

@@ -163,6 +163,7 @@ public class DITree extends DComponenteBase implements java.io.Serializable
 	 * 
 	 * @return Vector Vector de listeners DJTreeListener
 	 */
+	@SuppressWarnings("unchecked")
 	public Vector getDJTreeListeners()
 	{
 		return arbol.getDJTreeListeners();
@@ -173,6 +174,7 @@ public class DITree extends DComponenteBase implements java.io.Serializable
 	 * 
 	 * @return Vector Vector de listeners LJTreeListener
 	 */
+	@SuppressWarnings("unchecked")
 	public Vector getLJTreeListeners()
 	{
 		return arbol.getLJTreeListeners();
@@ -183,6 +185,7 @@ public class DITree extends DComponenteBase implements java.io.Serializable
 	 * 
 	 * @return Vector Vector de listeners LJTreeListener
 	 */
+	@SuppressWarnings("unchecked")
 	public Vector getLUJTreeListeners()
 	{
 		return arbol.getLUJTreeListeners();
@@ -305,11 +308,13 @@ public class DITree extends DComponenteBase implements java.io.Serializable
 			super(dc);
 		}
 
+		@SuppressWarnings("unchecked")
 		private void setEstado(Vector v)
 		{
 			( (DMetalTreeUI) arbol.getUI() ).setEstado(v);
 		}
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public void run()
 		{
@@ -321,7 +326,6 @@ public class DITree extends DComponenteBase implements java.io.Serializable
 
 			DEvent[] eventos = obtenerEventosColaRecepcion();
 			int numEventos = eventos.length;
-			int i = 0;
 
 			// Buscamos si se ha recibido una respuesta de sincronizacion
 			for (int j = 0; j < numEventos; j++)

@@ -14,10 +14,10 @@ import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicMenuItemUI;
 
 import util.DMenuSelectionManager;
+import Deventos.DJMenuItemEvent;
 
 import componentes.base.DJMenuItem;
 import componentes.listeners.DJMenuItemListener;
-import Deventos.DJMenuItemEvent;
 
 /**
  * <p>
@@ -36,27 +36,23 @@ import Deventos.DJMenuItemEvent;
  * @author not attributable
  * @version 1.0
  */
-@SuppressWarnings("unused")
+@SuppressWarnings( "unused" )
 public class DMenuMetalMenuItemUI extends BasicMenuItemUI
 {
-	
-	
 
 	public static ComponentUI createUI(JComponent x)
 	{
 		return new DMenuMetalMenuItemUI();
 	}
 
+	@Override
 	public MenuElement[] getPath()
 	{
 		MenuSelectionManager m = DMenuSelectionManager.defaultManager();
 		MenuElement oldPath[] = m.getSelectedPath();
 		MenuElement newPath[];
 		int i = oldPath.length;
-		if (i == 0)
-		{
-			return new MenuElement[0];
-		}
+		if (i == 0) return new MenuElement[0];
 		Component parent = menuItem.getParent();
 		if (oldPath[i - 1].getComponent() == parent)
 		{
@@ -75,12 +71,7 @@ public class DMenuMetalMenuItemUI extends BasicMenuItemUI
 			// then copy up to that and add yourself...
 			int j;
 			for (j = oldPath.length - 1; j >= 0; j--)
-			{
-				if (oldPath[j].getComponent() == parent)
-				{
-					break;
-				}
-			}
+				if (oldPath[j].getComponent() == parent) break;
 			newPath = new MenuElement[j + 2];
 			System.arraycopy(oldPath, 0, newPath, 0, j + 1);
 			newPath[j + 1] = menuItem;
@@ -94,39 +85,29 @@ public class DMenuMetalMenuItemUI extends BasicMenuItemUI
 		return newPath;
 	}
 
+	@Override
 	protected MouseInputListener createMouseInputListener(JComponent c)
 	{
 		return new DMouseInputHandler();
 	}
 
-	
-	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	private Vector pathToVector(MenuElement[] path)
 	{
 		Vector v = new Vector();
 		int i, j, n;
 		v.add(new Integer(0));
 		for (i = 1; i < path.length; i++)
-		{
 			if (path[i] instanceof JPopupMenu)
-			{
 				v.add(new Integer(-5));
-			}
 			else
 			{
 				MenuElement[] me = path[i - 1].getSubElements();
 				n = -1;
 				for (j = 0; j < me.length; j++)
-				{
-					if (me[j].equals(path[i]))
-					{
-						n = j;
-					}
-				}
+					if (me[j].equals(path[i])) n = j;
 				v.add(new Integer(n));
 			}
-		}
 		return v;
 	}
 
@@ -146,19 +127,16 @@ public class DMenuMetalMenuItemUI extends BasicMenuItemUI
 			MenuSelectionManager manager = DMenuSelectionManager
 					.defaultManager();
 			Point p = e.getPoint();
-			if (p.x >= 0 && p.x < menuItem.getWidth() && p.y >= 0
-					&& p.y < menuItem.getHeight())
+			if (( p.x >= 0 ) && ( p.x < menuItem.getWidth() ) && ( p.y >= 0 )
+					&& ( p.y < menuItem.getHeight() ))
 			{
 				// *****************************************
 				Vector v = ( (DJMenuItem) menuItem ).getDJMenuItemListeners();
 				DJMenuItemEvent evento = new DJMenuItemEvent();
 				evento.path = new Vector();
 				for (int i = 0; i < v.size(); i++)
-				{
 					( (DJMenuItemListener) v.elementAt(i) )
 							.cambioEstado(evento);
-				}
-				// *****************************************
 			}
 			else
 			{
@@ -168,7 +146,7 @@ public class DMenuMetalMenuItemUI extends BasicMenuItemUI
 
 		public void mouseEntered(MouseEvent e)
 		{
-			
+
 			MenuSelectionManager manager = DMenuSelectionManager
 					.defaultManager();
 			// int modifiers = e.getModifiers();
@@ -185,10 +163,7 @@ public class DMenuMetalMenuItemUI extends BasicMenuItemUI
 			DJMenuItemEvent evento = new DJMenuItemEvent();
 			evento.path = pathToVector(getPath());
 			for (int i = 0; i < v.size(); i++)
-			{
 				( (DJMenuItemListener) v.elementAt(i) ).cambioEstado(evento);
-			}
-			// *****************************************
 
 		}
 
@@ -217,17 +192,13 @@ public class DMenuMetalMenuItemUI extends BasicMenuItemUI
 				MenuElement newPath[] = new MenuElement[path.length - 1];
 				int i, c;
 				for (i = 0, c = path.length - 1; i < c; i++)
-				{
 					newPath[i] = path[i];
-				}
 				Vector v = ( (DJMenuItem) menuItem ).getDJMenuItemListeners();
 				DJMenuItemEvent evento = new DJMenuItemEvent();
 				evento.path = pathToVector(newPath);
 				for (i = 0; i < v.size(); i++)
-				{
 					( (DJMenuItemListener) v.elementAt(i) )
 							.cambioEstado(evento);
-				}
 			}
 			// *****************************************
 

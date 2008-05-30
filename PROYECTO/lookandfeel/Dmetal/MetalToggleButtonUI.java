@@ -58,6 +58,7 @@ public class MetalToggleButtonUI extends BasicToggleButtonUI
 	// ********************************
 	// Install Defaults
 	// ********************************
+	@Override
 	public void installDefaults(AbstractButton b)
 	{
 		super.installDefaults(b);
@@ -71,6 +72,7 @@ public class MetalToggleButtonUI extends BasicToggleButtonUI
 		}
 	}
 
+	@Override
 	protected void uninstallDefaults(AbstractButton b)
 	{
 		super.uninstallDefaults(b);
@@ -98,6 +100,7 @@ public class MetalToggleButtonUI extends BasicToggleButtonUI
 	// ********************************
 	// Paint Methods
 	// ********************************
+	@Override
 	protected void paintButtonPressed(Graphics g, AbstractButton b)
 	{
 		if (b.isContentAreaFilled())
@@ -108,6 +111,7 @@ public class MetalToggleButtonUI extends BasicToggleButtonUI
 		}
 	}
 
+	@Override
 	protected void paintText(Graphics g, JComponent c, Rectangle textRect,
 			String text)
 	{
@@ -128,19 +132,15 @@ public class MetalToggleButtonUI extends BasicToggleButtonUI
 		{
 			/** * paint the text disabled ** */
 			if (model.isSelected())
-			{
 				g.setColor(c.getBackground());
-			}
-			else
-			{
-				g.setColor(getDisabledTextColor());
-			}
+			else g.setColor(getDisabledTextColor());
 			BasicGraphicsUtils.drawStringUnderlineCharAt(g, text, mnemIndex,
 					textRect.x, textRect.y + fm.getAscent());
 
 		}
 	}
 
+	@Override
 	protected void paintFocus(Graphics g, AbstractButton b, Rectangle viewRect,
 			Rectangle textRect, Rectangle iconRect)
 	{
@@ -150,22 +150,14 @@ public class MetalToggleButtonUI extends BasicToggleButtonUI
 		boolean isIcon = b.getIcon() != null;
 
 		// If there is text
-		if (text != null && !text.equals(""))
+		if (( text != null ) && !text.equals(""))
 		{
 			if (!isIcon)
-			{
 				focusRect.setBounds(textRect);
-			}
-			else
-			{
-				focusRect.setBounds(iconRect.union(textRect));
-			}
+			else focusRect.setBounds(iconRect.union(textRect));
 		}
 		// If there is an icon and no text
-		else if (isIcon)
-		{
-			focusRect.setBounds(iconRect);
-		}
+		else if (isIcon) focusRect.setBounds(iconRect);
 
 		g.setColor(getFocusColor());
 		g.drawRect(( focusRect.x - 1 ), ( focusRect.y - 1 ),

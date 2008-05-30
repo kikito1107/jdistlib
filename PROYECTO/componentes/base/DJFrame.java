@@ -16,7 +16,6 @@ import java.util.Vector;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import Deventos.ColaEventos;
@@ -25,7 +24,6 @@ import Deventos.DMIEvent;
 import Deventos.DMouseEvent;
 
 import Deventos.enlaceJS.DConector;
-import Deventos.enlaceJS.DialogoSincronizacion;
 
 /**
  * <p>
@@ -150,22 +148,6 @@ public class DJFrame extends JFrame
 
 	}
 
-	private class PanelContenido extends JPanel
-	{
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 4192682926779862529L;
-
-		int i = 0;
-
-		@Override
-		public void paint(Graphics g)
-		{
-			super.paint(g);
-		}
-	}
-
 	private class PanelGlass extends JComponent
 	{
 
@@ -174,6 +156,7 @@ public class DJFrame extends JFrame
 		 */
 		private static final long serialVersionUID = 2055525820079068611L;
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public void paintComponent(Graphics g)
 		{
@@ -278,7 +261,8 @@ public class DJFrame extends JFrame
 		}
 
 	}
-
+	
+	@SuppressWarnings("unchecked")
 	private class ConjuntoMousesRemotos
 	{
 		private Vector v = new Vector();
@@ -291,7 +275,6 @@ public class DJFrame extends JFrame
 
 		public synchronized void eliminarUsuario(String usuario)
 		{
-			MouseRemoto mr = null;
 			int pos = buscar(usuario);
 			if (pos >= 0) v.removeElementAt(pos);
 		}
@@ -322,7 +305,6 @@ public class DJFrame extends JFrame
 
 		public synchronized boolean existe(String usuario)
 		{
-			MouseRemoto mr = null;
 			boolean existe = false;
 			int posicion = buscar(usuario);
 
@@ -511,6 +493,7 @@ public class DJFrame extends JFrame
 			return null;
 		}
 
+		@SuppressWarnings("unchecked")
 		public Vector obtenerMousesRemotos()
 		{
 			Vector v = null;

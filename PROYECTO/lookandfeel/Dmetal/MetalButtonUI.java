@@ -61,11 +61,13 @@ public class MetalButtonUI extends BasicButtonUI
 	// ********************************
 	// Install
 	// ********************************
+	@Override
 	public void installDefaults(AbstractButton b)
 	{
 		super.installDefaults(b);
 	}
 
+	@Override
 	public void uninstallDefaults(AbstractButton b)
 	{
 		super.uninstallDefaults(b);
@@ -74,6 +76,7 @@ public class MetalButtonUI extends BasicButtonUI
 	// ********************************
 	// Create Listeners
 	// ********************************
+	@Override
 	protected BasicButtonListener createButtonListener(AbstractButton b)
 	{
 		return new MetalButtonListener(b);
@@ -104,6 +107,7 @@ public class MetalButtonUI extends BasicButtonUI
 	// ********************************
 	// Paint
 	// ********************************
+	@Override
 	protected void paintButtonPressed(Graphics g, AbstractButton b)
 	{
 		if (b.isContentAreaFilled())
@@ -114,6 +118,7 @@ public class MetalButtonUI extends BasicButtonUI
 		}
 	}
 
+	@Override
 	protected void paintFocus(Graphics g, AbstractButton b, Rectangle viewRect,
 			Rectangle textRect, Rectangle iconRect)
 	{
@@ -123,22 +128,14 @@ public class MetalButtonUI extends BasicButtonUI
 		boolean isIcon = b.getIcon() != null;
 
 		// If there is text
-		if (text != null && !text.equals(""))
+		if (( text != null ) && !text.equals(""))
 		{
 			if (!isIcon)
-			{
 				focusRect.setBounds(textRect);
-			}
-			else
-			{
-				focusRect.setBounds(iconRect.union(textRect));
-			}
+			else focusRect.setBounds(iconRect.union(textRect));
 		}
 		// If there is an icon and no text
-		else if (isIcon)
-		{
-			focusRect.setBounds(iconRect);
-		}
+		else if (isIcon) focusRect.setBounds(iconRect);
 
 		g.setColor(getFocusColor());
 		g.drawRect(( focusRect.x - 1 ), ( focusRect.y - 1 ),
@@ -146,6 +143,7 @@ public class MetalButtonUI extends BasicButtonUI
 
 	}
 
+	@Override
 	protected void paintText(Graphics g, JComponent c, Rectangle textRect,
 			String text)
 	{
@@ -182,12 +180,14 @@ class MetalButtonListener extends BasicButtonListener
 		super(b);
 	}
 
+	@Override
 	public void focusGained(FocusEvent e)
 	{
 		Component c = (Component) e.getSource();
 		c.repaint();
 	}
 
+	@Override
 	public void focusLost(FocusEvent e)
 	{
 		AbstractButton b = (AbstractButton) e.getSource();

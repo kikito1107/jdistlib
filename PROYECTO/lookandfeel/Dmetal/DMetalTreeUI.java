@@ -26,10 +26,10 @@ import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicTreeUI;
 import javax.swing.tree.TreePath;
 
+import Deventos.DJTreeEvent;
 
 import componentes.base.DJTree;
 import componentes.listeners.DJTreeListener;
-import Deventos.DJTreeEvent;
 
 /**
  * The metal look and feel implementation of <code>TreeUI</code>.
@@ -80,7 +80,7 @@ import Deventos.DJTreeEvent;
  * @author Tom Santos
  * @author Steve Wilson (value add stuff)
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings( "unchecked" )
 public class DMetalTreeUI extends BasicTreeUI
 {
 
@@ -116,6 +116,7 @@ public class DMetalTreeUI extends BasicTreeUI
 	}
 
 	// *************************************************
+	@Override
 	protected MouseListener createMouseListener()
 	{
 		return new DMouseHandler();
@@ -137,11 +138,9 @@ public class DMetalTreeUI extends BasicTreeUI
 		int[] PathNum = new int[path.getPathCount()];
 		Object elemPath = null;
 		Object nodoActual = getModel().getRoot();
-		if (PathNum.length > 0)
-		{
-			// El primero siempre a ser 0 pues solo hay una posible raiz
+		if (PathNum.length > 0) // El primero siempre a ser 0 pues solo hay una
+			// posible raiz
 			PathNum[0] = 0;
-		}
 		for (int i = 1; i < PathNum.length; i++)
 		{
 			elemPath = path.getPathComponent(i);
@@ -170,10 +169,7 @@ public class DMetalTreeUI extends BasicTreeUI
 		for (int i = 0; i < numHijos; i++)
 		{
 			hijo = getModel().getChild(arbol, i);
-			if (nodo.equals(hijo))
-			{
-				index = i;
-			}
+			if (nodo.equals(hijo)) index = i;
 		}
 		return index;
 	}
@@ -200,9 +196,7 @@ public class DMetalTreeUI extends BasicTreeUI
 	{
 		Vector v = new Vector();
 		for (int i = 0; i < array.length; i++)
-		{
 			v.add(new Integer(array[i]));
-		}
 		return v;
 	}
 
@@ -210,12 +204,11 @@ public class DMetalTreeUI extends BasicTreeUI
 	{
 		int array[] = new int[v.size()];
 		for (int i = 0; i < v.size(); i++)
-		{
 			array[i] = ( (Integer) v.elementAt(i) ).intValue();
-		}
 		return array;
 	}
 
+	@Override
 	protected void installKeyboardActions()
 	{
 		//
@@ -249,38 +242,27 @@ public class DMetalTreeUI extends BasicTreeUI
 			// Obtenemos los hijos
 			Object[] hijos = new Object[numHijos];
 			for (i = 0; i < numHijos; i++)
-			{
 				hijos[i] = getModel().getChild(nodo, i);
-			}
 			// Obtenemos los elementos del path
 			Object[] objpath = new Object[tamPath + 1];
 			for (j = 0; j < tamPath; j++)
-			{
 				objpath[j] = path.getPathComponent(j);
-			}
 
 			for (i = 0; i < numHijos; i++)
 			{
 				objpath[tamPath] = hijos[i];
 				cerrarNodosHijos(new TreePath(objpath), hijos[i]);
 			}
-			if (tree.isExpanded(path))
-			{
-				tree.collapsePath(path);
-			}
+			if (tree.isExpanded(path)) tree.collapsePath(path);
 		}
 	}
 
+	@Override
 	protected void toggleExpandState(TreePath path)
 	{
 		if (tree.isExpanded(path))
-		{
 			cerrarNodosHijos(path, path.getLastPathComponent());
-		}
-		else
-		{
-			super.toggleExpandState(path);
-		}
+		else super.toggleExpandState(path);
 
 		/*
 		 * Vector todo = getEstado(); Vector v = (Vector)todo.elementAt(1);
@@ -301,13 +283,8 @@ public class DMetalTreeUI extends BasicTreeUI
 		{ getModel().getRoot() }));
 		TreePath pathSelec = tree.getSelectionPath();
 		if (pathSelec != null)
-		{
 			seleccionado = arrayToVector(pathToArray(tree.getSelectionPath()));
-		}
-		else
-		{
-			seleccionado = new Vector();
-		}
+		else seleccionado = new Vector();
 		v.add(seleccionado);
 		v.add(expandidos);
 
@@ -326,9 +303,7 @@ public class DMetalTreeUI extends BasicTreeUI
 		}
 
 		if (seleccionado.size() > 0)
-		{
 			tree.setSelectionPath(arrayToPath(vectorToArray(seleccionado)));
-		}
 	}
 
 	private void aniadirExpandidas(Vector v, TreePath path)
@@ -342,15 +317,11 @@ public class DMetalTreeUI extends BasicTreeUI
 			// Obtenemos los hijos
 			Object[] hijos = new Object[numHijos];
 			for (i = 0; i < numHijos; i++)
-			{
 				hijos[i] = getModel().getChild(nodoActual, i);
-			}
 			// Obtenemos los elementos del path
 			Object[] objpath = new Object[tamPath + 1];
 			for (j = 0; j < tamPath; j++)
-			{
 				objpath[j] = path.getPathComponent(j);
-			}
 
 			for (i = 0; i < numHijos; i++)
 			{
@@ -369,11 +340,13 @@ public class DMetalTreeUI extends BasicTreeUI
 
 	// *************************************************
 
+	@Override
 	protected int getHorizontalLegBuffer()
 	{
 		return 4;
 	}
 
+	@Override
 	public void installUI(JComponent c)
 	{
 		super.installUI(c);
@@ -385,6 +358,7 @@ public class DMetalTreeUI extends BasicTreeUI
 
 	}
 
+	@Override
 	public void uninstallUI(JComponent c)
 	{
 		c.removePropertyChangeListener(lineStyleListener);
@@ -398,41 +372,27 @@ public class DMetalTreeUI extends BasicTreeUI
 	 */
 	protected void decodeLineStyle(Object lineStyleFlag)
 	{
-		if (lineStyleFlag == null
+		if (( lineStyleFlag == null )
 				|| lineStyleFlag.equals(LEG_LINE_STYLE_STRING))
-		{
-			lineStyle = LEG_LINE_STYLE; // default case
-		}
-		else
-		{
-			if (lineStyleFlag.equals(NO_STYLE_STRING))
-			{
-				lineStyle = NO_LINE_STYLE;
-			}
-			else if (lineStyleFlag.equals(HORIZ_STYLE_STRING))
-			{
-				lineStyle = HORIZ_LINE_STYLE;
-			}
-		}
+			lineStyle = LEG_LINE_STYLE; // default
+		// case
+		else if (lineStyleFlag.equals(NO_STYLE_STRING))
+			lineStyle = NO_LINE_STYLE;
+		else if (lineStyleFlag.equals(HORIZ_STYLE_STRING))
+			lineStyle = HORIZ_LINE_STYLE;
 
 	}
 
 	protected boolean isLocationInExpandControl(int row, int rowLevel,
 			int mouseX, int mouseY)
 	{
-		if (tree != null && !isLeaf(row))
+		if (( tree != null ) && !isLeaf(row))
 		{
 			int boxWidth;
 
 			if (getExpandedIcon() != null)
-			{
 				boxWidth = getExpandedIcon().getIconWidth() + 6;
-			}
-			else
-			{
-				boxWidth = 8;
-
-			}
+			else boxWidth = 8;
 			Insets i = tree.getInsets();
 			int boxLeftX = ( i != null ) ? i.left : 0;
 
@@ -441,20 +401,19 @@ public class DMetalTreeUI extends BasicTreeUI
 
 			int boxRightX = boxLeftX + boxWidth;
 
-			return mouseX >= boxLeftX && mouseX <= boxRightX;
+			return ( mouseX >= boxLeftX ) && ( mouseX <= boxRightX );
 		}
 		return false;
 	}
 
+	@Override
 	public void paint(Graphics g, JComponent c)
 	{
 		super.paint(g, c);
 
 		// Paint the lines
-		if (lineStyle == HORIZ_LINE_STYLE && !largeModel)
-		{
+		if (( lineStyle == HORIZ_LINE_STYLE ) && !largeModel)
 			paintHorizontalSeparators(g, c);
-		}
 	}
 
 	protected void paintHorizontalSeparators(Graphics g, JComponent c)
@@ -468,49 +427,42 @@ public class DMetalTreeUI extends BasicTreeUI
 		int endRow = getRowForPath(tree, getClosestPathForLocation(tree, 0,
 				clipBounds.y + clipBounds.height - 1));
 
-		if (beginRow <= -1 || endRow <= -1)
-		{
-			return;
-		}
+		if (( beginRow <= -1 ) || ( endRow <= -1 )) return;
 
 		for (int i = beginRow; i <= endRow; ++i)
 		{
 			TreePath path = getPathForRow(tree, i);
 
-			if (path != null && path.getPathCount() == 2)
+			if (( path != null ) && ( path.getPathCount() == 2 ))
 			{
 				Rectangle rowBounds = getPathBounds(tree,
 						getPathForRow(tree, i));
 
 				// Draw a line at the top
 				if (rowBounds != null)
-				{
 					g.drawLine(clipBounds.x, rowBounds.y, clipBounds.x
 							+ clipBounds.width, rowBounds.y);
-				}
 			}
 		}
 
 	}
 
+	@Override
 	protected void paintVerticalPartOfLeg(Graphics g, Rectangle clipBounds,
 			Insets insets, TreePath path)
 	{
 		if (lineStyle == LEG_LINE_STYLE)
-		{
 			super.paintVerticalPartOfLeg(g, clipBounds, insets, path);
-		}
 	}
 
+	@Override
 	protected void paintHorizontalPartOfLeg(Graphics g, Rectangle clipBounds,
 			Insets insets, Rectangle bounds, TreePath path, int row,
 			boolean isExpanded, boolean hasBeenExpanded, boolean isLeaf)
 	{
 		if (lineStyle == LEG_LINE_STYLE)
-		{
 			super.paintHorizontalPartOfLeg(g, clipBounds, insets, bounds, path,
 					row, isExpanded, hasBeenExpanded, isLeaf);
-		}
 	}
 
 	/** This class listens for changes in line style */
@@ -519,10 +471,7 @@ public class DMetalTreeUI extends BasicTreeUI
 		public void propertyChange(PropertyChangeEvent e)
 		{
 			String name = e.getPropertyName();
-			if (name.equals(LINE_STYLE))
-			{
-				decodeLineStyle(e.getNewValue());
-			}
+			if (name.equals(LINE_STYLE)) decodeLineStyle(e.getNewValue());
 		}
 	} // end class PaletteListener
 
@@ -533,6 +482,7 @@ public class DMetalTreeUI extends BasicTreeUI
 		/**
 		 * Invoked when a mouse button has been pressed on a component.
 		 */
+		@Override
 		public void mousePressed(MouseEvent e)
 		{
 			if (!e.isConsumed())
@@ -540,26 +490,17 @@ public class DMetalTreeUI extends BasicTreeUI
 				handleSelection(e);
 				selectedOnPress = true;
 			}
-			else
-			{
-				selectedOnPress = false;
-			}
+			else selectedOnPress = false;
 		}
 
 		void handleSelection(MouseEvent e)
 		{
-			if (tree != null && tree.isEnabled())
+			if (( tree != null ) && tree.isEnabled())
 			{
 				if (isEditing(tree) && tree.getInvokesStopCellEditing()
-						&& !stopEditing(tree))
-				{
-					return;
-				}
+						&& !stopEditing(tree)) return;
 
-				if (tree.isRequestFocusEnabled())
-				{
-					tree.requestFocus();
-				}
+				if (tree.isRequestFocusEnabled()) tree.requestFocus();
 
 				TreePath path = getClosestPathForLocation(tree, e.getX(), e
 						.getY());
@@ -572,16 +513,12 @@ public class DMetalTreeUI extends BasicTreeUI
 				{
 					Rectangle bounds = getPathBounds(tree, path);
 
-					if (e.getY() > ( bounds.y + bounds.height ))
-					{
-						return;
-					}
+					if (e.getY() > ( bounds.y + bounds.height )) return;
 
 					// Preferably checkForClickInExpandControl could take
 					// the Event to do this it self!
-					if (SwingUtilities.isLeftMouseButton(e))
-					{
-						// checkForClickInExpandControl(path, e.getX(),
+					if (SwingUtilities.isLeftMouseButton(e)) // checkForClickInExpandControl(path,
+						// e.getX(),
 						// e.getY());
 						if (isLocationInExpandControl(path, e.getX(), e.getY()))
 						{
@@ -597,20 +534,16 @@ public class DMetalTreeUI extends BasicTreeUI
 							int[] pathNumeros = pathToArray(path);
 							ev.path = arrayToVector(pathNumeros);
 							for (int i = 0; i < v.size(); i++)
-							{
 								( (DJTreeListener) v.elementAt(i) )
 										.apertura_cierre(ev);
-							}
 						}
-					}
 
 					int x = e.getX();
 
 					// Perhaps they clicked the cell itself. If so,
 					// select it.
 					if (x > bounds.x)
-					{
-						if (x <= ( bounds.x + bounds.width )
+						if (( x <= ( bounds.x + bounds.width ) )
 								&& !startEditing(path, e))
 						{
 							// selectPathForEvent(path, e);
@@ -623,20 +556,10 @@ public class DMetalTreeUI extends BasicTreeUI
 							int[] pathNumeros = pathToArray(path);
 							ev.path = arrayToVector(pathNumeros);
 							for (int i = 0; i < v.size(); i++)
-							{
 								( (DJTreeListener) v.elementAt(i) )
 										.seleccion(ev);
-							}
-							/*
-							 * if(isToggleEvent(e)){ ev.tipo = new
-							 * Integer(DJTreeEvent.APERTURA_CIERRE.intValue());
-							 * for (int i = 0; i < v.size(); i++) { (
-							 * (DJTreeListener)
-							 * v.elementAt(i)).apertura_cierre(ev); } }
-							 */
 
 						}
-					}
 				}
 			}
 		}
@@ -653,12 +576,11 @@ public class DMetalTreeUI extends BasicTreeUI
 		{
 		}
 
+		@Override
 		public void mouseReleased(MouseEvent e)
 		{
 			if (( !e.isConsumed() ) && ( !selectedOnPress ))
-			{
 				handleSelection(e);
-			}
 		}
 
 		boolean selectedOnPress;

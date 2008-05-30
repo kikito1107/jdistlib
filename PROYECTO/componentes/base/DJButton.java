@@ -35,9 +35,6 @@ import Deventos.DJButtonEvent;
 
 public class DJButton extends JButton
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private static final String uiClassID = "DButtonUI";

@@ -60,6 +60,7 @@ public class MetalToolTipUI extends BasicToolTipUI
 		return sharedInstance;
 	}
 
+	@Override
 	public void installUI(JComponent c)
 	{
 		super.installUI(c);
@@ -68,18 +69,17 @@ public class MetalToolTipUI extends BasicToolTipUI
 		smallFont = new Font(f.getName(), f.getStyle(), f.getSize() - 2);
 		acceleratorDelimiter = UIManager
 				.getString("MenuItem.acceleratorDelimiter");
-		if (acceleratorDelimiter == null)
-		{
-			acceleratorDelimiter = "-";
-		}
+		if (acceleratorDelimiter == null) acceleratorDelimiter = "-";
 	}
 
+	@Override
 	public void uninstallUI(JComponent c)
 	{
 		super.uninstallUI(c);
 		tip = null;
 	}
 
+	@Override
 	public void paint(Graphics g, JComponent c)
 	{
 		JToolTip tip = (JToolTip) c;
@@ -87,13 +87,11 @@ public class MetalToolTipUI extends BasicToolTipUI
 		super.paint(g, c);
 
 		Font font = c.getFont();
+
 		FontMetrics metrics = Toolkit.getDefaultToolkit().getFontMetrics(font);
 		String keyText = getAcceleratorString(tip);
 		String tipText = tip.getTipText();
-		if (tipText == null)
-		{
-			tipText = "";
-		}
+		if (tipText == null) tipText = "";
 		if (!( keyText.equals("") ))
 		{ // only draw control key if there is one
 			g.setFont(smallFont);
@@ -103,6 +101,7 @@ public class MetalToolTipUI extends BasicToolTipUI
 		}
 	}
 
+	@Override
 	public Dimension getPreferredSize(JComponent c)
 	{
 		Dimension d = super.getPreferredSize(c);
@@ -120,7 +119,7 @@ public class MetalToolTipUI extends BasicToolTipUI
 	protected boolean isAcceleratorHidden()
 	{
 		Boolean b = (Boolean) UIManager.get("ToolTip.hideAccelerator");
-		return b != null && b.booleanValue();
+		return ( b != null ) && b.booleanValue();
 	}
 
 	private String getAcceleratorString(JToolTip tip)
@@ -141,15 +140,9 @@ public class MetalToolTipUI extends BasicToolTipUI
 	// shared.
 	public String getAcceleratorString()
 	{
-		if (tip == null || isAcceleratorHidden())
-		{
-			return "";
-		}
+		if (( tip == null ) || isAcceleratorHidden()) return "";
 		JComponent comp = tip.getComponent();
-		if (comp == null)
-		{
-			return "";
-		}
+		if (comp == null) return "";
 		KeyStroke[] keys = comp.getRegisteredKeyStrokes();
 		String controlKeyStr = "";
 
@@ -158,10 +151,10 @@ public class MetalToolTipUI extends BasicToolTipUI
 			int mod = keys[i].getModifiers();
 			int condition = comp.getConditionForKeyStroke(keys[i]);
 
-			if (condition == JComponent.WHEN_IN_FOCUSED_WINDOW
-					&& ( ( mod & InputEvent.ALT_MASK ) != 0
-							|| ( mod & InputEvent.CTRL_MASK ) != 0
-							|| ( mod & InputEvent.SHIFT_MASK ) != 0 || ( mod & InputEvent.META_MASK ) != 0 ))
+			if (( condition == JComponent.WHEN_IN_FOCUSED_WINDOW )
+					&& ( ( ( mod & InputEvent.ALT_MASK ) != 0 )
+							|| ( ( mod & InputEvent.CTRL_MASK ) != 0 )
+							|| ( ( mod & InputEvent.SHIFT_MASK ) != 0 ) || ( ( mod & InputEvent.META_MASK ) != 0 ) ))
 			{
 				controlKeyStr = KeyEvent.getKeyModifiersText(mod)
 						+ acceleratorDelimiter
@@ -174,14 +167,13 @@ public class MetalToolTipUI extends BasicToolTipUI
 		 * Special case for menu item since they do not register a keyboard
 		 * action for their mnemonics and they always use Alt
 		 */
-		if (controlKeyStr.equals("") && comp instanceof JMenuItem)
+		if (controlKeyStr.equals("") && ( comp instanceof JMenuItem ))
 		{
 			int mnemonic = ( (JMenuItem) comp ).getMnemonic();
 			if (mnemonic != 0)
-			{
-				controlKeyStr = KeyEvent.getKeyModifiersText(KeyEvent.ALT_MASK)
+				controlKeyStr = KeyEvent
+						.getKeyModifiersText(InputEvent.ALT_MASK)
 						+ acceleratorDelimiter + (char) mnemonic;
-			}
 		}
 
 		return controlKeyStr;

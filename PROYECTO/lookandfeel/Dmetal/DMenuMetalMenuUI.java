@@ -18,10 +18,10 @@ import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicMenuUI;
 
 import util.DMenuSelectionManager;
+import Deventos.DJMenuEvent;
 
 import componentes.base.DJMenu;
 import componentes.listeners.DJMenuListener;
-import Deventos.DJMenuEvent;
 
 /**
  * <p>
@@ -40,7 +40,7 @@ import Deventos.DJMenuEvent;
  * @author not attributable
  * @version 1.0
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings( "unchecked" )
 public class DMenuMetalMenuUI extends BasicMenuUI
 {
 	private static boolean instaladoListenerMovimiento = false;
@@ -55,26 +55,26 @@ public class DMenuMetalMenuUI extends BasicMenuUI
 		return new DMenuMetalMenuUI();
 	}
 
+	@Override
 	protected MouseInputListener createMouseInputListener(JComponent c)
 	{
 		return new DMouseInputHandler();
 	}
 
+	@Override
 	protected void installListeners()
 	{
 		super.installListeners();
 	}
 
+	@Override
 	public MenuElement[] getPath()
 	{
 		MenuSelectionManager m = DMenuSelectionManager.defaultManager();
 		MenuElement oldPath[] = m.getSelectedPath();
 		MenuElement newPath[];
 		int i = oldPath.length;
-		if (i == 0)
-		{
-			return new MenuElement[0];
-		}
+		if (i == 0) return new MenuElement[0];
 		Component parent = menuItem.getParent();
 		if (oldPath[i - 1].getComponent() == parent)
 		{
@@ -93,12 +93,7 @@ public class DMenuMetalMenuUI extends BasicMenuUI
 			// then copy up to that and add yourself...
 			int j;
 			for (j = oldPath.length - 1; j >= 0; j--)
-			{
-				if (oldPath[j].getComponent() == parent)
-				{
-					break;
-				}
-			}
+				if (oldPath[j].getComponent() == parent) break;
 			newPath = new MenuElement[j + 2];
 			System.arraycopy(oldPath, 0, newPath, 0, j + 1);
 			newPath[j + 1] = menuItem;
@@ -126,25 +121,16 @@ public class DMenuMetalMenuUI extends BasicMenuUI
 		int i, j, n;
 		v.add(new Integer(0));
 		for (i = 1; i < path.length; i++)
-		{
 			if (path[i] instanceof JPopupMenu)
-			{
 				v.add(new Integer(-5));
-			}
 			else
 			{
 				MenuElement[] me = path[i - 1].getSubElements();
 				n = -1;
 				for (j = 0; j < me.length; j++)
-				{
-					if (me[j].equals(path[i]))
-					{
-						n = j;
-					}
-				}
+					if (me[j].equals(path[i])) n = j;
 				v.add(new Integer(n));
 			}
-		}
 		return v;
 	}
 
@@ -168,9 +154,7 @@ public class DMenuMetalMenuUI extends BasicMenuUI
 			{
 				Container cnt = menuItem.getParent();
 				while (!( cnt instanceof JFrame ))
-				{
 					cnt = cnt.getParent();
-				}
 				if (cnt instanceof java.awt.Frame)
 				{
 					( (JFrame) cnt )
@@ -180,58 +164,45 @@ public class DMenuMetalMenuUI extends BasicMenuUI
 			}
 
 			JMenu menu = (JMenu) menuItem;
-			if (!menu.isEnabled())
-			{
-				return;
-			}
+			if (!menu.isEnabled()) return;
 
 			MenuSelectionManager manager = DMenuSelectionManager
 					.defaultManager();
-			if (menu.isTopLevelMenu())
+			if (menu.isTopLevelMenu()) if (menu.isSelected())
 			{
-				if (menu.isSelected())
+				// manager.clearSelectedPath();
+				// *****************************************
+				Vector v = ( (DJMenu) menu ).getDJMenuListeners();
+				DJMenuEvent evento = new DJMenuEvent();
+				evento.path = new Vector();
+				for (int i = 0; i < v.size(); i++)
+					( (DJMenuListener) v.elementAt(i) ).cambioEstado(evento);
+			}
+			else
+			{
+				Container cnt = menu.getParent();
+				// ********************
+				/*
+				 * Component[] comp = cnt.getComponents(); for (int i = 0; i <
+				 * comp.length; i++) { if (comp[i].equals(menu))
+				 * System.out.println("Abierto menu " + i); }
+				 */
+				// ********************
+				if (( cnt != null ) && ( cnt instanceof JMenuBar ))
 				{
-					// manager.clearSelectedPath();
+					MenuElement me[] = new MenuElement[3];
+					me[0] = (MenuElement) cnt;
+					me[1] = menu;
+					me[2] = menu.getPopupMenu();
+
+					// manager.setSelectedPath(me);
 					// *****************************************
 					Vector v = ( (DJMenu) menu ).getDJMenuListeners();
 					DJMenuEvent evento = new DJMenuEvent();
-					evento.path = new Vector();
+					evento.path = pathToVector(me);
 					for (int i = 0; i < v.size(); i++)
-					{
 						( (DJMenuListener) v.elementAt(i) )
 								.cambioEstado(evento);
-					}
-					// *****************************************
-				}
-				else
-				{
-					Container cnt = menu.getParent();
-					// ********************
-					/*
-					 * Component[] comp = cnt.getComponents(); for (int i = 0; i <
-					 * comp.length; i++) { if (comp[i].equals(menu))
-					 * System.out.println("Abierto menu " + i); }
-					 */
-					// ********************
-					if (cnt != null && cnt instanceof JMenuBar)
-					{
-						MenuElement me[] = new MenuElement[3];
-						me[0] = (MenuElement) cnt;
-						me[1] = menu;
-						me[2] = menu.getPopupMenu();
-
-						// manager.setSelectedPath(me);
-						// *****************************************
-						Vector v = ( (DJMenu) menu ).getDJMenuListeners();
-						DJMenuEvent evento = new DJMenuEvent();
-						evento.path = pathToVector(me);
-						for (int i = 0; i < v.size(); i++)
-						{
-							( (DJMenuListener) v.elementAt(i) )
-									.cambioEstado(evento);
-						}
-						// *****************************************
-					}
 				}
 			}
 
@@ -257,17 +228,11 @@ public class DMenuMetalMenuUI extends BasicMenuUI
 		public void mouseReleased(MouseEvent e)
 		{
 			JMenu menu = (JMenu) menuItem;
-			if (!menu.isEnabled())
-			{
-				return;
-			}
+			if (!menu.isEnabled()) return;
 			MenuSelectionManager manager = DMenuSelectionManager
 					.defaultManager();
 			manager.processMouseEvent(e);
-			if (!e.isConsumed())
-			{
-				manager.clearSelectedPath();
-			}
+			if (!e.isConsumed()) manager.clearSelectedPath();
 		}
 
 		/**
@@ -282,18 +247,15 @@ public class DMenuMetalMenuUI extends BasicMenuUI
 		public void mouseEntered(MouseEvent e)
 		{
 			JMenu menu = (JMenu) menuItem;
-			if (!menu.isEnabled())
-			{
-				return;
-			}
+			if (!menu.isEnabled()) return;
 
 			MenuSelectionManager manager = DMenuSelectionManager
 					.defaultManager();
 			MenuElement selectedPath[] = manager.getSelectedPath();
 			if (!menu.isTopLevelMenu())
 			{
-				if (!( selectedPath.length > 0 && selectedPath[selectedPath.length - 1] == menu
-						.getPopupMenu() ))
+				if (!( ( selectedPath.length > 0 ) && ( selectedPath[selectedPath.length - 1] == menu
+						.getPopupMenu() ) ))
 				{
 
 					// appendPath(getPath(), menu.getPopupMenu());
@@ -306,39 +268,28 @@ public class DMenuMetalMenuUI extends BasicMenuUI
 					DJMenuEvent evento = new DJMenuEvent();
 					evento.path = pathToVector(newPath);
 					for (int i = 0; i < v.size(); i++)
-					{
 						( (DJMenuListener) v.elementAt(i) )
 								.cambioEstado(evento);
-					}
-					// *****************************************
-					// setupPostTimer(menu);
 
 				}
 			}
-			else
+			else if (( selectedPath.length > 0 )
+					&& ( selectedPath[0] == menu.getParent() ))
 			{
-				if (selectedPath.length > 0
-						&& selectedPath[0] == menu.getParent())
-				{
-					MenuElement newPath[] = new MenuElement[3];
-					// A top level menu's parent is by definition
-					// a JMenuBar
-					newPath[0] = (MenuElement) menu.getParent();
-					newPath[1] = menu;
-					newPath[2] = menu.getPopupMenu();
+				MenuElement newPath[] = new MenuElement[3];
+				// A top level menu's parent is by definition
+				// a JMenuBar
+				newPath[0] = (MenuElement) menu.getParent();
+				newPath[1] = menu;
+				newPath[2] = menu.getPopupMenu();
 
-					// manager.setSelectedPath(newPath);
-					// *****************************************
-					Vector v = ( (DJMenu) menu ).getDJMenuListeners();
-					DJMenuEvent evento = new DJMenuEvent();
-					evento.path = pathToVector(newPath);
-					for (int i = 0; i < v.size(); i++)
-					{
-						( (DJMenuListener) v.elementAt(i) )
-								.cambioEstado(evento);
-					}
-					// *****************************************
-				}
+				// manager.setSelectedPath(newPath);
+				// *****************************************
+				Vector v = ( (DJMenu) menu ).getDJMenuListeners();
+				DJMenuEvent evento = new DJMenuEvent();
+				evento.path = pathToVector(newPath);
+				for (int i = 0; i < v.size(); i++)
+					( (DJMenuListener) v.elementAt(i) ).cambioEstado(evento);
 			}
 		}
 
@@ -364,14 +315,13 @@ public class DMenuMetalMenuUI extends BasicMenuUI
 			java.awt.event.ComponentAdapter
 	{
 
+		@Override
 		public void componentMoved(ComponentEvent e)
 		{
 			MenuElement[] path = DMenuSelectionManager.defaultManager()
 					.getSelectedPath();
 			if (path.length > 0)
-			{
 				DMenuSelectionManager.defaultManager().setSelectedPath(path);
-			}
 		}
 	}
 

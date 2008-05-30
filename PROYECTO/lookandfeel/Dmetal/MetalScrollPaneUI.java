@@ -40,6 +40,7 @@ public class MetalScrollPaneUI extends BasicScrollPaneUI
 		return new MetalScrollPaneUI();
 	}
 
+	@Override
 	public void installUI(JComponent c)
 	{
 
@@ -51,6 +52,7 @@ public class MetalScrollPaneUI extends BasicScrollPaneUI
 		updateScrollbarsFreeStanding();
 	}
 
+	@Override
 	public void uninstallUI(JComponent c)
 	{
 		super.uninstallUI(c);
@@ -62,6 +64,7 @@ public class MetalScrollPaneUI extends BasicScrollPaneUI
 		vsb.putClientProperty(MetalScrollBarUI.FREE_STANDING_PROP, null);
 	}
 
+	@Override
 	public void installListeners(JScrollPane scrollPane)
 	{
 		super.installListeners(scrollPane);
@@ -84,21 +87,13 @@ public class MetalScrollPaneUI extends BasicScrollPaneUI
 	 */
 	private void updateScrollbarsFreeStanding()
 	{
-		if (scrollpane == null)
-		{
-			return;
-		}
+		if (scrollpane == null) return;
 		Border border = scrollpane.getBorder();
 		Object value;
 
 		if (border instanceof MetalBorders.ScrollPaneBorder)
-		{
 			value = Boolean.FALSE;
-		}
-		else
-		{
-			value = Boolean.TRUE;
-		}
+		else value = Boolean.TRUE;
 
 		if (scrollpane.getHorizontalScrollBar() != null)
 			scrollpane.getHorizontalScrollBar().putClientProperty(
@@ -132,9 +127,7 @@ public class MetalScrollPaneUI extends BasicScrollPaneUI
 								Boolean.FALSE);
 				}
 				else if ("border".equals(propertyName))
-				{
 					updateScrollbarsFreeStanding();
-				}
 			}
 		};
 	}

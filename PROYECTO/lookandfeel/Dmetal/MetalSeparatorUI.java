@@ -13,6 +13,7 @@ import java.awt.Graphics;
 import javax.swing.JComponent;
 import javax.swing.JSeparator;
 import javax.swing.LookAndFeel;
+import javax.swing.SwingConstants;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicSeparatorUI;
 
@@ -38,17 +39,19 @@ public class MetalSeparatorUI extends BasicSeparatorUI
 		return new MetalSeparatorUI();
 	}
 
+	@Override
 	protected void installDefaults(JSeparator s)
 	{
 		LookAndFeel.installColors(s, "Separator.background",
 				"Separator.foreground");
 	}
 
+	@Override
 	public void paint(Graphics g, JComponent c)
 	{
 		Dimension s = c.getSize();
 
-		if (( (JSeparator) c ).getOrientation() == JSeparator.VERTICAL)
+		if (( (JSeparator) c ).getOrientation() == SwingConstants.VERTICAL)
 		{
 			g.setColor(c.getForeground());
 			g.drawLine(0, 0, 0, s.height);
@@ -66,15 +69,11 @@ public class MetalSeparatorUI extends BasicSeparatorUI
 		}
 	}
 
+	@Override
 	public Dimension getPreferredSize(JComponent c)
 	{
-		if (( (JSeparator) c ).getOrientation() == JSeparator.VERTICAL)
-		{
+		if (( (JSeparator) c ).getOrientation() == SwingConstants.VERTICAL)
 			return new Dimension(2, 0);
-		}
-		else
-		{
-			return new Dimension(0, 2);
-		}
+		else return new Dimension(0, 2);
 	}
 }

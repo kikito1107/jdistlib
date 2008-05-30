@@ -26,6 +26,7 @@ import javax.swing.plaf.basic.BasicListUI;
 public class MetalComboListUI extends BasicListUI
 {
 
+	@Override
 	protected void installDefaults()
 	{
 		super.installDefaults();
@@ -37,6 +38,7 @@ public class MetalComboListUI extends BasicListUI
 	 * Con la sobrecarga de este método hacemos que se instalen solo los
 	 * listener que deseamos
 	 */
+	@Override
 	protected void installListeners()
 	{
 		focusListener = createFocusListener();
@@ -49,15 +51,10 @@ public class MetalComboListUI extends BasicListUI
 		list.addPropertyChangeListener(propertyChangeListener);
 
 		ListModel model = list.getModel();
-		if (model != null)
-		{
-			model.addListDataListener(listDataListener);
-		}
+		if (model != null) model.addListDataListener(listDataListener);
 
 		ListSelectionModel selectionModel = list.getSelectionModel();
 		if (selectionModel != null)
-		{
 			selectionModel.addListSelectionListener(listSelectionListener);
-		}
 	}
 }

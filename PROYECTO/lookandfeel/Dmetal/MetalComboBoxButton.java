@@ -87,6 +87,9 @@ public class MetalComboBoxButton extends JButton
 		super("");
 		DefaultButtonModel model = new DefaultButtonModel()
 		{
+			private static final long serialVersionUID = -6872545225213751532L;
+
+			@Override
 			public void setArmed(boolean armed)
 			{
 				super.setArmed(isPressed() ? true : armed);
@@ -113,11 +116,13 @@ public class MetalComboBoxButton extends JButton
 		iconOnly = onlyIcon;
 	}
 
+	@Override
 	public boolean isFocusTraversable()
 	{
 		return false;
 	}
 
+	@Override
 	public void setEnabled(boolean enabled)
 	{
 		super.setEnabled(enabled);
@@ -135,6 +140,7 @@ public class MetalComboBoxButton extends JButton
 		}
 	}
 
+	@Override
 	public void paintComponent(Graphics g)
 	{
 		boolean leftToRight = MetalUtils.isLeftToRight(comboBox);
@@ -147,10 +153,7 @@ public class MetalComboBoxButton extends JButton
 		int width = getWidth() - ( insets.left + insets.right );
 		int height = getHeight() - ( insets.top + insets.bottom );
 
-		if (height <= 0 || width <= 0)
-		{
-			return;
-		}
+		if (( height <= 0 ) || ( width <= 0 )) return;
 
 		int left = insets.left;
 		int top = insets.top;
@@ -175,13 +178,8 @@ public class MetalComboBoxButton extends JButton
 			else
 			{
 				if (leftToRight)
-				{
 					iconLeft = ( left + ( width - 1 ) ) - iconWidth;
-				}
-				else
-				{
-					iconLeft = left;
-				}
+				else iconLeft = left;
 				iconTop = ( top + ( ( bottom - top ) / 2 ) )
 						- ( iconHeight / 2 );
 			}
@@ -197,7 +195,7 @@ public class MetalComboBoxButton extends JButton
 		}
 
 		// Let the renderer paint
-		if (!iconOnly && comboBox != null)
+		if (!iconOnly && ( comboBox != null ))
 		{
 			ListCellRenderer renderer = comboBox.getRenderer();
 			Component c;
@@ -209,18 +207,14 @@ public class MetalComboBoxButton extends JButton
 			if (model.isArmed() && model.isPressed())
 			{
 				if (isOpaque())
-				{
 					c.setBackground(UIManager.getColor("Button.select"));
-				}
 				c.setForeground(comboBox.getForeground());
 			}
 			else if (!comboBox.isEnabled())
 			{
 				if (isOpaque())
-				{
 					c.setBackground(UIManager
 							.getColor("ComboBox.disabledBackground"));
-				}
 				c.setForeground(UIManager
 						.getColor("ComboBox.disabledForeground"));
 			}
@@ -234,21 +228,13 @@ public class MetalComboBoxButton extends JButton
 
 			// Fix for 4238829: should lay out the JPanel.
 			boolean shouldValidate = false;
-			if (c instanceof JPanel)
-			{
-				shouldValidate = true;
-			}
+			if (c instanceof JPanel) shouldValidate = true;
 
 			if (leftToRight)
-			{
 				rendererPane.paintComponent(g, c, this, left, top, cWidth,
 						height, shouldValidate);
-			}
-			else
-			{
-				rendererPane.paintComponent(g, c, this, left + iconWidth, top,
-						cWidth, height, shouldValidate);
-			}
+			else rendererPane.paintComponent(g, c, this, left + iconWidth, top,
+					cWidth, height, shouldValidate);
 		}
 	}
 }

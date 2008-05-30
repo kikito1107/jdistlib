@@ -50,6 +50,7 @@ public class MetalDesktopIconUI extends BasicDesktopIconUI
 	{
 	}
 
+	@Override
 	protected void installDefaults()
 	{
 		super.installDefaults();
@@ -59,6 +60,7 @@ public class MetalDesktopIconUI extends BasicDesktopIconUI
 		width = UIManager.getInt("DesktopIcon.width");
 	}
 
+	@Override
 	protected void installComponents()
 	{
 		frame = desktopIcon.getInternalFrame();
@@ -93,6 +95,7 @@ public class MetalDesktopIconUI extends BasicDesktopIconUI
 		desktopIcon.add(label, BorderLayout.WEST);
 	}
 
+	@Override
 	protected void uninstallComponents()
 	{
 		desktopIcon.setLayout(null);
@@ -102,6 +105,7 @@ public class MetalDesktopIconUI extends BasicDesktopIconUI
 		frame = null;
 	}
 
+	@Override
 	protected void installListeners()
 	{
 		super.installListeners();
@@ -109,6 +113,7 @@ public class MetalDesktopIconUI extends BasicDesktopIconUI
 				titleListener = new TitleListener());
 	}
 
+	@Override
 	protected void uninstallListeners()
 	{
 		desktopIcon.getInternalFrame().removePropertyChangeListener(
@@ -117,6 +122,7 @@ public class MetalDesktopIconUI extends BasicDesktopIconUI
 		super.uninstallListeners();
 	}
 
+	@Override
 	public Dimension getPreferredSize(JComponent c)
 	{
 		// Metal desktop icons can not be resized. Their dimensions should
@@ -124,6 +130,7 @@ public class MetalDesktopIconUI extends BasicDesktopIconUI
 		return getMinimumSize(c);
 	}
 
+	@Override
 	public Dimension getMinimumSize(JComponent c)
 	{
 		// For the metal desktop icon we will use the layout maanger to
@@ -133,6 +140,7 @@ public class MetalDesktopIconUI extends BasicDesktopIconUI
 				desktopIcon).height);
 	}
 
+	@Override
 	public Dimension getMaximumSize(JComponent c)
 	{
 		// Metal desktop icons can not be resized. Their dimensions should
@@ -145,14 +153,10 @@ public class MetalDesktopIconUI extends BasicDesktopIconUI
 		public void propertyChange(PropertyChangeEvent e)
 		{
 			if (e.getPropertyName().equals("title"))
-			{
 				button.setText((String) e.getNewValue());
-			}
 
 			if (e.getPropertyName().equals("frameIcon"))
-			{
 				button.setIcon((Icon) e.getNewValue());
-			}
 		}
 	}
 }

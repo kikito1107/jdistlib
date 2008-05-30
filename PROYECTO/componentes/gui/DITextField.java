@@ -133,6 +133,7 @@ public class DITextField extends DComponenteBase implements java.io.Serializable
 	 * campotexto.removeLJButtonListeners(); }
 	 */
 
+	@SuppressWarnings("unchecked")
 	public Vector getDJTextFieldListeners()
 	{
 		return campotexto.getDJTextFieldListeners();
@@ -204,6 +205,7 @@ public class DITextField extends DComponenteBase implements java.io.Serializable
 			super(dc);
 		}
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public void run()
 		{
@@ -214,7 +216,6 @@ public class DITextField extends DComponenteBase implements java.io.Serializable
 
 			DEvent[] eventos = obtenerEventosColaRecepcion();
 			int numEventos = eventos.length;
-			int i = 0;
 
 			// Buscamos si se ha recibido una respuesta de sincronizacion
 			for (int j = 0; j < numEventos; j++)

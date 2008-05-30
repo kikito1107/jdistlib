@@ -109,13 +109,8 @@ class MetalUtils
 			boolean active)
 	{
 		if (active)
-		{
 			drawActiveButtonBorder(g, x, y, w, h);
-		}
-		else
-		{
-			drawFlush3DBorder(g, x, y, w, h);
-		}
+		else drawFlush3DBorder(g, x, y, w, h);
 	}
 
 	static void drawActiveButtonBorder(Graphics g, int x, int y, int w, int h)
@@ -169,19 +164,13 @@ class MetalUtils
 	{
 		Object value = UIManager.get(key);
 
-		if (value instanceof Integer)
+		if (value instanceof Integer) return ( (Integer) value ).intValue();
+		if (value instanceof String) try
 		{
-			return ( (Integer) value ).intValue();
+			return Integer.parseInt((String) value);
 		}
-		if (value instanceof String)
+		catch (NumberFormatException nfe)
 		{
-			try
-			{
-				return Integer.parseInt((String) value);
-			}
-			catch (NumberFormatException nfe)
-			{
-			}
 		}
 		return defaultValue;
 	}

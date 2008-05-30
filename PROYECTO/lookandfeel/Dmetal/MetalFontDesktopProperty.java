@@ -64,20 +64,20 @@ class MetalFontDesktopProperty extends
 	 * Overriden to create a Font with the size coming from the desktop and the
 	 * style and name coming from DefaultMetalTheme.
 	 */
+	@Override
 	protected Object configureValue(Object value)
 	{
 		if (value instanceof Integer)
-		{
 			value = new Font(DefaultMetalTheme.getDefaultFontName(type),
 					DefaultMetalTheme.getDefaultFontStyle(type),
 					( (Integer) value ).intValue());
-		}
 		return super.configureValue(value);
 	}
 
 	/**
 	 * Returns the default font.
 	 */
+	@Override
 	protected Object getDefaultValue()
 	{
 		return new Font(DefaultMetalTheme.getDefaultFontName(type),

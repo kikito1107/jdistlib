@@ -52,15 +52,15 @@ public class MetalTabbedPaneUI extends BasicTabbedPaneUI
 		return new MetalTabbedPaneUI();
 	}
 
+	@Override
 	protected LayoutManager createLayoutManager()
 	{
 		if (tabPane.getTabLayoutPolicy() == JTabbedPane.SCROLL_TAB_LAYOUT)
-		{
 			return super.createLayoutManager();
-		}
 		return new TabbedPaneLayout();
 	}
 
+	@Override
 	protected void installDefaults()
 	{
 		super.installDefaults();
@@ -70,6 +70,7 @@ public class MetalTabbedPaneUI extends BasicTabbedPaneUI
 		selectHighlight = UIManager.getColor("TabbedPane.selectHighlight");
 	}
 
+	@Override
 	protected void paintTabBorder(Graphics g, int tabPlacement, int tabIndex,
 			int x, int y, int w, int h, boolean isSelected)
 	{
@@ -149,23 +150,15 @@ public class MetalTabbedPaneUI extends BasicTabbedPaneUI
 			g.drawLine(6, 0, right, 0);
 
 			// Paint right
-			if (tabIndex == lastIndex)
-			{
-				// last tab in run
+			if (tabIndex == lastIndex) // last tab in run
 				g.drawLine(right, 1, right, bottom);
-			}
 
 			// Paint left
-			if (tabIndex != tabRuns[runCount - 1])
-			{
-				// not the first tab in the last run
+			if (tabIndex != tabRuns[runCount - 1]) // not the first tab in the
+													// last run
 				g.drawLine(0, 0, 0, bottom);
-			}
-			else
-			{
-				// the first tab in the last run
-				g.drawLine(0, 6, 0, bottom);
-			}
+			else // the first tab in the last run
+			g.drawLine(0, 6, 0, bottom);
 		}
 		else
 		{
@@ -177,23 +170,15 @@ public class MetalTabbedPaneUI extends BasicTabbedPaneUI
 			g.drawLine(right - 6, 0, 0, 0);
 
 			// Paint right
-			if (tabIndex != tabRuns[runCount - 1])
-			{
-				// not the first tab in the last run
+			if (tabIndex != tabRuns[runCount - 1]) // not the first tab in the
+													// last run
 				g.drawLine(right, 0, right, bottom);
-			}
-			else
-			{
-				// the first tab in the last run
-				g.drawLine(right, 6, right, bottom);
-			}
+			else // the first tab in the last run
+			g.drawLine(right, 6, right, bottom);
 
 			// Paint left
-			if (tabIndex == lastIndex)
-			{
-				// last tab in run
+			if (tabIndex == lastIndex) // last tab in run
 				g.drawLine(0, 1, 0, bottom);
-			}
 		}
 
 		//
@@ -216,19 +201,19 @@ public class MetalTabbedPaneUI extends BasicTabbedPaneUI
 
 			// paint highlight in the gap on tab behind this one
 			// on the left end (where they all line up)
-			if (tabIndex == firstIndex && tabIndex != tabRuns[runCount - 1])
+			if (( tabIndex == firstIndex )
+					&& ( tabIndex != tabRuns[runCount - 1] ))
 			{
 				// first tab in run but not first tab in last run
-				if (tabPane.getSelectedIndex() == tabRuns[currentRun + 1])
-				{
-					// tab in front of selected tab
+				if (tabPane.getSelectedIndex() == tabRuns[currentRun + 1]) // tab
+																			// in
+																			// front
+																			// of
+																			// selected
+																			// tab
 					g.setColor(selectHighlight);
-				}
-				else
-				{
-					// tab in front of normal tab
-					g.setColor(highlight);
-				}
+				else // tab in front of normal tab
+				g.setColor(highlight);
 				g.drawLine(1, 0, 1, 4);
 			}
 		}
@@ -242,15 +227,9 @@ public class MetalTabbedPaneUI extends BasicTabbedPaneUI
 			g.drawLine(right - 6, 1, 1, 1);
 
 			// Paint left
-			if (tabIndex == lastIndex)
-			{
-				// last tab in run
+			if (tabIndex == lastIndex) // last tab in run
 				g.drawLine(1, 1, 1, bottom);
-			}
-			else
-			{
-				g.drawLine(0, 1, 0, bottom);
-			}
+			else g.drawLine(0, 1, 0, bottom);
 		}
 
 		g.translate(-x, -y);
@@ -271,10 +250,7 @@ public class MetalTabbedPaneUI extends BasicTabbedPaneUI
 
 				// is the right edge of the last tab to the right
 				// of the left edge of the current tab?
-				if (lastTabRight > tabBounds.x + 2)
-				{
-					return true;
-				}
+				if (lastTabRight > tabBounds.x + 2) return true;
 			}
 			else
 			{
@@ -283,17 +259,11 @@ public class MetalTabbedPaneUI extends BasicTabbedPaneUI
 
 				// is the left edge of the last tab to the left
 				// of the right edge of the current tab?
-				if (lastTabLeft < currentTabRight - 2)
-				{
-					return true;
-				}
+				if (lastTabLeft < currentTabRight - 2) return true;
 			}
 		}
-		else
-		{
-			// fill in gap for all other rows except last row
-			result = currentRun != runCount - 1;
-		}
+		else // fill in gap for all other rows except last row
+		result = currentRun != runCount - 1;
 
 		return result;
 	}
@@ -314,20 +284,13 @@ public class MetalTabbedPaneUI extends BasicTabbedPaneUI
 			// Check to see if this tab is over the gap
 			if (MetalUtils.isLeftToRight(tabPane))
 			{
-				if (tabLeft <= x && tabRight - shadowWidth > x)
-				{
+				if (( tabLeft <= x ) && ( tabRight - shadowWidth > x ))
 					return selectedIndex == i ? selectColor : tabPane
 							.getBackgroundAt(i);
-				}
 			}
-			else
-			{
-				if (tabLeft + shadowWidth < x && tabRight >= x)
-				{
-					return selectedIndex == i ? selectColor : tabPane
-							.getBackgroundAt(i);
-				}
-			}
+			else if (( tabLeft + shadowWidth < x ) && ( tabRight >= x ))
+				return selectedIndex == i ? selectColor : tabPane
+						.getBackgroundAt(i);
 		}
 
 		return tabPane.getBackground();
@@ -395,19 +358,11 @@ public class MetalTabbedPaneUI extends BasicTabbedPaneUI
 
 		// Paint left
 		if (tabIndex != firstIndex)
-		{
 			g.drawLine(0, 0, 0, bottom);
-		}
-		else
-		{
-			g.drawLine(0, 6, 0, bottom);
-		}
+		else g.drawLine(0, 6, 0, bottom);
 
 		// Paint bottom
-		if (tabIndex == lastIndex)
-		{
-			g.drawLine(0, bottom, right, bottom);
-		}
+		if (tabIndex == lastIndex) g.drawLine(0, bottom, right, bottom);
 
 		g.translate(-x, -y);
 	}
@@ -467,20 +422,12 @@ public class MetalTabbedPaneUI extends BasicTabbedPaneUI
 			g.drawLine(6, bottom, right, bottom);
 
 			// Paint right
-			if (tabIndex == lastIndex)
-			{
-				g.drawLine(right, 0, right, bottom);
-			}
+			if (tabIndex == lastIndex) g.drawLine(right, 0, right, bottom);
 
 			// Paint left
 			if (tabIndex != tabRuns[runCount - 1])
-			{
 				g.drawLine(0, 0, 0, bottom);
-			}
-			else
-			{
-				g.drawLine(0, 0, 0, bottom - 6);
-			}
+			else g.drawLine(0, 0, 0, bottom - 6);
 		}
 		else
 		{
@@ -492,23 +439,15 @@ public class MetalTabbedPaneUI extends BasicTabbedPaneUI
 			g.drawLine(right - 6, bottom, 0, bottom);
 
 			// Paint right
-			if (tabIndex != tabRuns[runCount - 1])
-			{
-				// not the first tab in the last run
+			if (tabIndex != tabRuns[runCount - 1]) // not the first tab in the
+													// last run
 				g.drawLine(right, 0, right, bottom);
-			}
-			else
-			{
-				// the first tab in the last run
-				g.drawLine(right, 0, right, bottom - 6);
-			}
+			else // the first tab in the last run
+			g.drawLine(right, 0, right, bottom - 6);
 
 			// Paint left
-			if (tabIndex == lastIndex)
-			{
-				// last tab in run
+			if (tabIndex == lastIndex) // last tab in run
 				g.drawLine(0, 0, 0, bottom);
-			}
 		}
 
 		//
@@ -528,36 +467,26 @@ public class MetalTabbedPaneUI extends BasicTabbedPaneUI
 
 			// paint highlight in the gap on tab behind this one
 			// on the left end (where they all line up)
-			if (tabIndex == firstIndex && tabIndex != tabRuns[runCount - 1])
+			if (( tabIndex == firstIndex )
+					&& ( tabIndex != tabRuns[runCount - 1] ))
 			{
 				// first tab in run but not first tab in last run
-				if (tabPane.getSelectedIndex() == tabRuns[currentRun + 1])
-				{
-					// tab in front of selected tab
+				if (tabPane.getSelectedIndex() == tabRuns[currentRun + 1]) // tab
+																			// in
+																			// front
+																			// of
+																			// selected
+																			// tab
 					g.setColor(selectHighlight);
-				}
-				else
-				{
-					// tab in front of normal tab
-					g.setColor(highlight);
-				}
+				else // tab in front of normal tab
+				g.setColor(highlight);
 				g.drawLine(1, bottom - 4, 1, bottom);
 			}
 		}
-		else
-		{
-
-			// Paint left
-			if (tabIndex == lastIndex)
-			{
-				// last tab in run
-				g.drawLine(1, 0, 1, bottom - 1);
-			}
-			else
-			{
-				g.drawLine(0, 0, 0, bottom - 1);
-			}
-		}
+		else // Paint left
+		if (tabIndex == lastIndex) // last tab in run
+			g.drawLine(1, 0, 1, bottom - 1);
+		else g.drawLine(0, 0, 0, bottom - 1);
 
 		g.translate(-x, -y);
 	}
@@ -601,10 +530,7 @@ public class MetalTabbedPaneUI extends BasicTabbedPaneUI
 		g.drawLine(0, 1, right - 6, 1);
 
 		// Paint left
-		if (!isSelected)
-		{
-			g.drawLine(0, 1, 0, bottom);
-		}
+		if (!isSelected) g.drawLine(0, 1, 0, bottom);
 
 		//
 		// Paint Border
@@ -620,23 +546,16 @@ public class MetalTabbedPaneUI extends BasicTabbedPaneUI
 
 		// Paint right
 		if (tabIndex != firstIndex)
-		{
 			g.drawLine(right, 0, right, bottom);
-		}
-		else
-		{
-			g.drawLine(right, 6, right, bottom);
-		}
+		else g.drawLine(right, 6, right, bottom);
 
 		// Paint bottom
-		if (tabIndex == lastIndex)
-		{
-			g.drawLine(0, bottom, right, bottom);
-		}
+		if (tabIndex == lastIndex) g.drawLine(0, bottom, right, bottom);
 
 		g.translate(-x, -y);
 	}
 
+	@Override
 	public void update(Graphics g, JComponent c)
 	{
 		if (c.isOpaque())
@@ -647,21 +566,16 @@ public class MetalTabbedPaneUI extends BasicTabbedPaneUI
 		paint(g, c);
 	}
 
+	@Override
 	protected void paintTabBackground(Graphics g, int tabPlacement,
 			int tabIndex, int x, int y, int w, int h, boolean isSelected)
 	{
 		// int slantWidth = h / 2;
 		if (isSelected)
-		{
 			g.setColor(selectColor);
-		}
-		else
-		{
-			g.setColor(tabPane.getBackgroundAt(tabIndex));
-		}
+		else g.setColor(tabPane.getBackgroundAt(tabIndex));
 
 		if (MetalUtils.isLeftToRight(tabPane))
-		{
 			switch (tabPlacement)
 			{
 				case LEFT:
@@ -681,35 +595,32 @@ public class MetalTabbedPaneUI extends BasicTabbedPaneUI
 					g.fillRect(x + 4, y + 2, ( w - 1 ) - 3, ( h - 1 ) - 1);
 					g.fillRect(x + 2, y + 5, 2, h - 5);
 			}
-		}
-		else
+		else switch (tabPlacement)
 		{
-			switch (tabPlacement)
-			{
-				case LEFT:
-					g.fillRect(x + 5, y + 1, w - 5, h - 1);
-					g.fillRect(x + 2, y + 4, 3, h - 4);
-					break;
-				case BOTTOM:
-					g.fillRect(x, y, w - 5, h - 1);
-					g.fillRect(x + ( w - 1 ) - 4, y, 4, h - 5);
-					g.fillRect(x + ( w - 1 ) - 4, y + ( h - 1 ) - 4, 2, 2);
-					break;
-				case RIGHT:
-					g.fillRect(x + 1, y + 1, w - 5, h - 1);
-					g.fillRect(x + ( w - 1 ) - 3, y + 5, 3, h - 5);
-					break;
-				case TOP:
-				default:
-					g.fillRect(x, y + 2, ( w - 1 ) - 3, ( h - 1 ) - 1);
-					g.fillRect(x + ( w - 1 ) - 3, y + 4, 3, h - 4);
-			}
+			case LEFT:
+				g.fillRect(x + 5, y + 1, w - 5, h - 1);
+				g.fillRect(x + 2, y + 4, 3, h - 4);
+				break;
+			case BOTTOM:
+				g.fillRect(x, y, w - 5, h - 1);
+				g.fillRect(x + ( w - 1 ) - 4, y, 4, h - 5);
+				g.fillRect(x + ( w - 1 ) - 4, y + ( h - 1 ) - 4, 2, 2);
+				break;
+			case RIGHT:
+				g.fillRect(x + 1, y + 1, w - 5, h - 1);
+				g.fillRect(x + ( w - 1 ) - 3, y + 5, 3, h - 5);
+				break;
+			case TOP:
+			default:
+				g.fillRect(x, y + 2, ( w - 1 ) - 3, ( h - 1 ) - 1);
+				g.fillRect(x + ( w - 1 ) - 3, y + 4, 3, h - 4);
 		}
 	}
 
 	/**
 	 * Overridden to do nothing for the Java L&F.
 	 */
+	@Override
 	protected int getTabLabelShiftX(int tabPlacement, int tabIndex,
 			boolean isSelected)
 	{
@@ -719,12 +630,14 @@ public class MetalTabbedPaneUI extends BasicTabbedPaneUI
 	/**
 	 * Overridden to do nothing for the Java L&F.
 	 */
+	@Override
 	protected int getTabLabelShiftY(int tabPlacement, int tabIndex,
 			boolean isSelected)
 	{
 		return 0;
 	}
 
+	@Override
 	public void paint(Graphics g, JComponent c)
 	{
 		int tabPlacement = tabPane.getTabPlacement();
@@ -775,6 +688,7 @@ public class MetalTabbedPaneUI extends BasicTabbedPaneUI
 
 	}
 
+	@Override
 	protected void paintFocusIndicator(Graphics g, int tabPlacement,
 			Rectangle[] rects, int tabIndex, Rectangle iconRect,
 			Rectangle textRect, boolean isSelected)
@@ -867,6 +781,7 @@ public class MetalTabbedPaneUI extends BasicTabbedPaneUI
 		}
 	}
 
+	@Override
 	protected void paintContentBorderTopEdge(Graphics g, int tabPlacement,
 			int selectedIndex, int x, int y, int w, int h)
 	{
@@ -880,36 +795,24 @@ public class MetalTabbedPaneUI extends BasicTabbedPaneUI
 		// selected tab is not in run adjacent to content, OR
 		// selected tab is not visible (SCROLL_TAB_LAYOUT)
 		//
-		if (tabPlacement != TOP || selectedIndex < 0
+		if (( tabPlacement != TOP ) || ( selectedIndex < 0 )
 				|| ( selRect.y + selRect.height + 1 < y )
-				|| ( selRect.x < x || selRect.x > x + w ))
-		{
+				|| ( ( selRect.x < x ) || ( selRect.x > x + w ) ))
 			g.drawLine(x, y, x + w - 2, y);
-		}
 		else
 		{
 			// Break line to show visual connection to selected tab
 			boolean lastInRun = isLastInRun(selectedIndex);
 
 			if (leftToRight || lastInRun)
-			{
 				g.drawLine(x, y, selRect.x + 1, y);
-			}
-			else
-			{
-				g.drawLine(x, y, selRect.x, y);
-			}
+			else g.drawLine(x, y, selRect.x, y);
 
 			if (selRect.x + selRect.width < right - 1)
 			{
 				if (leftToRight && !lastInRun)
-				{
 					g.drawLine(selRect.x + selRect.width, y, right - 1, y);
-				}
-				else
-				{
-					g.drawLine(selRect.x + selRect.width - 1, y, right - 1, y);
-				}
+				else g.drawLine(selRect.x + selRect.width - 1, y, right - 1, y);
 			}
 			else
 			{
@@ -919,6 +822,7 @@ public class MetalTabbedPaneUI extends BasicTabbedPaneUI
 		}
 	}
 
+	@Override
 	protected void paintContentBorderBottomEdge(Graphics g, int tabPlacement,
 			int selectedIndex, int x, int y, int w, int h)
 	{
@@ -933,8 +837,9 @@ public class MetalTabbedPaneUI extends BasicTabbedPaneUI
 		// selected tab is not in run adjacent to content, OR
 		// selected tab is not visible (SCROLL_TAB_LAYOUT)
 		//
-		if (tabPlacement != BOTTOM || selectedIndex < 0 || ( selRect.y - 1 > h )
-				|| ( selRect.x < x || selRect.x > x + w ))
+		if (( tabPlacement != BOTTOM ) || ( selectedIndex < 0 )
+				|| ( selRect.y - 1 > h )
+				|| ( ( selRect.x < x ) || ( selRect.x > x + w ) ))
 		{
 			g.setColor(darkShadow);
 			g.drawLine(x, y + h - 1, x + w - 1, y + h - 1);
@@ -947,31 +852,20 @@ public class MetalTabbedPaneUI extends BasicTabbedPaneUI
 			g.setColor(darkShadow);
 
 			if (leftToRight || lastInRun)
-			{
 				g.drawLine(x, bottom, selRect.x, bottom);
-			}
-			else
-			{
-				g.drawLine(x, bottom, selRect.x - 1, bottom);
-			}
+			else g.drawLine(x, bottom, selRect.x - 1, bottom);
 
 			if (selRect.x + selRect.width < x + w - 2)
-			{
 				if (leftToRight && !lastInRun)
-				{
 					g
 							.drawLine(selRect.x + selRect.width, bottom, right,
 									bottom);
-				}
-				else
-				{
-					g.drawLine(selRect.x + selRect.width - 1, bottom, right,
-							bottom);
-				}
-			}
+				else g.drawLine(selRect.x + selRect.width - 1, bottom, right,
+						bottom);
 		}
 	}
 
+	@Override
 	protected void paintContentBorderLeftEdge(Graphics g, int tabPlacement,
 			int selectedIndex, int x, int y, int w, int h)
 	{
@@ -983,23 +877,20 @@ public class MetalTabbedPaneUI extends BasicTabbedPaneUI
 		// selected tab is not in run adjacent to content, OR
 		// selected tab is not visible (SCROLL_TAB_LAYOUT)
 		//
-		if (tabPlacement != LEFT || selectedIndex < 0
+		if (( tabPlacement != LEFT ) || ( selectedIndex < 0 )
 				|| ( selRect.x + selRect.width + 1 < x )
-				|| ( selRect.y < y || selRect.y > y + h ))
-		{
+				|| ( ( selRect.y < y ) || ( selRect.y > y + h ) ))
 			g.drawLine(x, y, x, y + h - 2);
-		}
 		else
 		{
 			// Break line to show visual connection to selected tab
 			g.drawLine(x, y, x, selRect.y + 1);
 			if (selRect.y + selRect.height < y + h - 2)
-			{
 				g.drawLine(x, selRect.y + selRect.height + 1, x, y + h + 2);
-			}
 		}
 	}
 
+	@Override
 	protected void paintContentBorderRightEdge(Graphics g, int tabPlacement,
 			int selectedIndex, int x, int y, int w, int h)
 	{
@@ -1011,8 +902,9 @@ public class MetalTabbedPaneUI extends BasicTabbedPaneUI
 		// selected tab is not in run adjacent to content, OR
 		// selected tab is not visible (SCROLL_TAB_LAYOUT)
 		//
-		if (tabPlacement != RIGHT || selectedIndex < 0 || ( selRect.x - 1 > w )
-				|| ( selRect.y < y || selRect.y > y + h ))
+		if (( tabPlacement != RIGHT ) || ( selectedIndex < 0 )
+				|| ( selRect.x - 1 > w )
+				|| ( ( selRect.y < y ) || ( selRect.y > y + h ) ))
 		{
 			g.setColor(darkShadow);
 			g.drawLine(x + w - 1, y, x + w - 1, y + h - 1);
@@ -1032,6 +924,7 @@ public class MetalTabbedPaneUI extends BasicTabbedPaneUI
 		}
 	}
 
+	@Override
 	protected int calculateMaxTabHeight(int tabPlacement)
 	{
 		FontMetrics metrics = getFontMetrics();
@@ -1041,24 +934,22 @@ public class MetalTabbedPaneUI extends BasicTabbedPaneUI
 		for (int i = 0; i < tabPane.getTabCount(); ++i)
 		{
 			Icon icon = tabPane.getIconAt(i);
-			if (icon != null)
+			if (icon != null) if (icon.getIconHeight() > height)
 			{
-				if (icon.getIconHeight() > height)
-				{
-					tallerIcons = true;
-					break;
-				}
+				tallerIcons = true;
+				break;
 			}
 		}
 		return super.calculateMaxTabHeight(tabPlacement)
 				- ( tallerIcons ? ( tabInsets.top + tabInsets.bottom ) : 0 );
 	}
 
+	@Override
 	protected int getTabRunOverlay(int tabPlacement)
 	{
 		// Tab runs laid out vertically should overlap
 		// at least as much as the largest slant
-		if (tabPlacement == LEFT || tabPlacement == RIGHT)
+		if (( tabPlacement == LEFT ) || ( tabPlacement == RIGHT ))
 		{
 			int maxTabHeight = calculateMaxTabHeight(tabPlacement);
 			return maxTabHeight / 2;
@@ -1073,9 +964,10 @@ public class MetalTabbedPaneUI extends BasicTabbedPaneUI
 	}
 
 	// Don't pad last run
+	@Override
 	protected boolean shouldPadTabRun(int tabPlacement, int run)
 	{
-		return runCount > 1 && run < runCount - 1;
+		return ( runCount > 1 ) && ( run < runCount - 1 );
 	}
 
 	private boolean isLastInRun(int tabIndex)
@@ -1098,6 +990,7 @@ public class MetalTabbedPaneUI extends BasicTabbedPaneUI
 			MetalTabbedPaneUI.this.super();
 		}
 
+		@Override
 		protected void normalizeTabRuns(int tabPlacement, int tabCount,
 				int start, int max)
 		{
@@ -1106,18 +999,18 @@ public class MetalTabbedPaneUI extends BasicTabbedPaneUI
 			// because the last run isn't padded and it looks odd to have
 			// fat tabs in the first vertical runs, but slimmer ones in the
 			// last (this effect isn't noticeable for horizontal tabs).
-			if (tabPlacement == TOP || tabPlacement == BOTTOM)
-			{
+			if (( tabPlacement == TOP ) || ( tabPlacement == BOTTOM ))
 				super.normalizeTabRuns(tabPlacement, tabCount, start, max);
-			}
 		}
 
 		// Don't rotate runs!
+		@Override
 		protected void rotateTabRuns(int tabPlacement, int selectedRun)
 		{
 		}
 
 		// Don't pad selected tab
+		@Override
 		protected void padSelectedTab(int tabPlacement, int selectedIndex)
 		{
 		}

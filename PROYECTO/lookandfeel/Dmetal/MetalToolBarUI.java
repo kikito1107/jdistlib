@@ -20,6 +20,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.event.MouseInputListener;
 import javax.swing.plaf.BorderUIResource;
@@ -60,48 +61,44 @@ public class MetalToolBarUI extends BasicToolBarUI
 		return new MetalToolBarUI();
 	}
 
+	@Override
 	public void installUI(JComponent c)
 	{
 		super.installUI(c);
 	}
 
+	@Override
 	public void uninstallUI(JComponent c)
 	{
 		super.uninstallUI(c);
 		nonRolloverBorder = null;
 	}
 
+	@Override
 	protected void installListeners()
 	{
 		super.installListeners();
 
 		contListener = createContainerListener();
-		if (contListener != null)
-		{
-			toolBar.addContainerListener(contListener);
-		}
+		if (contListener != null) toolBar.addContainerListener(contListener);
 		rolloverListener = createRolloverListener();
 		if (rolloverListener != null)
-		{
 			toolBar.addPropertyChangeListener(rolloverListener);
-		}
 	}
 
+	@Override
 	protected void uninstallListeners()
 	{
 		super.uninstallListeners();
 
 		if (contListener != null)
-		{
 			toolBar.removeContainerListener(contListener);
-		}
 		rolloverListener = createRolloverListener();
 		if (rolloverListener != null)
-		{
 			toolBar.removePropertyChangeListener(rolloverListener);
-		}
 	}
 
+	@Override
 	protected Border createRolloverBorder()
 	{
 		return new BorderUIResource.CompoundBorderUIResource(
@@ -109,6 +106,7 @@ public class MetalToolBarUI extends BasicToolBarUI
 				new MetalBorders.RolloverMarginBorder());
 	}
 
+	@Override
 	protected Border createNonRolloverBorder()
 	{
 		return new BorderUIResource.CompoundBorderUIResource(
@@ -124,6 +122,7 @@ public class MetalToolBarUI extends BasicToolBarUI
 		return createNonRolloverBorder();
 	}
 
+	@Override
 	protected void setBorderToNonRollover(Component c)
 	{
 		super.setBorderToNonRollover(c);
@@ -131,17 +130,14 @@ public class MetalToolBarUI extends BasicToolBarUI
 		{
 			AbstractButton b = (AbstractButton) c;
 			if (b.getBorder() instanceof UIResource)
-			{
-				if (b instanceof JToggleButton && !( b instanceof JCheckBox ))
+				if (( b instanceof JToggleButton )
+						&& !( b instanceof JCheckBox ))
 				{
 					// only install this border for the ToggleButton
 					if (nonRolloverBorder == null)
-					{
 						nonRolloverBorder = createNonRolloverToggleBorder();
-					}
 					b.setBorder(nonRolloverBorder);
 				}
-			}
 		}
 	}
 
@@ -167,6 +163,7 @@ public class MetalToolBarUI extends BasicToolBarUI
 		return null;
 	}
 
+	@Override
 	protected MouseInputListener createDockingListener()
 	{
 		return new MetalDockingListener(toolBar);
@@ -176,10 +173,7 @@ public class MetalToolBarUI extends BasicToolBarUI
 	{
 		if (!GraphicsEnvironment.isHeadless())
 		{
-			if (dragWindow == null)
-			{
-				dragWindow = createDragWindow(toolBar);
-			}
+			if (dragWindow == null) dragWindow = createDragWindow(toolBar);
 			dragWindow.setOffset(p);
 		}
 	}
@@ -205,45 +199,36 @@ public class MetalToolBarUI extends BasicToolBarUI
 			super(t);
 		}
 
+		@Override
 		public void mousePressed(MouseEvent e)
 		{
 			super.mousePressed(e);
-			if (!toolBar.isEnabled())
-			{
-				return;
-			}
+			if (!toolBar.isEnabled()) return;
 			pressedInBumps = false;
 			Rectangle bumpRect = new Rectangle();
 
-			if (toolBar.getOrientation() == JToolBar.HORIZONTAL)
+			if (toolBar.getOrientation() == SwingConstants.HORIZONTAL)
 			{
 				int x = MetalUtils.isLeftToRight(toolBar) ? 0 : toolBar
 						.getSize().width - 14;
 				bumpRect.setBounds(x, 0, 14, toolBar.getSize().height);
 			}
-			else
-			{ // vertical
-				bumpRect.setBounds(0, 0, toolBar.getSize().width, 14);
-			}
+			else bumpRect.setBounds(0, 0, toolBar.getSize().width, 14);
 			if (bumpRect.contains(e.getPoint()))
 			{
 				pressedInBumps = true;
 				Point dragOffset = e.getPoint();
 				if (!MetalUtils.isLeftToRight(toolBar))
-				{
 					dragOffset.x -= ( toolBar.getSize().width - toolBar
 							.getPreferredSize().width );
-				}
 				setDragOffset(dragOffset);
 			}
 		}
 
+		@Override
 		public void mouseDragged(MouseEvent e)
 		{
-			if (pressedInBumps)
-			{
-				super.mouseDragged(e);
-			}
+			if (pressedInBumps) super.mouseDragged(e);
 		}
 	} // end class MetalDockingListener
 }

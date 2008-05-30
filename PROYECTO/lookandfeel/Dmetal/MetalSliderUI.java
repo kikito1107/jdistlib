@@ -17,6 +17,7 @@ import java.beans.PropertyChangeListener;
 import javax.swing.Icon;
 import javax.swing.JComponent;
 import javax.swing.JSlider;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicSliderUI;
@@ -67,6 +68,7 @@ public class MetalSliderUI extends BasicSliderUI
 		super(null);
 	}
 
+	@Override
 	public void installUI(JComponent c)
 	{
 		trackWidth = ( (Integer) UIManager.get("Slider.trackWidth") )
@@ -86,11 +88,10 @@ public class MetalSliderUI extends BasicSliderUI
 
 		Object sliderFillProp = c.getClientProperty(SLIDER_FILL);
 		if (sliderFillProp != null)
-		{
 			filledSlider = ( (Boolean) sliderFillProp ).booleanValue();
-		}
 	}
 
+	@Override
 	protected PropertyChangeListener createPropertyChangeListener(JSlider slider)
 	{
 		return new MetalPropertyListener();
@@ -99,43 +100,33 @@ public class MetalSliderUI extends BasicSliderUI
 	protected class MetalPropertyListener extends
 			BasicSliderUI.PropertyChangeHandler
 	{
+		@Override
 		public void propertyChange(PropertyChangeEvent e)
 		{ // listen for slider fill
 			super.propertyChange(e);
 
 			String name = e.getPropertyName();
-			if (name.equals(SLIDER_FILL))
-			{
-				if (e.getNewValue() != null)
-				{
-					filledSlider = ( (Boolean) e.getNewValue() ).booleanValue();
-				}
-				else
-				{
-					filledSlider = false;
-				}
-			}
+			if (name.equals(SLIDER_FILL)) if (e.getNewValue() != null)
+				filledSlider = ( (Boolean) e.getNewValue() ).booleanValue();
+			else filledSlider = false;
 		}
 	}
 
+	@Override
 	public void paintThumb(Graphics g)
 	{
 		Rectangle knobBounds = thumbRect;
 
 		g.translate(knobBounds.x, knobBounds.y);
 
-		if (slider.getOrientation() == JSlider.HORIZONTAL)
-		{
+		if (slider.getOrientation() == SwingConstants.HORIZONTAL)
 			horizThumbIcon.paintIcon(slider, g, 0, 0);
-		}
-		else
-		{
-			vertThumbIcon.paintIcon(slider, g, 0, 0);
-		}
+		else vertThumbIcon.paintIcon(slider, g, 0, 0);
 
 		g.translate(-knobBounds.x, -knobBounds.y);
 	}
 
+	@Override
 	public void paintTrack(Graphics g)
 	{
 		Color trackColor = !slider.isEnabled() ? MetalLookAndFeel
@@ -151,7 +142,7 @@ public class MetalSliderUI extends BasicSliderUI
 		int trackBottom = 0;
 
 		// Draw the track
-		if (slider.getOrientation() == JSlider.HORIZONTAL)
+		if (slider.getOrientation() == SwingConstants.HORIZONTAL)
 		{
 			trackBottom = ( trackRect.height - 1 ) - getThumbOverhang();
 			trackTop = trackBottom - ( getTrackWidth() - 1 );
@@ -205,11 +196,11 @@ public class MetalSliderUI extends BasicSliderUI
 			int fillBottom = 0;
 			int fillRight = 0;
 
-			if (slider.getOrientation() == JSlider.HORIZONTAL)
+			if (slider.getOrientation() == SwingConstants.HORIZONTAL)
 			{
 				middleOfThumb = thumbRect.x + ( thumbRect.width / 2 );
 				middleOfThumb -= trackRect.x; // To compensate for the
-												// g.translate()
+				// g.translate()
 				fillTop = !slider.isEnabled() ? trackTop : trackTop + 1;
 				fillBottom = !slider.isEnabled() ? trackBottom - 1
 						: trackBottom - 2;
@@ -230,7 +221,7 @@ public class MetalSliderUI extends BasicSliderUI
 			{
 				middleOfThumb = thumbRect.y + ( thumbRect.height / 2 );
 				middleOfThumb -= trackRect.y; // To compensate for the
-												// g.translate()
+				// g.translate()
 				fillLeft = !slider.isEnabled() ? trackLeft : trackLeft + 1;
 				fillRight = !slider.isEnabled() ? trackRight - 1
 						: trackRight - 2;
@@ -269,15 +260,17 @@ public class MetalSliderUI extends BasicSliderUI
 		g.translate(-trackRect.x, -trackRect.y);
 	}
 
+	@Override
 	public void paintFocus(Graphics g)
 	{
 	}
 
+	@Override
 	protected Dimension getThumbSize()
 	{
 		Dimension size = new Dimension();
 
-		if (slider.getOrientation() == JSlider.VERTICAL)
+		if (slider.getOrientation() == SwingConstants.VERTICAL)
 		{
 			size.width = vertThumbIcon.getIconWidth();
 			size.height = vertThumbIcon.getIconHeight();
@@ -296,10 +289,12 @@ public class MetalSliderUI extends BasicSliderUI
 	 * the tick area for vertical sliders. BasicSliderUI uses the returned value
 	 * to determine the tick area rectangle.
 	 */
+	@Override
 	public int getTickLength()
 	{
-		return slider.getOrientation() == JSlider.HORIZONTAL ? tickLength
-				+ TICK_BUFFER + 1 : tickLength + TICK_BUFFER + 3;
+		return slider.getOrientation() == SwingConstants.HORIZONTAL ? tickLength
+				+ TICK_BUFFER + 1
+				: tickLength + TICK_BUFFER + 3;
 	}
 
 	/**
@@ -313,14 +308,9 @@ public class MetalSliderUI extends BasicSliderUI
 		final double kIdealThumbHeight = 16.0;
 		final double kWidthScalar = kIdealTrackWidth / kIdealThumbHeight;
 
-		if (slider.getOrientation() == JSlider.HORIZONTAL)
-		{
+		if (slider.getOrientation() == SwingConstants.HORIZONTAL)
 			return (int) ( kWidthScalar * thumbRect.height );
-		}
-		else
-		{
-			return (int) ( kWidthScalar * thumbRect.width );
-		}
+		else return (int) ( kWidthScalar * thumbRect.width );
 	}
 
 	/**
@@ -329,10 +319,8 @@ public class MetalSliderUI extends BasicSliderUI
 	 */
 	protected int getTrackLength()
 	{
-		if (slider.getOrientation() == JSlider.HORIZONTAL)
-		{
+		if (slider.getOrientation() == SwingConstants.HORIZONTAL)
 			return trackRect.width;
-		}
 		return trackRect.height;
 	}
 
@@ -344,11 +332,13 @@ public class MetalSliderUI extends BasicSliderUI
 		return (int) ( getThumbSize().getHeight() - getTrackWidth() ) / 2;
 	}
 
+	@Override
 	protected void scrollDueToClickInTrack(int dir)
 	{
 		scrollByUnit(dir);
 	}
 
+	@Override
 	protected void paintMinorTickForHorizSlider(Graphics g,
 			Rectangle tickBounds, int x)
 	{
@@ -357,6 +347,7 @@ public class MetalSliderUI extends BasicSliderUI
 		g.drawLine(x, TICK_BUFFER, x, TICK_BUFFER + ( tickLength / 2 ));
 	}
 
+	@Override
 	protected void paintMajorTickForHorizSlider(Graphics g,
 			Rectangle tickBounds, int x)
 	{
@@ -365,6 +356,7 @@ public class MetalSliderUI extends BasicSliderUI
 		g.drawLine(x, TICK_BUFFER, x, TICK_BUFFER + ( tickLength - 1 ));
 	}
 
+	@Override
 	protected void paintMinorTickForVertSlider(Graphics g,
 			Rectangle tickBounds, int y)
 	{
@@ -372,15 +364,11 @@ public class MetalSliderUI extends BasicSliderUI
 				: MetalLookAndFeel.getControlShadow());
 
 		if (MetalUtils.isLeftToRight(slider))
-		{
 			g.drawLine(TICK_BUFFER, y, TICK_BUFFER + ( tickLength / 2 ), y);
-		}
-		else
-		{
-			g.drawLine(0, y, tickLength / 2, y);
-		}
+		else g.drawLine(0, y, tickLength / 2, y);
 	}
 
+	@Override
 	protected void paintMajorTickForVertSlider(Graphics g,
 			Rectangle tickBounds, int y)
 	{
@@ -388,12 +376,7 @@ public class MetalSliderUI extends BasicSliderUI
 				: MetalLookAndFeel.getControlShadow());
 
 		if (MetalUtils.isLeftToRight(slider))
-		{
 			g.drawLine(TICK_BUFFER, y, TICK_BUFFER + tickLength, y);
-		}
-		else
-		{
-			g.drawLine(0, y, tickLength, y);
-		}
+		else g.drawLine(0, y, tickLength, y);
 	}
 }

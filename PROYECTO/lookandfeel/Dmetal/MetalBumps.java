@@ -29,7 +29,7 @@ import javax.swing.Icon;
  * @author Tom Santos
  * @author Steve Wilson
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings( "unchecked" )
 class MetalBumps implements Icon
 {
 
@@ -69,12 +69,9 @@ class MetalBumps implements Icon
 	private BumpBuffer getBuffer(GraphicsConfiguration gc, Color aTopColor,
 			Color aShadowColor, Color aBackColor)
 	{
-		if (buffer != null
+		if (( buffer != null )
 				&& buffer.hasSameConfiguration(gc, aTopColor, aShadowColor,
-						aBackColor))
-		{
-			return buffer;
-		}
+						aBackColor)) return buffer;
 		BumpBuffer result = null;
 
 		Enumeration<?> elements = buffers.elements();
@@ -189,15 +186,9 @@ class BumpBuffer
 	{
 		if (this.gc != null)
 		{
-			if (!this.gc.equals(gc))
-			{
-				return false;
-			}
+			if (!this.gc.equals(gc)) return false;
 		}
-		else if (gc != null)
-		{
-			return false;
-		}
+		else if (gc != null) return false;
 		return topColor.equals(aTopColor) && shadowColor.equals(aShadowColor)
 				&& backColor.equals(aBackColor);
 	}
@@ -228,23 +219,19 @@ class BumpBuffer
 
 		g.setColor(topColor);
 		for (int x = 0; x < IMAGE_SIZE; x += 4)
-		{
 			for (int y = 0; y < IMAGE_SIZE; y += 4)
 			{
 				g.drawLine(x, y, x, y);
 				g.drawLine(x + 2, y + 2, x + 2, y + 2);
 			}
-		}
 
 		g.setColor(shadowColor);
 		for (int x = 0; x < IMAGE_SIZE; x += 4)
-		{
 			for (int y = 0; y < IMAGE_SIZE; y += 4)
 			{
 				g.drawLine(x + 1, y + 1, x + 1, y + 1);
 				g.drawLine(x + 3, y + 3, x + 3, y + 3);
 			}
-		}
 		g.dispose();
 	}
 
@@ -255,9 +242,7 @@ class BumpBuffer
 	private void createImage()
 	{
 		if (gc != null)
-		{
 			image = gc.createCompatibleImage(IMAGE_SIZE, IMAGE_SIZE);
-		}
 		else
 		{
 			int cmap[] =

@@ -315,6 +315,7 @@ public class DIToggleButton extends DComponenteBase implements java.io.Serializa
 			super(dc);
 		}
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public void run()
 		{
@@ -325,7 +326,6 @@ public class DIToggleButton extends DComponenteBase implements java.io.Serializa
 
 			DEvent[] eventos = obtenerEventosColaRecepcion();
 			int numEventos = eventos.length;
-			int i = 0;
 
 			// Buscamos si se ha recibido una respuesta de sincronizacion
 			for (int j = 0; j < numEventos; j++)

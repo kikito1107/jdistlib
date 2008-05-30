@@ -57,6 +57,11 @@ import javax.swing.plaf.UIResource;
  */
 class MetalTitlePane extends JComponent
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 472435455750973863L;
+
 	private static final Border handyEmptyBorder = new EmptyBorder(0, 0, 0, 0);
 
 	private static final int IMAGE_HEIGHT = 16;
@@ -193,16 +198,6 @@ class MetalTitlePane extends JComponent
 	}
 
 	/**
-	 * Uninstalls the necessary state.
-	 */
-	private void uninstall()
-	{
-		uninstallListeners();
-		window = null;
-		removeAll();
-	}
-
-	/**
 	 * Installs the necessary listeners.
 	 */
 	private void installListeners()
@@ -249,6 +244,7 @@ class MetalTitlePane extends JComponent
 	/**
 	 * Returns the <code>JRootPane</code> this was created for.
 	 */
+	@Override
 	public JRootPane getRootPane()
 	{
 		return rootPane;
@@ -262,6 +258,7 @@ class MetalTitlePane extends JComponent
 		return getRootPane().getWindowDecorationStyle();
 	}
 
+	@Override
 	public void addNotify()
 	{
 		super.addNotify();
@@ -272,18 +269,14 @@ class MetalTitlePane extends JComponent
 		if (window != null)
 		{
 			if (window instanceof Frame)
-			{
 				setState(( (Frame) window ).getExtendedState());
-			}
-			else
-			{
-				setState(0);
-			}
+			else setState(0);
 			setActive(window.isActive());
 			installListeners();
 		}
 	}
 
+	@Override
 	public void removeNotify()
 	{
 		super.removeNotify();
@@ -395,10 +388,8 @@ class MetalTitlePane extends JComponent
 		Window window = getWindow();
 
 		if (window != null)
-		{
 			window.dispatchEvent(new WindowEvent(window,
 					WindowEvent.WINDOW_CLOSING));
-		}
 	}
 
 	/**
@@ -407,10 +398,7 @@ class MetalTitlePane extends JComponent
 	private void iconify()
 	{
 		Frame frame = getFrame();
-		if (frame != null)
-		{
-			frame.setExtendedState(state | Frame.ICONIFIED);
-		}
+		if (frame != null) frame.setExtendedState(state | Frame.ICONIFIED);
 	}
 
 	/**
@@ -420,9 +408,7 @@ class MetalTitlePane extends JComponent
 	{
 		Frame frame = getFrame();
 		if (frame != null)
-		{
 			frame.setExtendedState(state | Frame.MAXIMIZED_BOTH);
-		}
 	}
 
 	/**
@@ -432,19 +418,11 @@ class MetalTitlePane extends JComponent
 	{
 		Frame frame = getFrame();
 
-		if (frame == null)
-		{
-			return;
-		}
+		if (frame == null) return;
 
 		if (( state & Frame.ICONIFIED ) != 0)
-		{
 			frame.setExtendedState(state & ~Frame.ICONIFIED);
-		}
-		else
-		{
-			frame.setExtendedState(state & ~Frame.MAXIMIZED_BOTH);
-		}
+		else frame.setExtendedState(state & ~Frame.MAXIMIZED_BOTH);
 	}
 
 	/**
@@ -466,10 +444,7 @@ class MetalTitlePane extends JComponent
 	private JMenu createMenu()
 	{
 		JMenu menu = new JMenu("");
-		if (getWindowDecorationStyle() == JRootPane.FRAME)
-		{
-			addMenuItems(menu);
-		}
+		if (getWindowDecorationStyle() == JRootPane.FRAME) addMenuItems(menu);
 		return menu;
 	}
 
@@ -482,37 +457,25 @@ class MetalTitlePane extends JComponent
 		JMenuItem mi = menu.add(restoreAction);
 		int mnemonic = MetalUtils.getInt("MetalTitlePane.restoreMnemonic", -1);
 
-		if (mnemonic != -1)
-		{
-			mi.setMnemonic(mnemonic);
-		}
+		if (mnemonic != -1) mi.setMnemonic(mnemonic);
 
 		mi = menu.add(iconifyAction);
 		mnemonic = MetalUtils.getInt("MetalTitlePane.iconifyMnemonic", -1);
-		if (mnemonic != -1)
-		{
-			mi.setMnemonic(mnemonic);
-		}
+		if (mnemonic != -1) mi.setMnemonic(mnemonic);
 
 		if (Toolkit.getDefaultToolkit().isFrameStateSupported(
 				Frame.MAXIMIZED_BOTH))
 		{
 			mi = menu.add(maximizeAction);
 			mnemonic = MetalUtils.getInt("MetalTitlePane.maximizeMnemonic", -1);
-			if (mnemonic != -1)
-			{
-				mi.setMnemonic(mnemonic);
-			}
+			if (mnemonic != -1) mi.setMnemonic(mnemonic);
 		}
 
 		menu.add(new JSeparator());
 
 		mi = menu.add(closeAction);
 		mnemonic = MetalUtils.getInt("MetalTitlePane.closeMnemonic", -1);
-		if (mnemonic != -1)
-		{
-			mi.setMnemonic(mnemonic);
-		}
+		if (mnemonic != -1) mi.setMnemonic(mnemonic);
 	}
 
 	/**
@@ -604,12 +567,9 @@ class MetalTitlePane extends JComponent
 	{
 		Window w = getWindow();
 
-		if (w != null && getWindowDecorationStyle() == JRootPane.FRAME)
+		if (( w != null ) && ( getWindowDecorationStyle() == JRootPane.FRAME ))
 		{
-			if (this.state == state && !updateRegardless)
-			{
-				return;
-			}
+			if (( this.state == state ) && !updateRegardless) return;
 			Frame frame = getFrame();
 
 			if (frame != null)
@@ -617,18 +577,17 @@ class MetalTitlePane extends JComponent
 				JRootPane rootPane = getRootPane();
 
 				if (( ( state & Frame.MAXIMIZED_BOTH ) != 0 )
-						&& ( rootPane.getBorder() == null || ( rootPane
+						&& ( ( rootPane.getBorder() == null ) || ( rootPane
 								.getBorder() instanceof UIResource ) )
 						&& frame.isShowing())
-				{
 					rootPane.setBorder(null);
-				}
-				else if (( state & Frame.MAXIMIZED_BOTH ) == 0)
-				{
-					// This is a croak, if state becomes bound, this can
+				else if (( state & Frame.MAXIMIZED_BOTH ) == 0) // This is a
+																// croak, if
+																// state becomes
+																// bound, this
+																// can
 					// be nuked.
 					rootPaneUI.installBorder(rootPane);
-				}
 				if (frame.isResizable())
 				{
 					if (( state & Frame.MAXIMIZED_BOTH ) != 0)
@@ -643,8 +602,8 @@ class MetalTitlePane extends JComponent
 						maximizeAction.setEnabled(true);
 						restoreAction.setEnabled(false);
 					}
-					if (toggleButton.getParent() == null
-							|| iconifyButton.getParent() == null)
+					if (( toggleButton.getParent() == null )
+							|| ( iconifyButton.getParent() == null ))
 					{
 						add(toggleButton);
 						add(iconifyButton);
@@ -700,10 +659,7 @@ class MetalTitlePane extends JComponent
 	{
 		Window window = getWindow();
 
-		if (window instanceof Frame)
-		{
-			return (Frame) window;
-		}
+		if (window instanceof Frame) return (Frame) window;
 		return null;
 	}
 
@@ -725,27 +681,20 @@ class MetalTitlePane extends JComponent
 		Window w = getWindow();
 
 		if (w instanceof Frame)
-		{
 			return ( (Frame) w ).getTitle();
-		}
-		else if (w instanceof Dialog)
-		{
-			return ( (Dialog) w ).getTitle();
-		}
+		else if (w instanceof Dialog) return ( (Dialog) w ).getTitle();
 		return null;
 	}
 
 	/**
 	 * Renders the TitlePane.
 	 */
+	@Override
 	public void paintComponent(Graphics g)
 	{
 		// As state isn't bound, we need a convenience place to check
 		// if it has changed. Changing the state typically changes the
-		if (getFrame() != null)
-		{
-			setState(getFrame().getExtendedState());
-		}
+		if (getFrame() != null) setState(getFrame().getExtendedState());
 		Window window = getWindow();
 		boolean leftToRight = ( window == null ) ? getRootPane()
 				.getComponentOrientation().isLeftToRight() : window
@@ -786,9 +735,7 @@ class MetalTitlePane extends JComponent
 		int xOffset = leftToRight ? 5 : width - 5;
 
 		if (getWindowDecorationStyle() == JRootPane.FRAME)
-		{
 			xOffset += leftToRight ? IMAGE_WIDTH + 5 : -IMAGE_WIDTH - 5;
-		}
 
 		String theTitle = getTitle();
 		if (theTitle != null)
@@ -801,18 +748,15 @@ class MetalTitlePane extends JComponent
 			int yOffset = ( ( height - fm.getHeight() ) / 2 ) + fm.getAscent();
 
 			Rectangle rect = new Rectangle(0, 0, 0, 0);
-			if (iconifyButton != null && iconifyButton.getParent() != null)
-			{
+			if (( iconifyButton != null )
+					&& ( iconifyButton.getParent() != null ))
 				rect = iconifyButton.getBounds();
-			}
 			int titleW;
 
 			if (leftToRight)
 			{
 				if (rect.x == 0)
-				{
 					rect.x = window.getWidth() - window.getInsets().right - 2;
-				}
 				titleW = rect.x - xOffset - 4;
 				theTitle = clippedText(theTitle, fm, titleW);
 			}
@@ -850,10 +794,7 @@ class MetalTitlePane extends JComponent
 	 */
 	private String clippedText(String text, FontMetrics fm, int availTextWidth)
 	{
-		if (( text == null ) || ( text.equals("") ))
-		{
-			return "";
-		}
+		if (( text == null ) || ( text.equals("") )) return "";
 		int textWidth = SwingUtilities.computeStringWidth(fm, text);
 		String clipString = "...";
 		if (textWidth > availTextWidth)
@@ -863,10 +804,7 @@ class MetalTitlePane extends JComponent
 			for (nChars = 0; nChars < text.length(); nChars++)
 			{
 				totalWidth += fm.charWidth(text.charAt(nChars));
-				if (totalWidth > availTextWidth)
-				{
-					break;
-				}
+				if (totalWidth > availTextWidth) break;
 			}
 			text = text.substring(0, nChars) + clipString;
 		}
@@ -878,6 +816,11 @@ class MetalTitlePane extends JComponent
 	 */
 	private class CloseAction extends AbstractAction
 	{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 2980425504017250539L;
+
 		public CloseAction()
 		{
 			super(UIManager.getString("MetalTitlePane.closeTitle", getLocale()));
@@ -894,6 +837,11 @@ class MetalTitlePane extends JComponent
 	 */
 	private class IconifyAction extends AbstractAction
 	{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -7344019880865512516L;
+
 		public IconifyAction()
 		{
 			super(UIManager.getString("MetalTitlePane.iconifyTitle",
@@ -911,6 +859,11 @@ class MetalTitlePane extends JComponent
 	 */
 	private class RestoreAction extends AbstractAction
 	{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 3928490163826408505L;
+
 		public RestoreAction()
 		{
 			super(UIManager.getString("MetalTitlePane.restoreTitle",
@@ -928,6 +881,11 @@ class MetalTitlePane extends JComponent
 	 */
 	private class MaximizeAction extends AbstractAction
 	{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -7816185381309138177L;
+
 		public MaximizeAction()
 		{
 			super(UIManager.getString("MetalTitlePane.maximizeTitle",
@@ -946,6 +904,12 @@ class MetalTitlePane extends JComponent
 	 */
 	private class SystemMenuBar extends JMenuBar
 	{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -3328254410998216333L;
+
+		@Override
 		public void paint(Graphics g)
 		{
 			Frame frame = getFrame();
@@ -958,25 +922,22 @@ class MetalTitlePane extends JComponent
 			Image image = ( frame != null ) ? frame.getIconImage() : null;
 
 			if (image != null)
-			{
 				g.drawImage(image, 0, 0, IMAGE_WIDTH, IMAGE_HEIGHT, null);
-			}
 			else
 			{
 				Icon icon = UIManager.getIcon("InternalFrame.icon");
 
-				if (icon != null)
-				{
-					icon.paintIcon(this, g, 0, 0);
-				}
+				if (icon != null) icon.paintIcon(this, g, 0, 0);
 			}
 		}
 
+		@Override
 		public Dimension getMinimumSize()
 		{
 			return getPreferredSize();
 		}
 
+		@Override
 		public Dimension getPreferredSize()
 		{
 			Dimension size = super.getPreferredSize();
@@ -1020,9 +981,7 @@ class MetalTitlePane extends JComponent
 			fontHeight += 7;
 			int iconHeight = 0;
 			if (getWindowDecorationStyle() == JRootPane.FRAME)
-			{
 				iconHeight = IMAGE_HEIGHT;
-			}
 
 			int finalHeight = Math.max(fontHeight, iconHeight);
 			return finalHeight;
@@ -1046,7 +1005,7 @@ class MetalTitlePane extends JComponent
 			int buttonHeight;
 			int buttonWidth;
 
-			if (closeButton != null && closeButton.getIcon() != null)
+			if (( closeButton != null ) && ( closeButton.getIcon() != null ))
 			{
 				buttonHeight = closeButton.getIcon().getIconHeight();
 				buttonWidth = closeButton.getIcon().getIconWidth();
@@ -1070,39 +1029,26 @@ class MetalTitlePane extends JComponent
 			spacing = 4;
 			x += leftToRight ? -spacing - buttonWidth : spacing;
 			if (closeButton != null)
-			{
 				closeButton.setBounds(x, y, buttonWidth, buttonHeight);
-			}
 
-			if (!leftToRight)
-			{
-				x += buttonWidth;
-
-			}
+			if (!leftToRight) x += buttonWidth;
 			if (Toolkit.getDefaultToolkit().isFrameStateSupported(
 					Frame.MAXIMIZED_BOTH))
-			{
 				if (toggleButton.getParent() != null)
 				{
 					spacing = 10;
 					x += leftToRight ? -spacing - buttonWidth : spacing;
 					toggleButton.setBounds(x, y, buttonWidth, buttonHeight);
-					if (!leftToRight)
-					{
-						x += buttonWidth;
-					}
+					if (!leftToRight) x += buttonWidth;
 				}
-			}
 
-			if (iconifyButton != null && iconifyButton.getParent() != null)
+			if (( iconifyButton != null )
+					&& ( iconifyButton.getParent() != null ))
 			{
 				spacing = 2;
 				x += leftToRight ? -spacing - buttonWidth : spacing;
 				iconifyButton.setBounds(x, y, buttonWidth, buttonHeight);
-				if (!leftToRight)
-				{
-					x += buttonWidth;
-				}
+				if (!leftToRight) x += buttonWidth;
 			}
 			buttonsWidth = leftToRight ? w - x : x;
 		}
@@ -1123,19 +1069,11 @@ class MetalTitlePane extends JComponent
 			{
 				Frame frame = getFrame();
 
-				if (frame != null)
-				{
-					setState(frame.getExtendedState(), true);
-				}
-				if ("resizable".equals(name))
-				{
-					getRootPane().repaint();
-				}
+				if (frame != null) setState(frame.getExtendedState(), true);
+				if ("resizable".equals(name)) getRootPane().repaint();
 			}
 			else if ("title".equals(name))
-			{
 				repaint();
-			}
 			else if ("componentOrientation".equals(name))
 			{
 				revalidate();
@@ -1149,11 +1087,13 @@ class MetalTitlePane extends JComponent
 	 */
 	private class WindowHandler extends WindowAdapter
 	{
+		@Override
 		public void windowActivated(WindowEvent ev)
 		{
 			setActive(true);
 		}
 
+		@Override
 		public void windowDeactivated(WindowEvent ev)
 		{
 			setActive(false);

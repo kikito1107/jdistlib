@@ -52,11 +52,14 @@ import sun.security.action.GetPropertyAction;
 public class MetalLookAndFeel extends BasicLookAndFeel
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2662174200404171988L;
+
 	private static boolean METAL_LOOK_AND_FEEL_INITED = false;
 
 	private static MetalTheme currentTheme;
-
-	private static boolean isOnlyOneContext = true;
 
 	private static AppContext cachedAppContext;
 
@@ -71,11 +74,6 @@ public class MetalLookAndFeel extends BasicLookAndFeel
 	private static boolean isWindows;
 
 	/**
-	 * Set to true first time we've checked swing.useSystemFontSettings.
-	 */
-	private static boolean checkedSystemFontSettings;
-
-	/**
 	 * True indicates we should use system fonts, unless the developer has
 	 * specified otherwise with Application.useSystemFontSettings.
 	 */
@@ -84,19 +82,20 @@ public class MetalLookAndFeel extends BasicLookAndFeel
 	/**
 	 * Returns true if running on Windows.
 	 */
+	@SuppressWarnings("unchecked")
 	static boolean isWindows()
 	{
 		if (!checkedWindows)
 		{
 			String osName = (String) AccessController
 					.doPrivileged(new GetPropertyAction("os.name"));
-			if (osName != null && osName.indexOf("Windows") != -1)
+			if (( osName != null ) && ( osName.indexOf("Windows") != -1 ))
 			{
 				isWindows = true;
 				String systemFonts = (String) AccessController
 						.doPrivileged(new GetPropertyAction(
 								"swing.useSystemFontSettings"));
-				useSystemFonts = ( systemFonts != null && ( Boolean
+				useSystemFonts = ( ( systemFonts != null ) && ( Boolean
 						.valueOf(systemFonts).booleanValue() ) );
 			}
 			checkedWindows = true;
@@ -117,7 +116,7 @@ public class MetalLookAndFeel extends BasicLookAndFeel
 				Object value = UIManager
 						.get("Application.useSystemFontSettings");
 
-				return ( value == null || Boolean.TRUE.equals(value) );
+				return ( ( value == null ) || Boolean.TRUE.equals(value) );
 			}
 			// If an instanceof MetalLookAndFeel hasn't been inited yet, we
 			// don't want to trigger loading of a UI by asking the UIManager
@@ -254,47 +253,47 @@ public class MetalLookAndFeel extends BasicLookAndFeel
 		Object[] systemColors =
 		{ "desktop", getDesktopColor(), /* Color of the desktop background */
 		"activeCaption", getWindowTitleBackground(), /*
-														 * Color for captions
-														 * (title bars) when
-														 * they are active.
-														 */
+		 * Color for captions
+		 * (title bars) when
+		 * they are active.
+		 */
 		"activeCaptionText", getWindowTitleForeground(), /*
-															 * Text color for
-															 * text in captions
-															 * (title bars).
-															 */
+		 * Text color for
+		 * text in captions
+		 * (title bars).
+		 */
 		"activeCaptionBorder", getPrimaryControlShadow(), /*
-															 * Border color for
-															 * caption (title
-															 * bar) window
-															 * borders.
-															 */
+		 * Border color for
+		 * caption (title
+		 * bar) window
+		 * borders.
+		 */
 		"inactiveCaption", getWindowTitleInactiveBackground(), /*
-																 * Color for
-																 * captions
-																 * (title bars)
-																 * when not
-																 * active.
-																 */
+		 * Color for
+		 * captions
+		 * (title bars)
+		 * when not
+		 * active.
+		 */
 		"inactiveCaptionText", getWindowTitleInactiveForeground(), /*
-																	 * Text
-																	 * color for
-																	 * text in
-																	 * inactive
-																	 * captions
-																	 * (title
-																	 * bars).
-																	 */
+		 * Text
+		 * color for
+		 * text in
+		 * inactive
+		 * captions
+		 * (title
+		 * bars).
+		 */
 		"inactiveCaptionBorder", getControlShadow(), /*
-														 * Border color for
-														 * inactive caption
-														 * (title bar) window
-														 * borders.
-														 */
+		 * Border color for
+		 * inactive caption
+		 * (title bar) window
+		 * borders.
+		 */
 		"window", getWindowBackground(), /*
-											 * Default color for the interior of
-											 * windows
-											 */
+		 * Default color for the interior of
+		 * windows
+		 */
 		"windowBorder", getControl(), /* ??? */
 		"windowText", getUserTextColor(), /* ??? */
 		"menu", getMenuBackground(), /* Background color for menus */
@@ -302,50 +301,48 @@ public class MetalLookAndFeel extends BasicLookAndFeel
 		"text", getWindowBackground(), /* Text background color */
 		"textText", getUserTextColor(), /* Text foreground color */
 		"textHighlight", getTextHighlightColor(), /*
-													 * Text background color
-													 * when selected
-													 */
+		 * Text background color
+		 * when selected
+		 */
 		"textHighlightText", getHighlightedTextColor(), /*
-														 * Text color when
-														 * selected
-														 */
+		 * Text color when
+		 * selected
+		 */
 		"textInactiveText", getInactiveSystemTextColor(), /*
-															 * Text color when
-															 * disabled
-															 */
+		 * Text color when
+		 * disabled
+		 */
 		"control", getControl(), /*
-									 * Default color for controls (buttons,
-									 * sliders, etc)
-									 */
+		 * Default color for controls (buttons,
+		 * sliders, etc)
+		 */
 		"controlText", getControlTextColor(), /*
-												 * Default color for text in
-												 * controls
-												 */
+		 * Default color for text in
+		 * controls
+		 */
 		"controlHighlight", getControlHighlight(), /*
-													 * Specular highlight
-													 * (opposite of the shadow)
-													 */
+		 * Specular highlight
+		 * (opposite of the shadow)
+		 */
 		"controlLtHighlight", getControlHighlight(), /*
-														 * Highlight color for
-														 * controls
-														 */
+		 * Highlight color for
+		 * controls
+		 */
 		"controlShadow", getControlShadow(), /* Shadow color for controls */
 		"controlDkShadow", getControlDarkShadow(), /*
-													 * Dark shadow color for
-													 * controls
-													 */
+		 * Dark shadow color for
+		 * controls
+		 */
 		"scrollbar", getControl(), /*
-									 * Scrollbar background (usually the
-									 * "track")
-									 */
+		 * Scrollbar background (usually the
+		 * "track")
+		 */
 		"info", getPrimaryControl(), /* ToolTip Background */
 		"infoText", getPrimaryControlInfo() /* ToolTip Text */
 		};
 
 		for (int i = 0; i < systemColors.length; i += 2)
-		{
 			table.put((String) systemColors[i], systemColors[i + 1]);
-		}
 	}
 
 	/**
@@ -567,6 +564,7 @@ public class MetalLookAndFeel extends BasicLookAndFeel
 		//
 		// DEFAULTS TABLE
 		//
+		@SuppressWarnings("unused")
 		Class<?> cm = MetalLookAndFeel.class;
 
 		Object[] defaults =
@@ -1524,9 +1522,7 @@ public class MetalLookAndFeel extends BasicLookAndFeel
 		// this step, we don't bother blowing away any potential windows
 		// values.
 		if (theme == null)
-		{
 			throw new NullPointerException("Can't have null theme");
-		}
 		currentTheme = theme;
 		cachedAppContext = AppContext.getAppContext();
 		cachedAppContext.put("currentMetalTheme", theme);
@@ -1549,13 +1545,8 @@ public class MetalLookAndFeel extends BasicLookAndFeel
 				// of a potentially different LAF, we directly set the
 				// Theme here.
 				if (useHighContrastTheme())
-				{
 					currentTheme = new MetalHighContrastTheme();
-				}
-				else
-				{
-					currentTheme = new DefaultMetalTheme();
-				}
+				else currentTheme = new DefaultMetalTheme();
 				setCurrentTheme(currentTheme);
 			}
 			cachedAppContext = context;

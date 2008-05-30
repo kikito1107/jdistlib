@@ -30,6 +30,11 @@ import javax.swing.plaf.basic.BasicArrowButton;
  */
 public class MetalScrollButton extends BasicArrowButton
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5290188752822688837L;
+
 	private static Color shadowColor;
 
 	private static Color highlightColor;
@@ -54,6 +59,7 @@ public class MetalScrollButton extends BasicArrowButton
 		isFreeStanding = freeStanding;
 	}
 
+	@Override
 	public void paint(Graphics g)
 	{
 		boolean leftToRight = MetalUtils.isLeftToRight(this);
@@ -67,16 +73,10 @@ public class MetalScrollButton extends BasicArrowButton
 		int w = width;
 		int h = height;
 		int arrowHeight = ( height + 1 ) / 4;
-		int arrowWidth = ( height + 1 ) / 2;
 
 		if (isPressed)
-		{
 			g.setColor(MetalLookAndFeel.getControlShadow());
-		}
-		else
-		{
-			g.setColor(getBackground());
-		}
+		else g.setColor(getBackground());
 
 		g.fillRect(0, 0, width, height);
 
@@ -91,10 +91,7 @@ public class MetalScrollButton extends BasicArrowButton
 					width += 1;
 					g.translate(-1, 0);
 				}
-				else
-				{
-					width += 2;
-				}
+				else width += 2;
 			}
 
 			// Draw the arrow
@@ -103,14 +100,8 @@ public class MetalScrollButton extends BasicArrowButton
 			int startX = ( w / 2 );
 			// System.out.println( "startX :" + startX + " startY :"+startY);
 			for (int line = 0; line < arrowHeight; line++)
-			{
 				g.drawLine(startX - line, startY + line, startX + line + 1,
 						startY + line);
-			}
-			/*
-			 * g.drawLine( 7, 6, 8, 6 ); g.drawLine( 6, 7, 9, 7 ); g.drawLine(
-			 * 5, 8, 10, 8 ); g.drawLine( 4, 9, 11, 9 );
-			 */
 
 			if (isEnabled)
 			{
@@ -129,10 +120,7 @@ public class MetalScrollButton extends BasicArrowButton
 				g.drawLine(0, 0, 0, height - 1);
 				g.drawLine(width - 2, 2, width - 2, height - 1);
 			}
-			else
-			{
-				MetalUtils.drawDisabledBorder(g, 0, 0, width, height + 1);
-			}
+			else MetalUtils.drawDisabledBorder(g, 0, 0, width, height + 1);
 			if (!isFreeStanding)
 			{
 				height -= 1;
@@ -142,10 +130,7 @@ public class MetalScrollButton extends BasicArrowButton
 					width -= 1;
 					g.translate(1, 0);
 				}
-				else
-				{
-					width -= 2;
-				}
+				else width -= 2;
 			}
 		}
 		else if (getDirection() == SOUTH)
@@ -158,10 +143,7 @@ public class MetalScrollButton extends BasicArrowButton
 					width += 1;
 					g.translate(-1, 0);
 				}
-				else
-				{
-					width += 2;
-				}
+				else width += 2;
 			}
 
 			// Draw the arrow
@@ -173,10 +155,8 @@ public class MetalScrollButton extends BasicArrowButton
 			// System.out.println( "startX2 :" + startX + " startY2 :"+startY);
 
 			for (int line = 0; line < arrowHeight; line++)
-			{
 				g.drawLine(startX - line, startY - line, startX + line + 1,
 						startY - line);
-			}
 
 			/*
 			 * g.drawLine( 4, 5, 11, 5 ); g.drawLine( 5, 6, 10, 6 ); g.drawLine(
@@ -201,10 +181,7 @@ public class MetalScrollButton extends BasicArrowButton
 				g.drawLine(width - 2, 0, width - 2, height - 2);
 				g.drawLine(2, height - 2, width - 2, height - 2);
 			}
-			else
-			{
-				MetalUtils.drawDisabledBorder(g, 0, -1, width, height + 1);
-			}
+			else MetalUtils.drawDisabledBorder(g, 0, -1, width, height + 1);
 
 			if (!isFreeStanding)
 			{
@@ -214,10 +191,7 @@ public class MetalScrollButton extends BasicArrowButton
 					width -= 1;
 					g.translate(1, 0);
 				}
-				else
-				{
-					width -= 2;
-				}
+				else width -= 2;
 			}
 		}
 		else if (getDirection() == EAST)
@@ -237,10 +211,8 @@ public class MetalScrollButton extends BasicArrowButton
 			// System.out.println( "startX2 :" + startX + " startY2 :"+startY);
 
 			for (int line = 0; line < arrowHeight; line++)
-			{
 				g.drawLine(startX - line, startY - line, startX - line, startY
 						+ line + 1);
-			}
 
 			/*
 			 * g.drawLine( 5, 4, 5, 11 ); g.drawLine( 6, 5, 6, 10 ); g.drawLine(
@@ -265,10 +237,7 @@ public class MetalScrollButton extends BasicArrowButton
 				g.drawLine(width - 2, 2, width - 2, height - 2);
 				g.drawLine(0, height - 2, width - 2, height - 2);
 			}
-			else
-			{
-				MetalUtils.drawDisabledBorder(g, -1, 0, width + 1, height);
-			}
+			else MetalUtils.drawDisabledBorder(g, -1, 0, width + 1, height);
 			if (!isFreeStanding)
 			{
 				height -= 2;
@@ -291,10 +260,8 @@ public class MetalScrollButton extends BasicArrowButton
 			int startY = ( h / 2 );
 
 			for (int line = 0; line < arrowHeight; line++)
-			{
 				g.drawLine(startX + line, startY - line, startX + line, startY
 						+ line + 1);
-			}
 
 			/*
 			 * g.drawLine( 6, 7, 6, 8 ); g.drawLine( 7, 6, 7, 9 ); g.drawLine(
@@ -318,10 +285,7 @@ public class MetalScrollButton extends BasicArrowButton
 				g.drawLine(0, 0, 0, height - 2);
 				g.drawLine(2, height - 2, width - 1, height - 2);
 			}
-			else
-			{
-				MetalUtils.drawDisabledBorder(g, 0, 0, width + 1, height);
-			}
+			else MetalUtils.drawDisabledBorder(g, 0, 0, width + 1, height);
 
 			if (!isFreeStanding)
 			{
@@ -332,37 +296,29 @@ public class MetalScrollButton extends BasicArrowButton
 		}
 	}
 
+	@Override
 	public Dimension getPreferredSize()
 	{
 		if (getDirection() == NORTH)
-		{
 			return new Dimension(buttonWidth, buttonWidth - 2);
-		}
 		else if (getDirection() == SOUTH)
-		{
 			return new Dimension(buttonWidth, buttonWidth
 					- ( isFreeStanding ? 1 : 2 ));
-		}
 		else if (getDirection() == EAST)
-		{
 			return new Dimension(buttonWidth - ( isFreeStanding ? 1 : 2 ),
 					buttonWidth);
-		}
 		else if (getDirection() == WEST)
-		{
 			return new Dimension(buttonWidth - 2, buttonWidth);
-		}
-		else
-		{
-			return new Dimension(0, 0);
-		}
+		else return new Dimension(0, 0);
 	}
 
+	@Override
 	public Dimension getMinimumSize()
 	{
 		return getPreferredSize();
 	}
 
+	@Override
 	public Dimension getMaximumSize()
 	{
 		return new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE);

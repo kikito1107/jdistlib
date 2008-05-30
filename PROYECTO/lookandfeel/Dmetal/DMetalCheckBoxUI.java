@@ -32,10 +32,10 @@ import javax.swing.event.ChangeListener;
 import javax.swing.plaf.ComponentInputMapUIResource;
 import javax.swing.plaf.ComponentUI;
 
+import Deventos.DJCheckBoxEvent;
 
 import componentes.base.DJCheckBox;
 import componentes.listeners.DJCheckBoxListener;
-import Deventos.DJCheckBoxEvent;
 
 /**
  * CheckboxUI implementation for MetalCheckboxUI
@@ -51,7 +51,7 @@ import Deventos.DJCheckBoxEvent;
  * @author Michael C. Albers
  * 
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings( "unchecked" )
 public class DMetalCheckBoxUI extends MetalRadioButtonUI
 {
 
@@ -73,6 +73,7 @@ public class DMetalCheckBoxUI extends MetalRadioButtonUI
 		return checkboxUI;
 	}
 
+	@Override
 	public String getPropertyPrefix()
 	{
 		return propertyPrefix;
@@ -81,6 +82,7 @@ public class DMetalCheckBoxUI extends MetalRadioButtonUI
 	// ********************************
 	// Defaults
 	// ********************************
+	@Override
 	public void installDefaults(AbstractButton b)
 	{
 		super.installDefaults(b);
@@ -91,16 +93,19 @@ public class DMetalCheckBoxUI extends MetalRadioButtonUI
 		}
 	}
 
+	@Override
 	protected void uninstallDefaults(AbstractButton b)
 	{
 		super.uninstallDefaults(b);
 		defaults_initialized = false;
 	}
 
+	@Override
 	protected void installKeyboardActions(AbstractButton b)
 	{
 	}
 
+	@Override
 	protected void installListeners(AbstractButton b)
 	{
 		// System.out.println("MetalCheckBoxUI: Instalados listeners");
@@ -129,20 +134,16 @@ public class DMetalCheckBoxUI extends MetalRadioButtonUI
 		{
 			String prop = e.getPropertyName();
 			if (prop.equals(AbstractButton.MNEMONIC_CHANGED_PROPERTY))
-			{
 				updateMnemonicBinding((AbstractButton) e.getSource());
-			}
 
 			if (prop
 					.equals(AbstractButton.CONTENT_AREA_FILLED_CHANGED_PROPERTY))
-			{
 				checkOpacity((AbstractButton) e.getSource());
-			}
 
 			if (prop.equals(AbstractButton.TEXT_CHANGED_PROPERTY)
 					|| "font".equals(prop) || "foreground".equals(prop))
 			{
-				AbstractButton b = (AbstractButton) e.getSource();
+				// AbstractButton b = (AbstractButton) e.getSource();
 				// BasicHTML.updateRenderer(b, b.getText());
 			}
 		}
@@ -160,8 +161,8 @@ public class DMetalCheckBoxUI extends MetalRadioButtonUI
 		{
 			/*
 			 * AbstractButton b = (AbstractButton) c; // Update the mnemonic
-			 * binding. updateMnemonicBinding(b);
-			 *  // Reset the ActionMap. ActionMap map = getActionMap(b);
+			 * binding. updateMnemonicBinding(b); // Reset the ActionMap.
+			 * ActionMap map = getActionMap(b);
 			 * 
 			 * SwingUtilities.replaceUIActionMap(c, map);
 			 * 
@@ -241,11 +242,8 @@ public class DMetalCheckBoxUI extends MetalRadioButtonUI
 							JComponent.WHEN_IN_FOCUSED_WINDOW, map);
 					createdWindowInputMap = true;
 				}
-				else
-				{
-					map = SwingUtilities.getUIInputMap(b,
-							JComponent.WHEN_IN_FOCUSED_WINDOW);
-				}
+				else map = SwingUtilities.getUIInputMap(b,
+						JComponent.WHEN_IN_FOCUSED_WINDOW);
 				if (map != null)
 				{
 					map.clear();
@@ -260,10 +258,7 @@ public class DMetalCheckBoxUI extends MetalRadioButtonUI
 			{
 				InputMap map = SwingUtilities.getUIInputMap(b,
 						JComponent.WHEN_IN_FOCUSED_WINDOW);
-				if (map != null)
-				{
-					map.clear();
-				}
+				if (map != null) map.clear();
 			}
 		}
 
@@ -276,7 +271,7 @@ public class DMetalCheckBoxUI extends MetalRadioButtonUI
 		public void focusGained(FocusEvent e)
 		{
 			AbstractButton b = (AbstractButton) e.getSource();
-			if (b instanceof JButton && ( (JButton) b ).isDefaultCapable())
+			if (( b instanceof JButton ) && ( (JButton) b ).isDefaultCapable())
 			{
 				JRootPane root = b.getRootPane();
 				if (root != null)
@@ -298,10 +293,7 @@ public class DMetalCheckBoxUI extends MetalRadioButtonUI
 			{
 				JButton initialDefault = (JButton) root
 						.getClientProperty("initialDefaultButton");
-				if (b != initialDefault)
-				{
-					root.setDefaultButton(initialDefault);
-				}
+				if (b != initialDefault) root.setDefaultButton(initialDefault);
 			}
 
 			b.getModel().setArmed(false);
@@ -333,19 +325,17 @@ public class DMetalCheckBoxUI extends MetalRadioButtonUI
 					long multiClickThreshhold = b.getMultiClickThreshhold();
 					long lastTime = lastPressedTimestamp;
 					long currentTime = lastPressedTimestamp = e.getWhen();
-					if (lastTime != -1
-							&& currentTime - lastTime < multiClickThreshhold)
+					if (( lastTime != -1 )
+							&& ( currentTime - lastTime < multiClickThreshhold ))
 					{
 						shouldDiscardRelease = true;
 						return;
 					}
 
 					ButtonModel model = b.getModel();
-					if (!model.isEnabled())
-					{
-						// Disabled buttons ignore all input...
+					if (!model.isEnabled()) // Disabled buttons ignore all
+						// input...
 						return;
-					}
 					if (!model.isArmed())
 					{
 						// button not armed, should be
@@ -362,10 +352,8 @@ public class DMetalCheckBoxUI extends MetalRadioButtonUI
 					evento.tipo = new Integer(DJCheckBoxEvent.PRESIONADO
 							.intValue());
 					for (int i = 0; i < v.size(); i++)
-					{
 						( (DJCheckBoxListener) v.elementAt(i) )
 								.presionado(evento);
-					}
 				}
 			}
 		};
@@ -397,10 +385,7 @@ public class DMetalCheckBoxUI extends MetalRadioButtonUI
 				DJCheckBoxEvent evento = new DJCheckBoxEvent();
 				evento.tipo = new Integer(DJCheckBoxEvent.SOLTADO.intValue());
 				for (int i = 0; i < v.size(); i++)
-				{
 					( (DJCheckBoxListener) v.elementAt(i) ).soltado(evento);
-				}
-				// }
 
 				/*
 				 * model.setPressed(false); model.setArmed(false);

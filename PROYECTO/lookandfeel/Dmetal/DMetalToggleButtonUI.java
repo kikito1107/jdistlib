@@ -39,10 +39,10 @@ import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicGraphicsUtils;
 import javax.swing.plaf.basic.BasicToggleButtonUI;
 
+import Deventos.DJToggleButtonEvent;
 
 import componentes.base.DJToggleButton;
 import componentes.listeners.DJToggleButtonListener;
-import Deventos.DJToggleButtonEvent;
 
 /**
  * MetalToggleButton implementation
@@ -57,7 +57,7 @@ import Deventos.DJToggleButtonEvent;
  * @version 1.21 01/23/03
  * @author Tom Santos
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings( "unchecked" )
 public class DMetalToggleButtonUI extends BasicToggleButtonUI
 {
 
@@ -82,6 +82,7 @@ public class DMetalToggleButtonUI extends BasicToggleButtonUI
 	// ********************************
 	// Install Defaults
 	// ********************************
+	@Override
 	public void installDefaults(AbstractButton b)
 	{
 		super.installDefaults(b);
@@ -95,16 +96,19 @@ public class DMetalToggleButtonUI extends BasicToggleButtonUI
 		}
 	}
 
+	@Override
 	protected void uninstallDefaults(AbstractButton b)
 	{
 		super.uninstallDefaults(b);
 		defaults_initialized = false;
 	}
 
+	@Override
 	protected void installKeyboardActions(AbstractButton b)
 	{
 	}
 
+	@Override
 	protected void installListeners(AbstractButton b)
 	{
 		b.addMouseListener(new ButtonListener());
@@ -131,6 +135,7 @@ public class DMetalToggleButtonUI extends BasicToggleButtonUI
 	// ********************************
 	// Paint Methods
 	// ********************************
+	@Override
 	protected void paintButtonPressed(Graphics g, AbstractButton b)
 	{
 		if (b.isContentAreaFilled())
@@ -141,6 +146,7 @@ public class DMetalToggleButtonUI extends BasicToggleButtonUI
 		}
 	}
 
+	@Override
 	protected void paintText(Graphics g, JComponent c, Rectangle textRect,
 			String text)
 	{
@@ -161,19 +167,15 @@ public class DMetalToggleButtonUI extends BasicToggleButtonUI
 		{
 			/** * paint the text disabled ** */
 			if (model.isSelected())
-			{
 				g.setColor(c.getBackground());
-			}
-			else
-			{
-				g.setColor(getDisabledTextColor());
-			}
+			else g.setColor(getDisabledTextColor());
 			BasicGraphicsUtils.drawStringUnderlineCharAt(g, text, mnemIndex,
 					textRect.x, textRect.y + fm.getAscent());
 
 		}
 	}
 
+	@Override
 	protected void paintFocus(Graphics g, AbstractButton b, Rectangle viewRect,
 			Rectangle textRect, Rectangle iconRect)
 	{
@@ -183,22 +185,14 @@ public class DMetalToggleButtonUI extends BasicToggleButtonUI
 		boolean isIcon = b.getIcon() != null;
 
 		// If there is text
-		if (text != null && !text.equals(""))
+		if (( text != null ) && !text.equals(""))
 		{
 			if (!isIcon)
-			{
 				focusRect.setBounds(textRect);
-			}
-			else
-			{
-				focusRect.setBounds(iconRect.union(textRect));
-			}
+			else focusRect.setBounds(iconRect.union(textRect));
 		}
 		// If there is an icon and no text
-		else if (isIcon)
-		{
-			focusRect.setBounds(iconRect);
-		}
+		else if (isIcon) focusRect.setBounds(iconRect);
 
 		g.setColor(getFocusColor());
 		g.drawRect(( focusRect.x - 1 ), ( focusRect.y - 1 ),
@@ -230,20 +224,16 @@ public class DMetalToggleButtonUI extends BasicToggleButtonUI
 		{
 			String prop = e.getPropertyName();
 			if (prop.equals(AbstractButton.MNEMONIC_CHANGED_PROPERTY))
-			{
 				updateMnemonicBinding((AbstractButton) e.getSource());
-			}
 
 			if (prop
 					.equals(AbstractButton.CONTENT_AREA_FILLED_CHANGED_PROPERTY))
-			{
 				checkOpacity((AbstractButton) e.getSource());
-			}
 
 			if (prop.equals(AbstractButton.TEXT_CHANGED_PROPERTY)
 					|| "font".equals(prop) || "foreground".equals(prop))
 			{
-				AbstractButton b = (AbstractButton) e.getSource();
+				// AbstractButton b = (AbstractButton) e.getSource();
 				// BasicHTML.updateRenderer(b, b.getText());
 			}
 		}
@@ -342,11 +332,8 @@ public class DMetalToggleButtonUI extends BasicToggleButtonUI
 							JComponent.WHEN_IN_FOCUSED_WINDOW, map);
 					createdWindowInputMap = true;
 				}
-				else
-				{
-					map = SwingUtilities.getUIInputMap(b,
-							JComponent.WHEN_IN_FOCUSED_WINDOW);
-				}
+				else map = SwingUtilities.getUIInputMap(b,
+						JComponent.WHEN_IN_FOCUSED_WINDOW);
 				if (map != null)
 				{
 					map.clear();
@@ -361,10 +348,7 @@ public class DMetalToggleButtonUI extends BasicToggleButtonUI
 			{
 				InputMap map = SwingUtilities.getUIInputMap(b,
 						JComponent.WHEN_IN_FOCUSED_WINDOW);
-				if (map != null)
-				{
-					map.clear();
-				}
+				if (map != null) map.clear();
 			}
 		}
 
@@ -377,7 +361,7 @@ public class DMetalToggleButtonUI extends BasicToggleButtonUI
 		public void focusGained(FocusEvent e)
 		{
 			AbstractButton b = (AbstractButton) e.getSource();
-			if (b instanceof JButton && ( (JButton) b ).isDefaultCapable())
+			if (( b instanceof JButton ) && ( (JButton) b ).isDefaultCapable())
 			{
 				JRootPane root = b.getRootPane();
 				if (root != null)
@@ -399,10 +383,7 @@ public class DMetalToggleButtonUI extends BasicToggleButtonUI
 			{
 				JButton initialDefault = (JButton) root
 						.getClientProperty("initialDefaultButton");
-				if (b != initialDefault)
-				{
-					root.setDefaultButton(initialDefault);
-				}
+				if (b != initialDefault) root.setDefaultButton(initialDefault);
 			}
 
 			b.getModel().setArmed(false);
@@ -434,19 +415,17 @@ public class DMetalToggleButtonUI extends BasicToggleButtonUI
 					long multiClickThreshhold = b.getMultiClickThreshhold();
 					long lastTime = lastPressedTimestamp;
 					long currentTime = lastPressedTimestamp = e.getWhen();
-					if (lastTime != -1
-							&& currentTime - lastTime < multiClickThreshhold)
+					if (( lastTime != -1 )
+							&& ( currentTime - lastTime < multiClickThreshhold ))
 					{
 						shouldDiscardRelease = true;
 						return;
 					}
 
 					ButtonModel model = b.getModel();
-					if (!model.isEnabled())
-					{
-						// Disabled buttons ignore all input...
+					if (!model.isEnabled()) // Disabled buttons ignore all
+						// input...
 						return;
-					}
 					if (!model.isArmed())
 					{
 						// button not armed, should be
@@ -466,10 +445,8 @@ public class DMetalToggleButtonUI extends BasicToggleButtonUI
 					evento.tipo = new Integer(DJToggleButtonEvent.PRESIONADO
 							.intValue());
 					for (int i = 0; i < v.size(); i++)
-					{
 						( (DJToggleButtonListener) v.elementAt(i) )
 								.presionado(evento);
-					}
 				}
 			}
 		};
@@ -485,7 +462,6 @@ public class DMetalToggleButtonUI extends BasicToggleButtonUI
 					return;
 				}
 				AbstractButton b = (AbstractButton) e.getSource();
-				ButtonModel model = b.getModel();
 
 				// Al haber deshabilitado los eventos de entrada y salida del
 				// puntero siempre
@@ -494,16 +470,12 @@ public class DMetalToggleButtonUI extends BasicToggleButtonUI
 
 				// Cualquier mouseReleased() producira cambio de estado
 				// if(model.isPressed() && model.isArmed()){
-				boolean seleccionado = model.isSelected();
 				Vector v = ( (DJToggleButton) b ).getDJToggleButtonListeners();
 				DJToggleButtonEvent evento = new DJToggleButtonEvent();
 				evento.tipo = new Integer(DJToggleButtonEvent.SOLTADO
 						.intValue());
 				for (int i = 0; i < v.size(); i++)
-				{
 					( (DJToggleButtonListener) v.elementAt(i) ).soltado(evento);
-				}
-				// }
 
 				/*
 				 * model.setPressed(false); model.setArmed(false);

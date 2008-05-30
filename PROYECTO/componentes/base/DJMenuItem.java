@@ -9,7 +9,6 @@ import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
 import javax.swing.MenuElement;
 
 import util.DMenuSelectionManager;
@@ -289,39 +288,19 @@ public class DJMenuItem extends JMenuItem implements DComponente
 		return null;
 	}
 
-	private Vector pathToVector(MenuElement[] path)
-	{
-		Vector v = new Vector();
-		int i, j, n;
-		v.add(new Integer(0));
-		for (i = 1; i < path.length; i++)
-			if (path[i] instanceof JPopupMenu)
-				v.add(new Integer(-5));
-			else
-			{
-				MenuElement[] me = path[i - 1].getSubElements();
-				n = -1;
-				for (j = 0; j < me.length; j++)
-					if (me[j].equals(path[i])) n = j;
-				v.add(new Integer(n));
-			}
-		return v;
-	}
-
+	@SuppressWarnings("unchecked")
 	private MenuElement[] vectorToPath(Vector v)
 	{
 		MenuElement barraMenu = ( (DMenuSelectionManager) DMenuSelectionManager
 				.defaultManager() ).getBarraMenu();
-		MenuElement nodoActual = this;
 
 		MenuElement[] me = new MenuElement[v.size()];
 		MenuElement elementoActual = null;
-		int i, j;
 		if (me.length > 0)
 		{
 			me[0] = barraMenu;
 			elementoActual = barraMenu;
-			for (i = 1; i < v.size(); i++)
+			for (int i = 1; i < v.size(); i++)
 				if (( (Integer) v.elementAt(i) ).intValue() == -5)
 				{ // es un popup
 					me[i] = ( (JMenu) elementoActual ).getPopupMenu();

@@ -28,10 +28,10 @@ import javax.swing.plaf.basic.BasicComboBoxUI;
 import javax.swing.plaf.basic.BasicComboPopup;
 import javax.swing.plaf.basic.ComboPopup;
 
+import Deventos.DJComboBoxEvent;
 
 import componentes.base.DJComboBox;
 import componentes.listeners.DJComboBoxListener;
-import Deventos.DJComboBoxEvent;
 
 /**
  * Metal UI for JComboBox
@@ -48,7 +48,7 @@ import Deventos.DJComboBoxEvent;
  * @version 1.42 01/23/03
  * @author Tom Santos
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings( "unchecked" )
 public class DMetalComboBoxUI extends BasicComboBoxUI
 {
 	public DMetalComboPopup mcp = null;
@@ -60,12 +60,14 @@ public class DMetalComboBoxUI extends BasicComboBoxUI
 	private int indiceVirtual = -1;
 
 	// ************************************************************
+	@Override
 	protected void installKeyboardActions()
 	{
 		// Dejando el contenido de este método vacío hacemos que el componente
 		// no responda a eventos del teclado
 	}
 
+	@Override
 	protected void installListeners()
 	{
 		super.installListeners();
@@ -83,16 +85,12 @@ public class DMetalComboBoxUI extends BasicComboBoxUI
 		return mcp.getItemSeleccionado();
 	}
 
+	@Override
 	public void setPopupVisible(JComboBox c, boolean v)
 	{
 		if (v)
-		{
 			mcp.show();
-		}
-		else
-		{
-			mcp.hide();
-		}
+		else mcp.hide();
 		mcp.repaint();
 	}
 
@@ -103,15 +101,18 @@ public class DMetalComboBoxUI extends BasicComboBoxUI
 		return new DMetalComboBoxUI();
 	}
 
+	@Override
 	public void paint(Graphics g, JComponent c)
 	{
 	}
 
+	@Override
 	protected ComboBoxEditor createEditor()
 	{
 		return new MetalComboBoxEditor.UIResource();
 	}
 
+	@Override
 	protected ComboPopup createPopup()
 	{
 		// System.out.println("DMetalComboBoxUI: createPopup()");
@@ -120,6 +121,7 @@ public class DMetalComboBoxUI extends BasicComboBoxUI
 		return mcp;
 	}
 
+	@Override
 	protected JButton createArrowButton()
 	{
 		JButton button = new MetalComboBoxButton(comboBox,
@@ -129,6 +131,7 @@ public class DMetalComboBoxUI extends BasicComboBoxUI
 		return button;
 	}
 
+	@Override
 	public PropertyChangeListener createPropertyChangeListener()
 	{
 		return new DMetalPropertyChangeListener();
@@ -142,6 +145,7 @@ public class DMetalComboBoxUI extends BasicComboBoxUI
 	public class DMetalPropertyChangeListener extends
 			BasicComboBoxUI.PropertyChangeHandler
 	{
+		@Override
 		public void propertyChange(PropertyChangeEvent e)
 		{
 			super.propertyChange(e);
@@ -176,10 +180,12 @@ public class DMetalComboBoxUI extends BasicComboBoxUI
 	 * 
 	 * @deprecated As of Java 2 platform v1.4.
 	 */
+	@Deprecated
 	protected void editablePropertyChanged(PropertyChangeEvent e)
 	{
 	}
 
+	@Override
 	protected LayoutManager createLayoutManager()
 	{
 		return new DMetalComboBoxLayoutManager();
@@ -193,6 +199,7 @@ public class DMetalComboBoxUI extends BasicComboBoxUI
 	public class DMetalComboBoxLayoutManager extends
 			BasicComboBoxUI.ComboBoxLayoutManager
 	{
+		@Override
 		public void layoutContainer(Container parent)
 		{
 			layoutComboBox(parent, this);
@@ -211,20 +218,15 @@ public class DMetalComboBoxUI extends BasicComboBoxUI
 			DMetalComboBoxLayoutManager manager)
 	{
 		if (comboBox.isEditable())
-		{
 			manager.superLayout(parent);
-		}
-		else
+		else if (arrowButton != null)
 		{
-			if (arrowButton != null)
-			{
-				Insets insets = comboBox.getInsets();
-				int width = comboBox.getWidth();
-				int height = comboBox.getHeight();
-				arrowButton.setBounds(insets.left, insets.top, width
-						- ( insets.left + insets.right ), height
-						- ( insets.top + insets.bottom ));
-			}
+			Insets insets = comboBox.getInsets();
+			int width = comboBox.getWidth();
+			int height = comboBox.getHeight();
+			arrowButton.setBounds(insets.left, insets.top, width
+					- ( insets.left + insets.right ), height
+					- ( insets.top + insets.bottom ));
 		}
 	}
 
@@ -233,12 +235,11 @@ public class DMetalComboBoxUI extends BasicComboBoxUI
 	 * 
 	 * @deprecated As of Java 2 platform v1.4.
 	 */
+	@Deprecated
 	protected void removeListeners()
 	{
 		if (propertyChangeListener != null)
-		{
 			comboBox.removePropertyChangeListener(propertyChangeListener);
-		}
 	}
 
 	// These two methods were overloaded and made public. This was probably a
@@ -246,27 +247,27 @@ public class DMetalComboBoxUI extends BasicComboBoxUI
 	// provide is no longer necessary and should be removed. However,
 	// removing them will create an uncompatible API change.
 
+	@Override
 	public void configureEditor()
 	{
 		super.configureEditor();
 	}
 
+	@Override
 	public void unconfigureEditor()
 	{
 		super.unconfigureEditor();
 	}
 
+	@Override
 	public Dimension getMinimumSize(JComponent c)
 	{
-		if (!isMinimumSizeDirty)
-		{
-			return new Dimension(cachedMinimumSize);
-		}
+		if (!isMinimumSizeDirty) return new Dimension(cachedMinimumSize);
 
 		Dimension size = null;
 
-		if (!comboBox.isEditable() && arrowButton != null
-				&& arrowButton instanceof MetalComboBoxButton)
+		if (!comboBox.isEditable() && ( arrowButton != null )
+				&& ( arrowButton instanceof MetalComboBoxButton ))
 		{
 
 			MetalComboBoxButton button = (MetalComboBoxButton) arrowButton;
@@ -281,17 +282,15 @@ public class DMetalComboBoxUI extends BasicComboBoxUI
 			size.height += insets.top + insets.bottom;
 			size.height += buttonInsets.top + buttonInsets.bottom;
 		}
-		else if (comboBox.isEditable() && arrowButton != null && editor != null)
+		else if (comboBox.isEditable() && ( arrowButton != null )
+				&& ( editor != null ))
 		{
 			size = super.getMinimumSize(c);
 			Insets margin = arrowButton.getMargin();
 			size.height += margin.top + margin.bottom;
 			size.width += margin.left + margin.right;
 		}
-		else
-		{
-			size = super.getMinimumSize(c);
-		}
+		else size = super.getMinimumSize(c);
 
 		cachedMinimumSize.setSize(size.width, size.height);
 		isMinimumSizeDirty = false;
@@ -311,6 +310,11 @@ public class DMetalComboBoxUI extends BasicComboBoxUI
 	 */
 	public class DMetalComboPopup extends BasicComboPopup
 	{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 5176723072395007981L;
+
 		private static final String DuiClassID = "DDD";
 
 		int i = 0;
@@ -323,6 +327,7 @@ public class DMetalComboBoxUI extends BasicComboBoxUI
 			// this.setUI(new MetalPopupMenuUI());
 		}
 
+		@Override
 		public String getUIClassID()
 		{
 			return DuiClassID;
@@ -339,6 +344,7 @@ public class DMetalComboBoxUI extends BasicComboBoxUI
 			return list.getSelectedIndex();
 		}
 
+		@Override
 		public void setVisible(boolean b)
 		{
 			super.setVisible(b);
@@ -357,10 +363,10 @@ public class DMetalComboBoxUI extends BasicComboBoxUI
 
 		/*
 		 * public void hide(){ super.hide();
-		 * System.out.println("DMetalComboBoxUI: hide() "+i++);
-		 *  }
+		 * System.out.println("DMetalComboBoxUI: hide() "+i++); }
 		 */
 
+		@Override
 		public void menuSelectionChanged(boolean isIncluded)
 		{
 			// super.menuSelectionChanged(isIncluded);
@@ -368,24 +374,28 @@ public class DMetalComboBoxUI extends BasicComboBoxUI
 		}
 
 		// ******************
+		@Override
 		protected MouseListener createMouseListener()
 		{
 			// System.out.println("Instalado MouseListener");
 			return new DInvocationMouseHandler();
 		}
 
+		@Override
 		protected MouseMotionListener createMouseMotionListener()
 		{
 			// System.out.println("Instalado MouseMotionListener");
 			return new DInvocationMouseMotionHandler();
 		}
 
+		@Override
 		protected MouseListener createListMouseListener()
 		{
 			// System.out.println("Instalado ListMouseListener");
 			return new DListMouseHandler();
 		}
 
+		@Override
 		protected MouseMotionListener createListMouseMotionListener()
 		{
 			// System.out.println("Instalado ListMouseMotionListener");
@@ -402,6 +412,7 @@ public class DMetalComboBoxUI extends BasicComboBoxUI
 		 * @param shouldScroll
 		 *            boolean
 		 */
+		@Override
 		protected void updateListBoxSelectionForEvent(MouseEvent anEvent,
 				boolean shouldScroll)
 		{
@@ -409,24 +420,14 @@ public class DMetalComboBoxUI extends BasicComboBoxUI
 			// is
 			// never true
 			Point location = anEvent.getPoint();
-			if (list == null)
-			{
-				return;
-			}
+			if (list == null) return;
 			int index = list.locationToIndex(location);
-			if (index == -1)
-			{
-				if (location.y < 0)
-				{
-					index = 0;
-				}
-				else
-				{
-					index = comboBox.getModel().getSize() - 1;
-				}
-			}
+			if (index == -1) if (location.y < 0)
+				index = 0;
+			else index = comboBox.getModel().getSize() - 1;
 
-			if (list.getSelectedIndex() != index && index != indiceVirtual)
+			if (( list.getSelectedIndex() != index )
+					&& ( index != indiceVirtual ))
 			{
 				System.out.println("DMetalComboBoxUI: Cambio selección a item "
 						+ index);
@@ -442,10 +443,8 @@ public class DMetalComboBoxUI extends BasicComboBoxUI
 						DJComboBoxEvent.CAMBIO_SELECCION_LISTA.intValue());
 				Vector v = ( (DJComboBox) comboBox ).getDJComboBoxListeners();
 				for (int i = 0; i < v.size(); i++)
-				{
 					( (DJComboBoxListener) v.elementAt(i) )
 							.cambioSeleccionLista(evento);
-				}
 			}
 
 		}
@@ -456,6 +455,7 @@ public class DMetalComboBoxUI extends BasicComboBoxUI
 		// provide is no longer necessary and should be removed. However,
 		// removing them will create an uncompatible API change.
 
+		@Override
 		public void delegateFocus(MouseEvent e)
 		{
 			super.delegateFocus(e);
@@ -471,10 +471,12 @@ public class DMetalComboBoxUI extends BasicComboBoxUI
 				// System.out.println("Creada instancia DListMouseHandler");
 			}
 
+			@Override
 			public void mousePressed(MouseEvent e)
 			{
 			}
 
+			@Override
 			public void mouseReleased(MouseEvent anEvent)
 			{
 				// comboBox.setSelectedIndex(list.getSelectedIndex());
@@ -494,11 +496,9 @@ public class DMetalComboBoxUI extends BasicComboBoxUI
 
 				// comboBox.setPopupVisible(false);
 				// workaround for cancelling an edited item (bug 4530953)
-				if (comboBox.isEditable() && comboBox.getEditor() != null)
-				{
+				if (comboBox.isEditable() && ( comboBox.getEditor() != null ))
 					comboBox.configureEditor(comboBox.getEditor(), comboBox
 							.getSelectedItem());
-				}
 
 				System.out.println("DListMouseHandler: mouseReleased");
 			}
@@ -518,16 +518,14 @@ public class DMetalComboBoxUI extends BasicComboBoxUI
 				// DListMouseMotionHandler");
 			}
 
+			@Override
 			public void mouseMoved(MouseEvent anEvent)
 			{
 				Point location = anEvent.getPoint();
 				Rectangle r = new Rectangle();
 				list.computeVisibleRect(r);
 				if (r.contains(location))
-				{
 					updateListBoxSelectionForEvent(anEvent, false);
-				}
-				// System.out.println("DListMouseMotionHandler: mouseMoved");
 			}
 		}
 
@@ -566,45 +564,32 @@ public class DMetalComboBoxUI extends BasicComboBoxUI
 					Rectangle r = new Rectangle();
 					list.computeVisibleRect(r);
 
-					if (newEvent.getPoint().y >= r.y
-							&& newEvent.getPoint().y <= r.y + r.height - 1)
+					if (( newEvent.getPoint().y >= r.y )
+							&& ( newEvent.getPoint().y <= r.y + r.height - 1 ))
 					{
 						hasEntered = true;
-						if (isAutoScrolling)
-						{
-							stopAutoScrolling();
-						}
+						if (isAutoScrolling) stopAutoScrolling();
 						Point location = newEvent.getPoint();
 						if (r.contains(location))
-						{
 							updateListBoxSelectionForEvent(newEvent, false);
-						}
 					}
-					else
+					else if (hasEntered)
 					{
-						if (hasEntered)
+						int directionToScroll = newEvent.getPoint().y < r.y ? SCROLL_UP
+								: SCROLL_DOWN;
+						if (isAutoScrolling
+								&& ( scrollDirection != directionToScroll ))
 						{
-							int directionToScroll = newEvent.getPoint().y < r.y ? SCROLL_UP
-									: SCROLL_DOWN;
-							if (isAutoScrolling
-									&& scrollDirection != directionToScroll)
-							{
-								stopAutoScrolling();
-								startAutoScrolling(directionToScroll);
-							}
-							else if (!isAutoScrolling)
-							{
-								startAutoScrolling(directionToScroll);
-							}
+							stopAutoScrolling();
+							startAutoScrolling(directionToScroll);
 						}
-						else
-						{
-							if (e.getPoint().y < 0)
-							{
-								hasEntered = true;
-								startAutoScrolling(SCROLL_UP);
-							}
-						}
+						else if (!isAutoScrolling)
+							startAutoScrolling(directionToScroll);
+					}
+					else if (e.getPoint().y < 0)
+					{
+						hasEntered = true;
+						startAutoScrolling(SCROLL_UP);
 					}
 				}
 			}
@@ -615,22 +600,18 @@ public class DMetalComboBoxUI extends BasicComboBoxUI
 			 * @param e
 			 *            the mouse-press event to be handled
 			 */
+			@Override
 			public void mousePressed(MouseEvent e)
 			{
 				if (!SwingUtilities.isLeftMouseButton(e)
-						|| !comboBox.isEnabled())
-				{
-					return;
-				}
+						|| !comboBox.isEnabled()) return;
 
 				if (comboBox.isEditable())
 				{
 					Component comp = comboBox.getEditor().getEditorComponent();
 					if (( !( comp instanceof JComponent ) )
 							|| ( (JComponent) comp ).isRequestFocusEnabled())
-					{
 						comp.requestFocus();
-					}
 				}
 				else if (comboBox.isRequestFocusEnabled())
 				{
@@ -644,18 +625,14 @@ public class DMetalComboBoxUI extends BasicComboBoxUI
 					Vector v = ( (DJComboBox) comboBox )
 							.getDJComboBoxListeners();
 					for (int i = 0; i < v.size(); i++)
-					{
 						( (DJComboBoxListener) v.elementAt(i) ).cerrado();
-					}
 				}
 				else
 				{
 					Vector v = ( (DJComboBox) comboBox )
 							.getDJComboBoxListeners();
 					for (int i = 0; i < v.size(); i++)
-					{
 						( (DJComboBoxListener) v.elementAt(i) ).abierto();
-					}
 				}
 
 				// System.out.println("DInvocationMouseHandler: mousePressed");
@@ -668,6 +645,7 @@ public class DMetalComboBoxUI extends BasicComboBoxUI
 			 * @param e
 			 *            the mouse-release event to be handled
 			 */
+			@Override
 			public void mouseReleased(MouseEvent e)
 			{
 				// System.out.println("DInvocationMouseHandler: Mouse
@@ -691,14 +669,12 @@ public class DMetalComboBoxUI extends BasicComboBoxUI
 						Vector v = ( (DJComboBox) comboBox )
 								.getDJComboBoxListeners();
 						for (int i = 0; i < v.size(); i++)
-						{
 							( (DJComboBoxListener) v.elementAt(i) )
 									.seleccion(evento);
-							/*
-							 * System.out.println( "DListMouseMotionHandler:
-							 * mouseReleased. Informado listner " + i);
-							 */
-						}
+						/*
+						 * System.out.println( "DListMouseMotionHandler:
+						 * mouseReleased. Informado listner " + i);
+						 */
 					}
 					// comboBox.setPopupVisible(false);
 				}
@@ -723,6 +699,7 @@ public class DMetalComboBoxUI extends BasicComboBoxUI
 				// DInvocationMouseMotionHandler");
 			}
 
+			@Override
 			public void mouseDragged(MouseEvent e)
 			{
 				// System.out.println("DInvocationMouseMotionHandler:
@@ -733,45 +710,32 @@ public class DMetalComboBoxUI extends BasicComboBoxUI
 					Rectangle r = new Rectangle();
 					list.computeVisibleRect(r);
 
-					if (newEvent.getPoint().y >= r.y
-							&& newEvent.getPoint().y <= r.y + r.height - 1)
+					if (( newEvent.getPoint().y >= r.y )
+							&& ( newEvent.getPoint().y <= r.y + r.height - 1 ))
 					{
 						hasEntered = true;
-						if (isAutoScrolling)
-						{
-							stopAutoScrolling();
-						}
+						if (isAutoScrolling) stopAutoScrolling();
 						Point location = newEvent.getPoint();
 						if (r.contains(location))
-						{
 							updateListBoxSelectionForEvent(newEvent, false);
-						}
 					}
-					else
+					else if (hasEntered)
 					{
-						if (hasEntered)
+						int directionToScroll = newEvent.getPoint().y < r.y ? SCROLL_UP
+								: SCROLL_DOWN;
+						if (isAutoScrolling
+								&& ( scrollDirection != directionToScroll ))
 						{
-							int directionToScroll = newEvent.getPoint().y < r.y ? SCROLL_UP
-									: SCROLL_DOWN;
-							if (isAutoScrolling
-									&& scrollDirection != directionToScroll)
-							{
-								stopAutoScrolling();
-								startAutoScrolling(directionToScroll);
-							}
-							else if (!isAutoScrolling)
-							{
-								startAutoScrolling(directionToScroll);
-							}
+							stopAutoScrolling();
+							startAutoScrolling(directionToScroll);
 						}
-						else
-						{
-							if (e.getPoint().y < 0)
-							{
-								hasEntered = true;
-								startAutoScrolling(SCROLL_UP);
-							}
-						}
+						else if (!isAutoScrolling)
+							startAutoScrolling(directionToScroll);
+					}
+					else if (e.getPoint().y < 0)
+					{
+						hasEntered = true;
+						startAutoScrolling(SCROLL_UP);
 					}
 				}
 				// System.out.println("DInvocationMouseMotionHandler:

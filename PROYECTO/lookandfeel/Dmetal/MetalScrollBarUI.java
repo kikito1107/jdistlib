@@ -7,6 +7,7 @@
 
 package lookandfeel.Dmetal;
 
+import java.awt.Adjustable;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -16,7 +17,6 @@ import java.beans.PropertyChangeListener;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JScrollBar;
 import javax.swing.UIManager;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicScrollBarUI;
@@ -60,6 +60,7 @@ public class MetalScrollBarUI extends BasicScrollBarUI
 		return new MetalScrollBarUI();
 	}
 
+	@Override
 	protected void installDefaults()
 	{
 		scrollBarWidth = ( (Integer) ( UIManager.get("ScrollBar.width") ) )
@@ -69,6 +70,7 @@ public class MetalScrollBarUI extends BasicScrollBarUI
 				thumbColor);
 	}
 
+	@Override
 	protected void installListeners()
 	{
 		super.installListeners();
@@ -77,11 +79,13 @@ public class MetalScrollBarUI extends BasicScrollBarUI
 						.getClientProperty(FREE_STANDING_PROP));
 	}
 
+	@Override
 	protected PropertyChangeListener createPropertyChangeListener()
 	{
 		return new ScrollBarListener();
 	}
 
+	@Override
 	protected void configureScrollBarColors()
 	{
 		super.configureScrollBarColors();
@@ -94,22 +98,19 @@ public class MetalScrollBarUI extends BasicScrollBarUI
 
 	}
 
+	@Override
 	public Dimension getPreferredSize(JComponent c)
 	{
-		if (scrollbar.getOrientation() == JScrollBar.VERTICAL)
-		{
+		if (scrollbar.getOrientation() == Adjustable.VERTICAL)
 			return new Dimension(scrollBarWidth, scrollBarWidth * 3 + 10);
-		}
-		else
-		{ // Horizontal
-			return new Dimension(scrollBarWidth * 3 + 10, scrollBarWidth);
-		}
+		else return new Dimension(scrollBarWidth * 3 + 10, scrollBarWidth);
 
 	}
 
 	/**
 	 * Returns the view that represents the decrease view.
 	 */
+	@Override
 	protected JButton createDecreaseButton(int orientation)
 	{
 		decreaseButton = new MetalScrollButton(orientation, scrollBarWidth,
@@ -118,6 +119,7 @@ public class MetalScrollBarUI extends BasicScrollBarUI
 	}
 
 	/** Returns the view that represents the increase view. */
+	@Override
 	protected JButton createIncreaseButton(int orientation)
 	{
 		increaseButton = new MetalScrollButton(orientation, scrollBarWidth,
@@ -125,26 +127,21 @@ public class MetalScrollBarUI extends BasicScrollBarUI
 		return increaseButton;
 	}
 
+	@Override
 	protected void paintTrack(Graphics g, JComponent c, Rectangle trackBounds)
 	{
 		g.translate(trackBounds.x, trackBounds.y);
 
 		boolean leftToRight = MetalUtils.isLeftToRight(c);
 
-		if (scrollbar.getOrientation() == JScrollBar.VERTICAL)
+		if (scrollbar.getOrientation() == Adjustable.VERTICAL)
 		{
-			if (!isFreeStanding)
+			if (!isFreeStanding) if (!leftToRight)
 			{
-				if (!leftToRight)
-				{
-					trackBounds.width += 1;
-					g.translate(-1, 0);
-				}
-				else
-				{
-					trackBounds.width += 2;
-				}
+				trackBounds.width += 1;
+				g.translate(-1, 0);
 			}
+			else trackBounds.width += 2;
 
 			if (c.isEnabled())
 			{
@@ -169,31 +166,19 @@ public class MetalScrollBarUI extends BasicScrollBarUI
 				g.drawLine(trackBounds.width - 1, 0, trackBounds.width - 1,
 						trackBounds.height - 1);
 			}
-			else
-			{
-				MetalUtils.drawDisabledBorder(g, 0, 0, trackBounds.width,
-						trackBounds.height);
-			}
+			else MetalUtils.drawDisabledBorder(g, 0, 0, trackBounds.width,
+					trackBounds.height);
 
-			if (!isFreeStanding)
+			if (!isFreeStanding) if (!leftToRight)
 			{
-				if (!leftToRight)
-				{
-					trackBounds.width -= 1;
-					g.translate(1, 0);
-				}
-				else
-				{
-					trackBounds.width -= 2;
-				}
+				trackBounds.width -= 1;
+				g.translate(1, 0);
 			}
+			else trackBounds.width -= 2;
 		}
 		else
 		{ // HORIZONTAL
-			if (!isFreeStanding)
-			{
-				trackBounds.height += 2;
-			}
+			if (!isFreeStanding) trackBounds.height += 2;
 
 			if (c.isEnabled())
 			{
@@ -217,47 +202,32 @@ public class MetalScrollBarUI extends BasicScrollBarUI
 					g.drawLine(x, 1, x, trackBounds.height - 1);
 				}
 			}
-			else
-			{
-				MetalUtils.drawDisabledBorder(g, 0, 0, trackBounds.width,
-						trackBounds.height);
-			}
+			else MetalUtils.drawDisabledBorder(g, 0, 0, trackBounds.width,
+					trackBounds.height);
 
-			if (!isFreeStanding)
-			{
-				trackBounds.height -= 2;
-			}
+			if (!isFreeStanding) trackBounds.height -= 2;
 		}
 
 		g.translate(-trackBounds.x, -trackBounds.y);
 	}
 
+	@Override
 	protected void paintThumb(Graphics g, JComponent c, Rectangle thumbBounds)
 	{
-		if (!c.isEnabled())
-		{
-			return;
-		}
+		if (!c.isEnabled()) return;
 
 		boolean leftToRight = MetalUtils.isLeftToRight(c);
 
 		g.translate(thumbBounds.x, thumbBounds.y);
 
-		if (scrollbar.getOrientation() == JScrollBar.VERTICAL)
+		if (scrollbar.getOrientation() == Adjustable.VERTICAL)
 		{
-			if (!isFreeStanding)
+			if (!isFreeStanding) if (!leftToRight)
 			{
-				if (!leftToRight)
-				{
-					thumbBounds.width += 1;
-					g.translate(-1, 0);
-				}
-				else
-				{
-					thumbBounds.width += 2;
-				}
-
+				thumbBounds.width += 1;
+				g.translate(-1, 0);
 			}
+			else thumbBounds.width += 2;
 
 			g.setColor(thumbColor);
 			g.fillRect(0, 0, thumbBounds.width - 2, thumbBounds.height - 1);
@@ -272,25 +242,16 @@ public class MetalScrollBarUI extends BasicScrollBarUI
 			bumps.setBumpArea(thumbBounds.width - 6, thumbBounds.height - 7);
 			bumps.paintIcon(c, g, 3, 4);
 
-			if (!isFreeStanding)
+			if (!isFreeStanding) if (!leftToRight)
 			{
-				if (!leftToRight)
-				{
-					thumbBounds.width -= 1;
-					g.translate(1, 0);
-				}
-				else
-				{
-					thumbBounds.width -= 2;
-				}
+				thumbBounds.width -= 1;
+				g.translate(1, 0);
 			}
+			else thumbBounds.width -= 2;
 		}
 		else
 		{ // HORIZONTAL
-			if (!isFreeStanding)
-			{
-				thumbBounds.height += 2;
-			}
+			if (!isFreeStanding) thumbBounds.height += 2;
 
 			g.setColor(thumbColor);
 			g.fillRect(0, 0, thumbBounds.width - 1, thumbBounds.height - 2);
@@ -305,15 +266,13 @@ public class MetalScrollBarUI extends BasicScrollBarUI
 			bumps.setBumpArea(thumbBounds.width - 7, thumbBounds.height - 6);
 			bumps.paintIcon(c, g, 4, 3);
 
-			if (!isFreeStanding)
-			{
-				thumbBounds.height -= 2;
-			}
+			if (!isFreeStanding) thumbBounds.height -= 2;
 		}
 
 		g.translate(-thumbBounds.x, -thumbBounds.y);
 	}
 
+	@Override
 	protected Dimension getMinimumThumbSize()
 	{
 		return new Dimension(scrollBarWidth, scrollBarWidth);
@@ -323,6 +282,7 @@ public class MetalScrollBarUI extends BasicScrollBarUI
 	 * This is overridden only to increase the invalid area. This ensures that
 	 * the "Shadow" below the thumb is invalidated
 	 */
+	@Override
 	protected void setThumbBounds(int x, int y, int width, int height)
 	{
 		/*
@@ -330,10 +290,7 @@ public class MetalScrollBarUI extends BasicScrollBarUI
 		 */
 		if (( thumbRect.x == x ) && ( thumbRect.y == y )
 				&& ( thumbRect.width == width )
-				&& ( thumbRect.height == height ))
-		{
-			return;
-		}
+				&& ( thumbRect.height == height )) return;
 
 		/*
 		 * Update thumbRect, and repaint the union of x,y,w,h and the old
@@ -350,17 +307,13 @@ public class MetalScrollBarUI extends BasicScrollBarUI
 
 	class ScrollBarListener extends BasicScrollBarUI.PropertyChangeHandler
 	{
+		@Override
 		public void propertyChange(PropertyChangeEvent e)
 		{
 			String name = e.getPropertyName();
 			if (name.equals(FREE_STANDING_PROP))
-			{
 				handlePropertyChange(e.getNewValue());
-			}
-			else
-			{
-				super.propertyChange(e);
-			}
+			else super.propertyChange(e);
 		}
 
 		public void handlePropertyChange(Object newValue)
@@ -368,44 +321,27 @@ public class MetalScrollBarUI extends BasicScrollBarUI
 			if (newValue != null)
 			{
 				boolean temp = ( (Boolean) newValue ).booleanValue();
-				boolean becameFlush = temp == false && isFreeStanding == true;
-				boolean becameNormal = temp == true && isFreeStanding == false;
+				boolean becameFlush = ( temp == false )
+						&& ( isFreeStanding == true );
+				boolean becameNormal = ( temp == true )
+						&& ( isFreeStanding == false );
 
 				isFreeStanding = temp;
 
 				if (becameFlush)
-				{
 					toFlush();
-				}
-				else if (becameNormal)
-				{
-					toFreeStanding();
-				}
+				else if (becameNormal) toFreeStanding();
 			}
-			else
+			else if (!isFreeStanding)
 			{
-
-				if (!isFreeStanding)
-				{
-					isFreeStanding = true;
-					toFreeStanding();
-				}
-
-				// This commented-out block is used for testing flush
-				// scrollbars.
-				/*
-				 * if ( isFreeStanding ) { isFreeStanding = false; toFlush(); }
-				 */
+				isFreeStanding = true;
+				toFreeStanding();
 			}
 
 			if (increaseButton != null)
-			{
 				increaseButton.setFreeStanding(isFreeStanding);
-			}
 			if (decreaseButton != null)
-			{
 				decreaseButton.setFreeStanding(isFreeStanding);
-			}
 		}
 
 		protected void toFlush()

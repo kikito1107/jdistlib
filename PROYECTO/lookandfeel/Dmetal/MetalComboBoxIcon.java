@@ -25,6 +25,11 @@ public class MetalComboBoxIcon implements Icon, Serializable
 {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3429392109880823351L;
+
+	/**
 	 * Paints the horizontal bars for the
 	 */
 	public void paintIcon(Component c, Graphics g, int x, int y)

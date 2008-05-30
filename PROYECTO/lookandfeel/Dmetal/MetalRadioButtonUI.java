@@ -65,6 +65,7 @@ public class MetalRadioButtonUI extends BasicRadioButtonUI
 	// ********************************
 	// Install Defaults
 	// ********************************
+	@Override
 	public void installDefaults(AbstractButton b)
 	{
 		super.installDefaults(b);
@@ -79,6 +80,7 @@ public class MetalRadioButtonUI extends BasicRadioButtonUI
 		b.setOpaque(true);
 	}
 
+	@Override
 	protected void uninstallDefaults(AbstractButton b)
 	{
 		super.uninstallDefaults(b);
@@ -106,6 +108,7 @@ public class MetalRadioButtonUI extends BasicRadioButtonUI
 	// ********************************
 	// Paint Methods
 	// ********************************
+	@Override
 	public synchronized void paint(Graphics g, JComponent c)
 	{
 
@@ -156,64 +159,40 @@ public class MetalRadioButtonUI extends BasicRadioButtonUI
 			if (!model.isEnabled())
 			{
 				if (model.isSelected())
-				{
 					altIcon = b.getDisabledSelectedIcon();
-				}
-				else
-				{
-					altIcon = b.getDisabledIcon();
-				}
+				else altIcon = b.getDisabledIcon();
 			}
 			else if (model.isPressed() && model.isArmed())
 			{
 				altIcon = b.getPressedIcon();
-				if (altIcon == null)
-				{
-					// Use selected icon
+				if (altIcon == null) // Use selected icon
 					altIcon = b.getSelectedIcon();
-				}
 			}
 			else if (model.isSelected())
 			{
 				if (b.isRolloverEnabled() && model.isRollover())
 				{
-					altIcon = (Icon) b.getRolloverSelectedIcon();
-					if (altIcon == null)
-					{
-						altIcon = (Icon) b.getSelectedIcon();
-					}
+					altIcon = b.getRolloverSelectedIcon();
+					if (altIcon == null) altIcon = b.getSelectedIcon();
 				}
-				else
-				{
-					altIcon = (Icon) b.getSelectedIcon();
-				}
+				else altIcon = b.getSelectedIcon();
 			}
 			else if (b.isRolloverEnabled() && model.isRollover())
-			{
-				altIcon = (Icon) b.getRolloverIcon();
-			}
+				altIcon = b.getRolloverIcon();
 
-			if (altIcon == null)
-			{
-				altIcon = b.getIcon();
-			}
+			if (altIcon == null) altIcon = b.getIcon();
 
 			altIcon.paintIcon(c, g, iconRect.x, iconRect.y);
 
 		}
-		else
-		{
-			getDefaultIcon().paintIcon(c, g, iconRect.x, iconRect.y);
-		}
+		else getDefaultIcon().paintIcon(c, g, iconRect.x, iconRect.y);
 
 		// Draw the Text
 		if (text != null)
 		{
 			View v = (View) c.getClientProperty(BasicHTML.propertyKey);
 			if (v != null)
-			{
 				v.paint(g, textRect);
-			}
 			else
 			{
 				int mnemIndex = b.getDisplayedMnemonicIndex();
@@ -231,15 +210,14 @@ public class MetalRadioButtonUI extends BasicRadioButtonUI
 					BasicGraphicsUtils.drawStringUnderlineCharAt(g, text,
 							mnemIndex, textRect.x, textRect.y + fm.getAscent());
 				}
-				if (b.hasFocus() && b.isFocusPainted() && textRect.width > 0
-						&& textRect.height > 0)
-				{
+				if (b.hasFocus() && b.isFocusPainted() && ( textRect.width > 0 )
+						&& ( textRect.height > 0 ))
 					paintFocus(g, textRect, size);
-				}
 			}
 		}
 	}
 
+	@Override
 	protected void paintFocus(Graphics g, Rectangle t, Dimension d)
 	{
 		g.setColor(getFocusColor());

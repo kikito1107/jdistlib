@@ -41,6 +41,11 @@ import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 public class MetalInternalFrameTitlePane extends BasicInternalFrameTitlePane
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5514047356492171231L;
+
 	protected boolean isPalette = false;
 
 	protected Icon paletteCloseIcon;
@@ -97,6 +102,7 @@ public class MetalInternalFrameTitlePane extends BasicInternalFrameTitlePane
 		super(f);
 	}
 
+	@Override
 	public void addNotify()
 	{
 		super.addNotify();
@@ -107,6 +113,7 @@ public class MetalInternalFrameTitlePane extends BasicInternalFrameTitlePane
 		updateOptionPaneState();
 	}
 
+	@Override
 	protected void installDefaults()
 	{
 		super.installDefaults();
@@ -118,15 +125,14 @@ public class MetalInternalFrameTitlePane extends BasicInternalFrameTitlePane
 		selectedForegroundKey = selectedBackgroundKey = null;
 	}
 
+	@Override
 	protected void uninstallDefaults()
 	{
 		super.uninstallDefaults();
-		if (wasClosable != frame.isClosable())
-		{
-			frame.setClosable(wasClosable);
-		}
+		if (wasClosable != frame.isClosable()) frame.setClosable(wasClosable);
 	}
 
+	@Override
 	protected void createButtons()
 	{
 		super.createButtons();
@@ -165,6 +171,7 @@ public class MetalInternalFrameTitlePane extends BasicInternalFrameTitlePane
 	 * Override the parent's method to do nothing. Metal frames do not have
 	 * system menus.
 	 */
+	@Override
 	protected void assembleSystemMenu()
 	{
 	}
@@ -173,6 +180,7 @@ public class MetalInternalFrameTitlePane extends BasicInternalFrameTitlePane
 	 * Override the parent's method to do nothing. Metal frames do not have
 	 * system menus.
 	 */
+	@Override
 	protected void addSystemMenuItems(JMenu systemMenu)
 	{
 	}
@@ -181,6 +189,7 @@ public class MetalInternalFrameTitlePane extends BasicInternalFrameTitlePane
 	 * Override the parent's method to do nothing. Metal frames do not have
 	 * system menus.
 	 */
+	@Override
 	protected void showSystemMenu()
 	{
 	}
@@ -189,6 +198,7 @@ public class MetalInternalFrameTitlePane extends BasicInternalFrameTitlePane
 	 * Override the parent's method avoid creating a menu bar. Metal frames do
 	 * not have system menus.
 	 */
+	@Override
 	protected void addSubComponents()
 	{
 		add(iconButton);
@@ -196,11 +206,13 @@ public class MetalInternalFrameTitlePane extends BasicInternalFrameTitlePane
 		add(closeButton);
 	}
 
+	@Override
 	protected PropertyChangeListener createPropertyChangeListener()
 	{
 		return new MetalPropertyChangeHandler();
 	}
 
+	@Override
 	protected LayoutManager createLayout()
 	{
 		return new MetalTitlePaneLayout();
@@ -209,9 +221,10 @@ public class MetalInternalFrameTitlePane extends BasicInternalFrameTitlePane
 	class MetalPropertyChangeHandler extends
 			BasicInternalFrameTitlePane.PropertyChangeHandler
 	{
+		@Override
 		public void propertyChange(PropertyChangeEvent evt)
 		{
-			String prop = (String) evt.getPropertyName();
+			String prop = evt.getPropertyName();
 			if (prop.equals(JInternalFrame.IS_SELECTED_PROPERTY))
 			{
 				Boolean b = (Boolean) evt.getNewValue();
@@ -230,36 +243,33 @@ public class MetalInternalFrameTitlePane extends BasicInternalFrameTitlePane
 
 	class MetalTitlePaneLayout extends TitlePaneLayout
 	{
+		@Override
 		public void addLayoutComponent(String name, Component c)
 		{
 		}
 
+		@Override
 		public void removeLayoutComponent(Component c)
 		{
 		}
 
+		@Override
 		public Dimension preferredLayoutSize(Container c)
 		{
 			return minimumLayoutSize(c);
 		}
 
+		@Override
 		public Dimension minimumLayoutSize(Container c)
 		{
 			// Compute width.
 			int width = 30;
-			if (frame.isClosable())
-			{
-				width += 21;
-			}
+			if (frame.isClosable()) width += 21;
 			if (frame.isMaximizable())
-			{
 				width += 16 + ( frame.isClosable() ? 10 : 4 );
-			}
 			if (frame.isIconifiable())
-			{
 				width += 16 + ( frame.isMaximizable() ? 2 : ( frame
 						.isClosable() ? 10 : 4 ) );
-			}
 			FontMetrics fm = getFontMetrics(getFont());
 			String frameTitle = frame.getTitle();
 			int title_w = frameTitle != null ? fm.stringWidth(frameTitle) : 0;
@@ -272,28 +282,21 @@ public class MetalInternalFrameTitlePane extends BasicInternalFrameTitlePane
 						+ "...");
 				width += ( title_w < subtitle_w ) ? title_w : subtitle_w;
 			}
-			else
-			{
-				width += title_w;
-			}
+			else width += title_w;
 
 			// Compute height.
 			int height = 0;
 			if (isPalette)
-			{
 				height = paletteTitleHeight;
-			}
 			else
 			{
 				int fontHeight = fm.getHeight();
 				fontHeight += 7;
 				Icon icon = frame.getFrameIcon();
 				int iconHeight = 0;
-				if (icon != null)
-				{
-					// SystemMenuBar forces the icon to be 16x16 or less.
+				if (icon != null) // SystemMenuBar forces the icon to be 16x16
+									// or less.
 					iconHeight = Math.min(icon.getIconHeight(), 16);
-				}
 				iconHeight += 5;
 				height = Math.max(fontHeight, iconHeight);
 			}
@@ -301,6 +304,7 @@ public class MetalInternalFrameTitlePane extends BasicInternalFrameTitlePane
 			return new Dimension(width, height);
 		}
 
+		@Override
 		public void layoutContainer(Container c)
 		{
 			boolean leftToRight = MetalUtils.isLeftToRight(frame);
@@ -315,29 +319,19 @@ public class MetalInternalFrameTitlePane extends BasicInternalFrameTitlePane
 			int buttonHeight = closeButton.getIcon().getIconHeight();
 			int buttonWidth = closeButton.getIcon().getIconWidth();
 
-			if (frame.isClosable())
+			if (frame.isClosable()) if (isPalette)
 			{
-				if (isPalette)
-				{
-					spacing = 3;
-					x += leftToRight ? -spacing - ( buttonWidth + 2 ) : spacing;
-					closeButton.setBounds(x, y, buttonWidth + 2,
-							getHeight() - 4);
-					if (!leftToRight)
-					{
-						x += ( buttonWidth + 2 );
-					}
-				}
-				else
-				{
-					spacing = 4;
-					x += leftToRight ? -spacing - buttonWidth : spacing;
-					closeButton.setBounds(x, y, buttonWidth, buttonHeight);
-					if (!leftToRight)
-					{
-						x += buttonWidth;
-					}
-				}
+				spacing = 3;
+				x += leftToRight ? -spacing - ( buttonWidth + 2 ) : spacing;
+				closeButton.setBounds(x, y, buttonWidth + 2, getHeight() - 4);
+				if (!leftToRight) x += ( buttonWidth + 2 );
+			}
+			else
+			{
+				spacing = 4;
+				x += leftToRight ? -spacing - buttonWidth : spacing;
+				closeButton.setBounds(x, y, buttonWidth, buttonHeight);
+				if (!leftToRight) x += buttonWidth;
 			}
 
 			if (frame.isMaximizable() && !isPalette)
@@ -345,10 +339,7 @@ public class MetalInternalFrameTitlePane extends BasicInternalFrameTitlePane
 				spacing = frame.isClosable() ? 10 : 4;
 				x += leftToRight ? -spacing - buttonWidth : spacing;
 				maxButton.setBounds(x, y, buttonWidth, buttonHeight);
-				if (!leftToRight)
-				{
-					x += buttonWidth;
-				}
+				if (!leftToRight) x += buttonWidth;
 			}
 
 			if (frame.isIconifiable() && !isPalette)
@@ -357,10 +348,7 @@ public class MetalInternalFrameTitlePane extends BasicInternalFrameTitlePane
 						: 4 );
 				x += leftToRight ? -spacing - buttonWidth : spacing;
 				iconButton.setBounds(x, y, buttonWidth, buttonHeight);
-				if (!leftToRight)
-				{
-					x += buttonWidth;
-				}
+				if (!leftToRight) x += buttonWidth;
 			}
 
 			buttonsWidth = leftToRight ? w - x : x;
@@ -375,12 +363,10 @@ public class MetalInternalFrameTitlePane extends BasicInternalFrameTitlePane
 		int height = getHeight();
 
 		if (paletteBumps == null)
-		{
 			paletteBumps = new MetalBumps(0, 0, MetalLookAndFeel
 					.getPrimaryControlHighlight(), MetalLookAndFeel
 					.getPrimaryControlInfo(), MetalLookAndFeel
 					.getPrimaryControlShadow());
-		}
 
 		Color background = MetalLookAndFeel.getPrimaryControlShadow();
 		Color darkShadow = MetalLookAndFeel.getPrimaryControlDarkShadow();
@@ -398,6 +384,7 @@ public class MetalInternalFrameTitlePane extends BasicInternalFrameTitlePane
 		paletteBumps.paintIcon(this, g, xOffset, 2);
 	}
 
+	@Override
 	public void paintComponent(Graphics g)
 	{
 		if (isPalette)
@@ -421,29 +408,17 @@ public class MetalInternalFrameTitlePane extends BasicInternalFrameTitlePane
 		if (isSelected)
 		{
 			if (selectedBackgroundKey != null)
-			{
 				background = UIManager.getColor(selectedBackgroundKey);
-			}
 			if (background == null)
-			{
 				background = MetalLookAndFeel.getWindowTitleBackground();
-			}
 			if (selectedForegroundKey != null)
-			{
 				foreground = UIManager.getColor(selectedForegroundKey);
-			}
 			if (selectedShadowKey != null)
-			{
 				shadow = UIManager.getColor(selectedShadowKey);
-			}
 			if (shadow == null)
-			{
 				shadow = MetalLookAndFeel.getPrimaryControlDarkShadow();
-			}
 			if (foreground == null)
-			{
 				foreground = MetalLookAndFeel.getWindowTitleForeground();
-			}
 			activeBumps.setBumpColors(activeBumpsHighlight, activeBumpsShadow,
 					background);
 			bumps = activeBumps;
@@ -471,10 +446,7 @@ public class MetalInternalFrameTitlePane extends BasicInternalFrameTitlePane
 		Icon icon = frame.getFrameIcon();
 		if (icon != null)
 		{
-			if (!leftToRight)
-			{
-				xOffset -= icon.getIconWidth();
-			}
+			if (!leftToRight) xOffset -= icon.getIconWidth();
 			int iconY = ( ( height / 2 ) - ( icon.getIconHeight() / 2 ) );
 			icon.paintIcon(frame, g, xOffset, iconY);
 			xOffset += leftToRight ? icon.getIconWidth() + 5 : -5;
@@ -493,25 +465,16 @@ public class MetalInternalFrameTitlePane extends BasicInternalFrameTitlePane
 
 			Rectangle rect = new Rectangle(0, 0, 0, 0);
 			if (frame.isIconifiable())
-			{
 				rect = iconButton.getBounds();
-			}
 			else if (frame.isMaximizable())
-			{
 				rect = maxButton.getBounds();
-			}
-			else if (frame.isClosable())
-			{
-				rect = closeButton.getBounds();
-			}
+			else if (frame.isClosable()) rect = closeButton.getBounds();
 			int titleW;
 
 			if (leftToRight)
 			{
 				if (rect.x == 0)
-				{
 					rect.x = frame.getWidth() - frame.getInsets().right - 2;
-				}
 				titleW = rect.x - xOffset - 4;
 				frameTitle = getTitle(frameTitle, fm, titleW);
 			}
@@ -552,26 +515,14 @@ public class MetalInternalFrameTitlePane extends BasicInternalFrameTitlePane
 		if (isPalette)
 		{
 			closeButton.setIcon(paletteCloseIcon);
-			if (frame.isMaximizable())
-			{
-				remove(maxButton);
-			}
-			if (frame.isIconifiable())
-			{
-				remove(iconButton);
-			}
+			if (frame.isMaximizable()) remove(maxButton);
+			if (frame.isIconifiable()) remove(iconButton);
 		}
 		else
 		{
 			closeButton.setIcon(closeIcon);
-			if (frame.isMaximizable())
-			{
-				add(maxButton);
-			}
-			if (frame.isIconifiable())
-			{
-				add(iconButton);
-			}
+			if (frame.isMaximizable()) add(maxButton);
+			if (frame.isIconifiable()) add(iconButton);
 		}
 		revalidate();
 		repaint();
@@ -587,15 +538,10 @@ public class MetalInternalFrameTitlePane extends BasicInternalFrameTitlePane
 		boolean closable = wasClosable;
 		Object obj = frame.getClientProperty("JInternalFrame.messageType");
 
-		if (obj == null)
-		{
-			// Don't change the closable state unless in an JOptionPane.
+		if (obj == null) // Don't change the closable state unless in an
+							// JOptionPane.
 			return;
-		}
-		if (obj instanceof Integer)
-		{
-			type = ( (Integer) obj ).intValue();
-		}
+		if (obj instanceof Integer) type = ( (Integer) obj ).intValue();
 		switch (type)
 		{
 			case JOptionPane.ERROR_MESSAGE:
@@ -625,9 +571,6 @@ public class MetalInternalFrameTitlePane extends BasicInternalFrameTitlePane
 				selectedBackgroundKey = selectedForegroundKey = selectedShadowKey = null;
 				break;
 		}
-		if (closable != frame.isClosable())
-		{
-			frame.setClosable(closable);
-		}
+		if (closable != frame.isClosable()) frame.setClosable(closable);
 	}
 }

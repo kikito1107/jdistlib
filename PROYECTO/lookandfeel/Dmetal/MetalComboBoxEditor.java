@@ -37,13 +37,13 @@ public class MetalComboBoxEditor extends BasicComboBoxEditor
 		// editor.removeFocusListener(this);
 		editor = new JTextField("", 9)
 		{
+			private static final long serialVersionUID = -3489178113450599206L;
+
 			// workaround for 4530952
+			@Override
 			public void setText(String s)
 			{
-				if (getText().equals(s))
-				{
-					return;
-				}
+				if (getText().equals(s)) return;
 				super.setText(s);
 			}
 		};
@@ -56,6 +56,12 @@ public class MetalComboBoxEditor extends BasicComboBoxEditor
 
 	class EditorBorder extends AbstractBorder
 	{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -5327374797481752414L;
+
+		@Override
 		public void paintBorder(Component c, Graphics g, int x, int y, int w,
 				int h)
 		{
@@ -75,6 +81,7 @@ public class MetalComboBoxEditor extends BasicComboBoxEditor
 			g.translate(-x, -y);
 		}
 
+		@Override
 		public Insets getBorderInsets(Component c)
 		{
 			return editorBorderInsets;

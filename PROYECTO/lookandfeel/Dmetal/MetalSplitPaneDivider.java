@@ -39,6 +39,11 @@ import javax.swing.plaf.basic.BasicSplitPaneUI;
  */
 class MetalSplitPaneDivider extends BasicSplitPaneDivider
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7585154404552973624L;
+
 	private MetalBumps bumps = new MetalBumps(10, 10, MetalLookAndFeel
 			.getControlHighlight(), MetalLookAndFeel.getControlDarkShadow(),
 			MetalLookAndFeel.getControl());
@@ -60,6 +65,7 @@ class MetalSplitPaneDivider extends BasicSplitPaneDivider
 		setLayout(new MetalDividerLayout());
 	}
 
+	@Override
 	public void paint(Graphics g)
 	{
 		MetalBumps usedBumps;
@@ -97,10 +103,16 @@ class MetalSplitPaneDivider extends BasicSplitPaneDivider
 	 * Creates and return an instance of JButton that can be used to collapse
 	 * the left component in the metal split pane.
 	 */
+	@Override
 	protected JButton createLeftOneTouchButton()
 	{
 		JButton b = new JButton()
 		{
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 2269762038997037031L;
+
 			// Sprite buffer for the arrow image of the left button
 			int[][] buffer =
 			{
@@ -110,10 +122,12 @@ class MetalSplitPaneDivider extends BasicSplitPaneDivider
 			{ 2, 1, 1, 1, 1, 1, 1, 1, 0 },
 			{ 0, 3, 3, 3, 3, 3, 3, 3, 3 } };
 
+			@Override
 			public void setBorder(Border b)
 			{
 			}
 
+			@Override
 			public void paint(Graphics g)
 			{
 				JSplitPane splitPane = getSplitPaneFromSuper();
@@ -135,63 +149,45 @@ class MetalSplitPaneDivider extends BasicSplitPaneDivider
 					g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
 					// ... then draw the arrow.
-					if (getModel().isPressed())
-					{
-						// Adjust color mapping for pressed button state
+					if (getModel().isPressed()) // Adjust color mapping for
+												// pressed button state
 						colors[1] = colors[2];
-					}
-					if (orientation == JSplitPane.VERTICAL_SPLIT)
-					{
-						// Draw the image for a vertical split
+					if (orientation == JSplitPane.VERTICAL_SPLIT) // Draw the
+																	// image for
+																	// a
+																	// vertical
+																	// split
 						for (int i = 1; i <= buffer[0].length; i++)
-						{
 							for (int j = 1; j < blockSize; j++)
 							{
 								if (buffer[j - 1][i - 1] == 0)
-								{
 									continue;
-								}
-								else
-								{
-									g.setColor(colors[buffer[j - 1][i - 1]]);
-								}
+								else g.setColor(colors[buffer[j - 1][i - 1]]);
 								g.drawLine(i, j, i, j);
 							}
-						}
-					}
-					else
-					{
-						// Draw the image for a horizontal split
-						// by simply swaping the i and j axis.
-						// Except the drawLine() call this code is
-						// identical to the code block above. This was done
-						// in order to remove the additional orientation
-						// check for each pixel.
-						for (int i = 1; i <= buffer[0].length; i++)
+					else // Draw the image for a horizontal split
+					// by simply swaping the i and j axis.
+					// Except the drawLine() call this code is
+					// identical to the code block above. This was done
+					// in order to remove the additional orientation
+					// check for each pixel.
+					for (int i = 1; i <= buffer[0].length; i++)
+						for (int j = 1; j < blockSize; j++)
 						{
-							for (int j = 1; j < blockSize; j++)
-							{
-								if (buffer[j - 1][i - 1] == 0)
-								{
-									// Nothing needs
-									// to be drawn
-									continue;
-								}
-								else
-								{
-									// Set the color from the
-									// color map
-									g.setColor(colors[buffer[j - 1][i - 1]]);
-								}
-								// Draw a pixel
-								g.drawLine(j, i, j, i);
-							}
+							if (buffer[j - 1][i - 1] == 0) // Nothing needs
+								// to be drawn
+								continue;
+							else // Set the color from the
+							// color map
+							g.setColor(colors[buffer[j - 1][i - 1]]);
+							// Draw a pixel
+							g.drawLine(j, i, j, i);
 						}
-					}
 				}
 			}
 
 			// Don't want the button to participate in focus traversable.
+			@Override
 			public boolean isFocusTraversable()
 			{
 				return false;
@@ -208,10 +204,16 @@ class MetalSplitPaneDivider extends BasicSplitPaneDivider
 	 * Creates and return an instance of JButton that can be used to collapse
 	 * the right component in the metal split pane.
 	 */
+	@Override
 	protected JButton createRightOneTouchButton()
 	{
 		JButton b = new JButton()
 		{
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = -5987004966168847635L;
+
 			// Sprite buffer for the arrow image of the right button
 			int[][] buffer =
 			{
@@ -221,10 +223,12 @@ class MetalSplitPaneDivider extends BasicSplitPaneDivider
 			{ 0, 0, 0, 1, 1, 3, 0, 0 },
 			{ 0, 0, 0, 0, 3, 0, 0, 0 } };
 
+			@Override
 			public void setBorder(Border border)
 			{
 			}
 
+			@Override
 			public void paint(Graphics g)
 			{
 				JSplitPane splitPane = getSplitPaneFromSuper();
@@ -246,63 +250,45 @@ class MetalSplitPaneDivider extends BasicSplitPaneDivider
 					g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
 					// ... then draw the arrow.
-					if (getModel().isPressed())
-					{
-						// Adjust color mapping for pressed button state
+					if (getModel().isPressed()) // Adjust color mapping for
+												// pressed button state
 						colors[1] = colors[2];
-					}
-					if (orientation == JSplitPane.VERTICAL_SPLIT)
-					{
-						// Draw the image for a vertical split
+					if (orientation == JSplitPane.VERTICAL_SPLIT) // Draw the
+																	// image for
+																	// a
+																	// vertical
+																	// split
 						for (int i = 1; i <= buffer[0].length; i++)
-						{
 							for (int j = 1; j < blockSize; j++)
 							{
 								if (buffer[j - 1][i - 1] == 0)
-								{
 									continue;
-								}
-								else
-								{
-									g.setColor(colors[buffer[j - 1][i - 1]]);
-								}
+								else g.setColor(colors[buffer[j - 1][i - 1]]);
 								g.drawLine(i, j, i, j);
 							}
-						}
-					}
-					else
-					{
-						// Draw the image for a horizontal split
-						// by simply swaping the i and j axis.
-						// Except the drawLine() call this code is
-						// identical to the code block above. This was done
-						// in order to remove the additional orientation
-						// check for each pixel.
-						for (int i = 1; i <= buffer[0].length; i++)
+					else // Draw the image for a horizontal split
+					// by simply swaping the i and j axis.
+					// Except the drawLine() call this code is
+					// identical to the code block above. This was done
+					// in order to remove the additional orientation
+					// check for each pixel.
+					for (int i = 1; i <= buffer[0].length; i++)
+						for (int j = 1; j < blockSize; j++)
 						{
-							for (int j = 1; j < blockSize; j++)
-							{
-								if (buffer[j - 1][i - 1] == 0)
-								{
-									// Nothing needs
-									// to be drawn
-									continue;
-								}
-								else
-								{
-									// Set the color from the
-									// color map
-									g.setColor(colors[buffer[j - 1][i - 1]]);
-								}
-								// Draw a pixel
-								g.drawLine(j, i, j, i);
-							}
+							if (buffer[j - 1][i - 1] == 0) // Nothing needs
+								// to be drawn
+								continue;
+							else // Set the color from the
+							// color map
+							g.setColor(colors[buffer[j - 1][i - 1]]);
+							// Draw a pixel
+							g.drawLine(j, i, j, i);
 						}
-					}
 				}
 			}
 
 			// Don't want the button to participate in focus traversable.
+			@Override
 			public boolean isFocusTraversable()
 			{
 				return false;
@@ -339,9 +325,8 @@ class MetalSplitPaneDivider extends BasicSplitPaneDivider
 			// It does not center justify the oneTouchExpadable buttons.
 			// This was necessary in order to meet the spec of the Metal
 			// splitpane divider.
-			if (leftButton != null && rightButton != null
-					&& c == MetalSplitPaneDivider.this)
-			{
+			if (( leftButton != null ) && ( rightButton != null )
+					&& ( c == MetalSplitPaneDivider.this ))
 				if (splitPane.isOneTouchExpandable())
 				{
 					if (orientation == JSplitPane.VERTICAL_SPLIT)
@@ -350,9 +335,7 @@ class MetalSplitPaneDivider extends BasicSplitPaneDivider
 						int blockSize = getDividerSize();
 
 						if (insets != null)
-						{
 							blockSize -= ( insets.top + insets.bottom );
-						}
 						blockSize = Math.min(blockSize, oneTouchSize);
 						leftButton.setBounds(oneTouchOffset, extraY,
 								blockSize * 2, blockSize);
@@ -366,9 +349,7 @@ class MetalSplitPaneDivider extends BasicSplitPaneDivider
 						int extraX = ( insets != null ) ? insets.left : 0;
 
 						if (insets != null)
-						{
 							blockSize -= ( insets.left + insets.right );
-						}
 						blockSize = Math.min(blockSize, oneTouchSize);
 						leftButton.setBounds(extraX, oneTouchOffset, blockSize,
 								blockSize * 2);
@@ -381,7 +362,6 @@ class MetalSplitPaneDivider extends BasicSplitPaneDivider
 					leftButton.setBounds(-5, -5, 1, 1);
 					rightButton.setBounds(-5, -5, 1, 1);
 				}
-			}
 		}
 
 		public Dimension minimumLayoutSize(Container c)

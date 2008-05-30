@@ -27,10 +27,10 @@ import javax.swing.plaf.ComponentInputMapUIResource;
 import javax.swing.plaf.basic.BasicButtonUI;
 import javax.swing.plaf.basic.BasicHTML;
 
+import Deventos.DJButtonEvent;
 
 import componentes.base.DJButton;
 import componentes.listeners.DJButtonListener;
-import Deventos.DJButtonEvent;
 
 /**
  * Button Listener
@@ -39,7 +39,7 @@ import Deventos.DJButtonEvent;
  * @author Jeff Dinkins
  * @author Arnaud Weber (keyboard UI support)
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings( "unchecked" )
 public class DMetalButtonListener implements MouseListener,
 		MouseMotionListener, FocusListener, ChangeListener,
 		PropertyChangeListener
@@ -59,14 +59,10 @@ public class DMetalButtonListener implements MouseListener,
 	{
 		String prop = e.getPropertyName();
 		if (prop.equals(AbstractButton.MNEMONIC_CHANGED_PROPERTY))
-		{
 			updateMnemonicBinding((AbstractButton) e.getSource());
-		}
 
 		if (prop.equals(AbstractButton.CONTENT_AREA_FILLED_CHANGED_PROPERTY))
-		{
 			checkOpacity((AbstractButton) e.getSource());
-		}
 
 		if (prop.equals(AbstractButton.TEXT_CHANGED_PROPERTY)
 				|| "font".equals(prop) || "foreground".equals(prop))
@@ -134,7 +130,7 @@ public class DMetalButtonListener implements MouseListener,
 		if (condition == JComponent.WHEN_FOCUSED)
 		{
 			ButtonUI ui = ( (AbstractButton) c ).getUI();
-			if (ui != null && ( ui instanceof BasicButtonUI ))
+			if (( ui != null ) && ( ui instanceof BasicButtonUI ))
 			{
 				// Comentamos esto ya que no suponen ningun problema para el
 				// funcionamiento
@@ -155,8 +151,8 @@ public class DMetalButtonListener implements MouseListener,
 	{
 		ActionMap retValue = new javax.swing.plaf.ActionMapUIResource();
 
-		retValue.put("pressed", new PressedAction((AbstractButton) c));
-		retValue.put("released", new ReleasedAction((AbstractButton) c));
+		retValue.put("pressed", new PressedAction(c));
+		retValue.put("released", new ReleasedAction(c));
 		return retValue;
 	}
 
@@ -177,11 +173,8 @@ public class DMetalButtonListener implements MouseListener,
 						JComponent.WHEN_IN_FOCUSED_WINDOW, map);
 				createdWindowInputMap = true;
 			}
-			else
-			{
-				map = SwingUtilities.getUIInputMap(b,
-						JComponent.WHEN_IN_FOCUSED_WINDOW);
-			}
+			else map = SwingUtilities.getUIInputMap(b,
+					JComponent.WHEN_IN_FOCUSED_WINDOW);
 			if (map != null)
 			{
 				map.clear();
@@ -196,10 +189,7 @@ public class DMetalButtonListener implements MouseListener,
 		{
 			InputMap map = SwingUtilities.getUIInputMap(b,
 					JComponent.WHEN_IN_FOCUSED_WINDOW);
-			if (map != null)
-			{
-				map.clear();
-			}
+			if (map != null) map.clear();
 		}
 	}
 
@@ -212,7 +202,7 @@ public class DMetalButtonListener implements MouseListener,
 	public void focusGained(FocusEvent e)
 	{
 		AbstractButton b = (AbstractButton) e.getSource();
-		if (b instanceof JButton && ( (JButton) b ).isDefaultCapable())
+		if (( b instanceof JButton ) && ( (JButton) b ).isDefaultCapable())
 		{
 			JRootPane root = b.getRootPane();
 			if (root != null)
@@ -234,10 +224,7 @@ public class DMetalButtonListener implements MouseListener,
 		{
 			JButton initialDefault = (JButton) root
 					.getClientProperty("initialDefaultButton");
-			if (b != initialDefault)
-			{
-				root.setDefaultButton(initialDefault);
-			}
+			if (b != initialDefault) root.setDefaultButton(initialDefault);
 		}
 
 		b.getModel().setArmed(false);
@@ -268,37 +255,23 @@ public class DMetalButtonListener implements MouseListener,
 				long multiClickThreshhold = b.getMultiClickThreshhold();
 				long lastTime = lastPressedTimestamp;
 				long currentTime = lastPressedTimestamp = e.getWhen();
-				if (lastTime != -1
-						&& currentTime - lastTime < multiClickThreshhold)
+				if (( lastTime != -1 )
+						&& ( currentTime - lastTime < multiClickThreshhold ))
 				{
 					shouldDiscardRelease = true;
 					return;
 				}
 
 				ButtonModel model = b.getModel();
-				if (!model.isEnabled())
-				{
-					// Disabled buttons ignore all input...
+				if (!model.isEnabled()) // Disabled buttons ignore all input...
 					return;
-				}
-				// Comentado ya que estas acciones se deben realizar una vez se
-				// reciba
-				// el evento distribuido no como accion del usuario
-				/*
-				 * if (!model.isArmed()) { // button not armed, should be
-				 * model.setArmed(true); } model.setPressed(true); if
-				 * (!b.hasFocus() && b.isRequestFocusEnabled()) {
-				 * b.requestFocus(); }
-				 */
 			}
 
 			DJButtonEvent evento = new DJButtonEvent();
 			evento.tipo = new Integer(DJButtonEvent.PRESIONADO.intValue());
 			Vector v = ( (DJButton) b ).getDJButtonListeners();
 			for (int i = 0; i < v.size(); i++)
-			{
 				( (DJButtonListener) v.elementAt(i) ).presionado(evento);
-			}
 		}
 	};
 
@@ -325,9 +298,7 @@ public class DMetalButtonListener implements MouseListener,
 			evento.tipo = new Integer(DJButtonEvent.SOLTADO.intValue());
 			Vector v = ( (DJButton) b ).getDJButtonListeners();
 			for (int i = 0; i < v.size(); i++)
-			{
 				( (DJButtonListener) v.elementAt(i) ).soltado(evento);
-			}
 		}
 	};
 
@@ -351,6 +322,11 @@ public class DMetalButtonListener implements MouseListener,
 
 	static class PressedAction extends AbstractAction
 	{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 3642008122204169829L;
+
 		AbstractButton b = null;
 
 		PressedAction( AbstractButton b )
@@ -363,27 +339,25 @@ public class DMetalButtonListener implements MouseListener,
 			ButtonModel model = b.getModel();
 			model.setArmed(true);
 			model.setPressed(true);
-			if (!b.hasFocus())
-			{
-				b.requestFocus();
-			}
+			if (!b.hasFocus()) b.requestFocus();
 		}
 
+		@Override
 		public boolean isEnabled()
 		{
 			if (!b.getModel().isEnabled())
-			{
 				return false;
-			}
-			else
-			{
-				return true;
-			}
+			else return true;
 		}
 	}
 
 	static class ReleasedAction extends AbstractAction
 	{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1131733531579077971L;
+
 		AbstractButton b = null;
 
 		ReleasedAction( AbstractButton b )
@@ -398,16 +372,12 @@ public class DMetalButtonListener implements MouseListener,
 			model.setArmed(false);
 		}
 
+		@Override
 		public boolean isEnabled()
 		{
 			if (!b.getModel().isEnabled())
-			{
 				return false;
-			}
-			else
-			{
-				return true;
-			}
+			else return true;
 		}
 	}
 

@@ -43,14 +43,16 @@ public abstract class MetalTheme
 	public abstract String getName();
 
 	protected abstract ColorUIResource getPrimary1(); // these are blue in
-														// Metal Default Theme
+
+	// Metal Default Theme
 
 	protected abstract ColorUIResource getPrimary2();
 
 	protected abstract ColorUIResource getPrimary3();
 
 	protected abstract ColorUIResource getSecondary1(); // these are gray in
-														// Metal Default Theme
+
+	// Metal Default Theme
 
 	protected abstract ColorUIResource getSecondary2();
 

@@ -103,11 +103,13 @@ public class MetalTreeUI extends BasicTreeUI
 		super();
 	}
 
+	@Override
 	protected int getHorizontalLegBuffer()
 	{
 		return 4;
 	}
 
+	@Override
 	public void installUI(JComponent c)
 	{
 		super.installUI(c);
@@ -119,6 +121,7 @@ public class MetalTreeUI extends BasicTreeUI
 
 	}
 
+	@Override
 	public void uninstallUI(JComponent c)
 	{
 		c.removePropertyChangeListener(lineStyleListener);
@@ -132,41 +135,27 @@ public class MetalTreeUI extends BasicTreeUI
 	 */
 	protected void decodeLineStyle(Object lineStyleFlag)
 	{
-		if (lineStyleFlag == null
+		if (( lineStyleFlag == null )
 				|| lineStyleFlag.equals(LEG_LINE_STYLE_STRING))
-		{
-			lineStyle = LEG_LINE_STYLE; // default case
-		}
-		else
-		{
-			if (lineStyleFlag.equals(NO_STYLE_STRING))
-			{
-				lineStyle = NO_LINE_STYLE;
-			}
-			else if (lineStyleFlag.equals(HORIZ_STYLE_STRING))
-			{
-				lineStyle = HORIZ_LINE_STYLE;
-			}
-		}
+			lineStyle = LEG_LINE_STYLE; // default
+																							// case
+		else if (lineStyleFlag.equals(NO_STYLE_STRING))
+			lineStyle = NO_LINE_STYLE;
+		else if (lineStyleFlag.equals(HORIZ_STYLE_STRING))
+			lineStyle = HORIZ_LINE_STYLE;
 
 	}
 
 	protected boolean isLocationInExpandControl(int row, int rowLevel,
 			int mouseX, int mouseY)
 	{
-		if (tree != null && !isLeaf(row))
+		if (( tree != null ) && !isLeaf(row))
 		{
 			int boxWidth;
 
 			if (getExpandedIcon() != null)
-			{
 				boxWidth = getExpandedIcon().getIconWidth() + 6;
-			}
-			else
-			{
-				boxWidth = 8;
-
-			}
+			else boxWidth = 8;
 			Insets i = tree.getInsets();
 			int boxLeftX = ( i != null ) ? i.left : 0;
 
@@ -175,20 +164,19 @@ public class MetalTreeUI extends BasicTreeUI
 
 			int boxRightX = boxLeftX + boxWidth;
 
-			return mouseX >= boxLeftX && mouseX <= boxRightX;
+			return ( mouseX >= boxLeftX ) && ( mouseX <= boxRightX );
 		}
 		return false;
 	}
 
+	@Override
 	public void paint(Graphics g, JComponent c)
 	{
 		super.paint(g, c);
 
 		// Paint the lines
-		if (lineStyle == HORIZ_LINE_STYLE && !largeModel)
-		{
+		if (( lineStyle == HORIZ_LINE_STYLE ) && !largeModel)
 			paintHorizontalSeparators(g, c);
-		}
 	}
 
 	protected void paintHorizontalSeparators(Graphics g, JComponent c)
@@ -202,49 +190,42 @@ public class MetalTreeUI extends BasicTreeUI
 		int endRow = getRowForPath(tree, getClosestPathForLocation(tree, 0,
 				clipBounds.y + clipBounds.height - 1));
 
-		if (beginRow <= -1 || endRow <= -1)
-		{
-			return;
-		}
+		if (( beginRow <= -1 ) || ( endRow <= -1 )) return;
 
 		for (int i = beginRow; i <= endRow; ++i)
 		{
 			TreePath path = getPathForRow(tree, i);
 
-			if (path != null && path.getPathCount() == 2)
+			if (( path != null ) && ( path.getPathCount() == 2 ))
 			{
 				Rectangle rowBounds = getPathBounds(tree,
 						getPathForRow(tree, i));
 
 				// Draw a line at the top
 				if (rowBounds != null)
-				{
 					g.drawLine(clipBounds.x, rowBounds.y, clipBounds.x
 							+ clipBounds.width, rowBounds.y);
-				}
 			}
 		}
 
 	}
 
+	@Override
 	protected void paintVerticalPartOfLeg(Graphics g, Rectangle clipBounds,
 			Insets insets, TreePath path)
 	{
 		if (lineStyle == LEG_LINE_STYLE)
-		{
 			super.paintVerticalPartOfLeg(g, clipBounds, insets, path);
-		}
 	}
 
+	@Override
 	protected void paintHorizontalPartOfLeg(Graphics g, Rectangle clipBounds,
 			Insets insets, Rectangle bounds, TreePath path, int row,
 			boolean isExpanded, boolean hasBeenExpanded, boolean isLeaf)
 	{
 		if (lineStyle == LEG_LINE_STYLE)
-		{
 			super.paintHorizontalPartOfLeg(g, clipBounds, insets, bounds, path,
 					row, isExpanded, hasBeenExpanded, isLeaf);
-		}
 	}
 
 	/** This class listens for changes in line style */
@@ -253,10 +234,7 @@ public class MetalTreeUI extends BasicTreeUI
 		public void propertyChange(PropertyChangeEvent e)
 		{
 			String name = e.getPropertyName();
-			if (name.equals(LINE_STYLE))
-			{
-				decodeLineStyle(e.getNewValue());
-			}
+			if (name.equals(LINE_STYLE)) decodeLineStyle(e.getNewValue());
 		}
 	} // end class PaletteListener
 
