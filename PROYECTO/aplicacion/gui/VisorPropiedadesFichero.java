@@ -147,7 +147,7 @@ public class VisorPropiedadesFichero extends JDialog
 	{
 		if (usuario == null)
 		{
-			usuario = new JTextField(fichero.getRutaLocal());
+			usuario = new JTextField(fichero.getUsuario().getNombreUsuario());
 			usuario.setPreferredSize(new Dimension(160, 22));
 			usuario.setEditable(false);
 		}
