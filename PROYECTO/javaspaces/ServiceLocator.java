@@ -68,7 +68,6 @@ public class ServiceLocator
 		if (System.getSecurityManager() == null)
 		{
 			System.setSecurityManager(new RMISecurityManager());
-			System.out.println("Establecido el Manejador de Seguridad");
 		}
 
 		LookupDiscovery disco = null;
@@ -96,8 +95,6 @@ public class ServiceLocator
 			System.err.println("Error en la inicializaci—n del sistema"
 					+ E.getMessage());
 		}
-
-		System.out.println("llegamos hasta aki");
 
 		disco.addDiscoveryListener(new Listener());
 

@@ -167,8 +167,6 @@ public class DComponenteBase extends JPanel implements DComponente, java.io.Seri
 	 */
 	public int obtenerNumComponentesHijos()
 	{
-		System.out.println(nombre + ": numHijos()");
-		System.out.flush();
 		return 0;
 	}
 
@@ -383,8 +381,6 @@ public class DComponenteBase extends JPanel implements DComponente, java.io.Seri
 	 */
 	public void procesarMetaInformacion(DMIEvent evento)
 	{
-		System.out.println(nombre + ": procesarMetaInformacion()");
-		System.out.flush();
 		if (evento.tipo.intValue() == DMIEvent.INFO_COMPLETA.intValue())
 		{
 			int permiso = evento.obtenerPermisoComponente(nombre);
@@ -465,8 +461,7 @@ public class DComponenteBase extends JPanel implements DComponente, java.io.Seri
 	 */
 	public void sincronizar()
 	{
-		System.out.println(nombre + ": sincronizar()");
-		System.out.flush();
+		
 	}
 
 	/**
@@ -521,8 +516,6 @@ public class DComponenteBase extends JPanel implements DComponente, java.io.Seri
 	 */
 	public HebraProcesadoraBase crearHebraProcesadora()
 	{
-		System.out.println(nombre + ": crearHebraProcesadora()");
-		System.out.flush();
 		return null;
 	}
 

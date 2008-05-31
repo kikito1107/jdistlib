@@ -47,7 +47,7 @@ public class PluginCalculoPrimos extends DAbstractPlugin
 	{
 		version = 5;
 		nombre = "Calculo Distribuido";
-		jarFile = "ejemplo.jar";
+		jarFile = "primos.jar";
 		versioningEnabled = false;
 		
 		p = new PrimeMaster(false);

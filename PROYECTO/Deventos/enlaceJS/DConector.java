@@ -579,23 +579,19 @@ public class DConector
 		}
 		catch (RemoteException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
 		catch (UnusableEntryException e)
 		{
-			// TODO Auto-generated catch block
 			return null;
 		}
 		catch (TransactionException e)
 		{
-			// TODO Auto-generated catch block
 			return null;
 		}
 		catch (InterruptedException e)
 		{
-			// TODO Auto-generated catch block
 			return null;
 		}
 		
@@ -620,7 +616,7 @@ public class DConector
 
 		try
 		{
-			tk = (TokenFichero) space.take(plantilla, null, 5000L);
+			tk = (TokenFichero) space.take(plantilla, null, 2000L);
 		}
 		catch (RemoteException e)
 		{

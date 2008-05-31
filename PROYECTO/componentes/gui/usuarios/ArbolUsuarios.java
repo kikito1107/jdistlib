@@ -95,8 +95,7 @@ public class ArbolUsuarios extends JTree
 		for (int i = 0; ( i < numRoles ) && !encontrado; ++i)
 		{
 			tmp = (DefaultMutableTreeNode) modelo.getChild(raiz, i);
-
-			System.out.println("comparando con " + tmp.getUserObject());
+			
 			if (tmp.getUserObject().equals(Rol))
 			{
 				encontrado = true;

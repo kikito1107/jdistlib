@@ -32,7 +32,7 @@ public class DGestorPlugins extends DAbstractPlugin
 		// TODO Auto-generated method stub
 		version = 1;
 		nombre = "Gestor Plugins";
-		jarFile = "ejemplo.jar";
+		jarFile = "gestor.jar";
 
 		gestorPlugin = new GestorPlugins();
 	}

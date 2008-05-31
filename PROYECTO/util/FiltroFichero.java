@@ -23,10 +23,10 @@ import javax.swing.filechooser.FileFilter;
  * @version 1.9 04/23/99
  * @author Jeff Dinkins
  */
-public class FiltroImagenes extends FileFilter
+public class FiltroFichero extends FileFilter
 {
 
-	private Hashtable<String, FiltroImagenes> filters = null;
+	private Hashtable<String, FiltroFichero> filters = null;
 
 	private String description = null;
 
@@ -40,9 +40,9 @@ public class FiltroImagenes extends FileFilter
 	 * 
 	 * @see #addExtension
 	 */
-	public FiltroImagenes()
+	public FiltroFichero()
 	{
-		this.filters = new Hashtable<String, FiltroImagenes>();
+		this.filters = new Hashtable<String, FiltroFichero>();
 	}
 
 	/**
@@ -51,7 +51,7 @@ public class FiltroImagenes extends FileFilter
 	 * 
 	 * @see #addExtension
 	 */
-	public FiltroImagenes( String extension )
+	public FiltroFichero( String extension )
 	{
 		this(extension, null);
 	}
@@ -65,7 +65,7 @@ public class FiltroImagenes extends FileFilter
 	 * 
 	 * @see #addExtension
 	 */
-	public FiltroImagenes( String extension, String description )
+	public FiltroFichero( String extension, String description )
 	{
 		this();
 		if (extension != null) addExtension(extension);
@@ -80,7 +80,7 @@ public class FiltroImagenes extends FileFilter
 	 * 
 	 * @see #addExtension
 	 */
-	public FiltroImagenes( String[] filters )
+	public FiltroFichero( String[] filters )
 	{
 		this(filters, null);
 	}
@@ -94,7 +94,7 @@ public class FiltroImagenes extends FileFilter
 	 * 
 	 * @see #addExtension
 	 */
-	public FiltroImagenes( String[] filters, String description )
+	public FiltroFichero( String[] filters, String description )
 	{
 		this();
 		for (int i = 0; i < filters.length; i++)
@@ -157,7 +157,7 @@ public class FiltroImagenes extends FileFilter
 	public void addExtension(String extension)
 	{
 		if (filters == null)
-			filters = new Hashtable<String, FiltroImagenes>(5);
+			filters = new Hashtable<String, FiltroFichero>(5);
 		filters.put(extension.toLowerCase(), this);
 		fullDescription = null;
 	}

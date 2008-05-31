@@ -34,13 +34,12 @@ public class SpaceLocator
 
 		try
 		{
-			System.out.println("Buscando el JavaSpace " + spaceName);
 			return (JavaSpace) ServiceLocator.getService(JavaSpace.class,
 					spaceName);
 		}
 		catch (Exception e)
 		{
-			System.out.println("error buscando el espacio " + e.getMessage());
+			System.err.println("error buscando el espacio " + e.getMessage());
 			throw new Exception();
 		}
 	}

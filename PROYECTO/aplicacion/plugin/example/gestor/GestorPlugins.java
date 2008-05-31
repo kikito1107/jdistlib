@@ -8,15 +8,20 @@ import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
+import util.FiltroFichero;
+
 import aplicacion.gui.PanelPrincipal;
 import aplicacion.plugin.DAbstractPlugin;
+import aplicacion.plugin.DPluginLoader;
 
 public class GestorPlugins extends JFrame
 {
@@ -167,8 +172,21 @@ public class GestorPlugins extends JFrame
 
 	private void eliminarPlugin(int numPlugin)
 	{
-		// TODO Auto-generated method stub
-
+		
+		if(numPlugin < 0) return;
+		
+		if (PanelPrincipal.plugins == null) return;
+		
+		if (PanelPrincipal.plugins.size() <= numPlugin) return;
+		
+		java.io.File fichero = new java.io.File("plugins/" + PanelPrincipal.plugins.get(numPlugin).getJarFile());
+		
+		System.out.println("El nombre del fichero a borrar " + fichero.getAbsolutePath());
+		
+		if (!fichero.delete())
+			System.err.println("Error al eliminar el fichero");
+		
+		PanelPrincipal.plugins.remove(numPlugin);
 	}
 
 	/**
@@ -184,20 +202,57 @@ public class GestorPlugins extends JFrame
 			AgregarPlugin.setText("Agregar nuevo plugin");
 			AgregarPlugin.setIcon(new ImageIcon(getClass().getResource(
 					"/Resources/brick_add.png")));
+			
 			AgregarPlugin.addActionListener(new java.awt.event.ActionListener()
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
-					agregarNuevoPlugin();
+					// Seleccionar archivo a cargar
+					
+					//mostramos el selector de ficheros
+					JFileChooser jfc = new JFileChooser("Subir Documento Servidor");
+					jfc.setAcceptAllFileFilterUsed(false);
+					FiltroFichero filtro = new FiltroFichero("jar", "Java ARchive");
+					jfc.setFileFilter(filtro);
+					
+
+					int op = jfc.showDialog(null, "Aceptar");
+
+					// si no se ha escogido la opcion aceptar en el dialogo de apertura de
+					// fichero salimos
+					if (op != JFileChooser.APPROVE_OPTION) return;
+
+					java.io.File origen  = jfc.getSelectedFile();
+					java.io.File destino = new java.io.File("plugin/"+origen.getName()); 
+					
+					//copiarlo a la carpeta de plugins
+					if (!origen.renameTo(destino))
+						JOptionPane.showMessageDialog(null,"Ha ocurrido un error durante la copia del plugin");
+					
+					
+					DAbstractPlugin nuevo = null;
+					
+					// probar que es un plugin valido
+					try
+					{
+						nuevo = DPluginLoader.getPlugin(destino.getAbsolutePath());
+					}
+					catch (Exception e1)
+					{
+						nuevo = null;
+					}
+					
+					if (nuevo == null) {
+						JOptionPane.showMessageDialog(null,"El fichero a–adido no contiene un plugin v‡lido.");
+						if (!destino.delete())
+							JOptionPane.showMessageDialog(null,"Error al  intentar borrar un plugin no valido");
+					}
+						
+					
 				}
 			});
 		}
 		return AgregarPlugin;
-	}
-
-	private void agregarNuevoPlugin()
-	{
-
 	}
 
 	@SuppressWarnings( "deprecation" )

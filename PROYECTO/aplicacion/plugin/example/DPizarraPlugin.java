@@ -40,7 +40,7 @@ public class DPizarraPlugin extends DAbstractPlugin
 	{
 		version = 5;
 		nombre = "Pizarra";
-		jarFile = "ejemplo.jar";
+		jarFile = "pizarra.jar";
 
 		p = new Pizarra(nombre, true, null);
 

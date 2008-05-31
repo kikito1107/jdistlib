@@ -90,12 +90,10 @@ public class ArbolUsuariosConectadosRol extends DComponenteBase
 		super.procesarMetaInformacion(evento);
 		if (evento.tipo.intValue() == DMIEvent.INFO_COMPLETA.intValue())
 		{
-			System.out.println("Iniciada actualizacion");
-			
 			this.obtenerPanelContenido().repaint();
 
 			this.actualizarLista();
-			System.out.println("Finalizada actualizacion");
+
 			arbol.eliminarUsuario(evento.usuario);
 			arbol.insertarNuevoUsuario(evento.rol, evento.usuario);
 
@@ -104,30 +102,17 @@ public class ArbolUsuariosConectadosRol extends DComponenteBase
 		if (evento.tipo.intValue() == DMIEvent.NOTIFICACION_CONEXION_USUARIO
 				.intValue())
 		{
-			System.out.println("========================================");
-			System.out.println("Alta usuario " + evento.usuario);
-			System.out.println("========================================");
 			arbol.insertarNuevoUsuario(evento.rol, evento.usuario);
 		}
 		if (evento.tipo.intValue() == DMIEvent.NOTIFICACION_DESCONEXION_USUARIO
 				.intValue())
 		{
-			System.out.println("========================================");
-			System.out.println("Baja usuario " + evento.usuario);
-			System.out.println("========================================");
 
 			arbol.eliminarUsuario(evento.usuario);
 		}
 		if (evento.tipo.intValue() == DMIEvent.NOTIFICACION_CAMBIO_ROL_USUARIO
 				.intValue())
 		{
-
-			System.out.println("========================================");
-			System.out.println("Camibio rol usuario " + evento.usuario);
-			System.out.println("Antiguo rol: " + evento.rolAntiguo);
-			System.out.println("Nuevo rol " + evento.rol);
-			System.out.println("========================================");
-
 			arbol.cambiarRol(evento.rolAntiguo, evento.rol, evento.usuario);
 		}
 	}
@@ -183,8 +168,6 @@ public class ArbolUsuariosConectadosRol extends DComponenteBase
 
 		if (v != null) {
 			
-			System.out.println("Numero de roles " +  v.size());
-			
 			for (int i = 0; i < v.size(); ++i)
 			{
 				aux = new DefaultMutableTreeNode(v.get(i));
@@ -192,10 +175,6 @@ public class ArbolUsuariosConectadosRol extends DComponenteBase
 				v2 = ClienteMetaInformacion.obtenerCMI()
 						.obtenerUsuariosBajoRol(v.get(i).toString());
 
-				if (v2 != null)
-					System.out.println(v2.size() + " usuarios bajo rol " + v.get(i).toString());
-				else
-					System.out.println("Ningun usuario bajo rol " + v.get(i).toString());
 				
 				if (( v2 != null ) && ( v2.size() > 0 )) {
 					

@@ -271,4 +271,9 @@ public abstract class DAbstractPlugin extends DComponenteBase
 			}
 		}
 	}
+
+	public String getJarFile()
+	{
+		return jarFile;
+	}
 }
