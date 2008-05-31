@@ -46,7 +46,7 @@ public class FramePrincipal extends DJFrame
 		this.setResizable(false);
 		this.addWindowListener(new FrameEjemplo_this_windowAdapter(this));
 
-		this.setIconImage(new ImageIcon("./Resources/information.png")
+		this.setIconImage(new ImageIcon("./Resources/logo.png")
 				.getImage());
 
 		componente = new PanelPrincipal("Componente5", true, null);
