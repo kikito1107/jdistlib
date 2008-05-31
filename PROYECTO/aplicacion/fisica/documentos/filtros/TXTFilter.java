@@ -9,6 +9,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import aplicacion.fisica.documentos.Documento;
+import aplicacion.fisica.documentos.MIFichero;
 
 public class TXTFilter implements DocumentFilter
 {
@@ -118,7 +119,7 @@ public class TXTFilter implements DocumentFilter
 
 	public boolean isSupported(String extension)
 	{
-		if (extension.toLowerCase().compareTo("txt") == 0)
+		if (extension.toLowerCase().compareTo(MIFichero.TIPO_BANDEJA_TXT) == 0)
 			return true;
 		
 		else return false;

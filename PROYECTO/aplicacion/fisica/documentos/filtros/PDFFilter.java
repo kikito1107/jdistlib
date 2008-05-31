@@ -15,6 +15,7 @@ import com.sun.pdfview.PDFFile;
 import com.sun.pdfview.PDFPage;
 
 import aplicacion.fisica.documentos.Documento;
+import aplicacion.fisica.documentos.MIFichero;
 
 public class PDFFilter implements DocumentFilter
 {
@@ -83,7 +84,7 @@ public class PDFFilter implements DocumentFilter
 
 	public boolean isSupported(String extension)
 	{
-		if (extension.toLowerCase().compareTo("pdf") == 0)
+		if (extension.toLowerCase().compareTo(MIFichero.TIPO_PDF) == 0)
 			return true;
 		else return false;
 	}
