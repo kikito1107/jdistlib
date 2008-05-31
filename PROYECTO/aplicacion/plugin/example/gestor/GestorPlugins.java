@@ -22,6 +22,7 @@ import util.FiltroFichero;
 import aplicacion.gui.PanelPrincipal;
 import aplicacion.plugin.DAbstractPlugin;
 import aplicacion.plugin.DPluginLoader;
+import java.awt.Font;
 
 public class GestorPlugins extends JFrame
 {
@@ -38,7 +39,7 @@ public class GestorPlugins extends JFrame
 
 	private JButton AgregarPlugin = null;
 
-	private DefaultTableModel defaultTableModel = null;
+	private DefaultTableModel modeloTabla = null;
 
 	private JScrollPane panelScroll = null;
 
@@ -62,17 +63,12 @@ public class GestorPlugins extends JFrame
 	{
 		this.setSize(379, 379);
 		this.setIconImage(Toolkit.getDefaultToolkit().getImage(
-				getClass().getResource("/Resources/brick.png")));
+				getClass().getResource("/Resources/logo.png")));
 		this.setContentPane(getJContentPane());
 		this.setTitle(":: Gestor de Plugins ::");
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 
-	public void setPlugins(Vector<DAbstractPlugin> plgs)
-	{
-		plugins = plgs;
-
-	}
 
 	/**
 	 * This method initializes jContentPane
@@ -91,6 +87,10 @@ public class GestorPlugins extends JFrame
 		return jContentPane;
 	}
 
+	/**
+	 * Inicializa el panel de scroll sobre el que esta tablaPlugin
+	 * @return el scroll
+	 */
 	private JScrollPane getScroll()
 	{
 		if (panelScroll == null)
@@ -156,6 +156,7 @@ public class GestorPlugins extends JFrame
 		{
 			EliminarPlugin = new JButton();
 			EliminarPlugin.setText("Eliminar Plugin");
+			EliminarPlugin.setFont(new Font("Lucida Sans", Font.PLAIN, 11));  // Generated
 			EliminarPlugin.setIcon(new ImageIcon(getClass().getResource(
 					"/Resources/brick_delete.png")));
 			EliminarPlugin
@@ -170,23 +171,30 @@ public class GestorPlugins extends JFrame
 		return EliminarPlugin;
 	}
 
+	/**
+	 * Elimina un plugin: lo borra de la lista de plugins de la aplicacion y elimina el fichero .jar asociado al plugin
+	 * @param numPlugin posicion que le plugin ocupa en la lista
+	 */
 	private void eliminarPlugin(int numPlugin)
 	{
 		
 		if(numPlugin < 0) return;
 		
-		if (PanelPrincipal.plugins == null) return;
+		int numPlugins = PanelPrincipal.numPlugins();
 		
-		if (PanelPrincipal.plugins.size() <= numPlugin) return;
+		if (numPlugins <= numPlugin || numPlugins < 1) return;
 		
-		java.io.File fichero = new java.io.File("plugins/" + PanelPrincipal.plugins.get(numPlugin).getJarFile());
+		java.io.File fichero = new java.io.File("plugin/" + PanelPrincipal.getPluginJarName(numPlugin));
 		
 		System.out.println("El nombre del fichero a borrar " + fichero.getAbsolutePath());
 		
 		if (!fichero.delete())
 			System.err.println("Error al eliminar el fichero");
 		
-		PanelPrincipal.plugins.remove(numPlugin);
+		PanelPrincipal.eliminarPlugin((String) tablaPlugins.getValueAt(numPlugin, 0));
+
+		
+		modeloTabla.removeRow(numPlugin);
 	}
 
 	/**
@@ -246,8 +254,15 @@ public class GestorPlugins extends JFrame
 						JOptionPane.showMessageDialog(null,"El fichero a–adido no contiene un plugin v‡lido.");
 						if (!destino.delete())
 							JOptionPane.showMessageDialog(null,"Error al  intentar borrar un plugin no valido");
+						return;
 					}
-						
+					
+					// agregarlo a la lista de plugins de PanelPrincipal
+					PanelPrincipal.agregarPlugin(nuevo);
+					
+					// agregarlo a la tabla
+					inicializarModelo();
+					
 					
 				}
 			});
@@ -255,43 +270,48 @@ public class GestorPlugins extends JFrame
 		return AgregarPlugin;
 	}
 
-	@SuppressWarnings( "deprecation" )
+	/**
+	 * Inicializa el modelo de la tabla de plugisn
+	 * @return
+	 */
 	private DefaultTableModel getDefaultTableModel()
 	{
 
-		if (defaultTableModel == null)
+		if (modeloTabla == null)
 		{
 
-			defaultTableModel = new DefaultTableModel();
-			defaultTableModel.setRowCount(3);
-			defaultTableModel.addColumn("Nombre");
-			defaultTableModel.addColumn("Version");
+			modeloTabla = new DefaultTableModel();
+			modeloTabla.setRowCount(3);
+			modeloTabla.addColumn("Nombre");
+			modeloTabla.addColumn("Version");
+			modeloTabla.addColumn("JAR");
 
 		}
 
-		return defaultTableModel;
+		return modeloTabla;
 	}
 
+	/**
+	 * Inicializa el modelo de la tabla
+	 *
+	 */
 	public void inicializarModelo()
 	{
-		if (PanelPrincipal.plugins == null) return;
+		int numPlugins = PanelPrincipal.numPlugins();
+		
+		if ( numPlugins == 0 || numPlugins == -1) return;
+		
+		for (int i = 0; i < this.modeloTabla.getRowCount(); ++i)
+			modeloTabla.removeRow(i);
 
-		defaultTableModel.setNumRows(PanelPrincipal.plugins.size());
+		modeloTabla.setNumRows(numPlugins);
 
-		for (int i = 0; i < PanelPrincipal.plugins.size(); ++i)
+		for (int i = 0; i < numPlugins; ++i)
 		{
-			defaultTableModel.setValueAt(PanelPrincipal.plugins.get(i)
-					.getName(), i, 0);
-			defaultTableModel.setValueAt(PanelPrincipal.plugins.get(i)
-					.getVersion(), i, 1);
+			modeloTabla.setValueAt(PanelPrincipal.getPluginName(i), i, 0);
+			modeloTabla.setValueAt(PanelPrincipal.getVersionPlugin(i), i, 1);
+			modeloTabla.setValueAt(PanelPrincipal.getPluginJarName(i), i, 2);
 		}
-	}
-
-	public static void main(String[] args)
-	{
-
-		new GestorPlugins().setVisible(true);
-
 	}
 
 } // @jve:decl-index=0:visual-constraint="10,10"

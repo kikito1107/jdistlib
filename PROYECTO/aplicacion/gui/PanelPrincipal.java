@@ -3,6 +3,7 @@ package aplicacion.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -17,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
 
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -105,10 +107,641 @@ public class PanelPrincipal extends DComponenteBase
 	
 	private JButton reenviar = null;
 
-	public static Vector<DAbstractPlugin> plugins = null;
+	private Vector<DAbstractPlugin> plugins = null;
 	
 	private static final String separador = "\n\n----------------------------------------------\n";
+	
+	private DefaultListModel modeloAplicaciones = null;
+	
+	private static PanelPrincipal esto = null;
 
+	private Font fuente = new Font("Lucida Sans", Font.PLAIN, 12);
+	
+	
+	
+	//============= INICIALIZACIîN ===================================================================
+
+	/**
+	 * This method initializes jContentPane
+	 * 
+	 * @return javax.swing.JPanel
+	 */
+	public PanelPrincipal( String nombre, boolean conexionDC,
+			DComponenteBase padre )
+	{
+		super(nombre, conexionDC, padre);
+		try
+		{
+			this.setFont(fuente);
+			
+			//dar soporte para documentos
+			Documento.addFilter(new ImageFilter());
+			Documento.addFilter(new PDFFilter());
+			Documento.addFilter(new TXTFilter());
+			
+			plugins = DPluginLoader.getAllPlugins("plugin");
+
+			new HebraActualizacionPlugin();
+			
+			BorderLayout borderLayout = new BorderLayout();
+			borderLayout.setHgap(0);
+			this.setLayout(null);
+			this.add(getPanelLateral(), BorderLayout.WEST);
+
+
+			inicializarEditor();
+
+			this.add(getPanelEspacioTrabajo(), null);
+			
+			esto = this;
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+
+	private void inicializarEditor()
+	{
+		frame = new FramePanelDibujo(false);
+		frame.setVisible(false);
+		frame.pack();
+		frame.setSize(800, 720);
+
+		// Center the window
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		Dimension frameSize = frame.getSize();
+		if (frameSize.height > screenSize.height)
+			frameSize.height = screenSize.height;
+		if (frameSize.width > screenSize.width)
+			frameSize.width = screenSize.width;
+		frame.setLocation(( screenSize.width - frameSize.width ) / 2,
+				( screenSize.height - frameSize.height ) / 2);
+
+		if (this.arbolDocumentos != null) this.arbolDocumentos.repaint();
+	}
+	
+	
+//	============= PLUGINS ===================================================================
+	
+	/**
+	 * Elimina un plugin de la lista de plugins
+	 * @param namen nombre del plugin a eliminar
+	 */
+	public static void eliminarPlugin(String namen){
+
+		boolean encontrada = false;
+		
+		for (int i=0; i<esto.plugins.size() && !encontrada; ++i)
+			if (esto.plugins.get(i).getName().equals(namen)) {
+				encontrada = true;
+				esto.plugins.remove(i);
+			}
+		
+	}
+	
+	/**
+	 * Agreaga un plugin a la lista
+	 * @param a plugin a agregar
+	 */
+	public static void agregarPlugin(DAbstractPlugin a){
+		esto.plugins.add(a);
+	}
+
+	/**
+	 * Consulta el numero de plugins cargados actualmente
+	 * @return el numero de plugins. Devuelve -1 si se ha producido algœn error
+	 */
+	public static int numPlugins(){
+		
+		if (esto.plugins == null) 
+			return -1;
+		else
+			return esto.plugins.size();
+	}
+	
+	/**
+	 * Consulta el nombre del fichero jar asociado a un plugin
+	 * @param index posicion del plugin en la lista
+	 * @return el nombre del jar
+	 * @throws ArrayIndexOutOfBoundsException
+	 */
+	public static String getPluginJarName(int index) throws ArrayIndexOutOfBoundsException {
+		String jarName =  esto.plugins.get(index).getJarFile();
+		
+		return jarName;
+	}
+	
+	/**
+	 * Consulta la version del plugin
+	 * @param index posicion del plugin en la lista
+	 * @return la version
+	 * @throws ArrayIndexOutOfBoundsException
+	 */
+	public static long getVersionPlugin(int index) throws ArrayIndexOutOfBoundsException {
+		long v =  esto.plugins.get(index).getVersion();
+		
+		return v;
+	}
+	
+	/**
+	 * Consulta el nombre de un plugin
+	 * @param index posicion del plugin en la lista
+	 * @return el nombre
+	 * @throws ArrayIndexOutOfBoundsException
+	 */
+	public static String getPluginName(int index) throws ArrayIndexOutOfBoundsException {
+		String jarName =  esto.plugins.get(index).getName();
+		
+		return jarName;
+	}
+	
+	
+	//	============= GUI ===================================================================
+	
+	/**
+	 * This method initializes panelLateral
+	 * 
+	 * @return javax.swing.JPanel
+	 */
+	private JPanel getPanelLateral()
+	{
+		if (panelLateral == null)
+		{
+			jLabel1 = new JLabel();
+			jLabel1.setBounds(new Rectangle(60, 174, 80, 16));
+			jLabel1.setFont(fuente);
+			jLabel1.setText("Usuarios");
+			GridBagConstraints gridBagConstraints = new GridBagConstraints();
+			gridBagConstraints.gridx = 2;
+			gridBagConstraints.gridy = 0;
+			jLabel = new JLabel();
+			jLabel.setText("Aplicaciones");
+			jLabel.setFont(fuente);
+			jLabel.setBounds(new Rectangle(52, 4, 90, 21));
+			panelLateral = new JPanel();
+			panelLateral.setLayout(null);
+			panelLateral.setBounds(new Rectangle(6, 16, 188, 398));
+			panelLateral.add(jLabel, gridBagConstraints);
+			panelLateral.add(getHerrmientasUsuarios(), null);
+			panelLateral.add(getListaAplicaciones(), null);
+			panelLateral.add(getArbolUsuario(), null);
+			panelLateral.setBorder(new LineBorder(Color.GRAY, 2));
+			panelLateral.add(jLabel1, null);
+		}
+		return panelLateral;
+	}
+	
+	/**
+	 * This method initializes panelEspacioTrabajo
+	 * 
+	 * @return javax.swing.JPanel
+	 */
+	private JPanel getPanelEspacioTrabajo()
+	{
+		if (panelEspacioTrabajo == null)
+		{
+			BorderLayout borderLayout2 = new BorderLayout();
+			borderLayout2.setHgap(0);
+			borderLayout2.setVgap(0);
+
+			
+			panelEspacioTrabajo = new JPanel();
+			panelEspacioTrabajo.setFont(fuente);
+			panelEspacioTrabajo.setLayout(borderLayout2);
+			panelEspacioTrabajo.setBounds(new Rectangle(210, 16, 349, 398));
+			panelEspacioTrabajo.setBorder(new LineBorder(Color.GRAY, 1));
+			panelEspacioTrabajo.add(getHerraminetasDocumentos(),
+					BorderLayout.NORTH);
+			panelEspacioTrabajo.add(new JScrollPane(getArbolDocumentos()),
+					BorderLayout.CENTER);
+		}
+		return panelEspacioTrabajo;
+	}
+
+	/**
+	 * This method initializes herraminetasDocumentos
+	 * 
+	 * @return javax.swing.JToolBar
+	 */
+	private JToolBar getHerraminetasDocumentos()
+	{
+		if (herramientasDocumentos == null)
+		{
+			herramientasDocumentos = new JToolBar();
+			herramientasDocumentos.setFont(fuente);
+			herramientasDocumentos.setBorder(new LineBorder(Color.GRAY));
+			herramientasDocumentos.add(getBoton52131());
+			herramientasDocumentos.add(this.getReenviar());
+			herramientasDocumentos.add(this.getBotonImprimirDocumento());
+			herramientasDocumentos.add(new Separador());
+			herramientasDocumentos.add(getButonSubir());
+			herramientasDocumentos.add(getBotonDescargar());
+			herramientasDocumentos.add(new Separador());
+			herramientasDocumentos.add(this.getAgregarCarpeta());
+			herramientasDocumentos.add(new Separador());
+			herramientasDocumentos.add(getBotonEliminarFichero());
+			herramientasDocumentos.add(new Separador());
+			herramientasDocumentos.add(getBotonInfo());
+		}
+		return herramientasDocumentos;
+	}
+	
+	/**
+	 * Accede al boton getCarpeta
+	 * @return getCarpeta inicializado
+	 */
+	private JButton getAgregarCarpeta()
+	{
+		
+		if (agregarCarpeta == null){
+			agregarCarpeta = new JButton();
+			agregarCarpeta.setBorderPainted(false);
+			agregarCarpeta.setText("");
+
+			
+			agregarCarpeta
+					.setIcon(new ImageIcon("./Resources/nueva_carpeta.png"));
+			agregarCarpeta.addActionListener(new java.awt.event.ActionListener()
+			{
+				public void actionPerformed(java.awt.event.ActionEvent e)
+				{
+					MIFichero f = arbolDocumentos.getDocumentoSeleccionado();
+					
+					if (f == null || !f.esDirectorio()) return;
+					
+					String nombre = JOptionPane.showInputDialog("Introduce el nuevo nombre para la carpeta");
+					
+					if (nombre == null) return;
+					
+					f = arbolDocumentos.agregarCarpeta(nombre);
+					
+					if (f== null) return;
+					
+					f = ClienteFicheros.cf.insertarNuevoFichero(f, DConector.Daplicacion);
+					
+					if (f!= null){
+						
+						System.out.println("ID de la nueva carpeta " + f.getId());
+						
+						DFileEvent evento = new DFileEvent();
+						evento.padre = arbolDocumentos.getDocumentoSeleccionado();
+						evento.fichero = f;
+						evento.tipo = new Integer(DFileEvent.NOTIFICAR_INSERTAR_FICHERO
+								.intValue());
+						enviarEvento(evento);
+					}
+					
+				}
+			});
+		}
+		
+		return agregarCarpeta;
+	}
+
+	/**
+	 * Accede al boton botonDescargar
+	 * @return botonDescargar inicializado
+	 */
+	public JButton getBotonDescargar()
+	{
+		if (botonDescargar == null)
+		{
+			botonDescargar = new JButton();;
+			botonDescargar.setBorderPainted(false);
+			botonDescargar.setText("");
+
+			botonDescargar.setIcon(new ImageIcon(
+					"./Resources/page_white_put.png"));
+			
+			
+			botonDescargar
+					.addActionListener(new java.awt.event.ActionListener()
+					{
+						public void actionPerformed(java.awt.event.ActionEvent e)
+						{
+							arbolDocumentos.guardarDocumentoLocalmente();
+						}
+					});
+
+		}
+		return botonDescargar;
+	}
+
+	
+	/**
+	 * Accede al botonImprimir
+	 * @return el botonImprimir inicializado
+	 */
+	public JButton getBotonImprimirDocumento()
+	{
+		if (botonImprimirDocumento == null)
+		{
+			botonImprimirDocumento = new JButton();;
+			botonImprimirDocumento.setBorderPainted(false);
+			botonImprimirDocumento.setText("");
+
+			botonImprimirDocumento.setIcon(new ImageIcon(
+					"./Resources/printer.png"));
+			botonImprimirDocumento
+					.addActionListener(new java.awt.event.ActionListener()
+					{
+						public void actionPerformed(java.awt.event.ActionEvent e)
+						{
+							arbolDocumentos.imprimirFichero();
+						}
+					});
+		}
+
+		return botonImprimirDocumento;
+	}
+
+
+	/**
+	 * Accede al boton eliminarFichero
+	 * @return el botonEliminarFichero inicializado
+	 */
+	private JButton getBotonEliminarFichero()
+	{
+
+		if (botonEliminarFich == null)
+		{
+			botonEliminarFich = new JButton();
+			botonEliminarFich.setText("");
+			botonEliminarFich.setBorderPainted(false);
+			botonEliminarFich.setIcon(new ImageIcon("./Resources/delete2.png"));
+			botonEliminarFich
+					.addActionListener(new java.awt.event.ActionListener()
+					{
+						public void actionPerformed(java.awt.event.ActionEvent e)
+						{
+
+							MIFichero f = arbolDocumentos.getDocumentoSeleccionado();
+							
+							if (arbolDocumentos.eliminarFichero()){
+
+								DFileEvent evento = new DFileEvent();
+								evento.fichero = f;
+								evento.tipo = new Integer(
+										DFileEvent.NOTIFICAR_ELIMINAR_FICHERO
+												.intValue());
+								enviarEvento(evento);
+							}
+								
+						}
+					});
+
+		}
+		return this.botonEliminarFich;
+	}
+
+
+	/**
+	 * Accede al boton de la barra de herramientas de docuemntos botonInfo
+	 * @return el boton inicializado
+	 */
+	private JButton getBotonInfo()
+	{
+		if (botonInfo == null)
+		{
+			botonInfo = new JButton();
+			botonInfo.setText("");
+			botonInfo.setBorderPainted(false);
+			botonInfo.setIcon(new ImageIcon("./Resources/information.png"));
+			botonInfo.addActionListener(new java.awt.event.ActionListener()
+			{
+				public void actionPerformed(java.awt.event.ActionEvent e)
+				{
+					MIFichero f = arbolDocumentos.getDocumentoSeleccionado();
+
+					if (f == null) return;
+
+					f = VisorPropiedadesFichero.verInfoFichero(f, null);
+
+					if (f != null)
+					{
+						DFileEvent evento = new DFileEvent();
+						evento.fichero = f;
+
+						DefaultMutableTreeNode r = (DefaultMutableTreeNode) arbolDocumentos.getNodoSeleccionado()
+								.getParent();
+
+						evento.padre = (MIFichero) r.getUserObject();
+
+						System.err.println("directorio padre: "
+								+ evento.padre.getNombre());
+
+						evento.tipo = new Integer(
+								DFileEvent.NOTIFICAR_MODIFICACION_FICHERO
+										.intValue());
+						enviarEvento(evento);
+						ClienteFicheros.obtenerClienteFicheros()
+								.modificarFichero(f, DConector.Daplicacion);
+					}
+				}
+			});
+		}
+		return botonInfo;
+	}
+
+	/**
+	 * This method initializes boton52131
+	 * 
+	 * @return javax.swing.JButton
+	 */
+	private JButton getBoton52131()
+	{
+		if (botonAbrirDoc == null)
+		{
+			botonAbrirDoc = new JButton();
+			
+			botonAbrirDoc.setIcon(new ImageIcon("./Resources/folder_page_white.png"));
+			
+			botonAbrirDoc.setBorderPainted(false);
+			botonAbrirDoc.addActionListener(new java.awt.event.ActionListener()
+			{
+				public void actionPerformed(java.awt.event.ActionEvent e)
+				{
+					accionAbrir();
+
+				}
+			});
+		}
+		return botonAbrirDoc;
+	}
+
+	/**
+	 * This method initializes arbolDocuementos
+	 * 
+	 * @return javax.swing.JTree
+	 */
+	private JTree getArbolDocumentos()
+	{
+		if (arbolDocumentos == null)
+		{
+			arbolDocumentos = new ArbolDocumentos(DConector.raiz);
+			
+			arbolDocumentos.setFont(fuente);
+
+			arbolDocumentos.addMouseListener(new java.awt.event.MouseAdapter()
+			{
+				@Override
+				public void mouseClicked(java.awt.event.MouseEvent e)
+				{
+					if (e.getClickCount() == 2) accionAbrir();
+				}
+			});
+		}
+		return arbolDocumentos;
+	}
+
+	/**
+	 * This method initializes editarUsuario
+	 * 
+	 * @return javax.swing.JButton
+	 */
+	private JButton getEditarUsuario()
+	{
+		if (editarUsuario == null)
+		{
+			editarUsuario = new JButton();
+			editarUsuario.setIcon(new ImageIcon("./Resources/page_edit.gif"));
+			editarUsuario.setBorderPainted(false);
+			
+			editarUsuario.addActionListener(new java.awt.event.ActionListener()
+			{
+				public void actionPerformed(java.awt.event.ActionEvent e)
+				{
+					ClienteMetaInformacion.obtenerCMI().mostrarDialogo();
+				}
+			});
+		}
+		return editarUsuario;
+	}
+
+	/**
+	 * This method initializes herrmientasUsuarios
+	 * 
+	 * @return javax.swing.JToolBar
+	 */
+	private JToolBar getHerrmientasUsuarios()
+	{
+		if (herrmientasUsuarios == null)
+		{
+			herrmientasUsuarios = new JToolBar();
+			herrmientasUsuarios.setSize(new Dimension(183, 32));
+			herrmientasUsuarios.setLocation(new Point(3, 364));
+
+			Separador s1 = new Separador();
+			Separador s2 = new Separador();
+			s1.setMinimumSize(new Dimension(20, 15));
+			s2.setMinimumSize(new Dimension(20, 15));
+			herrmientasUsuarios.setFloatable(false);
+			herrmientasUsuarios.add(getEditarUsuario());
+			herrmientasUsuarios.add(s1);
+			herrmientasUsuarios.add(getIniciarChat());
+			herrmientasUsuarios.add(getEnviarMensaje());
+		}
+		return herrmientasUsuarios;
+	}
+	
+	/**
+	 * This method initializes arbolUsuario
+	 * 
+	 * @return
+	 */
+	private ArbolUsuariosConectadosRol getArbolUsuario()
+	{
+		arbolUsuario = new ArbolUsuariosConectadosRol(
+				"ListaUsuariosConectadosRol", false, this);
+		arbolUsuario.setBounds(new Rectangle(1, 196, 186, 167));
+		arbolUsuario.setBorder(new LineBorder(Color.gray));
+		arbolUsuario.setFont(fuente);
+		return arbolUsuario;
+	}
+
+
+
+
+	/**
+	 * This method initializes iniciarChat
+	 * 
+	 * @return javax.swing.JButton
+	 */
+	private JButton getIniciarChat()
+	{
+		if (iniciarChat == null)
+		{
+			iniciarChat = new JButton();
+			iniciarChat.setIcon(new ImageIcon("./Resources/comment.gif"));
+			iniciarChat.setBorderPainted(false);
+			
+			iniciarChat.addActionListener(new java.awt.event.ActionListener()
+			{
+				public void actionPerformed(java.awt.event.ActionEvent e)
+				{
+					for (int i=0; i<plugins.size(); ++i)
+						if (plugins.get(i).getName().equals("Chat")) {
+							
+							System.out.println("Encontrado plugin chat");
+							
+							String usuario = arbolUsuario.getUsuarioSeleccionado();
+
+							if (( usuario != null )
+									&& !usuario.equals(DConector.Dusuario))
+							{
+								DJChatEvent evento = new DJChatEvent();
+								evento.tipo = new Integer(
+										DJChatEvent.MENSAJE_PRIVADO);
+								evento.receptores.add(usuario);
+								evento.mensaje = "Solicita una nueva conversaci—n";
+
+								plugins.get(i).enviarEvento(evento);
+							}
+							else JOptionPane
+									.showMessageDialog(null,
+											"No puedes mantener una conversaci—n contigo mismo");
+						}
+							
+				}
+			});
+		}
+		return iniciarChat;
+	}
+
+	/**
+	 * This method initializes enviarMensaje
+	 * 
+	 * @return javax.swing.JButton
+	 */
+	private JButton getEnviarMensaje()
+	{
+		if (enviarMensaje == null)
+		{
+			enviarMensaje = new JButton();
+			enviarMensaje.setIcon(new ImageIcon("./Resources/icon_email.gif"));
+			enviarMensaje.setBorderPainted(false);
+			
+			enviarMensaje.addActionListener(new java.awt.event.ActionListener()
+			{
+				public void actionPerformed(java.awt.event.ActionEvent e)
+				{
+					MIFichero f  = EnviarMensaje.getMensaje(arbolUsuario.getUsuarioSeleccionado(), "", "");
+					
+					if (f != null) {
+					
+						enviarMail(f);
+					}
+				}
+			});
+		}
+		return enviarMensaje;
+	}
+	
+	/**
+	 * Accede al boton para subir documentos
+	 * @return el botonSubir inicializado
+	 */
 	private JButton getButonSubir()
 	{
 		if (botonSubir == null)
@@ -130,6 +763,10 @@ public class PanelPrincipal extends DComponenteBase
 		return botonSubir;
 	}
 	
+	/**
+	 * Boton para reenviar mensajes
+	 * @return el boton reenviar inicializado
+	 */
 	private JButton getReenviar()
 	{
 		if (reenviar == null)
@@ -326,119 +963,9 @@ public class PanelPrincipal extends DComponenteBase
 		
 	}
 
-	
-
-	/**
-	 * This method initializes jContentPane
-	 * 
-	 * @return javax.swing.JPanel
-	 */
-	public PanelPrincipal( String nombre, boolean conexionDC,
-			DComponenteBase padre )
-	{
-		super(nombre, conexionDC, padre);
-		try
-		{
-			//dar soporte para documentos
-			Documento.addFilter(new ImageFilter());
-			Documento.addFilter(new PDFFilter());
-			Documento.addFilter(new TXTFilter());
-			
-			plugins = DPluginLoader.getAllPlugins("plugin");
-
-			BorderLayout borderLayout = new BorderLayout();
-			borderLayout.setHgap(0);
-			this.setLayout(null);
-			this.add(getPanelLateral(), BorderLayout.WEST);
 
 
-			inicializarEditor();
 
-			this.add(getPanelEspacioTrabajo(), null);
-		}
-		catch (Exception ex)
-		{
-			ex.printStackTrace();
-		}
-	}
-
-	private void inicializarEditor()
-	{
-		frame = new FramePanelDibujo(false);
-		frame.setVisible(false);
-		frame.pack();
-		frame.setSize(800, 720);
-
-		// Center the window
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		Dimension frameSize = frame.getSize();
-		if (frameSize.height > screenSize.height)
-			frameSize.height = screenSize.height;
-		if (frameSize.width > screenSize.width)
-			frameSize.width = screenSize.width;
-		frame.setLocation(( screenSize.width - frameSize.width ) / 2,
-				( screenSize.height - frameSize.height ) / 2);
-
-		if (this.arbolDocumentos != null) this.arbolDocumentos.repaint();
-	}
-
-	/**
-	 * This method initializes panelLateral
-	 * 
-	 * @return javax.swing.JPanel
-	 */
-	private JPanel getPanelLateral()
-	{
-		if (panelLateral == null)
-		{
-			jLabel1 = new JLabel();
-			jLabel1.setBounds(new Rectangle(60, 174, 80, 16));
-			jLabel1.setText("Usuarios");
-			GridBagConstraints gridBagConstraints = new GridBagConstraints();
-			gridBagConstraints.gridx = 2;
-			gridBagConstraints.gridy = 0;
-			jLabel = new JLabel();
-			jLabel.setText("Aplicaciones");
-			jLabel.setBounds(new Rectangle(52, 4, 90, 21));
-			panelLateral = new JPanel();
-			panelLateral.setLayout(null);
-			panelLateral.setBounds(new Rectangle(6, 16, 188, 398));
-			panelLateral.add(jLabel, gridBagConstraints);
-			panelLateral.add(getHerrmientasUsuarios(), null);
-			panelLateral.add(getListaAplicaciones(), null);
-			panelLateral.add(getArbolUsuario(), null);
-			panelLateral.setBorder(new LineBorder(Color.GRAY, 2));
-			panelLateral.add(jLabel1, null);
-		}
-		return panelLateral;
-	}
-
-
-	/**
-	 * This method initializes herrmientasUsuarios
-	 * 
-	 * @return javax.swing.JToolBar
-	 */
-	private JToolBar getHerrmientasUsuarios()
-	{
-		if (herrmientasUsuarios == null)
-		{
-			herrmientasUsuarios = new JToolBar();
-			herrmientasUsuarios.setSize(new Dimension(183, 32));
-			herrmientasUsuarios.setLocation(new Point(3, 364));
-
-			Separador s1 = new Separador();
-			Separador s2 = new Separador();
-			s1.setMinimumSize(new Dimension(20, 15));
-			s2.setMinimumSize(new Dimension(20, 15));
-			herrmientasUsuarios.setFloatable(false);
-			herrmientasUsuarios.add(getEditarUsuario());
-			herrmientasUsuarios.add(s1);
-			herrmientasUsuarios.add(getIniciarChat());
-			herrmientasUsuarios.add(getEnviarMensaje());
-		}
-		return herrmientasUsuarios;
-	}
 
 	/**
 	 * This method initializes listaAplicaciones
@@ -449,16 +976,17 @@ public class PanelPrincipal extends DComponenteBase
 	{
 		if (listaAplicaciones == null)
 		{
-
-			Vector<DAbstractPlugin> data = new Vector<DAbstractPlugin>();
+			
+			modeloAplicaciones = new DefaultListModel();
 			
 			for (int i = 0; i < plugins.size(); ++i)
 			{
 				if (plugins.get(i).shouldShowIt())
-					data.add(plugins.get(i));
+					modeloAplicaciones.addElement(plugins.get(i).toString());
 			}
 			
-			listaAplicaciones = new JList(data.toArray());
+			listaAplicaciones = new JList(modeloAplicaciones);
+			listaAplicaciones.setFont(fuente);
 			listaAplicaciones.setBounds(new Rectangle(1, 26, 186, 140));
 			listaAplicaciones.setBorder(new LineBorder(Color.GRAY));
 
@@ -473,12 +1001,21 @@ public class PanelPrincipal extends DComponenteBase
 								try
 								{
 
-									if (plugins != null
-											&& plugins.size() > 0
-											&& listaAplicaciones
-													.getSelectedIndex() > -1)
+									if (plugins != null  && plugins.size() > 0
+											&& listaAplicaciones.getSelectedIndex() > -1)
 									{
-										((DAbstractPlugin)listaAplicaciones.getSelectedValue()).start();
+										
+										String seleccionado = listaAplicaciones.getSelectedValue().toString();
+										
+										boolean encontrada = false;
+										
+										for (int i=0; i <plugins.size(); ++i )
+											if (plugins.get(i).getName().equals(seleccionado)) {
+												plugins.get(i).start();
+												encontrada = true;
+											}
+										if (!encontrada)
+											modeloAplicaciones.remove(listaAplicaciones.getSelectedIndex());
 									}
 								}
 								catch (Exception e1)
@@ -492,121 +1029,12 @@ public class PanelPrincipal extends DComponenteBase
 		return listaAplicaciones;
 	}
 
-	/**
-	 * This method initializes arbolUsuario
-	 * 
-	 * @return
-	 */
-	private ArbolUsuariosConectadosRol getArbolUsuario()
-	{
-		arbolUsuario = new ArbolUsuariosConectadosRol(
-				"ListaUsuariosConectadosRol", false, this);
-		arbolUsuario.setBounds(new Rectangle(1, 196, 186, 167));
-		arbolUsuario.setBorder(new LineBorder(Color.gray));
-		return arbolUsuario;
-	}
 
-
-	/**
-	 * This method initializes editarUsuario
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private JButton getEditarUsuario()
-	{
-		if (editarUsuario == null)
-		{
-			editarUsuario = new JButton();
-			editarUsuario.setIcon(new ImageIcon("./Resources/page_edit.gif"));
-			editarUsuario.setBorderPainted(false);
-			
-			editarUsuario.addActionListener(new java.awt.event.ActionListener()
-			{
-				public void actionPerformed(java.awt.event.ActionEvent e)
-				{
-					ClienteMetaInformacion.obtenerCMI().mostrarDialogo();
-				}
-			});
-		}
-		return editarUsuario;
-	}
-
-	/**
-	 * This method initializes iniciarChat
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private JButton getIniciarChat()
-	{
-		if (iniciarChat == null)
-		{
-			iniciarChat = new JButton();
-			iniciarChat.setIcon(new ImageIcon("./Resources/comment.gif"));
-			iniciarChat.setBorderPainted(false);
-			
-			iniciarChat.addActionListener(new java.awt.event.ActionListener()
-			{
-				public void actionPerformed(java.awt.event.ActionEvent e)
-				{
-					for (int i=0; i<plugins.size(); ++i)
-						if (plugins.get(i).getName().equals("Chat")) {
-							
-							System.out.println("Encontrado plugin chat");
-							
-							String usuario = arbolUsuario.getUsuarioSeleccionado();
-
-							if (( usuario != null )
-									&& !usuario.equals(DConector.Dusuario))
-							{
-								DJChatEvent evento = new DJChatEvent();
-								evento.tipo = new Integer(
-										DJChatEvent.MENSAJE_PRIVADO);
-								evento.receptores.add(usuario);
-								evento.mensaje = "Solicita una nueva conversaci—n";
-
-								plugins.get(i).enviarEvento(evento);
-							}
-							else JOptionPane
-									.showMessageDialog(null,
-											"No puedes mantener una conversaci—n contigo mismo");
-						}
-							
-				}
-			});
-		}
-		return iniciarChat;
-	}
-
-	/**
-	 * This method initializes enviarMensaje
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private JButton getEnviarMensaje()
-	{
-		if (enviarMensaje == null)
-		{
-			enviarMensaje = new JButton();
-			enviarMensaje.setIcon(new ImageIcon("./Resources/icon_email.gif"));
-			enviarMensaje.setBorderPainted(false);
-			
-			enviarMensaje.addActionListener(new java.awt.event.ActionListener()
-			{
-				public void actionPerformed(java.awt.event.ActionEvent e)
-				{
-					MIFichero f  = EnviarMensaje.getMensaje(arbolUsuario.getUsuarioSeleccionado(), "", "");
-					
-					if (f != null) {
-					
-						enviarMail(f);
-					}
-				}
-			});
-		}
-		return enviarMensaje;
-	}
 	
-	
+	/**
+	 * Envia un mensaj
+	 * @param f Metainformacion del mensaje
+	 */
 	private void enviarMail(MIFichero f){
 		File aux = new File(".aux");
 		
@@ -676,248 +1104,11 @@ public class PanelPrincipal extends DComponenteBase
 		enviarEvento(evento);
 	}
 
-	/**
-	 * This method initializes panelEspacioTrabajo
-	 * 
-	 * @return javax.swing.JPanel
-	 */
-	private JPanel getPanelEspacioTrabajo()
-	{
-		if (panelEspacioTrabajo == null)
-		{
-			BorderLayout borderLayout2 = new BorderLayout();
-			borderLayout2.setHgap(0);
-			borderLayout2.setVgap(0);
-			panelEspacioTrabajo = new JPanel();
-			panelEspacioTrabajo.setLayout(borderLayout2);
-			panelEspacioTrabajo.setBounds(new Rectangle(210, 16, 349, 398));
-			panelEspacioTrabajo.setBorder(new LineBorder(Color.GRAY, 1));
-			panelEspacioTrabajo.add(getHerraminetasDocumentos(),
-					BorderLayout.NORTH);
-			panelEspacioTrabajo.add(new JScrollPane(getArbolDocumentos()),
-					BorderLayout.CENTER);
-		}
-		return panelEspacioTrabajo;
-	}
-
-	/**
-	 * This method initializes herraminetasDocumentos
-	 * 
-	 * @return javax.swing.JToolBar
-	 */
-	private JToolBar getHerraminetasDocumentos()
-	{
-		if (herramientasDocumentos == null)
-		{
-			herramientasDocumentos = new JToolBar();
-			herramientasDocumentos.setBorder(new LineBorder(Color.GRAY));
-			herramientasDocumentos.add(getBoton52131());
-			herramientasDocumentos.add(this.getReenviar());
-			herramientasDocumentos.add(this.getBotonImprimirDocumento());
-			herramientasDocumentos.add(new Separador());
-			herramientasDocumentos.add(getButonSubir());
-			herramientasDocumentos.add(getBotonDescargar());
-			herramientasDocumentos.add(new Separador());
-			herramientasDocumentos.add(this.getAgregarCarpeta());
-			herramientasDocumentos.add(new Separador());
-			herramientasDocumentos.add(getBotonEliminarFichero());
-			herramientasDocumentos.add(new Separador());
-			herramientasDocumentos.add(getBotonInfo());
-		}
-		return herramientasDocumentos;
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	public JButton getBotonDescargar()
-	{
-		if (botonDescargar == null)
-		{
-			botonDescargar = new JButton();;
-			botonDescargar.setBorderPainted(false);
-			botonDescargar.setText("");
-
-			botonDescargar.setIcon(new ImageIcon(
-					"./Resources/page_white_put.png"));
-			
-			
-			botonDescargar
-					.addActionListener(new java.awt.event.ActionListener()
-					{
-						public void actionPerformed(java.awt.event.ActionEvent e)
-						{
-							arbolDocumentos.guardarDocumentoLocalmente();
-						}
-					});
-
-		}
-		return botonDescargar;
-	}
-
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public JButton getBotonImprimirDocumento()
-	{
-		if (botonImprimirDocumento == null)
-		{
-			botonImprimirDocumento = new JButton();;
-			botonImprimirDocumento.setBorderPainted(false);
-			botonImprimirDocumento.setText("");
-
-			botonImprimirDocumento.setIcon(new ImageIcon(
-					"./Resources/printer.png"));
-			botonImprimirDocumento
-					.addActionListener(new java.awt.event.ActionListener()
-					{
-						public void actionPerformed(java.awt.event.ActionEvent e)
-						{
-							arbolDocumentos.imprimirFichero();
-						}
-					});
-		}
-
-		return botonImprimirDocumento;
-	}
 
 
 	/**
-	 * 
-	 * @return
+	 * Abre el documento actualmente seleccionado en el arbol de documentos.
 	 */
-	private JButton getBotonEliminarFichero()
-	{
-
-		if (botonEliminarFich == null)
-		{
-			botonEliminarFich = new JButton();
-			botonEliminarFich.setText("");
-			botonEliminarFich.setBorderPainted(false);
-			botonEliminarFich.setIcon(new ImageIcon("./Resources/delete2.png"));
-			botonEliminarFich
-					.addActionListener(new java.awt.event.ActionListener()
-					{
-						public void actionPerformed(java.awt.event.ActionEvent e)
-						{
-
-							MIFichero f = arbolDocumentos.getDocumentoSeleccionado();
-							
-							if (arbolDocumentos.eliminarFichero()){
-
-								DFileEvent evento = new DFileEvent();
-								evento.fichero = f;
-								evento.tipo = new Integer(
-										DFileEvent.NOTIFICAR_ELIMINAR_FICHERO
-												.intValue());
-								enviarEvento(evento);
-							}
-								
-						}
-					});
-
-		}
-		return this.botonEliminarFich;
-	}
-
-
-
-	private JButton getBotonInfo()
-	{
-		if (botonInfo == null)
-		{
-			botonInfo = new JButton();
-			botonInfo.setText("");
-			botonInfo.setBorderPainted(false);
-			botonInfo.setIcon(new ImageIcon("./Resources/information.png"));
-			botonInfo.addActionListener(new java.awt.event.ActionListener()
-			{
-				public void actionPerformed(java.awt.event.ActionEvent e)
-				{
-					MIFichero f = arbolDocumentos.getDocumentoSeleccionado();
-
-					if (f == null) return;
-
-					f = VisorPropiedadesFichero.verInfoFichero(f, null);
-
-					if (f != null)
-					{
-						DFileEvent evento = new DFileEvent();
-						evento.fichero = f;
-
-						DefaultMutableTreeNode r = (DefaultMutableTreeNode) arbolDocumentos.getNodoSeleccionado()
-								.getParent();
-
-						evento.padre = (MIFichero) r.getUserObject();
-
-						System.err.println("directorio padre: "
-								+ evento.padre.getNombre());
-
-						evento.tipo = new Integer(
-								DFileEvent.NOTIFICAR_MODIFICACION_FICHERO
-										.intValue());
-						enviarEvento(evento);
-						ClienteFicheros.obtenerClienteFicheros()
-								.modificarFichero(f, DConector.Daplicacion);
-					}
-				}
-			});
-		}
-		return botonInfo;
-	}
-
-	/**
-	 * This method initializes boton52131
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private JButton getBoton52131()
-	{
-		if (botonAbrirDoc == null)
-		{
-			botonAbrirDoc = new JButton();
-			
-			botonAbrirDoc.setIcon(new ImageIcon("./Resources/folder_page_white.png"));
-			
-			botonAbrirDoc.setBorderPainted(false);
-			botonAbrirDoc.addActionListener(new java.awt.event.ActionListener()
-			{
-				public void actionPerformed(java.awt.event.ActionEvent e)
-				{
-					accionAbrir();
-
-				}
-			});
-		}
-		return botonAbrirDoc;
-	}
-
-	/**
-	 * This method initializes arbolDocuementos
-	 * 
-	 * @return javax.swing.JTree
-	 */
-	private JTree getArbolDocumentos()
-	{
-		if (arbolDocumentos == null)
-		{
-			arbolDocumentos = new ArbolDocumentos(DConector.raiz);
-
-			arbolDocumentos.addMouseListener(new java.awt.event.MouseAdapter()
-			{
-				@Override
-				public void mouseClicked(java.awt.event.MouseEvent e)
-				{
-					if (e.getClickCount() == 2) accionAbrir();
-				}
-			});
-		}
-		return arbolDocumentos;
-	}
-
 	private void accionAbrir()
 	{
 		
@@ -975,6 +1166,8 @@ public class PanelPrincipal extends DComponenteBase
 
 	}
 
+	
+	// ========= DCOMPONENTE ===============================================================================
 
 	/**
 	 * Obtiene el numero de componentes hijos de este componente. SIEMPRE
@@ -1019,6 +1212,9 @@ public class PanelPrincipal extends DComponenteBase
 		return dc;
 	}
 
+	
+	
+	//========= EVENTOS =========================================================
 	@Override
 	public void procesarEvento(DEvent evento)
 	{
@@ -1136,6 +1332,7 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	
+	//	 ========= PERMISOS ===============================================================================
 
 	/**
 	 * Comprueba que los permisos actuales del documentos permiten que Žste siga editandose
@@ -1165,61 +1362,51 @@ public class PanelPrincipal extends DComponenteBase
 			}
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
-	private JButton getAgregarCarpeta()
-	{
-		
-		if (agregarCarpeta == null){
-			agregarCarpeta = new JButton();
-			agregarCarpeta.setBorderPainted(false);
-			agregarCarpeta.setText("");
-
-			
-			agregarCarpeta
-					.setIcon(new ImageIcon("./Resources/nueva_carpeta.png"));
-			agregarCarpeta.addActionListener(new java.awt.event.ActionListener()
-			{
-				public void actionPerformed(java.awt.event.ActionEvent e)
-				{
-					MIFichero f = arbolDocumentos.getDocumentoSeleccionado();
-					
-					if (f == null || !f.esDirectorio()) return;
-					
-					String nombre = JOptionPane.showInputDialog("Introduce el nuevo nombre para la carpeta");
-					
-					if (nombre == null) return;
-					
-					f = arbolDocumentos.agregarCarpeta(nombre);
-					
-					if (f== null) return;
-					
-					f = ClienteFicheros.cf.insertarNuevoFichero(f, DConector.Daplicacion);
-					
-					if (f!= null){
-						
-						System.out.println("ID de la nueva carpeta " + f.getId());
-						
-						DFileEvent evento = new DFileEvent();
-						evento.padre = arbolDocumentos.getDocumentoSeleccionado();
-						evento.fichero = f;
-						evento.tipo = new Integer(DFileEvent.NOTIFICAR_INSERTAR_FICHERO
-								.intValue());
-						enviarEvento(evento);
-					}
-					
-				}
-			});
-		}
-		
-		return agregarCarpeta;
-	}
 	
+	/**
+	 * Accion a efectuar al salir de la aplicacion
+	 *
+	 */
 	public void salir(){
 		
 		if (frame != null && frame.getLienzo() != null && frame.getLienzo().getPathDocumento() != null)
 			DConector.obtenerDC().cerrarFichero(frame.getLienzo().getPathDocumento());
+	}
+	
+	/**
+	 * Hebra que se encarga de acualizar los valores de la lista de plugins 
+	 * @author anab
+	 */
+	private class HebraActualizacionPlugin implements Runnable {
+
+		public  HebraActualizacionPlugin(){
+			Thread hebra = new Thread(this);
+			hebra.start();
+		}
+		
+		public void run()
+		{
+			
+			while (true) {
+				try
+				{
+					Thread.sleep(2000L);
+					
+					modeloAplicaciones.removeAllElements();
+					
+					for (int i = 0; i < plugins.size(); ++i)
+					{
+						if (plugins.get(i).shouldShowIt())
+							modeloAplicaciones.addElement(plugins.get(i).toString());
+					}
+				}
+				catch (InterruptedException e)
+				{
+					// no hacemos nada
+				}
+			}
+			
+		}
+		
 	}
 }
