@@ -895,7 +895,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 									"Formato no soportado",
 									JOptionPane.YES_NO_OPTION);
 
-					if (eleccion == 0)
+					if (eleccion == JOptionPane.YES_OPTION)
 					{
 
 						// intentamos abrirlo forzando a documento de texto
