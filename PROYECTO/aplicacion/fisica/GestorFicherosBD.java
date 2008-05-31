@@ -440,7 +440,8 @@ public class GestorFicherosBD
 
 				String consulta = "UPDATE fichero SET nombre='" + f.getNombre()
 						+ "', permisos ='" + f.getPermisos()
-						+ "', ruta_local ='" + f.getRutaLocal()
+						+ "', padre =" + f.getPadre()
+						+ ",  ruta_local ='" + f.getRutaLocal()
 						+ "' WHERE id_fichero=" + f.getId();
 
 				System.out.println("Consulta a ejecutar: " + consulta);
