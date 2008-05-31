@@ -456,7 +456,11 @@ public class VisorPropiedadesFichero extends JDialog
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
 					if (fichero.comprobarPermisos(DConector.Dusuario,
-							DConector.Drol, MIFichero.PERMISO_ESCRITURA))
+							DConector.Drol, MIFichero.PERMISO_ESCRITURA)
+						||
+						(		fichero.getUsuario().getNombreUsuario().equals(DConector.Dusuario) && 
+								fichero.getRol().getNombreRol().equals(DConector.Drol))
+						)
 					{
 						fichero.setNombre(nombreFichero.getText());
 
