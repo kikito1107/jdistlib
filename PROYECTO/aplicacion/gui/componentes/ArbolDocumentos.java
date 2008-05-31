@@ -308,8 +308,9 @@ public class ArbolDocumentos extends JTree implements Autoscroll {
 				ClienteFicheros.obtenerClienteFicheros().borrarFichero(f,
 						DConector.Daplicacion);
 				return true;
-			}
-			else
+			} 
+			else if (f.comprobarPermisos(DConector.Dusuario, DConector.Drol,
+							MIFichero.PERMISO_ESCRITURA))
 			{
 				DefaultMutableTreeNode nodo = this.getNodoSeleccionado();
 
@@ -330,6 +331,7 @@ public class ArbolDocumentos extends JTree implements Autoscroll {
 				}
 
 			}
+			else return false;
 		}
 		else return false;
 	}
