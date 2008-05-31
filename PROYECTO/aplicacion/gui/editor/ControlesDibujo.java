@@ -310,9 +310,7 @@ public class ControlesDibujo extends JPanel
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
-					lienzo
-							.setObjetoSeleccionado(lienzo
-									.getObjetoSeleccionado() - 1);
+					lienzo.seleccionarAnteriorAnotacion();
 				}
 			});
 
@@ -341,8 +339,7 @@ public class ControlesDibujo extends JPanel
 					{
 						public void actionPerformed(java.awt.event.ActionEvent e)
 						{
-							lienzo.setObjetoSeleccionado(lienzo
-									.getObjetoSeleccionado() + 1);
+							lienzo.seleccionarSiguienteAnotacion();
 						}
 					});
 

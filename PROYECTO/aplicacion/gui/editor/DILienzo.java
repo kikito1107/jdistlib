@@ -268,28 +268,36 @@ public class DILienzo extends DIViewer implements MouseListener,
 	}
 
 	/**
-	 * Selecciona la n-ésima anotacion de la pagina actual del documento
-	 * 
-	 * @param anotacionSeleccionada
-	 *            the objetoSeleccionado to set
+	 * Selecciona la siguiente anotacion de la pagina actual del documento
 	 */
-	public void setObjetoSeleccionado(int n)
-	{
-		int numObjetos = doc.getPagina(paginaActual - 1).getAnotaciones()
-				.size();
-
-		System.out.println("Objeto seleccionado " + this.anotacionSeleccionada);
-
-		if (n == -2) this.anotacionSeleccionada = numObjetos;
-
-		if (( n >= 0 ) && ( n < numObjetos )) this.anotacionSeleccionada = n;
-
-		if (n == numObjetos) this.anotacionSeleccionada = 0;
-		if (n == -1) this.anotacionSeleccionada = numObjetos - 1;
-
-		repaint();
+	public void seleccionarSiguienteAnotacion(){
+		if (anotacionSeleccionada == -1)
+			anotacionSeleccionada = 0;
+		else {
+			anotacionSeleccionada++;
+			
+			if (anotacionSeleccionada == doc.getPagina(paginaActual-1).getAnotaciones().size()){
+				anotacionSeleccionada = -1;
+			}
+		}
+		
+		this.repaint();
 	}
-
+	
+	/**
+	 * Selecciona la anterior anotacion de la pagina actual del documento
+	 */
+	public void seleccionarAnteriorAnotacion(){
+		if (anotacionSeleccionada == -1)
+			anotacionSeleccionada = doc.getPagina(paginaActual-1).getAnotaciones().size()-1;
+		else {
+			anotacionSeleccionada--;
+		}
+		
+		this.repaint();
+	}
+	
+	
 	/**
 	 * Método que permite invertir un color
 	 * 
@@ -367,6 +375,8 @@ public class DILienzo extends DIViewer implements MouseListener,
 			paginaActual = numPagina;
 
 			anotacionesBorradas = new Vector<Anotacion>();
+			
+			anotacionSeleccionada = -1;
 
 			repaint();
 		}
@@ -830,11 +840,10 @@ public class DILienzo extends DIViewer implements MouseListener,
 				&& ( posicion < doc.getPagina(i).getAnotaciones().size() ))
 		{
 			Anotacion a = doc.getPagina(i).getAnotaciones().remove(posicion);
-			anotacionSeleccionada--;
 
 			anotacionesBorradas.add(a);
 
-			if (anotacionSeleccionada == -1) anotacionSeleccionada = 0;
+			this.seleccionarAnteriorAnotacion();
 
 			repaint();
 		}
