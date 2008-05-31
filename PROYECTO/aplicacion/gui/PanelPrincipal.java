@@ -1217,6 +1217,15 @@ public class PanelPrincipal extends DComponenteBase
 	
 	
 	//========= EVENTOS =========================================================
+	
+	public static void notificarModificacionFichero(DFileEvent f){
+		
+		esto.enviarEvento(f);
+		ClienteFicheros.obtenerClienteFicheros()
+				.modificarFichero(f.fichero, DConector.Daplicacion);
+	}
+	
+	
 	@Override
 	public void procesarEvento(DEvent evento)
 	{
@@ -1270,12 +1279,38 @@ public class PanelPrincipal extends DComponenteBase
 							dfe.fichero), padre, modelo.getChildCount(padre));
 				}
 			}
-			else 
+			else {
+				
+				if (!evento.usuario.equals(DConector.Dusuario)) 
+					modelo.removeNodeFromParent(nodo);
+				
+				// si tenemos permiso de acceso
 				if (dfe.fichero.getUsuario().getNombreUsuario().equals(DConector.Dusuario) 
 					|| dfe.fichero.comprobarPermisos(DConector.Dusuario,
-					DConector.Drol, MIFichero.PERMISO_LECTURA))
-						nodo.setUserObject(dfe.fichero);
-				else modelo.removeNodeFromParent(nodo);
+					DConector.Drol, MIFichero.PERMISO_LECTURA)) {
+						
+						// buscamos al nuevo padre
+						DefaultMutableTreeNode padre = ArbolDocumentos.buscarFichero(raiz,
+								dfe.padre.getId());
+						
+						if (padre == null) {
+							System.out.println("Padre del nuevo nodo " + dfe.padre.getId());
+							return;
+						} 
+						else {
+						
+							// nos aseguramos de que no seamos nosotros los que hemos movido el nodo
+							if (!evento.usuario.equals(DConector.Dusuario)) 
+								// colgamos el nodo del nuevo padre
+								modelo.insertNodeInto(nodo, padre, modelo.getChildCount(padre));
+							
+							// actualizamos la informacion del documento
+							nodo.setUserObject(dfe.fichero);
+						}
+				}
+				else
+					modelo.removeNodeFromParent(nodo);
+			}
 
 			this.arbolDocumentos.repaint();
 
