@@ -40,6 +40,7 @@ public class DPluginLoader
 						return (DAbstractPlugin) cls.newInstance();*/
 				
 				try{
+					cls.asSubclass(DAbstractPlugin.class);
 					return (DAbstractPlugin)cls.newInstance();
 				}
 				catch(Exception ex)
