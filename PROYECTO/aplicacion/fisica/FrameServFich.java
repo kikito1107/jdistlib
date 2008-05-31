@@ -1,16 +1,16 @@
 package aplicacion.fisica;
 
 import java.awt.BorderLayout;
-import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
-import java.awt.Dimension;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import java.awt.Color;
-import java.awt.GridBagLayout;
-import javax.swing.JButton;
-import javax.swing.ImageIcon;
-import java.awt.GridBagConstraints;
 
 public class FrameServFich extends JFrame
 {
