@@ -8,7 +8,7 @@ import javaspaces.ServiceLocator;
 import javaspaces.SpaceLocator;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import javax.swing.JOptionPane;  
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import metainformacion.ClienteMetaInformacion;
@@ -809,6 +809,8 @@ public class DConector
 								"\nCambie alguno de los nombres para un correcto funcionamiento",
 
 								"Error", JOptionPane.ERROR_MESSAGE);
+				
+				DConector.obtenerDC().salir();
 
 				System.exit(1);
 
@@ -1231,7 +1233,7 @@ public class DConector
 							+ e.getLocalizedMessage(),
 
 					"Error", JOptionPane.ERROR_MESSAGE);
-
+					DConector.obtenerDC().salir();
 					System.exit(1);
 
 				}
@@ -1320,6 +1322,7 @@ public class DConector
 
 					e.printStackTrace();
 
+					DConector.obtenerDC().salir();
 					System.exit(1);
 
 				}
@@ -1497,7 +1500,11 @@ public class DConector
 
 								"Error", JOptionPane.ERROR_MESSAGE);
 
+				DConector.obtenerDC().salir();
+				
 				System.exit(0);
+				
+				
 
 			}
 
