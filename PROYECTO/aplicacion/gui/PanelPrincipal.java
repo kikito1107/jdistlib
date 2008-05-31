@@ -487,6 +487,8 @@ public class PanelPrincipal extends DComponenteBase
 												.intValue());
 								enviarEvento(evento);
 							}
+							
+							else JOptionPane.showMessageDialog(null, "No tiene permisos suficientes para eliminar este fichero/directorio");
 								
 						}
 					});
