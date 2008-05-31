@@ -53,12 +53,7 @@ public class DocumentosCellRenderer extends DefaultTreeCellRenderer
 		super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf,
 				row, hasFocus);
 
-		if (leaf && isFolder(value))
-		{
-			setIcon(iconoCarpeta);
-			setToolTipText("Carpeta vac’a");
-		}
-		else if(leaf && estaEditandose(value))
+		if(leaf && estaEditandose(value))
 			setIcon(iconoEditar);
 		else if(leaf && isPDF(value))
 			setIcon(iconoPDF );
@@ -72,6 +67,11 @@ public class DocumentosCellRenderer extends DefaultTreeCellRenderer
 			setIcon(mail);
 		else if (isINBOX(value))
 			setIcon(iconInbox);
+		else if (leaf && isFolder(value))
+		{
+			setIcon(iconoCarpeta);
+			setToolTipText("Carpeta vac’a");
+		}
 		
 		return this;
 	}
