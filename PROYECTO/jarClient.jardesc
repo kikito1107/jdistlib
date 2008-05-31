@@ -16,7 +16,6 @@
 <javaElement handleIdentifier="=PROYECTO/&lt;componentes.gui.chat"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;aplicacion.plugin.deventos"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;componentes.gui"/>
-<file path="/PROYECTO/.classpath"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;componentes"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;calculoparalelo.eventos"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;aplicacion.fisica.webcam"/>
@@ -24,10 +23,7 @@
 <javaElement handleIdentifier="=PROYECTO/&lt;calculoparalelo"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;aplicacion.main"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;Deventos"/>
-<file path="/PROYECTO/jarServidorMetaInformacion.jardesc"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;componentes.gui.usuarios"/>
-<file path="/PROYECTO/.project"/>
-<file path="/PROYECTO/MANIFEST_SERVIDOR_META.MF"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;aplicacion.fisica.net"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;aplicacion.gui.editor"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;componentes.listeners"/>
@@ -38,10 +34,7 @@
 <javaElement handleIdentifier="=PROYECTO/&lt;Deventos.enlaceJS"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;aplicacion.gui"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;lookandfeel.Dbasic"/>
-<file path="/PROYECTO/.config"/>
-<file path="/PROYECTO/LEEME.rtf"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;figuras"/>
-<file path="/PROYECTO/jarServidorFicheros.jardesc"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;aplicacion.plugin"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;javaspaces"/>
 <file path="/PROYECTO/todo.policy"/>
@@ -53,7 +46,6 @@
 <javaElement handleIdentifier="=PROYECTO/&lt;aplicacion.gui.componentes"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;aplicacion.plugin.jar"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;lookandfeel.Dmetal"/>
-<file path="/PROYECTO/.DS_Store"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;aplicacion.fisica.documentos.filtros"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;lookandfeel"/>
 </selectedElements>
