@@ -25,6 +25,7 @@ import aplicacion.fisica.net.Transfer;
 
 /**
  * Clase que se encargar‡ de almacenar los datos de los documentos
+ * 
  * @author anab
  */
 public class ArbolDocumentos extends JTree
@@ -39,14 +40,16 @@ public class ArbolDocumentos extends JTree
 	 * 
 	 * @param raiz
 	 */
-	public ArbolDocumentos(DefaultMutableTreeNode raiz){
+	public ArbolDocumentos( DefaultMutableTreeNode raiz )
+	{
 		super(raiz);
 		this.setRootVisible(false);
-		this.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+		this.getSelectionModel().setSelectionMode(
+				TreeSelectionModel.SINGLE_TREE_SELECTION);
 		this.setCellRenderer(new DocumentosCellRenderer());
 		this.expandRow(0);
 	}
-	
+
 	/**
 	 * 
 	 * @return
@@ -64,7 +67,7 @@ public class ArbolDocumentos extends JTree
 					.getUserObject();
 		else return null;
 	}
-	
+
 	/**
 	 * 
 	 * @return
@@ -81,15 +84,15 @@ public class ArbolDocumentos extends JTree
 			return (DefaultMutableTreeNode) objetos[objetos.length - 1];
 		else return null;
 	}
-	
+
 	/**
 	 * 
 	 * @param n
 	 * @param id
 	 * @return
 	 */
-	public static DefaultMutableTreeNode buscarFichero(DefaultMutableTreeNode n,
-			int id)
+	public static DefaultMutableTreeNode buscarFichero(
+			DefaultMutableTreeNode n, int id)
 	{
 		if (!n.isRoot() && ( ( (MIFichero) n.getUserObject() ).getId() == id ))
 			return n;
@@ -108,34 +111,35 @@ public class ArbolDocumentos extends JTree
 		}
 		else return null;
 	}
-	
+
 	/**
 	 * 
-	 *
+	 * 
 	 */
-	public void imprimirFichero(){
+	public void imprimirFichero()
+	{
 		MIFichero doc = getDocumentoSeleccionado();
-		
+
 		if (doc.esDirectorio()) return;
-		
-		Transfer t = new Transfer(
-				ClienteFicheros.ipConexion, doc.getRutaLocal());
+
+		Transfer t = new Transfer(ClienteFicheros.ipConexion, doc
+				.getRutaLocal());
 
 		Documento d = t.receiveDocumento(true);
-		
+
 		d.imprimir();
 	}
-	
+
 	/**
 	 * 
-	 *
+	 * 
 	 */
-	public void guardarDocumentoLocalmente(){
+	public void guardarDocumentoLocalmente()
+	{
 		MIFichero doc = this.getDocumentoSeleccionado();
 
-		JFileChooser jfc = new JFileChooser(
-				"Guardar Documento Localmente");
-		
+		JFileChooser jfc = new JFileChooser("Guardar Documento Localmente");
+
 		jfc.setDialogType(JFileChooser.SAVE_DIALOG);
 		jfc.setSelectedFile(new File(doc.getNombre()));
 
@@ -144,13 +148,11 @@ public class ArbolDocumentos extends JTree
 		if (op == JFileChooser.APPROVE_OPTION)
 		{
 			java.io.File f = jfc.getSelectedFile();
-			
-			
-			
+
 			if (doc.esDirectorio()) return;
 
-			Transfer t = new Transfer(
-					ClienteFicheros.ipConexion, doc.getRutaLocal());
+			Transfer t = new Transfer(ClienteFicheros.ipConexion, doc
+					.getRutaLocal());
 
 			byte[] datos = t.receiveFileBytes();
 
@@ -175,197 +177,218 @@ public class ArbolDocumentos extends JTree
 			}
 		}
 	}
-	
-	
+
 	/**
 	 * 
-	 *
+	 * 
 	 */
-	public MIFichero recuperarMail(){
+	public MIFichero recuperarMail()
+	{
 		MIFichero doc = this.getDocumentoSeleccionado();
 
-		
+		java.io.File f = new java.io.File(".aux");
 
-		
-			java.io.File f = new java.io.File(".aux");
-			
-			
-			
-			if (doc.esDirectorio()) return null;
-			if (!doc.getTipo().equals(MIFichero.TIPO_MENSAJE)) return null;
+		if (doc.esDirectorio()) return null;
+		if (!doc.getTipo().equals(MIFichero.TIPO_MENSAJE)) return null;
 
-			Transfer t = new Transfer(
-					ClienteFicheros.ipConexion, doc.getRutaLocal());
+		Transfer t = new Transfer(ClienteFicheros.ipConexion, doc
+				.getRutaLocal());
 
-			byte[] datos = t.receiveFileBytes();
+		byte[] datos = t.receiveFileBytes();
 
-			try
-			{
-				RandomAccessFile acf = new RandomAccessFile(
-						f.getAbsolutePath(), "rw");
+		try
+		{
+			RandomAccessFile acf = new RandomAccessFile(f.getAbsolutePath(),
+					"rw");
 
-				acf.write(datos);
+			acf.write(datos);
 
-				acf.close();
-				
-				FileReader fr = new FileReader(".aux");
-				BufferedReader bf = new BufferedReader(fr);
-				
-				char[] buffer = new char[datos.length];
-				
-				bf.read(buffer);
-				
-				doc.setMensaje(new String(buffer));
-				
-				bf.close();
-				fr.close();
-				
-				return doc;
-			}
-			catch (FileNotFoundException e1)
-			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-				return null;
-			}
-			catch (IOException e3)
-			{
-				// TODO Auto-generated catch block
-				e3.printStackTrace();
-				return null;
-			}
+			acf.close();
+
+			FileReader fr = new FileReader(".aux");
+			BufferedReader bf = new BufferedReader(fr);
+
+			char[] buffer = new char[datos.length];
+
+			bf.read(buffer);
+
+			doc.setMensaje(new String(buffer));
+
+			bf.close();
+			fr.close();
+
+			return doc;
+		}
+		catch (FileNotFoundException e1)
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			return null;
+		}
+		catch (IOException e3)
+		{
+			// TODO Auto-generated catch block
+			e3.printStackTrace();
+			return null;
+		}
 	}
-	
+
 	/**
 	 * 
 	 * @return
 	 */
-	public boolean eliminarFichero(){
+	public boolean eliminarFichero()
+	{
 		MIFichero f = this.getDocumentoSeleccionado();
 
-		if (f != null) {
-			if (!f.esDirectorio() && f.comprobarPermisos(DConector.Dusuario, DConector.Drol, MIFichero.PERMISO_ESCRITURA))
+		if (f != null)
+		{
+			if (!f.esDirectorio()
+					&& f.comprobarPermisos(DConector.Dusuario, DConector.Drol,
+							MIFichero.PERMISO_ESCRITURA))
 			{
 
-				ClienteFicheros.obtenerClienteFicheros().borrarFichero(f,DConector.Daplicacion);
+				ClienteFicheros.obtenerClienteFicheros().borrarFichero(f,
+						DConector.Daplicacion);
 				return true;
 			}
-			else
+			else if (f.comprobarPermisos(DConector.Dusuario, DConector.Drol,
+					MIFichero.PERMISO_ESCRITURA))
 			{
 				DefaultMutableTreeNode nodo = this.getNodoSeleccionado();
-				
-				if (nodo.getChildCount() == 0) {
-					ClienteFicheros.obtenerClienteFicheros().borrarFichero(f,DConector.Daplicacion);
+
+				if (nodo.getChildCount() == 0)
+				{
+					ClienteFicheros.obtenerClienteFicheros().borrarFichero(f,
+							DConector.Daplicacion);
 					return true;
 				}
-				else {
-					JOptionPane.showMessageDialog(
+				else
+				{
+					JOptionPane
+							.showMessageDialog(
 									null,
 									"No se puede eliminar la carpeta dado que esta tiene documentos y/o otras carpetas");
-					
+
 					return false;
 				}
 
 			}
+			else
+			{
+				return false;
+			}
 		}
 		else return false;
 	}
-	
+
 	/**
 	 * Agrega una carpeta a la carpeta seleccionada anteriormente
-	 * @param nombre nuevo nombre de la carpeta
+	 * 
+	 * @param nombre
+	 *            nuevo nombre de la carpeta
 	 * @return el ficheroBD con los datos de la nueva carpeta
 	 */
-	public MIFichero agregarCarpeta(String nombre){
+	public MIFichero agregarCarpeta(String nombre)
+	{
 		MIFichero f = this.getDocumentoSeleccionado();
-		
-		if (f.esDirectorio()){
-			
-			//creamos el nodo
+
+		if (f.esDirectorio())
+		{
+
+			// creamos el nodo
 			MIFichero nuevo = new MIFichero();
-			
+
 			if (!f.getRutaLocal().equals("/"))
-				nuevo.setRutaLocal(f.getRutaLocal()+"/"+nombre);
-			else
-				nuevo.setRutaLocal("/"+nombre);
-			
-			if (existeFichero((DefaultMutableTreeNode)this.getModel().getRoot(), nuevo.getRutaLocal())) {
+				nuevo.setRutaLocal(f.getRutaLocal() + "/" + nombre);
+			else nuevo.setRutaLocal("/" + nombre);
+
+			if (existeFichero((DefaultMutableTreeNode) this.getModel()
+					.getRoot(), nuevo.getRutaLocal()))
+			{
 				JOptionPane.showMessageDialog(null, "La carpeta ya existe");
 				return null;
 			}
-				
-			
-			//recuperamos el usuario y el rol
-			MIUsuario user = ClienteMetaInformacion.cmi.getUsuarioConectado(DConector.Dusuario);
+
+			// recuperamos el usuario y el rol
+			MIUsuario user = ClienteMetaInformacion.cmi
+					.getUsuarioConectado(DConector.Dusuario);
 			MIRol rol = ClienteMetaInformacion.cmi.getRol(DConector.Drol);
-			
-			if (user==null || rol == null) return null;
-			
+
+			if (user == null || rol == null) return null;
+
 			nuevo.setNombre(nombre);
 			nuevo.setPadre(f.getId());
 			nuevo.setRol(rol);
 			nuevo.setUsuario(user);
 			nuevo.setPermisos("rwrw--");
 			nuevo.setTipo("NULL");
-			
-			
+
 			nuevo.esDirectorio(true);
-			
+
 			return nuevo;
 		}
-		else  return null;
+		else return null;
 	}
-	
-	
-	
+
 	/**
 	 * Comprueba si un fichero determinado existe en un determinado nodo
-	 * @param n nodo nodo del arbol en el que buscamos el documento
-	 * @param ruta ruta del fichero
+	 * 
+	 * @param n
+	 *            nodo nodo del arbol en el que buscamos el documento
+	 * @param ruta
+	 *            ruta del fichero
 	 * @return true si el fichero ya existe en la ruta y false en caso contrario
 	 */
-	public boolean existeFichero(DefaultMutableTreeNode n, String ruta){
-		
-		if (!n.isRoot() && ( ( (MIFichero) n.getUserObject() ).getRutaLocal().equals(ruta) ))
+	public boolean existeFichero(DefaultMutableTreeNode n, String ruta)
+	{
+
+		if (!n.isRoot()
+				&& ( ( (MIFichero) n.getUserObject() ).getRutaLocal()
+						.equals(ruta) ))
 			return true;
-		
+
 		else if (n.getChildCount() > 0)
 		{
 
 			for (int i = 0; i < n.getChildCount(); ++i)
 			{
 				if (existeFichero((DefaultMutableTreeNode) n.getChildAt(i),
-						ruta))
-					return true;
+						ruta)) return true;
 
 			}
 			return false;
 		}
 		else return false;
 	}
-	
+
 	/**
 	 * Comprueba si un fichero determinado existe en un determinado nodo
-	 * @param n nodo nodo del arbol en el que buscamos el documento
-	 * @param ruta ruta del fichero
+	 * 
+	 * @param n
+	 *            nodo nodo del arbol en el que buscamos el documento
+	 * @param ruta
+	 *            ruta del fichero
 	 * @return true si el fichero ya existe en la ruta y false en caso contrario
 	 */
-	public MIFichero buscarFichero(DefaultMutableTreeNode n, String ruta){
-		
-		if (!n.isRoot() && ( ( (MIFichero) n.getUserObject() ).getRutaLocal().equals(ruta) ))
-			return (MIFichero)n.getUserObject();
-		
+	public MIFichero buscarFichero(DefaultMutableTreeNode n, String ruta)
+	{
+
+		if (!n.isRoot()
+				&& ( ( (MIFichero) n.getUserObject() ).getRutaLocal()
+						.equals(ruta) ))
+			return (MIFichero) n.getUserObject();
+
 		else if (n.getChildCount() > 0)
 		{
 
 			MIFichero f;
-			
+
 			for (int i = 0; i < n.getChildCount(); ++i)
 			{
 				f = buscarFichero((DefaultMutableTreeNode) n.getChildAt(i),
 						ruta);
-				if (f != null)
-					return f;
+				if (f != null) return f;
 
 			}
 			return null;
