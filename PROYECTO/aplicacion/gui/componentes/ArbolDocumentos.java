@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
+import javax.swing.tree.TreeSelectionModel;
 
 import metainformacion.ClienteMetaInformacion;
 import metainformacion.MIRol;
@@ -41,6 +42,7 @@ public class ArbolDocumentos extends JTree
 	public ArbolDocumentos(DefaultMutableTreeNode raiz){
 		super(raiz);
 		this.setRootVisible(false);
+		this.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		this.setCellRenderer(new DocumentosCellRenderer());
 		this.expandRow(0);
 	}
