@@ -91,6 +91,6 @@ public class TransferenciaFichero extends UnicastRemoteObject implements
 
 	public boolean sendDocument(Documento d) throws RemoteException
 	{
-		return Documento.saveDocument(d, d.getPath());
+		return Documento.saveDocument(d, ServidorFicheros.getDirectorioBase()+ d.getPath());
 	}
 }
