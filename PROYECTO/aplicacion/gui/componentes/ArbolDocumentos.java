@@ -1,7 +1,9 @@
 package aplicacion.gui.componentes;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
@@ -17,7 +19,7 @@ import metainformacion.MIUsuario;
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.ClienteFicheros;
 import aplicacion.fisica.documentos.Documento;
-import aplicacion.fisica.documentos.MetainformacionFichero;
+import aplicacion.fisica.documentos.MIFichero;
 import aplicacion.fisica.net.Transfer;
 
 /**
@@ -47,7 +49,7 @@ public class ArbolDocumentos extends JTree
 	 * 
 	 * @return
 	 */
-	public MetainformacionFichero getDocumentoSeleccionado()
+	public MIFichero getDocumentoSeleccionado()
 	{
 		TreePath camino = getSelectionPath();
 
@@ -56,7 +58,7 @@ public class ArbolDocumentos extends JTree
 		if (camino != null) objetos = camino.getPath();
 
 		if (( objetos != null ) && ( objetos.length > 0 ))
-			return (MetainformacionFichero) ( (DefaultMutableTreeNode) objetos[objetos.length - 1] )
+			return (MIFichero) ( (DefaultMutableTreeNode) objetos[objetos.length - 1] )
 					.getUserObject();
 		else return null;
 	}
@@ -87,7 +89,7 @@ public class ArbolDocumentos extends JTree
 	public static DefaultMutableTreeNode buscarFichero(DefaultMutableTreeNode n,
 			int id)
 	{
-		if (!n.isRoot() && ( ( (MetainformacionFichero) n.getUserObject() ).getId() == id ))
+		if (!n.isRoot() && ( ( (MIFichero) n.getUserObject() ).getId() == id ))
 			return n;
 		else if (n.getChildCount() > 0)
 		{
@@ -110,7 +112,7 @@ public class ArbolDocumentos extends JTree
 	 *
 	 */
 	public void imprimirFichero(){
-		MetainformacionFichero doc = getDocumentoSeleccionado();
+		MIFichero doc = getDocumentoSeleccionado();
 		
 		if (doc.esDirectorio()) return;
 		
@@ -127,7 +129,7 @@ public class ArbolDocumentos extends JTree
 	 *
 	 */
 	public void guardarDocumentoLocalmente(){
-		MetainformacionFichero doc = this.getDocumentoSeleccionado();
+		MIFichero doc = this.getDocumentoSeleccionado();
 
 		JFileChooser jfc = new JFileChooser(
 				"Guardar Documento Localmente");
@@ -172,15 +174,75 @@ public class ArbolDocumentos extends JTree
 		}
 	}
 	
+	
+	/**
+	 * 
+	 *
+	 */
+	public MIFichero recuperarMail(){
+		MIFichero doc = this.getDocumentoSeleccionado();
+
+		
+
+		
+			java.io.File f = new java.io.File(".aux");
+			
+			
+			
+			if (doc.esDirectorio()) return null;
+			if (!doc.getTipo().equals(MIFichero.TIPO_MENSAJE)) return null;
+
+			Transfer t = new Transfer(
+					ClienteFicheros.ipConexion, doc.getRutaLocal());
+
+			byte[] datos = t.receiveFileBytes();
+
+			try
+			{
+				RandomAccessFile acf = new RandomAccessFile(
+						f.getAbsolutePath(), "rw");
+
+				acf.write(datos);
+
+				acf.close();
+				
+				FileReader fr = new FileReader(".aux");
+				BufferedReader bf = new BufferedReader(fr);
+				
+				char[] buffer = new char[datos.length];
+				
+				bf.read(buffer);
+				
+				doc.setMensaje(new String(buffer));
+				
+				bf.close();
+				fr.close();
+				
+				return doc;
+			}
+			catch (FileNotFoundException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				return null;
+			}
+			catch (IOException e3)
+			{
+				// TODO Auto-generated catch block
+				e3.printStackTrace();
+				return null;
+			}
+	}
+	
 	/**
 	 * 
 	 * @return
 	 */
 	public boolean eliminarFichero(){
-		MetainformacionFichero f = this.getDocumentoSeleccionado();
+		MIFichero f = this.getDocumentoSeleccionado();
 
 		if (f != null) {
-			if (!f.esDirectorio() && f.comprobarPermisos(DConector.Dusuario, DConector.Drol, MetainformacionFichero.PERMISO_ESCRITURA))
+			if (!f.esDirectorio() && f.comprobarPermisos(DConector.Dusuario, DConector.Drol, MIFichero.PERMISO_ESCRITURA))
 			{
 
 				ClienteFicheros.obtenerClienteFicheros().borrarFichero(f,DConector.Daplicacion);
@@ -212,13 +274,13 @@ public class ArbolDocumentos extends JTree
 	 * @param nombre nuevo nombre de la carpeta
 	 * @return el ficheroBD con los datos de la nueva carpeta
 	 */
-	public MetainformacionFichero agregarCarpeta(String nombre){
-		MetainformacionFichero f = this.getDocumentoSeleccionado();
+	public MIFichero agregarCarpeta(String nombre){
+		MIFichero f = this.getDocumentoSeleccionado();
 		
 		if (f.esDirectorio()){
 			
 			//creamos el nodo
-			MetainformacionFichero nuevo = new MetainformacionFichero();
+			MIFichero nuevo = new MIFichero();
 			
 			if (!f.getRutaLocal().equals("/"))
 				nuevo.setRutaLocal(f.getRutaLocal()+"/"+nombre);
@@ -252,6 +314,8 @@ public class ArbolDocumentos extends JTree
 		else  return null;
 	}
 	
+	
+	
 	/**
 	 * Comprueba si un fichero determinado existe en un determinado nodo
 	 * @param n nodo nodo del arbol en el que buscamos el documento
@@ -260,7 +324,7 @@ public class ArbolDocumentos extends JTree
 	 */
 	public boolean existeFichero(DefaultMutableTreeNode n, String ruta){
 		
-		if (!n.isRoot() && ( ( (MetainformacionFichero) n.getUserObject() ).getRutaLocal().equals(ruta) ))
+		if (!n.isRoot() && ( ( (MIFichero) n.getUserObject() ).getRutaLocal().equals(ruta) ))
 			return true;
 		
 		else if (n.getChildCount() > 0)
@@ -284,15 +348,15 @@ public class ArbolDocumentos extends JTree
 	 * @param ruta ruta del fichero
 	 * @return true si el fichero ya existe en la ruta y false en caso contrario
 	 */
-	public MetainformacionFichero buscarFichero(DefaultMutableTreeNode n, String ruta){
+	public MIFichero buscarFichero(DefaultMutableTreeNode n, String ruta){
 		
-		if (!n.isRoot() && ( ( (MetainformacionFichero) n.getUserObject() ).getRutaLocal().equals(ruta) ))
-			return (MetainformacionFichero)n.getUserObject();
+		if (!n.isRoot() && ( ( (MIFichero) n.getUserObject() ).getRutaLocal().equals(ruta) ))
+			return (MIFichero)n.getUserObject();
 		
 		else if (n.getChildCount() > 0)
 		{
 
-			MetainformacionFichero f;
+			MIFichero f;
 			
 			for (int i = 0; i < n.getChildCount(); ++i)
 			{

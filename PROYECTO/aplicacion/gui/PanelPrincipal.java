@@ -7,11 +7,9 @@ import java.awt.GridBagConstraints;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -37,10 +35,12 @@ import metainformacion.ClienteMetaInformacion;
 import metainformacion.MIRol;
 import metainformacion.MIUsuario;
 import util.Separador;
+import Deventos.DEvent;
+import Deventos.DJChatEvent;
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.ClienteFicheros;
 import aplicacion.fisica.documentos.Documento;
-import aplicacion.fisica.documentos.MetainformacionFichero;
+import aplicacion.fisica.documentos.MIFichero;
 import aplicacion.fisica.documentos.filtros.ImageFilter;
 import aplicacion.fisica.documentos.filtros.PDFFilter;
 import aplicacion.fisica.documentos.filtros.TXTFilter;
@@ -55,8 +55,6 @@ import aplicacion.plugin.DPluginLoader;
 import componentes.base.DComponente;
 import componentes.base.DComponenteBase;
 import componentes.gui.usuarios.ArbolUsuariosConectadosRol;
-import Deventos.DEvent;
-import Deventos.DJChatEvent;
 
 public class PanelPrincipal extends DComponenteBase
 {
@@ -108,6 +106,8 @@ public class PanelPrincipal extends DComponenteBase
 	private JButton reenviar = null;
 
 	public static Vector<DAbstractPlugin> plugins = null;
+	
+	private static final String separador = "\n\n----------------------------------------------\n";
 
 	private JButton getButonSubir()
 	{
@@ -132,23 +132,32 @@ public class PanelPrincipal extends DComponenteBase
 	
 	private JButton getReenviar()
 	{
-		if (botonSubir == null)
+		if (reenviar == null)
 		{
-			botonSubir = new JButton();;
-			botonSubir.setBorderPainted(false);
-			botonSubir.setText("");
+			reenviar = new JButton();;
+			reenviar.setBorderPainted(false);
+			reenviar.setText("");
 
-			botonSubir
-					.setIcon(new ImageIcon("./Resources/subir_documento.png"));
-			botonSubir.addActionListener(new java.awt.event.ActionListener()
+			reenviar
+					.setIcon(new ImageIcon("./Resources/email_go.png"));
+			reenviar.addActionListener(new java.awt.event.ActionListener()
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
-					subirFicheroServidor();
+					MIFichero f = arbolDocumentos.getDocumentoSeleccionado();
+					if (f.getTipo().equals(MIFichero.TIPO_MENSAJE)) {
+						f  = arbolDocumentos.recuperarMail();
+						
+						if (f != null) {
+							 f = EnviarMensaje.getMensaje("", "Re: "+ f.toString(), separador+f.getMensaje());
+							 if (f != null)
+								 enviarMail(f);
+						}
+					}
 				}
 			});
 		}
-		return botonSubir;
+		return reenviar;
 	}
 	
 	/**
@@ -160,7 +169,7 @@ public class PanelPrincipal extends DComponenteBase
 	private void subirFicheroServidor()
 	{
 		// obtenemos los datos del fichero asociados a ese nodo
-		MetainformacionFichero carpeta = arbolDocumentos.getDocumentoSeleccionado();
+		MIFichero carpeta = arbolDocumentos.getDocumentoSeleccionado();
 
 		// si el fichero escogido no es directorio, salimos
 		if (carpeta == null || !carpeta.esDirectorio()) return;
@@ -190,7 +199,7 @@ public class PanelPrincipal extends DComponenteBase
 		
 		String nombre = f.getName();
 		
-		MetainformacionFichero anterior = ClienteFicheros.cf.existeFichero(path+nombre, DConector.Daplicacion);
+		MIFichero anterior = ClienteFicheros.cf.existeFichero(path+nombre, DConector.Daplicacion);
 
 		while (anterior != null){
 			int sel = JOptionPane.showConfirmDialog(this, "El documento ya existe ÀDesea sobrescribirlo?", "ÀSobrescribir?", JOptionPane.YES_NO_CANCEL_OPTION);
@@ -274,11 +283,11 @@ public class PanelPrincipal extends DComponenteBase
 
 		String extension = desc[desc.length - 1];
 
-		extension = MetainformacionFichero.getTipoFichero(extension);
+		extension = MIFichero.getTipoFichero(extension);
 
 		
 		// creamos el nuevo fichero a almacenar
-		MetainformacionFichero fbd = new MetainformacionFichero(-1, nombre, false, "rwrw--", user,
+		MIFichero fbd = new MIFichero(-1, nombre, false, "rwrw--", user,
 				rol, carpeta.getId(), path + nombre, extension);
 
 		// enviamos el nuevo fichero al servidor
@@ -298,7 +307,7 @@ public class PanelPrincipal extends DComponenteBase
 		{
 
 			//insertamos el nuevo fichero en el servidor
-			MetainformacionFichero f2 = ClienteFicheros.cf.insertarNuevoFichero(fbd, DConector.Daplicacion);
+			MIFichero f2 = ClienteFicheros.cf.insertarNuevoFichero(fbd, DConector.Daplicacion);
 			
 			// si ha habido algun error salimos
 			if (f2 == null) {
@@ -585,81 +594,86 @@ public class PanelPrincipal extends DComponenteBase
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
-					MetainformacionFichero f  = EnviarMensaje.getMensaje(arbolUsuario.getUsuarioSeleccionado(), "", "");
+					MIFichero f  = EnviarMensaje.getMensaje(arbolUsuario.getUsuarioSeleccionado(), "", "");
 					
 					if (f != null) {
 					
-						File aux = new File(".aux");
-						
-//						 abrimos el fichero en modo lectura
-						RandomAccessFile raf;
-						byte[] bytes;
-						try
-						{
-							FileWriter fr = new FileWriter(".aux");
-							BufferedWriter bf = new BufferedWriter(fr);
-							
-							bf.write(f.getMensaje());
-							
-							bf.close();
-							fr.close();
-							
-							raf = new RandomAccessFile(aux.getAbsolutePath(),"r");
-//							 consultamos el tamanio del fichero, reservamos
-							// memoria suficiente,
-							// leemos el fichero y lo cerramos
-							bytes = new byte[(int) raf.length()];
-							raf.read(bytes);
-							raf.close();
-						}
-						catch (FileNotFoundException e1)
-						{
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-							return;
-						}
-						catch (IOException e2)
-						{
-							// TODO Auto-generated catch block
-							e2.printStackTrace();
-							return;
-						}
-
-						
-						
-						
-						Transfer t = new Transfer(ClienteFicheros.ipConexion, f.getRutaLocal());
-						
-						if (!t.sendFile(bytes)) {
-							JOptionPane.showMessageDialog(
-									null,
-									"No se ha podido subir el fichero.\nSe ha producido un error en la transmisi—n del documento",
-									"Error", JOptionPane.ERROR_MESSAGE);
-							return;
-						}
-						
-						
-//						insertamos el nuevo fichero en el servidor
-						MetainformacionFichero f2 = ClienteFicheros.cf.insertarNuevoFichero(f, DConector.Daplicacion);
-						MetainformacionFichero padre = ClienteFicheros.obtenerClienteFicheros().existeFichero("/Incoming", DConector.Daplicacion);
-						// si ha habido algun error salimos
-						if (f2 == null) {
-							JOptionPane.showMessageDialog(null, "Ha ocurrido un error: no se ha podido subir el documento al servidor");
-							return;
-						}
-						
-						// notificamos al resto de usuarios la "novedad"
-						DFileEvent evento = new DFileEvent();
-						evento.fichero = f2;
-						evento.padre = padre;
-						evento.tipo = new Integer(DFileEvent.NOTIFICAR_INSERTAR_FICHERO
-								.intValue());
-						enviarEvento(evento);
+						enviarMail(f);
 					}
 				}
 			});
 		}
 		return enviarMensaje;
+	}
+	
+	
+	private void enviarMail(MIFichero f){
+		File aux = new File(".aux");
+		
+//		 abrimos el fichero en modo lectura
+		RandomAccessFile raf;
+		byte[] bytes;
+		try
+		{
+			FileWriter fr = new FileWriter(".aux");
+			BufferedWriter bf = new BufferedWriter(fr);
+			
+			bf.write(f.getMensaje());
+			
+			bf.close();
+			fr.close();
+			
+			raf = new RandomAccessFile(aux.getAbsolutePath(),"r");
+//			 consultamos el tamanio del fichero, reservamos
+			// memoria suficiente,
+			// leemos el fichero y lo cerramos
+			bytes = new byte[(int) raf.length()];
+			raf.read(bytes);
+			raf.close();
+		}
+		catch (FileNotFoundException e1)
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			return;
+		}
+		catch (IOException e2)
+		{
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+			return;
+		}
+
+		
+		
+		
+		Transfer t = new Transfer(ClienteFicheros.ipConexion, f.getRutaLocal());
+		
+		if (!t.sendFile(bytes)) {
+			JOptionPane.showMessageDialog(
+					null,
+					"No se ha podido subir el fichero.\nSe ha producido un error en la transmisi—n del documento",
+					"Error", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		
+		
+//		insertamos el nuevo fichero en el servidor
+		MIFichero f2 = ClienteFicheros.cf.insertarNuevoFichero(f, DConector.Daplicacion);
+		MIFichero padre = ClienteFicheros.obtenerClienteFicheros().existeFichero("/Incoming", DConector.Daplicacion);
+		// si ha habido algun error salimos
+		if (f2 == null) {
+			JOptionPane.showMessageDialog(null, "Ha ocurrido un error: no se ha podido subir el documento al servidor");
+			return;
+		}
+		
+		// notificamos al resto de usuarios la "novedad"
+		DFileEvent evento = new DFileEvent();
+		evento.fichero = f2;
+		evento.padre = padre;
+		evento.tipo = new Integer(DFileEvent.NOTIFICAR_INSERTAR_FICHERO
+				.intValue());
+		enviarEvento(evento);
 	}
 
 	/**
@@ -698,6 +712,7 @@ public class PanelPrincipal extends DComponenteBase
 			herramientasDocumentos = new JToolBar();
 			herramientasDocumentos.setBorder(new LineBorder(Color.GRAY));
 			herramientasDocumentos.add(getBoton52131());
+			herramientasDocumentos.add(this.getReenviar());
 			herramientasDocumentos.add(this.getBotonImprimirDocumento());
 			herramientasDocumentos.add(new Separador());
 			herramientasDocumentos.add(getButonSubir());
@@ -789,7 +804,7 @@ public class PanelPrincipal extends DComponenteBase
 						public void actionPerformed(java.awt.event.ActionEvent e)
 						{
 
-							MetainformacionFichero f = arbolDocumentos.getDocumentoSeleccionado();
+							MIFichero f = arbolDocumentos.getDocumentoSeleccionado();
 							
 							if (arbolDocumentos.eliminarFichero()){
 
@@ -822,7 +837,7 @@ public class PanelPrincipal extends DComponenteBase
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
-					MetainformacionFichero f = arbolDocumentos.getDocumentoSeleccionado();
+					MIFichero f = arbolDocumentos.getDocumentoSeleccionado();
 
 					if (f == null) return;
 
@@ -836,7 +851,7 @@ public class PanelPrincipal extends DComponenteBase
 						DefaultMutableTreeNode r = (DefaultMutableTreeNode) arbolDocumentos.getNodoSeleccionado()
 								.getParent();
 
-						evento.padre = (MetainformacionFichero) r.getUserObject();
+						evento.padre = (MIFichero) r.getUserObject();
 
 						System.err.println("directorio padre: "
 								+ evento.padre.getNombre());
@@ -906,13 +921,13 @@ public class PanelPrincipal extends DComponenteBase
 	private void accionAbrir()
 	{
 		
-		MetainformacionFichero f = arbolDocumentos.getDocumentoSeleccionado();
+		MIFichero f = arbolDocumentos.getDocumentoSeleccionado();
 		
 		if (f == null) return;
 
 		if (f.esDirectorio()) return;
 		if (!f.comprobarPermisos(DConector.Dusuario, DConector.Drol,
-						MetainformacionFichero.PERMISO_LECTURA))
+						MIFichero.PERMISO_LECTURA))
 		{
 			JOptionPane
 					.showMessageDialog(null,
@@ -1012,7 +1027,7 @@ public class PanelPrincipal extends DComponenteBase
 			DFileEvent dfe = (DFileEvent) evento;
 
 			if (dfe.fichero.comprobarPermisos(DConector.Dusuario,
-					DConector.Drol, MetainformacionFichero.PERMISO_LECTURA))
+					DConector.Drol, MIFichero.PERMISO_LECTURA))
 			{
 
 				DefaultTreeModel modelo = (DefaultTreeModel) arbolDocumentos
@@ -1049,7 +1064,7 @@ public class PanelPrincipal extends DComponenteBase
 				if (dfe.fichero.getUsuario().getNombreUsuario().equals(DConector.Dusuario) 
 						||
 						dfe.fichero.comprobarPermisos(DConector.Dusuario,
-						DConector.Drol, MetainformacionFichero.PERMISO_LECTURA))
+						DConector.Drol, MIFichero.PERMISO_LECTURA))
 				{
 					DefaultMutableTreeNode padre = ArbolDocumentos.buscarFichero(raiz,
 							dfe.padre.getId());
@@ -1060,7 +1075,7 @@ public class PanelPrincipal extends DComponenteBase
 			else 
 				if (dfe.fichero.getUsuario().getNombreUsuario().equals(DConector.Dusuario) 
 					|| dfe.fichero.comprobarPermisos(DConector.Dusuario,
-					DConector.Drol, MetainformacionFichero.PERMISO_LECTURA))
+					DConector.Drol, MIFichero.PERMISO_LECTURA))
 						nodo.setUserObject(dfe.fichero);
 				else modelo.removeNodeFromParent(nodo);
 
@@ -1074,7 +1089,7 @@ public class PanelPrincipal extends DComponenteBase
 			if (pathEditor != null
 					&& pathEditor.equals(dfe.fichero.getRutaLocal())
 					&& !dfe.fichero.comprobarPermisos(DConector.Dusuario,
-							DConector.Drol, MetainformacionFichero.PERMISO_LECTURA))
+							DConector.Drol, MIFichero.PERMISO_LECTURA))
 			{
 
 				JOptionPane
@@ -1125,10 +1140,10 @@ public class PanelPrincipal extends DComponenteBase
 	 * @param f fichero a comprobar
 	 * @param eliminado indica si el documentos ha sido editado
 	 */
-	public void comprobarPermisosDocumentoActual(MetainformacionFichero f, boolean eliminado)
+	public void comprobarPermisosDocumentoActual(MIFichero f, boolean eliminado)
 	{
 		if (!f.comprobarPermisos(DConector.Dusuario, DConector.Drol,
-				MetainformacionFichero.PERMISO_LECTURA)
+				MIFichero.PERMISO_LECTURA)
 				|| eliminado)
 			if (frame.isVisible()
 					&& frame.getLienzo().getLienzo().getDocumento().getPath()
@@ -1167,7 +1182,7 @@ public class PanelPrincipal extends DComponenteBase
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
-					MetainformacionFichero f = arbolDocumentos.getDocumentoSeleccionado();
+					MIFichero f = arbolDocumentos.getDocumentoSeleccionado();
 					
 					if (f == null || !f.esDirectorio()) return;
 					

@@ -563,7 +563,6 @@ public class AlmacenMetaInformacion
 				"AplicacionDePrueba", "Jefe", "componente1"));
 		System.out.println(smi.obtenerPermisoComponenteRol(
 				"AplicacionDePrueba", "Empleado", "componente1"));
-		// smi.salvarAFichero("aux3.txt");
 	}
 
 }

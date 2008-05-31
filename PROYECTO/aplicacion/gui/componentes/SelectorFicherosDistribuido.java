@@ -16,7 +16,7 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
-import aplicacion.fisica.documentos.MetainformacionFichero;
+import aplicacion.fisica.documentos.MIFichero;
 
 public class SelectorFicherosDistribuido extends JDialog
 {
@@ -37,7 +37,7 @@ public class SelectorFicherosDistribuido extends JDialog
 
 	private ArbolDocumentos arbol = null;
 
-	private MetainformacionFichero fichero = null;
+	private MIFichero fichero = null;
 
 	/**
 	 * @param owner
@@ -125,7 +125,7 @@ public class SelectorFicherosDistribuido extends JDialog
 		return botonAceptar;
 	}
 
-	public static MetainformacionFichero getDatosFichero(Frame owner,
+	public static MIFichero getDatosFichero(Frame owner,
 			DefaultMutableTreeNode raiz)
 	{
 		SelectorFicherosDistribuido sfd = new SelectorFicherosDistribuido(

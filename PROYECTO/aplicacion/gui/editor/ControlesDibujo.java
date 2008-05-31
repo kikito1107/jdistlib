@@ -24,7 +24,7 @@ import util.Separador;
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.ClienteFicheros;
 import aplicacion.fisica.documentos.Documento;
-import aplicacion.fisica.documentos.MetainformacionFichero;
+import aplicacion.fisica.documentos.MIFichero;
 import aplicacion.fisica.net.Transfer;
 import aplicacion.gui.componentes.SelectorFicherosDistribuido;
 
@@ -492,7 +492,7 @@ public class ControlesDibujo extends JPanel
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
 
-					MetainformacionFichero f = SelectorFicherosDistribuido.getDatosFichero(
+					MIFichero f = SelectorFicherosDistribuido.getDatosFichero(
 							lienzo.getPadre(), DConector.raiz);
 
 					if (( f != null ) && !f.getRutaLocal().equals(""))
@@ -531,9 +531,9 @@ public class ControlesDibujo extends JPanel
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
 
-					MetainformacionFichero f = lienzo.getDocumento().getDatosBD();
+					MIFichero f = lienzo.getDocumento().getDatosBD();
 					if (f.comprobarPermisos(DConector.Dusuario, DConector.Drol,
-							MetainformacionFichero.PERMISO_ESCRITURA))
+							MIFichero.PERMISO_ESCRITURA))
 					{
 						if (!( new Transfer(ClienteFicheros.ipConexion, "") )
 								.sendDocumento(lienzo.getDocumento()))

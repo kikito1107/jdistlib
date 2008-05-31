@@ -6,7 +6,7 @@ import java.util.Vector;
 
 import metainformacion.MIRol;
 import metainformacion.MIUsuario;
-import aplicacion.fisica.documentos.MetainformacionFichero;
+import aplicacion.fisica.documentos.MIFichero;
 
 /**
  * @author Carlos Rodriguez Dominguez, Ana Belen Pelegrina Ortiz
@@ -31,7 +31,7 @@ public class GestorFicherosBD
 	 * @return un vector de FicheroBD con los ficheros y directorios del primer
 	 *         nivel
 	 */
-	public Vector<MetainformacionFichero> recuperar()
+	public Vector<MIFichero> recuperar()
 	{
 		try
 		{
@@ -43,7 +43,7 @@ public class GestorFicherosBD
 			rs.next();
 
 			// recuperamos el contenido del directorio / (junto con el propio /)
-			Vector<MetainformacionFichero> dir = recuperarDirectorio(rs.getInt("id_fichero"));
+			Vector<MIFichero> dir = recuperarDirectorio(rs.getInt("id_fichero"));
 
 			// cerramos la conexion
 			rs.close();
@@ -67,12 +67,12 @@ public class GestorFicherosBD
 	 *            identificador del directorio
 	 * @return un vector con los ficheros contenidos en el directorio
 	 */
-	public Vector<MetainformacionFichero> recuperarDirectorio(int id)
+	public Vector<MIFichero> recuperarDirectorio(int id)
 	{
 		try
 		{
 			// creamos el vector de ficheros
-			Vector<MetainformacionFichero> res = new Vector<MetainformacionFichero>();
+			Vector<MIFichero> res = new Vector<MIFichero>();
 
 			// seleccionamos todos los ficheros cuyo padre sea el directorio en
 			// cuestion
@@ -108,7 +108,7 @@ public class GestorFicherosBD
 	 * @return el directoiro padre del fichero. Si el directorio no tiene padre
 	 *         ('/') devuelve null
 	 */
-	public MetainformacionFichero obtenerPadre(int id)
+	public MIFichero obtenerPadre(int id)
 	{
 		try
 		{
@@ -125,7 +125,7 @@ public class GestorFicherosBD
 			if (!rs.wasNull())
 			{
 				// contruimos el fichero, cerramos la conexion y lo devolvemos
-				MetainformacionFichero f = construirFicheroBD(id_padre);
+				MIFichero f = construirFicheroBD(id_padre);
 				rs.close();
 				return f;
 			}
@@ -152,7 +152,7 @@ public class GestorFicherosBD
 	 *            identificador del fichero
 	 * @return el fichero, si no existe ningœn fichero con ese id devuelve null
 	 */
-	private MetainformacionFichero construirFicheroBD(int id)
+	private MIFichero construirFicheroBD(int id)
 	{
 		try
 		{
@@ -161,7 +161,7 @@ public class GestorFicherosBD
 							+ "'");
 			rs.next();
 
-			MetainformacionFichero f = construirFicheroBD(rs);
+			MIFichero f = construirFicheroBD(rs);
 			rs.close();
 			return f;
 		}
@@ -181,7 +181,7 @@ public class GestorFicherosBD
 	 *            result set conteniendo los datos del fichero
 	 * @return el objeto FicheroBD
 	 */
-	private MetainformacionFichero construirFicheroBD(ResultSet rs)
+	private MIFichero construirFicheroBD(ResultSet rs)
 	{
 		try
 		{
@@ -204,7 +204,7 @@ public class GestorFicherosBD
 			MIRol rol = null;
 			if (!rs.wasNull()) rol = obtenerRol(id_rol);
 
-			return new MetainformacionFichero(id, nombre, es_directorio, permisos, mu, rol,
+			return new MIFichero(id, nombre, es_directorio, permisos, mu, rol,
 					id_padre, ruta_local, tipo);
 		}
 		catch (Exception ex)
@@ -258,7 +258,7 @@ public class GestorFicherosBD
 	 * 
 	 * @param f
 	 */
-	public MetainformacionFichero insertarNuevoFichero(MetainformacionFichero f)
+	public MIFichero insertarNuevoFichero(MIFichero f)
 	{
 		try
 		{
@@ -341,9 +341,9 @@ public class GestorFicherosBD
 	 * @param id
 	 * @return
 	 */
-	public MetainformacionFichero buscarFichero(int id)
+	public MIFichero buscarFichero(int id)
 	{
-		MetainformacionFichero f = new MetainformacionFichero();
+		MIFichero f = new MIFichero();
 		
 		f.setId(-100);
 
@@ -380,9 +380,9 @@ public class GestorFicherosBD
 	 * @param id
 	 * @return
 	 */
-	public MetainformacionFichero buscarFicheroPath(String path)
+	public MIFichero buscarFicheroPath(String path)
 	{
-		MetainformacionFichero f = new MetainformacionFichero();
+		MIFichero f = new MIFichero();
 		
 		f.setId(-100);
 
@@ -430,7 +430,7 @@ public class GestorFicherosBD
 
 	}
 
-	public void modificarFichero(MetainformacionFichero f)
+	public void modificarFichero(MIFichero f)
 	{
 		try
 		{
@@ -459,7 +459,7 @@ public class GestorFicherosBD
 	
 
 
-	public void eliminarFichero(MetainformacionFichero f)
+	public void eliminarFichero(MIFichero f)
 	{
 		try
 		{

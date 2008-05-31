@@ -6,33 +6,31 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 import metainformacion.ClienteMetaInformacion;
 import metainformacion.MIRol;
 import metainformacion.MIUsuario;
-
-import javax.swing.ListSelectionModel;
-import javax.swing.ImageIcon;
-
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.ClienteFicheros;
-import aplicacion.fisica.documentos.MetainformacionFichero;
-import java.awt.GridLayout;
-import javax.swing.JLabel;
+import aplicacion.fisica.documentos.MIFichero;
 
 public class EnviarMensaje extends JDialog
 {
@@ -75,7 +73,7 @@ public class EnviarMensaje extends JDialog
 
 	private JLabel label = null;
 	
-	private MetainformacionFichero mif = null;
+	private MIFichero mif = null;
 	
 	private String asunt = "";
 
@@ -103,14 +101,22 @@ public class EnviarMensaje extends JDialog
 	private void initialize()
 	{
 		
-		this.setSize(438, 352);
+		this.setSize(638, 452);
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		Dimension frameSize = getSize();
+		if (frameSize.height > screenSize.height)
+			frameSize.height = screenSize.height;
+		if (frameSize.width > screenSize.width)
+			frameSize.width = screenSize.width;
+		setLocation(( screenSize.width - frameSize.width ) / 2,
+				( screenSize.height - frameSize.height ) / 2);
 		this.setContentPane(getJContentPane());
 		this.setTitle(".:: Enviar  Nota ::.");
 		this.addWindowListener(new java.awt.event.WindowAdapter()
 		{
 			public void windowClosing(java.awt.event.WindowEvent e)
 			{
-				int elecc = JOptionPane.showConfirmDialog(null, "El mensaje no ha sido enviado \n¿Realmente desea salir?");
+				int elecc = JOptionPane.showConfirmDialog(null, "El mensaje no ha sido enviado todavía\n¿Realmente desea salir?", "¡Atención!", JOptionPane.YES_NO_OPTION);
 				
 				if (elecc == 0)
 					setVisible(false);
@@ -184,14 +190,14 @@ public class EnviarMensaje extends JDialog
 				{
 					public void actionPerformed(java.awt.event.ActionEvent e)
 					{
-						if (destinatario.getText().equals("") || asunto.getText().equals("")) {
+						if (destinatario.getText().equals("") || asunto.getText().equals("") || area.getText().equals("")) {
 							JOptionPane.showMessageDialog(null, "¡Quedan campos sin rellenar!");
 							return;
 						}
 							
 						
-						mif = new MetainformacionFichero();
-						MetainformacionFichero buzon = ClienteFicheros.obtenerClienteFicheros().existeFichero("/Incoming", DConector.Daplicacion);
+						mif = new MIFichero();
+						MIFichero buzon = ClienteFicheros.obtenerClienteFicheros().existeFichero("/Incoming", DConector.Daplicacion);
 						
 						if (buzon == null) {
 							JOptionPane.showMessageDialog(null, "Buzon no encontrado");
@@ -199,9 +205,9 @@ public class EnviarMensaje extends JDialog
 							 mif = null;
 							return;
 						}
-						mif.setNombre(getAsunto().getText());
-						mif.setTipo("msg");
-						mif.setRutaLocal("/Incoming/" + mif.getNombre());
+						mif.setNombre(getAsunto().getText()+MIFichero.TIPO_MENSAJE);
+						mif.setTipo(MIFichero.TIPO_MENSAJE);
+						mif.setRutaLocal("/Incoming/" + mif.getNombre()+MIFichero.TIPO_MENSAJE);
 						mif.setId(-1);
 						mif.setPermisos("rw----");
 						
@@ -211,7 +217,7 @@ public class EnviarMensaje extends JDialog
 						
 						
 						if (destino == null) {
-							JOptionPane.showMessageDialog(null, "User no encontrado:  " + arbol.getSelectedValue().toString());
+							JOptionPane.showMessageDialog(null, "Usuario no existente:  " + arbol.getSelectedValue().toString());
 							 setVisible(false);
 							 mif = null;
 							return;
@@ -589,7 +595,7 @@ public class EnviarMensaje extends JDialog
 		return asunto;
 	}
 	
-	public static MetainformacionFichero getMensaje(String nombre, String asunto,String mensaje){
+	public static MIFichero getMensaje(String nombre, String asunto,String mensaje){
 		EnviarMensaje em = new EnviarMensaje(nombre, asunto, mensaje);
 		em.setModal(true);
 		em.setVisible(true);

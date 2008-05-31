@@ -5,7 +5,7 @@ import java.io.Serializable;
 import metainformacion.MIRol;
 import metainformacion.MIUsuario;
 
-public class MetainformacionFichero implements Serializable
+public class MIFichero implements Serializable
 {
 	/**
 	 * 
@@ -36,13 +36,24 @@ public class MetainformacionFichero implements Serializable
 
 	public final static char PERMISO_ESCRITURA = 'w';
 	
+	public final static String TIPO_MENSAJE = "msg";
+	
+	public final static String TIPO_IMAGEN = "img";
+	
+	public final static String TIPO_DOC = "doc";
+	
+	public final static String TIPO_BANDEJA_MAIL = "INCOMING";
+	
+	public final static String TIPO_PDF = "pdf";
+	
+	public final static String TIPO_BANDEJA_TXT = "txt";
 
-	public MetainformacionFichero()
+	public MIFichero()
 	{
 
 	}
 
-	public MetainformacionFichero( int id, String nom, boolean dir, String perm,
+	public MIFichero( int id, String nom, boolean dir, String perm,
 			MIUsuario usu, MIRol ro, int pad, String ruta, String tip )
 	{
 		nombre = nom;
@@ -149,7 +160,13 @@ public class MetainformacionFichero implements Serializable
 	@Override
 	public String toString()
 	{
-		return this.nombre;
+		if (this.getTipo() ==null || !this.getTipo().equals(MIFichero.TIPO_MENSAJE))
+			return this.nombre;
+		else {
+			String nombr = this.getNombre();
+			return nombr.replaceAll("."+MIFichero.TIPO_MENSAJE, "");
+		}
+			
 	}
 
 	public boolean comprobarPermisos(String u, String r, char modo)
@@ -157,9 +174,9 @@ public class MetainformacionFichero implements Serializable
 
 		int index = -1;
 
-		if (modo == MetainformacionFichero.PERMISO_LECTURA)
+		if (modo == MIFichero.PERMISO_LECTURA)
 			index = 0;
-		else if (modo == MetainformacionFichero.PERMISO_ESCRITURA)
+		else if (modo == MIFichero.PERMISO_ESCRITURA)
 			index = 1;
 		else return false;
 
@@ -185,7 +202,7 @@ public class MetainformacionFichero implements Serializable
 				|| extension.equals("jpg") || extension.equals("jpeg")
 				|| extension.equals("tiff") || extension.equals("tif")
 				|| extension.equals("bmp"))
-			res = "img";
+			res = new String(MIFichero.TIPO_IMAGEN);
 		else res = extension;
 
 		return res;

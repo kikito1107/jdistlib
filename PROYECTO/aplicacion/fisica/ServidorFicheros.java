@@ -18,7 +18,7 @@ import Deventos.DEvent;
 import net.jini.core.lease.Lease;
 import net.jini.space.JavaSpace;
 import util.ParserPermisos;
-import aplicacion.fisica.documentos.MetainformacionFichero;
+import aplicacion.fisica.documentos.MIFichero;
 import aplicacion.fisica.eventos.DFileEvent;
 import aplicacion.fisica.eventos.DNodeEvent;
 import aplicacion.fisica.net.Transfer;
@@ -140,14 +140,14 @@ public class ServidorFicheros
 
 		DefaultMutableTreeNode raiz = new DefaultMutableTreeNode();
 
-		Vector<MetainformacionFichero> fich = gestor.recuperar();
+		Vector<MIFichero> fich = gestor.recuperar();
 
 		this.agregarFichero(fich.get(0), raiz, usuario, rol);
 
 		return raiz;
 	}
 
-	private void agregarFichero(MetainformacionFichero f, DefaultMutableTreeNode padre,
+	private void agregarFichero(MIFichero f, DefaultMutableTreeNode padre,
 			String usuario, String rol)
 	{
 	
@@ -162,7 +162,7 @@ public class ServidorFicheros
 
 			if (f.esDirectorio())
 			{
-				Vector<MetainformacionFichero> fs = gestor.recuperarDirectorio(f.getId());
+				Vector<MIFichero> fs = gestor.recuperarDirectorio(f.getId());
 
 				for (int i = 1; i < fs.size(); ++i)
 					agregarFichero(fs.get(i), nodo, usuario, rol);
@@ -232,7 +232,7 @@ public class ServidorFicheros
 							System.err.println("Carpeta creada");
 						}
 						
-						MetainformacionFichero res = gestor
+						MIFichero res = gestor
 								.insertarNuevoFichero(evt.fichero);
 						
 						
@@ -332,7 +332,7 @@ public class ServidorFicheros
 						if (gestor == null) gestor = new GestorFicherosBD();
 						
 						// cambiar el nombre del fichero
-						MetainformacionFichero f = gestor.buscarFicheroPath(( (DFileEvent) leido ).path);
+						MIFichero f = gestor.buscarFicheroPath(( (DFileEvent) leido ).path);
 						
 						DFileEvent nuevo = new DFileEvent();
 						

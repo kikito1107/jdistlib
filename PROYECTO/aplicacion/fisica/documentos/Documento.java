@@ -36,7 +36,7 @@ public class Documento implements Serializable, Printable
 
 	private String path = "";
 
-	private MetainformacionFichero datosBD = null;
+	private MIFichero datosBD = null;
 
 	private static Vector<DocumentFilter> filtros = new Vector<DocumentFilter>();
 
@@ -45,12 +45,12 @@ public class Documento implements Serializable, Printable
 
 	}
 
-	public MetainformacionFichero getDatosBD()
+	public MIFichero getDatosBD()
 	{
 		return datosBD;
 	}
 
-	public void setDatosBD(MetainformacionFichero datosBD)
+	public void setDatosBD(MIFichero datosBD)
 	{
 		this.datosBD = datosBD;
 	}
