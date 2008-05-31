@@ -236,7 +236,7 @@ public class AlmacenMetaInformacion
 		return v;
 	}
 
-	public Vector<MIUsuario> obtenerDatosUsuarios(String aplicacion)
+	public Vector<MIUsuario> obtenerDatosUsuariosConectados(String aplicacion)
 	{
 		MIAplicacion apl = obtenerAplicacion(aplicacion);
 		Vector<MIUsuario> v = null;
@@ -244,6 +244,15 @@ public class AlmacenMetaInformacion
 		return v;
 	}
 
+	public Vector<MIUsuario> obtenerDatosUsuarios(String aplicacion)
+	{
+		MIAplicacion apl = obtenerAplicacion(aplicacion);
+		Vector<MIUsuario> v = null;
+		if (apl != null) v = apl.getUsuarios();
+		return v;
+	}
+
+	
 	public MIRol obtenerDatosRol(String aplicacion, String name)
 	{
 

@@ -7,7 +7,12 @@ import java.awt.GridBagConstraints;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.text.SimpleDateFormat;
@@ -42,6 +47,7 @@ import aplicacion.fisica.documentos.filtros.TXTFilter;
 import aplicacion.fisica.eventos.DFileEvent;
 import aplicacion.fisica.net.Transfer;
 import aplicacion.gui.componentes.ArbolDocumentos;
+import aplicacion.gui.componentes.EnviarMensaje;
 import aplicacion.gui.editor.FramePanelDibujo;
 import aplicacion.plugin.DAbstractPlugin;
 import aplicacion.plugin.DPluginLoader;
@@ -67,17 +73,11 @@ public class PanelPrincipal extends DComponenteBase
 
 	private JButton botonInfo = null;
 
-	private JButton nuevoUsuario = null;
-
-	private JButton eliminarUsuario = null;
-
 	private JButton editarUsuario = null;
 
 	private JButton iniciarChat = null;
 
 	private JButton enviarMensaje = null;
-
-	private JButton configurar = null;
 
 	private JButton botonEliminarFich = null;
 
@@ -104,10 +104,33 @@ public class PanelPrincipal extends DComponenteBase
 	DefaultMutableTreeNode raiz = null;
 
 	private JButton botonSubir = null;
+	
+	private JButton reenviar = null;
 
 	public static Vector<DAbstractPlugin> plugins = null;
 
 	private JButton getButonSubir()
+	{
+		if (botonSubir == null)
+		{
+			botonSubir = new JButton();;
+			botonSubir.setBorderPainted(false);
+			botonSubir.setText("");
+
+			botonSubir
+					.setIcon(new ImageIcon("./Resources/subir_documento.png"));
+			botonSubir.addActionListener(new java.awt.event.ActionListener()
+			{
+				public void actionPerformed(java.awt.event.ActionEvent e)
+				{
+					subirFicheroServidor();
+				}
+			});
+		}
+		return botonSubir;
+	}
+	
+	private JButton getReenviar()
 	{
 		if (botonSubir == null)
 		{
@@ -148,7 +171,7 @@ public class PanelPrincipal extends DComponenteBase
 			path = "/";
 
 		// recuperamos el usuario y el rol
-		MIUsuario user = ClienteMetaInformacion.cmi.getUsuario(DConector.Dusuario);
+		MIUsuario user = ClienteMetaInformacion.cmi.getUsuarioConectado(DConector.Dusuario);
 		MIRol rol = ClienteMetaInformacion.cmi.getRol(DConector.Drol);
 
 		// si se ha producido algun error, salimos
@@ -400,14 +423,10 @@ public class PanelPrincipal extends DComponenteBase
 			s1.setMinimumSize(new Dimension(20, 15));
 			s2.setMinimumSize(new Dimension(20, 15));
 			herrmientasUsuarios.setFloatable(false);
-			herrmientasUsuarios.add(getNuevoUsuario());
-			herrmientasUsuarios.add(getEliminarUsuario());
 			herrmientasUsuarios.add(getEditarUsuario());
 			herrmientasUsuarios.add(s1);
 			herrmientasUsuarios.add(getIniciarChat());
 			herrmientasUsuarios.add(getEnviarMensaje());
-			herrmientasUsuarios.add(s2);
-			herrmientasUsuarios.add(getConfigurar());
 		}
 		return herrmientasUsuarios;
 	}
@@ -478,40 +497,6 @@ public class PanelPrincipal extends DComponenteBase
 		return arbolUsuario;
 	}
 
-
-	/**
-	 * This method initializes nuevoUsuario
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private JButton getNuevoUsuario()
-	{
-		if (nuevoUsuario == null)
-		{
-			nuevoUsuario = new JButton();
-			nuevoUsuario.setIcon(new ImageIcon("./Resources/page_new.gif"));
-			nuevoUsuario.setBorderPainted(false);
-			nuevoUsuario.setPreferredSize(new Dimension(20, 20));
-		}
-		return nuevoUsuario;
-	}
-
-	/**
-	 * This method initializes eliminarUsuario
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private JButton getEliminarUsuario()
-	{
-		if (eliminarUsuario == null)
-		{
-			eliminarUsuario = new JButton();
-			eliminarUsuario
-					.setIcon(new ImageIcon("./Resources/page_delete.gif"));
-			eliminarUsuario.setBorderPainted(false);
-		}
-		return eliminarUsuario;
-	}
 
 	/**
 	 * This method initializes editarUsuario
@@ -595,24 +580,86 @@ public class PanelPrincipal extends DComponenteBase
 			enviarMensaje = new JButton();
 			enviarMensaje.setIcon(new ImageIcon("./Resources/icon_email.gif"));
 			enviarMensaje.setBorderPainted(false);
+			
+			enviarMensaje.addActionListener(new java.awt.event.ActionListener()
+			{
+				public void actionPerformed(java.awt.event.ActionEvent e)
+				{
+					MetainformacionFichero f  = EnviarMensaje.getMensaje(arbolUsuario.getUsuarioSeleccionado(), "", "");
+					
+					if (f != null) {
+					
+						File aux = new File(".aux");
+						
+//						 abrimos el fichero en modo lectura
+						RandomAccessFile raf;
+						byte[] bytes;
+						try
+						{
+							FileWriter fr = new FileWriter(".aux");
+							BufferedWriter bf = new BufferedWriter(fr);
+							
+							bf.write(f.getMensaje());
+							
+							bf.close();
+							fr.close();
+							
+							raf = new RandomAccessFile(aux.getAbsolutePath(),"r");
+//							 consultamos el tamanio del fichero, reservamos
+							// memoria suficiente,
+							// leemos el fichero y lo cerramos
+							bytes = new byte[(int) raf.length()];
+							raf.read(bytes);
+							raf.close();
+						}
+						catch (FileNotFoundException e1)
+						{
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+							return;
+						}
+						catch (IOException e2)
+						{
+							// TODO Auto-generated catch block
+							e2.printStackTrace();
+							return;
+						}
+
+						
+						
+						
+						Transfer t = new Transfer(ClienteFicheros.ipConexion, f.getRutaLocal());
+						
+						if (!t.sendFile(bytes)) {
+							JOptionPane.showMessageDialog(
+									null,
+									"No se ha podido subir el fichero.\nSe ha producido un error en la transmisi—n del documento",
+									"Error", JOptionPane.ERROR_MESSAGE);
+							return;
+						}
+						
+						
+//						insertamos el nuevo fichero en el servidor
+						MetainformacionFichero f2 = ClienteFicheros.cf.insertarNuevoFichero(f, DConector.Daplicacion);
+						MetainformacionFichero padre = ClienteFicheros.obtenerClienteFicheros().existeFichero("/Incoming", DConector.Daplicacion);
+						// si ha habido algun error salimos
+						if (f2 == null) {
+							JOptionPane.showMessageDialog(null, "Ha ocurrido un error: no se ha podido subir el documento al servidor");
+							return;
+						}
+						
+						// notificamos al resto de usuarios la "novedad"
+						DFileEvent evento = new DFileEvent();
+						evento.fichero = f2;
+						evento.padre = padre;
+						evento.tipo = new Integer(DFileEvent.NOTIFICAR_INSERTAR_FICHERO
+								.intValue());
+						enviarEvento(evento);
+					}
+				}
+			});
 		}
 		return enviarMensaje;
-	}
-
-	/**
-	 * This method initializes configurar
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private JButton getConfigurar()
-	{
-		if (configurar == null)
-		{
-			configurar = new JButton();
-			configurar.setIcon(new ImageIcon("./Resources/icon_settings.gif"));
-			configurar.setBorderPainted(false);
-		}
-		return configurar;
 	}
 
 	/**

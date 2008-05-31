@@ -29,10 +29,13 @@ public class MetainformacionFichero implements Serializable
 	private String ruta_local;
 
 	private String tipo;
+	
+	private String mensaje = null;
 
 	public final static char PERMISO_LECTURA = 'r';
 
 	public final static char PERMISO_ESCRITURA = 'w';
+	
 
 	public MetainformacionFichero()
 	{
@@ -186,6 +189,16 @@ public class MetainformacionFichero implements Serializable
 		else res = extension;
 
 		return res;
+	}
+
+	public String getMensaje()
+	{
+		return mensaje;
+	}
+
+	public void setMensaje(String mensaje)
+	{
+		this.mensaje = mensaje;
 	}
 	
 	

@@ -596,7 +596,11 @@ public class ServidorMetaInformacion
 								( (DMIEvent) leido ).sincrono.booleanValue());
 						evento.v1 = almacen.obtenerUsuarios(aplicacion);
 
+						evento.usuarios = almacen
+						.obtenerDatosUsuarios(aplicacion);
+						
 						colaEnvio.nuevoEvento(evento);
+						
 					}
 
 					else if (leido.tipo.intValue() == DMIEvent.DATOS_USUARIOS)
@@ -609,17 +613,13 @@ public class ServidorMetaInformacion
 															// MetaInformacion
 						evento.aplicacion = new String(aplicacion);
 						evento.tipo = new Integer(
-								DMIEvent.RESPUESTA_DATOS_USUARIO.intValue());
+								DMIEvent.RESPUESTA_DATOS_USUARIOS.intValue());
 						evento.entero = new Integer(( (DMIEvent) leido ).entero
 								.intValue());
 						evento.sincrono = new Boolean(
 								( (DMIEvent) leido ).sincrono.booleanValue());
 						evento.usuarios = almacen
-								.obtenerDatosUsuarios(aplicacion);
-
-						if (evento.usuarios == null)
-							System.err.println("Vector VAc’o");
-						else System.err.println("Vector no vac’o");
+								.obtenerDatosUsuariosConectados(aplicacion);
 
 						colaEnvio.nuevoEvento(evento);
 					}

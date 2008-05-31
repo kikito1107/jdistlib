@@ -482,6 +482,64 @@ public class ClienteMetaInformacion
 
 	}
 
+	
+	public MIUsuario obtenerDatosUsuario(String nombre){
+		Vector<MIUsuario> v = obtenerDatosUsuarios();
+		
+		for(int i=0; i<v.size(); ++i){
+			if (v.get(i).getNombreUsuario().equals(nombre))
+				return v.get(i);
+		}
+		
+		return null;
+	}
+	
+	public Vector<MIUsuario> obtenerDatosUsuarios()
+	{
+		Vector v = null;
+		DMIEvent leido = null;
+		DMIEvent evento = new DMIEvent();
+		DMIEvent plantilla = new DMIEvent();
+
+		try
+		{
+			int idEvento = aleatorio();
+			evento.origen = new Integer(11); // Cliente MetaInformacion
+			evento.destino = new Integer(10); // Servidor MetaInformacion
+			evento.tipo = new Integer(DMIEvent.OBTENER_USUARIOS.intValue());
+			evento.sincrono = new Boolean(true);
+			evento.aplicacion = new String(aplicacion);
+			evento.entero = new Integer(idEvento);
+			space.write(evento, null, leaseWriteTime);
+
+			plantilla.origen = new Integer(10); // Servidor MetaInformacion
+			plantilla.destino = new Integer(11); // Cliente MetaInformacion
+			plantilla.tipo = new Integer(DMIEvent.RESPUESTA_OBTENER_USUARIOS
+					.intValue());
+			plantilla.sincrono = new Boolean(true);
+			plantilla.aplicacion = new String(aplicacion);
+			plantilla.entero = new Integer(idEvento);
+
+			leido = (DMIEvent) space.take(plantilla, null, leaseReadTime);
+			if (leido == null)
+			{ // Sin respuesta del servidor
+			}
+			else v = leido.usuarios;
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			JOptionPane
+					.showMessageDialog(
+							null,
+							"Hubo un error en la comunicacion\nDebera identificarse de nuevo.",
+							"Error", JOptionPane.ERROR_MESSAGE);
+			System.exit(1);
+		}
+		return v;
+
+	}
+	
 	public Vector obtenerRoles()
 	{
 		Vector v = null;
@@ -528,8 +586,57 @@ public class ClienteMetaInformacion
 
 	}
 
+	
+	
+	public Vector<MIUsuario> getUsuariosConectados(){
+
+		MIUsuario u = null;
+		DMIEvent leido = null;
+		DMIEvent evento = new DMIEvent();
+		DMIEvent plantilla = new DMIEvent();
+
+		try
+		{
+			int idEvento = aleatorio();
+			evento.origen = new Integer(11); // Cliente MetaInformacion
+			evento.destino = new Integer(10); // Servidor MetaInformacion
+			evento.tipo = new Integer(DMIEvent.DATOS_USUARIOS.intValue());
+			evento.sincrono = new Boolean(true);
+			evento.aplicacion = new String(aplicacion);
+			evento.entero = new Integer(idEvento);
+			space.write(evento, null, leaseWriteTime);
+
+			plantilla.origen = new Integer(10); // Servidor MetaInformacion
+			plantilla.destino = new Integer(11); // Cliente MetaInformacion
+			plantilla.tipo = new Integer(DMIEvent.RESPUESTA_DATOS_USUARIOS
+					.intValue());
+			plantilla.sincrono = new Boolean(true);
+			plantilla.aplicacion = new String(aplicacion);
+			plantilla.entero = new Integer(idEvento);
+
+			leido = (DMIEvent) space.take(plantilla, null, leaseReadTime);
+			if (leido == null)
+				return null;
+			else 
+			{
+				return leido.usuarios;
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			JOptionPane
+					.showMessageDialog(
+							null,
+							"Hubo un error en la comunicacion a la hora de obtener los datos de usuario\nDebera identificarse de nuevo.",
+							"Error", JOptionPane.ERROR_MESSAGE);
+			System.exit(1);
+		}
+		return null;
+	}
+	
 	@SuppressWarnings( "unchecked" )
-	public MIUsuario getUsuario(String Nombre)
+	public MIUsuario getUsuarioConectado(String Nombre)
 	{
 
 		Vector<MIUsuario> v = null;
@@ -551,7 +658,7 @@ public class ClienteMetaInformacion
 
 			plantilla.origen = new Integer(10); // Servidor MetaInformacion
 			plantilla.destino = new Integer(11); // Cliente MetaInformacion
-			plantilla.tipo = new Integer(DMIEvent.RESPUESTA_DATOS_USUARIO
+			plantilla.tipo = new Integer(DMIEvent.RESPUESTA_DATOS_USUARIOS
 					.intValue());
 			plantilla.sincrono = new Boolean(true);
 			plantilla.aplicacion = new String(aplicacion);

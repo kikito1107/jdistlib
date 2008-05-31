@@ -32,6 +32,10 @@ public class DocumentosCellRenderer extends DefaultTreeCellRenderer
 	private Icon iconoTXT = new ImageIcon("./Resources/page_white_text.png");
 	
 	private Icon iconoUNK = new ImageIcon("./Resources/page_white.png");
+	
+	private Icon mail = new ImageIcon("./Resources/icon_email.gif");
+	
+	private Icon iconInbox = new ImageIcon("./Resources/folder_inbox.png");
 
 	public DocumentosCellRenderer( )
 	{
@@ -64,9 +68,34 @@ public class DocumentosCellRenderer extends DefaultTreeCellRenderer
 			setIcon(this.iconoDOC);
 		else if (leaf && isTXT(value))
 			setIcon(this.iconoTXT);
+		else if (leaf && isMAIL(value))
+			setIcon(mail);
+		else if (isINBOX(value))
+			setIcon(iconInbox);
 		
 		return this;
 	}
+	
+	private boolean isINBOX(Object value)
+	{
+		if (value != null) 
+		{
+		
+			DefaultMutableTreeNode dftn = (DefaultMutableTreeNode) value;
+
+			MetainformacionFichero f = (MetainformacionFichero) dftn.getUserObject();
+			
+			String extension  = f.getTipo();
+			
+			if (!f.esDirectorio())
+				return false;
+			
+			if (extension != null && extension.equals("INCOMING")) return true;
+			else return false;
+		}
+		return false;
+	}
+
 	
 	private boolean isDOC(Object value)
 	{
@@ -120,6 +149,24 @@ public class DocumentosCellRenderer extends DefaultTreeCellRenderer
 		return false;
 	}
 
+	private boolean isMAIL(Object value)
+	{
+		if (value != null) 
+		{
+		
+			DefaultMutableTreeNode dftn = (DefaultMutableTreeNode) value;
+
+			MetainformacionFichero f = (MetainformacionFichero) dftn.getUserObject();
+			
+			String extension  = f.getTipo();
+			
+			
+			if ( extension != null && extension.equals("msg")) return true;
+			else return false;
+		}
+		return false;
+	}
+	
 	private boolean isTXT(Object value)
 	{
 		if (value != null) 

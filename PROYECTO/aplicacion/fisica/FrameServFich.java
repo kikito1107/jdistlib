@@ -160,7 +160,7 @@ public class FrameServFich extends JFrame
 			}
 			catch (java.lang.Throwable e)
 			{
-				// TODO: Something
+				System.exit(1);
 			}
 		}
 		return botonSalir;

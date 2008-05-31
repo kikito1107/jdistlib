@@ -232,7 +232,7 @@ public class ArbolDocumentos extends JTree
 				
 			
 			//recuperamos el usuario y el rol
-			MIUsuario user = ClienteMetaInformacion.cmi.getUsuario(DConector.Dusuario);
+			MIUsuario user = ClienteMetaInformacion.cmi.getUsuarioConectado(DConector.Dusuario);
 			MIRol rol = ClienteMetaInformacion.cmi.getRol(DConector.Drol);
 			
 			if (user==null || rol == null) return null;

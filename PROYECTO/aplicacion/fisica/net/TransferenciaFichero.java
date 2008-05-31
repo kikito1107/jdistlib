@@ -65,8 +65,9 @@ public class TransferenciaFichero extends UnicastRemoteObject implements
 	{
 		try
 		{
+			
 			RandomAccessFile raf = new RandomAccessFile(ServidorFicheros.getDirectorioBase() + path, "rw");
-			// System.out.println("RECIBIDO FICHERO");
+			System.out.println("RECIBIDO FICHERO");
 			raf.write(bytes);
 			raf.close();
 			return true;

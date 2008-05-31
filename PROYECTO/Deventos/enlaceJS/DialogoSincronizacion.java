@@ -2,11 +2,9 @@ package Deventos.enlaceJS;
 
 import java.awt.Color;
 import java.awt.Frame;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.WindowEvent;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -132,7 +130,6 @@ public class DialogoSincronizacion extends JDialog
 
 		public void run()
 		{
-			int tiempo = 200;
 			while (true)
 				try
 				{

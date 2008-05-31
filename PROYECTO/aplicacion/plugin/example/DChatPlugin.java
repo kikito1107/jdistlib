@@ -27,6 +27,7 @@ import aplicacion.plugin.DAbstractPlugin;
 import componentes.base.DJFrame;
 import componentes.gui.DIChat;
 import componentes.gui.usuarios.ArbolUsuariosConectadosRol;
+import Deventos.DEvent;
 import Deventos.DJChatEvent;
 
 public class DChatPlugin extends DAbstractPlugin
@@ -99,6 +100,14 @@ public class DChatPlugin extends DAbstractPlugin
 	{
 		// TODO Auto-generated method stub
 		ventanaChat.dispose();
+	}
+	
+	@Override
+	public void enviarEvento(DEvent e){
+		if (e.tipo.intValue() == DJChatEvent.MENSAJE_PRIVADO.intValue())
+			chat.enviarEvento(e);
+		else
+			super.enviarEvento(e);
 	}
 
 	/**
