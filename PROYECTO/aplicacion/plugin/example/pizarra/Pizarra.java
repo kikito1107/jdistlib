@@ -118,6 +118,8 @@ public class Pizarra extends DIViewer implements MouseListener,
 	public Pizarra( String nombre, boolean conexionDC, DComponenteBase padre )
 	{
 		super(nombre, conexionDC, padre);
+		
+		anotacionSeleccionada = -1;
 
 		try
 		{
@@ -185,25 +187,32 @@ public class Pizarra extends DIViewer implements MouseListener,
 		return anotacionSeleccionada;
 	}
 
-	/**
-	 * @param anotacionSeleccionada
-	 *            the objetoSeleccionado to set
-	 */
-	public void setObjetoSeleccionado(int objeto)
-	{
-		if (( objeto > -1 ) && ( objeto < anotaciones.size() ))
-		{
-			this.anotacionSeleccionada = objeto;
-			repaint();
+	
+	public void siguienteObjeto(){
+		if (anotacionSeleccionada == -1)
+			anotacionSeleccionada = 0;
+		else {
+			anotacionSeleccionada++;
+			
+			if (anotacionSeleccionada == anotaciones.size()){
+				anotacionSeleccionada = -1;
+			}
 		}
-		else if (objeto > -1)
-		{
-			this.anotacionSeleccionada = 0;
-			repaint();
-		}
-		else this.anotacionSeleccionada = 0;
+		
+		this.repaint();
 	}
-
+	
+	public void anteriorObjeto(){
+		if (anotacionSeleccionada == -1)
+			anotacionSeleccionada = anotaciones.size()-1;
+		else {
+			anotacionSeleccionada--;
+		}
+		
+		this.repaint();
+	}
+	
+	
 	/**
 	 * Rehace el último trazo
 	 */
@@ -440,9 +449,13 @@ public class Pizarra extends DIViewer implements MouseListener,
 
 			Figura f = anotaciones.get(i);
 
-			if (i != anotacionSeleccionada)
+			if (i != anotacionSeleccionada) {
 				g.setColor(f.getColor());
-			else g.setColor(DILienzo.invertirColor(f.getColor()));
+			}
+			else {
+				
+				g.setColor(DILienzo.invertirColor(f.getColor()));
+			}
 
 			f.dibujar(g);
 		}

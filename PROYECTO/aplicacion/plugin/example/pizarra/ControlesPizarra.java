@@ -270,8 +270,7 @@ public class ControlesPizarra extends JPanel
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
-					pizarra.setObjetoSeleccionado(pizarra
-							.getObjetoSeleccionado() - 1);
+					pizarra.anteriorObjeto();
 				}
 			});
 
@@ -300,8 +299,7 @@ public class ControlesPizarra extends JPanel
 					{
 						public void actionPerformed(java.awt.event.ActionEvent e)
 						{
-							pizarra.setObjetoSeleccionado(pizarra
-									.getObjetoSeleccionado() + 1);
+							pizarra.siguienteObjeto();
 						}
 					});
 
