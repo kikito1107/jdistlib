@@ -205,9 +205,9 @@ public class EnviarMensaje extends JDialog
 							 mif = null;
 							return;
 						}
-						mif.setNombre(getAsunto().getText()+MIFichero.TIPO_MENSAJE);
+						mif.setNombre(getAsunto().getText()+"."+MIFichero.TIPO_MENSAJE);
 						mif.setTipo(MIFichero.TIPO_MENSAJE);
-						mif.setRutaLocal("/Incoming/" + mif.getNombre()+MIFichero.TIPO_MENSAJE);
+						mif.setRutaLocal("/Incoming/" + mif.toString()+"."+MIFichero.TIPO_MENSAJE);
 						mif.setId(-1);
 						mif.setPermisos("rw----");
 						
@@ -316,7 +316,7 @@ public class EnviarMensaje extends JDialog
 				borderLayout2.setVgap(1);  // Generated
 				panelOeste = new JPanel();
 				panelOeste.setLayout(borderLayout2);  // Generated
-				panelOeste.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.gray, 2), "Usuarios", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Lucida Grande", Font.PLAIN, 13), Color.black));  // Generated
+				panelOeste.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.gray, 2), "Agenda", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Lucida Grande", Font.PLAIN, 13), Color.black));  // Generated
 				panelOeste.setPreferredSize(new Dimension(120, 28));  // Generated
 				panelOeste.add(getArbol(), BorderLayout.WEST);  // Generated
 			}
@@ -438,7 +438,7 @@ public class EnviarMensaje extends JDialog
 				gridLayout.setHgap(6);  // Generated
 				panelNorte = new JPanel();
 				panelNorte.setLayout(gridLayout);  // Generated
-				panelNorte.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.gray, 2), "Destinatario", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Lucida Grande", Font.PLAIN, 13), Color.black));  // Generated
+				panelNorte.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.gray, 2), "Datos Env’o", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Lucida Grande", Font.PLAIN, 13), Color.black));  // Generated
 				panelNorte.add(getPanelDest(), null);  // Generated
 				panelNorte.add(getPanelAsunto(), null);  // Generated
 			}
