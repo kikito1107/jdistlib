@@ -32,12 +32,6 @@ public class DPluginLoader
 				className = je.getName().replaceAll(".class", "").replaceAll(
 						"/", ".");
 				cls = jcl.loadClass(className, true);
-
-				/*superclass = cls.getSuperclass();
-				
-				if (superclass != null) //si la clase es Object o una interfaz, la superclase es null
-					if (superclass.getName().compareTo(DAbstractPlugin.class.getName()) == 0)
-						return (DAbstractPlugin) cls.newInstance();*/
 				
 				try{
 					cls.asSubclass(DAbstractPlugin.class);
