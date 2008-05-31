@@ -172,6 +172,7 @@ public class DILista extends DComponenteBase implements java.io.Serializable
 		else lista.aniadirElemento(imagen, texto, posicion);
 	}
 
+	@SuppressWarnings("unchecked")
 	public void aniadirElementos(String[] elementos)
 	{
 		if (!estatica)
@@ -461,6 +462,7 @@ public class DILista extends DComponenteBase implements java.io.Serializable
 			super(dc);
 		}
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public void run()
 		{

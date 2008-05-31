@@ -494,6 +494,7 @@ public class ClienteMetaInformacion
 		return null;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public Vector<MIUsuario> obtenerDatosUsuarios()
 	{
 		Vector v = null;
@@ -590,7 +591,6 @@ public class ClienteMetaInformacion
 	
 	public Vector<MIUsuario> getUsuariosConectados(){
 
-		MIUsuario u = null;
 		DMIEvent leido = null;
 		DMIEvent evento = new DMIEvent();
 		DMIEvent plantilla = new DMIEvent();

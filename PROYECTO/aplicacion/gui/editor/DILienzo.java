@@ -18,19 +18,18 @@ import javax.swing.JToolTip;
 import javax.swing.border.EtchedBorder;
 
 import util.DialogoIntroTexto;
-
+import Deventos.DEvent;
+import Deventos.DJLienzoEvent;
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.ClienteFicheros;
 import aplicacion.fisica.documentos.Anotacion;
 import aplicacion.fisica.documentos.Documento;
 import aplicacion.fisica.documentos.Pagina;
-import aplicacion.fisica.eventos.DDocumentEvent;
 import aplicacion.fisica.net.Transfer;
 import aplicacion.fisica.net.TransferP2P;
 
 import componentes.base.DComponenteBase;
-import Deventos.DEvent;
-import Deventos.DJLienzoEvent;
+
 import figuras.Elipse;
 import figuras.Figura;
 import figuras.Linea;
@@ -1106,22 +1105,5 @@ public class DILienzo extends DIViewer implements MouseListener,
 			if (( evt.path != null ) && evt.path.equals(doc.getPath()))
 				this.rehacer();
 		}
-		else if (( evento.tipo.intValue() == DDocumentEvent.RESPUESTA_FICHERO
-				.intValue() )
-				// nos aseguramos que el evento esté dirigido a nosotros
-				&& evento.usuario.equals(DConector.Dusuario))
-		{
-
-			DDocumentEvent evt = (DDocumentEvent) evento;
-			/**
-			 * if (( evt.path != null ) && evt.path.equals(doc.getPath())) {
-			 * Transfer ts = new Transfer(evt.direccionRespuesta, evt.path);
-			 * 
-			 * doc = ts.receiveDocumento();
-			 * 
-			 * repaint(); }
-			 */
-		}
 	}
-
 }

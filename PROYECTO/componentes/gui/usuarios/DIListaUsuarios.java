@@ -9,13 +9,10 @@ import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
 
 import metainformacion.ClienteMetaInformacion;
-import metainformacion.MIUsuario;
-
 import util.ListaElementos;
+import Deventos.DMIEvent;
 
 import componentes.base.DComponenteBase;
-import Deventos.DEvent;
-import Deventos.DMIEvent;
 
 /**
  * Con este componente podemos ver todos los usuarios que hay conectados en cada
