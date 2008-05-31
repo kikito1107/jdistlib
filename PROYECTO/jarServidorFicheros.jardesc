@@ -39,10 +39,10 @@
 <javaElement handleIdentifier="=PROYECTO/&lt;aplicacion.fisica"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;metainformacion.gui"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;aplicacion.fisica.eventos"/>
-<javaElement handleIdentifier="=PROYECTO/&lt;aplicacion.gui.componentes"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;aplicacion.plugin.jar"/>
+<javaElement handleIdentifier="=PROYECTO/&lt;aplicacion.gui.componentes"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;lookandfeel.Dmetal"/>
-<javaElement handleIdentifier="=PROYECTO/&lt;lookandfeel"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;aplicacion.fisica.documentos.filtros"/>
+<javaElement handleIdentifier="=PROYECTO/&lt;lookandfeel"/>
 </selectedElements>
 </jardesc>
