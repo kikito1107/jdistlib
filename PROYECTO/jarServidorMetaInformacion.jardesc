@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="MacRoman"?>
 <jardesc>
 <jar path="/Users/carlosrodriguezdominguez/Documents/UGR/PROYECTO/bin/servidorMetainformacion.jar"/>
-<options buildIfNeeded="true" compress="true" descriptionLocation="/PROYECTO/jarServidorMetaInformacion2.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="true" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+<options buildIfNeeded="true" compress="true" descriptionLocation="/PROYECTO/jarServidorMetaInformacion.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="true" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
 <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
 <selectedProjects/>
 <manifest generateManifest="false" mainClassHandleIdentifier="=PROYECTO/&lt;metainformacion{MainServidorMetaInformacion.java[MainServidorMetaInformacion" manifestLocation="/PROYECTO/MANIFEST_SERVIDOR_META.MF" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
