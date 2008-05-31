@@ -172,8 +172,10 @@ public class DMIEvent extends DEvent
 	
 	public static final Integer SAVE_CHANGES = new Integer(58);
 
+	@SuppressWarnings("unchecked")
 	public Vector v1 = null;
 
+	@SuppressWarnings("unchecked")
 	public Vector v2 = null;
 
 	public String clave = null;
