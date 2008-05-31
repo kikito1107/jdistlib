@@ -149,7 +149,7 @@ public class PanelPrincipal extends DComponenteBase
 						f  = arbolDocumentos.recuperarMail();
 						
 						if (f != null) {
-							 f = EnviarMensaje.getMensaje("", "Re: "+ f.toString(), separador+f.getMensaje());
+							 f = EnviarMensaje.getMensaje("", "Re "+ f.toString(), separador+f.getMensaje());
 							 if (f != null)
 								 enviarMail(f);
 						}
@@ -1112,6 +1112,8 @@ public class PanelPrincipal extends DComponenteBase
 			int id_doc = dfe.fichero.getId();
 			DefaultMutableTreeNode nodo = ArbolDocumentos.buscarFichero(raiz, id_doc);
 
+			if (nodo == null) return;
+			
 			modelo.removeNodeFromParent(nodo);
 			comprobarPermisosDocumentoActual(dfe.fichero, true);
 
