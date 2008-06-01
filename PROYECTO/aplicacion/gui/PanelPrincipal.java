@@ -230,13 +230,15 @@ public class PanelPrincipal extends DComponenteBase
 			jLabel1.setBounds(new Rectangle(60, 174, 80, 16));
 			jLabel1.setFont(fuente);
 			jLabel1.setText("Usuarios");
+			jLabel1.setIcon(new ImageIcon("Resources/group.png"));
 			GridBagConstraints gridBagConstraints = new GridBagConstraints();
 			gridBagConstraints.gridx = 2;
 			gridBagConstraints.gridy = 0;
 			jLabel = new JLabel();
 			jLabel.setText("Aplicaciones");
 			jLabel.setFont(fuente);
-			jLabel.setBounds(new Rectangle(52, 4, 90, 21));
+			jLabel.setIcon(new ImageIcon("Resources/bricks.png"));
+			jLabel.setBounds(new Rectangle(52, 4, 95, 21));
 			panelLateral = new JPanel();
 			panelLateral.setLayout(null);
 			panelLateral.setBounds(new Rectangle(6, 16, 188, 400));
