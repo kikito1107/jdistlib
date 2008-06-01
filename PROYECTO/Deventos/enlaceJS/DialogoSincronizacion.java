@@ -157,7 +157,7 @@ public class DialogoSincronizacion extends JDialog
 		}
 	}
 
-	private class Monitor
+	public class Monitor
 	{
 		private boolean parpadeo = false;
 

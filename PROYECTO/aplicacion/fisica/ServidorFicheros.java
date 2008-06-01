@@ -220,8 +220,6 @@ public class ServidorFicheros
 						FrameServFich
 								.println("Leido evento insercion nuevo fichero");
 
-						// TODO insertar un nuevo fichero en la BD
-
 						if (gestor == null) gestor = new GestorFicherosBD();
 						
 						DFileEvent evt = (DFileEvent) leido;

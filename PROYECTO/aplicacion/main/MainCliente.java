@@ -45,7 +45,7 @@ public class MainCliente
 			frame.pack();
 		else frame.validate();
 
-		frame.setSize(570, 460);
+		frame.setSize(570, 470);
 		d.sincronizarComponentes();
 
 		// Center the window

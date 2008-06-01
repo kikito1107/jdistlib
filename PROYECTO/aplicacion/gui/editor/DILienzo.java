@@ -27,6 +27,7 @@ import aplicacion.fisica.documentos.Documento;
 import aplicacion.fisica.documentos.Pagina;
 import aplicacion.fisica.net.Transfer;
 import aplicacion.fisica.net.TransferP2P;
+import aplicacion.gui.VentanaCarga;
 
 import componentes.base.DComponenteBase;
 
@@ -861,11 +862,10 @@ public class DILienzo extends DIViewer implements MouseListener,
 		if (conectadoDC() && ( doc.getPath() != null )
 				&& !doc.getPath().equals(""))
 		{
-
 			DJLienzoEvent e = new DJLienzoEvent();
 			e.tipo = new Integer(DJLienzoEvent.SINCRONIZACION.intValue());
 			e.path = new String(doc.getPath());
-
+			
 			if (!DConector.obtenerDC().leerToken(doc.getPath()))
 			{
 
@@ -884,7 +884,9 @@ public class DILienzo extends DIViewer implements MouseListener,
 					p.setDatosBD(doc.getDatosBD());
 					doc = p;
 
+				
 					repaint();
+					//v.ocultar();
 				}
 				else
 				{
@@ -901,6 +903,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 						// intentamos abrirlo forzando a documento de texto
 						p = t.receiveDocumento(true);
 
+						
 						if (p == null)
 						{
 
@@ -909,7 +912,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 											+ doc.getPath()
 											+ " desde el servidor");
 
-							if (padre != null) padre.dispose();
+							doc.setPath("");
 						}
 						else
 						{
@@ -920,6 +923,8 @@ public class DILienzo extends DIViewer implements MouseListener,
 
 						}
 					}
+					else
+						doc.setPath("");
 				}
 
 				e.sincronizarFichero = new Boolean(false);

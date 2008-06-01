@@ -33,7 +33,7 @@ import Deventos.DMIEvent;
  * <p>
  * Description: Un objeto de esta clase hara de conector entre el JavaSpace
  * 
- * y la aplicacion. Dispondrá de métodos para comunicarle el deseo de enviar
+ * y la aplicacion. Dispondr‡ de mŽtodos para comunicarle el deseo de enviar
  * 
  * o recibir mensajes del JavaSpace
  * </p>

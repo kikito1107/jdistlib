@@ -68,7 +68,6 @@ public class GestorPlugins extends JFrame
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 
-
 	/**
 	 * This method initializes jContentPane
 	 * 
@@ -88,6 +87,7 @@ public class GestorPlugins extends JFrame
 
 	/**
 	 * Inicializa el panel de scroll sobre el que esta tablaPlugin
+	 * 
 	 * @return el scroll
 	 */
 	private JScrollPane getScroll()
@@ -110,12 +110,25 @@ public class GestorPlugins extends JFrame
 	{
 		if (tablaPlugins == null)
 		{
-			tablaPlugins = new JTable();
+			tablaPlugins = new JTable()
+			{
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 5351964601477898681L;
+
+				public boolean isCellEditable(int row, int col)
+				{
+					return false;
+				}
+			};
 			tablaPlugins.setModel(this.getDefaultTableModel());
 			tablaPlugins.setAutoCreateColumnsFromModel(true);
 			tablaPlugins.setShowGrid(true);
+
 			tablaPlugins.setCellSelectionEnabled(false);
 			tablaPlugins.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
 			tablaPlugins.setRowSelectionAllowed(true);
 		}
 		return tablaPlugins;
@@ -155,14 +168,16 @@ public class GestorPlugins extends JFrame
 		{
 			EliminarPlugin = new JButton();
 			EliminarPlugin.setText("Eliminar Plugin");
-			EliminarPlugin.setFont(new Font("Lucida Sans", Font.PLAIN, 11));  // Generated
+			EliminarPlugin.setFont(new Font("Lucida Sans", Font.PLAIN, 11)); // Generated
 			EliminarPlugin.setIcon(new ImageIcon("Resources/brick_delete.png"));
 			EliminarPlugin
 					.addActionListener(new java.awt.event.ActionListener()
 					{
 						public void actionPerformed(java.awt.event.ActionEvent e)
 						{
-							eliminarPlugin(tablaPlugins.getSelectedRow());
+							int opc = JOptionPane.showConfirmDialog(null, "Una vez eliminado el plugin esta acción no se puede deshacer\n¿Seguro que desea eliminar el plugin?", "Confirmacion", JOptionPane.YES_NO_OPTION);
+							if (opc == 0)
+								eliminarPlugin(tablaPlugins.getSelectedRow());
 						}
 					});
 		}
@@ -170,28 +185,33 @@ public class GestorPlugins extends JFrame
 	}
 
 	/**
-	 * Elimina un plugin: lo borra de la lista de plugins de la aplicacion y elimina el fichero .jar asociado al plugin
-	 * @param numPlugin posicion que le plugin ocupa en la lista
+	 * Elimina un plugin: lo borra de la lista de plugins de la aplicacion y
+	 * elimina el fichero .jar asociado al plugin
+	 * 
+	 * @param numPlugin
+	 *            posicion que le plugin ocupa en la lista
 	 */
 	private void eliminarPlugin(int numPlugin)
 	{
-		
-		if(numPlugin < 0) return;
-		
+
+		if (numPlugin < 0) return;
+
 		int numPlugins = PanelPrincipal.numPlugins();
-		
+
 		if (numPlugins <= numPlugin || numPlugins < 1) return;
-		
-		java.io.File fichero = new java.io.File("plugin/" + PanelPrincipal.getPluginJarName(numPlugin));
-		
-		System.out.println("El nombre del fichero a borrar " + fichero.getAbsolutePath());
-		
+
+		java.io.File fichero = new java.io.File("plugin/"
+				+ PanelPrincipal.getPluginJarName(numPlugin));
+
+		System.out.println("El nombre del fichero a borrar "
+				+ fichero.getAbsolutePath());
+
 		if (!fichero.delete())
 			System.err.println("Error al eliminar el fichero");
-		
-		PanelPrincipal.eliminarPlugin((String) tablaPlugins.getValueAt(numPlugin, 0));
 
-		
+		PanelPrincipal.eliminarPlugin((String) tablaPlugins.getValueAt(
+				numPlugin, 0));
+
 		modeloTabla.removeRow(numPlugin);
 	}
 
@@ -207,60 +227,69 @@ public class GestorPlugins extends JFrame
 			AgregarPlugin = new JButton();
 			AgregarPlugin.setText("Agregar nuevo plugin");
 			AgregarPlugin.setIcon(new ImageIcon("Resources/brick_add.png"));
-			
+
 			AgregarPlugin.addActionListener(new java.awt.event.ActionListener()
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
 					// Seleccionar archivo a cargar
-					
-					//mostramos el selector de ficheros
-					JFileChooser jfc = new JFileChooser("Subir Documento Servidor");
+
+					// mostramos el selector de ficheros
+					JFileChooser jfc = new JFileChooser(
+							"Subir Documento Servidor");
 					jfc.setAcceptAllFileFilterUsed(false);
-					FiltroFichero filtro = new FiltroFichero("jar", "Java ARchive");
+					FiltroFichero filtro = new FiltroFichero("jar",
+							"Java ARchive");
 					jfc.setFileFilter(filtro);
-					
 
 					int op = jfc.showDialog(null, "Aceptar");
 
-					// si no se ha escogido la opcion aceptar en el dialogo de apertura de
+					// si no se ha escogido la opcion aceptar en el dialogo de
+					// apertura de
 					// fichero salimos
 					if (op != JFileChooser.APPROVE_OPTION) return;
 
-					java.io.File origen  = jfc.getSelectedFile();
-					java.io.File destino = new java.io.File("plugin/"+origen.getName()); 
-					
-					//copiarlo a la carpeta de plugins
+					java.io.File origen = jfc.getSelectedFile();
+					java.io.File destino = new java.io.File("plugin/"
+							+ origen.getName());
+
+					// copiarlo a la carpeta de plugins
 					if (!origen.renameTo(destino))
-						JOptionPane.showMessageDialog(null,"Ha ocurrido un error durante la copia del plugin");
-					
-					
+						JOptionPane
+								.showMessageDialog(null,
+										"Ha ocurrido un error durante la copia del plugin");
+
 					DAbstractPlugin nuevo = null;
-					
+
 					// probar que es un plugin valido
 					try
 					{
-						nuevo = DPluginLoader.getPlugin(destino.getAbsolutePath());
+						nuevo = DPluginLoader.getPlugin(destino
+								.getAbsolutePath());
 					}
 					catch (Exception e1)
 					{
 						nuevo = null;
 					}
-					
-					if (nuevo == null) {
-						JOptionPane.showMessageDialog(null,"El fichero añadido no contiene un plugin válido.");
+
+					if (nuevo == null)
+					{
+						JOptionPane
+								.showMessageDialog(null,
+										"El fichero añadido no contiene un plugin válido.");
 						if (!destino.delete())
-							JOptionPane.showMessageDialog(null,"Error al  intentar borrar un plugin no valido");
+							JOptionPane
+									.showMessageDialog(null,
+											"Error al  intentar borrar un plugin no valido");
 						return;
 					}
-					
+
 					// agregarlo a la lista de plugins de PanelPrincipal
 					PanelPrincipal.agregarPlugin(nuevo);
-					
+
 					// agregarlo a la tabla
 					inicializarModelo();
-					
-					
+
 				}
 			});
 		}
@@ -269,6 +298,7 @@ public class GestorPlugins extends JFrame
 
 	/**
 	 * Inicializa el modelo de la tabla de plugisn
+	 * 
 	 * @return
 	 */
 	private DefaultTableModel getDefaultTableModel()
@@ -290,14 +320,14 @@ public class GestorPlugins extends JFrame
 
 	/**
 	 * Inicializa el modelo de la tabla
-	 *
+	 * 
 	 */
 	public void inicializarModelo()
 	{
 		int numPlugins = PanelPrincipal.numPlugins();
-		
-		if ( numPlugins == 0 || numPlugins == -1) return;
-		
+
+		if (numPlugins == 0 || numPlugins == -1) return;
+
 		for (int i = 0; i < this.modeloTabla.getRowCount(); ++i)
 			modeloTabla.removeRow(i);
 

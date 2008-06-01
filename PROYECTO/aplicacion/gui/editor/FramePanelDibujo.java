@@ -68,7 +68,7 @@ public class FramePanelDibujo extends DJFrame
 		lienzo.setPadre(this);
 	}
 
-	void this_windowClosing(WindowEvent e)
+	public void this_windowClosing(WindowEvent e)
 	{
 
 		DConector.obtenerDC()

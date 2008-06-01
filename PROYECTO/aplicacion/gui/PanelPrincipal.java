@@ -26,6 +26,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
 import javax.swing.JTree;
@@ -117,6 +118,11 @@ public class PanelPrincipal extends DComponenteBase
 
 	private Font fuente = new Font("Lucida Sans", Font.PLAIN, 12);
 	
+	private JProgressBar barraProgreso = null;
+	
+	private MonitorAbrir monitor = new MonitorAbrir();
+	
+	private MonitorPlugins monitorP = new MonitorPlugins();
 	
 	
 	//============= INICIALIZACIÓN ===================================================================
@@ -141,7 +147,7 @@ public class PanelPrincipal extends DComponenteBase
 			
 			plugins = DPluginLoader.getAllPlugins("plugin");
 
-			new HebraActualizacionPlugin();
+			new HebraAbrir();
 			
 			BorderLayout borderLayout = new BorderLayout();
 			borderLayout.setHgap(0);
@@ -149,9 +155,15 @@ public class PanelPrincipal extends DComponenteBase
 			this.add(getPanelLateral(), BorderLayout.WEST);
 
 
+			
 			inicializarEditor();
 
 			this.add(getPanelEspacioTrabajo(), null);
+			
+			this.add(getBarraProgreso());
+			
+			new HebraAbrir();
+			new HebraPlugins();
 			
 			esto = this;
 		}
@@ -181,80 +193,7 @@ public class PanelPrincipal extends DComponenteBase
 		if (this.arbolDocumentos != null) this.arbolDocumentos.repaint();
 	}
 	
-	
-//	============= PLUGINS ===================================================================
-	
-	/**
-	 * Elimina un plugin de la lista de plugins
-	 * @param namen nombre del plugin a eliminar
-	 */
-	public static void eliminarPlugin(String namen){
 
-		boolean encontrada = false;
-		
-		for (int i=0; i<esto.plugins.size() && !encontrada; ++i)
-			if (esto.plugins.get(i).getName().equals(namen)) {
-				encontrada = true;
-				esto.plugins.remove(i);
-			}
-		
-	}
-	
-	/**
-	 * Agreaga un plugin a la lista
-	 * @param a plugin a agregar
-	 */
-	public static void agregarPlugin(DAbstractPlugin a){
-		esto.plugins.add(a);
-	}
-
-	/**
-	 * Consulta el numero de plugins cargados actualmente
-	 * @return el numero de plugins. Devuelve -1 si se ha producido algún error
-	 */
-	public static int numPlugins(){
-		
-		if (esto.plugins == null) 
-			return -1;
-		else
-			return esto.plugins.size();
-	}
-	
-	/**
-	 * Consulta el nombre del fichero jar asociado a un plugin
-	 * @param index posicion del plugin en la lista
-	 * @return el nombre del jar
-	 * @throws ArrayIndexOutOfBoundsException
-	 */
-	public static String getPluginJarName(int index) throws ArrayIndexOutOfBoundsException {
-		String jarName =  esto.plugins.get(index).getJarFile();
-		
-		return jarName;
-	}
-	
-	/**
-	 * Consulta la version del plugin
-	 * @param index posicion del plugin en la lista
-	 * @return la version
-	 * @throws ArrayIndexOutOfBoundsException
-	 */
-	public static long getVersionPlugin(int index) throws ArrayIndexOutOfBoundsException {
-		long v =  esto.plugins.get(index).getVersion();
-		
-		return v;
-	}
-	
-	/**
-	 * Consulta el nombre de un plugin
-	 * @param index posicion del plugin en la lista
-	 * @return el nombre
-	 * @throws ArrayIndexOutOfBoundsException
-	 */
-	public static String getPluginName(int index) throws ArrayIndexOutOfBoundsException {
-		String jarName =  esto.plugins.get(index).getName();
-		
-		return jarName;
-	}
 	
 	
 	//	============= GUI ===================================================================
@@ -281,7 +220,7 @@ public class PanelPrincipal extends DComponenteBase
 			jLabel.setBounds(new Rectangle(52, 4, 90, 21));
 			panelLateral = new JPanel();
 			panelLateral.setLayout(null);
-			panelLateral.setBounds(new Rectangle(6, 16, 188, 398));
+			panelLateral.setBounds(new Rectangle(6, 16, 188, 400));
 			panelLateral.add(jLabel, gridBagConstraints);
 			panelLateral.add(getHerrmientasUsuarios(), null);
 			panelLateral.add(getListaAplicaciones(), null);
@@ -309,7 +248,7 @@ public class PanelPrincipal extends DComponenteBase
 			panelEspacioTrabajo = new JPanel();
 			panelEspacioTrabajo.setFont(fuente);
 			panelEspacioTrabajo.setLayout(borderLayout2);
-			panelEspacioTrabajo.setBounds(new Rectangle(210, 16, 349, 398));
+			panelEspacioTrabajo.setBounds(new Rectangle(210, 16, 350, 400));
 			panelEspacioTrabajo.setBorder(new LineBorder(Color.GRAY, 1));
 			panelEspacioTrabajo.add(getHerraminetasDocumentos(),
 					BorderLayout.NORTH);
@@ -345,6 +284,26 @@ public class PanelPrincipal extends DComponenteBase
 			herramientasDocumentos.add(getBotonInfo());
 		}
 		return herramientasDocumentos;
+	}
+	
+	/**
+	 * Accede a la barra de progreso
+	 * @return barraProgreso correctamente inicializada
+	 */
+	private JProgressBar getBarraProgreso(){
+		if (barraProgreso == null) {
+			barraProgreso = new JProgressBar();
+			
+			barraProgreso.setIndeterminate(false);
+			
+			barraProgreso.setValue(0);
+			
+			barraProgreso.setBounds(new Rectangle(350, 420, 210, 20));
+			
+			barraProgreso.setForeground(Color.GRAY);
+			barraProgreso.setBackground(Color.DARK_GRAY);
+		}
+		return barraProgreso;
 	}
 	
 	/**
@@ -590,7 +549,7 @@ public class PanelPrincipal extends DComponenteBase
 				@Override
 				public void mouseClicked(java.awt.event.MouseEvent e)
 				{
-					if (e.getClickCount() == 2) accionAbrir();
+					if (e.getClickCount() == 2) monitor.notificarAbrir();
 				}
 			});
 		}
@@ -1157,10 +1116,23 @@ public class PanelPrincipal extends DComponenteBase
 		{
 			frame.setDocumento(p);
 			frame.getLienzo().setPathDocumento(f.getRutaLocal());
+			
+			barraProgreso.setString("Cargando Fichero");
+			barraProgreso.setIndeterminate(true);
 			frame.getLienzo().getLienzo().sincronizar();
+			barraProgreso.setIndeterminate(false);
+			barraProgreso.setString("");
+			barraProgreso.setValue(0);
+			
+			
 		}
 
-		frame.setVisible(true);
+		if (!frame.getLienzo().getLienzo().getDocumento().getPath().equals("")) {
+			frame.setVisible(true);
+		}
+		else {
+			frame.this_windowClosing(null);
+		}
 
 		frame.getLienzo().getLienzo().getDocumento().setPath(f.getRutaLocal());
 
@@ -1414,40 +1386,182 @@ public class PanelPrincipal extends DComponenteBase
 	 * Hebra que se encarga de actualizar los valores de la lista de plugins 
 	 * @author anab
 	 */
-	private class HebraActualizacionPlugin implements Runnable {
+	private class HebraAbrir implements Runnable {
 
-		public  HebraActualizacionPlugin(){
+		public  HebraAbrir(){
 			Thread hebra = new Thread(this);
 			hebra.start();
 		}
 		
 		public void run()
 		{
-			int k;
 			while (true) {
-				try
-				{
-					Thread.sleep(3000L);
-					
-					k = listaAplicaciones.getSelectedIndex();
-					modeloAplicaciones.removeAllElements();
-					
-					for (int i = 0; i < plugins.size(); ++i)
-					{
-						if (plugins.get(i).shouldShowIt())
-							modeloAplicaciones.addElement(plugins.get(i).toString());
-					}
-					
-					if (k < modeloAplicaciones.getSize())
-						listaAplicaciones.setSelectedIndex(k);
-				}
-				catch (InterruptedException e)
-				{
-					// no hacemos nada
-				}
+				monitor.abrir();
+				
+				accionAbrir();
 			}
 			
 		}
 		
+	}
+	
+	private class HebraPlugins implements Runnable {
+
+		public  HebraPlugins(){
+			Thread hebra = new Thread(this);
+			hebra.start();
+		}
+		
+		public void run()
+		{
+			while (true) {
+				esto.monitorP.actualizar();
+				
+				esto.modeloAplicaciones.removeAllElements();
+				
+				for (int i = 0; i < esto.plugins.size(); ++i)
+				{
+					if (esto.plugins.get(i).shouldShowIt())
+						esto.modeloAplicaciones.addElement(plugins.get(i).toString());
+				}
+				
+				esto.listaAplicaciones.repaint();
+				
+			}
+			
+		}
+		
+	}
+	
+	
+//	============= PLUGINS ===================================================================
+	
+	/**
+	 * Elimina un plugin de la lista de plugins
+	 * @param namen nombre del plugin a eliminar
+	 */
+	public static void eliminarPlugin(String namen){
+
+		boolean encontrada = false;
+		
+		for (int i=0; i<esto.plugins.size() && !encontrada; ++i)
+			if (esto.plugins.get(i).getName().equals(namen)) {
+				encontrada = true;
+				esto.plugins.remove(i);
+			}
+		esto.monitorP.notificarPlugins();
+	}
+	
+	/**
+	 * Agreaga un plugin a la lista
+	 * @param a plugin a agregar
+	 */
+	public static void agregarPlugin(DAbstractPlugin a){
+		esto.plugins.add(a);
+		esto.monitorP.notificarPlugins();
+	}
+
+	/**
+	 * Consulta el numero de plugins cargados actualmente
+	 * @return el numero de plugins. Devuelve -1 si se ha producido algún error
+	 */
+	public static int numPlugins(){
+		
+		if (esto.plugins == null) 
+			return -1;
+		else
+			return esto.plugins.size();
+	}
+	
+	/**
+	 * Consulta el nombre del fichero jar asociado a un plugin
+	 * @param index posicion del plugin en la lista
+	 * @return el nombre del jar
+	 * @throws ArrayIndexOutOfBoundsException
+	 */
+	public static String getPluginJarName(int index) throws ArrayIndexOutOfBoundsException {
+		String jarName =  esto.plugins.get(index).getJarFile();
+		
+		return jarName;
+	}
+	
+	/**
+	 * Consulta la version del plugin
+	 * @param index posicion del plugin en la lista
+	 * @return la version
+	 * @throws ArrayIndexOutOfBoundsException
+	 */
+	public static long getVersionPlugin(int index) throws ArrayIndexOutOfBoundsException {
+		long v =  esto.plugins.get(index).getVersion();
+		
+		return v;
+	}
+	
+	/**
+	 * Consulta el nombre de un plugin
+	 * @param index posicion del plugin en la lista
+	 * @return el nombre
+	 * @throws ArrayIndexOutOfBoundsException
+	 */
+	public static String getPluginName(int index) throws ArrayIndexOutOfBoundsException {
+		String jarName =  esto.plugins.get(index).getName();
+		
+		return jarName;
+	}
+	
+	
+	
+	
+	
+	
+	// ===================== MONITORES ===================================================
+	
+	/**
+	 * Monitor que controla la actualizacion de la lista de aplicaciones
+	 */
+	private class MonitorPlugins {
+		public synchronized void actualizar()
+		{
+			try
+			{
+				wait();
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+
+		}
+
+		public synchronized void notificarPlugins()
+		{
+			notifyAll();
+		}
+	}
+	
+	
+	/**
+	 * Monitor que controla la apertura de documentos
+	 */
+	private class MonitorAbrir
+	{
+
+		public synchronized void abrir()
+		{
+			try
+			{
+				wait();
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+
+		}
+
+		public synchronized void notificarAbrir()
+		{
+			notifyAll();
+		}
 	}
 }

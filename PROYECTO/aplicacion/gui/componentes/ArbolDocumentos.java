@@ -99,7 +99,7 @@ public class ArbolDocumentos extends JTree implements Autoscroll {
 		this.getSelectionModel().setSelectionMode(
 				TreeSelectionModel.SINGLE_TREE_SELECTION);
 		this.setCellRenderer(new DocumentosCellRenderer());
-		
+		//this.putClientProperty("JTree.lineStyle", "Horizontal");
 		
 		ds = new TreeDragSource(this, DnDConstants.ACTION_COPY_OR_MOVE);
 	    dt = new TreeDropTarget(this);
