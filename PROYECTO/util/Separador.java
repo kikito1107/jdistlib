@@ -7,10 +7,6 @@ import javax.swing.JButton;
 
 public class Separador extends JButton
 {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 3115477453021523269L;
 
 	public Separador()
