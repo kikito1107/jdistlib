@@ -70,9 +70,6 @@ public class ArbolUsuarios extends JTree
 		if (( Rol != null ) && ( usuario != null ) && ( !usuario.equals("") )
 				&& ( !Rol.equals("") ) && ( unNodoRol != null ))
 		{
-
-			System.out.println("El rol encontrado es "
-					+ unNodoRol.getUserObject());
 			modelo.insertNodeInto(hijo, unNodoRol, unNodoRol.getChildCount());
 
 			this.expandir();
@@ -152,7 +149,7 @@ public class ArbolUsuarios extends JTree
 
 		DefaultMutableTreeNode hijo = this.buscarUsuario(nodoRol, Usuario);
 
-		nodoRol.remove(hijo);
+		modelo.removeNodeFromParent(hijo);
 
 		this.expandir();
 	}
@@ -193,7 +190,7 @@ public class ArbolUsuarios extends JTree
 
 		if (ramaRol != null)
 		{
-			int numHojas = ramaRol.getChildCount();
+			int numHojas = modelo.getChildCount(ramaRol);
 
 			for (int i = 0; ( i < numHojas ) && seguir; ++i)
 			{

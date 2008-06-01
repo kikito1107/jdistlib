@@ -10,6 +10,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
 import metainformacion.ClienteMetaInformacion;
@@ -166,6 +167,9 @@ public class ArbolUsuariosConectadosRol extends DComponenteBase
 		Vector v2;
 		DefaultMutableTreeNode aux;
 
+		DefaultTreeModel modelo = (DefaultTreeModel)arbol.getModel();
+		
+		
 		if (v != null) {
 			
 			for (int i = 0; i < v.size(); ++i)
@@ -179,10 +183,10 @@ public class ArbolUsuariosConectadosRol extends DComponenteBase
 				if (( v2 != null ) && ( v2.size() > 0 )) {
 					
 					for (int j = 0; j < v2.size(); j++) {
-						aux.insert(new DefaultMutableTreeNode(v2.get(j)), j);
+						modelo.insertNodeInto(new DefaultMutableTreeNode(v2.get(j)), aux, j);
 					}
 				}
-				raiz.insert(aux, i);
+				modelo.insertNodeInto(aux, raiz, i);
 			}
 		}
 	}

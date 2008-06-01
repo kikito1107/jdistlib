@@ -123,6 +123,8 @@ public class PanelPrincipal extends DComponenteBase
 	private MonitorAbrir monitor = null;
 
 	private MonitorPlugins monitorP = null;
+	
+	
 
 	// ============= INICIALIZACIÓN
 	// ===================================================================

@@ -402,6 +402,8 @@ public class GestorFicherosBD
 					f.setPermisos(rs.getString("permisos"));
 					f.setRutaLocal(rs.getString("ruta_local"));
 					f.setTipo(rs.getString("tipo"));
+					f.setUsuario(this.obtenerUsuario(rs.getInt("usuario")));
+					f.setRol(this.obtenerRol(rs.getInt("rol")));
 				}
 				
 				rs.close();
