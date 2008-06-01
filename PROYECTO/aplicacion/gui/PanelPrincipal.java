@@ -1427,7 +1427,7 @@ public class PanelPrincipal extends DComponenteBase
 			while (true) {
 				try
 				{
-					Thread.sleep(5000L);
+					Thread.sleep(3000L);
 					
 					k = listaAplicaciones.getSelectedIndex();
 					modeloAplicaciones.removeAllElements();
