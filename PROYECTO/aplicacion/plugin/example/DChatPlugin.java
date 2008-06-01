@@ -65,7 +65,8 @@ public class DChatPlugin extends DAbstractPlugin
 		shouldShow = true;
 		jarFile = "chat.jar";
 		categoria = DAbstractPlugin.CATEGORIA_COMUNICACION;
-
+		descripcion = "Chat con videoconferencia integrada. Permite mensajes privados y publicos";
+		
 		arbol = new ArbolUsuariosConectadosRol("ListaUsuariosConectadosRol",
 				true, null);
 		chat = new DIChat("chat", true, null);

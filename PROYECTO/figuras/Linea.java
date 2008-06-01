@@ -75,8 +75,6 @@ public class Linea extends Figura
 			int valor = (int) ( ( (float) ( yf - y ) / (float) ( xf - x ) )
 					* ( a - x ) + y );
 
-			System.out.println("Valor: " + valor + " B: " + b);
-
 			if (( valor < b + margen ) && ( valor > b - margen ))
 				return true;
 			else return false;

@@ -34,6 +34,7 @@ public class DGestorPlugins extends DAbstractPlugin
 		nombre = "Gestor Plugins";
 		jarFile = "gestor.jar";
 		categoria = DAbstractPlugin.CATEGORIA_UTILIDADES;
+		descripcion = "Gestor de los plugins instalados en esta aplicacion";
 
 		gestorPlugin = new GestorPlugins();
 	}

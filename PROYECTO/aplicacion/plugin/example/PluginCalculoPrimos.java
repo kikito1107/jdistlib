@@ -51,6 +51,7 @@ public class PluginCalculoPrimos extends DAbstractPlugin
 		jarFile = "primos.jar";
 		versioningEnabled = false;
 		categoria = DAbstractPlugin.CATEGORIA_CIENTIFICO;
+		descripcion = "Calculo de numeros primos en paralelo. Comunicate con tus colaboradores para que pongan su ordenador a tu disposicion para los calculos!!";
 		
 		p = new PrimeMaster(false);
 	}

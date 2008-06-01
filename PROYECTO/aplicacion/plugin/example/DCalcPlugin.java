@@ -36,6 +36,7 @@ public class DCalcPlugin extends DAbstractPlugin
 		categoria = DAbstractPlugin.CATEGORIA_UTILIDADES;
 		versioningEnabled = false;
 		shouldShow = true;
+		descripcion = "Calculadora muy simple que funciona con el teclado";
 		ventana = new JFrame(":: Calculadora ::");
 		eco = new Calc();
 

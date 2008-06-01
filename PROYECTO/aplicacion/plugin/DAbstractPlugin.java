@@ -52,6 +52,8 @@ public abstract class DAbstractPlugin extends DComponenteBase
 	protected boolean shouldShow = true;
 	
 	protected int categoria = CATEGORIA_OTROS;
+	
+	protected String descripcion = "";
 
 	private Integer ultimoProcesado = new Integer(-1);
 
@@ -101,6 +103,11 @@ public abstract class DAbstractPlugin extends DComponenteBase
 	public void setCategoria(int categ)
 	{
 		categoria = categ;
+	}
+	
+	public String getDescripcion()
+	{
+		return descripcion;
 	}
 
 	protected DPluginRegisterEvent obtenerInfoEstado()

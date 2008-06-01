@@ -395,7 +395,7 @@ public class PanelPrincipal extends DComponenteBase
 	 * 
 	 * @return botonDescargar inicializado
 	 */
-	public JButton getBotonDescargar()
+	private JButton getBotonDescargar()
 	{
 		if (botonDescargar == null)
 		{
@@ -424,7 +424,7 @@ public class PanelPrincipal extends DComponenteBase
 	 * 
 	 * @return el botonImprimir inicializado
 	 */
-	public JButton getBotonImprimirDocumento()
+	private JButton getBotonImprimirDocumento()
 	{
 		if (botonImprimirDocumento == null)
 		{
@@ -1042,7 +1042,7 @@ public class PanelPrincipal extends DComponenteBase
 		{
 
 
-			listaAplicaciones = new JList(getModelo());
+			listaAplicaciones = new PluginList(getModelo());
 			listaAplicaciones.setFont(fuente);
 			listaAplicaciones.setBounds(new Rectangle(1, 26, 186, 140));
 			listaAplicaciones.setBorder(new LineBorder(Color.GRAY));
@@ -1102,7 +1102,7 @@ public class PanelPrincipal extends DComponenteBase
 			for (int i = 0; i < plugins.size(); ++i)
 			{
 				if (plugins.get(i).shouldShowIt())
-					modeloAplicaciones.addElement(plugins.get(i).toString());
+					modeloAplicaciones.addElement(plugins.get(i));
 			}
 		}
 		
