@@ -27,13 +27,13 @@ public class TransferenciaFichero extends UnicastRemoteObject implements
 	{
 		
 		if (force)
-			return new TXTFilter().getDocumento(ServidorFicheros.getDirectorioBase() +path, "", "");
+			return new TXTFilter().getDocumento(path, "", "");
 		
 		Documento.addFilter(new MSGFilter());
 		Documento.addFilter(new ImageFilter());
 		Documento.addFilter(new PDFFilter());
 		Documento.addFilter(new TXTFilter());
-		return Documento.openDocument(ServidorFicheros.getDirectorioBase() + path, "", "");
+		return Documento.openDocument(path, "", "");
 	}
 
 	public byte[] getByteFiles(String path)
@@ -91,6 +91,6 @@ public class TransferenciaFichero extends UnicastRemoteObject implements
 
 	public boolean sendDocument(Documento d) throws RemoteException
 	{
-		return Documento.saveDocument(d, ServidorFicheros.getDirectorioBase()+ d.getPath());
+		return Documento.saveDocument(d, d.getPath());
 	}
 }

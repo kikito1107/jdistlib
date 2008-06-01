@@ -59,13 +59,11 @@ public class FramePanelDibujo extends DJFrame
 		else this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.addWindowListener(new FrameDrawPanel_this_windowAdapter(this));
-		lienzo = new DIPanelEditor("panelDibujo", true, null);
+		lienzo = new DIPanelEditor("panelDibujo", true, null, this);
 		this.getContentPane().add(lienzo, BorderLayout.CENTER);
 
 		this.setTitle(".:: Panel Edici—n Compartido : " + DConector.Dusuario
 				+ " ::.");
-
-		lienzo.setPadre(this);
 	}
 
 	public void this_windowClosing(WindowEvent e)

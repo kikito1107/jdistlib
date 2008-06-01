@@ -14,6 +14,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import metainformacion.ClienteMetaInformacion;
 import metainformacion.MICompleta;
 import net.jini.core.entry.UnusableEntryException;
+import net.jini.core.lease.Lease;
 import net.jini.core.transaction.Transaction;
 import net.jini.core.transaction.TransactionException;
 import net.jini.core.transaction.TransactionFactory;
@@ -681,7 +682,7 @@ public class DConector
 		{
 			
 			if (tk != null) {
-				space.write(tk, null, Long.MAX_VALUE);
+				space.write(tk, null, Lease.FOREVER);
 				System.err.println("escribiendo el token");
 				return true;
 			}
@@ -711,7 +712,8 @@ public class DConector
 		plantilla.Fichero = new String(fichero);
 		plantilla.aplicacion = new String(Daplicacion + "_");
 
-		System.err.println("Decrementando el numero de usuaris del documento");
+		System.err.println("Decrementando el numero de usuarios del documento" +
+				fichero);
 
 		try
 		{
@@ -729,7 +731,7 @@ public class DConector
 				if (tk.editores.size() > 1)
 				{
 					tk.bajaUsuario(Dusuario);
-					space.write(tk, null, 10000L);
+					space.write(tk, null, Lease.FOREVER);
 				}
 				return true;
 			}

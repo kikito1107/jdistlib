@@ -22,6 +22,7 @@ import java.util.Vector;
 
 import javax.swing.ImageIcon;
 
+import aplicacion.fisica.ServidorFicheros;
 import aplicacion.fisica.documentos.filtros.DocumentFilter;
 
 public class Documento implements Serializable, Printable
@@ -176,7 +177,7 @@ public class Documento implements Serializable, Printable
 		// comprobar si el fichero .anot existe
 		if (doc != null)
 		{
-			File f = new File(path + ".anot");
+			File f = new File(ServidorFicheros.getDirectorioBase()+ path + ".anot");
 			if (f.exists())
 				try
 				{
@@ -207,7 +208,7 @@ public class Documento implements Serializable, Printable
 
 	public static boolean saveDocument(Documento doc, String path_original)
 	{
-		File f = new File(path_original + ".anot");
+		File f = new File(ServidorFicheros.getDirectorioBase() + path_original + ".anot");
 
 		try
 		{

@@ -26,26 +26,19 @@ public class DIPanelEditor extends DComponenteBase
 
 	private BarraEstado barra = null;
 
-	private JFrame padre = null;
-
 	private JScrollPane jsp = null;
 
-	private String pathDocumento;
 
 	public String getPathDocumento()
 	{
-		return pathDocumento;
+		return lienzo.getDocumento().getPath();
 	}
 
 	public void setPathDocumento(String pathDocumento)
 	{
-		this.pathDocumento = pathDocumento;
+		lienzo.getDocumento().setPath(  pathDocumento);
 	}
 
-	public void setPadre(JFrame unaVentana)
-	{
-		padre = unaVentana;
-	}
 
 	/**
 	 * Crea un nuevo objeto de la clase DIPanelDibujo
@@ -56,16 +49,16 @@ public class DIPanelEditor extends DComponenteBase
 	 * @param padre
 	 */
 	public DIPanelEditor( String nombre, boolean conexionDC,
-			DComponenteBase padre )
+			DComponenteBase padre, FramePanelDibujo papi)
 	{
 		super(nombre, conexionDC, padre);
 
 		lienzo = new DILienzo("lienzo", true, this);
-		lienzo.setPadre(this.padre);
+		lienzo.setPadre(papi);
 
 		barra = new BarraEstado(lienzo);
 		controles = new ControlesDibujo(lienzo, barra);
-		controles.setPadre(this.padre);
+		
 
 		init();
 	}
@@ -82,10 +75,6 @@ public class DIPanelEditor extends DComponenteBase
 		 * EtchedBorder(4)); aux.add(lienzo, BorderLayout.CENTER);
 		 */
 
-		// JScrollPane jsp = new
-		// JScrollPane(lienzo,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED,
-		// JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		// jsp.setLayout(new BorderLayout());
 		if (jsp == null)
 			jsp = new JScrollPane(lienzo,
 					ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,

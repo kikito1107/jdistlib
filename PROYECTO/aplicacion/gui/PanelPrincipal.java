@@ -102,6 +102,8 @@ public class PanelPrincipal extends DComponenteBase
 	DefaultMutableTreeNode raiz = null;
 
 	private JButton botonSubir = null;
+	
+	private JButton cambiarRol = null;
 
 	private JButton reenviar = null;
 
@@ -120,6 +122,10 @@ public class PanelPrincipal extends DComponenteBase
 	private MonitorAbrir monitor = null;
 
 	private MonitorPlugins monitorP = null;
+	
+	private VentanaCambiarRol vRol = null;
+	
+	
 
 	// ============= INICIALIZACIîN
 	// ===================================================================
@@ -144,26 +150,26 @@ public class PanelPrincipal extends DComponenteBase
 
 			plugins = DPluginLoader.getAllPlugins("plugin");
 
-			BorderLayout borderLayout = new BorderLayout();
-			borderLayout.setHgap(0);
 			this.setLayout(null);
 			this.add(getPanelLateral(), BorderLayout.WEST);
-
-			inicializarEditor();
 
 			this.add(getPanelEspacioTrabajo(), null);
 
 			this.add(getBarraProgreso());
 
+			inicializarEditor();
+			inicializarVRol();
+			
 			esto = this;
-
+			
 			monitor = new MonitorAbrir();
 
 			monitorP = new MonitorPlugins();
-
+			
+			
 			new HebraPlugins();
 			new HebraAbrir();
-
+			
 		}
 		catch (Exception ex)
 		{
@@ -171,6 +177,23 @@ public class PanelPrincipal extends DComponenteBase
 		}
 	}
 
+	private void inicializarVRol(){
+		vRol = new VentanaCambiarRol();
+		vRol.setVisible(false);
+		vRol.pack();
+		vRol.setSize(250, 400);
+
+		// Center the window
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		Dimension vRolSize = vRol.getSize();
+		if (vRolSize.height > screenSize.height)
+			vRolSize.height = screenSize.height;
+		if (vRolSize.width > screenSize.width)
+			vRolSize.width = screenSize.width;
+		vRol.setLocation(( screenSize.width - vRolSize.width ) / 2,
+				( screenSize.height - vRolSize.height ) / 2);
+	}
+	
 	private void inicializarEditor()
 	{
 		frame = new FramePanelDibujo(false);
@@ -543,6 +566,44 @@ public class PanelPrincipal extends DComponenteBase
 		return botonAbrirDoc;
 	}
 
+	
+	/**
+	 * This method initializes boton52131
+	 * 
+	 * @return javax.swing.JButton
+	 */
+	private JButton getBotonCambiarRol()
+	{
+		if (cambiarRol == null)
+		{
+			cambiarRol = new JButton();
+
+			cambiarRol.setIcon(new ImageIcon(
+					"Resources/user_edit.png"));
+
+			cambiarRol.setBorderPainted(false);
+			cambiarRol.setToolTipText("Cambiar el rol actual");
+			
+			cambiarRol.addActionListener(new java.awt.event.ActionListener()
+			{
+				public void actionPerformed(java.awt.event.ActionEvent e)
+				{
+					mostrarVentanaCambiarRol();
+
+				}
+
+
+			});
+		}
+		return cambiarRol;
+	}
+	
+	private void mostrarVentanaCambiarRol()
+	{
+		vRol.setVisible(true);
+	}
+	
+	
 	/**
 	 * This method initializes arbolDocuementos
 	 * 
@@ -578,7 +639,7 @@ public class PanelPrincipal extends DComponenteBase
 		if (editarUsuario == null)
 		{
 			editarUsuario = new JButton();
-			editarUsuario.setIcon(new ImageIcon("Resources/page_edit.gif"));
+			editarUsuario.setIcon(new ImageIcon("Resources/group_gear.png"));
 			editarUsuario.setBorderPainted(false);
 
 			editarUsuario.addActionListener(new java.awt.event.ActionListener()
@@ -611,6 +672,7 @@ public class PanelPrincipal extends DComponenteBase
 			s2.setMinimumSize(new Dimension(20, 15));
 			herrmientasUsuarios.setFloatable(false);
 			herrmientasUsuarios.add(getEditarUsuario());
+			herrmientasUsuarios.add(this.getBotonCambiarRol());
 			herrmientasUsuarios.add(s1);
 			herrmientasUsuarios.add(getIniciarChat());
 			herrmientasUsuarios.add(getEnviarMensaje());
@@ -814,20 +876,18 @@ public class PanelPrincipal extends DComponenteBase
 
 		MIDocumento anterior = ClienteFicheros.cf.existeFichero(path + nombre,
 				DConector.Daplicacion);
+		
+		
+			
 
 		while (anterior != null)
 		{
-			// si no tenemos permisos de escritura sobre el documento no podemos
-			// sobrescribirlo
-			if (!anterior.comprobarPermisos(DConector.Dusuario, DConector.Drol,
-					MIDocumento.PERMISO_ESCRITURA))
-			{
-				JOptionPane
-						.showMessageDialog(null,
-								"No tiene suficientes privilegios para subir ese documento");
+			// si no tenemos permisos de escritura sobre el documento no podemos sobrescribirlo
+			if (!anterior.comprobarPermisos(DConector.Dusuario, DConector.Drol, MIDocumento.PERMISO_ESCRITURA) ) {
+				JOptionPane.showMessageDialog(null, "No tiene suficientes privilegios para subir ese documento");
 				return;
 			}
-
+			
 			int sel = JOptionPane.showConfirmDialog(this,
 					"El documento ya existe ÀDesea sobrescribirlo?",
 					"ÀSobrescribir?", JOptionPane.YES_NO_CANCEL_OPTION);
@@ -926,8 +986,8 @@ public class PanelPrincipal extends DComponenteBase
 		extension = MIDocumento.getTipoFichero(extension);
 
 		// creamos el nuevo fichero a almacenar
-		MIDocumento fbd = new MIDocumento(-1, nombre, false, "rwrw--", user,
-				rol, carpeta.getId(), path + nombre, extension);
+		MIDocumento fbd = new MIDocumento(-1, nombre, false, "rwrw--", user, rol,
+				carpeta.getId(), path + nombre, extension);
 
 		// enviamos el nuevo fichero al servidor
 		Transfer t = new Transfer(ClienteFicheros.ipConexion, path + nombre);
@@ -979,6 +1039,7 @@ public class PanelPrincipal extends DComponenteBase
 		if (listaAplicaciones == null)
 		{
 
+
 			listaAplicaciones = new JList(getModelo());
 			listaAplicaciones.setFont(fuente);
 			listaAplicaciones.setBounds(new Rectangle(1, 26, 186, 140));
@@ -1007,20 +1068,12 @@ public class PanelPrincipal extends DComponenteBase
 										boolean encontrada = false;
 
 										for (int i = 0; i < plugins.size(); ++i)
-											try
+											if (plugins.get(i).getName()
+													.equals(seleccionado))
 											{
-												if (plugins.get(i).getName()
-														.equals(seleccionado))
-												{
-													plugins.get(i).start();
-													encontrada = true;
-												}
+												plugins.get(i).start();
+												encontrada = true;
 											}
-											catch (NullPointerException ex)
-											{
-
-											}
-											
 										if (!encontrada)
 											modeloAplicaciones
 													.remove(listaAplicaciones
@@ -1038,11 +1091,10 @@ public class PanelPrincipal extends DComponenteBase
 		return listaAplicaciones;
 	}
 
-	private DefaultListModel getModelo()
-	{
-
-		if (this.modeloAplicaciones == null)
-		{
+	
+	private DefaultListModel getModelo(){
+	
+		if (this.modeloAplicaciones == null) {
 			modeloAplicaciones = new DefaultListModel();
 
 			for (int i = 0; i < plugins.size(); ++i)
@@ -1051,10 +1103,10 @@ public class PanelPrincipal extends DComponenteBase
 					modeloAplicaciones.addElement(plugins.get(i).toString());
 			}
 		}
-
+		
 		return modeloAplicaciones;
 	}
-
+	
 	/**
 	 * Envia un mensaj
 	 * 
@@ -1063,7 +1115,7 @@ public class PanelPrincipal extends DComponenteBase
 	 */
 	private void enviarMail(MIDocumento f)
 	{
-
+		
 		// mandamos el mensaje
 		byte[] bytes = f.getMensaje().getBytes();
 
@@ -1111,7 +1163,7 @@ public class PanelPrincipal extends DComponenteBase
 		MIDocumento f = arbolDocumentos.getDocumentoSeleccionado();
 
 		if (f == null || f.esDirectorio()) return;
-
+		
 		if (!f.comprobarPermisos(DConector.Dusuario, DConector.Drol,
 				MIDocumento.PERMISO_LECTURA))
 		{
@@ -1131,10 +1183,11 @@ public class PanelPrincipal extends DComponenteBase
 		frame.getLienzo().setPathDocumento(f.getRutaLocal());
 
 		barraProgreso.setIndeterminate(true);
-
+		
 		frame.getLienzo().getLienzo().sincronizar();
-
+		
 		barraProgreso.setIndeterminate(false);
+
 
 		if (!frame.getLienzo().getLienzo().getDocumento().getPath().equals(""))
 		{
@@ -1144,6 +1197,8 @@ public class PanelPrincipal extends DComponenteBase
 		{
 			frame.this_windowClosing(null);
 		}
+
+		
 
 		if (this.arbolDocumentos != null) arbolDocumentos.repaint();
 
@@ -1370,8 +1425,7 @@ public class PanelPrincipal extends DComponenteBase
 	 * @param eliminado
 	 *            indica si el documentos ha sido editado
 	 */
-	public void comprobarPermisosDocumentoActual(MIDocumento f,
-			boolean eliminado)
+	public void comprobarPermisosDocumentoActual(MIDocumento f, boolean eliminado)
 	{
 		if (!f.comprobarPermisos(DConector.Dusuario, DConector.Drol,
 				MIDocumento.PERMISO_LECTURA)
@@ -1407,7 +1461,10 @@ public class PanelPrincipal extends DComponenteBase
 					frame.getLienzo().getPathDocumento());
 	}
 
-	// ============= HEBRAS
+	
+	
+	
+	//	 ============= HEBRAS
 	// ===================================================================
 	/**
 	 * Hebra que se encarga de abrir los documentos
@@ -1461,7 +1518,7 @@ public class PanelPrincipal extends DComponenteBase
 
 				// esperamos a que se actualicen los plugins
 				esto.monitorP.actualizar();
-
+				
 				// eliminamos todos los plugins de la lista
 				esto.getModelo().removeAllElements();
 
@@ -1469,7 +1526,8 @@ public class PanelPrincipal extends DComponenteBase
 				for (int i = 0; i < esto.plugins.size(); ++i)
 				{
 					if (esto.plugins.get(i).shouldShowIt())
-						esto.getModelo().addElement(plugins.get(i).toString());
+						esto.getModelo().addElement(plugins.get(i)
+								.toString());
 				}
 
 				// repintamos la lista

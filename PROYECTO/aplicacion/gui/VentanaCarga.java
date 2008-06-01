@@ -1,12 +1,14 @@
 package aplicacion.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
+import java.awt.Dimension;
 
 public class VentanaCarga extends JFrame
 {
@@ -26,13 +28,14 @@ public class VentanaCarga extends JFrame
 	/**
 	 * @param owner
 	 */
-	public VentanaCarga(  )
+	public VentanaCarga( )
 	{
 		super();
 		
 		initialize();
 		//pack();
 		Thread hp = new Thread(new HebraParpadeo(this));
+
 		
 		hp.start();
 	}
@@ -44,10 +47,14 @@ public class VentanaCarga extends JFrame
 	 */
 	private void initialize()
 	{
-		this.setSize(519, 85);
+		this.setSize(330, 85);
 		this.setAlwaysOnTop(true);
 		this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);  // Generated
 		this.setContentPane(getJContentPane());
+		
+
+
+		
 		icono1 = new ImageIcon("./Resources/logo_1.png");
 		icono2 = new ImageIcon("./Resources/logo_2.png");
 		icono3 = new ImageIcon("./Resources/logo_3.png");
@@ -64,6 +71,7 @@ public class VentanaCarga extends JFrame
 		setTitle(titulo);
 		etiquetaIcono.setText(mensaje);
 		etiquetaIcono.setIcon(icono3);
+		setLocationRelativeTo(null);
 		if (!isVisible())
 		{
 			//this.setLocation(x, y);
@@ -131,28 +139,6 @@ public class VentanaCarga extends JFrame
 				}
 
 		}
-	}
-
-	
-	public static void main(String[] args){
-		VentanaCarga v = new VentanaCarga();
-		
-		v.mostrar("","hola", true);
-		
-		try
-		{
-			Thread.sleep(10000L);
-			
-			System.out.println("Ahora salicmos");
-		}
-		catch (InterruptedException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		v.ocultar();
-		
 	}
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"

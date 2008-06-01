@@ -54,7 +54,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 	/**
 	 * Ventana en la que se dibuja el lienzo
 	 */
-	private JFrame padre = null;
+	private FramePanelDibujo padre = null;
 
 	JToolTip tt = new JToolTip();
 
@@ -242,7 +242,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 	/**
 	 * Devuelve la ventana en la que se encuentra el lienzo
 	 */
-	public JFrame getPadre()
+	public FramePanelDibujo getPadre()
 	{
 		return this.padre;
 	}
@@ -253,7 +253,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 	 * @param j
 	 *            ventana en la que se dibuja el lienzo
 	 */
-	public void setPadre(JFrame j)
+	public void setPadre(FramePanelDibujo j)
 	{
 		padre = j;
 	}
@@ -866,6 +866,8 @@ public class DILienzo extends DIViewer implements MouseListener,
 			
 			if (!DConector.obtenerDC().leerToken(doc.getPath()))
 			{
+				
+				//JOptionPane.showMessageDialog(null, "PATH " + doc.getPath());
 
 				if (!DConector.obtenerDC().escribirToken())
 					JOptionPane.showMessageDialog(padre,
@@ -881,6 +883,9 @@ public class DILienzo extends DIViewer implements MouseListener,
 				{
 					p.setDatosBD(doc.getDatosBD());
 					doc = p;
+					
+					
+					
 					repaint();
 				}
 				else

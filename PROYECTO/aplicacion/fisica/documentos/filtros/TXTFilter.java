@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+import aplicacion.fisica.ServidorFicheros;
 import aplicacion.fisica.documentos.Documento;
 import aplicacion.fisica.documentos.MIDocumento;
 
@@ -26,7 +27,7 @@ public class TXTFilter implements DocumentFilter
 		{
 			// use buffering, reading one line at a time
 			// FileReader always assumes default encoding is OK!
-			File f = new File(path);
+			File f = new File(ServidorFicheros.getDirectorioBase() + path);
 			BufferedReader input = new BufferedReader(new FileReader(f));
 			try
 			{

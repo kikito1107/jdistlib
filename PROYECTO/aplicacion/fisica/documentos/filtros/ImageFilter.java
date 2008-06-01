@@ -5,6 +5,7 @@ import java.awt.Toolkit;
 
 import javax.imageio.ImageIO;
 
+import aplicacion.fisica.ServidorFicheros;
 import aplicacion.fisica.documentos.Documento;
 
 public class ImageFilter implements DocumentFilter
@@ -17,7 +18,8 @@ public class ImageFilter implements DocumentFilter
 	public Documento getDocumento(String path, String usuario, String rol)
 	{
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		Image imagen = toolkit.getImage(path);
+		Image imagen = toolkit.getImage(ServidorFicheros.getDirectorioBase()
+				+ path);
 
 		Documento doc = new Documento(usuario, rol);
 		doc.addPagina(imagen);

@@ -26,6 +26,7 @@ import aplicacion.fisica.ClienteFicheros;
 import aplicacion.fisica.documentos.Documento;
 import aplicacion.fisica.documentos.MIDocumento;
 import aplicacion.fisica.net.Transfer;
+import aplicacion.gui.VentanaCarga;
 import aplicacion.gui.componentes.SelectorFicherosDistribuido;
 
 public class ControlesDibujo extends JPanel
@@ -75,10 +76,15 @@ public class ControlesDibujo extends JPanel
 
 	private JButton botonGuardarLocal = null;
 	
+	private MonitorAbrir m = null;
+	
+	MIDocumento f = null;
+	
 	public ControlesDibujo(){
 		
 		lienzo = new DILienzo("", false, null);
-		
+		m = new MonitorAbrir();
+		new HebraAbrir();
 		initialize();
 	}
 
@@ -109,6 +115,8 @@ public class ControlesDibujo extends JPanel
 	{
 		super();
 		lienzo = l;
+		m = new MonitorAbrir();
+		new HebraAbrir();
 		initialize();
 	}
 
@@ -488,18 +496,13 @@ public class ControlesDibujo extends JPanel
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
 
-					MIDocumento f = SelectorFicherosDistribuido.getDatosFichero(
+					f = SelectorFicherosDistribuido.getDatosFichero(
 							lienzo.getPadre(), DConector.raiz);
 
 					if (( f != null ) && !f.getRutaLocal().equals(""))
 					{
-						
-						// eliminamos el token del fichero que estamos editando actualmente
-						DConector.obtenerDC().cerrarFichero(f.getRutaLocal());
-						
-						// sincronizamos el lienzo
-						lienzo.getDocumento().setPath(f.getRutaLocal());
-						lienzo.sincronizar();
+					
+						m.notificarAbrir();
 					}
 
 				}
@@ -508,6 +511,23 @@ public class ControlesDibujo extends JPanel
 		return botonAbrir;
 	}
 
+	private void accionAbrir() {
+		
+		// cerramos la ventana
+		if (lienzo.getPadre() != null) {
+			lienzo.getPadre().dispose();
+			lienzo.getPadre().this_windowClosing(null);
+		}
+		
+		// sincronizamos el lienzo
+		lienzo.getDocumento().setPath(f.getRutaLocal());
+		lienzo.sincronizar();
+		
+		// volvemos a mostrar la ventana
+		if (lienzo.getPadre()!=null)
+			lienzo.getPadre().setVisible(true);
+	}
+	
 	/**
 	 * This method initializes botonCargarImagen1
 	 * 
@@ -639,6 +659,70 @@ public class ControlesDibujo extends JPanel
 					});
 		}
 		return botonGuardarLocal;
+	}
+	
+	
+//	 ============= HEBRAS
+	// ===================================================================
+	/**
+	 * Hebra que se encarga de abrir los documentos
+	 * 
+	 * @author anab
+	 */
+	private class HebraAbrir implements Runnable
+	{
+
+		public HebraAbrir()
+		{
+			Thread hebra = new Thread(this);
+			hebra.start();
+		}
+
+		public void run()
+		{
+			VentanaCarga v = new VentanaCarga();
+			
+			while (true)
+			{
+
+				
+				// esperamos a que se solicite la lectura
+				m.abrir();
+				
+				v.mostrar("Abriendo...", "Abriendo el fichero " + f.getNombre(), true);
+				// abrimos el documento
+				accionAbrir();
+				v.ocultar();
+			}
+
+		}
+
+	}
+	
+	
+	/**
+	 * Monitor que controla la apertura de documentos
+	 */
+	private class MonitorAbrir
+	{
+
+		public synchronized void abrir()
+		{
+			try
+			{
+				wait();
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+
+		}
+
+		public synchronized void notificarAbrir()
+		{
+			notifyAll();
+		}
 	}
 
 } // @jve:decl-index=0:visual-constraint="-78,19"

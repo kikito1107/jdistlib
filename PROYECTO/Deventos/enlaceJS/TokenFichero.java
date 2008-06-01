@@ -40,6 +40,10 @@ public class TokenFichero extends Token
 	public void nuevoUsuario(String usuario)
 	{
 		if (editores != null) {
+			
+			// si el usuario ya estaba registrado no lo volvemos a anadir
+			if (editores.indexOf(usuario) != -1) return;
+			
 			editores.add(usuario);
 			System.err.println("El usuario " + usuario + " se da de alta");
 		}

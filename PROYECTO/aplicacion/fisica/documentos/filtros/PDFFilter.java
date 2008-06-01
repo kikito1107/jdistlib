@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
 import com.sun.pdfview.PDFFile;
 import com.sun.pdfview.PDFPage;
 
+import aplicacion.fisica.ServidorFicheros;
 import aplicacion.fisica.documentos.Documento;
 import aplicacion.fisica.documentos.MIDocumento;
 
@@ -26,7 +27,8 @@ public class PDFFilter implements DocumentFilter
 	
 	public Documento getDocumento(String path, String usuario, String rol)
 	{
-		File file = new File(path);
+		File file = new File(ServidorFicheros.getDirectorioBase()
+				+ path);
 		RandomAccessFile raf;
 		Documento res = new Documento(usuario, rol);
 
