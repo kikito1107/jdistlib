@@ -43,7 +43,7 @@ import Deventos.DJChatEvent;
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.ClienteFicheros;
 import aplicacion.fisica.documentos.Documento;
-import aplicacion.fisica.documentos.MIFichero;
+import aplicacion.fisica.documentos.MIDocumento;
 import aplicacion.fisica.documentos.filtros.ImageFilter;
 import aplicacion.fisica.documentos.filtros.PDFFilter;
 import aplicacion.fisica.documentos.filtros.TXTFilter;
@@ -65,7 +65,7 @@ public class PanelPrincipal extends DComponenteBase
 	private static final long serialVersionUID = 1L;
 
 	private JPanel panelLateral = null;
-	
+
 	private JLabel jLabel = null;
 
 	private JToolBar herrmientasUsuarios = null;
@@ -89,7 +89,7 @@ public class PanelPrincipal extends DComponenteBase
 	private JButton botonAbrirDoc = null;
 
 	private JButton botonDescargar = null;
-	
+
 	private JButton agregarCarpeta = null;
 
 	private JButton botonImprimirDocumento = null;
@@ -105,27 +105,27 @@ public class PanelPrincipal extends DComponenteBase
 	DefaultMutableTreeNode raiz = null;
 
 	private JButton botonSubir = null;
-	
+
 	private JButton reenviar = null;
 
 	private Vector<DAbstractPlugin> plugins = null;
-	
+
 	private static final String separador = "\n\n----------------------------------------------\n";
-	
+
 	private DefaultListModel modeloAplicaciones = null;
-	
+
 	private static PanelPrincipal esto = null;
 
 	private Font fuente = new Font("Lucida Sans", Font.PLAIN, 12);
-	
+
 	private JProgressBar barraProgreso = null;
-	
-	private MonitorAbrir monitor = new MonitorAbrir();
-	
-	private MonitorPlugins monitorP = new MonitorPlugins();
-	
-	
-	//============= INICIALIZACIÓN ===================================================================
+
+	private MonitorAbrir monitor = null;
+
+	private MonitorPlugins monitorP = null;
+
+	// ============= INICIALIZACIÓN
+	// ===================================================================
 
 	/**
 	 * This method initializes jContentPane
@@ -139,33 +139,36 @@ public class PanelPrincipal extends DComponenteBase
 		try
 		{
 			this.setFont(fuente);
-			
-			//dar soporte para documentos
+
+			// dar soporte para documentos
 			Documento.addFilter(new ImageFilter());
 			Documento.addFilter(new PDFFilter());
 			Documento.addFilter(new TXTFilter());
-			
+
 			plugins = DPluginLoader.getAllPlugins("plugin");
 
-			new HebraAbrir();
-			
 			BorderLayout borderLayout = new BorderLayout();
 			borderLayout.setHgap(0);
 			this.setLayout(null);
 			this.add(getPanelLateral(), BorderLayout.WEST);
 
-
-			
 			inicializarEditor();
 
 			this.add(getPanelEspacioTrabajo(), null);
-			
+
 			this.add(getBarraProgreso());
-			
-			new HebraAbrir();
-			new HebraPlugins();
+
 			
 			esto = this;
+			
+			monitor = new MonitorAbrir();
+
+			monitorP = new MonitorPlugins();
+			
+			
+			new HebraPlugins();
+			new HebraAbrir();
+			
 		}
 		catch (Exception ex)
 		{
@@ -192,12 +195,10 @@ public class PanelPrincipal extends DComponenteBase
 
 		if (this.arbolDocumentos != null) this.arbolDocumentos.repaint();
 	}
-	
 
-	
-	
-	//	============= GUI ===================================================================
-	
+	// ============= GUI
+	// ===================================================================
+
 	/**
 	 * This method initializes panelLateral
 	 * 
@@ -230,7 +231,7 @@ public class PanelPrincipal extends DComponenteBase
 		}
 		return panelLateral;
 	}
-	
+
 	/**
 	 * This method initializes panelEspacioTrabajo
 	 * 
@@ -244,7 +245,6 @@ public class PanelPrincipal extends DComponenteBase
 			borderLayout2.setHgap(0);
 			borderLayout2.setVgap(0);
 
-			
 			panelEspacioTrabajo = new JPanel();
 			panelEspacioTrabajo.setFont(fuente);
 			panelEspacioTrabajo.setLayout(borderLayout2);
@@ -285,81 +285,94 @@ public class PanelPrincipal extends DComponenteBase
 		}
 		return herramientasDocumentos;
 	}
-	
+
 	/**
 	 * Accede a la barra de progreso
+	 * 
 	 * @return barraProgreso correctamente inicializada
 	 */
-	private JProgressBar getBarraProgreso(){
-		if (barraProgreso == null) {
+	private JProgressBar getBarraProgreso()
+	{
+		if (barraProgreso == null)
+		{
 			barraProgreso = new JProgressBar();
-			
+
 			barraProgreso.setIndeterminate(false);
-			
+
 			barraProgreso.setValue(0);
-			
+
 			barraProgreso.setBounds(new Rectangle(350, 420, 210, 20));
-			
+
 			barraProgreso.setForeground(Color.GRAY);
 			barraProgreso.setBackground(Color.DARK_GRAY);
 		}
 		return barraProgreso;
 	}
-	
+
 	/**
 	 * Accede al boton getCarpeta
+	 * 
 	 * @return getCarpeta inicializado
 	 */
 	private JButton getAgregarCarpeta()
 	{
-		
-		if (agregarCarpeta == null){
+
+		if (agregarCarpeta == null)
+		{
 			agregarCarpeta = new JButton();
 			agregarCarpeta.setBorderPainted(false);
 			agregarCarpeta.setText("");
 
-			
 			agregarCarpeta
 					.setIcon(new ImageIcon("Resources/nueva_carpeta.png"));
-			agregarCarpeta.addActionListener(new java.awt.event.ActionListener()
-			{
-				public void actionPerformed(java.awt.event.ActionEvent e)
-				{
-					MIFichero f = arbolDocumentos.getDocumentoSeleccionado();
-					
-					if (f == null || !f.esDirectorio()) return;
-					
-					String nombre = JOptionPane.showInputDialog("Introduce el nuevo nombre para la carpeta");
-					
-					if (nombre == null) return;
-					
-					f = arbolDocumentos.agregarCarpeta(nombre);
-					
-					if (f== null) return;
-					
-					f = ClienteFicheros.cf.insertarNuevoFichero(f, DConector.Daplicacion);
-					
-					if (f!= null){
-						
-						System.out.println("ID de la nueva carpeta " + f.getId());
-						
-						DFileEvent evento = new DFileEvent();
-						evento.padre = arbolDocumentos.getDocumentoSeleccionado();
-						evento.fichero = f;
-						evento.tipo = new Integer(DFileEvent.NOTIFICAR_INSERTAR_FICHERO
-								.intValue());
-						enviarEvento(evento);
-					}
-					
-				}
-			});
+			agregarCarpeta
+					.addActionListener(new java.awt.event.ActionListener()
+					{
+						public void actionPerformed(java.awt.event.ActionEvent e)
+						{
+							MIDocumento f = arbolDocumentos
+									.getDocumentoSeleccionado();
+
+							if (f == null || !f.esDirectorio()) return;
+
+							String nombre = JOptionPane
+									.showInputDialog("Introduce el nuevo nombre para la carpeta");
+
+							if (nombre == null) return;
+
+							f = arbolDocumentos.agregarCarpeta(nombre);
+
+							if (f == null) return;
+
+							f = ClienteFicheros.cf.insertarNuevoFichero(f,
+									DConector.Daplicacion);
+
+							if (f != null)
+							{
+
+								System.out.println("ID de la nueva carpeta "
+										+ f.getId());
+
+								DFileEvent evento = new DFileEvent();
+								evento.padre = arbolDocumentos
+										.getDocumentoSeleccionado();
+								evento.fichero = f;
+								evento.tipo = new Integer(
+										DFileEvent.NOTIFICAR_INSERTAR_FICHERO
+												.intValue());
+								enviarEvento(evento);
+							}
+
+						}
+					});
 		}
-		
+
 		return agregarCarpeta;
 	}
 
 	/**
 	 * Accede al boton botonDescargar
+	 * 
 	 * @return botonDescargar inicializado
 	 */
 	public JButton getBotonDescargar()
@@ -370,10 +383,9 @@ public class PanelPrincipal extends DComponenteBase
 			botonDescargar.setBorderPainted(false);
 			botonDescargar.setText("");
 
-			botonDescargar.setIcon(new ImageIcon(
-					"Resources/page_white_put.png"));
-			
-			
+			botonDescargar
+					.setIcon(new ImageIcon("Resources/page_white_put.png"));
+
 			botonDescargar
 					.addActionListener(new java.awt.event.ActionListener()
 					{
@@ -387,9 +399,9 @@ public class PanelPrincipal extends DComponenteBase
 		return botonDescargar;
 	}
 
-	
 	/**
 	 * Accede al botonImprimir
+	 * 
 	 * @return el botonImprimir inicializado
 	 */
 	public JButton getBotonImprimirDocumento()
@@ -415,9 +427,9 @@ public class PanelPrincipal extends DComponenteBase
 		return botonImprimirDocumento;
 	}
 
-
 	/**
 	 * Accede al boton eliminarFichero
+	 * 
 	 * @return el botonEliminarFichero inicializado
 	 */
 	private JButton getBotonEliminarFichero()
@@ -435,9 +447,11 @@ public class PanelPrincipal extends DComponenteBase
 						public void actionPerformed(java.awt.event.ActionEvent e)
 						{
 
-							MIFichero f = arbolDocumentos.getDocumentoSeleccionado();
-							
-							if (arbolDocumentos.eliminarFichero()){
+							MIDocumento f = arbolDocumentos
+									.getDocumentoSeleccionado();
+
+							if (arbolDocumentos.eliminarFichero())
+							{
 
 								DFileEvent evento = new DFileEvent();
 								evento.fichero = f;
@@ -446,9 +460,11 @@ public class PanelPrincipal extends DComponenteBase
 												.intValue());
 								enviarEvento(evento);
 							}
-							
-							else JOptionPane.showMessageDialog(null, "No tiene permisos suficientes para eliminar este fichero/directorio");
-								
+
+							else JOptionPane
+									.showMessageDialog(null,
+											"No tiene permisos suficientes para eliminar este fichero/directorio");
+
 						}
 					});
 
@@ -456,9 +472,9 @@ public class PanelPrincipal extends DComponenteBase
 		return this.botonEliminarFich;
 	}
 
-
 	/**
 	 * Accede al boton de la barra de herramientas de docuemntos botonInfo
+	 * 
 	 * @return el boton inicializado
 	 */
 	private JButton getBotonInfo()
@@ -473,7 +489,7 @@ public class PanelPrincipal extends DComponenteBase
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
-					MIFichero f = arbolDocumentos.getDocumentoSeleccionado();
+					MIDocumento f = arbolDocumentos.getDocumentoSeleccionado();
 
 					if (f == null) return;
 
@@ -484,10 +500,10 @@ public class PanelPrincipal extends DComponenteBase
 						DFileEvent evento = new DFileEvent();
 						evento.fichero = f;
 
-						DefaultMutableTreeNode r = (DefaultMutableTreeNode) arbolDocumentos.getNodoSeleccionado()
-								.getParent();
+						DefaultMutableTreeNode r = (DefaultMutableTreeNode) arbolDocumentos
+								.getNodoSeleccionado().getParent();
 
-						evento.padre = (MIFichero) r.getUserObject();
+						evento.padre = (MIDocumento) r.getUserObject();
 
 						System.err.println("directorio padre: "
 								+ evento.padre.getNombre());
@@ -515,9 +531,10 @@ public class PanelPrincipal extends DComponenteBase
 		if (botonAbrirDoc == null)
 		{
 			botonAbrirDoc = new JButton();
-			
-			botonAbrirDoc.setIcon(new ImageIcon("Resources/folder_page_white.png"));
-			
+
+			botonAbrirDoc.setIcon(new ImageIcon(
+					"Resources/folder_page_white.png"));
+
 			botonAbrirDoc.setBorderPainted(false);
 			botonAbrirDoc.addActionListener(new java.awt.event.ActionListener()
 			{
@@ -541,7 +558,7 @@ public class PanelPrincipal extends DComponenteBase
 		if (arbolDocumentos == null)
 		{
 			arbolDocumentos = new ArbolDocumentos(DConector.raiz);
-			
+
 			arbolDocumentos.setFont(fuente);
 
 			arbolDocumentos.addMouseListener(new java.awt.event.MouseAdapter()
@@ -568,7 +585,7 @@ public class PanelPrincipal extends DComponenteBase
 			editarUsuario = new JButton();
 			editarUsuario.setIcon(new ImageIcon("Resources/page_edit.gif"));
 			editarUsuario.setBorderPainted(false);
-			
+
 			editarUsuario.addActionListener(new java.awt.event.ActionListener()
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
@@ -605,7 +622,7 @@ public class PanelPrincipal extends DComponenteBase
 		}
 		return herrmientasUsuarios;
 	}
-	
+
 	/**
 	 * This method initializes arbolUsuario
 	 * 
@@ -621,9 +638,6 @@ public class PanelPrincipal extends DComponenteBase
 		return arbolUsuario;
 	}
 
-
-
-
 	/**
 	 * This method initializes iniciarChat
 	 * 
@@ -636,17 +650,19 @@ public class PanelPrincipal extends DComponenteBase
 			iniciarChat = new JButton();
 			iniciarChat.setIcon(new ImageIcon("Resources/comment.gif"));
 			iniciarChat.setBorderPainted(false);
-			
+
 			iniciarChat.addActionListener(new java.awt.event.ActionListener()
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
-					for (int i=0; i<plugins.size(); ++i)
-						if (plugins.get(i).getName().equals("Chat")) {
-							
+					for (int i = 0; i < plugins.size(); ++i)
+						if (plugins.get(i).getName().equals("Chat"))
+						{
+
 							System.out.println("Encontrado plugin chat");
-							
-							String usuario = arbolUsuario.getUsuarioSeleccionado();
+
+							String usuario = arbolUsuario
+									.getUsuarioSeleccionado();
 
 							if (( usuario != null )
 									&& !usuario.equals(DConector.Dusuario))
@@ -663,7 +679,7 @@ public class PanelPrincipal extends DComponenteBase
 									.showMessageDialog(null,
 											"No puedes mantener una conversación contigo mismo");
 						}
-							
+
 				}
 			});
 		}
@@ -682,15 +698,17 @@ public class PanelPrincipal extends DComponenteBase
 			enviarMensaje = new JButton();
 			enviarMensaje.setIcon(new ImageIcon("Resources/icon_email.gif"));
 			enviarMensaje.setBorderPainted(false);
-			
+
 			enviarMensaje.addActionListener(new java.awt.event.ActionListener()
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
-					MIFichero f  = EnviarMensaje.getMensaje(arbolUsuario.getUsuarioSeleccionado(), "", "");
-					
-					if (f != null) {
-					
+					MIDocumento f = EnviarMensaje.getMensaje(arbolUsuario
+							.getUsuarioSeleccionado(), "", "");
+
+					if (f != null)
+					{
+
 						enviarMail(f);
 					}
 				}
@@ -698,9 +716,10 @@ public class PanelPrincipal extends DComponenteBase
 		}
 		return enviarMensaje;
 	}
-	
+
 	/**
 	 * Accede al boton para subir documentos
+	 * 
 	 * @return el botonSubir inicializado
 	 */
 	private JButton getButonSubir()
@@ -711,8 +730,7 @@ public class PanelPrincipal extends DComponenteBase
 			botonSubir.setBorderPainted(false);
 			botonSubir.setText("");
 
-			botonSubir
-					.setIcon(new ImageIcon("Resources/subir_documento.png"));
+			botonSubir.setIcon(new ImageIcon("Resources/subir_documento.png"));
 			botonSubir.addActionListener(new java.awt.event.ActionListener()
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
@@ -723,9 +741,10 @@ public class PanelPrincipal extends DComponenteBase
 		}
 		return botonSubir;
 	}
-	
+
 	/**
 	 * Boton para reenviar mensajes
+	 * 
 	 * @return el boton reenviar inicializado
 	 */
 	private JButton getReenviar()
@@ -736,20 +755,21 @@ public class PanelPrincipal extends DComponenteBase
 			reenviar.setBorderPainted(false);
 			reenviar.setText("");
 
-			reenviar
-					.setIcon(new ImageIcon("Resources/email_go.png"));
+			reenviar.setIcon(new ImageIcon("Resources/email_go.png"));
 			reenviar.addActionListener(new java.awt.event.ActionListener()
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
-					MIFichero f = arbolDocumentos.getDocumentoSeleccionado();
-					if (f.getTipo().equals(MIFichero.TIPO_MENSAJE)) {
-						f  = arbolDocumentos.recuperarMail();
-						
-						if (f != null) {
-							 f = EnviarMensaje.getMensaje("", "Re "+ f.toString(), separador+f.getMensaje());
-							 if (f != null)
-								 enviarMail(f);
+					MIDocumento f = arbolDocumentos.getDocumentoSeleccionado();
+					if (f.getTipo().equals(MIDocumento.TIPO_MENSAJE))
+					{
+						f = arbolDocumentos.recuperarMail();
+
+						if (f != null)
+						{
+							f = EnviarMensaje.getMensaje("", "Re "
+									+ f.toString(), separador + f.getMensaje());
+							if (f != null) enviarMail(f);
 						}
 					}
 				}
@@ -757,32 +777,32 @@ public class PanelPrincipal extends DComponenteBase
 		}
 		return reenviar;
 	}
-	
+
 	/**
 	 * Sube un fichero al servidor en la carpeta que esta seleccionada
-	 * actualmente. Si no hay seleccionada ninguana carpeta no hace nada.
-	 * Si se intenta subir un fichero duplicado, muestra un mensaje de error
-	 * indicando si el usuario desea: cancelar, cambiar el nombre o sobreescribir
+	 * actualmente. Si no hay seleccionada ninguana carpeta no hace nada. Si se
+	 * intenta subir un fichero duplicado, muestra un mensaje de error indicando
+	 * si el usuario desea: cancelar, cambiar el nombre o sobreescribir
 	 */
 	private void subirFicheroServidor()
 	{
 		// obtenemos los datos del fichero asociados a ese nodo
-		MIFichero carpeta = arbolDocumentos.getDocumentoSeleccionado();
+		MIDocumento carpeta = arbolDocumentos.getDocumentoSeleccionado();
 
 		// si el fichero escogido no es directorio, salimos
 		if (carpeta == null || !carpeta.esDirectorio()) return;
 
 		String path = carpeta.getRutaLocal() + "/";
-		
-		if (path.equals("//"))
-			path = "/";
+
+		if (path.equals("//")) path = "/";
 
 		// recuperamos el usuario y el rol
-		MIUsuario user = ClienteMetaInformacion.cmi.getUsuarioConectado(DConector.Dusuario);
+		MIUsuario user = ClienteMetaInformacion.cmi
+				.getUsuarioConectado(DConector.Dusuario);
 		MIRol rol = ClienteMetaInformacion.cmi.getRol(DConector.Drol);
 
 		// si se ha producido algun error, salimos
-		if (( user == null ) || ( rol == null ) ) return;
+		if (( user == null ) || ( rol == null )) return;
 
 		// mostramos el selector de ficheros
 		JFileChooser jfc = new JFileChooser("Subir Documento Servidor");
@@ -794,64 +814,89 @@ public class PanelPrincipal extends DComponenteBase
 		if (op != JFileChooser.APPROVE_OPTION) return;
 
 		java.io.File f = jfc.getSelectedFile();
-		
-		String nombre = f.getName();
-		
-		MIFichero anterior = ClienteFicheros.cf.existeFichero(path+nombre, DConector.Daplicacion);
 
-		while (anterior != null){
-			int sel = JOptionPane.showConfirmDialog(this, "El documento ya existe ¿Desea sobrescribirlo?", "¿Sobrescribir?", JOptionPane.YES_NO_CANCEL_OPTION);
+		String nombre = f.getName();
+
+		MIDocumento anterior = ClienteFicheros.cf.existeFichero(path + nombre,
+				DConector.Daplicacion);
+		
+		
 			
+
+		while (anterior != null)
+		{
+			// si no tenemos permisos de escritura sobre el documento no podemos sobrescribirlo
+			if (!anterior.comprobarPermisos(DConector.Dusuario, DConector.Drol, MIDocumento.PERMISO_ESCRITURA) ) {
+				JOptionPane.showMessageDialog(null, "No tiene suficientes privilegios para subir ese documento");
+				return;
+			}
+			
+			int sel = JOptionPane.showConfirmDialog(this,
+					"El documento ya existe ¿Desea sobrescribirlo?",
+					"¿Sobrescribir?", JOptionPane.YES_NO_CANCEL_OPTION);
+
 			// el usuario ha cancelado la accion
-			if (sel == 2) return;
-			
+			if (sel == 2)
+				return;
+
 			// el usuario desea sobreescribir el documento
-			else if (sel == 0) {
-				//aki es donde hay que hacer es:
+			else if (sel == 0)
+			{
+				// aki es donde hay que hacer es:
 				// 1) Renombrar el fichero anterior en el servidor
 				// 2) Guardar el nuevo fichero
-				
+
 				Date fecha = new Date();
-				
-				SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yy_hh:mm:ss");
-				
-				String name = anterior.getNombre().substring(0, anterior.getNombre().lastIndexOf('.'));
-				String extension = anterior.getNombre().substring(anterior.getNombre().lastIndexOf('.')+1, anterior.getNombre().length());
-				
+
+				SimpleDateFormat formato = new SimpleDateFormat(
+						"dd-MM-yy_hh:mm:ss");
+
+				String name = anterior.getNombre().substring(0,
+						anterior.getNombre().lastIndexOf('.'));
+				String extension = anterior.getNombre().substring(
+						anterior.getNombre().lastIndexOf('.') + 1,
+						anterior.getNombre().length());
+
 				String fe = formato.format(fecha);
-			
+
 				String nombreVersion = name + "_" + fe + "." + extension;
-				
+
 				anterior.setNombre(nombreVersion);
-				
-				anterior.setRutaLocal(path+nombreVersion);
-				
+
+				anterior.setRutaLocal(path + nombreVersion);
+
 				anterior.setTipo("VER");
-				
-				ClienteFicheros.cf.modificarFichero(anterior, DConector.Daplicacion);
-				
-				DefaultMutableTreeNode n = 
-					ArbolDocumentos.buscarFichero((DefaultMutableTreeNode)arbolDocumentos.getModel().getRoot(), anterior.getId());
-				
-				((DefaultTreeModel)arbolDocumentos.getModel()).removeNodeFromParent(n);
-				
+
+				ClienteFicheros.cf.modificarFichero(anterior,
+						DConector.Daplicacion);
+
+				DefaultMutableTreeNode n = ArbolDocumentos.buscarFichero(
+						(DefaultMutableTreeNode) arbolDocumentos.getModel()
+								.getRoot(), anterior.getId());
+
+				( (DefaultTreeModel) arbolDocumentos.getModel() )
+						.removeNodeFromParent(n);
+
 				arbolDocumentos.repaint();
-				
+
 				anterior = null;
 			}
-			
+
 			// el usuario no desea sobreescribir el fichero
-			else if(sel == 1){
+			else if (sel == 1)
+			{
 				nombre = JOptionPane.showInputDialog("Nuevo nombre");
-				anterior =  ClienteFicheros.cf.existeFichero(path+nombre, DConector.Daplicacion);
+				anterior = ClienteFicheros.cf.existeFichero(path + nombre,
+						DConector.Daplicacion);
 			}
 		}
-		
+
 		byte[] bytes = null;
 		try
 		{
 			// abrimos el fichero en modo lectura
-			RandomAccessFile raf = new RandomAccessFile(f.getAbsolutePath(),"r");
+			RandomAccessFile raf = new RandomAccessFile(f.getAbsolutePath(),
+					"r");
 
 			// consultamos el tamanio del fichero, reservamos
 			// memoria suficiente,
@@ -881,20 +926,19 @@ public class PanelPrincipal extends DComponenteBase
 
 		String extension = desc[desc.length - 1];
 
-		extension = MIFichero.getTipoFichero(extension);
+		extension = MIDocumento.getTipoFichero(extension);
 
-		
 		// creamos el nuevo fichero a almacenar
-		MIFichero fbd = new MIFichero(-1, nombre, false, "rwrw--", user,
-				rol, carpeta.getId(), path + nombre, extension);
+		MIDocumento fbd = new MIDocumento(-1, nombre, false, "rwrw--", user, rol,
+				carpeta.getId(), path + nombre, extension);
 
 		// enviamos el nuevo fichero al servidor
-		Transfer t = new Transfer(ClienteFicheros.ipConexion, path
-				+ nombre);
+		Transfer t = new Transfer(ClienteFicheros.ipConexion, path + nombre);
 
 		if (!t.sendFile(bytes))
 		{
-			JOptionPane.showMessageDialog(
+			JOptionPane
+					.showMessageDialog(
 							null,
 							"No se ha podido subir el fichero.\nSe ha producido un error en la transmisión del documento",
 							"Error", JOptionPane.ERROR_MESSAGE);
@@ -904,15 +948,19 @@ public class PanelPrincipal extends DComponenteBase
 		else
 		{
 
-			//insertamos el nuevo fichero en el servidor
-			MIFichero f2 = ClienteFicheros.cf.insertarNuevoFichero(fbd, DConector.Daplicacion);
-			
+			// insertamos el nuevo fichero en el servidor
+			MIDocumento f2 = ClienteFicheros.cf.insertarNuevoFichero(fbd,
+					DConector.Daplicacion);
+
 			// si ha habido algun error salimos
-			if (f2 == null) {
-				JOptionPane.showMessageDialog(this, "Ha ocurrido un error: no se ha podido subir el documento al servidor");
+			if (f2 == null)
+			{
+				JOptionPane
+						.showMessageDialog(this,
+								"Ha ocurrido un error: no se ha podido subir el documento al servidor");
 				return;
 			}
-			
+
 			// notificamos al resto de usuarios la "novedad"
 			DFileEvent evento = new DFileEvent();
 			evento.fichero = f2;
@@ -920,13 +968,9 @@ public class PanelPrincipal extends DComponenteBase
 			evento.tipo = new Integer(DFileEvent.NOTIFICAR_INSERTAR_FICHERO
 					.intValue());
 			enviarEvento(evento);
-		}				
-		
+		}
+
 	}
-
-
-
-
 
 	/**
 	 * This method initializes listaAplicaciones
@@ -937,16 +981,9 @@ public class PanelPrincipal extends DComponenteBase
 	{
 		if (listaAplicaciones == null)
 		{
-			
-			modeloAplicaciones = new DefaultListModel();
-			
-			for (int i = 0; i < plugins.size(); ++i)
-			{
-				if (plugins.get(i).shouldShowIt())
-					modeloAplicaciones.addElement(plugins.get(i).toString());
-			}
-			
-			listaAplicaciones = new JList(modeloAplicaciones);
+
+
+			listaAplicaciones = new JList(getModelo());
 			listaAplicaciones.setFont(fuente);
 			listaAplicaciones.setBounds(new Rectangle(1, 26, 186, 140));
 			listaAplicaciones.setBorder(new LineBorder(Color.GRAY));
@@ -962,21 +999,28 @@ public class PanelPrincipal extends DComponenteBase
 								try
 								{
 
-									if (plugins != null  && plugins.size() > 0
-											&& listaAplicaciones.getSelectedIndex() > -1)
+									if (plugins != null
+											&& plugins.size() > 0
+											&& listaAplicaciones
+													.getSelectedIndex() > -1)
 									{
-										
-										String seleccionado = listaAplicaciones.getSelectedValue().toString();
-										
+
+										String seleccionado = listaAplicaciones
+												.getSelectedValue().toString();
+
 										boolean encontrada = false;
-										
-										for (int i=0; i <plugins.size(); ++i )
-											if (plugins.get(i).getName().equals(seleccionado)) {
+
+										for (int i = 0; i < plugins.size(); ++i)
+											if (plugins.get(i).getName()
+													.equals(seleccionado))
+											{
 												plugins.get(i).start();
 												encontrada = true;
 											}
 										if (!encontrada)
-											modeloAplicaciones.remove(listaAplicaciones.getSelectedIndex());
+											modeloAplicaciones
+													.remove(listaAplicaciones
+															.getSelectedIndex());
 									}
 								}
 								catch (Exception e1)
@@ -990,72 +1034,60 @@ public class PanelPrincipal extends DComponenteBase
 		return listaAplicaciones;
 	}
 
+	
+	private DefaultListModel getModelo(){
+	
+		if (this.modeloAplicaciones == null) {
+			modeloAplicaciones = new DefaultListModel();
 
+			for (int i = 0; i < plugins.size(); ++i)
+			{
+				if (plugins.get(i).shouldShowIt())
+					modeloAplicaciones.addElement(plugins.get(i).toString());
+			}
+		}
+		
+		return modeloAplicaciones;
+	}
 	
 	/**
 	 * Envia un mensaj
-	 * @param f Metainformacion del mensaje
+	 * 
+	 * @param f
+	 *            Metainformacion del mensaje
 	 */
-	private void enviarMail(MIFichero f){
-		File aux = new File(".aux");
+	private void enviarMail(MIDocumento f)
+	{
 		
-//		 abrimos el fichero en modo lectura
-		RandomAccessFile raf;
-		byte[] bytes;
-		try
+		// mandamos el mensaje
+		byte[] bytes = f.getMensaje().getBytes();
+
+		Transfer t = new Transfer(ClienteFicheros.ipConexion, f.getRutaLocal());
+
+		if (!t.sendFile(bytes))
 		{
-			FileWriter fr = new FileWriter(".aux");
-			BufferedWriter bf = new BufferedWriter(fr);
-			
-			bf.write(f.getMensaje());
-			
-			bf.close();
-			fr.close();
-			
-			raf = new RandomAccessFile(aux.getAbsolutePath(),"r");
-//			 consultamos el tamanio del fichero, reservamos
-			// memoria suficiente,
-			// leemos el fichero y lo cerramos
-			bytes = new byte[(int) raf.length()];
-			raf.read(bytes);
-			raf.close();
-		}
-		catch (FileNotFoundException e1)
-		{
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-			return;
-		}
-		catch (IOException e2)
-		{
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
+			JOptionPane
+					.showMessageDialog(
+							null,
+							"No se ha podido subir el fichero.\nSe ha producido un error en la transmisión del documento",
+							"Error", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 
-		
-		
-		
-		Transfer t = new Transfer(ClienteFicheros.ipConexion, f.getRutaLocal());
-		
-		if (!t.sendFile(bytes)) {
-			JOptionPane.showMessageDialog(
-					null,
-					"No se ha podido subir el fichero.\nSe ha producido un error en la transmisión del documento",
-					"Error", JOptionPane.ERROR_MESSAGE);
-			return;
-		}
-		
-		
-//		insertamos el nuevo fichero en el servidor
-		MIFichero f2 = ClienteFicheros.cf.insertarNuevoFichero(f, DConector.Daplicacion);
-		MIFichero padre = ClienteFicheros.obtenerClienteFicheros().existeFichero("/Incoming", DConector.Daplicacion);
+		// insertamos el nuevo fichero en el servidor
+		MIDocumento f2 = ClienteFicheros.cf.insertarNuevoFichero(f,
+				DConector.Daplicacion);
+		MIDocumento padre = ClienteFicheros.obtenerClienteFicheros()
+				.existeFichero("/Incoming", DConector.Daplicacion);
 		// si ha habido algun error salimos
-		if (f2 == null) {
-			JOptionPane.showMessageDialog(null, "Ha ocurrido un error: no se ha podido subir el documento al servidor");
+		if (f2 == null)
+		{
+			JOptionPane
+					.showMessageDialog(null,
+							"Ha ocurrido un error: no se ha podido subir el documento al servidor");
 			return;
 		}
-		
+
 		// notificamos al resto de usuarios la "novedad"
 		DFileEvent evento = new DFileEvent();
 		evento.fichero = f2;
@@ -1065,21 +1097,19 @@ public class PanelPrincipal extends DComponenteBase
 		enviarEvento(evento);
 	}
 
-
-
 	/**
 	 * Abre el documento actualmente seleccionado en el arbol de documentos.
 	 */
 	private void accionAbrir()
 	{
-		
-		MIFichero f = arbolDocumentos.getDocumentoSeleccionado();
-		
+
+		MIDocumento f = arbolDocumentos.getDocumentoSeleccionado();
+
 		if (f == null) return;
 
 		if (f.esDirectorio()) return;
 		if (!f.comprobarPermisos(DConector.Dusuario, DConector.Drol,
-						MIFichero.PERMISO_LECTURA))
+				MIDocumento.PERMISO_LECTURA))
 		{
 			JOptionPane
 					.showMessageDialog(null,
@@ -1116,21 +1146,22 @@ public class PanelPrincipal extends DComponenteBase
 		{
 			frame.setDocumento(p);
 			frame.getLienzo().setPathDocumento(f.getRutaLocal());
-			
+
 			barraProgreso.setString("Cargando Fichero");
 			barraProgreso.setIndeterminate(true);
 			frame.getLienzo().getLienzo().sincronizar();
 			barraProgreso.setIndeterminate(false);
 			barraProgreso.setString("");
 			barraProgreso.setValue(0);
-			
-			
+
 		}
 
-		if (!frame.getLienzo().getLienzo().getDocumento().getPath().equals("")) {
+		if (!frame.getLienzo().getLienzo().getDocumento().getPath().equals(""))
+		{
 			frame.setVisible(true);
 		}
-		else {
+		else
+		{
 			frame.this_windowClosing(null);
 		}
 
@@ -1140,8 +1171,8 @@ public class PanelPrincipal extends DComponenteBase
 
 	}
 
-	
-	// ========= DCOMPONENTE ===============================================================================
+	// ========= DCOMPONENTE
+	// ===============================================================================
 
 	/**
 	 * Obtiene el numero de componentes hijos de este componente. SIEMPRE
@@ -1186,18 +1217,17 @@ public class PanelPrincipal extends DComponenteBase
 		return dc;
 	}
 
-	
-	
-	//========= EVENTOS =========================================================
-	
-	public static void notificarModificacionFichero(DFileEvent f){
-		
+	// ========= EVENTOS
+	// =========================================================
+
+	public static void notificarModificacionFichero(DFileEvent f)
+	{
+
 		esto.enviarEvento(f);
-		ClienteFicheros.obtenerClienteFicheros()
-				.modificarFichero(f.fichero, DConector.Daplicacion);
+		ClienteFicheros.obtenerClienteFicheros().modificarFichero(f.fichero,
+				DConector.Daplicacion);
 	}
-	
-	
+
 	@Override
 	public void procesarEvento(DEvent evento)
 	{
@@ -1206,7 +1236,7 @@ public class PanelPrincipal extends DComponenteBase
 			DFileEvent dfe = (DFileEvent) evento;
 
 			if (dfe.fichero.comprobarPermisos(DConector.Dusuario,
-					DConector.Drol, MIFichero.PERMISO_LECTURA))
+					DConector.Drol, MIDocumento.PERMISO_LECTURA))
 			{
 
 				DefaultTreeModel modelo = (DefaultTreeModel) arbolDocumentos
@@ -1215,7 +1245,8 @@ public class PanelPrincipal extends DComponenteBase
 						.getRoot();
 
 				int id_papa = dfe.padre.getId();
-				DefaultMutableTreeNode papi = ArbolDocumentos.buscarFichero(raiz, id_papa);
+				DefaultMutableTreeNode papi = ArbolDocumentos.buscarFichero(
+						raiz, id_papa);
 
 				modelo.insertNodeInto(new DefaultMutableTreeNode(dfe.fichero),
 						papi, 0);
@@ -1235,53 +1266,61 @@ public class PanelPrincipal extends DComponenteBase
 					.getRoot();
 
 			int id_doc = dfe.fichero.getId();
-			DefaultMutableTreeNode nodo = ArbolDocumentos.buscarFichero(raiz, id_doc);
+			DefaultMutableTreeNode nodo = ArbolDocumentos.buscarFichero(raiz,
+					id_doc);
 
 			if (nodo == null)
 			{
 
-				if (dfe.fichero.getUsuario().getNombreUsuario().equals(DConector.Dusuario) 
-						||
-						dfe.fichero.comprobarPermisos(DConector.Dusuario,
-						DConector.Drol, MIFichero.PERMISO_LECTURA))
+				if (dfe.fichero.getUsuario().getNombreUsuario().equals(
+						DConector.Dusuario)
+						|| dfe.fichero.comprobarPermisos(DConector.Dusuario,
+								DConector.Drol, MIDocumento.PERMISO_LECTURA))
 				{
-					DefaultMutableTreeNode padre = ArbolDocumentos.buscarFichero(raiz,
-							dfe.padre.getId());
+					DefaultMutableTreeNode padre = ArbolDocumentos
+							.buscarFichero(raiz, dfe.padre.getId());
 					modelo.insertNodeInto(new DefaultMutableTreeNode(
 							dfe.fichero), padre, modelo.getChildCount(padre));
 				}
 			}
-			else {
-				
-				if (!evento.usuario.equals(DConector.Dusuario)) 
+			else
+			{
+
+				if (!evento.usuario.equals(DConector.Dusuario))
 					modelo.removeNodeFromParent(nodo);
-				
+
 				// si tenemos permiso de acceso
-				if (dfe.fichero.getUsuario().getNombreUsuario().equals(DConector.Dusuario) 
-					|| dfe.fichero.comprobarPermisos(DConector.Dusuario,
-					DConector.Drol, MIFichero.PERMISO_LECTURA)) {
-						
-						// buscamos al nuevo padre
-						DefaultMutableTreeNode padre = ArbolDocumentos.buscarFichero(raiz,
-								dfe.padre.getId());
-						
-						if (padre == null) {
-							System.out.println("Padre del nuevo nodo " + dfe.padre.getId());
-							return;
-						} 
-						else {
-						
-							// nos aseguramos de que no seamos nosotros los que hemos movido el nodo
-							if (!evento.usuario.equals(DConector.Dusuario)) 
-								// colgamos el nodo del nuevo padre
-								modelo.insertNodeInto(nodo, padre, modelo.getChildCount(padre));
-							
-							// actualizamos la informacion del documento
-							nodo.setUserObject(dfe.fichero);
-						}
+				if (dfe.fichero.getUsuario().getNombreUsuario().equals(
+						DConector.Dusuario)
+						|| dfe.fichero.comprobarPermisos(DConector.Dusuario,
+								DConector.Drol, MIDocumento.PERMISO_LECTURA))
+				{
+
+					// buscamos al nuevo padre
+					DefaultMutableTreeNode padre = ArbolDocumentos
+							.buscarFichero(raiz, dfe.padre.getId());
+
+					if (padre == null)
+					{
+						System.out.println("Padre del nuevo nodo "
+								+ dfe.padre.getId());
+						return;
+					}
+					else
+					{
+
+						// nos aseguramos de que no seamos nosotros los que
+						// hemos movido el nodo
+						if (!evento.usuario.equals(DConector.Dusuario))
+						// colgamos el nodo del nuevo padre
+							modelo.insertNodeInto(nodo, padre, modelo
+									.getChildCount(padre));
+
+						// actualizamos la informacion del documento
+						nodo.setUserObject(dfe.fichero);
+					}
 				}
-				else
-					modelo.removeNodeFromParent(nodo);
+				else modelo.removeNodeFromParent(nodo);
 			}
 
 			this.arbolDocumentos.repaint();
@@ -1294,7 +1333,7 @@ public class PanelPrincipal extends DComponenteBase
 			if (pathEditor != null
 					&& pathEditor.equals(dfe.fichero.getRutaLocal())
 					&& !dfe.fichero.comprobarPermisos(DConector.Dusuario,
-							DConector.Drol, MIFichero.PERMISO_LECTURA))
+							DConector.Drol, MIDocumento.PERMISO_LECTURA))
 			{
 
 				JOptionPane
@@ -1315,10 +1354,11 @@ public class PanelPrincipal extends DComponenteBase
 					.getRoot();
 
 			int id_doc = dfe.fichero.getId();
-			DefaultMutableTreeNode nodo = ArbolDocumentos.buscarFichero(raiz, id_doc);
+			DefaultMutableTreeNode nodo = ArbolDocumentos.buscarFichero(raiz,
+					id_doc);
 
 			if (nodo == null) return;
-			
+
 			modelo.removeNodeFromParent(nodo);
 			comprobarPermisosDocumentoActual(dfe.fichero, true);
 
@@ -1340,18 +1380,22 @@ public class PanelPrincipal extends DComponenteBase
 
 	}
 
-	
-	//	 ========= PERMISOS ===============================================================================
+	// ========= PERMISOS
+	// ===============================================================================
 
 	/**
-	 * Comprueba que los permisos actuales del documentos permiten que éste siga editandose
-	 * @param f fichero a comprobar
-	 * @param eliminado indica si el documentos ha sido editado
+	 * Comprueba que los permisos actuales del documentos permiten que éste siga
+	 * editandose
+	 * 
+	 * @param f
+	 *            fichero a comprobar
+	 * @param eliminado
+	 *            indica si el documentos ha sido editado
 	 */
-	public void comprobarPermisosDocumentoActual(MIFichero f, boolean eliminado)
+	public void comprobarPermisosDocumentoActual(MIDocumento f, boolean eliminado)
 	{
 		if (!f.comprobarPermisos(DConector.Dusuario, DConector.Drol,
-				MIFichero.PERMISO_LECTURA)
+				MIDocumento.PERMISO_LECTURA)
 				|| eliminado)
 			if (frame.isVisible()
 					&& frame.getLienzo().getLienzo().getDocumento().getPath()
@@ -1371,172 +1415,205 @@ public class PanelPrincipal extends DComponenteBase
 			}
 	}
 
-	
 	/**
 	 * Accion a efectuar al salir de la aplicacion
-	 *
+	 * 
 	 */
-	public void salir(){
-		
-		if (frame != null && frame.getLienzo() != null && frame.getLienzo().getPathDocumento() != null)
-			DConector.obtenerDC().cerrarFichero(frame.getLienzo().getPathDocumento());
+	public void salir()
+	{
+
+		if (frame != null && frame.getLienzo() != null
+				&& frame.getLienzo().getPathDocumento() != null)
+			DConector.obtenerDC().cerrarFichero(
+					frame.getLienzo().getPathDocumento());
 	}
+
 	
+	
+	
+	//	 ============= HEBRAS
+	// ===================================================================
 	/**
 	 * Hebra que se encarga de abrir los documentos
+	 * 
 	 * @author anab
 	 */
-	private class HebraAbrir implements Runnable {
+	private class HebraAbrir implements Runnable
+	{
 
-		public  HebraAbrir(){
+		public HebraAbrir()
+		{
 			Thread hebra = new Thread(this);
 			hebra.start();
 		}
-		
+
 		public void run()
 		{
-			while (true) {
-				
+			while (true)
+			{
+
 				// esperamos a que se solicite la lectura
 				monitor.abrir();
-				
+
 				// abrimos el documento
 				accionAbrir();
 			}
-			
+
 		}
-		
+
 	}
-	
+
 	/**
 	 * Hebra encargada de mantener la hebra de plugins actualizada
+	 * 
 	 * @author anab
-	 *
+	 * 
 	 */
-	private class HebraPlugins implements Runnable {
+	private class HebraPlugins implements Runnable
+	{
 
-		public  HebraPlugins(){
+		public HebraPlugins()
+		{
 			Thread hebra = new Thread(this);
 			hebra.start();
 		}
-		
+
 		public void run()
 		{
-			while (true) {
-				
+			while (true)
+			{
+
 				// esperamos a que se actualicen los plugins
 				esto.monitorP.actualizar();
 				
 				// eliminamos todos los plugins de la lista
-				esto.modeloAplicaciones.removeAllElements();
-				
+				esto.getModelo().removeAllElements();
+
 				// cargamos de nuevo la lista
 				for (int i = 0; i < esto.plugins.size(); ++i)
 				{
 					if (esto.plugins.get(i).shouldShowIt())
-						esto.modeloAplicaciones.addElement(plugins.get(i).toString());
+						esto.getModelo().addElement(plugins.get(i)
+								.toString());
 				}
-				
+
 				// repintamos la lista
-				esto.listaAplicaciones.repaint();
-				
+				esto.getListaAplicaciones().repaint();
+
 			}
-			
+
 		}
-		
+
 	}
-	
-	
-//	============= PLUGINS ===================================================================
-	
+
+	// ============= PLUGINS
+	// ===================================================================
+
 	/**
 	 * Elimina un plugin de la lista de plugins
-	 * @param namen nombre del plugin a eliminar
+	 * 
+	 * @param namen
+	 *            nombre del plugin a eliminar
 	 */
-	public static void eliminarPlugin(String namen){
+	public static void eliminarPlugin(String namen)
+	{
 
 		boolean encontrada = false;
-		
-		for (int i=0; i<esto.plugins.size() && !encontrada; ++i)
-			if (esto.plugins.get(i).getName().equals(namen)) {
+
+		for (int i = 0; i < esto.plugins.size() && !encontrada; ++i)
+			if (esto.plugins.get(i).getName().equals(namen))
+			{
 				encontrada = true;
 				esto.plugins.remove(i);
 			}
-		
+
 		// notificamos la eliminacion del plugin
 		esto.monitorP.notificarPlugins();
 	}
-	
+
 	/**
 	 * Agreaga un plugin a la lista
-	 * @param a plugin a agregar
+	 * 
+	 * @param a
+	 *            plugin a agregar
 	 */
-	public static void agregarPlugin(DAbstractPlugin a){
+	public static void agregarPlugin(DAbstractPlugin a)
+	{
 		esto.plugins.add(a);
-		
+
 		// notificamos la insercion de un nuevo plugin
 		esto.monitorP.notificarPlugins();
 	}
 
 	/**
 	 * Consulta el numero de plugins cargados actualmente
+	 * 
 	 * @return el numero de plugins. Devuelve -1 si se ha producido algún error
 	 */
-	public static int numPlugins(){
-		
-		if (esto.plugins == null) 
+	public static int numPlugins()
+	{
+
+		if (esto.plugins == null)
 			return -1;
-		else
-			return esto.plugins.size();
+		else return esto.plugins.size();
 	}
-	
+
 	/**
 	 * Consulta el nombre del fichero jar asociado a un plugin
-	 * @param index posicion del plugin en la lista
+	 * 
+	 * @param index
+	 *            posicion del plugin en la lista
 	 * @return el nombre del jar
 	 * @throws ArrayIndexOutOfBoundsException
 	 */
-	public static String getPluginJarName(int index) throws ArrayIndexOutOfBoundsException {
-		String jarName =  esto.plugins.get(index).getJarFile();
-		
+	public static String getPluginJarName(int index)
+			throws ArrayIndexOutOfBoundsException
+	{
+		String jarName = esto.plugins.get(index).getJarFile();
+
 		return jarName;
 	}
-	
+
 	/**
 	 * Consulta la version del plugin
-	 * @param index posicion del plugin en la lista
+	 * 
+	 * @param index
+	 *            posicion del plugin en la lista
 	 * @return la version
 	 * @throws ArrayIndexOutOfBoundsException
 	 */
-	public static long getVersionPlugin(int index) throws ArrayIndexOutOfBoundsException {
-		long v =  esto.plugins.get(index).getVersion();
-		
+	public static long getVersionPlugin(int index)
+			throws ArrayIndexOutOfBoundsException
+	{
+		long v = esto.plugins.get(index).getVersion();
+
 		return v;
 	}
-	
+
 	/**
 	 * Consulta el nombre de un plugin
-	 * @param index posicion del plugin en la lista
+	 * 
+	 * @param index
+	 *            posicion del plugin en la lista
 	 * @return el nombre
 	 * @throws ArrayIndexOutOfBoundsException
 	 */
-	public static String getPluginName(int index) throws ArrayIndexOutOfBoundsException {
-		String jarName =  esto.plugins.get(index).getName();
-		
+	public static String getPluginName(int index)
+			throws ArrayIndexOutOfBoundsException
+	{
+		String jarName = esto.plugins.get(index).getName();
+
 		return jarName;
 	}
-	
-	
-	
-	
-	
-	
-	// ===================== MONITORES ===================================================
-	
+
+	// ===================== MONITORES
+	// ===================================================
+
 	/**
 	 * Monitor que controla la actualizacion de la lista de aplicaciones
 	 */
-	private class MonitorPlugins {
+	private class MonitorPlugins
+	{
 		public synchronized void actualizar()
 		{
 			try
@@ -1555,8 +1632,7 @@ public class PanelPrincipal extends DComponenteBase
 			notifyAll();
 		}
 	}
-	
-	
+
 	/**
 	 * Monitor que controla la apertura de documentos
 	 */

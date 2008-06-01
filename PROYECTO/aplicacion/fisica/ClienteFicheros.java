@@ -14,7 +14,7 @@ import net.jini.core.entry.UnusableEntryException;
 import net.jini.core.lease.Lease;
 import net.jini.core.transaction.TransactionException;
 import net.jini.space.JavaSpace;
-import aplicacion.fisica.documentos.MIFichero;
+import aplicacion.fisica.documentos.MIDocumento;
 import aplicacion.fisica.eventos.DDocumentEvent;
 import aplicacion.fisica.eventos.DFileEvent;
 import aplicacion.fisica.eventos.DNodeEvent;
@@ -167,7 +167,7 @@ public class ClienteFicheros
 		}
 	}
 
-	public void borrarFichero(MIFichero f, String aplicacion)
+	public void borrarFichero(MIDocumento f, String aplicacion)
 	{
 		try
 		{
@@ -198,7 +198,7 @@ public class ClienteFicheros
 		}
 	}
 
-	public MIFichero insertarNuevoFichero(MIFichero f, String aplicacion)
+	public MIDocumento insertarNuevoFichero(MIDocumento f, String aplicacion)
 	{
 		try
 		{
@@ -245,7 +245,7 @@ public class ClienteFicheros
 	}
 
 	
-	public MIFichero existeFichero(String  path, String aplicacion) {
+	public MIDocumento existeFichero(String  path, String aplicacion) {
 		try
 		{
 			DFileEvent evt = new DFileEvent();
@@ -300,7 +300,7 @@ public class ClienteFicheros
 	}
 	
 	
-	public void modificarFichero(MIFichero f, String aplicacion)
+	public void modificarFichero(MIDocumento f, String aplicacion)
 	{
 		try
 		{

@@ -45,7 +45,7 @@ import metainformacion.MIUsuario;
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.ClienteFicheros;
 import aplicacion.fisica.documentos.Documento;
-import aplicacion.fisica.documentos.MIFichero;
+import aplicacion.fisica.documentos.MIDocumento;
 import aplicacion.fisica.eventos.DFileEvent;
 import aplicacion.fisica.net.Transfer;
 import aplicacion.gui.PanelPrincipal;
@@ -111,7 +111,7 @@ public class ArbolDocumentos extends JTree implements Autoscroll {
 	 * 
 	 * @return
 	 */
-	public MIFichero getDocumentoSeleccionado()
+	public MIDocumento getDocumentoSeleccionado()
 	{
 		TreePath camino = getSelectionPath();
 
@@ -120,7 +120,7 @@ public class ArbolDocumentos extends JTree implements Autoscroll {
 		if (camino != null) objetos = camino.getPath();
 
 		if (( objetos != null ) && ( objetos.length > 0 ))
-			return (MIFichero) ( (DefaultMutableTreeNode) objetos[objetos.length - 1] )
+			return (MIDocumento) ( (DefaultMutableTreeNode) objetos[objetos.length - 1] )
 					.getUserObject();
 		else return null;
 	}
@@ -151,7 +151,7 @@ public class ArbolDocumentos extends JTree implements Autoscroll {
 	public static DefaultMutableTreeNode buscarFichero(
 			DefaultMutableTreeNode n, int id)
 	{
-		if (!n.isRoot() && ( ( (MIFichero) n.getUserObject() ).getId() == id ))
+		if (!n.isRoot() && ( ( (MIDocumento) n.getUserObject() ).getId() == id ))
 			return n;
 		else if (n.getChildCount() > 0)
 		{
@@ -175,7 +175,7 @@ public class ArbolDocumentos extends JTree implements Autoscroll {
 	 */
 	public void imprimirFichero()
 	{
-		MIFichero doc = getDocumentoSeleccionado();
+		MIDocumento doc = getDocumentoSeleccionado();
 
 		if (doc.esDirectorio()) return;
 
@@ -193,7 +193,7 @@ public class ArbolDocumentos extends JTree implements Autoscroll {
 	 */
 	public void guardarDocumentoLocalmente()
 	{
-		MIFichero doc = this.getDocumentoSeleccionado();
+		MIDocumento doc = this.getDocumentoSeleccionado();
 
 		JFileChooser jfc = new JFileChooser("Guardar Documento Localmente");
 
@@ -236,73 +236,47 @@ public class ArbolDocumentos extends JTree implements Autoscroll {
 	}
 
 	/**
-	 * 
-	 *
+	 * Recupera la metainformacion relativa a un mensaje
+	 * @return la metainformacion del mensaje
 	 */
-	public MIFichero recuperarMail()
+	public MIDocumento recuperarMail()
 	{
-		MIFichero doc = this.getDocumentoSeleccionado();
+		// obtenemos el documento seleccionado
+		MIDocumento doc = this.getDocumentoSeleccionado();
 
-		java.io.File f = new java.io.File(".aux");
-
+		// nos aseguramos de que sea un mensaje
 		if (doc.esDirectorio()) return null;
-		if (!doc.getTipo().equals(MIFichero.TIPO_MENSAJE)) return null;
+		
+		if (!doc.getTipo().equals(MIDocumento.TIPO_MENSAJE)) return null;
 
+		
+		// recuperamos los datos del mensaje
 		Transfer t = new Transfer(ClienteFicheros.ipConexion, doc
 				.getRutaLocal());
 
 		byte[] datos = t.receiveFileBytes();
+		
 
-		try
-		{
-			RandomAccessFile acf = new RandomAccessFile(f.getAbsolutePath(),
-					"rw");
-
-			acf.write(datos);
-
-			acf.close();
-
-			FileReader fr = new FileReader(".aux");
-			BufferedReader bf = new BufferedReader(fr);
-
-			char[] buffer = new char[datos.length];
-
-			bf.read(buffer);
-
-			doc.setMensaje(new String(buffer));
-
-			bf.close();
-			fr.close();
-
-			return doc;
-		}
-		catch (FileNotFoundException e1)
-		{
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-			return null;
-		}
-		catch (IOException e3)
-		{
-			// TODO Auto-generated catch block
-			e3.printStackTrace();
-			return null;
-		}
+		// enviamos los datos
+		doc.setMensaje(new String(datos));
+		
+		// devolvemos la metainformacion
+		return doc;
 	}
 
 	/**
-	 * 
+	 * Elimina el fichero seleccionado (si se tienen los permisos suficientes)
 	 * @return
 	 */
 	public boolean eliminarFichero()
 	{
-		MIFichero f = this.getDocumentoSeleccionado();
+		MIDocumento f = this.getDocumentoSeleccionado();
 
 		if (f != null)
 		{
 			if (!f.esDirectorio()
 					&& f.comprobarPermisos(DConector.Dusuario, DConector.Drol,
-							MIFichero.PERMISO_ESCRITURA))
+							MIDocumento.PERMISO_ESCRITURA))
 			{
 
 				ClienteFicheros.obtenerClienteFicheros().borrarFichero(f,
@@ -310,7 +284,7 @@ public class ArbolDocumentos extends JTree implements Autoscroll {
 				return true;
 			} 
 			else if (f.comprobarPermisos(DConector.Dusuario, DConector.Drol,
-							MIFichero.PERMISO_ESCRITURA))
+							MIDocumento.PERMISO_ESCRITURA))
 			{
 				DefaultMutableTreeNode nodo = this.getNodoSeleccionado();
 
@@ -341,15 +315,15 @@ public class ArbolDocumentos extends JTree implements Autoscroll {
 	 * @param nombre nuevo nombre de la carpeta
 	 * @return el ficheroBD con los datos de la nueva carpeta
 	 */
-	public MIFichero agregarCarpeta(String nombre)
+	public MIDocumento agregarCarpeta(String nombre)
 	{
-		MIFichero f = this.getDocumentoSeleccionado();
+		MIDocumento f = this.getDocumentoSeleccionado();
 
 		if (f.esDirectorio())
 		{
 
 			//creamos el nodo
-			MIFichero nuevo = new MIFichero();
+			MIDocumento nuevo = new MIDocumento();
 
 			if (!f.getRutaLocal().equals("/"))
 				nuevo.setRutaLocal(f.getRutaLocal() + "/" + nombre);
@@ -393,7 +367,7 @@ public class ArbolDocumentos extends JTree implements Autoscroll {
 	{
 
 		if (!n.isRoot()
-				&& ( ( (MIFichero) n.getUserObject() ).getRutaLocal()
+				&& ( ( (MIDocumento) n.getUserObject() ).getRutaLocal()
 						.equals(ruta) ))
 			return true;
 
@@ -417,18 +391,18 @@ public class ArbolDocumentos extends JTree implements Autoscroll {
 	 * @param ruta ruta del fichero
 	 * @return true si el fichero ya existe en la ruta y false en caso contrario
 	 */
-	public MIFichero buscarFichero(DefaultMutableTreeNode n, String ruta)
+	public MIDocumento buscarFichero(DefaultMutableTreeNode n, String ruta)
 	{
 
 		if (!n.isRoot()
-				&& ( ( (MIFichero) n.getUserObject() ).getRutaLocal()
+				&& ( ( (MIDocumento) n.getUserObject() ).getRutaLocal()
 						.equals(ruta) ))
-			return (MIFichero) n.getUserObject();
+			return (MIDocumento) n.getUserObject();
 
 		else if (n.getChildCount() > 0)
 		{
 
-			MIFichero f;
+			MIDocumento f;
 
 			for (int i = 0; i < n.getChildCount(); ++i)
 			{
@@ -578,11 +552,11 @@ class TreeDropTarget implements DropTargetListener
 	{
 		TreeNode node = getNodeForEvent(dtde);
 		
-		MIFichero f = (MIFichero) ((DefaultMutableTreeNode)node).getUserObject();
+		MIDocumento f = (MIDocumento) ((DefaultMutableTreeNode)node).getUserObject();
 		
 		// no se puede mover un documento a otro documento!!
 		// ni tampoco mover cosas a una carpeta sin permiso de escritura
-		if (!f.esDirectorio() || !f.comprobarPermisos(DConector.Dusuario, DConector.Drol, MIFichero.PERMISO_ESCRITURA))
+		if (!f.esDirectorio() || !f.comprobarPermisos(DConector.Dusuario, DConector.Drol, MIDocumento.PERMISO_ESCRITURA))
 		{
 			dtde.rejectDrag();
 		}
@@ -597,9 +571,9 @@ class TreeDropTarget implements DropTargetListener
 				DefaultMutableTreeNode node2 = (DefaultMutableTreeNode) p
 				.getLastPathComponent();
 				
-				MIFichero f2 = (MIFichero) (node2).getUserObject();
+				MIDocumento f2 = (MIDocumento) (node2).getUserObject();
 		
-				if (f2.esDirectorio() || !f2.comprobarPermisos(DConector.Dusuario, DConector.Drol, MIFichero.PERMISO_ESCRITURA))
+				if (f2.esDirectorio() || !f2.comprobarPermisos(DConector.Dusuario, DConector.Drol, MIDocumento.PERMISO_ESCRITURA))
 				{
 					dtde.rejectDrag();
 				} 
@@ -645,7 +619,7 @@ class TreeDropTarget implements DropTargetListener
 				.getLastPathComponent();
 		
 		// rechazamos que se muevan documentos a cosas que no sean carpetas 
-		if ( !((MIFichero)parent.getUserObject()).esDirectorio() )
+		if ( !((MIDocumento)parent.getUserObject()).esDirectorio() )
 		{
 			dtde.rejectDrop();
 			return;
@@ -664,7 +638,7 @@ class TreeDropTarget implements DropTargetListener
 					DefaultMutableTreeNode node = (DefaultMutableTreeNode) p
 							.getLastPathComponent();
 					
-					MIFichero f = (MIFichero)node.getUserObject();
+					MIDocumento f = (MIDocumento)node.getUserObject();
 					
 					
 					DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
@@ -680,7 +654,7 @@ class TreeDropTarget implements DropTargetListener
 					
 					DefaultMutableTreeNode nuevoPadre = (DefaultMutableTreeNode)nuevo[nuevo.length-2];
 					
-					String nuevoPath = ((MIFichero) nuevoPadre.getUserObject()).getRutaLocal();
+					String nuevoPath = ((MIDocumento) nuevoPadre.getUserObject()).getRutaLocal();
 					
 					if (nuevoPath.equals("/"))
 						nuevoPath +=  f.getNombre();
@@ -691,13 +665,13 @@ class TreeDropTarget implements DropTargetListener
 					
 					f.setRutaLocal(nuevoPath);
 					
-					f.setPadre(((MIFichero) nuevoPadre.getUserObject()).getId());
+					f.setPadre(((MIDocumento) nuevoPadre.getUserObject()).getId());
 					
 					
 					DFileEvent evento = new DFileEvent();
 					evento.fichero = f;
 
-					evento.padre = (MIFichero) nuevoPadre.getUserObject();
+					evento.padre = (MIDocumento) nuevoPadre.getUserObject();
 
 					evento.tipo = new Integer(
 							DFileEvent.NOTIFICAR_MODIFICACION_FICHERO

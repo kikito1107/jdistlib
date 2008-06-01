@@ -6,7 +6,7 @@ import java.util.Vector;
 
 import metainformacion.MIRol;
 import metainformacion.MIUsuario;
-import aplicacion.fisica.documentos.MIFichero;
+import aplicacion.fisica.documentos.MIDocumento;
 
 /**
  * @author Carlos Rodriguez Dominguez, Ana Belen Pelegrina Ortiz
@@ -31,7 +31,7 @@ public class GestorFicherosBD
 	 * @return un vector de FicheroBD con los ficheros y directorios del primer
 	 *         nivel
 	 */
-	public Vector<MIFichero> recuperar()
+	public Vector<MIDocumento> recuperar()
 	{
 		try
 		{
@@ -43,7 +43,7 @@ public class GestorFicherosBD
 			rs.next();
 
 			// recuperamos el contenido del directorio / (junto con el propio /)
-			Vector<MIFichero> dir = recuperarDirectorio(rs.getInt("id_fichero"));
+			Vector<MIDocumento> dir = recuperarDirectorio(rs.getInt("id_fichero"));
 
 			// cerramos la conexion
 			rs.close();
@@ -67,12 +67,12 @@ public class GestorFicherosBD
 	 *            identificador del directorio
 	 * @return un vector con los ficheros contenidos en el directorio
 	 */
-	public Vector<MIFichero> recuperarDirectorio(int id)
+	public Vector<MIDocumento> recuperarDirectorio(int id)
 	{
 		try
 		{
 			// creamos el vector de ficheros
-			Vector<MIFichero> res = new Vector<MIFichero>();
+			Vector<MIDocumento> res = new Vector<MIDocumento>();
 
 			// seleccionamos todos los ficheros cuyo padre sea el directorio en
 			// cuestion
@@ -108,7 +108,7 @@ public class GestorFicherosBD
 	 * @return el directoiro padre del fichero. Si el directorio no tiene padre
 	 *         ('/') devuelve null
 	 */
-	public MIFichero obtenerPadre(int id)
+	public MIDocumento obtenerPadre(int id)
 	{
 		try
 		{
@@ -125,7 +125,7 @@ public class GestorFicherosBD
 			if (!rs.wasNull())
 			{
 				// contruimos el fichero, cerramos la conexion y lo devolvemos
-				MIFichero f = construirFicheroBD(id_padre);
+				MIDocumento f = construirFicheroBD(id_padre);
 				rs.close();
 				return f;
 			}
@@ -152,7 +152,7 @@ public class GestorFicherosBD
 	 *            identificador del fichero
 	 * @return el fichero, si no existe ningœn fichero con ese id devuelve null
 	 */
-	private MIFichero construirFicheroBD(int id)
+	private MIDocumento construirFicheroBD(int id)
 	{
 		try
 		{
@@ -161,7 +161,7 @@ public class GestorFicherosBD
 							+ "'");
 			rs.next();
 
-			MIFichero f = construirFicheroBD(rs);
+			MIDocumento f = construirFicheroBD(rs);
 			rs.close();
 			return f;
 		}
@@ -181,7 +181,7 @@ public class GestorFicherosBD
 	 *            result set conteniendo los datos del fichero
 	 * @return el objeto FicheroBD
 	 */
-	private MIFichero construirFicheroBD(ResultSet rs)
+	private MIDocumento construirFicheroBD(ResultSet rs)
 	{
 		try
 		{
@@ -204,7 +204,7 @@ public class GestorFicherosBD
 			MIRol rol = null;
 			if (!rs.wasNull()) rol = obtenerRol(id_rol);
 
-			return new MIFichero(id, nombre, es_directorio, permisos, mu, rol,
+			return new MIDocumento(id, nombre, es_directorio, permisos, mu, rol,
 					id_padre, ruta_local, tipo);
 		}
 		catch (Exception ex)
@@ -258,7 +258,7 @@ public class GestorFicherosBD
 	 * 
 	 * @param f
 	 */
-	public MIFichero insertarNuevoFichero(MIFichero f)
+	public MIDocumento insertarNuevoFichero(MIDocumento f)
 	{
 		try
 		{
@@ -341,9 +341,9 @@ public class GestorFicherosBD
 	 * @param id
 	 * @return
 	 */
-	public MIFichero buscarFichero(int id)
+	public MIDocumento buscarFichero(int id)
 	{
-		MIFichero f = new MIFichero();
+		MIDocumento f = new MIDocumento();
 		
 		f.setId(-100);
 
@@ -380,9 +380,9 @@ public class GestorFicherosBD
 	 * @param id
 	 * @return
 	 */
-	public MIFichero buscarFicheroPath(String path)
+	public MIDocumento buscarFicheroPath(String path)
 	{
-		MIFichero f = new MIFichero();
+		MIDocumento f = new MIDocumento();
 		
 		f.setId(-100);
 
@@ -430,7 +430,7 @@ public class GestorFicherosBD
 
 	}
 
-	public void modificarFichero(MIFichero f)
+	public void modificarFichero(MIDocumento f)
 	{
 		try
 		{
@@ -460,7 +460,7 @@ public class GestorFicherosBD
 	
 
 
-	public void eliminarFichero(MIFichero f)
+	public void eliminarFichero(MIDocumento f)
 	{
 		try
 		{

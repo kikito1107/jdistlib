@@ -21,7 +21,7 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import Deventos.enlaceJS.DConector;
-import aplicacion.fisica.documentos.MIFichero;
+import aplicacion.fisica.documentos.MIDocumento;
 
 public class VisorPropiedadesFichero extends JDialog
 {
@@ -72,7 +72,7 @@ public class VisorPropiedadesFichero extends JDialog
 
 	private JButton jButton1 = null;
 
-	private MIFichero fichero = null;
+	private MIDocumento fichero = null;
 
 	private JCheckBox esDirectorio = null;
 
@@ -85,7 +85,7 @@ public class VisorPropiedadesFichero extends JDialog
 	/**
 	 * @param owner
 	 */
-	public VisorPropiedadesFichero( Frame owner, MIFichero f )
+	public VisorPropiedadesFichero( Frame owner, MIDocumento f )
 	{
 		super(owner);
 		fichero = f;
@@ -239,7 +239,7 @@ public class VisorPropiedadesFichero extends JDialog
 		if (lecturaU == null)
 		{
 			lecturaU = new JCheckBox();
-			if (fichero.getPermisos().charAt(0) == MIFichero.PERMISO_LECTURA)
+			if (fichero.getPermisos().charAt(0) == MIDocumento.PERMISO_LECTURA)
 				lecturaU.setSelected(true);
 			else lecturaU.setSelected(false);
 
@@ -257,7 +257,7 @@ public class VisorPropiedadesFichero extends JDialog
 		if (escrituraU == null)
 		{
 			escrituraU = new JCheckBox();
-			if (fichero.getPermisos().charAt(1) == MIFichero.PERMISO_ESCRITURA)
+			if (fichero.getPermisos().charAt(1) == MIDocumento.PERMISO_ESCRITURA)
 				escrituraU.setSelected(true);
 			else escrituraU.setSelected(false);
 		}
@@ -274,7 +274,7 @@ public class VisorPropiedadesFichero extends JDialog
 		if (lecturaR == null)
 		{
 			lecturaR = new JCheckBox();
-			if (fichero.getPermisos().charAt(2) == MIFichero.PERMISO_LECTURA)
+			if (fichero.getPermisos().charAt(2) == MIDocumento.PERMISO_LECTURA)
 				lecturaR.setSelected(true);
 			else lecturaR.setSelected(false);
 		}
@@ -291,7 +291,7 @@ public class VisorPropiedadesFichero extends JDialog
 		if (escrituraR == null)
 		{
 			escrituraR = new JCheckBox();
-			if (fichero.getPermisos().charAt(3) == MIFichero.PERMISO_ESCRITURA)
+			if (fichero.getPermisos().charAt(3) == MIDocumento.PERMISO_ESCRITURA)
 				escrituraR.setSelected(true);
 			else escrituraR.setSelected(false);
 		}
@@ -308,7 +308,7 @@ public class VisorPropiedadesFichero extends JDialog
 		if (lecturaO == null)
 		{
 			lecturaO = new JCheckBox();
-			if (fichero.getPermisos().charAt(4) == MIFichero.PERMISO_LECTURA)
+			if (fichero.getPermisos().charAt(4) == MIDocumento.PERMISO_LECTURA)
 				lecturaO.setSelected(true);
 			else lecturaO.setSelected(false);
 		}
@@ -325,7 +325,7 @@ public class VisorPropiedadesFichero extends JDialog
 		if (escrituraO == null)
 		{
 			escrituraO = new JCheckBox();
-			if (fichero.getPermisos().charAt(5) == MIFichero.PERMISO_ESCRITURA)
+			if (fichero.getPermisos().charAt(5) == MIDocumento.PERMISO_ESCRITURA)
 				escrituraO.setSelected(true);
 			else escrituraO.setSelected(false);
 		}
@@ -455,7 +455,7 @@ public class VisorPropiedadesFichero extends JDialog
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
 					if (fichero.comprobarPermisos(DConector.Dusuario,
-							DConector.Drol, MIFichero.PERMISO_ESCRITURA)
+							DConector.Drol, MIDocumento.PERMISO_ESCRITURA)
 						||
 						(		fichero.getUsuario().getNombreUsuario().equals(DConector.Dusuario) && 
 								fichero.getRol().getNombreRol().equals(DConector.Drol))
@@ -475,6 +475,9 @@ public class VisorPropiedadesFichero extends JDialog
 							System.err.print(carpetas[i] + ",\t");
 						}
 
+						if (path.equals("") || path.charAt(0) != '/')
+							path = "/" + path;
+						
 						path += fichero.getNombre();
 
 						System.err.println("\n\nnueva ruta local " + path);
@@ -565,7 +568,7 @@ public class VisorPropiedadesFichero extends JDialog
 		setVisible(true);
 	}
 
-	public static MIFichero verInfoFichero(MIFichero fichero, Frame owner)
+	public static MIDocumento verInfoFichero(MIDocumento fichero, Frame owner)
 	{
 
 		VisorPropiedadesFichero f = new VisorPropiedadesFichero(owner, fichero);

@@ -30,7 +30,7 @@ import metainformacion.MIRol;
 import metainformacion.MIUsuario;
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.ClienteFicheros;
-import aplicacion.fisica.documentos.MIFichero;
+import aplicacion.fisica.documentos.MIDocumento;
 
 public class EnviarMensaje extends JDialog
 {
@@ -73,7 +73,7 @@ public class EnviarMensaje extends JDialog
 
 	private JLabel label = null;
 	
-	private MIFichero mif = null;
+	private MIDocumento mif = null;
 	
 	private String asunt = "";
 
@@ -197,18 +197,18 @@ public class EnviarMensaje extends JDialog
 						}
 							
 						
-						mif = new MIFichero();
-						MIFichero buzon = ClienteFicheros.obtenerClienteFicheros().existeFichero("/Incoming", DConector.Daplicacion);
+						mif = new MIDocumento();
+						MIDocumento buzon = ClienteFicheros.obtenerClienteFicheros().existeFichero("/Incoming", DConector.Daplicacion);
 						
 						if (buzon == null) {
-							JOptionPane.showMessageDialog(null, "Buzon no encontrado");
+							JOptionPane.showMessageDialog(null, "Buzon no encontrado, no se puede enviar el mensjae");
 							 setVisible(false);
 							 mif = null;
 							return;
 						}
-						mif.setNombre(getAsunto().getText()+"."+MIFichero.TIPO_MENSAJE);
-						mif.setTipo(MIFichero.TIPO_MENSAJE);
-						mif.setRutaLocal("/Incoming/" + mif.toString()+"."+MIFichero.TIPO_MENSAJE);
+						mif.setNombre(getAsunto().getText()+"."+MIDocumento.TIPO_MENSAJE);
+						mif.setTipo(MIDocumento.TIPO_MENSAJE);
+						mif.setRutaLocal("/Incoming/" + mif.toString()+"."+MIDocumento.TIPO_MENSAJE);
 						mif.setId(-1);
 						mif.setPermisos("rw----");
 						
@@ -596,7 +596,7 @@ public class EnviarMensaje extends JDialog
 		return asunto;
 	}
 	
-	public static MIFichero getMensaje(String nombre, String asunto,String mensaje){
+	public static MIDocumento getMensaje(String nombre, String asunto,String mensaje){
 		EnviarMensaje em = new EnviarMensaje(nombre, asunto, mensaje);
 		em.setModal(true);
 		em.setVisible(true);

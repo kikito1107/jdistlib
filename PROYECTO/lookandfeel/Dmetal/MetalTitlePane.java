@@ -12,7 +12,6 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dialog;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Frame;
 import java.awt.Graphics;
@@ -740,7 +739,7 @@ class MetalTitlePane extends JComponent
 		String theTitle = getTitle();
 		if (theTitle != null)
 		{
-			Font f = getFont();
+			
 			FontMetrics fm = g.getFontMetrics();
 
 			g.setColor(foreground);

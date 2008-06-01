@@ -1,7 +1,7 @@
 package aplicacion.fisica.eventos;
 
 import Deventos.DEvent;
-import aplicacion.fisica.documentos.MIFichero;
+import aplicacion.fisica.documentos.MIDocumento;
 
 /**
  * Modificar la BD
@@ -40,9 +40,9 @@ public class DFileEvent extends DEvent
 
 	public String path = null;
 
-	public MIFichero fichero = null;
+	public MIDocumento fichero = null;
 
-	public MIFichero padre = null;
+	public MIDocumento padre = null;
 	
 	public Boolean res = null;
 

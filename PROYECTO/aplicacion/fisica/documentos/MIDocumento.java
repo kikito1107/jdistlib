@@ -1,11 +1,12 @@
 package aplicacion.fisica.documentos;
 
 import java.io.Serializable;
+import java.util.Vector;
 
 import metainformacion.MIRol;
 import metainformacion.MIUsuario;
 
-public class MIFichero implements Serializable
+public class MIDocumento implements Serializable
 {
 	/**
 	 * 
@@ -48,12 +49,12 @@ public class MIFichero implements Serializable
 	
 	public final static String TIPO_BANDEJA_TXT = "txt";
 
-	public MIFichero()
+	public MIDocumento()
 	{
-
+		
 	}
 
-	public MIFichero( int id, String nom, boolean dir, String perm,
+	public MIDocumento( int id, String nom, boolean dir, String perm,
 			MIUsuario usu, MIRol ro, int pad, String ruta, String tip )
 	{
 		nombre = nom;
@@ -160,11 +161,11 @@ public class MIFichero implements Serializable
 	@Override
 	public String toString()
 	{
-		if (this.getTipo() ==null || !this.getTipo().equals(MIFichero.TIPO_MENSAJE))
+		if (this.getTipo() ==null || !this.getTipo().equals(MIDocumento.TIPO_MENSAJE))
 			return this.nombre;
 		else {
 			String nombr = this.getNombre();
-			return nombr.replaceAll("."+MIFichero.TIPO_MENSAJE, "");
+			return nombr.replaceAll("."+MIDocumento.TIPO_MENSAJE, "");
 		}
 			
 	}
@@ -176,9 +177,9 @@ public class MIFichero implements Serializable
 
 		int index = -1;
 
-		if (modo == MIFichero.PERMISO_LECTURA)
+		if (modo == MIDocumento.PERMISO_LECTURA)
 			index = 0;
-		else if (modo == MIFichero.PERMISO_ESCRITURA)
+		else if (modo == MIDocumento.PERMISO_ESCRITURA)
 			index = 1;
 		else return false;
 
@@ -204,7 +205,7 @@ public class MIFichero implements Serializable
 				|| extension.equals("jpg") || extension.equals("jpeg")
 				|| extension.equals("tiff") || extension.equals("tif")
 				|| extension.equals("bmp"))
-			res = new String(MIFichero.TIPO_IMAGEN);
+			res = new String(MIDocumento.TIPO_IMAGEN);
 		else res = extension;
 
 		return res;

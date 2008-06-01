@@ -9,7 +9,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
 import Deventos.enlaceJS.DConector;
-import aplicacion.fisica.documentos.MIFichero;
+import aplicacion.fisica.documentos.MIDocumento;
 
 public class DocumentosCellRenderer extends DefaultTreeCellRenderer
 {
@@ -83,14 +83,14 @@ public class DocumentosCellRenderer extends DefaultTreeCellRenderer
 		
 			DefaultMutableTreeNode dftn = (DefaultMutableTreeNode) value;
 
-			MIFichero f = (MIFichero) dftn.getUserObject();
+			MIDocumento f = (MIDocumento) dftn.getUserObject();
 			
 			String extension  = f.getTipo();
 			
 			if (!f.esDirectorio())
 				return false;
 			
-			if (extension != null && extension.equals(MIFichero.TIPO_BANDEJA_MAIL)) return true;
+			if (extension != null && extension.equals(MIDocumento.TIPO_BANDEJA_MAIL)) return true;
 			else return false;
 		}
 		return false;
@@ -104,11 +104,11 @@ public class DocumentosCellRenderer extends DefaultTreeCellRenderer
 		
 			DefaultMutableTreeNode dftn = (DefaultMutableTreeNode) value;
 
-			MIFichero f = (MIFichero) dftn.getUserObject();
+			MIDocumento f = (MIDocumento) dftn.getUserObject();
 			
 			String extension  = f.getTipo();
 			
-			if (extension != null && extension.equals(MIFichero.TIPO_DOC)) return true;
+			if (extension != null && extension.equals(MIDocumento.TIPO_DOC)) return true;
 			else return false;
 		}
 		return false;
@@ -121,11 +121,11 @@ public class DocumentosCellRenderer extends DefaultTreeCellRenderer
 		
 			DefaultMutableTreeNode dftn = (DefaultMutableTreeNode) value;
 
-			MIFichero f = (MIFichero) dftn.getUserObject();
+			MIDocumento f = (MIDocumento) dftn.getUserObject();
 			
 			String extension  = f.getTipo();
 			
-			if (extension != null && extension.equals(MIFichero.TIPO_IMAGEN)) return true;
+			if (extension != null && extension.equals(MIDocumento.TIPO_IMAGEN)) return true;
 			else return false;
 		}
 		return false;
@@ -138,12 +138,12 @@ public class DocumentosCellRenderer extends DefaultTreeCellRenderer
 		
 			DefaultMutableTreeNode dftn = (DefaultMutableTreeNode) value;
 
-			MIFichero f = (MIFichero) dftn.getUserObject();
+			MIDocumento f = (MIDocumento) dftn.getUserObject();
 			
 			String extension  = f.getTipo();
 			
 			
-			if ( extension != null && extension.equals(MIFichero.TIPO_PDF)) return true;
+			if ( extension != null && extension.equals(MIDocumento.TIPO_PDF)) return true;
 			else return false;
 		}
 		return false;
@@ -156,12 +156,12 @@ public class DocumentosCellRenderer extends DefaultTreeCellRenderer
 		
 			DefaultMutableTreeNode dftn = (DefaultMutableTreeNode) value;
 
-			MIFichero f = (MIFichero) dftn.getUserObject();
+			MIDocumento f = (MIDocumento) dftn.getUserObject();
 			
 			String extension  = f.getTipo();
 			
 			
-			if ( extension != null && extension.equals(MIFichero.TIPO_MENSAJE)) return true;
+			if ( extension != null && extension.equals(MIDocumento.TIPO_MENSAJE)) return true;
 			else return false;
 		}
 		return false;
@@ -174,11 +174,11 @@ public class DocumentosCellRenderer extends DefaultTreeCellRenderer
 		
 			DefaultMutableTreeNode dftn = (DefaultMutableTreeNode) value;
 
-			MIFichero f = (MIFichero) dftn.getUserObject();
+			MIDocumento f = (MIDocumento) dftn.getUserObject();
 			
 			String extension  = f.getTipo();
 			
-			if (extension != null && extension.equals(MIFichero.TIPO_BANDEJA_TXT)) return true;
+			if (extension != null && extension.equals(MIDocumento.TIPO_BANDEJA_TXT)) return true;
 			else return false;
 		}
 		return false;
@@ -192,7 +192,7 @@ public class DocumentosCellRenderer extends DefaultTreeCellRenderer
 		
 			DefaultMutableTreeNode dftn = (DefaultMutableTreeNode) value;
 
-			MIFichero f = (MIFichero) dftn.getUserObject();
+			MIDocumento f = (MIDocumento) dftn.getUserObject();
 			
 			Vector<String> v = DConector.obtenerDC().consultarEditores(f.getRutaLocal());
 			
@@ -211,7 +211,7 @@ public class DocumentosCellRenderer extends DefaultTreeCellRenderer
 
 			DefaultMutableTreeNode dftn = (DefaultMutableTreeNode) value;
 
-			MIFichero f = (MIFichero) dftn.getUserObject();
+			MIDocumento f = (MIDocumento) dftn.getUserObject();
 
 			if (f.esDirectorio())
 				res = true;

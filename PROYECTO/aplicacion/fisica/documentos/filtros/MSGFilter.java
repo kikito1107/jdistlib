@@ -9,7 +9,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import aplicacion.fisica.documentos.Documento;
-import aplicacion.fisica.documentos.MIFichero;
+import aplicacion.fisica.documentos.MIDocumento;
 
 public class MSGFilter implements DocumentFilter
 {
@@ -119,7 +119,7 @@ public class MSGFilter implements DocumentFilter
 
 	public boolean isSupported(String extension)
 	{
-		if (extension.toLowerCase().compareTo(MIFichero.TIPO_MENSAJE) == 0)
+		if (extension.toLowerCase().compareTo(MIDocumento.TIPO_MENSAJE) == 0)
 			return true;
 		
 		else return false;
