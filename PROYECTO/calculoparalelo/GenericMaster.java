@@ -29,7 +29,8 @@ public abstract class GenericMaster extends DAbstractPlugin {
 		super(nombre, conexionDC, padre);
 	}
     
-    public void init() {
+    @Override
+	public void init() {
     	
         try
 		{
@@ -64,7 +65,7 @@ public abstract class GenericMaster extends DAbstractPlugin {
         protected  final Entry takeTask(Entry template) {
             try {
                     Entry result =
-                        (Entry) space.take(template, null, Long.MAX_VALUE);
+                        space.take(template, null, Long.MAX_VALUE);
                     return result;
             } catch (RemoteException e) {
                     e.printStackTrace();
@@ -79,13 +80,15 @@ public abstract class GenericMaster extends DAbstractPlugin {
         }
     
     private class GenerateThread extends Thread {
-        public void run() {
+        @Override
+		public void run() {
             generateTasks();
         }
     }
     
     private class CollectThread extends Thread {
-        public void run() {
+        @Override
+		public void run() {
             collectResults();
         }
     }   

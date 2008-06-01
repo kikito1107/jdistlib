@@ -64,11 +64,11 @@ public class DPluginLoader
 		else
 		{
 			File childs[] = dir.listFiles();
-			for (int i = 0; i < childs.length; i++)
-				if (!childs[i].isDirectory()
-						&& childs[i].getPath().toLowerCase().endsWith(".jar"))
+			for (File element : childs)
+				if (!element.isDirectory()
+						&& element.getPath().toLowerCase().endsWith(".jar"))
 				{
-					dap = getPlugin(childs[i].getPath());
+					dap = getPlugin(element.getPath());
 					if (dap != null) res.add(dap);
 				}
 		}

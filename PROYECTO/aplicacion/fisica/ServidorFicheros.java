@@ -372,7 +372,7 @@ public class ServidorFicheros
 				{
 					DEvent evento = colaEnvio.extraerEvento();
 					space.write(evento, null, leaseWriteTime);
-					FrameServFich.println("Escrito evento: " + (DEvent) evento);
+					FrameServFich.println("Escrito evento: " + evento);
 				}
 				catch (Exception e)
 				{

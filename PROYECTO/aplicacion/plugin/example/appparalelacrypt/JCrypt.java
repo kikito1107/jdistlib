@@ -368,7 +368,7 @@ public class JCrypt
 
     private static final int byteToUnsigned(byte b)
     {
-        int value = (int)b;
+        int value = b;
 
         return(value >= 0 ? value : value + 256);
     }
@@ -583,8 +583,8 @@ public class JCrypt
             key[i] = (byte) (data[i + 2] << 1);
         }
 
-        int Eswap0 = con_salt[(int)data[0]];
-        int Eswap1 = con_salt[(int)data[1]] << 4;
+        int Eswap0 = con_salt[data[0]];
+        int Eswap1 = con_salt[data[1]] << 4;
 
         int schedule[] = des_set_key(key);
         int out[]      = body(schedule, Eswap0, Eswap1);
@@ -606,7 +606,7 @@ public class JCrypt
             {
                 c <<= 1;
 
-                if(((int)b[y] & u) != 0)
+                if((b[y] & u) != 0)
                 c |= 1;
 
                 u >>>= 1;

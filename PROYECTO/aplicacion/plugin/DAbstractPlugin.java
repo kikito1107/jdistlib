@@ -246,7 +246,7 @@ public abstract class DAbstractPlugin extends DComponenteBase
 			numEventos = vaux.size();
 			for (int j = 0; j < numEventos; j++)
 			{
-				saux = (DPluginRegisterEvent) vaux.elementAt(j);
+				saux = vaux.elementAt(j);
 				if (saux.ultimoProcesado.intValue() > ultimoProcesado
 						.intValue()) procesarEvento(saux);
 			}

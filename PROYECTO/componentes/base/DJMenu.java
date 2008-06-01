@@ -577,13 +577,13 @@ public class DJMenu extends JMenu implements DComponente
 							MenuElement[] path = vectorToPath(evento.path);
 							DMenuSelectionManager.defaultManager()
 									.setSelectedPath(path);
-							for (int j = 0; j < path.length; j++)
-								if (path[j] instanceof JPopupMenu)
+							for (MenuElement element : path)
+								if (element instanceof JPopupMenu)
 								{
 									EventQueue
 											.invokeLater(new RepintadorPopupMenu(
-													(JPopupMenu) path[j]));
-									( (JPopupMenu) path[j] ).repaint();
+													(JPopupMenu) element));
+									( (JPopupMenu) element ).repaint();
 								}
 							// Repintamos los punteros remotos para que queden
 							// por encima del menu

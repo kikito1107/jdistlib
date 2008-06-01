@@ -75,8 +75,8 @@ public class ListaElementos extends JList
 
 	public void aniadirElementos(String[] elementos)
 	{
-		for (int i = 0; i < elementos.length; i++)
-			model.addElement(new ElementoLista(null, elementos[i]));
+		for (String element : elementos)
+			model.addElement(new ElementoLista(null, element));
 	}
 
 	public int obtenerNumElementos()

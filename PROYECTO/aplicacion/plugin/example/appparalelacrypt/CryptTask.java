@@ -91,9 +91,9 @@ public class CryptTask extends TaskEntry
 	public static String getPrintableWord(byte[] word)
 	{
 		String string = "";
-		for (int i = 0; i < word.length; i++)
+		for (byte element : word)
 		{
-			string = string + charMap[word[i]];
+			string = string + charMap[element];
 		}
 		return string;
 	}

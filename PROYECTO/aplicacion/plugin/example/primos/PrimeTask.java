@@ -37,6 +37,7 @@ public class PrimeTask extends TaskEntry
 		
 	}
 	
+	@Override
 	public ResultEntry execute(JavaSpace space)
 	{
 		

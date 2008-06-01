@@ -82,8 +82,8 @@ public class DILista extends DComponenteBase implements java.io.Serializable
 			DComponenteBase padre )
 	{
 		this(nombre, conexionDC, padre);
-		for (int i = 0; i < elementos.length; i++)
-			lista.aniadirElemento(elementos[i]);
+		for (String element : elementos)
+			lista.aniadirElemento(element);
 	}
 
 	public DILista( String[] elementos, boolean estatica, String nombre,
@@ -91,8 +91,8 @@ public class DILista extends DComponenteBase implements java.io.Serializable
 	{
 		this(nombre, conexionDC, padre);
 		this.estatica = estatica;
-		for (int i = 0; i < elementos.length; i++)
-			lista.aniadirElemento(elementos[i]);
+		for (String element : elementos)
+			lista.aniadirElemento(element);
 	}
 
 	private void jbInit() throws Exception
@@ -180,14 +180,14 @@ public class DILista extends DComponenteBase implements java.io.Serializable
 			DJListEvent evento = new DJListEvent();
 			evento.tipo = new Integer(DJListEvent.ANIADIR_ELEMENTOS.intValue());
 			Vector v = new Vector();
-			for (int i = 0; i < elementos.length; i++)
-				v.add(elementos[i]);
+			for (String element : elementos)
+				v.add(element);
 			evento.elementos = v;
 
 			enviarEvento(evento);
 		}
-		else for (int i = 0; i < elementos.length; i++)
-			lista.aniadirElemento(elementos[i]);
+		else for (String element : elementos)
+			lista.aniadirElemento(element);
 	}
 
 	public int obtenerNumElementos()

@@ -71,9 +71,9 @@ public class MSGFilter implements DocumentFilter
 		String[] lineas = contenido.split("\n");
 		String str;
 		int npag = 1;
-		for (int i = 0; i < lineas.length; i++)
+		for (String element : lineas)
 		{
-			str = lineas[i];
+			str = element;
 
 			// Pintamos la linea. Si la longitud es mayor de 80 la dividimos
 			// sucesivamente.

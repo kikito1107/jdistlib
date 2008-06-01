@@ -27,8 +27,6 @@ import aplicacion.fisica.documentos.Documento;
 import aplicacion.fisica.documentos.Pagina;
 import aplicacion.fisica.net.Transfer;
 import aplicacion.fisica.net.TransferP2P;
-import aplicacion.gui.VentanaCarga;
-
 import componentes.base.DComponenteBase;
 
 import figuras.Elipse;

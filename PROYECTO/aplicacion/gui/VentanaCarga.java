@@ -3,13 +3,10 @@ package aplicacion.gui;
 import java.awt.BorderLayout;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSlider;
 import javax.swing.WindowConstants;
-import javax.swing.JProgressBar;
 
 public class VentanaCarga extends JFrame
 {

@@ -28,8 +28,8 @@ public class ImageFilter implements DocumentFilter
 	public boolean isSupported(String extension)
 	{
 		String[] readFormats = ImageIO.getReaderFormatNames();
-		for (int i = 0; i < readFormats.length; i++)
-			if (readFormats[i].toLowerCase().compareTo(extension) == 0)
+		for (String element : readFormats)
+			if (element.toLowerCase().compareTo(extension) == 0)
 			{
 				return true;
 			}

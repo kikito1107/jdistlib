@@ -53,8 +53,8 @@ public class TablaElementos extends JTable
 	public void aniadir(String[][] filas)
 	{
 		ModeloTabla modelo = (ModeloTabla) this.getModel();
-		for (int i = 0; i < filas.length; i++)
-			modelo.aniadirFila(filas[i]);
+		for (String[] element : filas)
+			modelo.aniadirFila(element);
 	}
 
 	public void eliminarFila(int numFila)

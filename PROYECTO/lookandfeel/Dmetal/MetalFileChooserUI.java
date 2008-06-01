@@ -1115,6 +1115,7 @@ public class MetalFileChooserUI extends BasicFileChooserUI
 				else super.setTransferHandler(newHandler);
 			}
 
+			@Override
 			public boolean getDragEnabled()
 			{
 				if (table != null)
@@ -1122,6 +1123,7 @@ public class MetalFileChooserUI extends BasicFileChooserUI
 				else return super.getDragEnabled();
 			}
 
+			@Override
 			public void setDragEnabled(boolean b)
 			{
 				if (table != null)
@@ -1145,6 +1147,7 @@ public class MetalFileChooserUI extends BasicFileChooserUI
 		// first displayed (temporary listener).
 		scrollpane.addComponentListener(new ComponentAdapter()
 		{
+			@Override
 			public void componentResized(ComponentEvent e)
 			{
 				JScrollPane sp = (JScrollPane) e.getComponent();
@@ -1188,10 +1191,12 @@ public class MetalFileChooserUI extends BasicFileChooserUI
 	 *            a <code>JFileChooser</code>
 	 * @return a <code>ListSelectionListener</code>
 	 */
+	@Override
 	public ListSelectionListener createListSelectionListener(JFileChooser fc)
 	{
 		return new SelectionListener()
 		{
+			@Override
 			public void valueChanged(ListSelectionEvent e)
 			{
 				if (!e.getValueIsAdjusting())
@@ -1209,7 +1214,7 @@ public class MetalFileChooserUI extends BasicFileChooserUI
 									&& ( (File) objects[0] ).isDirectory()
 									&& chooser
 											.isTraversable(( (File) objects[0] ))
-									&& ( ( chooser.getFileSelectionMode() == chooser.FILES_ONLY ) || !fsv
+									&& ( ( chooser.getFileSelectionMode() == JFileChooser.FILES_ONLY ) || !fsv
 											.isFileSystem(( (File) objects[0] )) ))
 							{
 								setDirectorySelected(true);
@@ -1219,9 +1224,9 @@ public class MetalFileChooserUI extends BasicFileChooserUI
 							{
 								files = new File[objects.length];
 								int j = 0;
-								for (int i = 0; i < objects.length; i++)
+								for (Object element : objects)
 								{
-									File f = (File) objects[i];
+									File f = (File) element;
 									boolean isDir = f.isDirectory();
 									boolean isFile = !isDir ? f.isFile()
 											: !isDir;
@@ -1249,7 +1254,7 @@ public class MetalFileChooserUI extends BasicFileChooserUI
 						if (( file != null )
 								&& file.isDirectory()
 								&& chooser.isTraversable(file)
-								&& ( ( chooser.getFileSelectionMode() == chooser.FILES_ONLY ) || !fsv
+								&& ( ( chooser.getFileSelectionMode() == JFileChooser.FILES_ONLY ) || !fsv
 										.isFileSystem(file) ))
 						{
 							setDirectorySelected(true);
@@ -1343,6 +1348,7 @@ public class MetalFileChooserUI extends BasicFileChooserUI
 			this.list = list;
 		}
 
+		@Override
 		public void mouseClicked(MouseEvent e)
 		{
 			if (SwingUtilities.isLeftMouseButton(e))
@@ -1432,6 +1438,7 @@ public class MetalFileChooserUI extends BasicFileChooserUI
 		 */
 		private static final long serialVersionUID = 9097009812546913947L;
 
+		@Override
 		public Component getListCellRendererComponent(JList list, Object value,
 				int index, boolean isSelected, boolean cellHasFocus)
 		{
@@ -1453,6 +1460,7 @@ public class MetalFileChooserUI extends BasicFileChooserUI
 		}
 	}
 
+	@Override
 	public void uninstallUI(JComponent c)
 	{
 		// Remove listeners
@@ -1474,6 +1482,7 @@ public class MetalFileChooserUI extends BasicFileChooserUI
 	 * @return a <code>Dimension</code> specifying the preferred width and
 	 *         height of the file chooser
 	 */
+	@Override
 	public Dimension getPreferredSize(JComponent c)
 	{
 		int prefWidth = PREF_SIZE.width;
@@ -1492,6 +1501,7 @@ public class MetalFileChooserUI extends BasicFileChooserUI
 	 * @return a <code>Dimension</code> specifying the minimum width and
 	 *         height of the file chooser
 	 */
+	@Override
 	public Dimension getMinimumSize(JComponent c)
 	{
 		return MIN_SIZE;
@@ -1505,6 +1515,7 @@ public class MetalFileChooserUI extends BasicFileChooserUI
 	 * @return a <code>Dimension</code> specifying the maximum width and
 	 *         height of the file chooser
 	 */
+	@Override
 	public Dimension getMaximumSize(JComponent c)
 	{
 		return new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE);
@@ -1523,37 +1534,35 @@ public class MetalFileChooserUI extends BasicFileChooserUI
 
 			if (true)
 			{
-				// Remove files that shouldn't be selected
-				for (int j = 0; j < selectedObjects.length; j++)
+				for (Object element : selectedObjects)
 				{
 					boolean found = false;
-					for (int i = 0; i < files.length; i++)
-						if (files[i].equals(selectedObjects[j]))
+					for (File element0 : files)
+						if (element0.equals(element))
 						{
 							found = true;
 							break;
 						}
 					if (!found)
 					{
-						int index = getModel().indexOf(selectedObjects[j]);
+						int index = getModel().indexOf(element);
 						if (index >= 0)
 							listSelectionModel.removeSelectionInterval(index,
 									index);
 					}
 				}
-				// Add files that should be selected
-				for (int i = 0; i < files.length; i++)
+				for (File element : files)
 				{
 					boolean found = false;
-					for (int j = 0; j < selectedObjects.length; j++)
-						if (files[i].equals(selectedObjects[j]))
+					for (Object element0 : selectedObjects)
+						if (element.equals(element0))
 						{
 							found = true;
 							break;
 						}
 					if (!found)
 					{
-						int index = getModel().indexOf(files[i]);
+						int index = getModel().indexOf(element);
 						if (index >= 0)
 							listSelectionModel.addSelectionInterval(index,
 									index);
@@ -1810,6 +1819,7 @@ public class MetalFileChooserUI extends BasicFileChooserUI
 	 * Listen for filechooser property changes, such as the selected file
 	 * changing, or the type of the dialog changing.
 	 */
+	@Override
 	public PropertyChangeListener createPropertyChangeListener(JFileChooser fc)
 	{
 		return new PropertyChangeListener()
@@ -1895,16 +1905,19 @@ public class MetalFileChooserUI extends BasicFileChooserUI
 		}
 	}
 
+	@Override
 	public void ensureFileIsVisible(JFileChooser fc, File f)
 	{
 		ensureIndexIsVisible(getModel().indexOf(f));
 	}
 
+	@Override
 	public void rescanCurrentDirectory(JFileChooser fc)
 	{
 		getModel().validateFileCache();
 	}
 
+	@Override
 	public String getFileName()
 	{
 		if (fileNameTextField != null)
@@ -1912,6 +1925,7 @@ public class MetalFileChooserUI extends BasicFileChooserUI
 		else return null;
 	}
 
+	@Override
 	public void setFileName(String filename)
 	{
 		if (fileNameTextField != null) fileNameTextField.setText(filename);
@@ -1925,6 +1939,7 @@ public class MetalFileChooserUI extends BasicFileChooserUI
 	 *            if a directory is currently selected.
 	 * @since 1.4
 	 */
+	@Override
 	protected void setDirectorySelected(boolean directorySelected)
 	{
 		super.setDirectorySelected(directorySelected);
@@ -1941,12 +1956,14 @@ public class MetalFileChooserUI extends BasicFileChooserUI
 		}
 	}
 
+	@Override
 	public String getDirectoryName()
 	{
 		// PENDING(jeff) - get the name from the directory combobox
 		return null;
 	}
 
+	@Override
 	public void setDirectoryName(String dirname)
 	{
 		// PENDING(jeff) - set the name in the directory combobox
@@ -1970,6 +1987,7 @@ public class MetalFileChooserUI extends BasicFileChooserUI
 
 		IndentIcon ii = new IndentIcon();
 
+		@Override
 		public Component getListCellRendererComponent(JList list, Object value,
 				int index, boolean isSelected, boolean cellHasFocus)
 		{
@@ -2134,7 +2152,7 @@ public class MetalFileChooserUI extends BasicFileChooserUI
 				File parent = dir.getParentFile();
 				depths[i] = 0;
 				if (parent != null) for (int j = i - 1; j >= 0; j--)
-					if (parent.equals((File) directories.get(j)))
+					if (parent.equals(directories.get(j)))
 					{
 						depths[i] = depths[j] + 1;
 						break;
@@ -2185,6 +2203,7 @@ public class MetalFileChooserUI extends BasicFileChooserUI
 	{
 		private static final long serialVersionUID = -6488773660432125813L;
 
+		@Override
 		public Component getListCellRendererComponent(JList list, Object value,
 				int index, boolean isSelected, boolean cellHasFocus)
 		{
@@ -2259,8 +2278,8 @@ public class MetalFileChooserUI extends BasicFileChooserUI
 			boolean found = false;
 			if (currentFilter != null)
 			{
-				for (int i = 0; i < filters.length; i++)
-					if (filters[i] == currentFilter) found = true;
+				for (FileFilter element : filters)
+					if (element == currentFilter) found = true;
 				if (found == false)
 					getFileChooser().addChoosableFileFilter(currentFilter);
 			}
@@ -2316,6 +2335,7 @@ public class MetalFileChooserUI extends BasicFileChooserUI
 		}
 	}
 
+	@Override
 	protected JButton getApproveButton(JFileChooser fc)
 	{
 		return approveButton;
@@ -2415,8 +2435,8 @@ public class MetalFileChooserUI extends BasicFileChooserUI
 
 	private static void groupLabels(AlignedLabel[] group)
 	{
-		for (int i = 0; i < group.length; i++)
-			group[i].group = group;
+		for (AlignedLabel element : group)
+			element.group = group;
 	}
 
 	private class AlignedLabel extends JLabel
@@ -2433,9 +2453,10 @@ public class MetalFileChooserUI extends BasicFileChooserUI
 		AlignedLabel( String text )
 		{
 			super(text);
-			setAlignmentX(JComponent.LEFT_ALIGNMENT);
+			setAlignmentX(Component.LEFT_ALIGNMENT);
 		}
 
+		@Override
 		public Dimension getPreferredSize()
 		{
 			Dimension d = super.getPreferredSize();
@@ -2448,10 +2469,10 @@ public class MetalFileChooserUI extends BasicFileChooserUI
 			if (( maxWidth == 0 ) && ( group != null ))
 			{
 				int max = 0;
-				for (int i = 0; i < group.length; i++)
-					max = Math.max(group[i].getSuperPreferredWidth(), max);
-				for (int i = 0; i < group.length; i++)
-					group[i].maxWidth = max;
+				for (AlignedLabel element : group)
+					max = Math.max(element.getSuperPreferredWidth(), max);
+				for (AlignedLabel element : group)
+					element.maxWidth = max;
 			}
 			return maxWidth;
 		}

@@ -51,14 +51,14 @@ public class Texto extends Figura
 
 		int y_aux = y;
 
-		for (int i = 0; i < lineas.length; ++i)
+		for (String element : lineas)
 		{
-			g2.drawString(lineas[i], x, y_aux);
+			g2.drawString(element, x, y_aux);
 			y_aux += 14;
 			num_lineas++;
 
-			if (lineas[i].length() > num_columnas)
-				num_columnas = lineas[i].length();
+			if (element.length() > num_columnas)
+				num_columnas = element.length();
 		}
 
 		num_lineas = y_aux;

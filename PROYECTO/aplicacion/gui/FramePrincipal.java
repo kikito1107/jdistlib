@@ -1,7 +1,6 @@
 package aplicacion.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.event.WindowEvent;
 
 import javax.swing.ImageIcon;

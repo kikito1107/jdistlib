@@ -1383,7 +1383,7 @@ public class PanelPrincipal extends DComponenteBase
 	}
 	
 	/**
-	 * Hebra que se encarga de actualizar los valores de la lista de plugins 
+	 * Hebra que se encarga de abrir los documentos
 	 * @author anab
 	 */
 	private class HebraAbrir implements Runnable {
@@ -1396,8 +1396,11 @@ public class PanelPrincipal extends DComponenteBase
 		public void run()
 		{
 			while (true) {
+				
+				// esperamos a que se solicite la lectura
 				monitor.abrir();
 				
+				// abrimos el documento
 				accionAbrir();
 			}
 			
@@ -1405,6 +1408,11 @@ public class PanelPrincipal extends DComponenteBase
 		
 	}
 	
+	/**
+	 * Hebra encargada de mantener la hebra de plugins actualizada
+	 * @author anab
+	 *
+	 */
 	private class HebraPlugins implements Runnable {
 
 		public  HebraPlugins(){
@@ -1415,16 +1423,21 @@ public class PanelPrincipal extends DComponenteBase
 		public void run()
 		{
 			while (true) {
+				
+				// esperamos a que se actualicen los plugins
 				esto.monitorP.actualizar();
 				
+				// eliminamos todos los plugins de la lista
 				esto.modeloAplicaciones.removeAllElements();
 				
+				// cargamos de nuevo la lista
 				for (int i = 0; i < esto.plugins.size(); ++i)
 				{
 					if (esto.plugins.get(i).shouldShowIt())
 						esto.modeloAplicaciones.addElement(plugins.get(i).toString());
 				}
 				
+				// repintamos la lista
 				esto.listaAplicaciones.repaint();
 				
 			}
@@ -1449,6 +1462,8 @@ public class PanelPrincipal extends DComponenteBase
 				encontrada = true;
 				esto.plugins.remove(i);
 			}
+		
+		// notificamos la eliminacion del plugin
 		esto.monitorP.notificarPlugins();
 	}
 	
@@ -1458,6 +1473,8 @@ public class PanelPrincipal extends DComponenteBase
 	 */
 	public static void agregarPlugin(DAbstractPlugin a){
 		esto.plugins.add(a);
+		
+		// notificamos la insercion de un nuevo plugin
 		esto.monitorP.notificarPlugins();
 	}
 

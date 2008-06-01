@@ -75,8 +75,8 @@ public class ListaDesplegable extends JComboBox
 	 */
 	public void aniadir(String[] cadenas)
 	{
-		for (int i = 0; i < cadenas.length; i++)
-			this.addItem(cadenas[i]);
+		for (String element : cadenas)
+			this.addItem(element);
 	}
 
 	/**

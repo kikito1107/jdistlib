@@ -65,8 +65,8 @@ public class DJList extends ListaElementos
 	public DJList( String[] p0 )
 	{
 		super();
-		for (int i = 0; i < p0.length; i++)
-			aniadirElemento(p0[i]);
+		for (String element : p0)
+			aniadirElemento(element);
 		this.nombre = null;
 	}
 

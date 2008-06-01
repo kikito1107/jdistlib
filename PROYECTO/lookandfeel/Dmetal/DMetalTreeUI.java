@@ -195,8 +195,8 @@ public class DMetalTreeUI extends BasicTreeUI
 	private Vector arrayToVector(int[] array)
 	{
 		Vector v = new Vector();
-		for (int i = 0; i < array.length; i++)
-			v.add(new Integer(array[i]));
+		for (int element : array)
+			v.add(new Integer(element));
 		return v;
 	}
 

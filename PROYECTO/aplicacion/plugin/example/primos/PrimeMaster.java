@@ -20,6 +20,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 
@@ -130,6 +132,7 @@ public class PrimeMaster extends GenericMaster
 	 * 
 	 * 
 	 */
+	@Override
 	public void init()
 	{
 		super.init();
@@ -190,9 +193,9 @@ public class PrimeMaster extends GenericMaster
 
 					alguno = false;
 					
-					for (int i=0; i<result.primos.length; ++i)
-						if (result.primos[i] != -1) {
-							primos += result.primos[i] + "   ";
+					for (int element : result.primos)
+						if (element != -1) {
+							primos += element + "   ";
 							alguno = true;
 						}
 					
@@ -349,7 +352,7 @@ public class PrimeMaster extends GenericMaster
 			{
 				campoMin = new JTextField();
 				campoMin.setPreferredSize(new Dimension(120, 28));  // Generated
-				campoMin.setHorizontalAlignment(JTextField.RIGHT);  // Generated
+				campoMin.setHorizontalAlignment(SwingConstants.RIGHT);  // Generated
 			}
 			catch (java.lang.Throwable e)
 			{
@@ -372,7 +375,7 @@ public class PrimeMaster extends GenericMaster
 			{
 				campoMax = new JTextField();
 				campoMax.setPreferredSize(new Dimension(120, 28));  // Generated
-				campoMax.setHorizontalAlignment(JTextField.RIGHT);  // Generated
+				campoMax.setHorizontalAlignment(SwingConstants.RIGHT);  // Generated
 			}
 			catch (java.lang.Throwable e)
 			{
@@ -395,7 +398,7 @@ public class PrimeMaster extends GenericMaster
 			{
 				campoTamBloques = new JTextField();
 				campoTamBloques.setPreferredSize(new Dimension(120, 28));  // Generated
-				campoTamBloques.setHorizontalAlignment(JTextField.RIGHT);  // Generated
+				campoTamBloques.setHorizontalAlignment(SwingConstants.RIGHT);  // Generated
 			}
 			catch (java.lang.Throwable e)
 			{
@@ -544,10 +547,10 @@ public class PrimeMaster extends GenericMaster
 		{
 			try
 			{
-				jScrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS );
-				jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);  // Generated
+				jScrollPane = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS );
+				jScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);  // Generated
 				jScrollPane.setViewportView(getJTextArea());  // Generated
-				jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);  // Generated
+				jScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);  // Generated
 			}
 			catch (java.lang.Throwable e)
 			{

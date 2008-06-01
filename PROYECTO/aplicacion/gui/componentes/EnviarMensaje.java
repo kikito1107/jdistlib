@@ -114,6 +114,7 @@ public class EnviarMensaje extends JDialog
 		this.setTitle(".:: Enviar  Nota ::.");
 		this.addWindowListener(new java.awt.event.WindowAdapter()
 		{
+			@Override
 			public void windowClosing(java.awt.event.WindowEvent e)
 			{
 				int elecc = JOptionPane.showConfirmDialog(null, "El mensaje no ha sido enviado todavía\n¿Realmente desea salir?", "¡Atención!", JOptionPane.YES_NO_OPTION);

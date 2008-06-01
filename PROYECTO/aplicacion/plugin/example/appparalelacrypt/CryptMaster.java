@@ -80,6 +80,7 @@ public class CryptMaster extends GenericMaster implements ActionListener
 		super("", false, null);
 	}
 	
+	@Override
 	public void init()
 	{
 		super.init();
@@ -232,6 +233,7 @@ public class CryptMaster extends GenericMaster implements ActionListener
 		}
 	}
 
+	@Override
 	public void generateTasks()
 	{
 		while (!start)
@@ -276,6 +278,7 @@ public class CryptMaster extends GenericMaster implements ActionListener
 		}
 	}
 
+	@Override
 	public void collectResults()
 	{
 		int count = 0;
@@ -373,7 +376,7 @@ public class CryptMaster extends GenericMaster implements ActionListener
 		
 			long wordRate;
 		if (now-startTime != 0)
-			wordRate = (long)((float)wordsTried / ( (float)( now - startTime ) / 1000. ));
+			wordRate = (long)(wordsTried / ( ( now - startTime ) / 1000. ));
 		else
 			wordRate = Long.MAX_VALUE;
 			

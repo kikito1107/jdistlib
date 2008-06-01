@@ -597,7 +597,7 @@ class TreeDropTarget implements DropTargetListener
 				DefaultMutableTreeNode node2 = (DefaultMutableTreeNode) p
 				.getLastPathComponent();
 				
-				MIFichero f2 = (MIFichero) ((DefaultMutableTreeNode)node2).getUserObject();
+				MIFichero f2 = (MIFichero) (node2).getUserObject();
 		
 				if (f2.esDirectorio() || !f2.comprobarPermisos(DConector.Dusuario, DConector.Drol, MIFichero.PERMISO_ESCRITURA))
 				{
@@ -655,12 +655,12 @@ class TreeDropTarget implements DropTargetListener
 		{
 			Transferable tr = dtde.getTransferable();
 			DataFlavor[] flavors = tr.getTransferDataFlavors();
-			for (int i = 0; i < flavors.length; i++)
+			for (DataFlavor element : flavors)
 			{
-				if (tr.isDataFlavorSupported(flavors[i]))
+				if (tr.isDataFlavorSupported(element))
 				{
 					dtde.acceptDrop(dtde.getDropAction());
-					TreePath p = (TreePath) tr.getTransferData(flavors[i]);
+					TreePath p = (TreePath) tr.getTransferData(element);
 					DefaultMutableTreeNode node = (DefaultMutableTreeNode) p
 							.getLastPathComponent();
 					
@@ -752,7 +752,7 @@ class TransferableTreeNode implements Transferable
 	{
 		if (isDataFlavorSupported(flavor))
 		{
-			return (Object) path;
+			return path;
 		}
 		else
 		{

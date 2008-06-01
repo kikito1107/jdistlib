@@ -286,8 +286,8 @@ public class DMenuMetalPopupMenuUI extends PopupMenuUI
 		MenuElement[] p = msm.getSelectedPath();
 
 		List<JPopupMenu> list = new ArrayList<JPopupMenu>(p.length);
-		for (int i = 0; i < p.length; i++)
-			if (p[i] instanceof JPopupMenu) list.add((JPopupMenu) p[i]);
+		for (MenuElement element : p)
+			if (element instanceof JPopupMenu) list.add((JPopupMenu) element);
 		return list;
 	}
 

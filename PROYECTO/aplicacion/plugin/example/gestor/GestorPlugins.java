@@ -3,7 +3,6 @@ package aplicacion.plugin.example.gestor;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Toolkit;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
@@ -117,6 +116,7 @@ public class GestorPlugins extends JFrame
 				 */
 				private static final long serialVersionUID = 5351964601477898681L;
 
+				@Override
 				public boolean isCellEditable(int row, int col)
 				{
 					return false;
