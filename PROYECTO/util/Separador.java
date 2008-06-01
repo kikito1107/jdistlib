@@ -17,7 +17,7 @@ public class Separador extends JButton
 	{
 		super();
 
-		this.setIcon(new ImageIcon("./Resources/separador.gif"));
+		this.setIcon(new ImageIcon("Resources/separador.gif"));
 		this.setBorder(null);
 		this.setBorderPainted(false);
 		this.setMinimumSize(new Dimension(20, 35));

@@ -151,9 +151,9 @@ public class ArbolUsuariosConectadosRol extends DComponenteBase
 		this.add(jScrollPane1, BorderLayout.CENTER);
 
 		ArbolUsuariosConectadosRol.cambiarIconosArbol(arbol,
-				"./Resources/page_user_dark.gif",
-				"./Resources/page_user_dark.gif", "./Resources/icon_user.gif",
-				"./Resources/page_user_dark.gif");
+				"Resources/page_user_dark.gif",
+				"Resources/page_user_dark.gif", "Resources/icon_user.gif",
+				"Resources/page_user_dark.gif");
 
 	}
 

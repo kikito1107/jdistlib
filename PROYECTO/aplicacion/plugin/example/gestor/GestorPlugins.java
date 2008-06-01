@@ -63,7 +63,7 @@ public class GestorPlugins extends JFrame
 	{
 		this.setSize(379, 379);
 		this.setIconImage(Toolkit.getDefaultToolkit().getImage(
-				getClass().getResource("/Resources/logo.png")));
+				getClass().getResource("Resources/logo.png")));
 		this.setContentPane(getJContentPane());
 		this.setTitle(":: Gestor de Plugins ::");
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -158,7 +158,7 @@ public class GestorPlugins extends JFrame
 			EliminarPlugin.setText("Eliminar Plugin");
 			EliminarPlugin.setFont(new Font("Lucida Sans", Font.PLAIN, 11));  // Generated
 			EliminarPlugin.setIcon(new ImageIcon(getClass().getResource(
-					"/Resources/brick_delete.png")));
+					"Resources/brick_delete.png")));
 			EliminarPlugin
 					.addActionListener(new java.awt.event.ActionListener()
 					{
@@ -209,7 +209,7 @@ public class GestorPlugins extends JFrame
 			AgregarPlugin = new JButton();
 			AgregarPlugin.setText("Agregar nuevo plugin");
 			AgregarPlugin.setIcon(new ImageIcon(getClass().getResource(
-					"/Resources/brick_add.png")));
+					"Resources/brick_add.png")));
 			
 			AgregarPlugin.addActionListener(new java.awt.event.ActionListener()
 			{

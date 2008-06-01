@@ -172,7 +172,7 @@ public class ControlesPizarra extends JPanel
 			botonLimpiarLienzo.setSize(new Dimension(30, 24));
 
 			botonLimpiarLienzo.setIcon(new ImageIcon(
-					"./Resources/edit-clear_16x16.png"));
+					"Resources/edit-clear_16x16.png"));
 
 			botonLimpiarLienzo
 					.addActionListener(new java.awt.event.ActionListener()
@@ -207,7 +207,7 @@ public class ControlesPizarra extends JPanel
 			botonDeshacer.setToolTipText("Deshace el ultimo trazo");
 			botonDeshacer.setPreferredSize(new Dimension(35, 24));
 			botonDeshacer.setSize(new Dimension(35, 16));
-			botonDeshacer.setIcon(new ImageIcon("./Resources/arrow_undo.png"));
+			botonDeshacer.setIcon(new ImageIcon("Resources/arrow_undo.png"));
 			botonDeshacer.addActionListener(new java.awt.event.ActionListener()
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
@@ -237,7 +237,7 @@ public class ControlesPizarra extends JPanel
 			botonBorrar.setText("");
 			botonBorrar.setBorder(null);
 			botonBorrar.setBorderPainted(false);
-			botonBorrar.setIcon(new ImageIcon("./Resources/delete2.png"));
+			botonBorrar.setIcon(new ImageIcon("Resources/delete2.png"));
 			botonBorrar.setPreferredSize(new Dimension(32, 24));
 			botonBorrar.setToolTipText("Borrar el elemento seleccionado");
 			botonBorrar.addActionListener(new java.awt.event.ActionListener()
@@ -264,7 +264,7 @@ public class ControlesPizarra extends JPanel
 		if (botonAnterior == null)
 		{
 			botonAnterior = new JButton();
-			botonAnterior.setIcon(new ImageIcon("./Resources/arrow_left.png"));
+			botonAnterior.setIcon(new ImageIcon("Resources/arrow_left.png"));
 			botonAnterior.setToolTipText("Seleccionar el elemnto anterior");
 			botonAnterior.addActionListener(new java.awt.event.ActionListener()
 			{
@@ -292,7 +292,7 @@ public class ControlesPizarra extends JPanel
 		{
 			botonSiguiente = new JButton();
 			botonSiguiente
-					.setIcon(new ImageIcon("./Resources/arrow_right.png"));
+					.setIcon(new ImageIcon("Resources/arrow_right.png"));
 			botonSiguiente.setToolTipText("Seleccionar el siguiente elemento");
 			botonSiguiente
 					.addActionListener(new java.awt.event.ActionListener()
@@ -321,7 +321,7 @@ public class ControlesPizarra extends JPanel
 			botonRehacer = new JButton();
 			botonRehacer.setText("");
 			botonRehacer.setToolTipText("Rehace el œltimo trazo eliminado");
-			botonRehacer.setIcon(new ImageIcon("./Resources/arrow_redo.png"));
+			botonRehacer.setIcon(new ImageIcon("Resources/arrow_redo.png"));
 			botonRehacer.addActionListener(new java.awt.event.ActionListener()
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
@@ -350,7 +350,7 @@ public class ControlesPizarra extends JPanel
 			jLabel2 = new JLabel();
 			jLabel2.setText("Pincel  ");
 			jLabel1 = new JLabel();
-			jLabel1.setIcon(new ImageIcon("./Resources/pencil.png"));
+			jLabel1.setIcon(new ImageIcon("Resources/pencil.png"));
 			jLabel1.setText(" ");
 
 			Separador separator1 = new Separador();
@@ -393,7 +393,7 @@ public class ControlesPizarra extends JPanel
 			botonPaletaColores.setBorder(null);
 			botonPaletaColores.setBorderPainted(false);
 			botonPaletaColores
-					.setIcon(new ImageIcon("./Resources/palette.png"));
+					.setIcon(new ImageIcon("Resources/palette.png"));
 			botonPaletaColores.setText("Colores   ");
 			botonPaletaColores.setToolTipText("Elimina la imagen de fondo");
 			botonPaletaColores

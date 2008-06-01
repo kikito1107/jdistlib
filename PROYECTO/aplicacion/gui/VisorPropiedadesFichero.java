@@ -449,7 +449,7 @@ public class VisorPropiedadesFichero extends JDialog
 			jButton = new JButton();
 			jButton.setBounds(new Rectangle(176, 414, 125, 29));
 			jButton.setIcon(new ImageIcon(getClass().getResource(
-					"/Resources/tick.png")));
+					"Resources/tick.png")));
 			jButton.setText("Aceptar");
 			jButton.addActionListener(new java.awt.event.ActionListener()
 			{
@@ -532,7 +532,7 @@ public class VisorPropiedadesFichero extends JDialog
 			jButton1 = new JButton();
 			jButton1.setBounds(new Rectangle(13, 414, 116, 29));
 			jButton1.setIcon(new ImageIcon(getClass().getResource(
-					"/Resources/cancel.png")));
+					"Resources/cancel.png")));
 			jButton1.setText("Cancelar");
 			jButton1.addActionListener(new java.awt.event.ActionListener()
 			{

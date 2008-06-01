@@ -105,7 +105,7 @@ public class DialogoIntroTexto extends JDialog
 			botonCancelar = new JButton();
 			botonCancelar.setText("Cancelar");
 
-			botonCancelar.setIcon(new ImageIcon("./Resources/cancel.png"));
+			botonCancelar.setIcon(new ImageIcon("Resources/cancel.png"));
 
 			botonCancelar.addActionListener(new java.awt.event.ActionListener()
 			{
@@ -131,7 +131,7 @@ public class DialogoIntroTexto extends JDialog
 			botonAceptar = new JButton();
 			botonAceptar.setText("Aceptar");
 
-			botonAceptar.setIcon(new ImageIcon("./Resources/tick.png"));
+			botonAceptar.setIcon(new ImageIcon("Resources/tick.png"));
 
 			botonAceptar.addActionListener(new java.awt.event.ActionListener()
 			{

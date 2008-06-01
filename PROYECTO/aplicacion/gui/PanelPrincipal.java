@@ -361,7 +361,7 @@ public class PanelPrincipal extends DComponenteBase
 
 			
 			agregarCarpeta
-					.setIcon(new ImageIcon("./Resources/nueva_carpeta.png"));
+					.setIcon(new ImageIcon("Resources/nueva_carpeta.png"));
 			agregarCarpeta.addActionListener(new java.awt.event.ActionListener()
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
@@ -412,7 +412,7 @@ public class PanelPrincipal extends DComponenteBase
 			botonDescargar.setText("");
 
 			botonDescargar.setIcon(new ImageIcon(
-					"./Resources/page_white_put.png"));
+					"Resources/page_white_put.png"));
 			
 			
 			botonDescargar
@@ -442,7 +442,7 @@ public class PanelPrincipal extends DComponenteBase
 			botonImprimirDocumento.setText("");
 
 			botonImprimirDocumento.setIcon(new ImageIcon(
-					"./Resources/printer.png"));
+					"Resources/printer.png"));
 			botonImprimirDocumento
 					.addActionListener(new java.awt.event.ActionListener()
 					{
@@ -469,7 +469,7 @@ public class PanelPrincipal extends DComponenteBase
 			botonEliminarFich = new JButton();
 			botonEliminarFich.setText("");
 			botonEliminarFich.setBorderPainted(false);
-			botonEliminarFich.setIcon(new ImageIcon("./Resources/delete2.png"));
+			botonEliminarFich.setIcon(new ImageIcon("Resources/delete2.png"));
 			botonEliminarFich
 					.addActionListener(new java.awt.event.ActionListener()
 					{
@@ -509,7 +509,7 @@ public class PanelPrincipal extends DComponenteBase
 			botonInfo = new JButton();
 			botonInfo.setText("");
 			botonInfo.setBorderPainted(false);
-			botonInfo.setIcon(new ImageIcon("./Resources/information.png"));
+			botonInfo.setIcon(new ImageIcon("Resources/information.png"));
 			botonInfo.addActionListener(new java.awt.event.ActionListener()
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
@@ -557,7 +557,7 @@ public class PanelPrincipal extends DComponenteBase
 		{
 			botonAbrirDoc = new JButton();
 			
-			botonAbrirDoc.setIcon(new ImageIcon("./Resources/folder_page_white.png"));
+			botonAbrirDoc.setIcon(new ImageIcon("Resources/folder_page_white.png"));
 			
 			botonAbrirDoc.setBorderPainted(false);
 			botonAbrirDoc.addActionListener(new java.awt.event.ActionListener()
@@ -607,7 +607,7 @@ public class PanelPrincipal extends DComponenteBase
 		if (editarUsuario == null)
 		{
 			editarUsuario = new JButton();
-			editarUsuario.setIcon(new ImageIcon("./Resources/page_edit.gif"));
+			editarUsuario.setIcon(new ImageIcon("Resources/page_edit.gif"));
 			editarUsuario.setBorderPainted(false);
 			
 			editarUsuario.addActionListener(new java.awt.event.ActionListener()
@@ -675,7 +675,7 @@ public class PanelPrincipal extends DComponenteBase
 		if (iniciarChat == null)
 		{
 			iniciarChat = new JButton();
-			iniciarChat.setIcon(new ImageIcon("./Resources/comment.gif"));
+			iniciarChat.setIcon(new ImageIcon("Resources/comment.gif"));
 			iniciarChat.setBorderPainted(false);
 			
 			iniciarChat.addActionListener(new java.awt.event.ActionListener()
@@ -721,7 +721,7 @@ public class PanelPrincipal extends DComponenteBase
 		if (enviarMensaje == null)
 		{
 			enviarMensaje = new JButton();
-			enviarMensaje.setIcon(new ImageIcon("./Resources/icon_email.gif"));
+			enviarMensaje.setIcon(new ImageIcon("Resources/icon_email.gif"));
 			enviarMensaje.setBorderPainted(false);
 			
 			enviarMensaje.addActionListener(new java.awt.event.ActionListener()
@@ -753,7 +753,7 @@ public class PanelPrincipal extends DComponenteBase
 			botonSubir.setText("");
 
 			botonSubir
-					.setIcon(new ImageIcon("./Resources/subir_documento.png"));
+					.setIcon(new ImageIcon("Resources/subir_documento.png"));
 			botonSubir.addActionListener(new java.awt.event.ActionListener()
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
@@ -778,7 +778,7 @@ public class PanelPrincipal extends DComponenteBase
 			reenviar.setText("");
 
 			reenviar
-					.setIcon(new ImageIcon("./Resources/email_go.png"));
+					.setIcon(new ImageIcon("Resources/email_go.png"));
 			reenviar.addActionListener(new java.awt.event.ActionListener()
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)

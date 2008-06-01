@@ -148,7 +148,7 @@ public class DJChat extends JPanel
 		});
 
 		botonEnvio.setIcon(new ImageIcon(getClass().getResource(
-				"/Resources/comment.png")));
+				"Resources/comment.png")));
 		botonEnvio.setToolTipText("Envia el mensaje escrito");
 		botonEnvio.addActionListener(new DJChat_botonEnvio_actionAdapter(this));
 		areaTexto.setEditable(false);

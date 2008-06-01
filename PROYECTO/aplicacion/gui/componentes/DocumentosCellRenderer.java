@@ -18,24 +18,24 @@ public class DocumentosCellRenderer extends DefaultTreeCellRenderer
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Icon iconoCarpeta = new ImageIcon("./Resources/folder.gif");
+	private Icon iconoCarpeta = new ImageIcon("Resources/folder.gif");
 
-	private Icon iconoEditar = new ImageIcon("./Resources/nodo_edit.png");;
+	private Icon iconoEditar = new ImageIcon("Resources/nodo_edit.png");;
 	
 
-	private Icon iconoPDF = new ImageIcon("./Resources/file_acrobat.gif");
+	private Icon iconoPDF = new ImageIcon("Resources/file_acrobat.gif");
 	
-	private Icon iconoIMG = new ImageIcon("./Resources/image.gif");
+	private Icon iconoIMG = new ImageIcon("Resources/image.gif");
 	
-	private Icon iconoDOC = new ImageIcon("./Resources/page_white_word.png");
+	private Icon iconoDOC = new ImageIcon("Resources/page_white_word.png");
 	
-	private Icon iconoTXT = new ImageIcon("./Resources/page_white_text.png");
+	private Icon iconoTXT = new ImageIcon("Resources/page_white_text.png");
 	
-	private Icon iconoUNK = new ImageIcon("./Resources/page_white.png");
+	private Icon iconoUNK = new ImageIcon("Resources/page_white.png");
 	
-	private Icon mail = new ImageIcon("./Resources/icon_email.gif");
+	private Icon mail = new ImageIcon("Resources/icon_email.gif");
 	
-	private Icon iconInbox = new ImageIcon("./Resources/folder_inbox.png");
+	private Icon iconInbox = new ImageIcon("Resources/folder_inbox.png");
 
 	public DocumentosCellRenderer( )
 	{

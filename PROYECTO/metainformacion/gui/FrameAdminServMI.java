@@ -145,7 +145,7 @@ public class FrameAdminServMI extends JFrame
 			{
 				botonSalir = new JButton();
 				botonSalir.setText("Salir");  // Generated
-				botonSalir.setIcon(new ImageIcon(getClass().getResource("/Resources/door_open.png")));  // Generated
+				botonSalir.setIcon(new ImageIcon(getClass().getResource("Resources/door_open.png")));  // Generated
 				botonSalir.addActionListener(new java.awt.event.ActionListener()
 				{
 					public void actionPerformed(java.awt.event.ActionEvent e)

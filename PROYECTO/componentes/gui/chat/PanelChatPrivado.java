@@ -130,7 +130,7 @@ public class PanelChatPrivado extends JPanel
 			botonEviar = new JButton();
 			botonEviar.setText("");
 			botonEviar.setIcon(new ImageIcon(getClass().getResource(
-					"/Resources/comment.png")));
+					"Resources/comment.png")));
 			botonEviar.setPreferredSize(new Dimension(48, 42));
 			botonEviar.addActionListener(new java.awt.event.ActionListener()
 			{
