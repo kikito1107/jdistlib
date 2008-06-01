@@ -120,8 +120,6 @@ public class PanelPrincipal extends DComponenteBase
 	private MonitorAbrir monitor = null;
 
 	private MonitorPlugins monitorP = null;
-	
-	
 
 	// ============= INICIALIZACIÓN
 	// ===================================================================
@@ -157,17 +155,15 @@ public class PanelPrincipal extends DComponenteBase
 
 			this.add(getBarraProgreso());
 
-			
 			esto = this;
-			
+
 			monitor = new MonitorAbrir();
 
 			monitorP = new MonitorPlugins();
-			
-			
+
 			new HebraPlugins();
 			new HebraAbrir();
-			
+
 		}
 		catch (Exception ex)
 		{
@@ -818,18 +814,20 @@ public class PanelPrincipal extends DComponenteBase
 
 		MIDocumento anterior = ClienteFicheros.cf.existeFichero(path + nombre,
 				DConector.Daplicacion);
-		
-		
-			
 
 		while (anterior != null)
 		{
-			// si no tenemos permisos de escritura sobre el documento no podemos sobrescribirlo
-			if (!anterior.comprobarPermisos(DConector.Dusuario, DConector.Drol, MIDocumento.PERMISO_ESCRITURA) ) {
-				JOptionPane.showMessageDialog(null, "No tiene suficientes privilegios para subir ese documento");
+			// si no tenemos permisos de escritura sobre el documento no podemos
+			// sobrescribirlo
+			if (!anterior.comprobarPermisos(DConector.Dusuario, DConector.Drol,
+					MIDocumento.PERMISO_ESCRITURA))
+			{
+				JOptionPane
+						.showMessageDialog(null,
+								"No tiene suficientes privilegios para subir ese documento");
 				return;
 			}
-			
+
 			int sel = JOptionPane.showConfirmDialog(this,
 					"El documento ya existe ¿Desea sobrescribirlo?",
 					"¿Sobrescribir?", JOptionPane.YES_NO_CANCEL_OPTION);
@@ -928,8 +926,8 @@ public class PanelPrincipal extends DComponenteBase
 		extension = MIDocumento.getTipoFichero(extension);
 
 		// creamos el nuevo fichero a almacenar
-		MIDocumento fbd = new MIDocumento(-1, nombre, false, "rwrw--", user, rol,
-				carpeta.getId(), path + nombre, extension);
+		MIDocumento fbd = new MIDocumento(-1, nombre, false, "rwrw--", user,
+				rol, carpeta.getId(), path + nombre, extension);
 
 		// enviamos el nuevo fichero al servidor
 		Transfer t = new Transfer(ClienteFicheros.ipConexion, path + nombre);
@@ -981,7 +979,6 @@ public class PanelPrincipal extends DComponenteBase
 		if (listaAplicaciones == null)
 		{
 
-
 			listaAplicaciones = new JList(getModelo());
 			listaAplicaciones.setFont(fuente);
 			listaAplicaciones.setBounds(new Rectangle(1, 26, 186, 140));
@@ -1010,12 +1007,20 @@ public class PanelPrincipal extends DComponenteBase
 										boolean encontrada = false;
 
 										for (int i = 0; i < plugins.size(); ++i)
-											if (plugins.get(i).getName()
-													.equals(seleccionado))
+											try
 											{
-												plugins.get(i).start();
-												encontrada = true;
+												if (plugins.get(i).getName()
+														.equals(seleccionado))
+												{
+													plugins.get(i).start();
+													encontrada = true;
+												}
 											}
+											catch (NullPointerException ex)
+											{
+
+											}
+											
 										if (!encontrada)
 											modeloAplicaciones
 													.remove(listaAplicaciones
@@ -1033,10 +1038,11 @@ public class PanelPrincipal extends DComponenteBase
 		return listaAplicaciones;
 	}
 
-	
-	private DefaultListModel getModelo(){
-	
-		if (this.modeloAplicaciones == null) {
+	private DefaultListModel getModelo()
+	{
+
+		if (this.modeloAplicaciones == null)
+		{
 			modeloAplicaciones = new DefaultListModel();
 
 			for (int i = 0; i < plugins.size(); ++i)
@@ -1045,10 +1051,10 @@ public class PanelPrincipal extends DComponenteBase
 					modeloAplicaciones.addElement(plugins.get(i).toString());
 			}
 		}
-		
+
 		return modeloAplicaciones;
 	}
-	
+
 	/**
 	 * Envia un mensaj
 	 * 
@@ -1057,7 +1063,7 @@ public class PanelPrincipal extends DComponenteBase
 	 */
 	private void enviarMail(MIDocumento f)
 	{
-		
+
 		// mandamos el mensaje
 		byte[] bytes = f.getMensaje().getBytes();
 
@@ -1105,7 +1111,7 @@ public class PanelPrincipal extends DComponenteBase
 		MIDocumento f = arbolDocumentos.getDocumentoSeleccionado();
 
 		if (f == null || f.esDirectorio()) return;
-		
+
 		if (!f.comprobarPermisos(DConector.Dusuario, DConector.Drol,
 				MIDocumento.PERMISO_LECTURA))
 		{
@@ -1125,11 +1131,10 @@ public class PanelPrincipal extends DComponenteBase
 		frame.getLienzo().setPathDocumento(f.getRutaLocal());
 
 		barraProgreso.setIndeterminate(true);
-		
-		frame.getLienzo().getLienzo().sincronizar();
-		
-		barraProgreso.setIndeterminate(false);
 
+		frame.getLienzo().getLienzo().sincronizar();
+
+		barraProgreso.setIndeterminate(false);
 
 		if (!frame.getLienzo().getLienzo().getDocumento().getPath().equals(""))
 		{
@@ -1139,8 +1144,6 @@ public class PanelPrincipal extends DComponenteBase
 		{
 			frame.this_windowClosing(null);
 		}
-
-		
 
 		if (this.arbolDocumentos != null) arbolDocumentos.repaint();
 
@@ -1367,7 +1370,8 @@ public class PanelPrincipal extends DComponenteBase
 	 * @param eliminado
 	 *            indica si el documentos ha sido editado
 	 */
-	public void comprobarPermisosDocumentoActual(MIDocumento f, boolean eliminado)
+	public void comprobarPermisosDocumentoActual(MIDocumento f,
+			boolean eliminado)
 	{
 		if (!f.comprobarPermisos(DConector.Dusuario, DConector.Drol,
 				MIDocumento.PERMISO_LECTURA)
@@ -1403,10 +1407,7 @@ public class PanelPrincipal extends DComponenteBase
 					frame.getLienzo().getPathDocumento());
 	}
 
-	
-	
-	
-	//	 ============= HEBRAS
+	// ============= HEBRAS
 	// ===================================================================
 	/**
 	 * Hebra que se encarga de abrir los documentos
@@ -1460,7 +1461,7 @@ public class PanelPrincipal extends DComponenteBase
 
 				// esperamos a que se actualicen los plugins
 				esto.monitorP.actualizar();
-				
+
 				// eliminamos todos los plugins de la lista
 				esto.getModelo().removeAllElements();
 
@@ -1468,8 +1469,7 @@ public class PanelPrincipal extends DComponenteBase
 				for (int i = 0; i < esto.plugins.size(); ++i)
 				{
 					if (esto.plugins.get(i).shouldShowIt())
-						esto.getModelo().addElement(plugins.get(i)
-								.toString());
+						esto.getModelo().addElement(plugins.get(i).toString());
 				}
 
 				// repintamos la lista
