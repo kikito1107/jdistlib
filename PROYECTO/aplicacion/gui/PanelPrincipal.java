@@ -8,10 +8,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
-import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.text.SimpleDateFormat;
@@ -306,7 +303,7 @@ public class PanelPrincipal extends DComponenteBase
 			barraProgreso.setBounds(new Rectangle(350, 420, 210, 20));
 
 			barraProgreso.setForeground(Color.GRAY);
-			barraProgreso.setBackground(Color.DARK_GRAY);
+			barraProgreso.setBackground(Color.LIGHT_GRAY);
 		}
 		return barraProgreso;
 	}
@@ -1107,9 +1104,8 @@ public class PanelPrincipal extends DComponenteBase
 
 		MIDocumento f = arbolDocumentos.getDocumentoSeleccionado();
 
-		if (f == null) return;
-
-		if (f.esDirectorio()) return;
+		if (f == null || f.esDirectorio()) return;
+		
 		if (!f.comprobarPermisos(DConector.Dusuario, DConector.Drol,
 				MIDocumento.PERMISO_LECTURA))
 		{
@@ -1120,43 +1116,20 @@ public class PanelPrincipal extends DComponenteBase
 			return;
 		}
 
+		// le pasamos al editor el path del nuevo documento
 		Documento p = new Documento();
 		p.setDatosBD(arbolDocumentos.getDocumentoSeleccionado());
 		p.setPath(f.getRutaLocal());
 
-		if (frame == null)
-		{
-			frame = new FramePanelDibujo(false);
+		frame.setDocumento(p);
+		frame.getLienzo().setPathDocumento(f.getRutaLocal());
 
-			frame.pack();
-			frame.setSize(800, 720);
+		barraProgreso.setIndeterminate(true);
+		
+		frame.getLienzo().getLienzo().sincronizar();
+		
+		barraProgreso.setIndeterminate(false);
 
-			// Center the window
-			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-			Dimension frameSize = frame.getSize();
-			if (frameSize.height > screenSize.height)
-				frameSize.height = screenSize.height;
-			if (frameSize.width > screenSize.width)
-				frameSize.width = screenSize.width;
-			frame.setLocation(( screenSize.width - frameSize.width ) / 2,
-					( screenSize.height - frameSize.height ) / 2);
-
-			frame.setDocumento(p);
-			frame.getLienzo().setPathDocumento(f.getRutaLocal());
-		}
-		else
-		{
-			frame.setDocumento(p);
-			frame.getLienzo().setPathDocumento(f.getRutaLocal());
-
-			barraProgreso.setString("Cargando Fichero");
-			barraProgreso.setIndeterminate(true);
-			frame.getLienzo().getLienzo().sincronizar();
-			barraProgreso.setIndeterminate(false);
-			barraProgreso.setString("");
-			barraProgreso.setValue(0);
-
-		}
 
 		if (!frame.getLienzo().getLienzo().getDocumento().getPath().equals(""))
 		{
@@ -1167,7 +1140,7 @@ public class PanelPrincipal extends DComponenteBase
 			frame.this_windowClosing(null);
 		}
 
-		frame.getLienzo().getLienzo().getDocumento().setPath(f.getRutaLocal());
+		
 
 		if (this.arbolDocumentos != null) arbolDocumentos.repaint();
 

@@ -881,10 +881,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 				{
 					p.setDatosBD(doc.getDatosBD());
 					doc = p;
-
-				
 					repaint();
-					//v.ocultar();
 				}
 				else
 				{
