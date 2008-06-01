@@ -189,8 +189,7 @@ public class DChatPlugin extends DAbstractPlugin
 			if (botonNuevoPrivado == null)
 			{
 				botonNuevoPrivado = new JButton(" ");
-				botonNuevoPrivado.setIcon(new ImageIcon(getClass().getResource(
-						"Resources/comments.png")));
+				botonNuevoPrivado.setIcon(new ImageIcon("Resources/comments.png"));
 				botonNuevoPrivado
 						.setToolTipText("Invitar a un usuario a iniciar una conversaci—n privada");
 				this.botonNuevoPrivado.setBorder(null);
@@ -234,8 +233,7 @@ public class DChatPlugin extends DAbstractPlugin
 			if (botonNuevaVC == null)
 			{
 				botonNuevaVC = new JButton(" ");
-				botonNuevaVC.setIcon(new ImageIcon(getClass().getResource(
-						"Resources/webcam.png")));
+				botonNuevaVC.setIcon(new ImageIcon("Resources/webcam.png"));
 				this.botonNuevaVC.setBorder(null);
 				this.botonNuevaVC.setBorderPainted(false);
 				botonNuevaVC
@@ -290,8 +288,7 @@ public class DChatPlugin extends DAbstractPlugin
 			if (botonSalir == null)
 			{
 				botonSalir = new JButton(" ");
-				botonSalir.setIcon(new ImageIcon(getClass().getResource(
-						"Resources/cancel.png")));
+				botonSalir.setIcon(new ImageIcon("Resources/cancel.png"));
 				botonSalir.setBorder(null);
 				this.botonSalir.setBorderPainted(false);
 				botonSalir.setToolTipText("Salir del chat");
@@ -320,8 +317,7 @@ public class DChatPlugin extends DAbstractPlugin
 				botonGuardarConversacion = new JButton(" ");
 				botonGuardarConversacion.setBorder(null);
 				this.botonGuardarConversacion.setBorderPainted(false);
-				botonGuardarConversacion.setIcon(new ImageIcon(getClass()
-						.getResource("Resources/disk_local.png")));
+				botonGuardarConversacion.setIcon(new ImageIcon("Resources/disk_local.png"));
 				botonGuardarConversacion
 						.setToolTipText("Guarda la conversaci—n en un documento de texto");
 				botonGuardarConversacion
@@ -405,8 +401,7 @@ public class DChatPlugin extends DAbstractPlugin
 				botonLimpiar = new JButton(" ");
 				botonLimpiar.setBorder(null);
 				botonLimpiar.setBorderPainted(false);
-				botonLimpiar.setIcon(new ImageIcon(getClass().getResource(
-						"Resources/edit-clear_16x16.png")));
+				botonLimpiar.setIcon(new ImageIcon("Resources/edit-clear_16x16.png"));
 				botonLimpiar
 						.addActionListener(new java.awt.event.ActionListener()
 						{
@@ -432,8 +427,7 @@ public class DChatPlugin extends DAbstractPlugin
 				botonFuente = new JButton(" ");
 				botonFuente.setBorder(null);
 				this.botonFuente.setBorderPainted(false);
-				botonFuente.setIcon(new ImageIcon(getClass().getResource(
-						"Resources/font.png")));
+				botonFuente.setIcon(new ImageIcon("Resources/font.png"));
 				botonFuente
 						.addActionListener(new java.awt.event.ActionListener()
 						{

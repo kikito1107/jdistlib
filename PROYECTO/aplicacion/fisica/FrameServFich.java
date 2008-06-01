@@ -155,7 +155,7 @@ public class FrameServFich extends JFrame
 			try
 			{
 				botonSalir = new JButton();
-				botonSalir.setIcon(new ImageIcon(getClass().getResource("Resources/door_open.png")));  // Generated
+				botonSalir.setIcon(new ImageIcon("Resources/door_open.png"));  // Generated
 				botonSalir.setText("Salir");  // Generated
 				botonSalir.addActionListener(new java.awt.event.ActionListener()
 				{

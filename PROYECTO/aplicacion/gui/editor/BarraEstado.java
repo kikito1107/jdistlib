@@ -181,8 +181,7 @@ public class BarraEstado extends JPanel
 			jButton.setBorder(null);
 			jButton.setBorderPainted(false);
 			jButton.setPreferredSize(new Dimension(30, 22));
-			jButton.setIcon(new ImageIcon(getClass().getResource(
-					"Resources/resultset_previous.png")));
+			jButton.setIcon(new ImageIcon("Resources/resultset_previous.png"));
 			jButton.addActionListener(new java.awt.event.ActionListener()
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
@@ -213,8 +212,7 @@ public class BarraEstado extends JPanel
 			jButton1.setBorder(null);
 			jButton1.setBorderPainted(false);
 			jButton1.setPreferredSize(new Dimension(30, 22));
-			jButton1.setIcon(new ImageIcon(getClass().getResource(
-					"Resources/resultset_next.png")));
+			jButton1.setIcon(new ImageIcon("Resources/resultset_next.png"));
 
 			jButton1.addActionListener(new java.awt.event.ActionListener()
 			{

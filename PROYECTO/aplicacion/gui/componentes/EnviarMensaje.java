@@ -185,7 +185,7 @@ public class EnviarMensaje extends JDialog
 			{
 				Enviar = new JButton();
 				Enviar.setText("Enviar");  // Generated
-				Enviar.setIcon(new ImageIcon(getClass().getResource("Resources/icon_email.gif")));  // Generated
+				Enviar.setIcon(new ImageIcon("Resources/icon_email.gif"));  // Generated
 				Enviar.addActionListener(new java.awt.event.ActionListener()
 				{
 					public void actionPerformed(java.awt.event.ActionEvent e)
@@ -252,7 +252,7 @@ public class EnviarMensaje extends JDialog
 			{
 				Cancelar = new JButton();
 				Cancelar.setText("Cancelar");  // Generated
-				Cancelar.setIcon(new ImageIcon(getClass().getResource("Resources/cancel.png")));  // Generated
+				Cancelar.setIcon(new ImageIcon("Resources/cancel.png"));  // Generated
 				Cancelar.addActionListener(new java.awt.event.ActionListener()
 				{
 					public void actionPerformed(java.awt.event.ActionEvent e)

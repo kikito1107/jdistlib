@@ -481,8 +481,7 @@ public class ControlesDibujo extends JPanel
 			botonAbrir.setBorder(null);
 			botonAbrir.setToolTipText("Carga la imagen de fondo");
 			botonAbrir.setBorderPainted(false);
-			botonAbrir.setIcon(new ImageIcon(getClass().getResource(
-					"Resources/folder-open_16x16.png")));
+			botonAbrir.setIcon(new ImageIcon("Resources/folder-open_16x16.png"));
 			botonAbrir.setPreferredSize(new Dimension(35, 24));
 			botonAbrir.addActionListener(new java.awt.event.ActionListener()
 			{
@@ -519,8 +518,7 @@ public class ControlesDibujo extends JPanel
 			botonGuardar.setBorder(null);
 			botonGuardar.setToolTipText("Guarda el documento en la red");
 			botonGuardar.setBorderPainted(false);
-			botonGuardar.setIcon(new ImageIcon(getClass().getResource(
-					"Resources/disk_share.png")));
+			botonGuardar.setIcon(new ImageIcon("Resources/disk_share.png"));
 			botonGuardar.setPreferredSize(new Dimension(35, 24));
 
 			botonGuardar.addActionListener(new java.awt.event.ActionListener()
@@ -561,8 +559,7 @@ public class ControlesDibujo extends JPanel
 			botonImprimir.setBorder(null);
 			botonImprimir.setToolTipText("Imprime el documento");
 			botonImprimir.setBorderPainted(false);
-			botonImprimir.setIcon(new ImageIcon(getClass().getResource(
-					"Resources/printer.png")));
+			botonImprimir.setIcon(new ImageIcon("Resources/printer.png"));
 			botonImprimir.setText("");
 			botonImprimir.setPreferredSize(new Dimension(35, 24));
 			botonImprimir.addActionListener(new java.awt.event.ActionListener()
@@ -590,8 +587,7 @@ public class ControlesDibujo extends JPanel
 			botonGuardarLocal
 					.setToolTipText("Guarda el documento actual localmente");
 			botonGuardarLocal.setBorderPainted(false);
-			botonGuardarLocal.setIcon(new ImageIcon(getClass().getResource(
-					"Resources/disk_local.png")));
+			botonGuardarLocal.setIcon(new ImageIcon("Resources/disk_local.png"));
 			botonGuardarLocal.setPreferredSize(new Dimension(35, 24));
 			botonGuardarLocal
 					.addActionListener(new java.awt.event.ActionListener()

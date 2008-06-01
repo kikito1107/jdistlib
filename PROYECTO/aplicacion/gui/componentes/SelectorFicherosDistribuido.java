@@ -111,8 +111,7 @@ public class SelectorFicherosDistribuido extends JDialog
 		if (botonAceptar == null)
 		{
 			botonAceptar = new JButton();
-			botonAceptar.setIcon(new ImageIcon(getClass().getResource(
-					"Resources/folder-open_16x16.png")));
+			botonAceptar.setIcon(new ImageIcon("Resources/folder-open_16x16.png"));
 			botonAceptar.setText("Abrir");
 			botonAceptar.addActionListener(new java.awt.event.ActionListener()
 			{
@@ -166,8 +165,7 @@ public class SelectorFicherosDistribuido extends JDialog
 		if (botonCancelar == null)
 		{
 			botonCancelar = new JButton();
-			botonCancelar.setIcon(new ImageIcon(getClass().getResource(
-					"Resources/cancel.png")));
+			botonCancelar.setIcon(new ImageIcon("Resources/cancel.png"));
 			botonCancelar.setText("Cancelar");
 			botonCancelar.addActionListener(new java.awt.event.ActionListener()
 			{

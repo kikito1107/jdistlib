@@ -724,7 +724,7 @@ public class PrimeMaster extends GenericMaster
 			{
 				botonIniciarEsclavo = new JButton();
 				botonIniciarEsclavo.setText(Messages.getString("PrimeMaster.28"));  // Generated //$NON-NLS-1$
-				botonIniciarEsclavo.setIcon(new ImageIcon(getClass().getResource("Resources/control_play_blue.png")));  // Generated
+				botonIniciarEsclavo.setIcon(new ImageIcon("Resources/control_play_blue.png"));  // Generated
 				botonIniciarEsclavo.addActionListener(new java.awt.event.ActionListener()
 				{
 					public void actionPerformed(java.awt.event.ActionEvent e)
@@ -743,7 +743,7 @@ public class PrimeMaster extends GenericMaster
 							
 							esclavo = new GenericWorker(getConsolaEsclavo());
 							botonIniciarEsclavo.setText(Messages.getString("PrimeMaster.30"));  // Generated //$NON-NLS-1$
-							botonIniciarEsclavo.setIcon(new ImageIcon(getClass().getResource("Resources/control_stop_blue.png")));
+							botonIniciarEsclavo.setIcon(new ImageIcon("Resources/control_stop_blue.png"));
 							setEsclavoIniciado(true);
 						}
 						else {
@@ -753,7 +753,7 @@ public class PrimeMaster extends GenericMaster
 							{
 								space.write(poison, null, 60 * 1000 * 5);
 								botonIniciarEsclavo.setText(Messages.getString("PrimeMaster.32"));  // Generated //$NON-NLS-1$
-								botonIniciarEsclavo.setIcon(new ImageIcon(getClass().getResource("Resources/control_play_blue.png")));
+								botonIniciarEsclavo.setIcon(new ImageIcon("Resources/control_play_blue.png"));
 								setEsclavoIniciado(false);
 							}
 							catch (Exception ex)
@@ -803,7 +803,7 @@ public class PrimeMaster extends GenericMaster
 			try
 			{
 				verDatosEnviados = new JButton();
-				verDatosEnviados.setIcon(new ImageIcon(getClass().getResource("Resources/terminal.png")));  // Generated
+				verDatosEnviados.setIcon(new ImageIcon("Resources/terminal.png"));  // Generated
 				verDatosEnviados.addActionListener(new java.awt.event.ActionListener()
 				{
 					public void actionPerformed(java.awt.event.ActionEvent e)
@@ -929,7 +929,7 @@ public class PrimeMaster extends GenericMaster
 			{
 				limpiar = new JButton();
 				limpiar.setText(Messages.getString("PrimeMaster.37"));  // Generated //$NON-NLS-1$
-				limpiar.setIcon(new ImageIcon(getClass().getResource("Resources/edit-clear_16x16.png")));  // Generated
+				limpiar.setIcon(new ImageIcon("Resources/edit-clear_16x16.png"));  // Generated
 				limpiar.addActionListener(new java.awt.event.ActionListener()
 				{
 					public void actionPerformed(java.awt.event.ActionEvent e)
