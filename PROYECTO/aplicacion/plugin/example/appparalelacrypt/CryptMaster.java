@@ -153,6 +153,8 @@ public class CryptMaster extends GenericMaster implements ActionListener
 		startButton.addActionListener(this);
 		
 		ventana.setContentPane(panel);
+		
+		categoria = DAbstractPlugin.CATEGORIA_CIENTIFICO;
 	}
 	
 	public static void main(String[] args){

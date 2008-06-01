@@ -41,6 +41,7 @@ public class DPizarraPlugin extends DAbstractPlugin
 		version = 5;
 		nombre = "Pizarra";
 		jarFile = "pizarra.jar";
+		categoria = DAbstractPlugin.CATEGORIA_EDICION;
 
 		p = new Pizarra(nombre, true, null);
 

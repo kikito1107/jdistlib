@@ -64,6 +64,7 @@ public class DChatPlugin extends DAbstractPlugin
 		nombre = "Chat";
 		shouldShow = true;
 		jarFile = "chat.jar";
+		categoria = DAbstractPlugin.CATEGORIA_COMUNICACION;
 
 		arbol = new ArbolUsuariosConectadosRol("ListaUsuariosConectadosRol",
 				true, null);

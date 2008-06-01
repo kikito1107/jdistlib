@@ -33,6 +33,7 @@ public class DCalcPlugin extends DAbstractPlugin
 		version = 5;
 		nombre = "Calculadora";
 		jarFile = "calculadora.jar";
+		categoria = DAbstractPlugin.CATEGORIA_UTILIDADES;
 		versioningEnabled = false;
 		shouldShow = true;
 		ventana = new JFrame(":: Calculadora ::");

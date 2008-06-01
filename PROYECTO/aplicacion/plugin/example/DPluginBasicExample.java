@@ -4,13 +4,13 @@ import aplicacion.fisica.webcam.VideoConferencia;
 import aplicacion.fisica.webcam.VideoFrame;
 import aplicacion.plugin.DAbstractPlugin;
 
-public class DPluginExample extends DAbstractPlugin
+public class DPluginBasicExample extends DAbstractPlugin
 {
 	private static final long serialVersionUID = -9034900489624255928L;
 
 	private VideoFrame ventana = null;
 
-	public DPluginExample() throws Exception
+	public DPluginBasicExample() throws Exception
 	{
 		super("DpluginExample", false, null);
 		init();
@@ -19,7 +19,7 @@ public class DPluginExample extends DAbstractPlugin
 	@Override
 	public DAbstractPlugin getInstance() throws Exception
 	{
-		return new DPluginExample();
+		return new DPluginBasicExample();
 	}
 
 	@Override
@@ -29,6 +29,7 @@ public class DPluginExample extends DAbstractPlugin
 		nombre = "Videoconferencia";
 		jarFile = "ejemplo.jar";
 		versioningEnabled = false;
+		categoria = DAbstractPlugin.CATEGORIA_OTROS;
 	}
 
 	@Override

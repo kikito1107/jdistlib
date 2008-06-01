@@ -19,6 +19,18 @@ import Deventos.DEvent;
 
 public abstract class DAbstractPlugin extends DComponenteBase
 {
+	//categorias de los plugins, para permitir su clasificacion
+	public static final int CATEGORIA_MULTIMEDIA = 0;
+	public static final int CATEGORIA_COMUNICACION = 1;
+	public static final int CATEGORIA_DESARROLLO = 2;
+	public static final int CATEGORIA_EDICION = 3;
+	public static final int CATEGORIA_OCIO = 4;
+	public static final int CATEGORIA_INFORMACION = 5;
+	public static final int CATEGORIA_UTILIDADES = 6;
+	public static final int CATEGORIA_CIENTIFICO = 7;
+	public static final int CATEGORIA_OTROS = 8;
+	
+	
 	protected DAbstractPlugin( String nombre, boolean conexionDC,
 			DComponenteBase padre ) throws Exception
 	{
@@ -38,6 +50,8 @@ public abstract class DAbstractPlugin extends DComponenteBase
 	protected boolean versioningEnabled;
 	
 	protected boolean shouldShow = true;
+	
+	protected int categoria = CATEGORIA_OTROS;
 
 	private Integer ultimoProcesado = new Integer(-1);
 
@@ -77,6 +91,16 @@ public abstract class DAbstractPlugin extends DComponenteBase
 	public String toString()
 	{
 		return nombre;
+	}
+	
+	public int getCategoria()
+	{
+		return categoria;
+	}
+	
+	public void setCategoria(int categ)
+	{
+		categoria = categ;
 	}
 
 	protected DPluginRegisterEvent obtenerInfoEstado()

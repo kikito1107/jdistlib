@@ -33,6 +33,7 @@ public class DGestorPlugins extends DAbstractPlugin
 		version = 1;
 		nombre = "Gestor Plugins";
 		jarFile = "gestor.jar";
+		categoria = DAbstractPlugin.CATEGORIA_UTILIDADES;
 
 		gestorPlugin = new GestorPlugins();
 	}

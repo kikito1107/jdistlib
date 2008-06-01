@@ -1,9 +1,10 @@
 /**
  * 
  */
-package aplicacion.plugin.example.primos;
+package aplicacion.plugin.example;
 
 import aplicacion.plugin.DAbstractPlugin;
+import aplicacion.plugin.example.primos.PrimeMaster;
 
 /**
  * @author anab
@@ -49,6 +50,7 @@ public class PluginCalculoPrimos extends DAbstractPlugin
 		nombre = "Calculo Distribuido";
 		jarFile = "primos.jar";
 		versioningEnabled = false;
+		categoria = DAbstractPlugin.CATEGORIA_CIENTIFICO;
 		
 		p = new PrimeMaster(false);
 	}
