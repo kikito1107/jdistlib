@@ -493,9 +493,12 @@ public class ControlesDibujo extends JPanel
 
 					if (( f != null ) && !f.getRutaLocal().equals(""))
 					{
-
+						
+						// eliminamos el token del fichero que estamos editando actualmente
+						DConector.obtenerDC().cerrarFichero(f.getRutaLocal());
+						
+						// sincronizamos el lienzo
 						lienzo.getDocumento().setPath(f.getRutaLocal());
-
 						lienzo.sincronizar();
 					}
 
