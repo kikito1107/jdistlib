@@ -1,6 +1,7 @@
 package aplicacion.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.WindowEvent;
 
 import javax.swing.ImageIcon;
@@ -48,6 +49,8 @@ public class FramePrincipal extends DJFrame
 
 		this.setIconImage(new ImageIcon("./Resources/logo.png")
 				.getImage());
+		
+		this.setBackground(Color.BLACK);
 
 		componente = new PanelPrincipal("Componente5", true, null);
 		this.getContentPane().add(componente, BorderLayout.CENTER);

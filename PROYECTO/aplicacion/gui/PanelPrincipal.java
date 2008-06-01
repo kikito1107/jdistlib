@@ -1411,7 +1411,7 @@ public class PanelPrincipal extends DComponenteBase
 	}
 	
 	/**
-	 * Hebra que se encarga de acualizar los valores de la lista de plugins 
+	 * Hebra que se encarga de actualizar los valores de la lista de plugins 
 	 * @author anab
 	 */
 	private class HebraActualizacionPlugin implements Runnable {
@@ -1423,12 +1423,13 @@ public class PanelPrincipal extends DComponenteBase
 		
 		public void run()
 		{
-			
+			int k;
 			while (true) {
 				try
 				{
-					Thread.sleep(2000L);
+					Thread.sleep(5000L);
 					
+					k = listaAplicaciones.getSelectedIndex();
 					modeloAplicaciones.removeAllElements();
 					
 					for (int i = 0; i < plugins.size(); ++i)
@@ -1436,6 +1437,9 @@ public class PanelPrincipal extends DComponenteBase
 						if (plugins.get(i).shouldShowIt())
 							modeloAplicaciones.addElement(plugins.get(i).toString());
 					}
+					
+					if (k < modeloAplicaciones.getSize())
+						listaAplicaciones.setSelectedIndex(k);
 				}
 				catch (InterruptedException e)
 				{
