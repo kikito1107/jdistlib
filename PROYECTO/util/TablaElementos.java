@@ -123,6 +123,7 @@ public class TablaElementos extends JTable
 	// MODELO USADO PARA LA TABLA
 	// **************************************************************
 
+	@SuppressWarnings("unchecked")
 	private class ModeloTabla extends AbstractTableModel
 	{
 		private static final long serialVersionUID = 1L;
