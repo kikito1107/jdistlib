@@ -65,7 +65,7 @@ public class PanelPrincipal extends DComponenteBase
 
 	private JLabel jLabel = null;
 
-	private JToolBar herrmientasUsuarios = null;
+	private JToolBar herramientasUsuarios = null;
 
 	private JList listaAplicaciones = null;
 
@@ -243,7 +243,7 @@ public class PanelPrincipal extends DComponenteBase
 			panelLateral.setLayout(null);
 			panelLateral.setBounds(new Rectangle(6, 16, 188, 400));
 			panelLateral.add(jLabel, gridBagConstraints);
-			panelLateral.add(getHerrmientasUsuarios(), null);
+			panelLateral.add(getHerramientasUsuarios(), null);
 			panelLateral.add(getListaAplicaciones(), null);
 			panelLateral.add(getArbolUsuario(), null);
 			panelLateral.setBorder(new LineBorder(Color.GRAY, 2));
@@ -290,7 +290,7 @@ public class PanelPrincipal extends DComponenteBase
 			herramientasDocumentos = new JToolBar();
 			herramientasDocumentos.setFont(fuente);
 			herramientasDocumentos.setBorder(new LineBorder(Color.GRAY));
-			herramientasDocumentos.add(getBoton52131());
+			herramientasDocumentos.add(getBotonAbrirDoc());
 			herramientasDocumentos.add(this.getReenviar());
 			herramientasDocumentos.add(this.getBotonImprimirDocumento());
 			herramientasDocumentos.add(new Separador());
@@ -345,6 +345,9 @@ public class PanelPrincipal extends DComponenteBase
 
 			agregarCarpeta
 					.setIcon(new ImageIcon("Resources/nueva_carpeta.png"));
+			
+			agregarCarpeta.setToolTipText("Agrega una carpeta nueva a la carpeta seleccionada");
+			
 			agregarCarpeta
 					.addActionListener(new java.awt.event.ActionListener()
 					{
@@ -405,6 +408,8 @@ public class PanelPrincipal extends DComponenteBase
 
 			botonDescargar
 					.setIcon(new ImageIcon("Resources/page_white_put.png"));
+			
+			botonDescargar.setToolTipText("Descarga el documento seleccionado de forma local");
 
 			botonDescargar
 					.addActionListener(new java.awt.event.ActionListener()
@@ -431,6 +436,7 @@ public class PanelPrincipal extends DComponenteBase
 			botonImprimirDocumento = new JButton();;
 			botonImprimirDocumento.setBorderPainted(false);
 			botonImprimirDocumento.setText("");
+			botonImprimirDocumento.setToolTipText("Imprime el documento seleccionado");
 
 			botonImprimirDocumento.setIcon(new ImageIcon(
 					"Resources/printer.png"));
@@ -460,31 +466,41 @@ public class PanelPrincipal extends DComponenteBase
 			botonEliminarFich = new JButton();
 			botonEliminarFich.setText("");
 			botonEliminarFich.setBorderPainted(false);
+			
+			botonEliminarFich.setToolTipText("Eliminar el documento o directorio seleccionado (solo elimina directorios vacios)");
+			
 			botonEliminarFich.setIcon(new ImageIcon("Resources/delete2.png"));
 			botonEliminarFich
 					.addActionListener(new java.awt.event.ActionListener()
 					{
 						public void actionPerformed(java.awt.event.ActionEvent e)
 						{
-
-							MIDocumento f = arbolDocumentos
-									.getDocumentoSeleccionado();
-
-							if (arbolDocumentos.eliminarFichero())
+							int opcion = JOptionPane
+									.showConfirmDialog(
+											null,
+											"ÀSeguro que desea eliminar el documento o directorio seleccionado?",
+											"Aviso", JOptionPane.YES_NO_OPTION);
+							
+							if (opcion == JOptionPane.YES_OPTION)
 							{
+								MIDocumento f = arbolDocumentos
+										.getDocumentoSeleccionado();
 
-								DFileEvent evento = new DFileEvent();
-								evento.fichero = f;
-								evento.tipo = new Integer(
-										DFileEvent.NOTIFICAR_ELIMINAR_FICHERO
-												.intValue());
-								enviarEvento(evento);
+								if (arbolDocumentos.eliminarFichero())
+								{
+
+									DFileEvent evento = new DFileEvent();
+									evento.fichero = f;
+									evento.tipo = new Integer(
+											DFileEvent.NOTIFICAR_ELIMINAR_FICHERO
+													.intValue());
+									enviarEvento(evento);
+								}
+
+								else JOptionPane
+										.showMessageDialog(null,
+												"No tiene permisos suficientes para eliminar este fichero/directorio");
 							}
-
-							else JOptionPane
-									.showMessageDialog(null,
-											"No tiene permisos suficientes para eliminar este fichero/directorio");
-
 						}
 					});
 
@@ -505,6 +521,8 @@ public class PanelPrincipal extends DComponenteBase
 			botonInfo.setText("");
 			botonInfo.setBorderPainted(false);
 			botonInfo.setIcon(new ImageIcon("Resources/information.png"));
+			botonInfo.setToolTipText("Obtiene la informacion del documento o directorio seleccionado. Permite cambiar los permisos de acceso");
+			
 			botonInfo.addActionListener(new java.awt.event.ActionListener()
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
@@ -525,15 +543,18 @@ public class PanelPrincipal extends DComponenteBase
 
 						evento.padre = (MIDocumento) r.getUserObject();
 
-						System.err.println("directorio padre: "
+						if (evento.padre != null) // por si es la raiz
+						{
+							System.err.println("directorio padre: "
 								+ evento.padre.getNombre());
 
-						evento.tipo = new Integer(
+							evento.tipo = new Integer(
 								DFileEvent.NOTIFICAR_MODIFICACION_FICHERO
 										.intValue());
-						enviarEvento(evento);
-						ClienteFicheros.obtenerClienteFicheros()
+							enviarEvento(evento);
+							ClienteFicheros.obtenerClienteFicheros()
 								.modificarFichero(f, DConector.Daplicacion);
+						}
 					}
 				}
 			});
@@ -546,7 +567,7 @@ public class PanelPrincipal extends DComponenteBase
 	 * 
 	 * @return javax.swing.JButton
 	 */
-	private JButton getBoton52131()
+	private JButton getBotonAbrirDoc()
 	{
 		if (botonAbrirDoc == null)
 		{
@@ -555,6 +576,8 @@ public class PanelPrincipal extends DComponenteBase
 			botonAbrirDoc.setIcon(new ImageIcon(
 					"Resources/folder_page_white.png"));
 
+			botonAbrirDoc.setToolTipText("Abre el documento seleccionado para visualizarlo o anotar sobre el");
+			
 			botonAbrirDoc.setBorderPainted(false);
 			botonAbrirDoc.addActionListener(new java.awt.event.ActionListener()
 			{
@@ -645,6 +668,7 @@ public class PanelPrincipal extends DComponenteBase
 			editarUsuario = new JButton();
 			editarUsuario.setIcon(new ImageIcon("Resources/group_gear.png"));
 			editarUsuario.setBorderPainted(false);
+			editarUsuario.setToolTipText("Edita la informacion del sistema sobre usuarios, roles y permisos sobre componentes. Solo para administradores");
 
 			if (!ClienteMetaInformacion.obtenerCMI().permisosAdministracion())
 			{
@@ -673,26 +697,26 @@ public class PanelPrincipal extends DComponenteBase
 	 * 
 	 * @return javax.swing.JToolBar
 	 */
-	private JToolBar getHerrmientasUsuarios()
+	private JToolBar getHerramientasUsuarios()
 	{
-		if (herrmientasUsuarios == null)
+		if (herramientasUsuarios == null)
 		{
-			herrmientasUsuarios = new JToolBar();
-			herrmientasUsuarios.setSize(new Dimension(183, 32));
-			herrmientasUsuarios.setLocation(new Point(3, 364));
+			herramientasUsuarios = new JToolBar();
+			herramientasUsuarios.setSize(new Dimension(183, 32));
+			herramientasUsuarios.setLocation(new Point(3, 364));
 
 			Separador s1 = new Separador();
 			Separador s2 = new Separador();
 			s1.setMinimumSize(new Dimension(20, 15));
 			s2.setMinimumSize(new Dimension(20, 15));
-			herrmientasUsuarios.setFloatable(false);
-			herrmientasUsuarios.add(getEditarUsuario());
-			herrmientasUsuarios.add(this.getBotonCambiarRol());
-			herrmientasUsuarios.add(s1);
-			herrmientasUsuarios.add(getIniciarChat());
-			herrmientasUsuarios.add(getEnviarMensaje());
+			herramientasUsuarios.setFloatable(false);
+			herramientasUsuarios.add(getEditarUsuario());
+			herramientasUsuarios.add(this.getBotonCambiarRol());
+			herramientasUsuarios.add(s1);
+			herramientasUsuarios.add(getIniciarChat());
+			herramientasUsuarios.add(getEnviarMensaje());
 		}
-		return herrmientasUsuarios;
+		return herramientasUsuarios;
 	}
 
 	/**
@@ -722,6 +746,7 @@ public class PanelPrincipal extends DComponenteBase
 			iniciarChat = new JButton();
 			iniciarChat.setIcon(new ImageIcon("Resources/comment.gif"));
 			iniciarChat.setBorderPainted(false);
+			iniciarChat.setToolTipText("Inicia un chat privado con el usuario seleccionado");
 
 			iniciarChat.addActionListener(new java.awt.event.ActionListener()
 			{
@@ -747,9 +772,16 @@ public class PanelPrincipal extends DComponenteBase
 
 								plugins.get(i).enviarEvento(evento);
 							}
-							else JOptionPane
-									.showMessageDialog(null,
-											"No puedes mantener una conversaci—n contigo mismo");
+							else if (usuario.equals(DConector.Dusuario))
+							{
+								JOptionPane.showMessageDialog(null,
+								"No puedes mantener una conversaci—n contigo mismo");
+							}
+							
+							else if (usuario == null)
+							{
+								JOptionPane.showMessageDialog(null, "Debe seleccionar el usuario con el que mantener la conversacion");
+							}	
 						}
 
 				}
@@ -770,6 +802,7 @@ public class PanelPrincipal extends DComponenteBase
 			enviarMensaje = new JButton();
 			enviarMensaje.setIcon(new ImageIcon("Resources/icon_email.gif"));
 			enviarMensaje.setBorderPainted(false);
+			enviarMensaje.setToolTipText("Envia un mensaje a un usuario para que lo lea la proxima vez que se conecte");
 
 			enviarMensaje.addActionListener(new java.awt.event.ActionListener()
 			{
@@ -801,6 +834,7 @@ public class PanelPrincipal extends DComponenteBase
 			botonSubir = new JButton();;
 			botonSubir.setBorderPainted(false);
 			botonSubir.setText("");
+			botonSubir.setToolTipText("Sube un fichero local para compartirlo con el resto de usuarios");
 
 			botonSubir.setIcon(new ImageIcon("Resources/subir_documento.png"));
 			botonSubir.addActionListener(new java.awt.event.ActionListener()
@@ -826,6 +860,7 @@ public class PanelPrincipal extends DComponenteBase
 			reenviar = new JButton();;
 			reenviar.setBorderPainted(false);
 			reenviar.setText("");
+			reenviar.setToolTipText("Reenvia el mensaje seleccionado");
 
 			reenviar.setIcon(new ImageIcon("Resources/email_go.png"));
 			reenviar.addActionListener(new java.awt.event.ActionListener()

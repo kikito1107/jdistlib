@@ -147,7 +147,16 @@ public class VisorPropiedadesFichero extends JDialog
 	{
 		if (usuario == null)
 		{
-			usuario = new JTextField(fichero.getUsuario().getNombreUsuario());
+			if (fichero.getUsuario() != null)
+			{
+				usuario = new JTextField(fichero.getUsuario()
+						.getNombreUsuario());
+			}
+
+			else
+			{
+				usuario = new JTextField("");
+			}
 			usuario.setPreferredSize(new Dimension(160, 22));
 			usuario.setEditable(false);
 		}
@@ -342,26 +351,26 @@ public class VisorPropiedadesFichero extends JDialog
 		if (panelDatos == null)
 		{
 			GridBagConstraints gridBagConstraints24 = new GridBagConstraints();
-			gridBagConstraints24.fill = GridBagConstraints.VERTICAL;  // Generated
-			gridBagConstraints24.gridy = 3;  // Generated
-			gridBagConstraints24.weightx = 1.0;  // Generated
-			gridBagConstraints24.gridx = 1;  // Generated
+			gridBagConstraints24.fill = GridBagConstraints.VERTICAL; // Generated
+			gridBagConstraints24.gridy = 3; // Generated
+			gridBagConstraints24.weightx = 1.0; // Generated
+			gridBagConstraints24.gridx = 1; // Generated
 			GridBagConstraints gridBagConstraints23 = new GridBagConstraints();
-			gridBagConstraints23.fill = GridBagConstraints.VERTICAL;  // Generated
-			gridBagConstraints23.gridy = 1;  // Generated
-			gridBagConstraints23.weightx = 1.0;  // Generated
-			gridBagConstraints23.gridx = 1;  // Generated
+			gridBagConstraints23.fill = GridBagConstraints.VERTICAL; // Generated
+			gridBagConstraints23.gridy = 1; // Generated
+			gridBagConstraints23.weightx = 1.0; // Generated
+			gridBagConstraints23.gridx = 1; // Generated
 			GridBagConstraints gridBagConstraints22 = new GridBagConstraints();
-			gridBagConstraints22.fill = GridBagConstraints.VERTICAL;  // Generated
-			gridBagConstraints22.gridy = 0;  // Generated
-			gridBagConstraints22.weightx = 1.0;  // Generated
-			gridBagConstraints22.gridx = 1;  // Generated
+			gridBagConstraints22.fill = GridBagConstraints.VERTICAL; // Generated
+			gridBagConstraints22.gridy = 0; // Generated
+			gridBagConstraints22.weightx = 1.0; // Generated
+			gridBagConstraints22.gridx = 1; // Generated
 			GridBagConstraints gridBagConstraints21 = new GridBagConstraints();
-			gridBagConstraints21.gridx = 0;  // Generated
-			gridBagConstraints21.gridy = 6;  // Generated
+			gridBagConstraints21.gridx = 0; // Generated
+			gridBagConstraints21.gridy = 6; // Generated
 			GridBagConstraints gridBagConstraints20 = new GridBagConstraints();
-			gridBagConstraints20.gridx = 2;  // Generated
-			gridBagConstraints20.gridy = 4;  // Generated
+			gridBagConstraints20.gridx = 2; // Generated
+			gridBagConstraints20.gridy = 4; // Generated
 			GridBagConstraints gridBagConstraints18 = new GridBagConstraints();
 			gridBagConstraints18.gridx = 0;
 			gridBagConstraints18.gridy = 4;
@@ -404,19 +413,19 @@ public class VisorPropiedadesFichero extends JDialog
 			panelDatos.setLayout(new GridBagLayout());
 			panelDatos.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 			panelDatos.setBounds(new Rectangle(13, 15, 288, 103));
-			//panelDatos.add(getNombreFichero(), gridBagConstraints11);
-			//panelDatos.add(getPathFichero(), gridBagConstraints12);
+			// panelDatos.add(getNombreFichero(), gridBagConstraints11);
+			// panelDatos.add(getPathFichero(), gridBagConstraints12);
 			panelDatos.add(etiquetaOwner, gridBagConstraints13);
 			panelDatos.add(etiquetaNombreFichero, gridBagConstraints14);
-			//panelDatos.add(getJTextField(), gridBagConstraints15);
+			// panelDatos.add(getJTextField(), gridBagConstraints15);
 			panelDatos.add(etiquetaRol, gridBagConstraints16);
 			panelDatos.add(getEsDirectorio(), gridBagConstraints17);
 			panelDatos.add(Directorio, gridBagConstraints18);
-			
+
 			panelDatos.setBackground(this.getContentPane().getBackground());
-			panelDatos.add(getNombreFichero(), gridBagConstraints22);  // Generated
-			panelDatos.add(getPathFichero(), gridBagConstraints23);  // Generated
-			panelDatos.add(getJTextField(), gridBagConstraints24);  // Generated
+			panelDatos.add(getNombreFichero(), gridBagConstraints22); // Generated
+			panelDatos.add(getPathFichero(), gridBagConstraints23); // Generated
+			panelDatos.add(getJTextField(), gridBagConstraints24); // Generated
 		}
 		return panelDatos;
 	}
@@ -430,7 +439,15 @@ public class VisorPropiedadesFichero extends JDialog
 	{
 		if (rol == null)
 		{
-			rol = new JTextField(fichero.getRol().getNombreRol());
+			if (fichero.getRol() != null)
+			{
+				rol = new JTextField(fichero.getRol().getNombreRol());
+			}
+
+			else
+			{
+				rol = new JTextField("");
+			}
 			rol.setPreferredSize(new Dimension(160, 22));
 			rol.setEditable(false);
 		}
@@ -454,66 +471,73 @@ public class VisorPropiedadesFichero extends JDialog
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
-					if (fichero.comprobarPermisos(DConector.Dusuario,
-							DConector.Drol, MIDocumento.PERMISO_ESCRITURA)
-						||
-						(		fichero.getUsuario().getNombreUsuario().equals(DConector.Dusuario) && 
-								fichero.getRol().getNombreRol().equals(DConector.Drol))
-						)
+					try //por si el fichero es la raiz "/" (no tiene usuario ni rol)
 					{
-						fichero.setNombre(nombreFichero.getText());
-
-						String path = fichero.getRutaLocal();
-
-						String[] carpetas = path.split("/");
-						path = "";
-
-						for (int i = 0; i < carpetas.length - 1; ++i)
+						if (fichero.comprobarPermisos(DConector.Dusuario,
+								DConector.Drol, MIDocumento.PERMISO_ESCRITURA)
+								|| ( fichero.getUsuario().getNombreUsuario()
+										.equals(DConector.Dusuario) && fichero
+										.getRol().getNombreRol().equals(
+												DConector.Drol) ))
 						{
+							fichero.setNombre(nombreFichero.getText());
 
-							if (!carpetas[i].equals( "") ) path += carpetas[i] + "/";
-							System.err.print(carpetas[i] + ",\t");
+							String path = fichero.getRutaLocal();
+
+							String[] carpetas = path.split("/");
+							path = "";
+
+							for (int i = 0; i < carpetas.length - 1; ++i)
+							{
+
+								if (!carpetas[i].equals(""))
+									path += carpetas[i] + "/";
+								System.err.print(carpetas[i] + ",\t");
+							}
+
+							if (path.equals("") || path.charAt(0) != '/')
+								path = "/" + path;
+
+							path += fichero.getNombre();
+
+							System.err.println("\n\nnueva ruta local " + path);
+
+							fichero.setRutaLocal(path);
+
+							String permisos = "";
+
+							if (lecturaU.isSelected())
+								permisos += "r";
+							else permisos += "-";
+
+							if (escrituraU.isSelected())
+								permisos += "w";
+							else permisos += "-";
+
+							if (lecturaR.isSelected())
+								permisos += "r";
+							else permisos += "-";
+
+							if (escrituraR.isSelected())
+								permisos += "w";
+							else permisos += "-";
+
+							if (lecturaO.isSelected())
+								permisos += "r";
+							else permisos += "-";
+
+							if (escrituraO.isSelected())
+								permisos += "w";
+							else permisos += "-";
+
+							fichero.setPermisos(permisos);
 						}
+						else fichero = null;
 
-						if (path.equals("") || path.charAt(0) != '/')
-							path = "/" + path;
-						
-						path += fichero.getNombre();
-
-						System.err.println("\n\nnueva ruta local " + path);
-
-						fichero.setRutaLocal(path);
-
-						String permisos = "";
-
-						if (lecturaU.isSelected())
-							permisos += "r";
-						else permisos += "-";
-
-						if (escrituraU.isSelected())
-							permisos += "w";
-						else permisos += "-";
-
-						if (lecturaR.isSelected())
-							permisos += "r";
-						else permisos += "-";
-
-						if (escrituraR.isSelected())
-							permisos += "w";
-						else permisos += "-";
-
-						if (lecturaO.isSelected())
-							permisos += "r";
-						else permisos += "-";
-
-						if (escrituraO.isSelected())
-							permisos += "w";
-						else permisos += "-";
-
-						fichero.setPermisos(permisos);
 					}
-
-					else fichero = null;
+					catch (NullPointerException ex)
+					{
+					}
 
 					setVisible(false);
 				}
@@ -551,7 +575,7 @@ public class VisorPropiedadesFichero extends JDialog
 	{
 		setTitle("Propiedades " + this.fichero.getNombre());
 
-		setSize(312,473);
+		setSize(312, 473);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		Dimension frameSize = getSize();
 		if (frameSize.height > screenSize.height)
@@ -599,9 +623,9 @@ public class VisorPropiedadesFichero extends JDialog
 	}
 
 	/**
-	 * This method initializes areaTextoEditores	
-	 * 	
-	 * @return javax.swing.JTextArea	
+	 * This method initializes areaTextoEditores
+	 * 
+	 * @return javax.swing.JTextArea
 	 */
 	private JTextArea getAreaTextoEditores()
 	{
@@ -611,28 +635,31 @@ public class VisorPropiedadesFichero extends JDialog
 			areaTextoEditores.setLineWrap(true);
 			areaTextoEditores.setWrapStyleWord(true);
 			areaTextoEditores.setAutoscrolls(true);
-			
-			Vector<String> editores = DConector.obtenerDC().consultarEditores(fichero.getRutaLocal());
-			
-			if (editores != null) 
+
+			Vector<String> editores = DConector.obtenerDC().consultarEditores(
+					fichero.getRutaLocal());
+
+			if (editores != null)
 			{
 				int numEditores = editores.size();
-				
-				for(int i=0; i<numEditores; ++i)
-					areaTextoEditores.append(editores.get(i)+'\n');
+
+				for (int i = 0; i < numEditores; ++i)
+					areaTextoEditores.append(editores.get(i) + '\n');
 			}
-			
+
 			areaTextoEditores.setEditable(false);
-			areaTextoEditores.setToolTipText("Usuarios que est‡n editando el documento en este momento");
-			areaTextoEditores.setBackground(this.getContentPane().getBackground());
+			areaTextoEditores
+					.setToolTipText("Usuarios que est‡n editando el documento en este momento");
+			areaTextoEditores.setBackground(this.getContentPane()
+					.getBackground());
 		}
 		return areaTextoEditores;
 	}
 
 	/**
-	 * This method initializes panelEditores	
-	 * 	
-	 * @return javax.swing.JPanel	
+	 * This method initializes panelEditores
+	 * 
+	 * @return javax.swing.JPanel
 	 */
 	private JPanel getPanelEditores()
 	{
@@ -646,10 +673,12 @@ public class VisorPropiedadesFichero extends JDialog
 			gridBagConstraints19.gridx = 0;
 			panelEditores = new JPanel();
 			panelEditores.setLayout(new GridBagLayout());
-			panelEditores.setBorder(BorderFactory.createTitledBorder(null, "Editores", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
+			panelEditores.setBorder(BorderFactory.createTitledBorder(null,
+					"Editores", TitledBorder.DEFAULT_JUSTIFICATION,
+					TitledBorder.DEFAULT_POSITION, null, null));
 			panelEditores.setBounds(new Rectangle(13, 129, 288, 146));
 			panelEditores.add(getAreaTextoEditores(), gridBagConstraints19);
 		}
 		return panelEditores;
 	}
-}  //  @jve:decl-index=0:visual-constraint="-28,-36"
+} // @jve:decl-index=0:visual-constraint="-28,-36"
