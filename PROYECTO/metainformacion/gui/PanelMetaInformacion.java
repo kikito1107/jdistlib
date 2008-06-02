@@ -472,6 +472,7 @@ public class PanelMetaInformacion extends JPanel
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public void inicializar(String rol)
 	{
 		// ************************************************
@@ -758,6 +759,7 @@ public class PanelMetaInformacion extends JPanel
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	void listaCambiarUsuarios_actionPerformed(ActionEvent e)
 	{
 		listaCambiarRolesPermitidos.eliminarElementos();
