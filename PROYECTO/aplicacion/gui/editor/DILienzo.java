@@ -109,6 +109,11 @@ public class DILienzo extends DIViewer implements MouseListener,
 	 * Pagina actual del documento visualizada
 	 */
 	private int paginaActual = 0;
+	
+	/*
+	 * Permite seleccionar si se esta seleccionando formas o pintandolas
+	 */
+	private boolean estaSeleccionando = false;
 
 	/**
 	 * Coordenada x inicial del trazo actual
@@ -178,6 +183,11 @@ public class DILienzo extends DIViewer implements MouseListener,
 	public void setColor(Color unColor)
 	{
 		colorActual = unColor;
+	}
+	
+	public void setEstaSeleccionando(boolean b)
+	{
+		estaSeleccionando = b;
 	}
 
 	/**
@@ -454,188 +464,229 @@ public class DILienzo extends DIViewer implements MouseListener,
 	public void mousePressed(MouseEvent e)
 	{
 		e.consume();
-		switch (modoDibujo)
+
+		if (estaSeleccionando)
 		{
-			case LINEAS:
-			case RECTANGULO:
-			case ELIPSE:
-				x1 = e.getX();
-				y1 = e.getY();
-				x2 = -1;
-				break;
-			case MANO_ALZADA:
+			int x = e.getX();
+			int y = e.getY();
 
-				trazo = new TrazoManoAlzada();
-				trazo.setColor(colorActual);
+			// recorremos todas las anotaciones de la página actual
 
-				Linea l = new Linea(e.getX(), e.getY(), e.getX() + 1,
-						e.getY() + 1);
-				l.setColor(colorActual);
-				trazo.agregarLinea(l);
+			boolean encontrado = false;
 
-				x1 = e.getX();
-				y1 = e.getY();
-				repaint();
-				break;
+			Pagina p = doc.getPagina(this.paginaActual - 1);
 
-			case TEXTO:
-				x1 = e.getX();
-				y1 = e.getY();
+			Vector<Anotacion> v = null;
 
-				DialogoIntroTexto ct = new DialogoIntroTexto(this.padre);
+			if (p != null) v = p.getAnotaciones();
 
-				String rsp = ct.obtenerTexto();
+			// System.out.println("x: "+ x + " y: " + y);
 
-				if (rsp != null)
-				{
-					Texto t = new Texto(x1, y1, rsp);
+			if (v != null)
+			{
 
-					// System.out.println("x: " + x1 + " y: " + y1);
-					t.setColor(colorActual);
-
-					DJLienzoEvent evt2 = new DJLienzoEvent();
-
-					evt2.color = colorActual;
-					evt2.dibujo = t;
-					evt2.numPagina = new Integer(paginaActual - 1);
-					evt2.tipo = new Integer(DJLienzoEvent.NUEVA_ANOTACION
-							.intValue());
-					evt2.path = new String(doc.getPath());
-					evt2.rol = DConector.Drol;
-
-					enviarEvento(evt2);
-
-					if (doc.getNumeroPaginas() > 0)
+				for (int i = 0; ( i < v.size() ) && !encontrado; ++i)
+					if (v.get(i).getContenido().pertenece(x, y))
 					{
-
-						Anotacion a = new Anotacion();
-						a.setContenido(t);
-						a.setRol(DConector.Drol);
-						a.setUsuario(DConector.Dusuario);
-
-						doc.getPagina(this.paginaActual - 1).addAnotacion(a);
+						anotacionSeleccionada = i;
+						encontrado = true;
 					}
+			}
+			
+			this.repaint();
+		}
+
+		else
+		{
+			switch (modoDibujo)
+			{
+				case LINEAS:
+				case RECTANGULO:
+				case ELIPSE:
+					x1 = e.getX();
+					y1 = e.getY();
+					x2 = -1;
+					break;
+				case MANO_ALZADA:
+
+					trazo = new TrazoManoAlzada();
+					trazo.setColor(colorActual);
+
+					Linea l = new Linea(e.getX(), e.getY(), e.getX() + 1, e
+							.getY() + 1);
+					l.setColor(colorActual);
+					trazo.agregarLinea(l);
+
+					x1 = e.getX();
+					y1 = e.getY();
 					repaint();
-				}
-				break;
-			default:
-				break;
+					break;
+
+				case TEXTO:
+					x1 = e.getX();
+					y1 = e.getY();
+
+					DialogoIntroTexto ct = new DialogoIntroTexto(this.padre);
+
+					String rsp = ct.obtenerTexto();
+
+					if (rsp != null)
+					{
+						Texto t = new Texto(x1, y1, rsp);
+
+						// System.out.println("x: " + x1 + " y: " + y1);
+						t.setColor(colorActual);
+
+						DJLienzoEvent evt2 = new DJLienzoEvent();
+
+						evt2.color = colorActual;
+						evt2.dibujo = t;
+						evt2.numPagina = new Integer(paginaActual - 1);
+						evt2.tipo = new Integer(DJLienzoEvent.NUEVA_ANOTACION
+								.intValue());
+						evt2.path = new String(doc.getPath());
+						evt2.rol = DConector.Drol;
+
+						enviarEvento(evt2);
+
+						if (doc.getNumeroPaginas() > 0)
+						{
+
+							Anotacion a = new Anotacion();
+							a.setContenido(t);
+							a.setRol(DConector.Drol);
+							a.setUsuario(DConector.Dusuario);
+
+							doc.getPagina(this.paginaActual - 1)
+									.addAnotacion(a);
+						}
+						repaint();
+					}
+					break;
+				default:
+					break;
+			}
 		}
 	}
 
 	public void mouseReleased(MouseEvent e)
 	{
 		e.consume();
-		switch (modoDibujo)
+
+		if (!estaSeleccionando)
 		{
-			case RECTANGULO:
-			case ELIPSE:
+			switch (modoDibujo)
+			{
+				case RECTANGULO:
+				case ELIPSE:
 
-				if (x1 >= x2)
-				{
-					int xaux = x1;
-					x1 = x2;
-					x2 = xaux;
-				}
-				if (y1 >= y2)
-				{
-					int yaux = y1;
-					y1 = y2;
-					y2 = yaux;
-				}
+					if (x1 >= x2)
+					{
+						int xaux = x1;
+						x1 = x2;
+						x2 = xaux;
+					}
+					if (y1 >= y2)
+					{
+						int yaux = y1;
+						y1 = y2;
+						y2 = yaux;
+					}
 
-				Figura f;
-				if (modoDibujo == RECTANGULO)
-					f = new Rectangulo(x1, y1, x2, y2);
-				else f = new Elipse(x1, y1, x2, y2);
+					Figura f;
+					if (modoDibujo == RECTANGULO)
+						f = new Rectangulo(x1, y1, x2, y2);
+					else f = new Elipse(x1, y1, x2, y2);
 
-				f.setColor(colorActual);
+					f.setColor(colorActual);
 
-				DJLienzoEvent evt = new DJLienzoEvent();
+					DJLienzoEvent evt = new DJLienzoEvent();
 
-				evt.color = colorActual;
-				evt.dibujo = f;
-				evt.numPagina = new Integer(paginaActual - 1);
-				evt.tipo = new Integer(DJLienzoEvent.NUEVA_ANOTACION.intValue());
-				evt.path = new String(doc.getPath());
-				evt.rol = new String(DConector.Drol);
-				enviarEvento(evt);
+					evt.color = colorActual;
+					evt.dibujo = f;
+					evt.numPagina = new Integer(paginaActual - 1);
+					evt.tipo = new Integer(DJLienzoEvent.NUEVA_ANOTACION
+							.intValue());
+					evt.path = new String(doc.getPath());
+					evt.rol = new String(DConector.Drol);
+					enviarEvento(evt);
 
-				if (doc.getNumeroPaginas() > 0)
-				{
+					if (doc.getNumeroPaginas() > 0)
+					{
 
-					Anotacion a = new Anotacion();
-					a.setContenido(f);
-					a.setRol(DConector.Drol);
-					a.setUsuario(DConector.Dusuario);
+						Anotacion a = new Anotacion();
+						a.setContenido(f);
+						a.setRol(DConector.Drol);
+						a.setUsuario(DConector.Dusuario);
 
-					doc.getPagina(this.paginaActual - 1).addAnotacion(a);
-				}
+						doc.getPagina(this.paginaActual - 1).addAnotacion(a);
+					}
 
-				x2 = -1;
-				repaint();
+					x2 = -1;
+					repaint();
 
-				break;
-			case LINEAS:
+					break;
+				case LINEAS:
 
-				Linea l = new Linea(x1, y1, e.getX(), e.getY());
-				l.setColor(colorActual);
+					Linea l = new Linea(x1, y1, e.getX(), e.getY());
+					l.setColor(colorActual);
 
-				DJLienzoEvent evt2 = new DJLienzoEvent();
+					DJLienzoEvent evt2 = new DJLienzoEvent();
 
-				evt2.color = colorActual;
-				evt2.dibujo = l;
-				evt2.numPagina = new Integer(paginaActual - 1);
-				evt2.tipo = new Integer(DJLienzoEvent.NUEVA_ANOTACION
-						.intValue());
-				evt2.path = new String(doc.getPath());
-				evt2.rol = new String(DConector.Drol);
-				enviarEvento(evt2);
+					evt2.color = colorActual;
+					evt2.dibujo = l;
+					evt2.numPagina = new Integer(paginaActual - 1);
+					evt2.tipo = new Integer(DJLienzoEvent.NUEVA_ANOTACION
+							.intValue());
+					evt2.path = new String(doc.getPath());
+					evt2.rol = new String(DConector.Drol);
+					enviarEvento(evt2);
 
-				if (doc.getNumeroPaginas() > 0)
-				{
+					if (doc.getNumeroPaginas() > 0)
+					{
 
-					Anotacion a = new Anotacion();
-					a.setContenido(l);
-					a.setRol(DConector.Drol);
-					a.setUsuario(DConector.Dusuario);
+						Anotacion a = new Anotacion();
+						a.setContenido(l);
+						a.setRol(DConector.Drol);
+						a.setUsuario(DConector.Dusuario);
 
-					doc.getPagina(this.paginaActual - 1).addAnotacion(a);
-				}
+						doc.getPagina(this.paginaActual - 1).addAnotacion(a);
+					}
 
-				x2 = -1;
+					x2 = -1;
 
-				repaint();
-				break;
-			case MANO_ALZADA:
-				DJLienzoEvent evt3 = new DJLienzoEvent();
+					repaint();
+					break;
+				case MANO_ALZADA:
+					DJLienzoEvent evt3 = new DJLienzoEvent();
 
-				evt3.color = colorActual;
-				evt3.dibujo = trazo;
-				evt3.numPagina = new Integer(paginaActual - 1);
-				evt3.tipo = new Integer(DJLienzoEvent.NUEVA_ANOTACION
-						.intValue());
-				evt3.path = new String(doc.getPath());
-				evt3.rol = new String(DConector.Drol);
+					evt3.color = colorActual;
+					evt3.dibujo = trazo;
+					evt3.numPagina = new Integer(paginaActual - 1);
+					evt3.tipo = new Integer(DJLienzoEvent.NUEVA_ANOTACION
+							.intValue());
+					evt3.path = new String(doc.getPath());
+					evt3.rol = new String(DConector.Drol);
 
-				enviarEvento(evt3);
+					enviarEvento(evt3);
 
-				if (doc.getNumeroPaginas() > 0)
-				{
+					if (doc.getNumeroPaginas() > 0)
+					{
 
-					Anotacion a = new Anotacion();
-					a.setContenido(trazo);
-					a.setRol(DConector.Drol);
-					a.setUsuario(DConector.Dusuario);
+						Anotacion a = new Anotacion();
+						a.setContenido(trazo);
+						a.setRol(DConector.Drol);
+						a.setUsuario(DConector.Dusuario);
 
-					doc.getPagina(this.paginaActual - 1).addAnotacion(a);
+						doc.getPagina(this.paginaActual - 1).addAnotacion(a);
 
-					trazo = null;
-				}
+						trazo = null;
+					}
 
-				break;
-			default:
-				break;
+					break;
+				default:
+					break;
+			}
 		}
 	}
 
@@ -651,30 +702,33 @@ public class DILienzo extends DIViewer implements MouseListener,
 	public void mouseDragged(MouseEvent e)
 	{
 		e.consume();
-		switch (modoDibujo)
+
+		if (!estaSeleccionando)
 		{
-			case LINEAS:
-			case RECTANGULO:
-			case ELIPSE:
-				x2 = e.getX();
-				y2 = e.getY();
-				repaint();
-				break;
+			switch (modoDibujo)
+			{
+				case LINEAS:
+				case RECTANGULO:
+				case ELIPSE:
+					x2 = e.getX();
+					y2 = e.getY();
+					repaint();
+					break;
 
-			case MANO_ALZADA:
-				Linea r = new Linea(x1, y1, e.getX(), e.getY());
-				r.setColor(colorActual);
+				case MANO_ALZADA:
+					Linea r = new Linea(x1, y1, e.getX(), e.getY());
+					r.setColor(colorActual);
 
-				trazo.agregarLinea(r);
-				x1 = e.getX();
-				y1 = e.getY();
+					trazo.agregarLinea(r);
+					x1 = e.getX();
+					y1 = e.getY();
 
-				repaint();
-				break;
-			default:
-				break;
+					repaint();
+					break;
+				default:
+					break;
+			}
 		}
-
 	}
 
 	// ***********************************************************************
@@ -777,7 +831,8 @@ public class DILienzo extends DIViewer implements MouseListener,
 					break;
 				case MANO_ALZADA:
 					g.setColor(this.colorActual);
-					trazo.dibujar(g);
+					if (trazo!=null)
+						trazo.dibujar(g);
 					break;
 				default:
 						break;

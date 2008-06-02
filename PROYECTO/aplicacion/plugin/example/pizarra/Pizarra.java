@@ -10,6 +10,8 @@ import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.border.EtchedBorder;
 
+import aplicacion.fisica.documentos.Anotacion;
+import aplicacion.fisica.documentos.Pagina;
 import aplicacion.gui.editor.DILienzo;
 import aplicacion.gui.editor.DIViewer;
 
@@ -106,6 +108,11 @@ public class Pizarra extends DIViewer implements MouseListener,
 	 * Hebra encargada del procesamiento de los eventos
 	 */
 	private HebraProcesadoraBase hebraProcesadora = null;
+	
+	/*
+	 * Permite seleccionar si se esta seleccionando formas o pintandolas
+	 */
+	private boolean estaSeleccionando = false;
 
 	/**
 	 * Constructor de la clase
@@ -140,6 +147,11 @@ public class Pizarra extends DIViewer implements MouseListener,
 	public void setColor(Color unColor)
 	{
 		colorActual = unColor;
+	}
+
+	public void setEstaSeleccionando(boolean b)
+	{
+		estaSeleccionando = b;
 	}
 
 	/**
@@ -264,171 +276,206 @@ public class Pizarra extends DIViewer implements MouseListener,
 	public void mousePressed(MouseEvent e)
 	{
 		e.consume();
-		switch (modoDibujo)
+		if (estaSeleccionando)
 		{
-			case LINEAS:
-			case RECTANGULO:
-			case ELIPSE:
-				x1 = e.getX();
-				y1 = e.getY();
-				x2 = -1;
-				break;
-			case MANO_ALZADA:
+			int x = e.getX();
+			int y = e.getY();
 
-				trazo = new TrazoManoAlzada();
-				trazo.setColor(colorActual);
+			// recorremos todas las anotaciones de la página actual
 
-				Linea l = new Linea(e.getX(), e.getY(), e.getX() + 1,
-						e.getY() + 1);
-				l.setColor(colorActual);
-				trazo.agregarLinea(l);
+			boolean encontrado = false;
 
-				x1 = e.getX();
-				y1 = e.getY();
-				repaint();
-				break;
+			// System.out.println("x: "+ x + " y: " + y);
 
-			case TEXTO:
-				x1 = e.getX();
-				y1 = e.getY();
+			if (anotaciones != null)
+			{
 
-				DialogoIntroTexto ct = new DialogoIntroTexto(this.padre);
+				for (int i = 0; ( i < anotaciones.size() ) && !encontrado; ++i)
+					if (anotaciones.get(i).pertenece(x, y))
+					{
+						anotacionSeleccionada = i;
+						encontrado = true;
+					}
+			}
 
-				String rsp = ct.obtenerTexto();
+			this.repaint();
+		}
 
-				if (rsp != null)
-				{
-					Texto t = new Texto(x1, y1, rsp);
+		else
+		{
+			switch (modoDibujo)
+			{
+				case LINEAS:
+				case RECTANGULO:
+				case ELIPSE:
+					x1 = e.getX();
+					y1 = e.getY();
+					x2 = -1;
+					break;
+				case MANO_ALZADA:
 
-					// System.out.println("x: " + x1 + " y: " + y1);
-					t.setColor(colorActual);
+					trazo = new TrazoManoAlzada();
+					trazo.setColor(colorActual);
 
-					DJPizarraEvent evt2 = new DJPizarraEvent();
+					Linea l = new Linea(e.getX(), e.getY(), e.getX() + 1, e
+							.getY() + 1);
+					l.setColor(colorActual);
+					trazo.agregarLinea(l);
 
-					evt2.dibujo = t;
-					evt2.tipo = new Integer(DJPizarraEvent.NUEVA_ANOTACION
-							.intValue());
-					evt2.rol = DConector.Drol;
-
-					anotaciones.add(t);
-
-					enviarEvento(evt2);
+					x1 = e.getX();
+					y1 = e.getY();
 					repaint();
-				}
-				break;
-			default:
-				break;
+					break;
+
+				case TEXTO:
+					x1 = e.getX();
+					y1 = e.getY();
+
+					DialogoIntroTexto ct = new DialogoIntroTexto(this.padre);
+
+					String rsp = ct.obtenerTexto();
+
+					if (rsp != null)
+					{
+						Texto t = new Texto(x1, y1, rsp);
+
+						// System.out.println("x: " + x1 + " y: " + y1);
+						t.setColor(colorActual);
+
+						DJPizarraEvent evt2 = new DJPizarraEvent();
+
+						evt2.dibujo = t;
+						evt2.tipo = new Integer(DJPizarraEvent.NUEVA_ANOTACION
+								.intValue());
+						evt2.rol = DConector.Drol;
+
+						anotaciones.add(t);
+
+						enviarEvento(evt2);
+						repaint();
+					}
+					break;
+				default:
+					break;
+			}
 		}
 	}
 
 	public void mouseReleased(MouseEvent e)
 	{
 		e.consume();
-		switch (modoDibujo)
+
+		if (!estaSeleccionando)
 		{
-			case RECTANGULO:
-			case ELIPSE:
+			switch (modoDibujo)
+			{
+				case RECTANGULO:
+				case ELIPSE:
 
-				if (x1 >= x2)
-				{
-					int xaux = x1;
-					x1 = x2;
-					x2 = xaux;
-				}
-				if (y1 >= y2)
-				{
-					int yaux = y1;
-					y1 = y2;
-					y2 = yaux;
-				}
+					if (x1 >= x2)
+					{
+						int xaux = x1;
+						x1 = x2;
+						x2 = xaux;
+					}
+					if (y1 >= y2)
+					{
+						int yaux = y1;
+						y1 = y2;
+						y2 = yaux;
+					}
 
-				Figura f;
-				if (modoDibujo == RECTANGULO)
-					f = new Rectangulo(x1, y1, x2, y2);
-				else f = new Elipse(x1, y1, x2, y2);
+					Figura f;
+					if (modoDibujo == RECTANGULO)
+						f = new Rectangulo(x1, y1, x2, y2);
+					else f = new Elipse(x1, y1, x2, y2);
 
-				f.setColor(colorActual);
+					f.setColor(colorActual);
 
-				DJPizarraEvent evt = new DJPizarraEvent();
+					DJPizarraEvent evt = new DJPizarraEvent();
 
-				evt.dibujo = f;
-				evt.tipo = new Integer(DJPizarraEvent.NUEVA_ANOTACION
-						.intValue());
-				evt.rol = new String(DConector.Drol);
-				enviarEvento(evt);
+					evt.dibujo = f;
+					evt.tipo = new Integer(DJPizarraEvent.NUEVA_ANOTACION
+							.intValue());
+					evt.rol = new String(DConector.Drol);
+					enviarEvento(evt);
 
-				anotaciones.add(f);
+					anotaciones.add(f);
 
-				x2 = -1;
-				repaint();
+					x2 = -1;
+					repaint();
 
-				break;
-			case LINEAS:
+					break;
+				case LINEAS:
 
-				Linea l = new Linea(x1, y1, e.getX(), e.getY());
-				l.setColor(colorActual);
+					Linea l = new Linea(x1, y1, e.getX(), e.getY());
+					l.setColor(colorActual);
 
-				DJPizarraEvent evt2 = new DJPizarraEvent();
+					DJPizarraEvent evt2 = new DJPizarraEvent();
 
-				evt2.dibujo = l;
-				evt2.tipo = new Integer(DJPizarraEvent.NUEVA_ANOTACION
-						.intValue());
-				evt2.rol = new String(DConector.Drol);
-				enviarEvento(evt2);
+					evt2.dibujo = l;
+					evt2.tipo = new Integer(DJPizarraEvent.NUEVA_ANOTACION
+							.intValue());
+					evt2.rol = new String(DConector.Drol);
+					enviarEvento(evt2);
 
-				anotaciones.add(l);
+					anotaciones.add(l);
 
-				x2 = -1;
+					x2 = -1;
 
-				repaint();
-				break;
-			case MANO_ALZADA:
-				DJPizarraEvent evt3 = new DJPizarraEvent();
+					repaint();
+					break;
+				case MANO_ALZADA:
+					DJPizarraEvent evt3 = new DJPizarraEvent();
 
-				evt3.dibujo = trazo;
-				evt3.tipo = new Integer(DJPizarraEvent.NUEVA_ANOTACION
-						.intValue());
-				evt3.rol = new String(DConector.Drol);
+					evt3.dibujo = trazo;
+					evt3.tipo = new Integer(DJPizarraEvent.NUEVA_ANOTACION
+							.intValue());
+					evt3.rol = new String(DConector.Drol);
 
-				enviarEvento(evt3);
+					enviarEvento(evt3);
 
-				anotaciones.add(trazo);
+					anotaciones.add(trazo);
 
-				trazo = null;
-				break;
-			default:
-				break;
+					trazo = null;
+					break;
+				default:
+					break;
+			}
 		}
 	}
 
 	public void mouseDragged(MouseEvent e)
 	{
 		e.consume();
-		switch (modoDibujo)
+
+		if (!estaSeleccionando)
 		{
-			case LINEAS:
-			case RECTANGULO:
-			case ELIPSE:
-				x2 = e.getX();
-				y2 = e.getY();
-				repaint();
-				break;
-
-			case MANO_ALZADA:
-				Linea r = new Linea(x1, y1, e.getX(), e.getY());
-				r.setColor(colorActual);
-
-				trazo.agregarLinea(r);
-				x1 = e.getX();
-				y1 = e.getY();
-
-				repaint();
-				break;
-				
-			default:
+			switch (modoDibujo)
+			{
+				case LINEAS:
+				case RECTANGULO:
+				case ELIPSE:
+					x2 = e.getX();
+					y2 = e.getY();
+					repaint();
 					break;
-		}
 
+				case MANO_ALZADA:
+					Linea r = new Linea(x1, y1, e.getX(), e.getY());
+					r.setColor(colorActual);
+
+					trazo.agregarLinea(r);
+					x1 = e.getX();
+					y1 = e.getY();
+
+					repaint();
+					break;
+
+				default:
+					break;
+			}
+		}
 	}
 
 	// ***********************************************************************

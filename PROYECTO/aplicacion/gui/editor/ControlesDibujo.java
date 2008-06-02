@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 
 import Deventos.DJLienzoEvent;
@@ -75,6 +76,8 @@ public class ControlesDibujo extends JPanel
 	private JButton botonImprimir = null;
 
 	private JButton botonGuardarLocal = null;
+	
+	private JToggleButton botonSeleccionar = null;
 	
 	private MonitorAbrir m = null;
 	
@@ -301,7 +304,32 @@ public class ControlesDibujo extends JPanel
 		}
 		return botonBorrar;
 	}
-
+	
+	private JToggleButton getBotonSeleccionar()
+	{
+		if (botonSeleccionar == null)
+		{
+			botonSeleccionar = new JToggleButton();
+			botonSeleccionar.setText("");
+			botonSeleccionar.setBorder(null);
+			botonSeleccionar.setBorderPainted(false);
+			botonSeleccionar.setPreferredSize(new Dimension(30, 24));
+			botonSeleccionar.setSize(new Dimension(30, 24));
+			botonSeleccionar.setIcon(new ImageIcon("Resources/puntero_seleccion.png"));
+			botonSeleccionar
+					.setToolTipText("Permite alternar entre el modo de seleccion y el modo de pintura");
+			botonSeleccionar.addActionListener(new java.awt.event.ActionListener()
+			{
+				public void actionPerformed(java.awt.event.ActionEvent e)
+				{
+					lienzo.setEstaSeleccionando(botonSeleccionar.isSelected());
+				}
+			});
+		}
+		
+		return botonSeleccionar;
+	}
+	
 	/**
 	 * This method initializes jButton21
 	 * 
@@ -313,7 +341,7 @@ public class ControlesDibujo extends JPanel
 		{
 			botonAnterior = new JButton();
 			botonAnterior.setIcon(new ImageIcon("Resources/arrow_left.png"));
-			botonAnterior.setToolTipText("Seleccionar el elemnto anterior");
+			botonAnterior.setToolTipText("Seleccionar el elemento anterior");
 			botonAnterior.addActionListener(new java.awt.event.ActionListener()
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
@@ -334,7 +362,7 @@ public class ControlesDibujo extends JPanel
 	 * 
 	 * @return javax.swing.JButton
 	 */
-	private JButton getJButton211()
+	private JButton getBotonSiguiente()
 	{
 		if (botonSiguiente == null)
 		{
@@ -342,6 +370,7 @@ public class ControlesDibujo extends JPanel
 			botonSiguiente
 					.setIcon(new ImageIcon("Resources/arrow_right.png"));
 			botonSiguiente.setToolTipText("Seleccionar el siguiente elemento");
+			botonSiguiente.setPreferredSize(new Dimension(32,24));
 			botonSiguiente
 					.addActionListener(new java.awt.event.ActionListener()
 					{
@@ -420,8 +449,9 @@ public class ControlesDibujo extends JPanel
 			barraHerramientas.add(getBotonRehacer());
 			barraHerramientas.add(separator2);
 			barraHerramientas.add(getBotonAnterior());
+			barraHerramientas.add(getBotonSiguiente());
+			barraHerramientas.add(getBotonSeleccionar());
 			barraHerramientas.add(getBotonBorrar());
-			barraHerramientas.add(getJButton211());
 			barraHerramientas.add(separator3);
 			barraHerramientas.add(getBotonLimpiar());
 			barraHerramientas.add(separator4);
@@ -461,7 +491,7 @@ public class ControlesDibujo extends JPanel
 			botonPaletaColores
 					.setIcon(new ImageIcon("Resources/palette.png"));
 			botonPaletaColores.setText("Colores   ");
-			botonPaletaColores.setToolTipText("Elimina la imagen de fondo");
+			botonPaletaColores.setToolTipText("Cambia el color que usara para pintar");
 			botonPaletaColores
 					.addActionListener(new java.awt.event.ActionListener()
 					{
