@@ -12,7 +12,6 @@ import java.net.UnknownHostException;
 import java.util.Random;
 import java.util.Vector;
 
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JToolTip;
 import javax.swing.border.EtchedBorder;

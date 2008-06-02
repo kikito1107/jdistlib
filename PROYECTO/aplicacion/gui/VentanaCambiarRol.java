@@ -5,10 +5,6 @@ import java.awt.Dimension;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import componentes.gui.usuarios.DICambioRol;
-import java.awt.GridBagLayout;
-import javax.swing.JButton;
-import java.awt.GridBagConstraints;
-import javax.swing.ImageIcon;
 
 public class VentanaCambiarRol extends DJFrame
 {

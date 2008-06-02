@@ -2,7 +2,6 @@ package aplicacion.gui.editor;
 
 import java.awt.BorderLayout;
 
-import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 

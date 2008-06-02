@@ -36,6 +36,7 @@ public class VideoConferencia
 
 	private static boolean stopped = true;
 
+	@SuppressWarnings("unused")
 	private static ImageIcon image_now = null;
 
 	private static ImageIcon image_now_local = null;

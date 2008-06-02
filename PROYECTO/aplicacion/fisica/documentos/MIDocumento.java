@@ -1,7 +1,6 @@
 package aplicacion.fisica.documentos;
 
 import java.io.Serializable;
-import java.util.Vector;
 
 import metainformacion.MIRol;
 import metainformacion.MIUsuario;

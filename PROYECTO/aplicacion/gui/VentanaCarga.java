@@ -1,14 +1,12 @@
 package aplicacion.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
-import java.awt.Dimension;
 
 public class VentanaCarga extends JFrame
 {

@@ -10,8 +10,6 @@ import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.border.EtchedBorder;
 
-import aplicacion.fisica.documentos.Anotacion;
-import aplicacion.fisica.documentos.Pagina;
 import aplicacion.gui.editor.DILienzo;
 import aplicacion.gui.editor.DIViewer;
 

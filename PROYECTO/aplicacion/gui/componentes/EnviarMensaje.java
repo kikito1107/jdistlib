@@ -378,6 +378,7 @@ public class EnviarMensaje extends JDialog
 	 * 	
 	 * @return componentes.gui.usuarios.ArbolUsuariosConectadosRol	
 	 */
+	@SuppressWarnings("unchecked")
 	private JList getArbol()
 	{
 		if (arbol == null)
