@@ -230,12 +230,14 @@ public class PanelPrincipal extends DComponenteBase
 			jLabel1.setBounds(new Rectangle(52, 174, 80, 16));
 			jLabel1.setFont(new Font("Lucida Sans", Font.BOLD, 12));
 			jLabel1.setText("Usuarios");
+			jLabel1.setToolTipText("Lista de los usuarios conectados, organizados por rol");
 			jLabel1.setIcon(new ImageIcon("Resources/group.png"));
 			GridBagConstraints gridBagConstraints = new GridBagConstraints();
 			gridBagConstraints.gridx = 2;
 			gridBagConstraints.gridy = 0;
 			jLabel = new JLabel();
 			jLabel.setText("Aplicaciones");
+			jLabel.setToolTipText("Lista de las aplicaciones disponibles");
 			jLabel.setFont(new Font("Lucida Sans", Font.BOLD, 12));
 			jLabel.setIcon(new ImageIcon("Resources/bricks.png"));
 			jLabel.setBounds(new Rectangle(42, 4, 100, 21));
