@@ -237,7 +237,7 @@ public class PanelPrincipal extends DComponenteBase
 			gridBagConstraints.gridy = 0;
 			jLabel = new JLabel();
 			jLabel.setText("Aplicaciones");
-			jLabel.setToolTipText("Lista de las aplicaciones disponibles");
+			jLabel.setToolTipText("Lista de las aplicaciones disponibles. Doble Click sobre el nombre para ejecutar");
 			jLabel.setFont(new Font("Lucida Sans", Font.BOLD, 12));
 			jLabel.setIcon(new ImageIcon("Resources/bricks.png"));
 			jLabel.setBounds(new Rectangle(42, 4, 100, 21));
@@ -1234,7 +1234,7 @@ public class PanelPrincipal extends DComponenteBase
 
 		// le pasamos al editor el path del nuevo documento
 		Documento p = new Documento();
-		p.setDatosBD(arbolDocumentos.getDocumentoSeleccionado());
+		p.setMetainformacion(arbolDocumentos.getDocumentoSeleccionado());
 		p.setPath(f.getRutaLocal());
 
 		frame.setDocumento(p);

@@ -25,6 +25,10 @@ import javax.swing.ImageIcon;
 import aplicacion.fisica.ServidorFicheros;
 import aplicacion.fisica.documentos.filtros.DocumentFilter;
 
+/**
+ * Clase que representa un documento al que se le pueden agregar anotaciones
+ * @author carlos, anab
+ */
 public class Documento implements Serializable, Printable
 {
 	private static final long serialVersionUID = 1L;
@@ -37,30 +41,62 @@ public class Documento implements Serializable, Printable
 
 	private String path = "";
 
-	private MIDocumento datosBD = null;
+	private MIDocumento metainformacion = null;
 
 	private static Vector<DocumentFilter> filtros = new Vector<DocumentFilter>();
 
+	/**
+	 * Crea un nuevo documento
+	 */
 	public Documento()
 	{
 
 	}
-
-	public MIDocumento getDatosBD()
+	
+	/**
+	 * Crea un nuevo documento
+	 * @param usu usuario
+	 * @param ro rol
+	 */
+	public Documento( String usu, String ro )
 	{
-		return datosBD;
+		usuario = usu;
+		rol = ro;
 	}
 
-	public void setDatosBD(MIDocumento datosBD)
+	/**
+	 * Accede a la metainformacion del documento: path, propietario, ...
+	 * @return la metainformacion
+	 */
+	public MIDocumento getMetainformacion()
 	{
-		this.datosBD = datosBD;
+		return metainformacion;
 	}
 
+	/**
+	 * Actualiza la metainformacion
+	 * @param datosBD
+	 */
+	public void setMetainformacion(MIDocumento datosBD)
+	{
+		this.metainformacion = datosBD;
+	}
+
+	/**
+	 * Agrega una nueva pagina al documento
+	 * @param index posicion de la nueva pagina
+	 * @param o nueva pagina
+	 */
 	public void insertarPagina(int index, Pagina o)
 	{
 		paginas.insertElementAt(o, index);
 	}
 
+	/**
+	 * Inserta una imagen en el documento como una nueva pagina
+	 * @param index posicion de la nueva pagina
+	 * @param o imagen a insertar como pagina
+	 */
 	public void insertarPagina(int index, Image o)
 	{
 		Pagina nueva = new Pagina();
@@ -69,17 +105,22 @@ public class Documento implements Serializable, Printable
 		paginas.insertElementAt(nueva, index);
 	}
 
-	public Documento( String usu, String ro )
-	{
-		usuario = usu;
-		rol = ro;
-	}
+	
 
+	/**
+	 * Agrega una nueva pagina al final del documento
+	 * @param pag pagina a agregar
+	 */
 	public void addPagina(Pagina pag)
 	{
 		paginas.add(pag);
 	}
-
+	
+	
+	/**
+	 * Agrega una imagen como nueva pagina al final del documento
+	 * @param img imagen a agregar
+	 */
 	public void addPagina(Image img)
 	{
 		Pagina nueva = new Pagina();
@@ -88,6 +129,10 @@ public class Documento implements Serializable, Printable
 		paginas.add(nueva);
 	}
 
+	/**
+	 * Agrega una imagen como nueva pagina al final del documento
+	 * @param img imagen a agregar
+	 */
 	public void addPagina(ImageIcon img)
 	{
 		Pagina nueva = new Pagina();
@@ -96,46 +141,47 @@ public class Documento implements Serializable, Printable
 		paginas.add(nueva);
 	}
 
+	/**
+	 * Elimina una pagina del documento
+	 * @param index numero de la pagina a eliminar
+	 */
 	public void delPagina(int index)
 	{
 		paginas.remove(index);
 	}
 
-	public void setPagina(int index, Pagina img)
-	{
-		paginas.set(index, img);
-	}
-
-	public void addAnotacion(Anotacion anot, int numPag)
-	{
-		paginas.get(numPag).addAnotacion(anot);
-	}
-
-	public void delAnotacion(int numAnotacion, int numPag)
-	{
-		paginas.get(numPag).delAnotacion(numAnotacion);
-	}
-
-	public void setAnotacion(int numPagina, int index, Anotacion anot)
-	{
-		paginas.get(numPagina).setAnotacion(index, anot);
-	}
-
+	/**
+	 * Establece el usuario del documento
+	 * @param us nombre del usuario
+	 */
 	public void setUsuario(String us)
 	{
 		usuario = us;
 	}
 
+	/**
+	 * Establece el rol del usuario del documento
+	 * @param ro el rol
+	 */
 	public void setRol(String ro)
 	{
 		rol = ro;
 	}
 
+	/**
+	 * Consulta el numero de paginas del documento
+	 * @return entero con el numero de paginas
+	 */
 	public int getNumeroPaginas()
 	{
 		return paginas.size();
 	}
 
+	/**
+	 * Accede a una pagina del documento
+	 * @param index posicion de la pagina
+	 * @return la pagina solicitada. Si la posicion de la pagina no es valida devuelve null
+	 */
 	public Pagina getPagina(int index)
 	{
 		if (index < paginas.size())
@@ -143,21 +189,40 @@ public class Documento implements Serializable, Printable
 		else return null;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public String getUsuario()
 	{
 		return usuario;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public String getRol()
 	{
 		return rol;
 	}
 
+	/**
+	 * Agrega un filtro
+	 * @param flt el nuevo filtro
+	 */
 	public static void addFilter(DocumentFilter flt)
 	{
 		filtros.add(flt);
 	}
 
+	/**
+	 * Abre un documento 
+	 * @param path path del documento
+	 * @param usuario usuario que desea abrir el documento
+	 * @param rol rol del usuario que desea abrir el documento
+	 * @return el documento abierto. Devuelve null si ha ocurrido algun error
+	 */
 	@SuppressWarnings( "unchecked" )
 	public static Documento openDocument(String path, String usuario, String rol)
 	{
@@ -206,6 +271,12 @@ public class Documento implements Serializable, Printable
 		return doc;
 	}
 
+	/**
+	 * Guarda el documento
+	 * @param doc documento a guardar
+	 * @param path_original paht del documento
+	 * @return true si el documento ha sido guardado con exito y false en caso contrario
+	 */
 	public static boolean saveDocument(Documento doc, String path_original)
 	{
 		File f = new File(ServidorFicheros.getDirectorioBase() + path_original + ".anot");
@@ -232,6 +303,7 @@ public class Documento implements Serializable, Printable
 	}
 
 	/**
+	 * Path del documento
 	 * @return the path
 	 */
 	public String getPath()
@@ -240,6 +312,7 @@ public class Documento implements Serializable, Printable
 	}
 
 	/**
+	 * Establece el path del documento
 	 * @param path
 	 *            the path to set
 	 */
@@ -247,7 +320,11 @@ public class Documento implements Serializable, Printable
 	{
 		this.path = path;
 	}
-
+	
+	
+	/**
+	 * Imprime el documento
+	 */
 	public void imprimir()
 	{
 		Impresora p = new Impresora();

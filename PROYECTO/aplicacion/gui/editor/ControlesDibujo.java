@@ -579,7 +579,7 @@ public class ControlesDibujo extends JPanel
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
 
-					MIDocumento f = lienzo.getDocumento().getDatosBD();
+					MIDocumento f = lienzo.getDocumento().getMetainformacion();
 					if (f.comprobarPermisos(DConector.Dusuario, DConector.Drol,
 							MIDocumento.PERMISO_ESCRITURA))
 					{

@@ -20,52 +20,49 @@ public class Anotacion implements Serializable
 	
 	private Date fecha = null;
 
-	public Anotacion()
+	public Anotacion(Figura cont, String usuario, String rol)
 	{
 		fecha = new Date();
-		
+		contenido = cont;
+		this.usuario = usuario;
+		this.rol = rol;
 	}
 
-	public void setDocumento(Documento doc)
-	{
-		documento = doc;
-	}
 
 	public void setContenido(Figura cont)
 	{
-		contenido = cont;
+		
 	}
 
-	public Documento getDocumento()
-	{
-		return documento;
-	}
 
 	public Figura getContenido()
 	{
 		return contenido;
 	}
 
+	/**
+	 * Accede al usuario que realiza la anotacion
+	 * @return String con el nombre del autor
+	 */
 	public String getUsuario()
 	{
 		return usuario;
 	}
 
+	/**
+	 * Accede al rol que desempe–aba el usuario cuando realizo la anotacion
+	 * @return String con el nombre del rol
+	 */
 	public String getRol()
 	{
 		return rol;
 	}
 
-	public void setUsuario(String usuario)
-	{
-		this.usuario = usuario;
-	}
 
-	public void setRol(String rol)
-	{
-		this.rol = rol;
-	}
-
+	/**
+	 * Consulta la fecha y hora en la que fue realizada la anotacion
+	 * @return cadena con la representaci—n de la fecha en el siguiente formato: dd/MMMMM/yyyy 'a las' hh:mm
+	 */
 	public String getFecha()
 	{
 		SimpleDateFormat formato = new SimpleDateFormat("dd/MMMMM/yyyy 'a las' hh:mm");

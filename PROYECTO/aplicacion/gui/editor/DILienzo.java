@@ -551,10 +551,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 						if (doc.getNumeroPaginas() > 0)
 						{
 
-							Anotacion a = new Anotacion();
-							a.setContenido(t);
-							a.setRol(DConector.Drol);
-							a.setUsuario(DConector.Dusuario);
+							Anotacion a = new Anotacion(t, DConector.Drol, DConector.Dusuario);
 
 							doc.getPagina(this.paginaActual - 1)
 									.addAnotacion(a);
@@ -613,10 +610,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 					if (doc.getNumeroPaginas() > 0)
 					{
 
-						Anotacion a = new Anotacion();
-						a.setContenido(f);
-						a.setRol(DConector.Drol);
-						a.setUsuario(DConector.Dusuario);
+						Anotacion a = new Anotacion(f, DConector.Drol, DConector.Dusuario);
 
 						doc.getPagina(this.paginaActual - 1).addAnotacion(a);
 					}
@@ -644,10 +638,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 					if (doc.getNumeroPaginas() > 0)
 					{
 
-						Anotacion a = new Anotacion();
-						a.setContenido(l);
-						a.setRol(DConector.Drol);
-						a.setUsuario(DConector.Dusuario);
+						Anotacion a = new Anotacion(l, DConector.Drol, DConector.Dusuario);
 
 						doc.getPagina(this.paginaActual - 1).addAnotacion(a);
 					}
@@ -672,10 +663,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 					if (doc.getNumeroPaginas() > 0)
 					{
 
-						Anotacion a = new Anotacion();
-						a.setContenido(trazo);
-						a.setRol(DConector.Drol);
-						a.setUsuario(DConector.Dusuario);
+						Anotacion a = new Anotacion(trazo,DConector.Drol,DConector.Dusuario);
 
 						doc.getPagina(this.paginaActual - 1).addAnotacion(a);
 
@@ -935,7 +923,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 
 				if (p != null)
 				{
-					p.setDatosBD(doc.getDatosBD());
+					p.setMetainformacion(doc.getMetainformacion());
 					doc = p;
 					
 					
@@ -970,7 +958,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 						}
 						else
 						{
-							p.setDatosBD(doc.getDatosBD());
+							p.setMetainformacion(doc.getMetainformacion());
 							doc = p;
 
 							repaint();
@@ -1102,7 +1090,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 
 				if (puente != null)
 				{
-					puente.setDatosBD(doc.getDatosBD());
+					puente.setMetainformacion(doc.getMetainformacion());
 					this.setDocumento(puente);
 					repaint();
 					sincronizada = true;
@@ -1119,10 +1107,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 			if (( evt.path != null ) && evt.path.equals(doc.getPath())
 					&& !evento.usuario.equals(DConector.Dusuario))
 			{
-				Anotacion a = new Anotacion();
-				a.setContenido(evt.dibujo);
-				a.setUsuario(evt.usuario);
-				a.setRol(evt.rol);
+				Anotacion a = new Anotacion(evt.dibujo,evt.usuario, evt.rol);
 
 				try
 				{

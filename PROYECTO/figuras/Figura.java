@@ -38,6 +38,7 @@ public abstract class Figura implements Serializable
 	}
 
 	/**
+	 * Consulta la coordena x de la figura
 	 * @return coordenada x de la esquina superior izquierda de la figura
 	 */
 	public int getX()
@@ -45,6 +46,12 @@ public abstract class Figura implements Serializable
 		return x;
 	}
 
+	/**
+	 * Comprueba si un determinado punto pertenece a la figura
+	 * @param x coordenada x del punto
+	 * @param y coordenada y del punto
+	 * @return true si el punto pertenece a la figura y false en caso contrario
+	 */
 	public abstract boolean pertenece(int x, int y);
 
 	/**
@@ -58,6 +65,7 @@ public abstract class Figura implements Serializable
 	}
 
 	/**
+	 * Consulta la coordenada y de la figura
 	 * @return coordenada y de la esquina superior izquierda de la figura
 	 */
 	public int getY()

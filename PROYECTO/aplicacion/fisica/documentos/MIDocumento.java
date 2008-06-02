@@ -5,6 +5,11 @@ import java.io.Serializable;
 import metainformacion.MIRol;
 import metainformacion.MIUsuario;
 
+/**
+ * 
+ * @author carlos, anab
+ *
+ */
 public class MIDocumento implements Serializable
 {
 	/**
@@ -48,11 +53,27 @@ public class MIDocumento implements Serializable
 	
 	public final static String TIPO_BANDEJA_TXT = "txt";
 
+	/**
+	 * 
+	 *
+	 */
 	public MIDocumento()
 	{
 		
 	}
 
+	/**
+	 * 
+	 * @param id
+	 * @param nom
+	 * @param dir
+	 * @param perm
+	 * @param usu
+	 * @param ro
+	 * @param pad
+	 * @param ruta
+	 * @param tip
+	 */
 	public MIDocumento( int id, String nom, boolean dir, String perm,
 			MIUsuario usu, MIRol ro, int pad, String ruta, String tip )
 	{
@@ -67,91 +88,163 @@ public class MIDocumento implements Serializable
 		tipo = tip;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public String getNombre()
 	{
 		return nombre;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public int getId()
 	{
 		return id_documento;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public boolean esDirectorio()
 	{
 		return es_directorio;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public String getPermisos()
 	{
 		return permisos;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public MIUsuario getUsuario()
 	{
 		return usuario;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public MIRol getRol()
 	{
 		return rol;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public int getPadre()
 	{
 		return padre;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public String getRutaLocal()
 	{
 		return ruta_local;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public String getTipo()
 	{
 		return tipo;
 	}
 
+	/**
+	 * 
+	 * @param nombre
+	 */
 	public void setNombre(String nombre)
 	{
 		this.nombre = nombre;
 	}
 
+	/**
+	 * 
+	 * @param id_documento
+	 */
 	public void setId(int id_documento)
 	{
 		this.id_documento = id_documento;
 	}
 
+	/**
+	 * 
+	 * @param es_directorio
+	 */
 	public void esDirectorio(boolean es_directorio)
 	{
 		this.es_directorio = es_directorio;
 	}
 
+	/**
+	 * 
+	 * @param permisos
+	 */
 	public void setPermisos(String permisos)
 	{
 		this.permisos = permisos;
 	}
 
+	/**
+	 * 
+	 * @param usuario
+	 */
 	public void setUsuario(MIUsuario usuario)
 	{
 		this.usuario = usuario;
 	}
 
+	/**
+	 * 
+	 * @param rol
+	 */
 	public void setRol(MIRol rol)
 	{
 		this.rol = rol;
 	}
 
+	/**
+	 * 
+	 * @param padre
+	 */
 	public void setPadre(int padre)
 	{
 		this.padre = padre;
 	}
 
+	/**
+	 * 
+	 * @param ruta_local
+	 */
 	public void setRutaLocal(String ruta_local)
 	{
 		this.ruta_local = ruta_local;
 	}
 
+	/**
+	 * 
+	 * @param tip
+	 */
 	public void setTipo(String tip)
 	{
 		this.tipo = tip;
@@ -169,6 +262,13 @@ public class MIDocumento implements Serializable
 			
 	}
 
+	/**
+	 * 
+	 * @param u
+	 * @param r
+	 * @param modo
+	 * @return
+	 */
 	public boolean comprobarPermisos(String u, String r, char modo)
 	{
 		
@@ -194,6 +294,11 @@ public class MIDocumento implements Serializable
 		else return false;
 	}
 	
+	/**
+	 * 
+	 * @param extension
+	 * @return
+	 */
 	public static String getTipoFichero(String extension)
 	{
 		String res = "";
@@ -210,11 +315,19 @@ public class MIDocumento implements Serializable
 		return res;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public String getMensaje()
 	{
 		return mensaje;
 	}
 
+	/**
+	 * 
+	 * @param mensaje
+	 */
 	public void setMensaje(String mensaje)
 	{
 		this.mensaje = mensaje;

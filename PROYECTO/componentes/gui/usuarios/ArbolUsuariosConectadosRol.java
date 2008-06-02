@@ -150,7 +150,6 @@ public class ArbolUsuariosConectadosRol extends DComponenteBase
 		this.setLayout(borderLayout1);
 		raiz = new DefaultMutableTreeNode("Usuarios");
 		arbol = new ArbolUsuarios(raiz);
-		//arbol.setBorder(new LineBorder(Color.GRAY, 1));
 		jScrollPane1 = new JScrollPane(arbol);
 		jScrollPane1.setBorder(new LineBorder(Color.GRAY, 1));
 		this.add(jScrollPane1, BorderLayout.CENTER);
