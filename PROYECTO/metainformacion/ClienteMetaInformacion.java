@@ -262,7 +262,12 @@ public class ClienteMetaInformacion
 			System.out.println("intentando iniciar dmi");
 			dmi.setVisible(true);
 		}
-		else System.out.println("=> problemas con dmi!!!!");
+		else System.out.println("=> Sin permisos para iniciar dmi!!!!");
+	}
+	
+	public boolean permisosAdministracion()
+	{
+		return permisoAdministracion;
 	}
 
 	@SuppressWarnings( "static-access" )

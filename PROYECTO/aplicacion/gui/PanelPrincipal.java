@@ -618,6 +618,8 @@ public class PanelPrincipal extends DComponenteBase
 			arbolDocumentos = new ArbolDocumentos(DConector.raiz);
 
 			arbolDocumentos.setFont(fuente);
+			
+			arbolDocumentos.setSelectionRow(0);
 
 			arbolDocumentos.addMouseListener(new java.awt.event.MouseAdapter()
 			{
@@ -644,13 +646,24 @@ public class PanelPrincipal extends DComponenteBase
 			editarUsuario.setIcon(new ImageIcon("Resources/group_gear.png"));
 			editarUsuario.setBorderPainted(false);
 
-			editarUsuario.addActionListener(new java.awt.event.ActionListener()
+			if (!ClienteMetaInformacion.obtenerCMI().permisosAdministracion())
 			{
-				public void actionPerformed(java.awt.event.ActionEvent e)
-				{
-					ClienteMetaInformacion.obtenerCMI().mostrarDialogo();
-				}
-			});
+				editarUsuario.setEnabled(false);
+			}
+
+			else
+			{
+				editarUsuario
+						.addActionListener(new java.awt.event.ActionListener()
+						{
+							public void actionPerformed(
+									java.awt.event.ActionEvent e)
+							{
+								ClienteMetaInformacion.obtenerCMI()
+										.mostrarDialogo();
+							}
+						});
+			}
 		}
 		return editarUsuario;
 	}
