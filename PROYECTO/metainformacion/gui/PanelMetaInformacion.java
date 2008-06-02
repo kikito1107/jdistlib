@@ -53,9 +53,6 @@ import javax.swing.ImageIcon;
 
 public class PanelMetaInformacion extends JPanel
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	ClienteMetaInformacion cmi = ClienteMetaInformacion.cmi;
