@@ -53,9 +53,9 @@ public class VentanaCarga extends JFrame
 
 
 		
-		icono1 = new ImageIcon("./Resources/logo_1.png");
-		icono2 = new ImageIcon("./Resources/logo_2.png");
-		icono3 = new ImageIcon("./Resources/logo_3.png");
+		icono1 = new ImageIcon("Resources/logo_1.png");
+		icono2 = new ImageIcon("Resources/logo_2.png");
+		icono3 = new ImageIcon("Resources/logo_3.png");
 	}
 
 	
@@ -96,7 +96,7 @@ public class VentanaCarga extends JFrame
 			borderLayout.setVgap(9);  // Generated
 			etiquetaIcono = new JLabel();
 			etiquetaIcono.setText("Mensaje...");  // Generated
-			etiquetaIcono.setIcon(new ImageIcon(getClass().getResource("/Resources/logo_1.png")));  // Generated
+			etiquetaIcono.setIcon(new ImageIcon("Resources/logo_1.png"));  // Generated
 			jContentPane = new JPanel();
 			jContentPane.setLayout(borderLayout);  // Generated
 			jContentPane.add(etiquetaIcono, BorderLayout.CENTER);  // Generated
