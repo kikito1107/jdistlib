@@ -141,6 +141,10 @@ public abstract class DAbstractPlugin extends DComponenteBase
 		return shouldShow;
 	}
 	
+	public void setShouldShowit(boolean v) {
+		this.shouldShow = v;
+	}
+	
 	private void sendMe(String ipdestino, String pathdestino)
 	{
 		aplicacion.fisica.net.Transfer.establecerServidor();

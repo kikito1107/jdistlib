@@ -132,7 +132,6 @@ public class PanelPrincipal extends DComponenteBase
 
 	/**
 	 * This method initializes jContentPane
-	 * 
 	 * @return javax.swing.JPanel
 	 */
 	public PanelPrincipal( String nombre, boolean conexionDC,
@@ -1586,8 +1585,7 @@ public class PanelPrincipal extends DComponenteBase
 				for (int i = 0; i < esto.plugins.size(); ++i)
 				{
 					if (esto.plugins.get(i).shouldShowIt())
-						esto.getModelo().addElement(plugins.get(i)
-								.toString());
+						esto.getModelo().addElement(plugins.get(i));
 				}
 
 				// repintamos la lista
@@ -1623,7 +1621,34 @@ public class PanelPrincipal extends DComponenteBase
 		// notificamos la eliminacion del plugin
 		esto.monitorP.notificarPlugins();
 	}
+	
+	public static boolean isVisible(int i) {
+		return esto.plugins.get(i).shouldShowIt();
+	}
 
+	
+	/**
+	 * Establece si un plugin ha de ser visible o no
+	 * @param b booleano que indica si el plugin ha de ser visible o no
+	 * @param name nombre del plugin
+	 */
+	public static void setVisible(boolean b, String name) {
+		
+		boolean encontrada = false;
+
+		for (int i = 0; i < esto.plugins.size() && !encontrada; ++i)
+			if (esto.plugins.get(i).getName().equals(name))
+			{
+				encontrada = true;
+				esto.plugins.get(i).setShouldShowit(b);
+			}
+
+		// notificamos la eliminacion del plugin
+		esto.monitorP.notificarPlugins();
+	}
+
+	
+	
 	/**
 	 * Agreaga un plugin a la lista
 	 * 

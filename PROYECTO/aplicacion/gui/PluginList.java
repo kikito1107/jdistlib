@@ -51,8 +51,15 @@ class PluginList extends JList
 				if (index > -1)
 				{
 					theList.setToolTipText(null);
-					DAbstractPlugin text = (DAbstractPlugin) model.getElementAt(index);
-					theList.setToolTipText(text.getDescripcion());
+					try {
+						DAbstractPlugin text = (DAbstractPlugin) model.getElementAt(index);
+						theList.setToolTipText(text.getDescripcion());
+					}
+					catch (ClassCastException e2) {
+						System.out.println("valor de index " + index);
+						return;
+					}
+					
 				}
 			}
 		});

@@ -5,8 +5,10 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.Vector;
 
+import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -14,7 +16,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 import util.FiltroFichero;
 
@@ -119,17 +124,29 @@ public class GestorPlugins extends JFrame
 				@Override
 				public boolean isCellEditable(int row, int col)
 				{
-					return false;
+					if (col != 3)return false;
+					else return true;
+				}
+				
+				public Class getColumnClass(int column)
+				{
+					return getValueAt(0, column).getClass();
 				}
 			};
+			
+			 
+			
 			tablaPlugins.setModel(this.getDefaultTableModel());
 			tablaPlugins.setAutoCreateColumnsFromModel(true);
 			tablaPlugins.setShowGrid(true);
 
-			tablaPlugins.setCellSelectionEnabled(false);
+			//tablaPlugins.setCellSelectionEnabled(false);
 			tablaPlugins.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 			tablaPlugins.setRowSelectionAllowed(true);
+			
+			TableColumn includeColumn = tablaPlugins.getColumnModel().getColumn(3);
+			includeColumn.setCellEditor(new DefaultCellEditor(new JCheckBox()));
 		}
 		return tablaPlugins;
 	}
@@ -308,16 +325,34 @@ public class GestorPlugins extends JFrame
 		{
 
 			modeloTabla = new DefaultTableModel();
-			modeloTabla.setRowCount(3);
+			modeloTabla.setRowCount(2);
 			modeloTabla.addColumn("Nombre");
 			modeloTabla.addColumn("Version");
 			modeloTabla.addColumn("JAR");
+			modeloTabla.addColumn("Visible");
+			
+			modeloTabla.addTableModelListener(new ListenerPlugins());
 
 		}
 
 		return modeloTabla;
 	}
 
+	
+	public class ListenerPlugins implements TableModelListener {
+        public void tableChanged(TableModelEvent evt) {
+            if (evt.getType() == TableModelEvent.UPDATE && evt.getColumn() == 3) {
+            	
+            	int fila = evt.getFirstRow();
+            	String nombrePlugin = modeloTabla.getValueAt(fila, 0).toString();
+            	boolean estado = (Boolean) modeloTabla.getValueAt(fila, 3);
+            	
+            	
+            	PanelPrincipal.setVisible(estado, nombrePlugin);
+            }
+        }
+    }
+	
 	/**
 	 * Inicializa el modelo de la tabla
 	 * 
@@ -338,6 +373,7 @@ public class GestorPlugins extends JFrame
 			modeloTabla.setValueAt(PanelPrincipal.getPluginName(i), i, 0);
 			modeloTabla.setValueAt(PanelPrincipal.getVersionPlugin(i), i, 1);
 			modeloTabla.setValueAt(PanelPrincipal.getPluginJarName(i), i, 2);
+			modeloTabla.setValueAt(PanelPrincipal.isVisible(i), i, 3);
 		}
 	}
 
