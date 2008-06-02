@@ -74,9 +74,9 @@ public class DialogoSincronizacion extends JDialog
 	{
 		panel1.setLayout(null);
 		etiquetaIcono.setFont(new java.awt.Font("Dialog", 1, 11));
-		icono1 = new ImageIcon("./Resources/logo_1.png");
-		icono2 = new ImageIcon("./Resources/logo_2.png");
-		icono3 = new ImageIcon("./Resources/logo_3.png");
+		icono1 = new ImageIcon("Resources/logo_1.png");
+		icono2 = new ImageIcon("Resources/logo_2.png");
+		icono3 = new ImageIcon("Resources/logo_3.png");
 		etiquetaIcono.setIcon(icono1);
 		etiquetaIcono.setText("");
 		etiquetaIcono.setBounds(new Rectangle(7, 3, 53, 54));
