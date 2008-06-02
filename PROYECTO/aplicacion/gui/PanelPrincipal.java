@@ -502,6 +502,8 @@ public class PanelPrincipal extends DComponenteBase
 											DFileEvent.NOTIFICAR_ELIMINAR_FICHERO
 													.intValue());
 									enviarEvento(evento);
+									
+									arbolDocumentos.setSelectionRow(0);
 								}
 
 								else JOptionPane
