@@ -31,6 +31,7 @@ import metainformacion.ClienteMetaInformacion;
 import util.Lista;
 import util.ListaDesplegable;
 import util.ListaElementos;
+import javax.swing.ImageIcon;
 
 /**
  * <p>
@@ -375,12 +376,11 @@ public class PanelMetaInformacion extends JPanel
 		jSplitPane1.add(panelDerecho, JSplitPane.RIGHT);
 		jSplitPane1.add(panelIzquierdo, JSplitPane.LEFT);
 		panelPermisos.add(panelInferior, BorderLayout.SOUTH);
-		jTabbedPane1.add(panelPermisos, "Gestion permisos");
-		jTabbedPane1.add(panelNuevo, "Nuevo");
+		jTabbedPane1.addTab("Gestion permisos", new ImageIcon(getClass().getResource("/Resources/tick.png")), panelPermisos, null);  // Generated
 		jSplitPane1.setDividerLocation(100);
+		jTabbedPane1.addTab("Nuevo", new ImageIcon(getClass().getResource("/Resources/user_add.png")), panelNuevo, null);  // Generated
 		buttonGroup1.add(botonUsuario);
 		buttonGroup1.add(botonRol);
-		jTabbedPane1.add(panelEliminar, "Eliminar");
 		panelEliminar.add(jPanel3, BorderLayout.NORTH);
 		jPanel3.add(botonEUsuario, null);
 		jPanel3.add(botonERol, null);
@@ -392,7 +392,8 @@ public class PanelMetaInformacion extends JPanel
 		jPanel7.add(jLabel5, null);
 		jPanel7.add(jLabel6, null);
 		jPanel7.add(botonEliminar, null);
-		jTabbedPane1.add(panelRolesPermitidos, "Cambiar Roles Permitidos");
+		jTabbedPane1.addTab("Eliminar", new ImageIcon(getClass().getResource("/Resources/user_delete.png")), panelEliminar, null);  // Generated
+		jTabbedPane1.addTab("Cambiar Roles Permitidos", new ImageIcon(getClass().getResource("/Resources/user_edit.png")), panelRolesPermitidos, null);  // Generated
 		panelRolesPermitidos.add(jPanel8, BorderLayout.NORTH);
 		jPanel8.add(botonRAniadir, null);
 		jPanel8.add(botonREliminar, null);
