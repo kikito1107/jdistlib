@@ -44,7 +44,7 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `Componente`;
 CREATE TABLE `Componente` (
   `id_componente` int(11) NOT NULL auto_increment,
-  `nombre_componente` varchar(256) UNIQUE NOT NULL default '',
+  `nombre_componente` tinytext NOT NULL default '',
   `id_aplicacion` int(11) NOT NULL,
   PRIMARY KEY  (`id_componente`),
   KEY `Componente_ibfk_1` (`id_aplicacion`),
@@ -57,7 +57,7 @@ CREATE TABLE `Componente` (
 
 LOCK TABLES `Componente` WRITE;
 /*!40000 ALTER TABLE `Componente` DISABLE KEYS */;
-INSERT INTO `Componente` VALUES (1,'visor',1),(2,'lista',1),(3,'checkBox',1),(4,'toggleButton',1),(5,'button',1),(6,'comboBox',1),(7,'barramenu',1),(8,'menu1',1),(9,'menu2',1),(10,'menu3',1),(11,'item1_1',1),(12,'item1_2',1),(13,'item1_3',1),(14,'submenu1',1),(15,'subitem_1',1),(16,'subitem_2',1),(17,'item2_1',1),(18,'item2_2',1),(19,'item2_3',1),(20,'item3_1',1),(21,'item3_3',1),(22,'chat',1),(23,'arbol',1),(24,'campoTexto',1),(25,'MousesRemotos',1),(26,'ListaUsuariosConectados',1),(27,'ListaUsuariosConectadosRol',1),(28,'ListaUsuariosConectadosInfoRol',1),(29,'CambioRol',1),(30,'EtiquetaRolActual',1),(31,'Componente1',1),(32,'Componente2',1),(33,'Componente3',1),(34,'Componente4',1),(35,'Componente5',1),(36,'Lista',1),(37,'Lista2',1),(38,'Boton',1),(39,'Arbol',1),(40,'panelDibujo',1),(41,'lienzo',1),(42,'mousesRemotos2',1),(43,'menu1',1),(44,'chat',1),(45,'panelChat',1),(46,'mousesRemotos3',1),(47,'chatplugin',1),(48,'Pizarra',1),(49,'usuariosMail',1),(50,'listaUsuarios',1);
+INSERT INTO `Componente` VALUES (1,'visor',1),(2,'listaxxx',1),(3,'checkBox',1),(4,'toggleButton',1),(5,'button',1),(6,'comboBox',1),(7,'barramenu',1),(8,'menu1',1),(9,'menu2',1),(10,'menu3',1),(11,'item1_1',1),(12,'item1_2',1),(13,'item1_3',1),(14,'submenu1',1),(15,'subitem_1',1),(16,'subitem_2',1),(17,'item2_1',1),(18,'item2_2',1),(19,'item2_3',1),(20,'item3_1',1),(21,'item3_3',1),(22,'chat',1),(23,'arbol',1),(24,'campoTexto',1),(25,'MousesRemotos',1),(26,'ListaUsuariosConectados',1),(27,'ListaUsuariosConectadosRol',1),(28,'ListaUsuariosConectadosInfoRol',1),(29,'CambioRol',1),(30,'EtiquetaRolActual',1),(31,'Componente1',1),(32,'Componente2',1),(33,'Componente3',1),(34,'Componente4',1),(35,'Componente5',1),(36,'Lista',1),(37,'Lista2',1),(38,'Boton',1),(39,'Arbol',1),(40,'panelDibujo',1),(41,'lienzo',1),(42,'mousesRemotos2',1),(43,'menu1',1),(44,'chat',1),(45,'panelChat',1),(46,'mousesRemotos3',1),(47,'chatplugin',1),(48,'Pizarra',1),(49,'usuariosMail',1),(50,'listaUsuarios',1);
 /*!40000 ALTER TABLE `Componente` ENABLE KEYS */;
 UNLOCK TABLES;
 
