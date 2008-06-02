@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
@@ -28,6 +30,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
 import javax.swing.JTree;
 import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
@@ -148,13 +151,38 @@ public class PanelPrincipal extends DComponenteBase
 			Documento.addFilter(new TXTFilter());
 
 			plugins = DPluginLoader.getAllPlugins("plugin");
+			
+			BorderLayout b = new BorderLayout();
+			
+			b.setHgap(12);  // Generated
+			b.setVgap(12); 
+			
+			JPanel aux = new JPanel(b);
+			aux.add(getPanelLateral(), BorderLayout.WEST);
+			aux.add(getPanelEspacioTrabajo(), BorderLayout.CENTER);
+			BorderLayout borderLayout = new BorderLayout();
+			
+			borderLayout.setHgap(8);  // Generated
+			borderLayout.setVgap(8);  // Generated
+			
+			this.setLayout(borderLayout);
+			
+			this.add(new JPanel(), BorderLayout.NORTH);
+			this.add(new JPanel(), BorderLayout.EAST);
+			this.add(new JPanel(), BorderLayout.WEST);
 
-			this.setLayout(null);
-			this.add(getPanelLateral(), BorderLayout.WEST);
+			this.add(aux, BorderLayout.CENTER);
 
-			this.add(getPanelEspacioTrabajo(), null);
-
-			this.add(getBarraProgreso());
+			BorderLayout barrLay = new BorderLayout();
+			barrLay.setHgap(8);
+			barrLay.setVgap(8);
+			JPanel barr = new JPanel(barrLay);
+			barr.add(new JPanel(), BorderLayout.WEST);
+			barr.add(getBarraProgreso(), BorderLayout.CENTER);
+			barr.add(new JPanel(), BorderLayout.EAST);
+			barr.add(new JPanel(), BorderLayout.SOUTH);
+			
+			this.add(barr, BorderLayout.SOUTH);
 
 			inicializarEditor();
 			inicializarVRol();
@@ -165,6 +193,7 @@ public class PanelPrincipal extends DComponenteBase
 
 			monitorP = new MonitorPlugins();
 			
+
 			
 			new HebraPlugins();
 			new HebraAbrir();
@@ -226,29 +255,53 @@ public class PanelPrincipal extends DComponenteBase
 		if (panelLateral == null)
 		{
 			jLabel1 = new JLabel();
-			jLabel1.setBounds(new Rectangle(52, 174, 80, 16));
+			jLabel1.setMinimumSize(new Dimension(80, 25));
 			jLabel1.setFont(new Font("Lucida Sans", Font.BOLD, 12));
 			jLabel1.setText("Usuarios");
 			jLabel1.setToolTipText("Lista de los usuarios conectados, organizados por rol");
 			jLabel1.setIcon(new ImageIcon("Resources/group.png"));
-			GridBagConstraints gridBagConstraints = new GridBagConstraints();
-			gridBagConstraints.gridx = 2;
-			gridBagConstraints.gridy = 0;
 			jLabel = new JLabel();
 			jLabel.setText("Aplicaciones");
 			jLabel.setToolTipText("Lista de las aplicaciones disponibles. Doble Click sobre el nombre para ejecutar");
 			jLabel.setFont(new Font("Lucida Sans", Font.BOLD, 12));
 			jLabel.setIcon(new ImageIcon("Resources/bricks.png"));
-			jLabel.setBounds(new Rectangle(42, 4, 100, 21));
+			jLabel.setMinimumSize(new Dimension(100, 25));
 			panelLateral = new JPanel();
-			panelLateral.setLayout(null);
-			panelLateral.setBounds(new Rectangle(6, 16, 188, 400));
-			panelLateral.add(jLabel, gridBagConstraints);
-			panelLateral.add(getHerramientasUsuarios(), null);
-			panelLateral.add(getListaAplicaciones(), null);
-			panelLateral.add(getArbolUsuario(), null);
+
 			panelLateral.setBorder(new LineBorder(Color.GRAY, 2));
-			panelLateral.add(jLabel1, null);
+			
+			
+			GridBagConstraints gridBagConstraints4 = new GridBagConstraints();
+			gridBagConstraints4.fill = GridBagConstraints.VERTICAL;  // Generated
+			gridBagConstraints4.gridy = 4;  // Generated
+			gridBagConstraints4.weightx = 1.0;  // Generated
+			gridBagConstraints4.gridx = 0;  // Generated
+			GridBagConstraints gridBagConstraints3 = new GridBagConstraints();
+			gridBagConstraints3.fill = GridBagConstraints.BOTH;  // Generated
+			gridBagConstraints3.gridy = 3;  // Generated
+			gridBagConstraints3.weightx = 1.0;  // Generated
+			gridBagConstraints3.weighty = 1.0;  // Generated
+			gridBagConstraints3.gridx = 0;  // Generated
+			GridBagConstraints gridBagConstraints2 = new GridBagConstraints();
+			gridBagConstraints2.gridx = 0;  // Generated
+			gridBagConstraints2.gridy = 2;  // Generated
+
+			GridBagConstraints gridBagConstraints1 = new GridBagConstraints();
+			gridBagConstraints1.fill = GridBagConstraints.BOTH;  // Generated
+			gridBagConstraints1.gridy = 1;  // Generated
+			gridBagConstraints1.weightx = 1.0;  // Generated
+			gridBagConstraints1.weighty = 1.0;  // Generated
+			gridBagConstraints1.gridx = 0;  // Generated
+			GridBagConstraints gridBagConstraints = new GridBagConstraints();
+			gridBagConstraints.gridx = 0;  // Generated
+			gridBagConstraints.gridy = 0;  // Generated
+
+			panelLateral.setLayout(new GridBagLayout());
+			panelLateral.add(jLabel, gridBagConstraints);  // Generated
+			panelLateral.add(getListaAplicaciones(), gridBagConstraints1);  // Generated
+			panelLateral.add(jLabel1, gridBagConstraints2);  // Generated
+			panelLateral.add(getArbolUsuario(), gridBagConstraints3);  // Generated
+			panelLateral.add(getHerramientasUsuarios(), gridBagConstraints4);  // Generated
 		}
 		return panelLateral;
 	}
@@ -269,7 +322,6 @@ public class PanelPrincipal extends DComponenteBase
 			panelEspacioTrabajo = new JPanel();
 			panelEspacioTrabajo.setFont(fuente);
 			panelEspacioTrabajo.setLayout(borderLayout2);
-			panelEspacioTrabajo.setBounds(new Rectangle(210, 16, 350, 400));
 			panelEspacioTrabajo.setBorder(new LineBorder(Color.GRAY, 1));
 			panelEspacioTrabajo.add(getHerraminetasDocumentos(),
 					BorderLayout.NORTH);
@@ -326,8 +378,8 @@ public class PanelPrincipal extends DComponenteBase
 			barraProgreso.setIndeterminate(false);
 
 			barraProgreso.setValue(0);
-
-			barraProgreso.setBounds(new Rectangle(350, 420, 210, 20));
+			
+			barraProgreso.setMaximumSize(new Dimension(20, 200));
 
 			barraProgreso.setForeground(Color.GRAY);
 			barraProgreso.setBackground(Color.LIGHT_GRAY);
@@ -737,9 +789,9 @@ public class PanelPrincipal extends DComponenteBase
 	{
 		arbolUsuario = new ArbolUsuariosConectadosRol(
 				"ListaUsuariosConectadosRol", false, this);
-		arbolUsuario.setBounds(new Rectangle(0, 196, 188, 167));
-		arbolUsuario.setBorder(new LineBorder(Color.gray, 1));
+
 		arbolUsuario.setFont(fuente);
+		arbolUsuario.setMinimumSize(new Dimension(220, 180));
 		return arbolUsuario;
 	}
 
@@ -1101,8 +1153,8 @@ public class PanelPrincipal extends DComponenteBase
 
 			listaAplicaciones = new PluginList(getModelo());
 			listaAplicaciones.setFont(fuente);
-			listaAplicaciones.setBounds(new Rectangle(0, 26, 188, 140));
-			listaAplicaciones.setBorder(new LineBorder(Color.GRAY, 2));
+			listaAplicaciones.setMinimumSize(new Dimension(100, 200));
+			listaAplicaciones.setBorder(new MatteBorder(2,0,2,0,Color.GRAY));
 
 			listaAplicaciones
 					.addMouseListener(new java.awt.event.MouseAdapter()

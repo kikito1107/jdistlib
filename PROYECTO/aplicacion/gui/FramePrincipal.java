@@ -43,7 +43,7 @@ public class FramePrincipal extends DJFrame
 	{
 		this.getContentPane().setLayout(borderLayout1);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setResizable(false);
+		this.setResizable(true);
 		this.addWindowListener(new FrameEjemplo_this_windowAdapter(this));
 
 		this.setIconImage(new ImageIcon("Resources/logo.png")

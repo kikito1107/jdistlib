@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
@@ -151,7 +152,7 @@ public class ArbolUsuariosConectadosRol extends DComponenteBase
 		raiz = new DefaultMutableTreeNode("Usuarios");
 		arbol = new ArbolUsuarios(raiz);
 		jScrollPane1 = new JScrollPane(arbol);
-		jScrollPane1.setBorder(new LineBorder(Color.GRAY, 1));
+		jScrollPane1.setBorder(new MatteBorder(2,0,2,0,Color.GRAY));
 		this.add(jScrollPane1, BorderLayout.CENTER);
 
 		ArbolUsuariosConectadosRol.cambiarIconosArbol(arbol,
