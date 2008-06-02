@@ -226,7 +226,9 @@ public class EnviarMensaje extends JDialog
 						MIRol rol = ClienteMetaInformacion.obtenerCMI().getRol(destino.getRolPorDefecto());
 						mif.setUsuario( destino  );
 						mif.setRol( rol );
-						mif.setMensaje(area.getText());
+						mif.setMensaje("De: "+DConector.Dusuario+"\n"+
+									   "Asunto: "+getAsunto().getText()+"\n"+
+										"\n"+area.getText());
 						setVisible(false);
 						
 					}

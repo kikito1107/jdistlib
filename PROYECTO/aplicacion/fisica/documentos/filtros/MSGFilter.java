@@ -72,9 +72,21 @@ public class MSGFilter implements DocumentFilter
 		String[] lineas = contenido.split("\n");
 		String str;
 		int npag = 1;
-		for (String element : lineas)
+		for (int i=0; i<lineas.length; i++)
 		{
-			str = element;
+			if (i == 0 || i == 1) //poner el campo De: y el campo Asunto: en negrita
+			{
+				font = new Font("Arial", Font.BOLD, 16);
+				g.setFont(font);
+			}
+			
+			else //el resto ponerlo normal
+			{
+				font = new Font("Arial", Font.PLAIN, 16);
+				g.setFont(font);
+			}
+			
+			str = lineas[i];
 
 			// Pintamos la linea. Si la longitud es mayor de 80 la dividimos
 			// sucesivamente.
