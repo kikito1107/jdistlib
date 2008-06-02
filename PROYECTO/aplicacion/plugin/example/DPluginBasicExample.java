@@ -39,9 +39,6 @@ public class DPluginBasicExample extends DAbstractPlugin
 		VideoConferencia.establecerOrigen();
 
 		String ip = "localhost";
-
-		// ip = JOptionPane.showInputDialog("Introduce la ip de destino");
-
 		ventana = new VideoFrame(ip);
 		ventana.setSize(400, 400);
 		ventana.setLocationRelativeTo(null);

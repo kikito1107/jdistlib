@@ -1,6 +1,7 @@
 package componentes.gui.usuarios;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.util.Vector;
 
@@ -8,6 +9,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
+import javax.swing.border.LineBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
@@ -148,7 +150,9 @@ public class ArbolUsuariosConectadosRol extends DComponenteBase
 		this.setLayout(borderLayout1);
 		raiz = new DefaultMutableTreeNode("Usuarios");
 		arbol = new ArbolUsuarios(raiz);
+		//arbol.setBorder(new LineBorder(Color.GRAY, 1));
 		jScrollPane1 = new JScrollPane(arbol);
+		jScrollPane1.setBorder(new LineBorder(Color.GRAY, 1));
 		this.add(jScrollPane1, BorderLayout.CENTER);
 
 		ArbolUsuariosConectadosRol.cambiarIconosArbol(arbol,

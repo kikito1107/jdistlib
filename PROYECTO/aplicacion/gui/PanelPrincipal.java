@@ -227,8 +227,8 @@ public class PanelPrincipal extends DComponenteBase
 		if (panelLateral == null)
 		{
 			jLabel1 = new JLabel();
-			jLabel1.setBounds(new Rectangle(60, 174, 80, 16));
-			jLabel1.setFont(fuente);
+			jLabel1.setBounds(new Rectangle(52, 174, 80, 16));
+			jLabel1.setFont(new Font("Lucida Sans", Font.BOLD, 12));
 			jLabel1.setText("Usuarios");
 			jLabel1.setIcon(new ImageIcon("Resources/group.png"));
 			GridBagConstraints gridBagConstraints = new GridBagConstraints();
@@ -236,9 +236,9 @@ public class PanelPrincipal extends DComponenteBase
 			gridBagConstraints.gridy = 0;
 			jLabel = new JLabel();
 			jLabel.setText("Aplicaciones");
-			jLabel.setFont(fuente);
+			jLabel.setFont(new Font("Lucida Sans", Font.BOLD, 12));
 			jLabel.setIcon(new ImageIcon("Resources/bricks.png"));
-			jLabel.setBounds(new Rectangle(52, 4, 95, 21));
+			jLabel.setBounds(new Rectangle(42, 4, 100, 21));
 			panelLateral = new JPanel();
 			panelLateral.setLayout(null);
 			panelLateral.setBounds(new Rectangle(6, 16, 188, 400));
@@ -272,7 +272,12 @@ public class PanelPrincipal extends DComponenteBase
 			panelEspacioTrabajo.setBorder(new LineBorder(Color.GRAY, 1));
 			panelEspacioTrabajo.add(getHerraminetasDocumentos(),
 					BorderLayout.NORTH);
-			panelEspacioTrabajo.add(new JScrollPane(getArbolDocumentos()),
+			
+			JScrollPane scrollArbol = new JScrollPane(getArbolDocumentos());
+			
+			scrollArbol.setBorder(new LineBorder(Color.GRAY, 1));
+			
+			panelEspacioTrabajo.add(scrollArbol,
 					BorderLayout.CENTER);
 		}
 		return panelEspacioTrabajo;
@@ -289,7 +294,7 @@ public class PanelPrincipal extends DComponenteBase
 		{
 			herramientasDocumentos = new JToolBar();
 			herramientasDocumentos.setFont(fuente);
-			herramientasDocumentos.setBorder(new LineBorder(Color.GRAY));
+			herramientasDocumentos.setBorder(new LineBorder(Color.GRAY, 1));
 			herramientasDocumentos.add(getBotonAbrirDoc());
 			herramientasDocumentos.add(this.getReenviar());
 			herramientasDocumentos.add(this.getBotonImprimirDocumento());
@@ -702,6 +707,7 @@ public class PanelPrincipal extends DComponenteBase
 		if (herramientasUsuarios == null)
 		{
 			herramientasUsuarios = new JToolBar();
+			//herramientasUsuarios.setBorder(new LineBorder(Color.GRAY, 1));
 			herramientasUsuarios.setSize(new Dimension(183, 32));
 			herramientasUsuarios.setLocation(new Point(3, 364));
 
@@ -728,8 +734,8 @@ public class PanelPrincipal extends DComponenteBase
 	{
 		arbolUsuario = new ArbolUsuariosConectadosRol(
 				"ListaUsuariosConectadosRol", false, this);
-		arbolUsuario.setBounds(new Rectangle(1, 196, 186, 167));
-		arbolUsuario.setBorder(new LineBorder(Color.gray));
+		arbolUsuario.setBounds(new Rectangle(0, 196, 188, 167));
+		arbolUsuario.setBorder(new LineBorder(Color.gray, 1));
 		arbolUsuario.setFont(fuente);
 		return arbolUsuario;
 	}
@@ -1092,8 +1098,8 @@ public class PanelPrincipal extends DComponenteBase
 
 			listaAplicaciones = new PluginList(getModelo());
 			listaAplicaciones.setFont(fuente);
-			listaAplicaciones.setBounds(new Rectangle(1, 26, 186, 140));
-			listaAplicaciones.setBorder(new LineBorder(Color.GRAY));
+			listaAplicaciones.setBounds(new Rectangle(0, 26, 188, 140));
+			listaAplicaciones.setBorder(new LineBorder(Color.GRAY, 2));
 
 			listaAplicaciones
 					.addMouseListener(new java.awt.event.MouseAdapter()
