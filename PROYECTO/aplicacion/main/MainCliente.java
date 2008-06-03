@@ -7,6 +7,7 @@ import javax.swing.UIManager;
 
 import Deventos.enlaceJS.DConector;
 import aplicacion.gui.FramePrincipal;
+import aplicacion.plugin.PluginContainer;
 
 /**
  * 
@@ -70,12 +71,14 @@ public class MainCliente
 		try
 		{
 			UIManager.setLookAndFeel("lookandfeel.Dmetal.MetalLookAndFeel");
-			// UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
+		
+		
+		new PluginContainer();
 		new MainCliente();
 	}
 

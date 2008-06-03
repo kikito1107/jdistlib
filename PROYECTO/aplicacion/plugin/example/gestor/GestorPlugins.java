@@ -26,6 +26,8 @@ import util.FiltroFichero;
 import aplicacion.gui.PanelPrincipal;
 import aplicacion.plugin.DAbstractPlugin;
 import aplicacion.plugin.DPluginLoader;
+import aplicacion.plugin.PluginContainer;
+
 import java.awt.Font;
 
 public class GestorPlugins extends JFrame
@@ -213,12 +215,12 @@ public class GestorPlugins extends JFrame
 
 		if (numPlugin < 0) return;
 
-		int numPlugins = PanelPrincipal.numPlugins();
+		int numPlugins = PluginContainer.numPlugins();
 
 		if (numPlugins <= numPlugin || numPlugins < 1) return;
 
 		java.io.File fichero = new java.io.File("plugin/"
-				+ PanelPrincipal.getPluginJarName(numPlugin));
+				+ PluginContainer.getPluginJarName(numPlugin));
 
 		System.out.println("El nombre del fichero a borrar "
 				+ fichero.getAbsolutePath());
@@ -226,7 +228,7 @@ public class GestorPlugins extends JFrame
 		if (!fichero.delete())
 			System.err.println("Error al eliminar el fichero");
 
-		PanelPrincipal.eliminarPlugin((String) tablaPlugins.getValueAt(
+		PluginContainer.eliminarPlugin((String) tablaPlugins.getValueAt(
 				numPlugin, 0));
 
 		modeloTabla.removeRow(numPlugin);
@@ -301,8 +303,8 @@ public class GestorPlugins extends JFrame
 						return;
 					}
 
-					// agregarlo a la lista de plugins de PanelPrincipal
-					PanelPrincipal.agregarPlugin(nuevo);
+					// agregarlo a la lista de plugins de PluginManager
+					PluginContainer.agregarPlugin(nuevo);
 
 					// agregarlo a la tabla
 					inicializarModelo();
@@ -348,7 +350,7 @@ public class GestorPlugins extends JFrame
             	boolean estado = (Boolean) modeloTabla.getValueAt(fila, 3);
             	
             	
-            	PanelPrincipal.setVisible(estado, nombrePlugin);
+            	PluginContainer.setVisible(estado, nombrePlugin);
             }
         }
     }
@@ -359,7 +361,7 @@ public class GestorPlugins extends JFrame
 	 */
 	public void inicializarModelo()
 	{
-		int numPlugins = PanelPrincipal.numPlugins();
+		int numPlugins = PluginContainer.numPlugins();
 
 		if (numPlugins == 0 || numPlugins == -1) return;
 
@@ -370,10 +372,10 @@ public class GestorPlugins extends JFrame
 
 		for (int i = 0; i < numPlugins; ++i)
 		{
-			modeloTabla.setValueAt(PanelPrincipal.getPluginName(i), i, 0);
-			modeloTabla.setValueAt(PanelPrincipal.getVersionPlugin(i), i, 1);
-			modeloTabla.setValueAt(PanelPrincipal.getPluginJarName(i), i, 2);
-			modeloTabla.setValueAt(PanelPrincipal.isVisible(i), i, 3);
+			modeloTabla.setValueAt(PluginContainer.getPluginName(i), i, 0);
+			modeloTabla.setValueAt(PluginContainer.getVersionPlugin(i), i, 1);
+			modeloTabla.setValueAt(PluginContainer.getPluginJarName(i), i, 2);
+			modeloTabla.setValueAt(PluginContainer.isVisible(i), i, 3);
 		}
 	}
 

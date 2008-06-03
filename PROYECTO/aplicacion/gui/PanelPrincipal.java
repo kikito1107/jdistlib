@@ -6,9 +6,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -54,6 +52,7 @@ import aplicacion.gui.componentes.EnviarMensaje;
 import aplicacion.gui.editor.FramePanelDibujo;
 import aplicacion.plugin.DAbstractPlugin;
 import aplicacion.plugin.DPluginLoader;
+import aplicacion.plugin.PluginContainer;
 
 import componentes.base.DComponente;
 import componentes.base.DComponenteBase;
@@ -110,8 +109,6 @@ public class PanelPrincipal extends DComponenteBase
 
 	private JButton reenviar = null;
 
-	private Vector<DAbstractPlugin> plugins = null;
-
 	private static final String separador = "\n\n----------------------------------------------\n";
 
 	private DefaultListModel modeloAplicaciones = null;
@@ -123,8 +120,6 @@ public class PanelPrincipal extends DComponenteBase
 	private JProgressBar barraProgreso = null;
 
 	private MonitorAbrir monitor = null;
-
-	private MonitorPlugins monitorP = null;
 	
 	private VentanaCambiarRol vRol = null;
 	
@@ -149,8 +144,6 @@ public class PanelPrincipal extends DComponenteBase
 			Documento.addFilter(new ImageFilter());
 			Documento.addFilter(new PDFFilter());
 			Documento.addFilter(new TXTFilter());
-
-			plugins = DPluginLoader.getAllPlugins("plugin");
 			
 			BorderLayout b = new BorderLayout();
 			
@@ -190,10 +183,6 @@ public class PanelPrincipal extends DComponenteBase
 			esto = this;
 			
 			monitor = new MonitorAbrir();
-
-			monitorP = new MonitorPlugins();
-			
-
 			
 			new HebraPlugins();
 			new HebraAbrir();
@@ -813,8 +802,8 @@ public class PanelPrincipal extends DComponenteBase
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
-					for (int i = 0; i < plugins.size(); ++i)
-						if (plugins.get(i).getName().equals("Chat"))
+					for (int i = 0; i < PluginContainer.numPlugins(); ++i)
+						if (PluginContainer.getPlugin(i).getName().equals("Chat"))
 						{
 
 							System.out.println("Encontrado plugin chat");
@@ -831,7 +820,7 @@ public class PanelPrincipal extends DComponenteBase
 								evento.receptores.add(usuario);
 								evento.mensaje = "Solicita una nueva conversaci—n";
 
-								plugins.get(i).enviarEvento(evento);
+								PluginContainer.getPlugin(i).enviarEvento(evento);
 							}
 							else if (usuario.equals(DConector.Dusuario))
 							{
@@ -1167,8 +1156,7 @@ public class PanelPrincipal extends DComponenteBase
 								try
 								{
 
-									if (plugins != null
-											&& plugins.size() > 0
+									if (PluginContainer.numPlugins() > 0
 											&& listaAplicaciones
 													.getSelectedIndex() > -1)
 									{
@@ -1178,11 +1166,11 @@ public class PanelPrincipal extends DComponenteBase
 
 										boolean encontrada = false;
 
-										for (int i = 0; i < plugins.size(); ++i)
-											if (plugins.get(i).getName()
+										for (int i = 0; i < PluginContainer.numPlugins(); ++i)
+											if (PluginContainer.getPlugin(i).getName()
 													.equals(seleccionado))
 											{
-												plugins.get(i).start();
+												PluginContainer.getPlugin(i).start();
 												encontrada = true;
 											}
 										if (!encontrada)
@@ -1208,10 +1196,10 @@ public class PanelPrincipal extends DComponenteBase
 		if (this.modeloAplicaciones == null) {
 			modeloAplicaciones = new DefaultListModel();
 
-			for (int i = 0; i < plugins.size(); ++i)
+			for (int i = 0; i < PluginContainer.numPlugins(); ++i)
 			{
-				if (plugins.get(i).shouldShowIt())
-					modeloAplicaciones.addElement(plugins.get(i));
+				if (PluginContainer.getPlugin(i).shouldShowIt())
+					modeloAplicaciones.addElement(PluginContainer.getPlugin(i));
 			}
 		}
 		
@@ -1628,16 +1616,16 @@ public class PanelPrincipal extends DComponenteBase
 			{
 
 				// esperamos a que se actualicen los plugins
-				esto.monitorP.actualizar();
+				PluginContainer.actualizar();
 				
 				// eliminamos todos los plugins de la lista
 				esto.getModelo().removeAllElements();
 
 				// cargamos de nuevo la lista
-				for (int i = 0; i < esto.plugins.size(); ++i)
+				for (int i = 0; i < PluginContainer.numPlugins(); ++i)
 				{
-					if (esto.plugins.get(i).shouldShowIt())
-						esto.getModelo().addElement(plugins.get(i));
+					if (PluginContainer.getPlugin(i).shouldShowIt())
+						esto.getModelo().addElement(PluginContainer.getPlugin(i));
 				}
 
 				// repintamos la lista
@@ -1647,160 +1635,6 @@ public class PanelPrincipal extends DComponenteBase
 
 		}
 
-	}
-
-	// ============= PLUGINS
-	// ===================================================================
-
-	/**
-	 * Elimina un plugin de la lista de plugins
-	 * 
-	 * @param namen
-	 *            nombre del plugin a eliminar
-	 */
-	public static void eliminarPlugin(String namen)
-	{
-
-		boolean encontrada = false;
-
-		for (int i = 0; i < esto.plugins.size() && !encontrada; ++i)
-			if (esto.plugins.get(i).getName().equals(namen))
-			{
-				encontrada = true;
-				esto.plugins.remove(i);
-			}
-
-		// notificamos la eliminacion del plugin
-		esto.monitorP.notificarPlugins();
-	}
-	
-	public static boolean isVisible(int i) {
-		return esto.plugins.get(i).shouldShowIt();
-	}
-
-	
-	/**
-	 * Establece si un plugin ha de ser visible o no
-	 * @param b booleano que indica si el plugin ha de ser visible o no
-	 * @param name nombre del plugin
-	 */
-	public static void setVisible(boolean b, String name) {
-		
-		boolean encontrada = false;
-
-		for (int i = 0; i < esto.plugins.size() && !encontrada; ++i)
-			if (esto.plugins.get(i).getName().equals(name))
-			{
-				encontrada = true;
-				esto.plugins.get(i).setShouldShowit(b);
-			}
-
-		// notificamos la eliminacion del plugin
-		esto.monitorP.notificarPlugins();
-	}
-
-	
-	
-	/**
-	 * Agreaga un plugin a la lista
-	 * 
-	 * @param a
-	 *            plugin a agregar
-	 */
-	public static void agregarPlugin(DAbstractPlugin a)
-	{
-		esto.plugins.add(a);
-
-		// notificamos la insercion de un nuevo plugin
-		esto.monitorP.notificarPlugins();
-	}
-
-	/**
-	 * Consulta el numero de plugins cargados actualmente
-	 * 
-	 * @return el numero de plugins. Devuelve -1 si se ha producido algœn error
-	 */
-	public static int numPlugins()
-	{
-
-		if (esto.plugins == null)
-			return -1;
-		else return esto.plugins.size();
-	}
-
-	/**
-	 * Consulta el nombre del fichero jar asociado a un plugin
-	 * 
-	 * @param index
-	 *            posicion del plugin en la lista
-	 * @return el nombre del jar
-	 * @throws ArrayIndexOutOfBoundsException
-	 */
-	public static String getPluginJarName(int index)
-			throws ArrayIndexOutOfBoundsException
-	{
-		String jarName = esto.plugins.get(index).getJarFile();
-
-		return jarName;
-	}
-
-	/**
-	 * Consulta la version del plugin
-	 * 
-	 * @param index
-	 *            posicion del plugin en la lista
-	 * @return la version
-	 * @throws ArrayIndexOutOfBoundsException
-	 */
-	public static long getVersionPlugin(int index)
-			throws ArrayIndexOutOfBoundsException
-	{
-		long v = esto.plugins.get(index).getVersion();
-
-		return v;
-	}
-
-	/**
-	 * Consulta el nombre de un plugin
-	 * 
-	 * @param index
-	 *            posicion del plugin en la lista
-	 * @return el nombre
-	 * @throws ArrayIndexOutOfBoundsException
-	 */
-	public static String getPluginName(int index)
-			throws ArrayIndexOutOfBoundsException
-	{
-		String jarName = esto.plugins.get(index).getName();
-
-		return jarName;
-	}
-
-	// ===================== MONITORES
-	// ===================================================
-
-	/**
-	 * Monitor que controla la actualizacion de la lista de aplicaciones
-	 */
-	private class MonitorPlugins
-	{
-		public synchronized void actualizar()
-		{
-			try
-			{
-				wait();
-			}
-			catch (Exception e)
-			{
-				e.printStackTrace();
-			}
-
-		}
-
-		public synchronized void notificarPlugins()
-		{
-			notifyAll();
-		}
 	}
 
 	/**

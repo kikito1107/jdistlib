@@ -17,6 +17,26 @@ import componentes.base.DComponenteBase;
 import componentes.base.HebraProcesadoraBase;
 import Deventos.DEvent;
 
+/**
+ * @author anab
+ *
+ */
+/**
+ * @author anab
+ *
+ */
+/**
+ * @author anab
+ *
+ */
+/**
+ * @author anab
+ *
+ */
+/**
+ * @author anab
+ *
+ */
 public abstract class DAbstractPlugin extends DComponenteBase
 {
 	//categorias de los plugins, para permitir su clasificacion
@@ -57,6 +77,10 @@ public abstract class DAbstractPlugin extends DComponenteBase
 
 	private Integer ultimoProcesado = new Integer(-1);
 
+	/**
+	 * 
+	 *
+	 */
 	public final void register()
 	{
 		HebraProcesadora th = new HebraProcesadora(this);
@@ -74,16 +98,28 @@ public abstract class DAbstractPlugin extends DComponenteBase
 		return nombre;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public long getVersion()
 	{
 		return version;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public String getJarFileName()
 	{
 		return jarFile;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public boolean isStarted()
 	{
 		return started;
@@ -95,6 +131,10 @@ public abstract class DAbstractPlugin extends DComponenteBase
 		return nombre;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public int getCategoria()
 	{
 		return categoria;
