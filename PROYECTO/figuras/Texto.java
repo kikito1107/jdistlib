@@ -68,7 +68,7 @@ public class Texto extends Figura
 	@Override
 	public boolean pertenece(int a, int b)
 	{
-		if (( a < x ) || ( b < y ))
+		if (( a < x-10 ) || ( b < y-10 ))
 			return false;
 		else
 		{
