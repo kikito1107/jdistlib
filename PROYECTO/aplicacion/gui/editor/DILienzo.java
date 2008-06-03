@@ -108,7 +108,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 	 * Pagina actual del documento visualizada
 	 */
 	private int paginaActual = 0;
-	
+
 	/*
 	 * Permite seleccionar si se esta seleccionando formas o pintandolas
 	 */
@@ -183,7 +183,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 	{
 		colorActual = unColor;
 	}
-	
+
 	public void setEstaSeleccionando(boolean b)
 	{
 		estaSeleccionando = b;
@@ -278,34 +278,40 @@ public class DILienzo extends DIViewer implements MouseListener,
 	/**
 	 * Selecciona la siguiente anotacion de la pagina actual del documento
 	 */
-	public void seleccionarSiguienteAnotacion(){
+	public void seleccionarSiguienteAnotacion()
+	{
 		if (anotacionSeleccionada == -1)
 			anotacionSeleccionada = 0;
-		else {
+		else
+		{
 			anotacionSeleccionada++;
-			
-			if (anotacionSeleccionada == doc.getPagina(paginaActual-1).getAnotaciones().size()){
+
+			if (anotacionSeleccionada == doc.getPagina(paginaActual - 1)
+					.getAnotaciones().size())
+			{
 				anotacionSeleccionada = -1;
 			}
 		}
-		
+
 		this.repaint();
 	}
-	
+
 	/**
 	 * Selecciona la anterior anotacion de la pagina actual del documento
 	 */
-	public void seleccionarAnteriorAnotacion(){
+	public void seleccionarAnteriorAnotacion()
+	{
 		if (anotacionSeleccionada == -1)
-			anotacionSeleccionada = doc.getPagina(paginaActual-1).getAnotaciones().size()-1;
-		else {
+			anotacionSeleccionada = doc.getPagina(paginaActual - 1)
+					.getAnotaciones().size() - 1;
+		else
+		{
 			anotacionSeleccionada--;
 		}
-		
+
 		this.repaint();
 	}
-	
-	
+
 	/**
 	 * Método que permite invertir un color
 	 * 
@@ -383,7 +389,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 			paginaActual = numPagina;
 
 			anotacionesBorradas = new Vector<Anotacion>();
-			
+
 			anotacionSeleccionada = -1;
 
 			repaint();
@@ -491,7 +497,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 						encontrado = true;
 					}
 			}
-			
+
 			this.repaint();
 		}
 
@@ -551,7 +557,8 @@ public class DILienzo extends DIViewer implements MouseListener,
 						if (doc.getNumeroPaginas() > 0)
 						{
 
-							Anotacion a = new Anotacion(t, DConector.Drol, DConector.Dusuario);
+							Anotacion a = new Anotacion(t, DConector.Drol,
+									DConector.Dusuario);
 
 							doc.getPagina(this.paginaActual - 1)
 									.addAnotacion(a);
@@ -610,7 +617,8 @@ public class DILienzo extends DIViewer implements MouseListener,
 					if (doc.getNumeroPaginas() > 0)
 					{
 
-						Anotacion a = new Anotacion(f, DConector.Drol, DConector.Dusuario);
+						Anotacion a = new Anotacion(f, DConector.Drol,
+								DConector.Dusuario);
 
 						doc.getPagina(this.paginaActual - 1).addAnotacion(a);
 					}
@@ -638,7 +646,8 @@ public class DILienzo extends DIViewer implements MouseListener,
 					if (doc.getNumeroPaginas() > 0)
 					{
 
-						Anotacion a = new Anotacion(l, DConector.Drol, DConector.Dusuario);
+						Anotacion a = new Anotacion(l, DConector.Drol,
+								DConector.Dusuario);
 
 						doc.getPagina(this.paginaActual - 1).addAnotacion(a);
 					}
@@ -663,7 +672,8 @@ public class DILienzo extends DIViewer implements MouseListener,
 					if (doc.getNumeroPaginas() > 0)
 					{
 
-						Anotacion a = new Anotacion(trazo,DConector.Drol,DConector.Dusuario);
+						Anotacion a = new Anotacion(trazo, DConector.Drol,
+								DConector.Dusuario);
 
 						doc.getPagina(this.paginaActual - 1).addAnotacion(a);
 
@@ -787,9 +797,9 @@ public class DILienzo extends DIViewer implements MouseListener,
 				f.dibujar(g);
 			}
 
-
 			// dibujamos el dibujo que se esta realizando en este momento
-			switch (modoDibujo) {
+			switch (modoDibujo)
+			{
 				case LINEAS:
 					g.setColor(colorActual);
 					if (x2 != -1) g.drawLine(x1, y1, x2, y2);
@@ -818,14 +828,13 @@ public class DILienzo extends DIViewer implements MouseListener,
 					break;
 				case MANO_ALZADA:
 					g.setColor(this.colorActual);
-					if (trazo!=null)
-						trazo.dibujar(g);
+					if (trazo != null) trazo.dibujar(g);
 					break;
 				default:
-						break;
-					
+					break;
+
 			}
-			
+
 		}
 	}
 
@@ -902,15 +911,30 @@ public class DILienzo extends DIViewer implements MouseListener,
 		if (conectadoDC() && ( doc.getPath() != null )
 				&& !doc.getPath().equals(""))
 		{
+			
+			
+			boolean force = false;
+			
+			if (!Documento.isSuported(doc.getPath()))
+			{
+				int eleccion = JOptionPane
+						.showConfirmDialog(
+								this,
+								"El formato del fichero no está soportado. ¿Desea abrirlo en modo texto?",
+								"Formato no soportado",
+								JOptionPane.YES_NO_OPTION);
+
+				if (eleccion == 1) return;
+				
+				force = true;
+			}
+			
 			DJLienzoEvent e = new DJLienzoEvent();
 			e.tipo = new Integer(DJLienzoEvent.SINCRONIZACION.intValue());
 			e.path = new String(doc.getPath());
-			
+
 			if (!DConector.obtenerDC().leerToken(doc.getPath()))
 			{
-				
-				//JOptionPane.showMessageDialog(null, "PATH " + doc.getPath());
-
 				if (!DConector.obtenerDC().escribirToken())
 					JOptionPane.showMessageDialog(padre,
 							"Error al guardar el token");
@@ -919,53 +943,19 @@ public class DILienzo extends DIViewer implements MouseListener,
 						.getPath());
 
 				// intentamos abrir el documento con su formato nativo
-				Documento p = t.receiveDocumento(false);
+				Documento p = t.receiveDocumento(force);
 
 				if (p != null)
 				{
 					p.setMetainformacion(doc.getMetainformacion());
 					doc = p;
-					
-					
-					
+
 					repaint();
 				}
 				else
 				{
-					int eleccion = JOptionPane
-							.showConfirmDialog(
-									this,
-									"El formato del fichero no está soportado. ¿Desea abrirlo en modo texto?",
-									"Formato no soportado",
-									JOptionPane.YES_NO_OPTION);
-
-					if (eleccion == JOptionPane.YES_OPTION)
-					{
-
-						// intentamos abrirlo forzando a documento de texto
-						p = t.receiveDocumento(true);
-
-						
-						if (p == null)
-						{
-
-							JOptionPane.showMessageDialog(this.padre,
-									"Error al cargar el fichero "
-											+ doc.getPath()
-											+ " desde el servidor");
-
-							doc.setPath("");
-						}
-						else
-						{
-							p.setMetainformacion(doc.getMetainformacion());
-							doc = p;
-
-							repaint();
-
-						}
-					}
-					else
+						JOptionPane.showMessageDialog(this.padre, "Error al cargar el fichero " + doc.getPath()
+										+ " desde el servidor");
 						doc.setPath("");
 				}
 
@@ -1107,7 +1097,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 			if (( evt.path != null ) && evt.path.equals(doc.getPath())
 					&& !evento.usuario.equals(DConector.Dusuario))
 			{
-				Anotacion a = new Anotacion(evt.dibujo,evt.usuario, evt.rol);
+				Anotacion a = new Anotacion(evt.dibujo, evt.usuario, evt.rol);
 
 				try
 				{

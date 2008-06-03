@@ -43,10 +43,6 @@ public class TransferenciaFichero extends UnicastRemoteObject implements
 		if (force)
 			return new TXTFilter().getDocumento(path, "", "");
 		
-		Documento.addFilter(new MSGFilter());
-		Documento.addFilter(new ImageFilter());
-		Documento.addFilter(new PDFFilter());
-		Documento.addFilter(new TXTFilter());
 		return Documento.openDocument(path, "", "");
 	}
 

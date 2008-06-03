@@ -24,6 +24,10 @@ import javax.swing.ImageIcon;
 
 import aplicacion.fisica.ServidorFicheros;
 import aplicacion.fisica.documentos.filtros.DocumentFilter;
+import aplicacion.fisica.documentos.filtros.ImageFilter;
+import aplicacion.fisica.documentos.filtros.MSGFilter;
+import aplicacion.fisica.documentos.filtros.PDFFilter;
+import aplicacion.fisica.documentos.filtros.TXTFilter;
 
 /**
  * Clase que representa un documento al que se le pueden agregar anotaciones
@@ -45,6 +49,13 @@ public class Documento implements Serializable, Printable
 
 	private static Vector<DocumentFilter> filtros = new Vector<DocumentFilter>();
 
+	static {
+		Documento.addFilter(new MSGFilter());
+		Documento.addFilter(new ImageFilter());
+		Documento.addFilter(new PDFFilter());
+		Documento.addFilter(new TXTFilter());
+	}
+	
 	/**
 	 * Crea un nuevo documento
 	 */
@@ -214,6 +225,27 @@ public class Documento implements Serializable, Printable
 	public static void addFilter(DocumentFilter flt)
 	{
 		filtros.add(flt);
+	}
+	
+	/**
+	 * Comprueba si el tipo de un documento es soportado
+	 * @param path path del fichero
+	 * @return true si el tipo es soportado y false en caso contrario
+	 */
+	public static boolean isSuported(String path){
+
+		int ind_ext = path.lastIndexOf(".");
+
+		String sub = path.substring(ind_ext + 1);
+
+		sub = sub.toLowerCase();
+
+		// comprobar si es fichero soportado
+		for (int i = 0; i < filtros.size(); i++)
+			if (filtros.get(i).isSupported(sub))
+				return true;
+		
+		return false;
 	}
 
 	/**

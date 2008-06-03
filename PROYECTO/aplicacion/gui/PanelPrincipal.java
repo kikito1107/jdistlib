@@ -142,10 +142,6 @@ public class PanelPrincipal extends DComponenteBase
 			this.setFont(fuente);
 
 			// dar soporte para documentos
-			Documento.addFilter(new ImageFilter());
-			Documento.addFilter(new PDFFilter());
-			Documento.addFilter(new TXTFilter());
-			
 			BorderLayout b = new BorderLayout();
 			
 			b.setHgap(12);  // Generated
@@ -640,8 +636,7 @@ public class PanelPrincipal extends DComponenteBase
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
-					accionAbrir();
-
+					monitor.notificarAbrir();
 				}
 			});
 		}
