@@ -6,6 +6,7 @@ package aplicacion.plugin;
 import java.util.Vector;
 
 /**
+ * Clase encargada de la gesti—n de los plugins
  * @author anab
  * 
  */
@@ -16,7 +17,7 @@ public class PluginContainer
 	private static MonitorPlugins monitor = null;
 	
 	/**
-	 * 
+	 * Inicializa el contenedor de plugins
 	 */
 	public PluginContainer()
 	{
@@ -35,10 +36,18 @@ public class PluginContainer
 		monitor = new MonitorPlugins();
 	}
 	
+	/**
+	 * La hebra que ejecuta este mtodo espera hasta que se notifique algun cambio en la lista de plugins
+	 */
 	public static void actualizar(){
 		monitor.actualizar();
 	}
 	
+	/**
+	 * Permite acceder al plugin i-simo
+	 * @param index posicion del plugin en la lista
+	 * @return el plugin si el valor del indice es correcto, -1 en caso contrario
+	 */
 	public static DAbstractPlugin getPlugin(int index){
 		if (index >= 0 && index < plugins.size())
 			return plugins.get(index);
@@ -69,6 +78,11 @@ public class PluginContainer
 		monitor.notificarPlugins();
 	}
 	
+	/**
+	 * Comprueba si el i-esimo plugin de la lista es visible
+	 * @param i posicion del plugin
+	 * @return true si el plugin es visible y false en caso contrario
+	 */
 	public static boolean isVisible(int i) {
 		return plugins.get(i).shouldShowIt();
 	}
