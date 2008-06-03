@@ -9,6 +9,7 @@ import metainformacion.MIUsuario;
 import aplicacion.fisica.documentos.MIDocumento;
 
 /**
+ * Permite acceder a la base de datos de ficheros y consultar, ampliar, modificar y/o eliminar los datos almacenados en ella
  * @author Carlos Rodriguez Dominguez, Ana Belen Pelegrina Ortiz
  * 
  */
@@ -376,9 +377,9 @@ public class GestorFicherosBD
 	}
 
 	/**
-	 * 
-	 * @param id
-	 * @return
+	 * Busca un fichero en la BD por su path
+	 * @param path path del fichero
+	 * @return la metainformacion del fichero
 	 */
 	public MIDocumento buscarFicheroPath(String path)
 	{
@@ -426,12 +427,10 @@ public class GestorFicherosBD
 		conexion.cerrar();
 	}
 
-	public void salvar()
-	{
-		// TODO Auto-generated method stub
-
-	}
-
+	/**
+	 * Modifica la metainformacion de un fichero en la BD
+	 * @param f el fichero con la nueva MI
+	 */
 	public void modificarFichero(MIDocumento f)
 	{
 		try
@@ -462,6 +461,10 @@ public class GestorFicherosBD
 	
 
 
+	/**
+	 * Elimina de la BD los datos de un documento
+	 * @param f metainformacion del documento a borrar
+	 */
 	public void eliminarFichero(MIDocumento f)
 	{
 		try
@@ -493,6 +496,10 @@ public class GestorFicherosBD
 		}
 	}
 
+	/**
+	 * Elimina un directorio de la base de datos de forma recursiva
+	 * @param id_fichero el identificador del directorio
+	 */
 	public void eliminarDirectorio(int id_fichero)
 	{
 

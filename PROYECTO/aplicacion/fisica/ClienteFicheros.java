@@ -7,22 +7,18 @@ import javaspaces.SpaceLocator;
 import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import Deventos.DEvent;
-import Deventos.enlaceJS.DConector;
-
-import net.jini.core.entry.UnusableEntryException;
 import net.jini.core.lease.Lease;
 import net.jini.core.transaction.TransactionException;
 import net.jini.space.JavaSpace;
+import Deventos.DEvent;
+import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.documentos.MIDocumento;
-import aplicacion.fisica.eventos.DDocumentEvent;
 import aplicacion.fisica.eventos.DFileEvent;
 import aplicacion.fisica.eventos.DNodeEvent;
 
 /**
  * Cliente del modulo de ficheros
  */
-
 public class ClienteFicheros
 {
 	public static ClienteFicheros cf = null;
@@ -34,11 +30,6 @@ public class ClienteFicheros
 	private static String rol = null;
 
 	private static final long leaseWriteTime = Lease.FOREVER;
-
-	public DefaultMutableTreeNode getRaiz()
-	{
-		return raiz;
-	}
 
 	private static final long leaseReadTime = 10000L;
 
@@ -64,6 +55,15 @@ public class ClienteFicheros
 		inicializar();
 	}
 
+	/**
+	 * Obtiene el arbol de documentos asociado al usuario+rol
+	 * @return la raiz del arbol
+	 */
+	public DefaultMutableTreeNode getArbolDoc()
+	{
+		return raiz;
+	}
+	
 	private void localizarJavaSpace()
 	{
 		// Encargada de localizar el JavaSpace
@@ -167,6 +167,11 @@ public class ClienteFicheros
 		}
 	}
 
+	/**
+	 * Envia un evento al servidor de Ficheros para que este elimine un fichero de la BD y del sistema de archivos
+	 * @param f metainformacion del documento a borrar
+	 * @param aplicacion aplicacion desde la que se solicita borrar el documento
+	 */
 	public void borrarFichero(MIDocumento f, String aplicacion)
 	{
 		try
@@ -198,6 +203,12 @@ public class ClienteFicheros
 		}
 	}
 
+	/**
+	 * Envia un evento al servidor de Ficheros para que este agrege un fichero a la BD
+	 * @param f metainformacion del documento
+	 * @param aplicacion aplicacion desde la que se solicita borrar el documento
+	 * @return metainformacion del documento borrado, actualizada con nuevos datos
+	 */
 	public MIDocumento insertarNuevoFichero(MIDocumento f, String aplicacion)
 	{
 		try
@@ -245,6 +256,12 @@ public class ClienteFicheros
 	}
 
 	
+	/**
+	 * Comprueba si existe un determinado fichero
+	 * @param path path del fichero en el servidor
+	 * @param aplicacion aplicacion desde la que se hace la solicitud
+	 * @return la metainformacion del fichero si este existe y null en caso contrario
+	 */
 	public MIDocumento existeFichero(String  path, String aplicacion) {
 		try
 		{
@@ -299,7 +316,11 @@ public class ClienteFicheros
 		}
 	}
 	
-	
+	/**
+	 * Modifica los datos de un fichero en la BD
+	 * @param f metainformacion nueva
+	 * @param aplicacion aplicacion desde la cual se hace la solicitud
+	 */
 	public void modificarFichero(MIDocumento f, String aplicacion)
 	{
 		try
@@ -331,64 +352,7 @@ public class ClienteFicheros
 		}
 	}
 
-	public String solicitarFichero(String path)
-	{
-
-		try
-		{
-			DDocumentEvent evt = new DDocumentEvent();
-			evt.origen = new Integer(31); // Cliente ficheros
-			evt.destino = new Integer(30); // Servidor ficheros
-
-			System.out.println("Recibido evento de solicitud de fichero "
-					+ path);
-
-			// tipo de evento
-			evt.tipo = new Integer(DDocumentEvent.OBTENER_FICHERO.intValue());
-			evt.aplicacion = new String(aplicacion);
-			evt.usuario = new String(usuario);
-			evt.rol = new String(rol);
-			evt.path = path;
-
-			space.write(evt, null, leaseWriteTime);
-
-			DDocumentEvent plantilla = new DDocumentEvent();
-
-			DDocumentEvent leido;
-
-			leido = (DDocumentEvent) space.take(plantilla, null,
-					4 * leaseReadTime);
-
-			System.out.println("Recibida respuesta direcci�n "
-					+ leido.direccionRespuesta);
-			System.out.println("para el path " + leido.path);
-			System.out.println("para el usuario " + leido.direccionRespuesta);
-
-			return leido.direccionRespuesta;
-
-		}
-		catch (RemoteException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (TransactionException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (UnusableEntryException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (InterruptedException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
+	
 
 	/**
 	 * Encargada de localizar el JavaSpace

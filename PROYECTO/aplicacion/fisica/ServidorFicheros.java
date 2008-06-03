@@ -52,10 +52,18 @@ public class ServidorFicheros
 	private static String directorioBase = "data";
 
 	
+	/**
+	 * Devuelve el directorio en el que se almacena los archivos localmente
+	 * @return
+	 */
 	public static String getDirectorioBase(){
 		return directorioBase;
 	}
 	
+	/**
+	 * Constructor
+	 *
+	 */
 	public ServidorFicheros()
 	{
 
@@ -128,12 +136,14 @@ public class ServidorFicheros
 		Transfer.establecerServidor();
 	}
 
-	public void salvar()
-	{
-		gestor.salvar();
-	}
 
-	public DefaultMutableTreeNode obtenerArbol(String usuario, String rol)
+	/**
+	 * Recupera los ficheros a los que un usuario bajo un determinado rol tiene acceso
+	 * @param usuario nombre del usuario
+	 * @param rol nombre del rol
+	 * @return el arbol con la estructura de directorios
+	 */
+	private DefaultMutableTreeNode obtenerArbol(String usuario, String rol)
 	{
 
 		if (gestor == null) gestor = new GestorFicherosBD();
@@ -146,6 +156,7 @@ public class ServidorFicheros
 
 		return raiz;
 	}
+
 
 	private void agregarFichero(MIDocumento f, DefaultMutableTreeNode padre,
 			String usuario, String rol)
@@ -172,6 +183,11 @@ public class ServidorFicheros
 		}
 	}
 
+	/**
+	 * Hebra encargada de procesar los eventos recibidos
+	 * @author anab
+	 *
+	 */
 	private class HebraProcesadora implements Runnable
 	{
 		DEvent leido = null;
@@ -362,6 +378,10 @@ public class ServidorFicheros
 		}
 	}
 
+	/**
+	 * Hebra encargada de enviar los eventos
+	 * @author anab
+	 */
 	private class HebraEnvio implements Runnable
 	{
 		public void run()

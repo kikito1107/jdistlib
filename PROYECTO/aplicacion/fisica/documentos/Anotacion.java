@@ -10,8 +10,6 @@ public class Anotacion implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 
-	private Documento documento;
-
 	private Figura contenido;
 
 	private String usuario;
