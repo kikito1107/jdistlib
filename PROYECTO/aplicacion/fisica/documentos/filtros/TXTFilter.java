@@ -12,6 +12,11 @@ import aplicacion.fisica.ServidorFicheros;
 import aplicacion.fisica.documentos.Documento;
 import aplicacion.fisica.documentos.MIDocumento;
 
+/**
+ * Filtro de documento para documentos de texto plano
+ * @author carlos
+ *
+ */
 public class TXTFilter implements DocumentFilter
 {
 	public TXTFilter()

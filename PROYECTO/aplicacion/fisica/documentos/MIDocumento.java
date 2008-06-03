@@ -6,7 +6,7 @@ import metainformacion.MIRol;
 import metainformacion.MIUsuario;
 
 /**
- * 
+ * Metainformacion de un documento.
  * @author carlos, anab
  *
  */
@@ -63,16 +63,16 @@ public class MIDocumento implements Serializable
 	}
 
 	/**
-	 * 
-	 * @param id
-	 * @param nom
-	 * @param dir
-	 * @param perm
-	 * @param usu
-	 * @param ro
-	 * @param pad
-	 * @param ruta
-	 * @param tip
+	 * Constructor
+	 * @param id identificador del documento en la BD
+	 * @param nom nombre del documento
+	 * @param dir indica si el documento es un directorio
+	 * @param perm permisos del documento
+	 * @param usu propietario del documento
+	 * @param ro rol del propietario
+	 * @param pad id de la carpeta en al que se encuentra el usuario
+	 * @param ruta ruta del fichero en el servidor
+	 * @param tip tipo del fichero
 	 */
 	public MIDocumento( int id, String nom, boolean dir, String perm,
 			MIUsuario usu, MIRol ro, int pad, String ruta, String tip )
@@ -89,7 +89,7 @@ public class MIDocumento implements Serializable
 	}
 
 	/**
-	 * 
+	 * Accede al nombre del documento
 	 * @return
 	 */
 	public String getNombre()
@@ -98,7 +98,7 @@ public class MIDocumento implements Serializable
 	}
 
 	/**
-	 * 
+	 * Accede al id del documento
 	 * @return
 	 */
 	public int getId()
@@ -107,7 +107,7 @@ public class MIDocumento implements Serializable
 	}
 
 	/**
-	 * 
+	 * Comprueba si el documento es un directorio
 	 * @return
 	 */
 	public boolean esDirectorio()

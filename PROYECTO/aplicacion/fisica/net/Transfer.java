@@ -6,6 +6,11 @@ import java.rmi.registry.LocateRegistry;
 
 import aplicacion.fisica.documentos.Documento;
 
+/**
+ * Transfiere fichero entre dos ordenadores v’a RMI
+ * @author anab
+ *
+ */
 public class Transfer
 {
 	private String path;
@@ -16,12 +21,18 @@ public class Transfer
 
 	private static boolean serverExecuted = false;
 
+	/**
+	 * Inicializa
+	 * @param ip_orig ip del servidor
+	 * @param fich path del fichero a mover
+	 */
 	public Transfer( String ip_orig, String fich )
 	{
 		path = fich;
 		ip_origen = ip_orig;
 	}
 
+	
 	private static synchronized void setServerExecuted(boolean b)
 	{
 		serverExecuted = b;
@@ -32,6 +43,9 @@ public class Transfer
 		return serverExecuted;
 	}
 	
+	/**
+	 * Inicia el servidor RMI
+	 */
 	public static void establecerServidor()
 	{
 		if (!getServerExecuted())
@@ -45,6 +59,11 @@ public class Transfer
 		}
 	}
 
+	/**
+	 * Recibe un documento del servidor
+	 * @param forceText bandera booleana que indica si hay que forzar la conversion a texto
+	 * @return el documento si todo ha ido ok y null en caso contrario
+	 */
 	public Documento receiveDocumento(boolean forceText)
 	{
 		try
@@ -61,6 +80,11 @@ public class Transfer
 		}
 	}
 
+	/**
+	 * Envia un documento al servidor
+	 * @param d documento
+	 * @return true si todo ha ido ok y false en caso contrario
+	 */
 	public boolean sendDocumento(Documento d)
 	{
 		try
@@ -77,6 +101,10 @@ public class Transfer
 		}
 	}
 
+	/**
+	 * Recibe los datos de un fichero desde el servidor
+	 * @return vector de byte con el contenido del fichero solicitado
+	 */
 	public byte[] receiveFileBytes()
 	{
 		try
@@ -93,6 +121,11 @@ public class Transfer
 		}
 	}
 
+	/**
+	 * Envia los datos de un fichero al servidor
+	 * @param datos vector de byte con el contenido del fichero
+	 * @return true si la transferencia a ido ok y false en caso contrario
+	 */
 	public boolean sendFile(byte[] datos)
 	{
 		try
@@ -109,6 +142,11 @@ public class Transfer
 		}
 	}
 
+	/**
+	 * Hebra que ejecuta el servidor RMI
+	 * @author anab
+	 *
+	 */
 	private class ServerThread extends Thread
 	{
 		public ServerThread()

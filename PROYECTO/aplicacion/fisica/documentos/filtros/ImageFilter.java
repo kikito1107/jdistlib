@@ -8,6 +8,11 @@ import javax.imageio.ImageIO;
 import aplicacion.fisica.ServidorFicheros;
 import aplicacion.fisica.documentos.Documento;
 
+/**
+ * Filtro de documentos para imagenes
+ * @author carlos
+ *
+ */
 public class ImageFilter implements DocumentFilter
 {
 	public ImageFilter()

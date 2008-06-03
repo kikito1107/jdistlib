@@ -18,6 +18,11 @@ import aplicacion.fisica.ServidorFicheros;
 import aplicacion.fisica.documentos.Documento;
 import aplicacion.fisica.documentos.MIDocumento;
 
+/**
+ * Filtro de documento para pdf's
+ * @author carlos
+ *
+ */
 public class PDFFilter implements DocumentFilter
 {
 	public PDFFilter()

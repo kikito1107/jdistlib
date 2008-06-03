@@ -12,8 +12,17 @@ import aplicacion.fisica.ServidorFicheros;
 import aplicacion.fisica.documentos.Documento;
 import aplicacion.fisica.documentos.MIDocumento;
 
+/**
+ * Filtro de documentos para mensajes
+ * @author ana
+ *
+ */
 public class MSGFilter implements DocumentFilter
 {
+	/**
+	 * Constructor
+	 *
+	 */
 	public MSGFilter()
 	{
 		
