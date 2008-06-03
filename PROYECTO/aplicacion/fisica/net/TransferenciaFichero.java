@@ -13,16 +13,30 @@ import aplicacion.fisica.documentos.filtros.MSGFilter;
 import aplicacion.fisica.documentos.filtros.PDFFilter;
 import aplicacion.fisica.documentos.filtros.TXTFilter;
 
+/**
+ * Clase encargada de acceder a documentos desde el servidor
+ * @author anab
+ */
 public class TransferenciaFichero extends UnicastRemoteObject implements
 		TransmisorFicheros
 {
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Constructor
+	 * @throws RemoteException
+	 */
 	public TransferenciaFichero() throws RemoteException
 	{
 		super();
 	}
-
+	
+	/**
+	 * Construye un documento a partir de un fichero del FS
+	 * @param path path del fichero
+	 * @param force indica si hay que forzar la converion a a documento de texto
+	 * @return el documento si todo va ok y null en caso contrario
+	 */
 	public Documento getDocument(String path, boolean force)
 	{
 		
@@ -36,6 +50,11 @@ public class TransferenciaFichero extends UnicastRemoteObject implements
 		return Documento.openDocument(path, "", "");
 	}
 
+	/**
+	 * Abre un fichero y devuelve el contenido de este
+	 * @param path path del fichero
+	 * @param vector de bytes con el contenido del fichero
+	 */
 	public byte[] getByteFiles(String path)
 	{
 		byte[] bytes = null;
@@ -63,6 +82,12 @@ public class TransferenciaFichero extends UnicastRemoteObject implements
 		return bytes;
 	}
 
+	/**
+	 * Almacena un documento
+	 * @param bytes contenido del documento a almacenar
+	 * @param path path donde se quiere almacenar el fichero
+	 * @return true si el documento se ha almacenado correctamente y false en caso contrario
+	 */
 	public boolean sendByteFile(byte[] bytes, String path)
 	{
 		try
@@ -89,6 +114,11 @@ public class TransferenciaFichero extends UnicastRemoteObject implements
 		}
 	}
 
+	/**
+	 * Guarda un documento en el FS junto con sus anotaciones
+	 * @param d documento a guardar
+	 * @return true si se ha guardado correctamente y false en caso contrario
+	 */
 	public boolean sendDocument(Documento d) throws RemoteException
 	{
 		return Documento.saveDocument(d, d.getPath());

@@ -9,6 +9,10 @@ import java.rmi.registry.LocateRegistry;
 
 import aplicacion.fisica.documentos.Documento;
 
+/**
+ * Clase encargada de la transmisi—n de documentos entre usuarios
+ * @author anab
+ */
 public class TransferP2P
 {
 	private String ip_origen;
@@ -21,16 +25,27 @@ public class TransferP2P
 
 	private static Thread hebra = null;
 
+	/**
+	 * 
+	 * @param ip_orig
+	 * @param identificador
+	 * @param puerto
+	 */
 	public TransferP2P( String ip_orig, int identificador, int puerto )
 	{
 		ip_origen = ip_orig;
 		id = identificador;
 	}
 	
+	/**
+	 * Consulta el puerto donde se encuentra esperando el 
+	 * @return el puerto
+	 */
 	public static int getPort()
 	{
 		return port;
 	}
+
 
 	private static synchronized void setServerExecuted(boolean b)
 	{
@@ -42,6 +57,11 @@ public class TransferP2P
 		return serverExecuted;
 	}
 	
+	/**
+	 * Inicia el servidor 
+	 * @param id identificador del objeto registrado
+	 * @param doc documento a enviar
+	 */
 	public synchronized static void establecerServidor(int id, Documento doc)
 	{
 		if (!getServerExecuted())
@@ -56,13 +76,16 @@ public class TransferP2P
 		}
 	}
 
+	/**
+	 * Para la hebra, desliga el objeto registrado
+	 */
 	public synchronized static void pararHebra()
 	{
 		if (getServerExecuted())
 		{
 
 			setServerExecuted(false);
-			System.out.println("PARANDO LA HEBRA");
+			
 			try
 			{
 				Thread.sleep(2000L);
@@ -76,6 +99,10 @@ public class TransferP2P
 		}
 	}
 
+	/**
+	 * Envia el documento
+	 * @return el documento si todo ha ido ok y false en caso contrario
+	 */
 	public Documento receive()
 	{
 		try
@@ -93,6 +120,10 @@ public class TransferP2P
 		}
 	}
 
+	/**
+	 * Hebra encargada de gestionar el servidor RMI
+	 * @author ana
+	 */
 	private class ServerThread extends Thread
 	{
 		int id;
