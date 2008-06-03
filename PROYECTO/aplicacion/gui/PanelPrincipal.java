@@ -11,8 +11,6 @@ import java.awt.Toolkit;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
