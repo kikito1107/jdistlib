@@ -12,6 +12,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+/**
+ * Ventana del servidor de ficheros
+ * @author anab
+ *
+ */
 public class FrameServFich extends JFrame
 {
 
@@ -139,6 +144,10 @@ public class FrameServFich extends JFrame
 		return panelSur;
 	}
 
+	/**
+	 * Pinta una cadena de texto al final de la consola
+	 * @param s la cadena a pintar
+	 */
 	public static void println(String s ){
 		consola.append(s + "\n");
 	}

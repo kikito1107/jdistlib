@@ -6,6 +6,10 @@ import java.util.Date;
 
 import figuras.Figura;
 
+/**
+ * Anotacion realizada sobre una pagina determinada de un documento
+ * @author anab, carlos
+ */
 public class Anotacion implements Serializable
 {
 	private static final long serialVersionUID = 1L;
@@ -18,6 +22,12 @@ public class Anotacion implements Serializable
 	
 	private Date fecha = null;
 
+	/**
+	 * Constructor
+	 * @param cont figura a dibujar en la anotacion
+	 * @param usuario usuario que realiza la anotacion
+	 * @param rol rol bajo el cual el usuario realizo la anotacion
+	 */
 	public Anotacion(Figura cont, String usuario, String rol)
 	{
 		fecha = new Date();
@@ -27,12 +37,19 @@ public class Anotacion implements Serializable
 	}
 
 
+	/**
+	 * Establece la figura a dibujar
+	 * @param cont
+	 */
 	public void setContenido(Figura cont)
 	{
 		
 	}
 
-
+	/**
+	 * Devuelve la figura a dibujar
+	 * @return
+	 */
 	public Figura getContenido()
 	{
 		return contenido;
