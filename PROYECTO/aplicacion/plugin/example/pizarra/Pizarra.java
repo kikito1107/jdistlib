@@ -580,7 +580,7 @@ public class Pizarra extends DIViewer implements MouseListener,
 		if (( posicion > -1 ) && ( posicion < anotaciones.size() ))
 		{
 			this.anotacionesBorradas.add(anotaciones
-					.remove(anotaciones.size() - 1));
+					.remove(posicion));
 			repaint();
 		}
 	}
