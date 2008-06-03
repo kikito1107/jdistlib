@@ -2,6 +2,10 @@ package figuras;
 
 import java.awt.Graphics;
 
+/**
+ * Clase que representa un rectangulo
+ * @author anab
+ */
 public class Rectangulo extends Figura
 {
 

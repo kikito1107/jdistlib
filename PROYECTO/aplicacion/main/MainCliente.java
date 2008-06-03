@@ -12,22 +12,21 @@ import aplicacion.plugin.PluginContainer;
 /**
  * 
  * <p>
- * Title:
+ * Title: Main Cliente
  * </p>
  * <p>
- * Description:
+ * Description: Main de la aplicacion de los clientes
  * </p>
  * <p>
  * Copyright: Copyright (c) 2004
  * </p>
  * <p>
- * Company:
+ * Company: 
  * </p>
  * 
- * @author not attributable
- * @version 1.0
+ * @author Ana B., Carlos
+ * @version 1.2
  */
-
 public class MainCliente
 {
 	boolean packFrame = false;
@@ -35,7 +34,7 @@ public class MainCliente
 	DConector d = null;
 
 	// Construct the application
-	public MainCliente()
+	private MainCliente()
 	{
 		d = new DConector("AplicacionDePrueba");
 		d.inicializar();
@@ -64,7 +63,10 @@ public class MainCliente
 		frame.setTitle(".:: Grupo de trabajo : " + nombreUsuario + "  ::.");
 	}
 
-	// Main method
+	/**
+	 * Metodo main. Establece el Look&Feel, inicia el contendor del Plugins y la ventana principal de la aplicacion
+	 * @param args argumentos. son ignorados
+	 */
 	public static void main(String[] args)
 	{
 
@@ -77,8 +79,10 @@ public class MainCliente
 			e.printStackTrace();
 		}
 		
-		
+		// inicializamos el contenedor de plugins
 		new PluginContainer();
+		
+		// iniciamos la GUI
 		new MainCliente();
 	}
 

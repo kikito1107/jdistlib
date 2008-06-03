@@ -5,7 +5,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectOutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Vector;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -16,6 +21,10 @@ import javax.sound.sampled.TargetDataLine;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+/**
+ * Clase encargada con la captura del audio para la videoconferencia
+ * @author anab
+ */
 public class AudioCapture extends JFrame
 {
 
@@ -213,6 +222,28 @@ public class AudioCapture extends JFrame
 		@Override
 		public void run()
 		{
+			ServerSocket servidor = null;
+			try
+			{
+				servidor = new ServerSocket(4445);
+			}
+			catch (IOException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			Socket conexion = null;
+			
+			try
+			{
+				conexion = servidor.accept();
+			}
+			catch (IOException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
 			byteArrayOutputStream = new ByteArrayOutputStream();
 			stopCapture = false;
 			try
@@ -225,9 +256,11 @@ public class AudioCapture extends JFrame
 					// buffer of the data line.
 					int cnt = targetDataLine.read(tempBuffer, 0,
 							tempBuffer.length);
-					if (cnt > 0) // Save data in output stream
-						// object.
+					
+					if (cnt > 0) // Save data in output stream object.
 						byteArrayOutputStream.write(tempBuffer, 0, cnt);
+					
+					
 				}// end while
 				byteArrayOutputStream.close();
 			}
@@ -242,7 +275,6 @@ public class AudioCapture extends JFrame
 	// ===================================//
 	// Inner class to play back the data
 	// that was saved.
-
 	class PlayThread extends Thread
 	{
 		byte tempBuffer[] = new byte[10000];

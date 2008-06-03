@@ -342,10 +342,6 @@ public class DJChat extends JPanel
 			// iniciamos la VC
 			if (( ev2.ipVC != null ) && ( !ev2.ipVC.equals( "") ))
 			{
-
-				JOptionPane.showMessageDialog(null,
-						"IP de la nueva conversaci—n " + ev2.ipVC);
-
 				VideoConferencia.establecerOrigen();
 				VideoFrame ventana = new VideoFrame(ev2.ipVC);
 				ventana.setSize(400, 400);

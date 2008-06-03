@@ -4,6 +4,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
+/**
+ * Clase que representa un texto a renderizar en un objeto Graphics
+ * @author anab
+ *
+ */
 public class Texto extends Figura
 {
 

@@ -31,7 +31,7 @@ public class VideoFrame extends JFrame
 	private static final long serialVersionUID = 6810880621391638536L;
 
 	ImageComponent img_remota = new ImageComponent(this);
-
+	
 	ImageComponent img_local = new ImageComponent(this);
 
 	boolean init = false;

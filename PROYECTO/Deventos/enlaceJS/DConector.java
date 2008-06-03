@@ -374,7 +374,7 @@ public class DConector
 			if (cf == null)
 				cf = new ClienteFicheros(Daplicacion, Dusuario, Dclave, Drol);
 
-			raiz = cf.getRaiz();
+			raiz = cf.getArbolDoc();
 
 		}
 
