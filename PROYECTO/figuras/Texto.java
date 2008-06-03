@@ -12,6 +12,8 @@ public class Texto extends Figura
 	 */
 	private static final long serialVersionUID = 6651266174731584301L;
 
+	private static final int error = 10;
+	
 	/**
 	 * Texto a pintar
 	 */
@@ -68,7 +70,9 @@ public class Texto extends Figura
 	@Override
 	public boolean pertenece(int a, int b)
 	{
-		if (( a < x-10 ) || ( b < y-10 ))
+		// si las coerdenadas del punto son menores que el la esquina del texto 
+		// menos el margen de error
+		if (( a < x-error ) || ( b < y-error ))
 			return false;
 		else
 		{
@@ -76,7 +80,7 @@ public class Texto extends Figura
 
 			int xf = x + num_columnas * 5 + 7;
 
-			if (( a < xf ) && ( b < yf ))
+			if (( a < xf+error ) && ( b < yf+error ))
 				return true;
 			else return false;
 

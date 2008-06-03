@@ -10,6 +10,8 @@ public class Rectangulo extends Figura
 	 */
 	private static final long serialVersionUID = -8639747747514475007L;
 
+	private static final int error = 10;
+	
 	/**
 	 * coordenada x de la esquina superior izquierda de la figura
 	 */
@@ -46,9 +48,23 @@ public class Rectangulo extends Figura
 	@Override
 	public boolean pertenece(int a, int b)
 	{
-		if (( a >= x ) && ( a <= xf ) && ( b >= y ) && ( b <= yf ))
-			return true;
-		else return false;
+		// si esta en el rectangulo externo ...
+		if (( a >= x - error) && ( a <= xf + error) && ( b >= y-error) && ( b <= yf+error)) {
+		
+			// ... y en el interno: el punto no pertenece a la figura
+			if (( a >= x + error ) && ( a <= xf - error) && ( b >= y + error) && ( b <= yf - error))
+				return false;
+			
+			// ... pero no sobre el externo: el punto pertence a la figura
+			else
+				return true;
+		}
+		
+		// no esta en el rectangulo externo: no  pertenece a la figura
+		else {
+			
+			return false;
+		}
 	}
 
 }
