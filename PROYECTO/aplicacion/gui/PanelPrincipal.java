@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Vector;
 
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -50,14 +49,16 @@ import aplicacion.fisica.net.Transfer;
 import aplicacion.gui.componentes.ArbolDocumentos;
 import aplicacion.gui.componentes.EnviarMensaje;
 import aplicacion.gui.editor.FramePanelDibujo;
-import aplicacion.plugin.DAbstractPlugin;
-import aplicacion.plugin.DPluginLoader;
 import aplicacion.plugin.PluginContainer;
 
 import componentes.base.DComponente;
 import componentes.base.DComponenteBase;
 import componentes.gui.usuarios.ArbolUsuariosConectadosRol;
 
+/**
+ * Panel de la ventana de la aplicacion principal
+ * @author anab
+ */
 public class PanelPrincipal extends DComponenteBase
 {
 
@@ -194,6 +195,9 @@ public class PanelPrincipal extends DComponenteBase
 		}
 	}
 
+	/**
+	 * Inicializa la ventana de cambio de rol
+	 */
 	private void inicializarVRol(){
 		vRol = new VentanaCambiarRol();
 		vRol.setVisible(false);
@@ -211,6 +215,10 @@ public class PanelPrincipal extends DComponenteBase
 				( screenSize.height - vRolSize.height ) / 2);
 	}
 	
+	/**
+	 * Inicia la ventana del editor colaborativo
+	 *
+	 */
 	private void inicializarEditor()
 	{
 		frame = new FramePanelDibujo(false);
@@ -976,9 +984,6 @@ public class PanelPrincipal extends DComponenteBase
 
 		MIDocumento anterior = ClienteFicheros.cf.existeFichero(path + nombre,
 				DConector.Daplicacion);
-		
-		
-			
 
 		while (anterior != null)
 		{
@@ -1167,8 +1172,7 @@ public class PanelPrincipal extends DComponenteBase
 										boolean encontrada = false;
 
 										for (int i = 0; i < PluginContainer.numPlugins(); ++i)
-											if (PluginContainer.getPlugin(i).getName()
-													.equals(seleccionado))
+											if (PluginContainer.getPluginName(i).equals(seleccionado))
 											{
 												PluginContainer.getPlugin(i).start();
 												encontrada = true;

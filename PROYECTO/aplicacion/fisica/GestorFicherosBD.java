@@ -446,7 +446,7 @@ public class GestorFicherosBD
 						+ ",  ruta_local ='" + f.getRutaLocal()
 						+ "' WHERE id_fichero=" + f.getId();
 
-				System.out.println("Consulta a ejecutar: " + consulta);
+				FrameServFich.println("Consulta a ejecutar: " + consulta);
 
 				// insertamos la nueva tupla en fichero
 				if (!conexion.update(consulta))
@@ -478,13 +478,13 @@ public class GestorFicherosBD
 					String consulta = "delete from fichero where id_fichero ="
 							+ f.getId();
 
-					System.out.println("Consulta:\n" + consulta);
+					FrameServFich.println("Consulta:\n" + consulta);
 
 					if (!conexion.delete(consulta))
 						System.err.println("ERROR en el delete");
 				}
 			}
-			else System.out.println("ERROR: fichero nulo");
+			else FrameServFich.println("ERROR: fichero nulo");
 
 		}
 		catch (Exception ex)
@@ -499,7 +499,7 @@ public class GestorFicherosBD
 		// 1. Buscamos sus hijos directorio y los borramos
 		String consulta = "SELECT * FROM fichero WHERE es_directorio=1 AND padre="
 				+ id_fichero;
-		System.out.println("Consulta:\n" + consulta);
+		FrameServFich.println("Consulta:\n" + consulta);
 		ResultSet rs = conexion.select(consulta);
 
 		try
@@ -515,13 +515,13 @@ public class GestorFicherosBD
 		// 2. Eliminamos los hijos no directorio
 		consulta = "delete from fichero where padre=" + id_fichero
 				+ " AND es_directorio=0";
-		System.out.println("Consulta:\n" + consulta);
+		FrameServFich.println("Consulta:\n" + consulta);
 		conexion.delete(consulta);
 
 		// 3. Eliminamos el directorio
 		consulta = "delete from fichero where id_fichero =" + id_fichero;
 
-		System.out.println("Consulta:\n" + consulta);
+		FrameServFich.println("Consulta:\n" + consulta);
 
 		if (!conexion.delete(consulta))
 			System.err.println("ERROR en el delete");
