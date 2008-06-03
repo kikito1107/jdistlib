@@ -41,14 +41,12 @@ import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.ClienteFicheros;
 import aplicacion.fisica.documentos.Documento;
 import aplicacion.fisica.documentos.MIDocumento;
-import aplicacion.fisica.documentos.filtros.ImageFilter;
-import aplicacion.fisica.documentos.filtros.PDFFilter;
-import aplicacion.fisica.documentos.filtros.TXTFilter;
 import aplicacion.fisica.eventos.DFileEvent;
 import aplicacion.fisica.net.Transfer;
 import aplicacion.gui.componentes.ArbolDocumentos;
 import aplicacion.gui.componentes.EnviarMensaje;
 import aplicacion.gui.editor.FramePanelDibujo;
+import aplicacion.plugin.DAbstractPlugin;
 import aplicacion.plugin.PluginContainer;
 
 import componentes.base.DComponente;
@@ -675,6 +673,9 @@ public class PanelPrincipal extends DComponenteBase
 		return cambiarRol;
 	}
 	
+	/**
+	 * Muestra la ventana de cambio de rol
+	 */
 	private void mostrarVentanaCambiarRol()
 	{
 		vRol.setVisible(true);
@@ -999,40 +1000,10 @@ public class PanelPrincipal extends DComponenteBase
 			// el usuario desea sobreescribir el documento
 			else if (sel == 0)
 			{
-				// aki es donde hay que hacer es:
-				// 1) Renombrar el fichero anterior en el servidor
-				// 2) Guardar el nuevo fichero
+				
+				ClienteFicheros.cf.generarVersion(anterior, path);
 
-				Date fecha = new Date();
-
-				SimpleDateFormat formato = new SimpleDateFormat(
-						"dd-MM-yy_hh:mm:ss");
-
-				String name = anterior.getNombre().substring(0,
-						anterior.getNombre().lastIndexOf('.'));
-				String extension = anterior.getNombre().substring(
-						anterior.getNombre().lastIndexOf('.') + 1,
-						anterior.getNombre().length());
-
-				String fe = formato.format(fecha);
-
-				String nombreVersion = name + "_" + fe + "." + extension;
-
-				anterior.setNombre(nombreVersion);
-
-				anterior.setRutaLocal(path + nombreVersion);
-
-				anterior.setTipo("VER");
-
-				ClienteFicheros.cf.modificarFichero(anterior,
-						DConector.Daplicacion);
-
-				DefaultMutableTreeNode n = ArbolDocumentos.buscarFichero(
-						(DefaultMutableTreeNode) arbolDocumentos.getModel()
-								.getRoot(), anterior.getId());
-
-				( (DefaultTreeModel) arbolDocumentos.getModel() )
-						.removeNodeFromParent(n);
+				arbolDocumentos.eliminarNodo(anterior.getId());
 
 				arbolDocumentos.repaint();
 
@@ -1056,8 +1027,7 @@ public class PanelPrincipal extends DComponenteBase
 					"r");
 
 			// consultamos el tamanio del fichero, reservamos
-			// memoria suficiente,
-			// leemos el fichero y lo cerramos
+			// memoria suficiente, leemos el fichero y lo cerramos
 			bytes = new byte[(int) raf.length()];
 			raf.read(bytes);
 			raf.close();
@@ -1076,22 +1046,14 @@ public class PanelPrincipal extends DComponenteBase
 			return;
 		}
 
-		String nombreFichero = nombre;
-		nombreFichero = nombreFichero.replace('.', ':');
-
-		String[] desc = nombreFichero.split(":");
-
-		String extension = desc[desc.length - 1];
-
-		extension = MIDocumento.getTipoFichero(extension);
-
 		// creamos el nuevo fichero a almacenar
 		MIDocumento fbd = new MIDocumento(-1, nombre, false, "rwrw--", user, rol,
-				carpeta.getId(), path + nombre, extension);
+				carpeta.getId(), path + nombre, MIDocumento.getExtension(nombre));
 
 		// enviamos el nuevo fichero al servidor
 		Transfer t = new Transfer(ClienteFicheros.ipConexion, path + nombre);
 
+		// si se ha producido algœn error: MENSAJE y SALIMOS
 		if (!t.sendFile(bytes))
 		{
 			JOptionPane
@@ -1161,21 +1123,11 @@ public class PanelPrincipal extends DComponenteBase
 													.getSelectedIndex() > -1)
 									{
 
-										String seleccionado = listaAplicaciones
-												.getSelectedValue().toString();
+										DAbstractPlugin seleccionado = (DAbstractPlugin) listaAplicaciones
+												.getSelectedValue();
 
-										boolean encontrada = false;
-
-										for (int i = 0; i < PluginContainer.numPlugins(); ++i)
-											if (PluginContainer.getPluginName(i).equals(seleccionado))
-											{
-												PluginContainer.getPlugin(i).start();
-												encontrada = true;
-											}
-										if (!encontrada)
-											modeloAplicaciones
-													.remove(listaAplicaciones
-															.getSelectedIndex());
+										seleccionado.start();
+										
 									}
 								}
 								catch (Exception e1)
@@ -1189,7 +1141,10 @@ public class PanelPrincipal extends DComponenteBase
 		return listaAplicaciones;
 	}
 
-	
+	/**
+	 * accede al modelo de datos de la lista de aplicaciones
+	 * @return el modelo inicializado
+	 */
 	private DefaultListModel getModelo(){
 	
 		if (this.modeloAplicaciones == null) {
@@ -1206,10 +1161,8 @@ public class PanelPrincipal extends DComponenteBase
 	}
 	
 	/**
-	 * Envia un mensaj
-	 * 
-	 * @param f
-	 *            Metainformacion del mensaje
+	 * Envia un mensaje
+	 * @param f Metainformacion del mensaje
 	 */
 	private void enviarMail(MIDocumento f)
 	{
@@ -1257,7 +1210,6 @@ public class PanelPrincipal extends DComponenteBase
 	 */
 	private void accionAbrir()
 	{
-
 		MIDocumento f = arbolDocumentos.getDocumentoSeleccionado();
 
 		if (f == null || f.esDirectorio()) return;
@@ -1296,40 +1248,17 @@ public class PanelPrincipal extends DComponenteBase
 			frame.this_windowClosing(null);
 		}
 
-		
-
 		if (this.arbolDocumentos != null) arbolDocumentos.repaint();
-
 	}
 
 	// ========= DCOMPONENTE
 	// ===============================================================================
-
-	/**
-	 * Obtiene el numero de componentes hijos de este componente. SIEMPRE
-	 * devuelve 0
-	 * 
-	 * @return int Número de componentes hijos. En este caso devuelve 8 (la
-	 *         lista izquierda, el boton, la lista derecha, la lista de usuarios
-	 *         conectados, la lista de usuarios conectados bajo nuestro rol, la
-	 *         lista de usuarios conectados con la informacion del rol actual,
-	 *         el componente de cambio de rol y la etiqueta del rol actual)
-	 */
 	@Override
 	public int obtenerNumComponentesHijos()
 	{
 		return 1;
 	}
 
-	/**
-	 * Obtiene el componente indicado
-	 * 
-	 * @param i
-	 *            int Indice del componente que queremos obtener. Se comienza a
-	 *            numerar en el 0.
-	 * @return DComponente Componente indicado. Si el indice no es v‡lido
-	 *         devuelve null
-	 */
 	@Override
 	public DComponente obtenerComponente(int i)
 	{
@@ -1350,10 +1279,8 @@ public class PanelPrincipal extends DComponenteBase
 
 	// ========= EVENTOS
 	// =========================================================
-
 	public static void notificarModificacionFichero(DFileEvent f)
 	{
-
 		esto.enviarEvento(f);
 		ClienteFicheros.obtenerClienteFicheros().modificarFichero(f.fichero,
 				DConector.Daplicacion);
@@ -1506,9 +1433,7 @@ public class PanelPrincipal extends DComponenteBase
 			}
 
 			if (this.arbolDocumentos != null) arbolDocumentos.repaint();
-
 		}
-
 	}
 
 	// ========= PERMISOS
@@ -1552,26 +1477,21 @@ public class PanelPrincipal extends DComponenteBase
 	 */
 	public void salir()
 	{
-
 		if (frame != null && frame.getLienzo() != null
 				&& frame.getLienzo().getPathDocumento() != null)
 			DConector.obtenerDC().cerrarFichero(
 					frame.getLienzo().getPathDocumento());
 	}
-
 	
 	
-	
-	//	 ============= HEBRAS
+	// ============= HEBRAS
 	// ===================================================================
 	/**
 	 * Hebra que se encarga de abrir los documentos
-	 * 
 	 * @author anab
 	 */
 	private class HebraAbrir implements Runnable
 	{
-
 		public HebraAbrir()
 		{
 			Thread hebra = new Thread(this);
@@ -1582,27 +1502,21 @@ public class PanelPrincipal extends DComponenteBase
 		{
 			while (true)
 			{
-
 				// esperamos a que se solicite la lectura
 				monitor.abrir();
 
 				// abrimos el documento
 				accionAbrir();
 			}
-
 		}
-
 	}
 
 	/**
 	 * Hebra encargada de mantener la hebra de plugins actualizada
-	 * 
 	 * @author anab
-	 * 
 	 */
 	private class HebraPlugins implements Runnable
 	{
-
 		public HebraPlugins()
 		{
 			Thread hebra = new Thread(this);
@@ -1613,7 +1527,6 @@ public class PanelPrincipal extends DComponenteBase
 		{
 			while (true)
 			{
-
 				// esperamos a que se actualicen los plugins
 				PluginContainer.actualizar();
 				
@@ -1629,11 +1542,8 @@ public class PanelPrincipal extends DComponenteBase
 
 				// repintamos la lista
 				esto.getListaAplicaciones().repaint();
-
 			}
-
 		}
-
 	}
 
 	/**
@@ -1641,7 +1551,6 @@ public class PanelPrincipal extends DComponenteBase
 	 */
 	private class MonitorAbrir
 	{
-
 		public synchronized void abrir()
 		{
 			try
@@ -1652,7 +1561,6 @@ public class PanelPrincipal extends DComponenteBase
 			{
 				e.printStackTrace();
 			}
-
 		}
 
 		public synchronized void notificarAbrir()

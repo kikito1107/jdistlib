@@ -1,6 +1,8 @@
 package aplicacion.fisica;
 
 import java.rmi.RemoteException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javaspaces.SpaceLocator;
 
@@ -352,6 +354,32 @@ public class ClienteFicheros
 		}
 	}
 
+	
+	public void generarVersion(MIDocumento doc, String path) {
+		Date fecha = new Date();
+
+		SimpleDateFormat formato = new SimpleDateFormat(
+				"dd-MM-yy_hh:mm:ss");
+
+		String name = doc.getNombre().substring(0,
+				doc.getNombre().lastIndexOf('.'));
+		String extension = doc.getNombre().substring(
+				doc.getNombre().lastIndexOf('.') + 1,
+				doc.getNombre().length());
+
+		String fe = formato.format(fecha);
+
+		String nombreVersion = name + "_" + fe + "." + extension;
+
+		doc.setNombre(nombreVersion);
+
+		doc.setRutaLocal(path + nombreVersion);
+
+		doc.setTipo("VER");
+		
+		ClienteFicheros.cf.modificarFichero(doc,
+				DConector.Daplicacion);
+	}
 	
 
 	/**

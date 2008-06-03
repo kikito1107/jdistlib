@@ -333,5 +333,17 @@ public class MIDocumento implements Serializable
 		this.mensaje = mensaje;
 	}
 	
+	public static String getExtension(String nombreFichero) {
+		nombreFichero = nombreFichero.replace('.', ':');
+
+		String[] desc = nombreFichero.split(":");
+
+		String extension = desc[desc.length - 1];
+
+		extension = MIDocumento.getTipoFichero(extension);
+		
+		return extension;
+	}
+	
 	
 }

@@ -1,39 +1,52 @@
-/**
- * 
- */
 package aplicacion.plugin;
 
 import java.util.Vector;
 
 /**
- * Clase encargada de la gestión de los plugins
+ * Clase encargada de la gestión de los plugins, controlar el acceso a los plugins y notificar a las hebras 
+ * que asi lo deseen los cambios producidos en los plugins
  * @author anab
- * 
  */
 public class PluginContainer
 {
+	/**
+	 * Vector de plugins
+	 */
 	private static Vector<DAbstractPlugin> plugins = null;
 
+	/**
+	 * Monitor encargado de sincronizar el acceso a los plugins
+	 */
 	private static MonitorPlugins monitor = null;
 	
 	/**
-	 * Inicializa el contenedor de plugins
+	 * Flag booleano que indica si el contenedor ha sido ya creado
+	 */
+	private static boolean created  = false;
+	
+	/**
+	 * Inicializa el contenedor de plugins si no ha sido ya inicializado
 	 */
 	public PluginContainer()
 	{
 		
-		try
-		{
-			plugins =  DPluginLoader.getAllPlugins("plugin");
+		if (!created) {
+			
+			//	cargar los plugins
+			try
+			{
+				plugins =  DPluginLoader.getAllPlugins("plugin");
+			}
+			catch (Exception e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			monitor = new MonitorPlugins();
+			created = true;
 		}
-		catch (Exception e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		// cargar los plugins
-		monitor = new MonitorPlugins();
 	}
 	
 	/**
@@ -190,6 +203,11 @@ public class PluginContainer
 	 */
 	private class MonitorPlugins
 	{
+		/**
+		 * Metodo que controla el acceso a la lista de plugins. Toda hebra que 
+		 * llame a este metodo se queda "dormida" hasta que se ejecute el metodo
+		 * notificarPlugins()
+		 */
 		public synchronized void actualizar()
 		{
 			try
@@ -203,6 +221,12 @@ public class PluginContainer
 
 		}
 
+		/**
+		 * Notifica a todas las hebras que estén esperando por una actulizacion
+		 * de la lista de plugin que esta se ha producido. EL efecto de esta llamada
+		 * es que se despiertan todas la hebras que estaban esperando; el planificador
+		 * decide que hebra de la que se acaban de despertar se ejecutará primero.
+		 */
 		public synchronized void notificarPlugins()
 		{
 			notifyAll();

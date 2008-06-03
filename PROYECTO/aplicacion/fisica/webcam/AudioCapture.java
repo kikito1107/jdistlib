@@ -5,12 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.ObjectOutputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.Vector;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -222,28 +217,7 @@ public class AudioCapture extends JFrame
 		@Override
 		public void run()
 		{
-			ServerSocket servidor = null;
-			try
-			{
-				servidor = new ServerSocket(4445);
-			}
-			catch (IOException e1)
-			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			Socket conexion = null;
-			
-			try
-			{
-				conexion = servidor.accept();
-			}
-			catch (IOException e1)
-			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
+				
 			byteArrayOutputStream = new ByteArrayOutputStream();
 			stopCapture = false;
 			try

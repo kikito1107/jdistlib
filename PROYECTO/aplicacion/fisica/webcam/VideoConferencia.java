@@ -23,6 +23,10 @@ import com.lti.civil.CaptureSystemFactory;
 import com.lti.civil.DefaultCaptureSystemFactorySingleton;
 import com.lti.civil.awt.AWTImageConverter;
 
+/**
+ * 
+ * @author carlos
+ */
 public class VideoConferencia
 {
 

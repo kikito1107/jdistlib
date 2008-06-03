@@ -82,6 +82,9 @@ public class ArbolDocumentos extends JTree implements Autoscroll {
 	 */
 	private static final long serialVersionUID = -3359982437919729727L;
 
+	private DefaultMutableTreeNode raiz = null;
+	private DefaultTreeModel model = null;
+	
 	TreeDragSource ds;
 
 	TreeDropTarget dt;
@@ -101,6 +104,9 @@ public class ArbolDocumentos extends JTree implements Autoscroll {
 		
 		ds = new TreeDragSource(this, DnDConstants.ACTION_COPY_OR_MOVE);
 	    dt = new TreeDropTarget(this);
+		this.raiz = raiz;
+		
+		model = (DefaultTreeModel) this.getModel();
 		
 		this.expandRow(0);
 	}
@@ -165,6 +171,12 @@ public class ArbolDocumentos extends JTree implements Autoscroll {
 			return nodo;
 		}
 		else return null;
+	}
+	
+	
+	public void eliminarNodo(int id){
+		DefaultMutableTreeNode n = ArbolDocumentos.buscarFichero(raiz, id);
+		model.removeNodeFromParent(n);
 	}
 
 	/**

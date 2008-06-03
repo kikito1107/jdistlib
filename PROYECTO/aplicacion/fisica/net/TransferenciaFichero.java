@@ -8,9 +8,6 @@ import java.rmi.server.UnicastRemoteObject;
 
 import aplicacion.fisica.ServidorFicheros;
 import aplicacion.fisica.documentos.Documento;
-import aplicacion.fisica.documentos.filtros.ImageFilter;
-import aplicacion.fisica.documentos.filtros.MSGFilter;
-import aplicacion.fisica.documentos.filtros.PDFFilter;
 import aplicacion.fisica.documentos.filtros.TXTFilter;
 
 /**
