@@ -569,20 +569,20 @@ public class MetalBorders
 
 			switch (messageType)
 			{
-				case ( JOptionPane.ERROR_MESSAGE  ):
+				case ( JOptionPane.ERROR_MESSAGE   ):
 					borderColor = UIManager
 							.getColor("OptionPane.errorDialog.border.background");
 					break;
-				case ( JOptionPane.QUESTION_MESSAGE  ):
+				case ( JOptionPane.QUESTION_MESSAGE   ):
 					borderColor = UIManager
 							.getColor("OptionPane.questionDialog.border.background");
 					break;
-				case ( JOptionPane.WARNING_MESSAGE  ):
+				case ( JOptionPane.WARNING_MESSAGE   ):
 					borderColor = UIManager
 							.getColor("OptionPane.warningDialog.border.background");
 					break;
-				case ( JOptionPane.INFORMATION_MESSAGE  ):
-				case ( JOptionPane.PLAIN_MESSAGE  ):
+				case ( JOptionPane.INFORMATION_MESSAGE   ):
+				case ( JOptionPane.PLAIN_MESSAGE   ):
 				default:
 					borderColor = MetalLookAndFeel
 							.getPrimaryControlDarkShadow();

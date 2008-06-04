@@ -31,10 +31,12 @@ public class DEvent implements Entry
 	public Integer componente = null; // Componente que genera el evento
 
 	public String nombreComponente = null; // Nombre del componente que genera
-											// el evento
+
+	// el evento
 
 	public Integer ultimoProcesado = null; // Último evento procesado por el
-											// componente
+
+	// componente
 
 	// que genera el evento
 

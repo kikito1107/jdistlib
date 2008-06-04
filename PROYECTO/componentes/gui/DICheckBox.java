@@ -7,6 +7,8 @@ import java.util.Vector;
 
 import javax.swing.JScrollPane;
 
+import Deventos.DEvent;
+import Deventos.DJCheckBoxEvent;
 import Deventos.enlaceJS.DConector;
 
 import componentes.base.DComponente;
@@ -15,8 +17,6 @@ import componentes.base.DJCheckBox;
 import componentes.base.HebraProcesadoraBase;
 import componentes.listeners.DJCheckBoxListener;
 import componentes.listeners.LJCheckBoxListener;
-import Deventos.DEvent;
-import Deventos.DJCheckBoxEvent;
 
 /**
  * Checkbox compartido. Consultar documentacion del proyecto para ver su
@@ -33,8 +33,9 @@ public class DICheckBox extends DComponenteBase implements java.io.Serializable
 	JScrollPane jScrollPane1 = new JScrollPane();
 
 	DJCheckBox checkbox = null;
-	
-	public DICheckBox(){
+
+	public DICheckBox()
+	{
 		super();
 	}
 
@@ -329,7 +330,7 @@ public class DICheckBox extends DComponenteBase implements java.io.Serializable
 			super(dc);
 		}
 
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings( "unchecked" )
 		@Override
 		public void run()
 		{

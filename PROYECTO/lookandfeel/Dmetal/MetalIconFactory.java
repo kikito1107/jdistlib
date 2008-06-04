@@ -1614,7 +1614,7 @@ public class MetalIconFactory implements Serializable
 			return currentImageGcPair.image;
 		}
 
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings( "unchecked" )
 		void cacheImage(Image image, GraphicsConfiguration gc)
 		{
 			ImageGcPair imgGcPair = new ImageGcPair(image, gc);

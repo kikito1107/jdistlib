@@ -7,6 +7,8 @@ import javax.swing.JScrollPane;
 import javax.swing.tree.TreeNode;
 
 import lookandfeel.Dmetal.DMetalTreeUI;
+import Deventos.DEvent;
+import Deventos.DJTreeEvent;
 import Deventos.enlaceJS.DConector;
 
 import componentes.base.DComponente;
@@ -15,8 +17,6 @@ import componentes.base.DJTree;
 import componentes.base.HebraProcesadoraBase;
 import componentes.listeners.DJTreeListener;
 import componentes.listeners.LJTreeListener;
-import Deventos.DEvent;
-import Deventos.DJTreeEvent;
 
 /**
  * Arbol compartido. Consultar documentación del proyecto para ver su
@@ -163,7 +163,7 @@ public class DITree extends DComponenteBase implements java.io.Serializable
 	 * 
 	 * @return Vector Vector de listeners DJTreeListener
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector getDJTreeListeners()
 	{
 		return arbol.getDJTreeListeners();
@@ -174,7 +174,7 @@ public class DITree extends DComponenteBase implements java.io.Serializable
 	 * 
 	 * @return Vector Vector de listeners LJTreeListener
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector getLJTreeListeners()
 	{
 		return arbol.getLJTreeListeners();
@@ -185,7 +185,7 @@ public class DITree extends DComponenteBase implements java.io.Serializable
 	 * 
 	 * @return Vector Vector de listeners LJTreeListener
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector getLUJTreeListeners()
 	{
 		return arbol.getLUJTreeListeners();
@@ -308,13 +308,13 @@ public class DITree extends DComponenteBase implements java.io.Serializable
 			super(dc);
 		}
 
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings( "unchecked" )
 		private void setEstado(Vector v)
 		{
 			( (DMetalTreeUI) arbol.getUI() ).setEstado(v);
 		}
 
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings( "unchecked" )
 		@Override
 		public void run()
 		{

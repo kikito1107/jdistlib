@@ -107,7 +107,7 @@ public class MetalInternalFrameUI extends BasicInternalFrameUI
 		super.installKeyboardActions();
 		ActionMap map = SwingUtilities.getUIActionMap(frame);
 		if (map != null) // BasicInternalFrameUI creates an action with the
-							// same name, we
+			// same name, we
 			// override
 			// it as Metal frames do not have system menus.
 			map.remove("showSystemMenu");

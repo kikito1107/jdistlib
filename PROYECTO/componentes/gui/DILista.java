@@ -8,6 +8,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 
 import util.ElementoLista;
+import Deventos.DEvent;
+import Deventos.DJListEvent;
 import Deventos.enlaceJS.DConector;
 
 import componentes.base.DComponente;
@@ -16,8 +18,6 @@ import componentes.base.DJList;
 import componentes.base.HebraProcesadoraBase;
 import componentes.listeners.DJListListener;
 import componentes.listeners.LJListListener;
-import Deventos.DEvent;
-import Deventos.DJListEvent;
 
 /**
  * Lista de elementos distribuida. Consultar documentacion del proyecto para ver
@@ -172,7 +172,7 @@ public class DILista extends DComponenteBase implements java.io.Serializable
 		else lista.aniadirElemento(imagen, texto, posicion);
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public void aniadirElementos(String[] elementos)
 	{
 		if (!estatica)
@@ -462,7 +462,7 @@ public class DILista extends DComponenteBase implements java.io.Serializable
 			super(dc);
 		}
 
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings( "unchecked" )
 		@Override
 		public void run()
 		{

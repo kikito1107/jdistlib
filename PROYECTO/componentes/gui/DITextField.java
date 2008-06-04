@@ -7,6 +7,8 @@ import java.util.Vector;
 
 import javax.swing.JScrollPane;
 
+import Deventos.DEvent;
+import Deventos.DJTextFieldEvent;
 import Deventos.enlaceJS.DConector;
 
 import componentes.base.DComponente;
@@ -14,8 +16,6 @@ import componentes.base.DComponenteBase;
 import componentes.base.DJTextField;
 import componentes.base.HebraProcesadoraBase;
 import componentes.listeners.DJTextFieldListener;
-import Deventos.DEvent;
-import Deventos.DJTextFieldEvent;
 
 /**
  * <p>
@@ -35,7 +35,8 @@ import Deventos.DJTextFieldEvent;
  * @version 1.0
  */
 
-public class DITextField extends DComponenteBase implements java.io.Serializable
+public class DITextField extends DComponenteBase implements
+		java.io.Serializable
 {
 	/**
 	 * 
@@ -133,7 +134,7 @@ public class DITextField extends DComponenteBase implements java.io.Serializable
 	 * campotexto.removeLJButtonListeners(); }
 	 */
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector getDJTextFieldListeners()
 	{
 		return campotexto.getDJTextFieldListeners();
@@ -205,7 +206,7 @@ public class DITextField extends DComponenteBase implements java.io.Serializable
 			super(dc);
 		}
 
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings( "unchecked" )
 		@Override
 		public void run()
 		{

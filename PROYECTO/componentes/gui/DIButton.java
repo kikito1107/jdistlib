@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.util.Vector;
 
+import Deventos.DEvent;
+import Deventos.DJButtonEvent;
 import Deventos.enlaceJS.DConector;
 
 import componentes.base.DComponente;
@@ -12,8 +14,6 @@ import componentes.base.DJButton;
 import componentes.base.HebraProcesadoraBase;
 import componentes.listeners.DJButtonListener;
 import componentes.listeners.LJButtonListener;
-import Deventos.DEvent;
-import Deventos.DJButtonEvent;
 
 /**
  * Boton compartido. Consultar documentacion del proyecto para ver su
@@ -28,12 +28,13 @@ public class DIButton extends DComponenteBase implements java.io.Serializable
 	private static final long serialVersionUID = 7807193484457835590L;
 
 	private DJButton boton = null;
-	
+
 	private String text = "";
-	
-	public DIButton(){
+
+	public DIButton()
+	{
 		super("boton", false, null);
-		
+
 		this.boton = new DJButton();
 		try
 		{
@@ -43,9 +44,9 @@ public class DIButton extends DComponenteBase implements java.io.Serializable
 		{
 			e.printStackTrace();
 		}
-		
+
 	};
-	
+
 	/**
 	 * @param nombre
 	 *            String Nombre del componente.
@@ -103,7 +104,7 @@ public class DIButton extends DComponenteBase implements java.io.Serializable
 		this.setLayout(new FlowLayout());
 		this.add(boton, null);
 		boton.setText(text);
-		
+
 		boton.addDJButtonListener(crearDJListener());
 		// desactivar();//*******************************************************************************
 	}
@@ -117,7 +118,7 @@ public class DIButton extends DComponenteBase implements java.io.Serializable
 	{
 		return boton;
 	}
-	
+
 	public String getText()
 	{
 		return boton.getText();
@@ -366,7 +367,7 @@ public class DIButton extends DComponenteBase implements java.io.Serializable
 			super(dc);
 		}
 
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings( "unchecked" )
 		@Override
 		public void run()
 		{

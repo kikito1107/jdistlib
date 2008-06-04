@@ -295,7 +295,7 @@ public class MetalInternalFrameTitlePane extends BasicInternalFrameTitlePane
 				Icon icon = frame.getFrameIcon();
 				int iconHeight = 0;
 				if (icon != null) // SystemMenuBar forces the icon to be 16x16
-									// or less.
+					// or less.
 					iconHeight = Math.min(icon.getIconHeight(), 16);
 				iconHeight += 5;
 				height = Math.max(fontHeight, iconHeight);
@@ -539,7 +539,7 @@ public class MetalInternalFrameTitlePane extends BasicInternalFrameTitlePane
 		Object obj = frame.getClientProperty("JInternalFrame.messageType");
 
 		if (obj == null) // Don't change the closable state unless in an
-							// JOptionPane.
+			// JOptionPane.
 			return;
 		if (obj instanceof Integer) type = ( (Integer) obj ).intValue();
 		switch (type)

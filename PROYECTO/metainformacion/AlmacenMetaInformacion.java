@@ -252,7 +252,6 @@ public class AlmacenMetaInformacion
 		return v;
 	}
 
-	
 	public MIRol obtenerDatosRol(String aplicacion, String name)
 	{
 
@@ -356,7 +355,7 @@ public class AlmacenMetaInformacion
 	 *            String Usuario del cual queremos la informacion
 	 * @return Vector Vector de String que contiene los roles permitidos
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector<String> obtenerRolesPermitidos(String aplicacion,
 			String usuario)
 	{
@@ -366,10 +365,7 @@ public class AlmacenMetaInformacion
 		if (apl != null)
 		{
 			usr = apl.getUsuario(usuario);
-			if (usr != null)
-			{
-				v = usr.getRolesPermitidos();
-			}
+			if (usr != null) v = usr.getRolesPermitidos();
 		}
 		return v; // Vector de String
 	}

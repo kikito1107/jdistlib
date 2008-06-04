@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.util.Vector;
 
 import lookandfeel.Dmetal.DMetalComboBoxUI;
+import Deventos.DEvent;
+import Deventos.DJComboBoxEvent;
 import Deventos.enlaceJS.DConector;
 
 import componentes.base.DComponente;
@@ -14,8 +16,6 @@ import componentes.base.DJComboBox;
 import componentes.base.HebraProcesadoraBase;
 import componentes.listeners.DJComboBoxListener;
 import componentes.listeners.LJComboBoxListener;
-import Deventos.DEvent;
-import Deventos.DJComboBoxEvent;
 
 /**
  * ComboBox distribuido. Consultar documentacion del proyecto para ver su
@@ -30,8 +30,9 @@ public class DIComboBox extends DComponenteBase implements java.io.Serializable
 	DJComboBox combobox = null;
 
 	BorderLayout borderLayout1 = new BorderLayout();
-	
-	public DIComboBox(){
+
+	public DIComboBox()
+	{
 		super();
 	}
 
@@ -383,7 +384,7 @@ public class DIComboBox extends DComponenteBase implements java.io.Serializable
 			super(dc);
 		}
 
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings( "unchecked" )
 		@Override
 		public void run()
 		{

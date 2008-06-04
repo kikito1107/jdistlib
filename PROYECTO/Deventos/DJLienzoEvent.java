@@ -7,7 +7,6 @@ import javax.swing.ImageIcon;
 
 import aplicacion.fisica.documentos.Anotacion;
 import aplicacion.fisica.documentos.Pagina;
-
 import figuras.Figura;
 
 /**

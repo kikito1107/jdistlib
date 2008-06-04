@@ -469,7 +469,6 @@ public class DMenuMetalPopupMenuUI extends PopupMenuUI
 
 		public void mousePressed(MouseEvent e)
 		{
-			
 
 			cancelPopupMenu();
 			/*
@@ -647,9 +646,9 @@ public class DMenuMetalPopupMenuUI extends PopupMenuUI
 					.getSelectedPath();
 			if (path.length > 4)
 			{ /*
-			 * PENDING(arnaud) Change this to 2 when a mouse grabber is
-			 * available for MenuBar
-			 */
+				 * PENDING(arnaud) Change this to 2 when a mouse grabber is
+				 * available for MenuBar
+				 */
 				MenuElement newPath[] = new MenuElement[path.length - 2];
 				System.arraycopy(path, 0, newPath, 0, path.length - 2);
 				MenuSelectionManager.defaultManager().setSelectedPath(newPath);
@@ -802,7 +801,7 @@ public class DMenuMetalPopupMenuUI extends PopupMenuUI
 					newPath[3] = next;
 				}
 				else // menu has no enabled items -- still must show the
-						// popup
+				// popup
 				newPath = new MenuElement[3];
 				System.arraycopy(path, 0, newPath, 0, 2);
 				newPath[2] = popup;
@@ -1150,8 +1149,8 @@ public class DMenuMetalPopupMenuUI extends PopupMenuUI
 			MenuElement[] p = msm.getSelectedPath();
 			JPopupMenu popup = getActivePopup(p);
 			if (( popup != null ) && !popup.isFocusable()) // Do nothing for
-															// non-focusable
-															// popups
+				// non-focusable
+				// popups
 				return;
 
 			if (( lastPathSelected.length != 0 ) && ( p.length != 0 ))
@@ -1217,16 +1216,16 @@ public class DMenuMetalPopupMenuUI extends PopupMenuUI
 				}
 			}
 			else if (( lastPathSelected.length != 0 ) && ( p.length == 0 )) // menu
-																			// hidden
-																			// --
-																			// return
-																			// focus
-																			// to
-																			// where
-																			// it
-																			// had
-																			// been
-																			// before
+				// hidden
+				// --
+				// return
+				// focus
+				// to
+				// where
+				// it
+				// had
+				// been
+				// before
 				// and uninstall menu keybindings
 				removeItems();
 			else if (popup != lastPopup) receivedKeyPressed = false;

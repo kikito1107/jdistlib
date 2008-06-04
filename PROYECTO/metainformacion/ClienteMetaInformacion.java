@@ -12,10 +12,10 @@ import javax.swing.JOptionPane;
 import metainformacion.gui.DialogoMetaInformacion;
 import net.jini.core.lease.Lease;
 import net.jini.space.JavaSpace;
+import Deventos.DMIEvent;
 import Deventos.enlaceJS.DConector;
 
 import componentes.listeners.DMIListener;
-import Deventos.DMIEvent;
 
 /**
  * Cliente del modulo de metainformacion
@@ -264,7 +264,7 @@ public class ClienteMetaInformacion
 		}
 		else System.out.println("=> Sin permisos para iniciar dmi!!!!");
 	}
-	
+
 	public boolean permisosAdministracion()
 	{
 		return permisoAdministracion;
@@ -487,19 +487,17 @@ public class ClienteMetaInformacion
 
 	}
 
-	
-	public MIUsuario obtenerDatosUsuario(String nombre){
+	public MIUsuario obtenerDatosUsuario(String nombre)
+	{
 		Vector<MIUsuario> v = obtenerDatosUsuarios();
-		
-		for(int i=0; i<v.size(); ++i){
-			if (v.get(i).getNombreUsuario().equals(nombre))
-				return v.get(i);
-		}
-		
+
+		for (int i = 0; i < v.size(); ++i)
+			if (v.get(i).getNombreUsuario().equals(nombre)) return v.get(i);
+
 		return null;
 	}
-	
-	@SuppressWarnings("unchecked")
+
+	@SuppressWarnings( "unchecked" )
 	public Vector<MIUsuario> obtenerDatosUsuarios()
 	{
 		Vector v = null;
@@ -545,7 +543,7 @@ public class ClienteMetaInformacion
 		return v;
 
 	}
-	
+
 	public Vector obtenerRoles()
 	{
 		Vector v = null;
@@ -592,9 +590,8 @@ public class ClienteMetaInformacion
 
 	}
 
-	
-	
-	public Vector<MIUsuario> getUsuariosConectados(){
+	public Vector<MIUsuario> getUsuariosConectados()
+	{
 
 		DMIEvent leido = null;
 		DMIEvent evento = new DMIEvent();
@@ -622,10 +619,7 @@ public class ClienteMetaInformacion
 			leido = (DMIEvent) space.take(plantilla, null, leaseReadTime);
 			if (leido == null)
 				return null;
-			else 
-			{
-				return leido.usuarios;
-			}
+			else return leido.usuarios;
 		}
 		catch (Exception e)
 		{
@@ -639,7 +633,7 @@ public class ClienteMetaInformacion
 		}
 		return null;
 	}
-	
+
 	@SuppressWarnings( "unchecked" )
 	public MIUsuario getUsuarioConectado(String Nombre)
 	{
@@ -1402,7 +1396,6 @@ public class ClienteMetaInformacion
 		return mensaje;
 
 	}
-
 
 	private int aleatorio()
 	{

@@ -138,7 +138,7 @@ public class MetalTreeUI extends BasicTreeUI
 		if (( lineStyleFlag == null )
 				|| lineStyleFlag.equals(LEG_LINE_STYLE_STRING))
 			lineStyle = LEG_LINE_STYLE; // default
-																							// case
+		// case
 		else if (lineStyleFlag.equals(NO_STYLE_STRING))
 			lineStyle = NO_LINE_STYLE;
 		else if (lineStyleFlag.equals(HORIZ_STYLE_STRING))

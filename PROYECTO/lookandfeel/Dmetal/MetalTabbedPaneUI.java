@@ -155,7 +155,7 @@ public class MetalTabbedPaneUI extends BasicTabbedPaneUI
 
 			// Paint left
 			if (tabIndex != tabRuns[runCount - 1]) // not the first tab in the
-													// last run
+				// last run
 				g.drawLine(0, 0, 0, bottom);
 			else // the first tab in the last run
 			g.drawLine(0, 6, 0, bottom);
@@ -171,7 +171,7 @@ public class MetalTabbedPaneUI extends BasicTabbedPaneUI
 
 			// Paint right
 			if (tabIndex != tabRuns[runCount - 1]) // not the first tab in the
-													// last run
+				// last run
 				g.drawLine(right, 0, right, bottom);
 			else // the first tab in the last run
 			g.drawLine(right, 6, right, bottom);
@@ -206,11 +206,11 @@ public class MetalTabbedPaneUI extends BasicTabbedPaneUI
 			{
 				// first tab in run but not first tab in last run
 				if (tabPane.getSelectedIndex() == tabRuns[currentRun + 1]) // tab
-																			// in
-																			// front
-																			// of
-																			// selected
-																			// tab
+					// in
+					// front
+					// of
+					// selected
+					// tab
 					g.setColor(selectHighlight);
 				else // tab in front of normal tab
 				g.setColor(highlight);
@@ -440,7 +440,7 @@ public class MetalTabbedPaneUI extends BasicTabbedPaneUI
 
 			// Paint right
 			if (tabIndex != tabRuns[runCount - 1]) // not the first tab in the
-													// last run
+				// last run
 				g.drawLine(right, 0, right, bottom);
 			else // the first tab in the last run
 			g.drawLine(right, 0, right, bottom - 6);
@@ -472,11 +472,11 @@ public class MetalTabbedPaneUI extends BasicTabbedPaneUI
 			{
 				// first tab in run but not first tab in last run
 				if (tabPane.getSelectedIndex() == tabRuns[currentRun + 1]) // tab
-																			// in
-																			// front
-																			// of
-																			// selected
-																			// tab
+					// in
+					// front
+					// of
+					// selected
+					// tab
 					g.setColor(selectHighlight);
 				else // tab in front of normal tab
 				g.setColor(highlight);

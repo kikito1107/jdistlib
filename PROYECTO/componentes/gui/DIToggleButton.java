@@ -7,6 +7,8 @@ import java.util.Vector;
 
 import javax.swing.JScrollPane;
 
+import Deventos.DEvent;
+import Deventos.DJToggleButtonEvent;
 import Deventos.enlaceJS.DConector;
 
 import componentes.base.DComponente;
@@ -15,15 +17,14 @@ import componentes.base.DJToggleButton;
 import componentes.base.HebraProcesadoraBase;
 import componentes.listeners.DJToggleButtonListener;
 import componentes.listeners.LJToggleButtonListener;
-import Deventos.DEvent;
-import Deventos.DJToggleButtonEvent;
 
 /**
  * Toggle button compartido. Consultar documentación del proyecto para ver su
  * funcionamiento
  */
 
-public class DIToggleButton extends DComponenteBase implements java.io.Serializable
+public class DIToggleButton extends DComponenteBase implements
+		java.io.Serializable
 {
 
 	private static final long serialVersionUID = 1L;
@@ -315,7 +316,7 @@ public class DIToggleButton extends DComponenteBase implements java.io.Serializa
 			super(dc);
 		}
 
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings( "unchecked" )
 		@Override
 		public void run()
 		{

@@ -1453,7 +1453,7 @@ public class MetalFileChooserUI extends BasicFileChooserUI
 			setIcon(icon);
 
 			if (isSelected) // PENDING(jeff) - grab padding (4) below from
-							// defaults table.
+				// defaults table.
 				editX = icon.getIconWidth() + 4;
 
 			return this;
@@ -2296,7 +2296,7 @@ public class MetalFileChooserUI extends BasicFileChooserUI
 		public Object getElementAt(int index)
 		{
 			if (index > getSize() - 1) // This shouldn't happen. Try to recover
-										// gracefully.
+				// gracefully.
 				return getFileChooser().getFileFilter();
 			if (filters != null)
 				return filters[index];

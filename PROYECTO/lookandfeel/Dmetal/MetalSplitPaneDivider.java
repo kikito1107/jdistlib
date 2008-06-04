@@ -150,13 +150,13 @@ class MetalSplitPaneDivider extends BasicSplitPaneDivider
 
 					// ... then draw the arrow.
 					if (getModel().isPressed()) // Adjust color mapping for
-												// pressed button state
+						// pressed button state
 						colors[1] = colors[2];
 					if (orientation == JSplitPane.VERTICAL_SPLIT) // Draw the
-																	// image for
-																	// a
-																	// vertical
-																	// split
+						// image for
+						// a
+						// vertical
+						// split
 						for (int i = 1; i <= buffer[0].length; i++)
 							for (int j = 1; j < blockSize; j++)
 							{
@@ -251,13 +251,13 @@ class MetalSplitPaneDivider extends BasicSplitPaneDivider
 
 					// ... then draw the arrow.
 					if (getModel().isPressed()) // Adjust color mapping for
-												// pressed button state
+						// pressed button state
 						colors[1] = colors[2];
 					if (orientation == JSplitPane.VERTICAL_SPLIT) // Draw the
-																	// image for
-																	// a
-																	// vertical
-																	// split
+						// image for
+						// a
+						// vertical
+						// split
 						for (int i = 1; i <= buffer[0].length; i++)
 							for (int j = 1; j < blockSize; j++)
 							{

@@ -581,10 +581,10 @@ class MetalTitlePane extends JComponent
 						&& frame.isShowing())
 					rootPane.setBorder(null);
 				else if (( state & Frame.MAXIMIZED_BOTH ) == 0) // This is a
-																// croak, if
-																// state becomes
-																// bound, this
-																// can
+					// croak, if
+					// state becomes
+					// bound, this
+					// can
 					// be nuked.
 					rootPaneUI.installBorder(rootPane);
 				if (frame.isResizable())
@@ -739,7 +739,7 @@ class MetalTitlePane extends JComponent
 		String theTitle = getTitle();
 		if (theTitle != null)
 		{
-			
+
 			FontMetrics fm = g.getFontMetrics();
 
 			g.setColor(foreground);

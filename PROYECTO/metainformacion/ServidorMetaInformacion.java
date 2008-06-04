@@ -2,14 +2,13 @@ package metainformacion;
 
 import java.util.Vector;
 
-import Deventos.ColaEventos;
-import Deventos.DEvent;
-import Deventos.DMIEvent;
-
 import javaspaces.SpaceLocator;
 import metainformacion.gui.FrameAdminServMI;
 import net.jini.core.lease.Lease;
 import net.jini.space.JavaSpace;
+import Deventos.ColaEventos;
+import Deventos.DEvent;
+import Deventos.DMIEvent;
 
 /**
  * Implementacion del servidor de metainformacion
@@ -40,16 +39,18 @@ public class ServidorMetaInformacion
 	public ServidorMetaInformacion()
 	{
 
-		//System.out.println("");
+		// System.out.println("");
 
 		almacen = new AlmacenMetaInformacion();
 		FrameAdminServMI
 				.println("ServidorMetaInformacion: Almacen de MetaInformacion creado");
-		FrameAdminServMI.println("ServidorMetaInformacion: Localizando JavaSpace");
+		FrameAdminServMI
+				.println("ServidorMetaInformacion: Localizando JavaSpace");
 		try
 		{
 			space = SpaceLocator.getSpace("JavaSpace");
-			FrameAdminServMI.println("ServidorMetaInformacion: JavaSpace localizado");
+			FrameAdminServMI
+					.println("ServidorMetaInformacion: JavaSpace localizado");
 		}
 		catch (Exception e)
 		{
@@ -60,14 +61,16 @@ public class ServidorMetaInformacion
 		}
 
 		hebraProcesadora = new Thread(new HebraProcesadora());
-		FrameAdminServMI.println("ServidorMetaInformacion: HebraProcesadora creada");
+		FrameAdminServMI
+				.println("ServidorMetaInformacion: HebraProcesadora creada");
 		hebraProcesadora.start();
 		FrameAdminServMI
 				.println("ServidorMetaInformacion: HebraProcesadora iniciada");
 		hebraEnvio = new Thread(new HebraEnvio());
 		FrameAdminServMI.println("ServidorMetaInformacion: HebraEnvio creada");
 		hebraEnvio.start();
-		FrameAdminServMI.println("ServidorMetaInformacion: HebraEnvio iniciada");
+		FrameAdminServMI
+				.println("ServidorMetaInformacion: HebraEnvio iniciada");
 		hebraDesconexionUsuarios = new Thread(new HebraDesconexionUsuarios());
 		FrameAdminServMI
 				.println("ServidorMetaInformacion: HebraDesconexionUsuarios creada");
@@ -303,9 +306,9 @@ public class ServidorMetaInformacion
 					{
 						DMIEvent evento = new DMIEvent();
 						evento.origen = new Integer(10); // Servidor
-															// MetaInformacion
+						// MetaInformacion
 						evento.destino = new Integer(11); // Cliente
-															// MetaInformacion
+						// MetaInformacion
 
 						FrameAdminServMI
 								.println("ServidorMetaInformacion: evento leido "
@@ -331,9 +334,9 @@ public class ServidorMetaInformacion
 						String clave = ( (DMIEvent) leido ).clave;
 
 						evento.origen = new Integer(10); // Servidor
-															// MetaInformacion
+						// MetaInformacion
 						evento.destino = new Integer(11); // Cliente
-															// MetaInformacion
+						// MetaInformacion
 						evento.aplicacion = new String(aplicacion);
 						evento.tipo = new Integer(
 								DMIEvent.RESPUESTA_IDENTIFICACION.intValue());
@@ -346,7 +349,8 @@ public class ServidorMetaInformacion
 						evento.infoCompleta = (MICompleta) almacen.identificar(
 								aplicacion, usuario, clave);
 
-						FrameAdminServMI.println(evento.infoCompleta.mensajeError);
+						FrameAdminServMI
+								.println(evento.infoCompleta.mensajeError);
 						if (evento.infoCompleta.identificacionValida
 								.booleanValue())
 							notificarConexionUsuario(aplicacion, usuario,
@@ -365,7 +369,8 @@ public class ServidorMetaInformacion
 
 						notificarDesconexionUsuario(aplicacion, usuario);
 					}
-					else if (leido.tipo.intValue() == DMIEvent.KEEPALIVE.intValue())
+					else if (leido.tipo.intValue() == DMIEvent.KEEPALIVE
+							.intValue())
 					{
 						String aplicacion = new String(leido.aplicacion);
 						String usuario = ( (DMIEvent) leido ).usuario;
@@ -373,16 +378,17 @@ public class ServidorMetaInformacion
 						almacen.actualizarMarcaTiempoUsuario(aplicacion,
 								usuario);
 					}
-					else if (leido.tipo.intValue() == DMIEvent.CAMBIO_ROL.intValue())
+					else if (leido.tipo.intValue() == DMIEvent.CAMBIO_ROL
+							.intValue())
 					{
 						DMIEvent evento = new DMIEvent();
 						String aplicacion = new String(leido.aplicacion);
 						String usuario = new String(leido.usuario);
 						String rol = new String(( (DMIEvent) leido ).rol);
 						evento.origen = new Integer(10); // Servidor
-															// MetaInformacion
+						// MetaInformacion
 						evento.destino = new Integer(11); // Cliente
-															// MetaInformacion
+						// MetaInformacion
 						evento.usuario = new String(usuario);
 						evento.aplicacion = new String(aplicacion);
 						evento.tipo = new Integer(DMIEvent.RESPUESTA_CAMBIO_ROL
@@ -415,9 +421,9 @@ public class ServidorMetaInformacion
 						int permiso = ( (DMIEvent) leido ).permiso.intValue();
 
 						evento.origen = new Integer(10); // Servidor
-															// MetaInformacion
+						// MetaInformacion
 						evento.destino = new Integer(11); // Cliente
-															// MetaInformacion
+						// MetaInformacion
 						evento.usuario = new String(usuario);
 						evento.componente = new String(componente);
 						evento.aplicacion = new String(aplicacion);
@@ -443,8 +449,9 @@ public class ServidorMetaInformacion
 							if (( aux != -1 )
 									&& ( permiso < aux/* && permiso < 20 */))
 								notificar = false;
-							FrameAdminServMI.println("Rol=" + rol + " Permiso rol="
-									+ aux + " permiso usuario=" + permiso);
+							FrameAdminServMI.println("Rol=" + rol
+									+ " Permiso rol=" + aux
+									+ " permiso usuario=" + permiso);
 							if (notificar)
 								notificarCambioPermisoComponenteUsuario(
 										aplicacion, usuario, componente,
@@ -464,9 +471,9 @@ public class ServidorMetaInformacion
 								( (DMIEvent) leido ).componente);
 						int permiso = ( (DMIEvent) leido ).permiso.intValue();
 						evento.origen = new Integer(10); // Servidor
-															// MetaInformacion
+						// MetaInformacion
 						evento.destino = new Integer(11); // Cliente
-															// MetaInformacion
+						// MetaInformacion
 						evento.rol = new String(rol);
 						evento.componente = new String(componente);
 						evento.aplicacion = new String(aplicacion);
@@ -506,9 +513,9 @@ public class ServidorMetaInformacion
 						String componente = new String(
 								( (DMIEvent) leido ).componente);
 						evento.origen = new Integer(10); // Servidor
-															// MetaInformacion
+						// MetaInformacion
 						evento.destino = new Integer(11); // Cliente
-															// MetaInformacion
+						// MetaInformacion
 						evento.usuario = new String(usuario);
 						evento.componente = new String(componente);
 						evento.aplicacion = new String(aplicacion);
@@ -535,9 +542,9 @@ public class ServidorMetaInformacion
 						String componente = new String(
 								( (DMIEvent) leido ).componente);
 						evento.origen = new Integer(10); // Servidor
-															// MetaInformacion
+						// MetaInformacion
 						evento.destino = new Integer(11); // Cliente
-															// MetaInformacion
+						// MetaInformacion
 						evento.rol = new String(rol);
 						evento.componente = new String(componente);
 						evento.aplicacion = new String(aplicacion);
@@ -562,9 +569,9 @@ public class ServidorMetaInformacion
 						String aplicacion = new String(leido.aplicacion);
 						String rol = new String(( (DMIEvent) leido ).rol);
 						evento.origen = new Integer(10); // Servidor
-															// MetaInformacion
+						// MetaInformacion
 						evento.destino = new Integer(11); // Cliente
-															// MetaInformacion
+						// MetaInformacion
 						evento.aplicacion = new String(aplicacion);
 						evento.tipo = new Integer(
 								DMIEvent.RESPUESTA_OBTENER_USUARIOS_BAJO_ROL
@@ -584,9 +591,9 @@ public class ServidorMetaInformacion
 						DMIEvent evento = new DMIEvent();
 						String aplicacion = new String(leido.aplicacion);
 						evento.origen = new Integer(10); // Servidor
-															// MetaInformacion
+						// MetaInformacion
 						evento.destino = new Integer(11); // Cliente
-															// MetaInformacion
+						// MetaInformacion
 						evento.aplicacion = new String(aplicacion);
 						evento.tipo = new Integer(
 								DMIEvent.RESPUESTA_OBTENER_USUARIOS.intValue());
@@ -597,10 +604,10 @@ public class ServidorMetaInformacion
 						evento.v1 = almacen.obtenerUsuarios(aplicacion);
 
 						evento.usuarios = almacen
-						.obtenerDatosUsuarios(aplicacion);
-						
+								.obtenerDatosUsuarios(aplicacion);
+
 						colaEnvio.nuevoEvento(evento);
-						
+
 					}
 
 					else if (leido.tipo.intValue() == DMIEvent.DATOS_USUARIOS)
@@ -608,9 +615,9 @@ public class ServidorMetaInformacion
 						DMIEvent evento = new DMIEvent();
 						String aplicacion = new String(leido.aplicacion);
 						evento.origen = new Integer(10); // Servidor
-															// MetaInformacion
+						// MetaInformacion
 						evento.destino = new Integer(11); // Cliente
-															// MetaInformacion
+						// MetaInformacion
 						evento.aplicacion = new String(aplicacion);
 						evento.tipo = new Integer(
 								DMIEvent.RESPUESTA_DATOS_USUARIOS.intValue());
@@ -629,9 +636,9 @@ public class ServidorMetaInformacion
 						DMIEvent evento = new DMIEvent();
 						String aplicacion = new String(leido.aplicacion);
 						evento.origen = new Integer(10); // Servidor
-															// MetaInformacion
+						// MetaInformacion
 						evento.destino = new Integer(11); // Cliente
-															// MetaInformacion
+						// MetaInformacion
 						evento.aplicacion = new String(aplicacion);
 						evento.tipo = new Integer(DMIEvent.RESPUESTA_DATOS_ROL
 								.intValue());
@@ -655,9 +662,9 @@ public class ServidorMetaInformacion
 						DMIEvent evento = new DMIEvent();
 						String aplicacion = new String(leido.aplicacion);
 						evento.origen = new Integer(10); // Servidor
-															// MetaInformacion
+						// MetaInformacion
 						evento.destino = new Integer(11); // Cliente
-															// MetaInformacion
+						// MetaInformacion
 						evento.aplicacion = new String(aplicacion);
 						evento.tipo = new Integer(
 								DMIEvent.RESPUESTA_OBTENER_ROLES.intValue());
@@ -676,9 +683,9 @@ public class ServidorMetaInformacion
 						DMIEvent evento = new DMIEvent();
 						String aplicacion = new String(leido.aplicacion);
 						evento.origen = new Integer(10); // Servidor
-															// MetaInformacion
+						// MetaInformacion
 						evento.destino = new Integer(11); // Cliente
-															// MetaInformacion
+						// MetaInformacion
 						evento.aplicacion = new String(aplicacion);
 						evento.tipo = new Integer(
 								DMIEvent.RESPUESTA_OBTENER_COMPONENTES
@@ -697,9 +704,9 @@ public class ServidorMetaInformacion
 						DMIEvent evento = new DMIEvent();
 						String aplicacion = new String(leido.aplicacion);
 						evento.origen = new Integer(10); // Servidor
-															// MetaInformacion
+						// MetaInformacion
 						evento.destino = new Integer(11); // Cliente
-															// MetaInformacion
+						// MetaInformacion
 						evento.usuario = new String(leido.usuario);
 						evento.aplicacion = new String(aplicacion);
 						evento.tipo = new Integer(
@@ -720,9 +727,9 @@ public class ServidorMetaInformacion
 						DMIEvent evento = new DMIEvent();
 						String aplicacion = new String(leido.aplicacion);
 						evento.origen = new Integer(10); // Servidor
-															// MetaInformacion
+						// MetaInformacion
 						evento.destino = new Integer(11); // Cliente
-															// MetaInformacion
+						// MetaInformacion
 						evento.aplicacion = new String(aplicacion);
 						evento.tipo = new Integer(
 								DMIEvent.RESPUESTA_OBTENER_USUARIOS_CONECTADOS
@@ -748,9 +755,9 @@ public class ServidorMetaInformacion
 						boolean administrador = ( (DMIEvent) leido ).bool
 								.booleanValue();
 						evento.origen = new Integer(10); // Servidor
-															// MetaInformacion
+						// MetaInformacion
 						evento.destino = new Integer(11); // Cliente
-															// MetaInformacion
+						// MetaInformacion
 						evento.aplicacion = new String(aplicacion);
 						evento.nuevoUsuario = new String(usuario);
 						evento.tipo = new Integer(
@@ -766,7 +773,7 @@ public class ServidorMetaInformacion
 							notificarNuevoUsuario(aplicacion, usuario);
 
 						colaEnvio.nuevoEvento(evento);
-						
+
 					}
 					else if (leido.tipo.intValue() == DMIEvent.ELIMINAR_USUARIO
 							.intValue())
@@ -776,9 +783,9 @@ public class ServidorMetaInformacion
 						String usuario = new String(
 								( (DMIEvent) leido ).usuario);
 						evento.origen = new Integer(10); // Servidor
-															// MetaInformacion
+						// MetaInformacion
 						evento.destino = new Integer(11); // Cliente
-															// MetaInformacion
+						// MetaInformacion
 						evento.aplicacion = new String(aplicacion);
 						evento.usuario = new String(usuario);
 						evento.tipo = new Integer(
@@ -795,15 +802,16 @@ public class ServidorMetaInformacion
 
 						colaEnvio.nuevoEvento(evento);
 					}
-					else if (leido.tipo.intValue() == DMIEvent.NUEVO_ROL.intValue())
+					else if (leido.tipo.intValue() == DMIEvent.NUEVO_ROL
+							.intValue())
 					{
 						DMIEvent evento = new DMIEvent();
 						String aplicacion = new String(leido.aplicacion);
 						String rol = new String(( (DMIEvent) leido ).rol);
 						evento.origen = new Integer(10); // Servidor
-															// MetaInformacion
+						// MetaInformacion
 						evento.destino = new Integer(11); // Cliente
-															// MetaInformacion
+						// MetaInformacion
 						evento.aplicacion = new String(aplicacion);
 						evento.rol = new String(rol);
 						evento.tipo = new Integer(DMIEvent.RESPUESTA_NUEVO_ROL
@@ -826,9 +834,9 @@ public class ServidorMetaInformacion
 						String aplicacion = new String(leido.aplicacion);
 						String rol = new String(( (DMIEvent) leido ).rol);
 						evento.origen = new Integer(10); // Servidor
-															// MetaInformacion
+						// MetaInformacion
 						evento.destino = new Integer(11); // Cliente
-															// MetaInformacion
+						// MetaInformacion
 						evento.aplicacion = new String(aplicacion);
 						evento.rol = new String(rol);
 						evento.tipo = new Integer(
@@ -853,9 +861,9 @@ public class ServidorMetaInformacion
 								( (DMIEvent) leido ).usuario);
 						String rol = new String(( (DMIEvent) leido ).rol);
 						evento.origen = new Integer(10); // Servidor
-															// MetaInformacion
+						// MetaInformacion
 						evento.destino = new Integer(11); // Cliente
-															// MetaInformacion
+						// MetaInformacion
 						evento.aplicacion = new String(aplicacion);
 						evento.usuario = new String(usuario);
 						evento.rol = new String(rol);
@@ -883,9 +891,9 @@ public class ServidorMetaInformacion
 								( (DMIEvent) leido ).usuario);
 						String rol = new String(( (DMIEvent) leido ).rol);
 						evento.origen = new Integer(10); // Servidor
-															// MetaInformacion
+						// MetaInformacion
 						evento.destino = new Integer(11); // Cliente
-															// MetaInformacion
+						// MetaInformacion
 						evento.aplicacion = new String(aplicacion);
 						evento.usuario = new String(usuario);
 						evento.rol = new String(rol);
@@ -905,9 +913,8 @@ public class ServidorMetaInformacion
 
 						colaEnvio.nuevoEvento(evento);
 					}
-					else if (leido.tipo.intValue() == DMIEvent.SAVE_CHANGES) {
+					else if (leido.tipo.intValue() == DMIEvent.SAVE_CHANGES)
 						salvar();
-					}
 				}
 				catch (Exception e)
 				{

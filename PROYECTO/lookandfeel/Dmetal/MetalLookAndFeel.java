@@ -82,7 +82,7 @@ public class MetalLookAndFeel extends BasicLookAndFeel
 	/**
 	 * Returns true if running on Windows.
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	static boolean isWindows()
 	{
 		if (!checkedWindows)
@@ -253,47 +253,47 @@ public class MetalLookAndFeel extends BasicLookAndFeel
 		Object[] systemColors =
 		{ "desktop", getDesktopColor(), /* Color of the desktop background */
 		"activeCaption", getWindowTitleBackground(), /*
-		 * Color for captions
-		 * (title bars) when
-		 * they are active.
-		 */
+														 * Color for captions
+														 * (title bars) when
+														 * they are active.
+														 */
 		"activeCaptionText", getWindowTitleForeground(), /*
-		 * Text color for
-		 * text in captions
-		 * (title bars).
-		 */
+															 * Text color for
+															 * text in captions
+															 * (title bars).
+															 */
 		"activeCaptionBorder", getPrimaryControlShadow(), /*
-		 * Border color for
-		 * caption (title
-		 * bar) window
-		 * borders.
-		 */
+															 * Border color for
+															 * caption (title
+															 * bar) window
+															 * borders.
+															 */
 		"inactiveCaption", getWindowTitleInactiveBackground(), /*
-		 * Color for
-		 * captions
-		 * (title bars)
-		 * when not
-		 * active.
-		 */
+																 * Color for
+																 * captions
+																 * (title bars)
+																 * when not
+																 * active.
+																 */
 		"inactiveCaptionText", getWindowTitleInactiveForeground(), /*
-		 * Text
-		 * color for
-		 * text in
-		 * inactive
-		 * captions
-		 * (title
-		 * bars).
-		 */
+																	 * Text
+																	 * color for
+																	 * text in
+																	 * inactive
+																	 * captions
+																	 * (title
+																	 * bars).
+																	 */
 		"inactiveCaptionBorder", getControlShadow(), /*
-		 * Border color for
-		 * inactive caption
-		 * (title bar) window
-		 * borders.
-		 */
+														 * Border color for
+														 * inactive caption
+														 * (title bar) window
+														 * borders.
+														 */
 		"window", getWindowBackground(), /*
-		 * Default color for the interior of
-		 * windows
-		 */
+											 * Default color for the interior of
+											 * windows
+											 */
 		"windowBorder", getControl(), /* ??? */
 		"windowText", getUserTextColor(), /* ??? */
 		"menu", getMenuBackground(), /* Background color for menus */
@@ -301,42 +301,42 @@ public class MetalLookAndFeel extends BasicLookAndFeel
 		"text", getWindowBackground(), /* Text background color */
 		"textText", getUserTextColor(), /* Text foreground color */
 		"textHighlight", getTextHighlightColor(), /*
-		 * Text background color
-		 * when selected
-		 */
+													 * Text background color
+													 * when selected
+													 */
 		"textHighlightText", getHighlightedTextColor(), /*
-		 * Text color when
-		 * selected
-		 */
+														 * Text color when
+														 * selected
+														 */
 		"textInactiveText", getInactiveSystemTextColor(), /*
-		 * Text color when
-		 * disabled
-		 */
+															 * Text color when
+															 * disabled
+															 */
 		"control", getControl(), /*
-		 * Default color for controls (buttons,
-		 * sliders, etc)
-		 */
+									 * Default color for controls (buttons,
+									 * sliders, etc)
+									 */
 		"controlText", getControlTextColor(), /*
-		 * Default color for text in
-		 * controls
-		 */
+												 * Default color for text in
+												 * controls
+												 */
 		"controlHighlight", getControlHighlight(), /*
-		 * Specular highlight
-		 * (opposite of the shadow)
-		 */
+													 * Specular highlight
+													 * (opposite of the shadow)
+													 */
 		"controlLtHighlight", getControlHighlight(), /*
-		 * Highlight color for
-		 * controls
-		 */
+														 * Highlight color for
+														 * controls
+														 */
 		"controlShadow", getControlShadow(), /* Shadow color for controls */
 		"controlDkShadow", getControlDarkShadow(), /*
-		 * Dark shadow color for
-		 * controls
-		 */
+													 * Dark shadow color for
+													 * controls
+													 */
 		"scrollbar", getControl(), /*
-		 * Scrollbar background (usually the
-		 * "track")
-		 */
+									 * Scrollbar background (usually the
+									 * "track")
+									 */
 		"info", getPrimaryControl(), /* ToolTip Background */
 		"infoText", getPrimaryControlInfo() /* ToolTip Text */
 		};
@@ -564,7 +564,7 @@ public class MetalLookAndFeel extends BasicLookAndFeel
 		//
 		// DEFAULTS TABLE
 		//
-		@SuppressWarnings("unused")
+		@SuppressWarnings( "unused" )
 		Class<?> cm = MetalLookAndFeel.class;
 
 		Object[] defaults =
