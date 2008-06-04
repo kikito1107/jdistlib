@@ -108,6 +108,8 @@ public class DChatPlugin extends DAbstractPlugin
 	public void enviarEvento(DEvent e){
 		if (e.tipo.intValue() == DJChatEvent.MENSAJE_PRIVADO.intValue())
 			chat.enviarEvento(e);
+		else if (e.tipo.intValue() == DJChatEvent.INICIAR_VC.intValue())
+			chat.enviarEvento(e);
 		else
 			super.enviarEvento(e);
 	}

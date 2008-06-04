@@ -11,6 +11,8 @@ import java.awt.Toolkit;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -73,6 +75,8 @@ public class PanelPrincipal extends DComponenteBase
 	private JButton editarUsuario = null;
 
 	private JButton iniciarChat = null;
+	
+	private JButton iniciarVC = null;
 
 	private JButton enviarMensaje = null;
 
@@ -767,6 +771,7 @@ public class PanelPrincipal extends DComponenteBase
 			herramientasUsuarios.add(s1);
 			herramientasUsuarios.add(getIniciarChat());
 			herramientasUsuarios.add(getEnviarMensaje());
+			herramientasUsuarios.add( this.getIniciarVC());
 		}
 		return herramientasUsuarios;
 	}
@@ -839,6 +844,78 @@ public class PanelPrincipal extends DComponenteBase
 			});
 		}
 		return iniciarChat;
+	}
+	
+	
+	/**
+	 * This method initializes iniciarChat
+	 * 
+	 * @return javax.swing.JButton
+	 */
+	private JButton getIniciarVC()
+	{
+		if (iniciarVC == null)
+		{
+			iniciarVC = new JButton();
+			iniciarVC.setIcon(new ImageIcon("Resources/webcam.png"));
+			iniciarVC.setBorderPainted(false);
+			iniciarVC.setToolTipText("Inicia un chat privado con el usuario seleccionado");
+
+			iniciarVC.addActionListener(new java.awt.event.ActionListener()
+			{
+				public void actionPerformed(java.awt.event.ActionEvent e)
+				{
+					for (int i = 0; i < PluginContainer.numPlugins(); ++i)
+						if (PluginContainer.getPlugin(i).getName().equals("Chat"))
+						{
+
+							String usuario = arbolUsuario
+									.getUsuarioSeleccionado();
+
+							if (( usuario != null )
+									&& !usuario.equals(DConector.Dusuario))
+							{
+								DJChatEvent evento = new DJChatEvent();
+			
+								evento.receptores.add(usuario);
+								
+								evento.tipo = new Integer(
+										DJChatEvent.INICIAR_VC.intValue());
+								try
+								{
+									evento.ipVC = InetAddress.getLocalHost()
+											.getHostAddress();
+
+									evento.mensaje = "Solicita una nueva conversaci—n";
+
+									PluginContainer.getPlugin(i).enviarEvento(evento);
+
+								}
+								catch (UnknownHostException e1)
+								{
+									JOptionPane
+											.showMessageDialog(null,
+													"Ha ocurrido un error en la comunicaci—n. IntŽntelo m‡s tarde");
+									return;
+								}
+								
+								
+							}
+							else if (usuario == null)
+							{
+								JOptionPane.showMessageDialog(null, "Debe seleccionar el usuario con el que mantener la conversacion");
+							}
+							else if (usuario.equals(DConector.Dusuario))
+							{
+								JOptionPane.showMessageDialog(null,
+								"No puedes mantener una conversaci—n contigo mismo");
+							}
+						}
+
+				}
+			});
+		}
+		return iniciarVC;
 	}
 
 	/**
