@@ -84,6 +84,7 @@ public class DIListaUsuarios extends DComponenteBase
 	}
 
 	
+	@SuppressWarnings("unchecked")
 	private void jbInit() throws Exception
 	{
 		borde = new TitledBorder(BorderFactory.createEtchedBorder(Color.white,

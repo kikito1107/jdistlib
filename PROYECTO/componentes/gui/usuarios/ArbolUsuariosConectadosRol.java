@@ -9,7 +9,6 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
-import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
@@ -165,6 +164,7 @@ public class ArbolUsuariosConectadosRol extends DComponenteBase
 	/**
 	 * Actualiza la el arbol con los datos iniciales
 	 */
+	@SuppressWarnings("unchecked")
 	private void actualizarLista()
 	{
 		Vector v = ClienteMetaInformacion.obtenerCMI().obtenerRoles();

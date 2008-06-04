@@ -75,6 +75,7 @@ public class DIListaUsuariosConectadosInfoRol extends DComponenteBase
 	 * @param evento
 	 *            DMIEvent Evento recibido
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void procesarMetaInformacion(DMIEvent evento)
 	{
