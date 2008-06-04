@@ -824,16 +824,15 @@ public class PanelPrincipal extends DComponenteBase
 
 								PluginContainer.getPlugin(i).enviarEvento(evento);
 							}
+							else if (usuario == null)
+							{
+								JOptionPane.showMessageDialog(null, "Debe seleccionar el usuario con el que mantener la conversacion");
+							}
 							else if (usuario.equals(DConector.Dusuario))
 							{
 								JOptionPane.showMessageDialog(null,
 								"No puedes mantener una conversaci—n contigo mismo");
 							}
-							
-							else if (usuario == null)
-							{
-								JOptionPane.showMessageDialog(null, "Debe seleccionar el usuario con el que mantener la conversacion");
-							}	
 						}
 
 				}
