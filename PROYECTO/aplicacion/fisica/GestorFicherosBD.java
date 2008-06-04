@@ -442,7 +442,8 @@ public class GestorFicherosBD
 				String consulta = "UPDATE fichero SET nombre='" + f.getNombre()
 						+ "', permisos ='" + f.getPermisos()
 						+ "', padre =" + f.getPadre()
-						+ ",  ruta_local ='" + f.getRutaLocal()
+						+ ", tipo ='" + f.getTipo()
+						+ "',  ruta_local ='" + f.getRutaLocal()
 						+ "' WHERE id_fichero=" + f.getId();
 
 				FrameServFich.println("Consulta a ejecutar: " + consulta);

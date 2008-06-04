@@ -30,7 +30,7 @@ public class ConectorBDFicheros
 	private static String pass = null;
 
 	private static String ip = null;
-	
+
 	private static final String fichero = "config";
 
 	/**
@@ -55,20 +55,21 @@ public class ConectorBDFicheros
 		BufferedReader br = new BufferedReader(fr);
 		try
 		{
-String datos;
-			
+			String datos;
+
 			br.readLine();
 
 			datos = br.readLine();
-			
+
 			String data[] = datos.split(" ");
-			
-			if (data.length != 4){
+
+			if (data.length != 4)
+			{
 				System.err
-				.println("Error en lectura de fichero de Conexion de BD");
+						.println("Error en lectura de fichero de Conexion de BD");
 				System.exit(1);
 			}
-			
+
 			ip = data[1];
 			user = data[2];
 			pass = data[3];
@@ -124,7 +125,7 @@ String datos;
 			System.out.println("Recuperando datos de la conexion...");
 			return true;
 		}
-		
+
 		try
 		{
 			con = DriverManager.getConnection(cadena_conexion, user, pass);
