@@ -23,7 +23,6 @@ import javax.swing.table.TableColumn;
 
 import util.FiltroFichero;
 
-import aplicacion.gui.PanelPrincipal;
 import aplicacion.plugin.DAbstractPlugin;
 import aplicacion.plugin.DPluginLoader;
 import aplicacion.plugin.PluginContainer;
@@ -130,6 +129,7 @@ public class GestorPlugins extends JFrame
 					else return true;
 				}
 				
+				@SuppressWarnings("unchecked")
 				public Class getColumnClass(int column)
 				{
 					return getValueAt(0, column).getClass();
