@@ -14,12 +14,12 @@ import javax.swing.text.JTextComponent;
 import javax.swing.text.TextAction;
 
 import util.DCaret;
-import Deventos.enlaceJS.DConector;
-
-import componentes.listeners.DJTextFieldListener;
 import Deventos.ColaEventos;
 import Deventos.DEvent;
 import Deventos.DJTextFieldEvent;
+import Deventos.enlaceJS.DConector;
+
+import componentes.listeners.DJTextFieldListener;
 
 /**
  * <p>
@@ -197,7 +197,7 @@ public class DJTextField extends JTextField
 				int p2 = evento.p2.intValue();
 
 				if (!( ( p1 ) > longitud )) // System.out.println("replace " +
-											// p1 + " " + p2);
+					// p1 + " " + p2);
 					( (AbstractDocument) getDocument() ).replace(p1, p2,
 							evento.contenido, null);
 			}
@@ -338,7 +338,7 @@ public class DJTextField extends JTextField
 			ColaEventos colaAux = new ColaEventos();
 
 			int numEventos = colaRecepcion.tamanio(); // Para evitar quedarnos
-														// bloqueados
+			// bloqueados
 			// int i = 0;
 			// int posicion = -1;
 			// boolean encontradaRespuestaSincronizacion = false;

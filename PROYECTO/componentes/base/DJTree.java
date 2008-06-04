@@ -9,13 +9,13 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreeSelectionModel;
 
 import lookandfeel.Dmetal.DMetalTreeUI;
+import Deventos.ColaEventos;
+import Deventos.DEvent;
+import Deventos.DJTreeEvent;
 import Deventos.enlaceJS.DConector;
 
 import componentes.listeners.DJTreeListener;
 import componentes.listeners.LJTreeListener;
-import Deventos.ColaEventos;
-import Deventos.DEvent;
-import Deventos.DJTreeEvent;
 
 public class DJTree extends JTree
 {
@@ -317,7 +317,7 @@ public class DJTree extends JTree
 			ColaEventos colaAux = new ColaEventos();
 
 			int numEventos = colaRecepcion.tamanio(); // Para evitar quedarnos
-														// bloqueados
+			// bloqueados
 
 			// Buscamos si se ha recibido una respuesta de sincronizacion
 			for (int j = 0; j < numEventos; j++)

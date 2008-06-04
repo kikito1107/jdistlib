@@ -12,14 +12,14 @@ import javax.swing.JMenuItem;
 import javax.swing.MenuElement;
 
 import util.DMenuSelectionManager;
-import Deventos.enlaceJS.DConector;
-
-import componentes.listeners.DJMenuItemListener;
-import componentes.listeners.LJMenuItemListener;
 import Deventos.ColaEventos;
 import Deventos.DEvent;
 import Deventos.DJMenuItemEvent;
 import Deventos.DMIEvent;
+import Deventos.enlaceJS.DConector;
+
+import componentes.listeners.DJMenuItemListener;
+import componentes.listeners.LJMenuItemListener;
 
 /**
  * <p>
@@ -288,7 +288,7 @@ public class DJMenuItem extends JMenuItem implements DComponente
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	private MenuElement[] vectorToPath(Vector v)
 	{
 		MenuElement barraMenu = ( (DMenuSelectionManager) DMenuSelectionManager

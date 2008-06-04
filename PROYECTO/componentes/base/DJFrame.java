@@ -22,7 +22,6 @@ import Deventos.ColaEventos;
 import Deventos.DEvent;
 import Deventos.DMIEvent;
 import Deventos.DMouseEvent;
-
 import Deventos.enlaceJS.DConector;
 
 /**
@@ -80,10 +79,11 @@ public class DJFrame extends JFrame
 			ex.printStackTrace();
 		}
 	}
-	
-	public DJFrame(){
+
+	public DJFrame()
+	{
 		DJFrame.frame = this;
-		
+
 		try
 		{
 			jbInit();
@@ -156,7 +156,7 @@ public class DJFrame extends JFrame
 		 */
 		private static final long serialVersionUID = 2055525820079068611L;
 
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings( "unchecked" )
 		@Override
 		public void paintComponent(Graphics g)
 		{
@@ -261,8 +261,8 @@ public class DJFrame extends JFrame
 		}
 
 	}
-	
-	@SuppressWarnings("unchecked")
+
+	@SuppressWarnings( "unchecked" )
 	private class ConjuntoMousesRemotos
 	{
 		private Vector v = new Vector();
@@ -493,7 +493,7 @@ public class DJFrame extends JFrame
 			return null;
 		}
 
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings( "unchecked" )
 		public Vector obtenerMousesRemotos()
 		{
 			Vector v = null;
@@ -573,9 +573,9 @@ public class DJFrame extends JFrame
 												evento.py.intValue()));
 
 								if (!conjuntoMouses.existe(evento.usuario)) // System.out.println("Añadido
-																			// usuario
-																			// " +
-																			// evento.usuario);
+									// usuario
+									// " +
+									// evento.usuario);
 									conjuntoMouses.nuevoMouse(evento.usuario,
 											new Point(evento.px.intValue(),
 													evento.py.intValue()));

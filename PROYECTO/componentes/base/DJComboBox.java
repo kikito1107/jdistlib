@@ -10,15 +10,15 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 
 import lookandfeel.Dmetal.DMetalComboBoxUI;
+import Deventos.ColaEventos;
+import Deventos.DEvent;
+import Deventos.DJComboBoxEvent;
+import Deventos.DMIEvent;
 import Deventos.enlaceJS.DConector;
 
 import componentes.gui.DIComboBox;
 import componentes.listeners.DJComboBoxListener;
 import componentes.listeners.LJComboBoxListener;
-import Deventos.ColaEventos;
-import Deventos.DEvent;
-import Deventos.DJComboBoxEvent;
-import Deventos.DMIEvent;
 
 /**
  * <p>

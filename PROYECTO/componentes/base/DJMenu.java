@@ -20,13 +20,13 @@ import javax.swing.MenuElement;
 import javax.swing.SwingConstants;
 
 import util.DMenuSelectionManager;
-import Deventos.enlaceJS.DConector;
-
-import componentes.listeners.DJMenuListener;
 import Deventos.ColaEventos;
 import Deventos.DEvent;
 import Deventos.DJMenuEvent;
 import Deventos.DMIEvent;
+import Deventos.enlaceJS.DConector;
+
+import componentes.listeners.DJMenuListener;
 
 public class DJMenu extends JMenu implements DComponente
 {
@@ -43,7 +43,7 @@ public class DJMenu extends JMenu implements DComponente
 
 	private Point dcustomMenuLocation = null;
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	private Vector djmenulisteners = new Vector(5);
 
 	private Integer DID = new Integer(-1);
@@ -135,13 +135,13 @@ public class DJMenu extends JMenu implements DComponente
 		return 0;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public void addDJMenuListener(DJMenuListener listener)
 	{
 		djmenulisteners.add(listener);
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector getDJMenuListeners()
 	{
 		return djmenulisteners;
@@ -187,7 +187,7 @@ public class DJMenu extends JMenu implements DComponente
 		return nivelPermisos;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public void setNivelPermisos(int nivel)
 	{
 		if (!isEnabled()) setEnabled(true);
@@ -467,7 +467,7 @@ public class DJMenu extends JMenu implements DComponente
 		}
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	private MenuElement[] vectorToPath(Vector v)
 	{
 		MenuElement barraMenu = ( (DMenuSelectionManager) DMenuSelectionManager

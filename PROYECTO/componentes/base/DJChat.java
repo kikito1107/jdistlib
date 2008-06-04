@@ -21,6 +21,9 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.WindowConstants;
 
+import Deventos.ColaEventos;
+import Deventos.DEvent;
+import Deventos.DJChatEvent;
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.webcam.VideoConferencia;
 import aplicacion.fisica.webcam.VideoFrame;
@@ -28,9 +31,6 @@ import aplicacion.fisica.webcam.VideoFrame;
 import componentes.gui.chat.PanelChatPrivado;
 import componentes.listeners.DJChatListener;
 import componentes.listeners.LJChatListener;
-import Deventos.ColaEventos;
-import Deventos.DEvent;
-import Deventos.DJChatEvent;
 
 /**
  * <p>
@@ -339,7 +339,7 @@ public class DJChat extends JPanel
 			if (!ev2.receptores.contains(DConector.Dusuario)) return;
 
 			// iniciamos la VC
-			if (( ev2.ipVC != null ) && ( !ev2.ipVC.equals( "") ))
+			if (( ev2.ipVC != null ) && ( !ev2.ipVC.equals("") ))
 			{
 				VideoConferencia.establecerOrigen();
 				VideoFrame ventana = new VideoFrame(ev2.ipVC);
@@ -465,7 +465,7 @@ public class DJChat extends JPanel
 		}
 	}
 
-	@SuppressWarnings("unused")
+	@SuppressWarnings( "unused" )
 	private class Listener implements DJChatListener
 	{
 		public void nuevoMensaje(DJChatEvent evento)

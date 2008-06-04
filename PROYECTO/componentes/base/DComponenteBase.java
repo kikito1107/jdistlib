@@ -14,7 +14,6 @@ import javax.swing.JPanel;
 import Deventos.ColaEventos;
 import Deventos.DEvent;
 import Deventos.DMIEvent;
-
 import Deventos.enlaceJS.DConector;
 
 /**
@@ -24,7 +23,8 @@ import Deventos.enlaceJS.DConector;
  * sus necesidades
  */
 
-public class DComponenteBase extends JPanel implements DComponente, java.io.Serializable
+public class DComponenteBase extends JPanel implements DComponente,
+		java.io.Serializable
 {
 
 	private static final long serialVersionUID = 1L;
@@ -64,8 +64,9 @@ public class DComponenteBase extends JPanel implements DComponente, java.io.Seri
 	private BorderLayout borderLayout2 = new BorderLayout();// *******************************
 
 	private boolean oculto = true;
-	
-	public DComponenteBase(){
+
+	public DComponenteBase()
+	{
 		super();
 	}
 
@@ -461,7 +462,7 @@ public class DComponenteBase extends JPanel implements DComponente, java.io.Seri
 	 */
 	public void sincronizar()
 	{
-		
+
 	}
 
 	/**
