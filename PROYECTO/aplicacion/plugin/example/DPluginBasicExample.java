@@ -27,7 +27,7 @@ public class DPluginBasicExample extends DAbstractPlugin
 	{
 		version = 1;
 		nombre = "Videoconferencia";
-		jarFile = "ejemplo.jar";
+		jarFile = "vc.jar";
 		versioningEnabled = false;
 		categoria = DAbstractPlugin.CATEGORIA_OTROS;
 	}

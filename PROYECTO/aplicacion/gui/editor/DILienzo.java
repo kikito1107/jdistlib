@@ -37,7 +37,6 @@ import figuras.TrazoManoAlzada;
 
 /**
  * Implementacion de un editor basico de imagenes distribuido
- * 
  * @author Ana Belen Pelegrina Ortiz
  * @date 9-2-2008
  */
@@ -159,6 +158,9 @@ public class DILienzo extends DIViewer implements MouseListener,
 		}
 	}
 
+	/**
+	 * Constructor de oficio
+	 */
 	public DILienzo()
 	{
 		super("", false, null);
@@ -168,22 +170,23 @@ public class DILienzo extends DIViewer implements MouseListener,
 		}
 		catch (Exception e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	/**
 	 * Establece el color actual para dibujar
-	 * 
-	 * @param unColor
-	 *            el nuevo color actual
+	 * @param unColor  el nuevo color actual
 	 */
 	public void setColor(Color unColor)
 	{
 		colorActual = unColor;
 	}
 
+	/**
+	 * Indica si una anotacion esta seleccionado
+	 * @param b
+	 */
 	public void setEstaSeleccionando(boolean b)
 	{
 		estaSeleccionando = b;
@@ -191,7 +194,6 @@ public class DILienzo extends DIViewer implements MouseListener,
 
 	/**
 	 * Devuelve el documento con el que se está trabajando actualmente
-	 * 
 	 * @return
 	 */
 	public Documento getDocumento()
@@ -201,9 +203,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 
 	/**
 	 * Establece el documento de trabajo
-	 * 
-	 * @param nuevo
-	 *            documento de trabajo
+	 * @param nuevo documento de trabajo
 	 */
 	public void setDocumento(Documento nuevo)
 	{
@@ -216,9 +216,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 
 	/**
 	 * Establece el trazo del dibujo
-	 * 
-	 * @param trazo
-	 *            tipo de trazo
+	 * @param trazo tipo de trazo
 	 */
 	public void setTrazo(int trazo)
 	{
@@ -235,7 +233,6 @@ public class DILienzo extends DIViewer implements MouseListener,
 
 	/**
 	 * Inicializa el lienzo
-	 * 
 	 * @throws Exception
 	 */
 	private void init() throws Exception
@@ -258,9 +255,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 
 	/**
 	 * Establece la ventana en la que es dibujado el lienzo
-	 * 
-	 * @param j
-	 *            ventana en la que se dibuja el lienzo
+	 * @param j ventana en la que se dibuja el lienzo
 	 */
 	public void setPadre(FramePanelDibujo j)
 	{
@@ -314,9 +309,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 
 	/**
 	 * Método que permite invertir un color
-	 * 
-	 * @param c
-	 *            color a invertir
+	 * @param c color a invertir
 	 * @return color invertido
 	 */
 	public static Color invertirColor(Color c)
@@ -358,7 +351,6 @@ public class DILienzo extends DIViewer implements MouseListener,
 
 	/**
 	 * Devuelve el número de la página actual
-	 * 
 	 * @return
 	 */
 	public int getNumPaginas()
@@ -368,7 +360,6 @@ public class DILienzo extends DIViewer implements MouseListener,
 
 	/**
 	 * Recupera la página actual del documento visualizado
-	 * 
 	 * @return el número de la página actual
 	 */
 	public int getPaginaActual()
@@ -433,7 +424,6 @@ public class DILienzo extends DIViewer implements MouseListener,
 		int y = e.getY();
 
 		// recorremos todas las anotaciones de la página actual
-
 		boolean encontrado = false;
 
 		Pagina p = doc.getPagina(this.paginaActual - 1);
@@ -441,8 +431,6 @@ public class DILienzo extends DIViewer implements MouseListener,
 		Vector<Anotacion> v = null;
 
 		if (p != null) v = p.getAnotaciones();
-
-		// System.out.println("x: "+ x + " y: " + y);
 
 		if (v != null)
 		{
@@ -576,13 +564,12 @@ public class DILienzo extends DIViewer implements MouseListener,
 	{
 		e.consume();
 
-		if (!estaSeleccionando)
-		{
+		if (!estaSeleccionando) {
+			
 			switch (modoDibujo)
 			{
 				case RECTANGULO:
 				case ELIPSE:
-
 					if (x1 >= x2)
 					{
 						int xaux = x1;
@@ -627,8 +614,8 @@ public class DILienzo extends DIViewer implements MouseListener,
 					repaint();
 
 					break;
+					
 				case LINEAS:
-
 					Linea l = new Linea(x1, y1, e.getX(), e.getY());
 					l.setColor(colorActual);
 
@@ -840,9 +827,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 
 	/**
 	 * Deshace el ultimo trazo realizado en el lienzo
-	 * 
-	 * @param i
-	 *            página
+	 * @param i página
 	 */
 	public void deshacer(int i)
 	{
@@ -878,9 +863,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 
 	/**
 	 * Borra un objeto de la lista de objetos dibujados
-	 * 
-	 * @param posicion
-	 *            posicion del objeto a borrar
+	 * @param posicion posicion del objeto a borrar
 	 * @param i
 	 */
 	public void borrarObjeto(int posicion, int i)
@@ -983,7 +966,6 @@ public class DILienzo extends DIViewer implements MouseListener,
 
 	/**
 	 * Procesa un evento recibido
-	 * 
 	 * @arg evento evento recibido
 	 */
 	@Override
@@ -1003,11 +985,6 @@ public class DILienzo extends DIViewer implements MouseListener,
 			if (evt.sincronizarFichero.booleanValue() && ( evt.path != null )
 					&& evt.path.equals(doc.getPath()))
 			{
-
-				TransferP2P.pararHebra();
-
-				TransferP2P.establecerServidor(id, doc);
-
 				try
 				{
 					evt.direccionRMI = new String(InetAddress.getLocalHost()
@@ -1015,9 +992,13 @@ public class DILienzo extends DIViewer implements MouseListener,
 				}
 				catch (UnknownHostException e)
 				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					return;
 				}
+				
+				TransferP2P.pararHebra();
+				TransferP2P.establecerServidor(id, doc);
+
+				
 				evt.idDestino = new Integer(id);
 				evt.puerto = new Integer(TransferP2P.getPort());
 				evt.tipo = DJLienzoEvent.RESPUESTA_SINCRONIZACION;

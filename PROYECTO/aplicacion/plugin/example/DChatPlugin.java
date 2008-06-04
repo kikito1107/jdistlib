@@ -88,7 +88,6 @@ public class DChatPlugin extends DAbstractPlugin
 	@Override
 	public void start() throws Exception
 	{
-		// TODO Auto-generated method stub
 		ventanaChat.pack();
 		ventanaChat.setSize(550, 430);
 
@@ -100,7 +99,6 @@ public class DChatPlugin extends DAbstractPlugin
 	@Override
 	public void stop() throws Exception
 	{
-		// TODO Auto-generated method stub
 		ventanaChat.dispose();
 	}
 	
@@ -327,6 +325,7 @@ public class DChatPlugin extends DAbstractPlugin
 				botonGuardarConversacion
 						.addActionListener(new java.awt.event.ActionListener()
 						{
+							@SuppressWarnings("null")
 							public void actionPerformed(
 									java.awt.event.ActionEvent e)
 							{
@@ -355,7 +354,6 @@ public class DChatPlugin extends DAbstractPlugin
 									}
 									catch (IOException e1)
 									{
-										// TODO Auto-generated catch block
 										e1.printStackTrace();
 									}
 									try
@@ -383,7 +381,6 @@ public class DChatPlugin extends DAbstractPlugin
 									}
 									catch (IOException e2)
 									{
-										// TODO Auto-generated catch block
 										e2.printStackTrace();
 									}
 								}

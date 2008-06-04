@@ -213,7 +213,6 @@ public class PanelPrincipal extends DComponenteBase
 	
 	/**
 	 * Inicia la ventana del editor colaborativo
-	 *
 	 */
 	private void inicializarEditor()
 	{
@@ -235,12 +234,10 @@ public class PanelPrincipal extends DComponenteBase
 		if (this.arbolDocumentos != null) this.arbolDocumentos.repaint();
 	}
 
-	// ============= GUI
-	// ===================================================================
-
+	
+	// ============= GUI =================================================
 	/**
 	 * This method initializes panelLateral
-	 * 
 	 * @return javax.swing.JPanel
 	 */
 	private JPanel getPanelLateral()
@@ -301,7 +298,6 @@ public class PanelPrincipal extends DComponenteBase
 
 	/**
 	 * This method initializes panelEspacioTrabajo
-	 * 
 	 * @return javax.swing.JPanel
 	 */
 	private JPanel getPanelEspacioTrabajo()
@@ -331,7 +327,6 @@ public class PanelPrincipal extends DComponenteBase
 
 	/**
 	 * This method initializes herraminetasDocumentos
-	 * 
 	 * @return javax.swing.JToolBar
 	 */
 	private JToolBar getHerraminetasDocumentos()
@@ -359,7 +354,6 @@ public class PanelPrincipal extends DComponenteBase
 
 	/**
 	 * Accede a la barra de progreso
-	 * 
 	 * @return barraProgreso correctamente inicializada
 	 */
 	private JProgressBar getBarraProgreso()
@@ -382,7 +376,6 @@ public class PanelPrincipal extends DComponenteBase
 
 	/**
 	 * Accede al boton getCarpeta
-	 * 
 	 * @return getCarpeta inicializado
 	 */
 	private JButton getAgregarCarpeta()
@@ -446,7 +439,6 @@ public class PanelPrincipal extends DComponenteBase
 
 	/**
 	 * Accede al boton botonDescargar
-	 * 
 	 * @return botonDescargar inicializado
 	 */
 	private JButton getBotonDescargar()
@@ -477,7 +469,6 @@ public class PanelPrincipal extends DComponenteBase
 
 	/**
 	 * Accede al botonImprimir
-	 * 
 	 * @return el botonImprimir inicializado
 	 */
 	private JButton getBotonImprimirDocumento()
@@ -506,7 +497,6 @@ public class PanelPrincipal extends DComponenteBase
 
 	/**
 	 * Accede al boton eliminarFichero
-	 * 
 	 * @return el botonEliminarFichero inicializado
 	 */
 	private JButton getBotonEliminarFichero()
@@ -563,7 +553,6 @@ public class PanelPrincipal extends DComponenteBase
 
 	/**
 	 * Accede al boton de la barra de herramientas de docuemntos botonInfo
-	 * 
 	 * @return el boton inicializado
 	 */
 	private JButton getBotonInfo()
@@ -616,8 +605,7 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * This method initializes boton52131
-	 * 
+	 * This method initializes boton abrir documento
 	 * @return javax.swing.JButton
 	 */
 	private JButton getBotonAbrirDoc()
@@ -646,7 +634,6 @@ public class PanelPrincipal extends DComponenteBase
 	
 	/**
 	 * This method initializes boton52131
-	 * 
 	 * @return javax.swing.JButton
 	 */
 	private JButton getBotonCambiarRol()
@@ -686,7 +673,6 @@ public class PanelPrincipal extends DComponenteBase
 	
 	/**
 	 * This method initializes arbolDocuementos
-	 * 
 	 * @return javax.swing.JTree
 	 */
 	private JTree getArbolDocumentos()
@@ -713,7 +699,6 @@ public class PanelPrincipal extends DComponenteBase
 
 	/**
 	 * This method initializes editarUsuario
-	 * 
 	 * @return javax.swing.JButton
 	 */
 	private JButton getEditarUsuario()
@@ -749,7 +734,6 @@ public class PanelPrincipal extends DComponenteBase
 
 	/**
 	 * This method initializes herrmientasUsuarios
-	 * 
 	 * @return javax.swing.JToolBar
 	 */
 	private JToolBar getHerramientasUsuarios()
@@ -778,7 +762,6 @@ public class PanelPrincipal extends DComponenteBase
 
 	/**
 	 * This method initializes arbolUsuario
-	 * 
 	 * @return
 	 */
 	private ArbolUsuariosConectadosRol getArbolUsuario()
@@ -793,7 +776,6 @@ public class PanelPrincipal extends DComponenteBase
 
 	/**
 	 * This method initializes iniciarChat
-	 * 
 	 * @return javax.swing.JButton
 	 */
 	private JButton getIniciarChat()
@@ -846,10 +828,8 @@ public class PanelPrincipal extends DComponenteBase
 		return iniciarChat;
 	}
 	
-	
 	/**
 	 * This method initializes iniciarChat
-	 * 
 	 * @return javax.swing.JButton
 	 */
 	private JButton getIniciarVC()
@@ -920,7 +900,6 @@ public class PanelPrincipal extends DComponenteBase
 
 	/**
 	 * This method initializes enviarMensaje
-	 * 
 	 * @return javax.swing.JButton
 	 */
 	private JButton getEnviarMensaje()
@@ -952,7 +931,6 @@ public class PanelPrincipal extends DComponenteBase
 
 	/**
 	 * Accede al boton para subir documentos
-	 * 
 	 * @return el botonSubir inicializado
 	 */
 	private JButton getButonSubir()
@@ -978,7 +956,6 @@ public class PanelPrincipal extends DComponenteBase
 
 	/**
 	 * Boton para reenviar mensajes
-	 * 
 	 * @return el boton reenviar inicializado
 	 */
 	private JButton getReenviar()
@@ -1074,7 +1051,6 @@ public class PanelPrincipal extends DComponenteBase
 			// el usuario desea sobreescribir el documento
 			else if (sel == 0)
 			{
-				
 				ClienteFicheros.cf.generarVersion(anterior, path);
 
 				arbolDocumentos.eliminarNodo(anterior.getId());
@@ -1140,7 +1116,6 @@ public class PanelPrincipal extends DComponenteBase
 		// si no se ha producido ningun error al subir el fichero
 		else
 		{
-
 			// insertamos el nuevo fichero en el servidor
 			MIDocumento f2 = ClienteFicheros.cf.insertarNuevoFichero(fbd,
 					DConector.Daplicacion);
@@ -1167,7 +1142,6 @@ public class PanelPrincipal extends DComponenteBase
 
 	/**
 	 * This method initializes listaAplicaciones
-	 * 
 	 * @return javax.swing.JList
 	 */
 	private JList getListaAplicaciones()
@@ -1181,35 +1155,29 @@ public class PanelPrincipal extends DComponenteBase
 			listaAplicaciones.setMinimumSize(new Dimension(100, 200));
 			listaAplicaciones.setBorder(new MatteBorder(2,0,2,0,Color.GRAY));
 
-			listaAplicaciones
-					.addMouseListener(new java.awt.event.MouseAdapter()
+			listaAplicaciones.addMouseListener(new java.awt.event.MouseAdapter()
+				{
+					@Override
+					public void mouseClicked(java.awt.event.MouseEvent e)
 					{
-						@Override
-						public void mouseClicked(java.awt.event.MouseEvent e)
-						{
-
-							if (e.getClickCount() == 2)
-								try
+						if (e.getClickCount() == 2)
+							try
+							{
+								if (PluginContainer.numPlugins() > 0
+										&& listaAplicaciones
+												.getSelectedIndex() > -1)
 								{
-
-									if (PluginContainer.numPlugins() > 0
-											&& listaAplicaciones
-													.getSelectedIndex() > -1)
-									{
-
-										DAbstractPlugin seleccionado = (DAbstractPlugin) listaAplicaciones
-												.getSelectedValue();
-
-										seleccionado.start();
-										
-									}
+									DAbstractPlugin seleccionado = (DAbstractPlugin) listaAplicaciones
+											.getSelectedValue();
+									seleccionado.start();	
 								}
-								catch (Exception e1)
-								{
-									e1.printStackTrace();
-								}
+							}
+							catch (Exception e1)
+							{
+								e1.printStackTrace();
+							}
 						}
-					});
+				});
 
 		}
 		return listaAplicaciones;
@@ -1325,8 +1293,7 @@ public class PanelPrincipal extends DComponenteBase
 		if (this.arbolDocumentos != null) arbolDocumentos.repaint();
 	}
 
-	// ========= DCOMPONENTE
-	// ===============================================================================
+	// ========= DCOMPONENTE =========================================================
 	@Override
 	public int obtenerNumComponentesHijos()
 	{
@@ -1351,8 +1318,11 @@ public class PanelPrincipal extends DComponenteBase
 		return dc;
 	}
 
-	// ========= EVENTOS
-	// =========================================================
+	// ========= EVENTOS =================================================
+	/**
+	 * Notifica la modificacion de un fichero al servidor
+	 * @param f evento a enviar
+	 */
 	public static void notificarModificacionFichero(DFileEvent f)
 	{
 		esto.enviarEvento(f);
@@ -1440,7 +1410,6 @@ public class PanelPrincipal extends DComponenteBase
 					}
 					else
 					{
-
 						// nos aseguramos de que no seamos nosotros los que
 						// hemos movido el nodo
 						if (!evento.usuario.equals(DConector.Dusuario))
@@ -1510,17 +1479,13 @@ public class PanelPrincipal extends DComponenteBase
 		}
 	}
 
-	// ========= PERMISOS
-	// ===============================================================================
+	// ========= PERMISOS ============================================================
 
 	/**
 	 * Comprueba que los permisos actuales del documentos permiten que Žste siga
 	 * editandose
-	 * 
-	 * @param f
-	 *            fichero a comprobar
-	 * @param eliminado
-	 *            indica si el documentos ha sido editado
+	 * @param f fichero a comprobar
+	 * @param eliminado  indica si el documentos ha sido editado
 	 */
 	public void comprobarPermisosDocumentoActual(MIDocumento f, boolean eliminado)
 	{
@@ -1545,21 +1510,24 @@ public class PanelPrincipal extends DComponenteBase
 			}
 	}
 
+	
+	// ============= SALIR ==============================================
 	/**
 	 * Accion a efectuar al salir de la aplicacion
-	 * 
 	 */
 	public void salir()
 	{
-		if (frame != null && frame.getLienzo() != null
-				&& frame.getLienzo().getPathDocumento() != null)
-			DConector.obtenerDC().cerrarFichero(
-					frame.getLienzo().getPathDocumento());
+		if (frame == null) return;
+		if (frame.getLienzo() == null) return;
+		if (frame.getLienzo().getLienzo() == null) return;
+		if (frame.getLienzo().getLienzo().getDocumento() == null) return;
+		if (frame.getLienzo().getLienzo().getDocumento().getPath() == null) return;
+		
+		if ( !frame.getLienzo().getLienzo().getDocumento().getPath().equals("") )
+			DConector.obtenerDC().cerrarFichero(frame.getLienzo().getLienzo().getDocumento().getPath());
 	}
 	
-	
-	// ============= HEBRAS
-	// ===================================================================
+	// ============= HEBRAS ==============================================
 	/**
 	 * Hebra que se encarga de abrir los documentos
 	 * @author anab
