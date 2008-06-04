@@ -50,6 +50,7 @@ public class AlmacenMetaInformacion
 	 *         una inicializacion correcta. Ver clase
 	 *         <code>MIInformacionConexion</code>.
 	 */
+	@SuppressWarnings("unchecked")
 	public MIInformacionConexion identificar(String aplicacion, String usuario,
 			String clave)
 	{
@@ -167,6 +168,7 @@ public class AlmacenMetaInformacion
 	 *         contiene el error producido. Si vale null es porque no existe la
 	 *         aplicacion indicada
 	 */
+	@SuppressWarnings("unchecked")
 	public MICompleta cambiarRolUsuarioConectado(String aplicacion,
 			String usuario, String rol)
 	{
@@ -244,6 +246,7 @@ public class AlmacenMetaInformacion
 		return v;
 	}
 
+	@SuppressWarnings("unchecked")
 	public Vector<MIUsuario> obtenerDatosUsuarios(String aplicacion)
 	{
 		MIAplicacion apl = obtenerAplicacion(aplicacion);
@@ -274,6 +277,7 @@ public class AlmacenMetaInformacion
 		return v; // Vector de String
 	}
 
+	@SuppressWarnings("unchecked")
 	public Vector<String> obtenerUsuarios(String aplicacion)
 	{
 		Vector v = null;
@@ -292,6 +296,7 @@ public class AlmacenMetaInformacion
 		return usr; // Vector de String
 	}
 
+	@SuppressWarnings("unchecked")
 	public Vector<String> obtenerUsuariosNoActualizados(String aplicacion)
 	{
 		Vector v = null;
@@ -310,6 +315,7 @@ public class AlmacenMetaInformacion
 		return usr; // Vector de String
 	}
 
+	@SuppressWarnings("unchecked")
 	public Vector<String> obtenerRoles(String aplicacion)
 	{
 		Vector v = null;
@@ -328,6 +334,7 @@ public class AlmacenMetaInformacion
 		return rl; // Vector de String
 	}
 
+	@SuppressWarnings("unchecked")
 	public Vector<String> obtenerComponentes(String aplicacion)
 	{
 		Vector v = null;

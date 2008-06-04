@@ -41,9 +41,6 @@ import componentes.listeners.LJMenuItemListener;
 
 public class DJMenuItem extends JMenuItem implements DComponente
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 3018709029366109918L;
 
 	private static final String uiClassID = "DMenuMetalMenuItemUI";

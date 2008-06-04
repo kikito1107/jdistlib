@@ -38,6 +38,7 @@ import componentes.listeners.LJComboBoxListener;
  * @version 1.0
  */
 
+@SuppressWarnings("unchecked")
 public class DJComboBox extends JComboBox
 {
 	/**

@@ -457,7 +457,6 @@ public class MetalInternalFrameTitlePane extends BasicInternalFrameTitlePane
 			Font f = getFont();
 			g.setFont(f);
 			FontMetrics fm = g.getFontMetrics();
-			int fHeight = fm.getHeight();
 
 			g.setColor(foreground);
 

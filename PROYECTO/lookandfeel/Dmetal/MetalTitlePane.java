@@ -26,7 +26,6 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.Locale;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -452,7 +451,6 @@ class MetalTitlePane extends JComponent
 	 */
 	private void addMenuItems(JMenu menu)
 	{
-		Locale locale = getRootPane().getLocale();
 		JMenuItem mi = menu.add(restoreAction);
 		int mnemonic = MetalUtils.getInt("MetalTitlePane.restoreMnemonic", -1);
 

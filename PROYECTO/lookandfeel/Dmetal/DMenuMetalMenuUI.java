@@ -107,6 +107,7 @@ public class DMenuMetalMenuUI extends BasicMenuUI
 		return newPath;
 	}
 
+	@SuppressWarnings("unused")
 	private static void appendPath(MenuElement[] path, MenuElement elem)
 	{
 		MenuElement newPath[] = new MenuElement[path.length + 1];
@@ -166,8 +167,6 @@ public class DMenuMetalMenuUI extends BasicMenuUI
 			JMenu menu = (JMenu) menuItem;
 			if (!menu.isEnabled()) return;
 
-			MenuSelectionManager manager = DMenuSelectionManager
-					.defaultManager();
 			if (menu.isTopLevelMenu()) if (menu.isSelected())
 			{
 				// manager.clearSelectedPath();

@@ -483,9 +483,6 @@ public class DMetalPopupMenuUI extends PopupMenuUI
 
 		public void mousePressed(MouseEvent e)
 		{
-			Component c = (Component) e.getSource();
-			MenuSelectionManager msm = MenuSelectionManager.defaultManager();
-
 			cancelPopupMenu();
 			/*
 			 * if(msm.isComponentPartOfCurrentMenu(popupMenu) &&

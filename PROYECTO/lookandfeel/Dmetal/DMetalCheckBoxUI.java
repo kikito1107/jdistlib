@@ -369,7 +369,6 @@ public class DMetalCheckBoxUI extends MetalRadioButtonUI
 					return;
 				}
 				AbstractButton b = (AbstractButton) e.getSource();
-				ButtonModel model = b.getModel();
 
 				// Al haber deshabilitado los eventos de entrada y salida del
 				// puntero siempre
@@ -380,7 +379,6 @@ public class DMetalCheckBoxUI extends MetalRadioButtonUI
 				// a cambiar
 				// la seleccion del checkbox
 				// if(model.isPressed() && model.isArmed()){
-				boolean seleccionado = model.isSelected();
 				Vector v = ( (DJCheckBox) b ).getDJCheckBoxListeners();
 				DJCheckBoxEvent evento = new DJCheckBoxEvent();
 				evento.tipo = new Integer(DJCheckBoxEvent.SOLTADO.intValue());
