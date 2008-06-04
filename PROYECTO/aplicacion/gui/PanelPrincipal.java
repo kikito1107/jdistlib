@@ -37,6 +37,7 @@ import metainformacion.MIUsuario;
 import util.Separador;
 import Deventos.DEvent;
 import Deventos.DJChatEvent;
+import Deventos.DMIEvent;
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.ClienteFicheros;
 import aplicacion.fisica.documentos.Documento;
@@ -1476,6 +1477,18 @@ public class PanelPrincipal extends DComponenteBase
 			}
 
 			if (this.arbolDocumentos != null) arbolDocumentos.repaint();
+		}
+	}
+	
+	@Override
+	public void procesarMetaInformacion(DMIEvent e) {
+		super.procesarMetaInformacion(e);
+		
+		if (e.tipo.intValue() == DMIEvent.NOTIFICACION_CAMBIO_ROL_USUARIO
+				.intValue() && e.usuario.equals(DConector.Dusuario) )
+		{
+			ClienteFicheros.cf.inicializar();
+			arbolDocumentos.setRaiz(ClienteFicheros.cf.getArbolDoc());
 		}
 	}
 

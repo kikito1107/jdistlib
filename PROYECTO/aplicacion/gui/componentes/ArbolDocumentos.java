@@ -110,6 +110,14 @@ public class ArbolDocumentos extends JTree implements Autoscroll {
 		
 		this.expandRow(0);
 	}
+	
+	/**
+	 * Establece la raiz del arbol de directorios
+	 */
+	public void setRaiz(DefaultMutableTreeNode raizNueva){
+		if (raiz != null && model != null)
+			model.setRoot(raizNueva);
+	}
 
 	/**
 	 * 

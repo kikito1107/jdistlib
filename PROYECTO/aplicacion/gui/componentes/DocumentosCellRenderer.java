@@ -85,13 +85,17 @@ public class DocumentosCellRenderer extends DefaultTreeCellRenderer
 
 			MIDocumento f = (MIDocumento) dftn.getUserObject();
 			
-			String extension  = f.getTipo();
-			
-			if (!f.esDirectorio())
+			if (f != null) {
+				String extension  = f.getTipo();
+				
+				if (!f.esDirectorio())
+					return false;
+				
+				if (extension != null && extension.equals(MIDocumento.TIPO_BANDEJA_MAIL)) return true;
+				else return false;
+			}
+			else
 				return false;
-			
-			if (extension != null && extension.equals(MIDocumento.TIPO_BANDEJA_MAIL)) return true;
-			else return false;
 		}
 		return false;
 	}

@@ -83,9 +83,7 @@ public class ArbolUsuariosConectadosRol extends DComponenteBase
 
 	/**
 	 * Procesa los eventos de Metainformacion que le llegan
-	 * 
-	 * @param evento
-	 *            DMIEvent Evento recibido
+	 * @param evento DMIEvent Evento recibido
 	 */
 	@Override
 	public void procesarMetaInformacion(DMIEvent evento)
