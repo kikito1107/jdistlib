@@ -33,6 +33,7 @@ public class DJMenuItemEvent extends DEvent
 
 	public static final Integer CAMBIO_ESTADO = new Integer(2);
 
+	@SuppressWarnings("unchecked")
 	public Vector path = null;
 
 }

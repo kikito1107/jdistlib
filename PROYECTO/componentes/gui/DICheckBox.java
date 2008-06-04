@@ -186,6 +186,7 @@ public class DICheckBox extends DComponenteBase implements java.io.Serializable
 	 * 
 	 * @return Vector Vector de listeners DJCheckBoxListener
 	 */
+	@SuppressWarnings("unchecked")
 	public Vector getDJCheckBoxListeners()
 	{
 		return checkbox.getDJCheckBoxListeners();
@@ -196,6 +197,7 @@ public class DICheckBox extends DComponenteBase implements java.io.Serializable
 	 * 
 	 * @return Vector Vector de listeners LJCheckBoxListener
 	 */
+	@SuppressWarnings("unchecked")
 	public Vector getLJCheckBoxListeners()
 	{
 		return checkbox.getLJCheckBoxListeners();
@@ -206,6 +208,7 @@ public class DICheckBox extends DComponenteBase implements java.io.Serializable
 	 * 
 	 * @return Vector Vector de listeners LJCheckBoxListener
 	 */
+	@SuppressWarnings("unchecked")
 	public Vector getLUJCheckBoxListeners()
 	{
 		return checkbox.getLUJCheckBoxListeners();

@@ -348,6 +348,7 @@ public class MIAplicacion implements Serializable
 	 * 
 	 * @return Vector Vector de MIRol con los roles definidos
 	 */
+	@SuppressWarnings("unchecked")
 	public Vector getRoles()
 	{
 		return roles;
@@ -384,11 +385,13 @@ public class MIAplicacion implements Serializable
 	 * 
 	 * @return Vector Vector de MIUsuario con los usuarios definidos
 	 */
+	@SuppressWarnings("unchecked")
 	public Vector getUsuarios()
 	{
 		return usuarios;
 	}
 
+	@SuppressWarnings("unchecked")
 	public Vector getUsuariosNoActualizados()
 	{
 		MIUsuario usr = null;
@@ -415,6 +418,7 @@ public class MIAplicacion implements Serializable
 	 * @return Vector Vector de String con los nombres de los usuarios que estan
 	 *         bajo el rol pasado como parametro.
 	 */
+	@SuppressWarnings("unchecked")
 	public Vector<String> getUsuariosBajoRol(String rol)
 	{
 		Vector v = getUsuarios();
@@ -529,6 +533,7 @@ public class MIAplicacion implements Serializable
 	 * 
 	 * @return Vector Vector de MIComponente con los componentes definidos
 	 */
+	@SuppressWarnings("unchecked")
 	public Vector getComponentes()
 	{
 		return componentes;

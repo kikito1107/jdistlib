@@ -35,14 +35,17 @@ public class DJTreeEvent extends DEvent
 
 	public static final Integer SELECCION = new Integer(3);
 
+	@SuppressWarnings("unchecked")
 	public Vector path = null;
 
+	@SuppressWarnings("unchecked")
 	public Vector estado = null;
 
 	public DJTreeEvent()
 	{
 	}
 
+	@SuppressWarnings("unchecked")
 	public DJTreeEvent( DJTreeEvent evento )
 	{
 		this.origen = ( evento.origen == null ) ? null : new Integer(

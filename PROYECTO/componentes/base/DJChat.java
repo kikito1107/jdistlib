@@ -184,6 +184,7 @@ public class DJChat extends JPanel
 		t.start();
 	}
 
+	@SuppressWarnings("unchecked")
 	public void procesarEvento(DEvent evento)
 	{
 		DJChatEvent ev = (DJChatEvent) evento;
@@ -430,11 +431,13 @@ public class DJChat extends JPanel
 		ljchatlisteners.add(listener);
 	}
 
+	@SuppressWarnings("unchecked")
 	public Vector getDJChatListeners()
 	{
 		return djchatlisteners;
 	}
 
+	@SuppressWarnings("unchecked")
 	public Vector getLJChatListeners()
 	{
 		return ljchatlisteners;
@@ -496,6 +499,7 @@ public class DJChat extends JPanel
 			this.chat = chat;
 		}
 
+		@SuppressWarnings("unchecked")
 		public void run()
 		{
 			DJChatEvent evento = null;

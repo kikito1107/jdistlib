@@ -488,6 +488,7 @@ public class DJComboBox extends JComboBox
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private class Listener implements DJComboBoxListener
 	{
 

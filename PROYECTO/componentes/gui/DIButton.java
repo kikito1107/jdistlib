@@ -225,6 +225,7 @@ public class DIButton extends DComponenteBase implements java.io.Serializable
 	 * 
 	 * @return Vector Vector de listeners DJButtonListener
 	 */
+	@SuppressWarnings("unchecked")
 	public Vector getDJButtonListeners()
 	{
 		return boton.getDJButtonListeners();
@@ -235,6 +236,7 @@ public class DIButton extends DComponenteBase implements java.io.Serializable
 	 * 
 	 * @return Vector Vector de listeners LJButtonListener
 	 */
+	@SuppressWarnings("unchecked")
 	public Vector getLJButtonListeners()
 	{
 		return boton.getLJButtonListeners();
@@ -245,6 +247,7 @@ public class DIButton extends DComponenteBase implements java.io.Serializable
 	 * 
 	 * @return Vector Vector de listeners LJButtonListener
 	 */
+	@SuppressWarnings("unchecked")
 	public Vector getLUJButtonListeners()
 	{
 		return boton.getLUJButtonListeners();

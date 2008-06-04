@@ -248,6 +248,7 @@ public class DMenuMetalPopupMenuUI extends PopupMenuUI
 	// /////////////////////////////////////////////////////////////////////////////
 	// // Grab Code
 	// /////////////////////////////////////////////////////////////////////////////
+	@SuppressWarnings("unused")
 	private static Window getWindow(Component c)
 	{
 		Component w = c;
@@ -280,6 +281,7 @@ public class DMenuMetalPopupMenuUI extends PopupMenuUI
 		return popup;
 	}
 
+	@SuppressWarnings("unused")
 	private static List<JPopupMenu> getPopups()
 	{
 		MenuSelectionManager msm = MenuSelectionManager.defaultManager();
@@ -309,22 +311,7 @@ public class DMenuMetalPopupMenuUI extends PopupMenuUI
 			// msm.addChangeListener(this);
 		}
 
-		private void requestAddGrab(Component invoker)
-		{
-			/*
-			 * Window ancestor; ancestor = getWindow(invoker);
-			 * 
-			 * MenuSelectionManager msm = MenuSelectionManager.defaultManager();
-			 * MenuElement[] p = msm.getSelectedPath(); Component excluded =
-			 * null;
-			 * 
-			 * for (int i = 0; excluded == null && i < p.length; i++) { if (p[i]
-			 * instanceof JPopupMenu) excluded = p[i].getComponent(); }
-			 * 
-			 * grabContainer(ancestor, excluded);
-			 */
-		}
-
+		@SuppressWarnings("unused")
 		private void requestRemoveGrab()
 		{
 			ungrabContainers();

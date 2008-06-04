@@ -139,16 +139,19 @@ public class DJTree extends JTree
 		lujtreelisteners.removeAllElements();
 	}
 
+	@SuppressWarnings("unchecked")
 	public Vector getDJTreeListeners()
 	{
 		return djtreelisteners;
 	}
 
+	@SuppressWarnings("unchecked")
 	public Vector getLJTreeListeners()
 	{
 		return ljtreelisteners;
 	}
 
+	@SuppressWarnings("unchecked")
 	public Vector getLUJTreeListeners()
 	{
 		return lujtreelisteners;
@@ -177,6 +180,7 @@ public class DJTree extends JTree
 		return evento;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void procesarEvento(DEvent ev)
 	{
 		DJTreeEvent evento = (DJTreeEvent) ev;
@@ -236,6 +240,7 @@ public class DJTree extends JTree
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	public Vector getEstado()
 	{
 		return ( (DMetalTreeUI) getUI() ).getEstado();
@@ -251,6 +256,7 @@ public class DJTree extends JTree
 		nivelPermisos = nivel;
 	}
 
+	@SuppressWarnings("unused")
 	private class Listener implements DJTreeListener
 	{
 
@@ -304,6 +310,7 @@ public class DJTree extends JTree
 			this.arbol = arbol;
 		}
 
+		@SuppressWarnings("unchecked")
 		private void setEstado(Vector v)
 		{
 			( (DMetalTreeUI) getUI() ).setEstado(v);

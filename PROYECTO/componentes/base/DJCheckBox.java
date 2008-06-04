@@ -277,6 +277,7 @@ public class DJCheckBox extends JCheckBox
 		return null;
 	}
 
+	@SuppressWarnings("unused")
 	private class Listener implements DJCheckBoxListener
 	{
 

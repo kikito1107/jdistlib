@@ -51,6 +51,7 @@ public class DJListEvent extends DEvent
 
 	public ImageIcon imagen = null;
 
+	@SuppressWarnings("unchecked")
 	public Vector elementos = null;
 
 	public ElementoLista ellista = null;

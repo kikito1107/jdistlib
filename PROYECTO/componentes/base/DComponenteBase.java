@@ -35,12 +35,15 @@ public class DComponenteBase extends JPanel implements DComponente,
 
 	private JPanel pfrontal = new JPanel();
 
+	@SuppressWarnings("unused")
 	private boolean mostrado = true;
 
 	private boolean conexionDC = false;
 
+	@SuppressWarnings("unused")
 	private Vector<Object> djlisteners = new Vector<Object>(5);
 
+	@SuppressWarnings("unused")
 	private Vector<Object> ljlisteners = new Vector<Object>(5);
 
 	protected Integer DID = new Integer(-1);

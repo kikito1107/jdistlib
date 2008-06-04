@@ -21,6 +21,7 @@ import componentes.listeners.DMIListener;
  * Cliente del modulo de metainformacion
  */
 
+@SuppressWarnings("unchecked")
 public class ClienteMetaInformacion
 {
 	public static ClienteMetaInformacion cmi = null;

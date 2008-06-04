@@ -224,7 +224,7 @@ public class DIComboBox extends DComponenteBase implements java.io.Serializable
 	 * 
 	 * @return Vector Vector de listeners DJComboBoxListener
 	 */
-
+	@SuppressWarnings("unchecked")
 	public Vector getDJComboBoxListeners()
 	{
 		return combobox.getDJComboBoxListeners();
@@ -235,6 +235,7 @@ public class DIComboBox extends DComponenteBase implements java.io.Serializable
 	 * 
 	 * @return Vector Vector de listeners LJComboBoxListener
 	 */
+	@SuppressWarnings("unchecked")
 	public Vector getLJComboBoxListeners()
 	{
 		return combobox.getLJComboBoxListeners();
@@ -245,6 +246,7 @@ public class DIComboBox extends DComponenteBase implements java.io.Serializable
 	 * 
 	 * @return Vector Vector de listeners LJComboBoxListener
 	 */
+	@SuppressWarnings("unchecked")
 	public Vector getLUJComboBoxListeners()
 	{
 		return combobox.getLUJComboBoxListeners();

@@ -239,6 +239,7 @@ public class MIUsuario implements Serializable
 	 * @return Vector Vector de MIComponente con los componentes para los que se
 	 *         ha definido algun permiso
 	 */
+	@SuppressWarnings("unchecked")
 	public Vector getPermisosComponentes()
 	{
 		return permisosComponentes;
@@ -250,6 +251,7 @@ public class MIUsuario implements Serializable
 	 * @return Vector Vector de String con los nombres de los roles permitidos a
 	 *         este usuario
 	 */
+	@SuppressWarnings("unchecked")
 	public Vector getRolesPermitidos()
 	{
 		return rolesPermitidos;

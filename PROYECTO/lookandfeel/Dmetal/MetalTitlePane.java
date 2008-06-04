@@ -359,13 +359,6 @@ class MetalTitlePane extends JComponent
 	}
 
 	/**
-	 * Uninstalls any previously installed UI values.
-	 */
-	private void uninstallDefaults()
-	{
-	}
-
-	/**
 	 * Returns the <code>JMenuBar</code> displaying the appropriate system
 	 * menu items.
 	 */
@@ -970,6 +963,7 @@ class MetalTitlePane extends JComponent
 			return preferredLayoutSize(c);
 		}
 
+		@SuppressWarnings("deprecation")
 		private int computeHeight()
 		{
 			FontMetrics fm = Toolkit.getDefaultToolkit().getFontMetrics(

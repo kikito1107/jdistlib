@@ -122,6 +122,7 @@ public class DMenuMetalMenuItemUI extends BasicMenuItemUI
 		{
 		}
 
+		@SuppressWarnings("unchecked")
 		public void mouseReleased(MouseEvent e)
 		{
 			MenuSelectionManager manager = DMenuSelectionManager
@@ -144,6 +145,7 @@ public class DMenuMetalMenuItemUI extends BasicMenuItemUI
 			}
 		}
 
+		@SuppressWarnings("unchecked")
 		public void mouseEntered(MouseEvent e)
 		{
 
@@ -167,6 +169,7 @@ public class DMenuMetalMenuItemUI extends BasicMenuItemUI
 
 		}
 
+		@SuppressWarnings("unchecked")
 		public void mouseExited(MouseEvent e)
 		{
 			MenuSelectionManager manager = DMenuSelectionManager

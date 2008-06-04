@@ -129,9 +129,6 @@ public class MetalSliderUI extends BasicSliderUI
 	@Override
 	public void paintTrack(Graphics g)
 	{
-		Color trackColor = !slider.isEnabled() ? MetalLookAndFeel
-				.getControlShadow() : slider.getForeground();
-
 		boolean leftToRight = MetalUtils.isLeftToRight(slider);
 
 		g.translate(trackRect.x, trackRect.y);

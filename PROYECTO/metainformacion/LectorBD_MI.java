@@ -238,6 +238,7 @@ public class LectorBD_MI
 		// conexion.cerrar();
 	}
 
+	@SuppressWarnings("unchecked")
 	public void actualizarBD(Vector aplicaciones)
 	{
 		try

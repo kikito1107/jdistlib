@@ -33,6 +33,7 @@ public class DMenuSelectionManagerEvent extends DEvent
 
 	public static final Integer CAMBIO_PATH = new Integer(2);
 
+	@SuppressWarnings("unchecked")
 	public Vector path = null;
 
 }

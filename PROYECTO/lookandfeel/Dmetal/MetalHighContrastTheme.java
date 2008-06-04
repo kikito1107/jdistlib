@@ -42,6 +42,7 @@ class MetalHighContrastTheme extends DefaultMetalTheme
 	private static final ColorUIResource secondary3 = new ColorUIResource(255,
 			255, 255);
 
+	@SuppressWarnings("unused")
 	private static final ColorUIResource controlHighlight = new ColorUIResource(
 			102, 102, 102);
 

@@ -45,10 +45,13 @@ public class DJMenuItem extends JMenuItem implements DComponente
 
 	private static final String uiClassID = "DMenuMetalMenuItemUI";
 
+	@SuppressWarnings("unchecked")
 	private Vector djmenuitemlisteners = new Vector(5);
 
+	@SuppressWarnings("unchecked")
 	private Vector ljmenuitemlisteners = new Vector(5);
 
+	@SuppressWarnings("unchecked")
 	private Vector lujmenuitemlisteners = new Vector(5);
 
 	private Integer DID = new Integer(-1);
@@ -166,31 +169,37 @@ public class DJMenuItem extends JMenuItem implements DComponente
 		return uiClassID;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void addDJMenuItemListener(DJMenuItemListener listener)
 	{
 		djmenuitemlisteners.add(listener);
 	}
 
+	@SuppressWarnings("unchecked")
 	public void addLJMenuItemListener(LJMenuItemListener listener)
 	{
 		ljmenuitemlisteners.add(listener);
 	}
 
+	@SuppressWarnings("unchecked")
 	public void addLUJMenuItemListener(LJMenuItemListener listener)
 	{
 		lujmenuitemlisteners.add(listener);
 	}
 
+	@SuppressWarnings("unchecked")
 	public Vector getDJMenuItemListeners()
 	{
 		return djmenuitemlisteners;
 	}
 
+	@SuppressWarnings("unchecked")
 	public Vector getLJMenuItemListeners()
 	{
 		return ljmenuitemlisteners;
 	}
 
+	@SuppressWarnings("unchecked")
 	public Vector getLUJMenuItemListeners()
 	{
 		return lujmenuitemlisteners;
@@ -359,6 +368,7 @@ public class DJMenuItem extends JMenuItem implements DComponente
 			this.menuitem = menuitem;
 		}
 
+		@SuppressWarnings("unchecked")
 		public void run()
 		{
 			DJMenuItemEvent evento = null;

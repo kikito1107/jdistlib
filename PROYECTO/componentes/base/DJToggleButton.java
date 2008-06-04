@@ -196,6 +196,7 @@ public class DJToggleButton extends JToggleButton
 		return evento;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void procesarEvento(DEvent evento)
 	{
 		if (evento.tipo.intValue() == DJToggleButtonEvent.PRESIONADO.intValue())
@@ -276,6 +277,7 @@ public class DJToggleButton extends JToggleButton
 		return null;
 	}
 
+	@SuppressWarnings("unused")
 	private class Listener implements DJToggleButtonListener
 	{
 

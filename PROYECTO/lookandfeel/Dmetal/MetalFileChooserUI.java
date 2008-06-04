@@ -156,6 +156,7 @@ public class MetalFileChooserUI extends BasicFileChooserUI
 
 	private static final Dimension hstrut5 = new Dimension(5, 1);
 
+	@SuppressWarnings("unused")
 	private static final Dimension hstrut11 = new Dimension(11, 1);
 
 	private static final Dimension vstrut5 = new Dimension(1, 5);
@@ -1312,6 +1313,7 @@ public class MetalFileChooserUI extends BasicFileChooserUI
 
 	JTextField editCell = null;
 
+	@SuppressWarnings("deprecation")
 	private void editFileName(int index)
 	{
 		ensureIndexIsVisible(index);
@@ -2051,6 +2053,7 @@ public class MetalFileChooserUI extends BasicFileChooserUI
 	/**
 	 * Data model for a type-face selection combo-box.
 	 */
+	@SuppressWarnings("unchecked")
 	protected class DirectoryComboBoxModel extends AbstractListModel implements
 			ComboBoxModel
 	{

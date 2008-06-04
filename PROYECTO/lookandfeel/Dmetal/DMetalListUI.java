@@ -218,6 +218,7 @@ public class DMetalListUI extends BasicListUI
 			 */
 		}
 
+		@SuppressWarnings("unused")
 		private boolean selectedOnPress;
 	}
 

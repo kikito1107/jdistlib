@@ -39,10 +39,13 @@ public class DJButton extends JButton
 
 	private static final String uiClassID = "DButtonUI";
 
+	@SuppressWarnings("unchecked")
 	private Vector djbuttonlisteners = new Vector(5);
 
+	@SuppressWarnings("unchecked")
 	private Vector ljbuttonlisteners = new Vector(5);
 
+	@SuppressWarnings("unchecked")
 	private Vector ujbuttonlisteners = new Vector(5);
 
 	private Integer DID = null;
@@ -104,31 +107,37 @@ public class DJButton extends JButton
 		return uiClassID;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void addDJButtonListener(DJButtonListener listener)
 	{
 		djbuttonlisteners.add(listener);
 	}
 
+	@SuppressWarnings("unchecked")
 	public void addLJButtonListener(LJButtonListener listener)
 	{
 		ljbuttonlisteners.add(listener);
 	}
 
+	@SuppressWarnings("unchecked")
 	public void addLUJButtonListener(LJButtonListener listener)
 	{
 		ujbuttonlisteners.add(listener);
 	}
 
+	@SuppressWarnings("unchecked")
 	public Vector getDJButtonListeners()
 	{
 		return djbuttonlisteners;
 	}
 
+	@SuppressWarnings("unchecked")
 	public Vector getLJButtonListeners()
 	{
 		return ljbuttonlisteners;
 	}
 
+	@SuppressWarnings("unchecked")
 	public Vector getLUJButtonListeners()
 	{
 		return ujbuttonlisteners;
@@ -172,6 +181,7 @@ public class DJButton extends JButton
 		return evento;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void procesarEvento(DEvent evento)
 	{
 		int i;
@@ -266,6 +276,7 @@ public class DJButton extends JButton
 		return null;
 	}
 
+	@SuppressWarnings("unused")
 	private class Listener implements DJButtonListener
 	{
 
@@ -311,6 +322,7 @@ public class DJButton extends JButton
 			super(dc);
 		}
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public void run()
 		{

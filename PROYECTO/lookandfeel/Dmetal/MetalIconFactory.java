@@ -71,14 +71,18 @@ public class MetalIconFactory implements Serializable
 
 	private static Icon fileChooserUpFolderIcon;
 
+	@SuppressWarnings("unused")
 	private static Icon internalFrameAltMaximizeIcon;
 
+	@SuppressWarnings("unused")
 	private static Icon internalFrameCloseIcon;
 
 	private static Icon internalFrameDefaultMenuIcon;
 
+	@SuppressWarnings("unused")
 	private static Icon internalFrameMaximizeIcon;
 
+	@SuppressWarnings("unused")
 	private static Icon internalFrameMinimizeIcon;
 
 	private static Icon radioButtonIcon;
@@ -1565,6 +1569,7 @@ public class MetalIconFactory implements Serializable
 	 * that have different GC's). So now whenever we create a new icon image for
 	 * a given GC, we cache that image with the GC for later retrieval.
 	 */
+	@SuppressWarnings("unchecked")
 	static class ImageCacher
 	{
 		Vector images = new Vector(1, 1);
@@ -2022,8 +2027,6 @@ public class MetalIconFactory implements Serializable
 	static private final Dimension menuArrowIconSize = new Dimension(4, 8);
 
 	static private final Dimension menuCheckIconSize = new Dimension(10, 10);
-
-	static private final int xOff = 4;
 
 	private static class MenuArrowIcon implements Icon, UIResource,
 			Serializable

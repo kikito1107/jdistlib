@@ -45,8 +45,6 @@ import java.awt.event.MouseWheelListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
 import java.awt.event.WindowListener;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Vector;
 
 import javax.swing.AbstractAction;
@@ -262,6 +260,7 @@ public class DMetalPopupMenuUI extends PopupMenuUI
 	// /////////////////////////////////////////////////////////////////////////////
 	// // Grab Code
 	// /////////////////////////////////////////////////////////////////////////////
+	@SuppressWarnings("unused")
 	private static Window getWindow(Component c)
 	{
 		Component w = c;
@@ -294,17 +293,6 @@ public class DMetalPopupMenuUI extends PopupMenuUI
 		return popup;
 	}
 
-	private static List<JPopupMenu> getPopups()
-	{
-		MenuSelectionManager msm = MenuSelectionManager.defaultManager();
-		MenuElement[] p = msm.getSelectedPath();
-
-		List<JPopupMenu> list = new ArrayList<JPopupMenu>(p.length);
-		for (MenuElement element : p)
-			if (element instanceof JPopupMenu) list.add((JPopupMenu) element);
-		return list;
-	}
-
 	private transient static MouseGrabber mouseGrabber = null;
 
 	private static class MouseGrabber implements MouseListener,
@@ -323,22 +311,7 @@ public class DMetalPopupMenuUI extends PopupMenuUI
 			// msm.addChangeListener(this);
 		}
 
-		private void requestAddGrab(Component invoker)
-		{
-			/*
-			 * Window ancestor; ancestor = getWindow(invoker);
-			 * 
-			 * MenuSelectionManager msm = MenuSelectionManager.defaultManager();
-			 * MenuElement[] p = msm.getSelectedPath(); Component excluded =
-			 * null;
-			 * 
-			 * for (int i = 0; excluded == null && i < p.length; i++) { if (p[i]
-			 * instanceof JPopupMenu) excluded = p[i].getComponent(); }
-			 * 
-			 * grabContainer(ancestor, excluded);
-			 */
-		}
-
+		@SuppressWarnings("unused")
 		private void requestRemoveGrab()
 		{
 			ungrabContainers();

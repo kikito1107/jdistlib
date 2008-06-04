@@ -136,6 +136,7 @@ public class DIChat extends DComponenteBase implements java.io.Serializable
 	 * 
 	 * @return Vector Vector de listeners DJChatListener
 	 */
+	@SuppressWarnings("unchecked")
 	public Vector getDJChatListeners()
 	{
 		return chat.getDJChatListeners();
@@ -146,6 +147,7 @@ public class DIChat extends DComponenteBase implements java.io.Serializable
 	 * 
 	 * @return Vector Vector de listeners LJChatListener
 	 */
+	@SuppressWarnings("unchecked")
 	public Vector getLJChatListeners()
 	{
 		return chat.getLJChatListeners();

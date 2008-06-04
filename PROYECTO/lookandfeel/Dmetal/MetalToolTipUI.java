@@ -79,6 +79,7 @@ public class MetalToolTipUI extends BasicToolTipUI
 		tip = null;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void paint(Graphics g, JComponent c)
 	{
@@ -101,6 +102,7 @@ public class MetalToolTipUI extends BasicToolTipUI
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public Dimension getPreferredSize(JComponent c)
 	{

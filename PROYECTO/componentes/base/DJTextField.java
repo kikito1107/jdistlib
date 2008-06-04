@@ -55,10 +55,6 @@ public class DJTextField extends JTextField
 
 	private ColaEventos colaEnvio = null;
 
-	private boolean sincronizado = false;
-
-	private int estadoSincronizacion = 0;
-
 	private Integer ultimoProcesado = new Integer(-1);
 
 	private int nivelPermisos = 10;
@@ -269,6 +265,7 @@ public class DJTextField extends JTextField
 		return null;
 	}
 
+	@SuppressWarnings("unused")
 	private class Listener implements DJTextFieldListener
 	{
 		public void replace(DJTextFieldEvent evento)

@@ -344,8 +344,6 @@ public class DJFrame extends JFrame
 
 		private ColaEventos colaEnvio = null;
 
-		private boolean activo = false;
-
 		protected DJFrame frame = null;
 
 		private ConjuntoMousesRemotos conjuntoMouses = new ConjuntoMousesRemotos();

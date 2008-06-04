@@ -326,6 +326,7 @@ public class DILista extends DComponenteBase implements java.io.Serializable
 	 * 
 	 * @return Vector Vector de listeners DJListListener
 	 */
+	@SuppressWarnings("unchecked")
 	public Vector getDJListListeners()
 	{
 		return lista.getDJListListeners();
@@ -336,6 +337,7 @@ public class DILista extends DComponenteBase implements java.io.Serializable
 	 * 
 	 * @return Vector Vector de listeners LJListListener
 	 */
+	@SuppressWarnings("unchecked")
 	public Vector getLJListListeners()
 	{
 		return lista.getLJListListeners();
@@ -346,6 +348,7 @@ public class DILista extends DComponenteBase implements java.io.Serializable
 	 * 
 	 * @return Vector Vector de listeners LJListListener
 	 */
+	@SuppressWarnings("unchecked")
 	public Vector getLUJListListeners()
 	{
 		return lista.getLUJListListeners();
