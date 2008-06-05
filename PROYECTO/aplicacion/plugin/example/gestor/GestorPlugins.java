@@ -194,8 +194,14 @@ public class GestorPlugins extends JFrame
 					{
 						public void actionPerformed(java.awt.event.ActionEvent e)
 						{
-							int opc = JOptionPane.showConfirmDialog(null, "Una vez eliminado el plugin esta acción no se puede deshacer\n¿Seguro que desea eliminar el plugin?", "Confirmacion", JOptionPane.YES_NO_OPTION);
-							if (opc == 0)
+							Object[] options = {"Eliminar Plugin","Cancelar"};
+							
+							int opc = JOptionPane.showOptionDialog(null, "Una vez eliminado el plugin esta acción no se puede deshacer\n¿Seguro que desea eliminar el plugin?", "Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+								    null,
+								    options,
+								    options[1]);
+							
+							if (opc == JOptionPane.YES_OPTION)
 								eliminarPlugin(tablaPlugins.getSelectedRow());
 						}
 					});

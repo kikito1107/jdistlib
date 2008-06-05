@@ -117,9 +117,14 @@ public class EnviarMensaje extends JDialog
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent e)
 			{
-				int elecc = JOptionPane.showConfirmDialog(null, "El mensaje no ha sido enviado todavía\n¿Realmente desea salir?", "¡Atención!", JOptionPane.YES_NO_OPTION);
+				Object[] options = {"Salir","Cancelar"};
 				
-				if (elecc == 0)
+				int elecc = JOptionPane.showOptionDialog(null, "El mensaje no ha sido enviado todavía\n¿Realmente desea salir?", "¡Atención!", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,
+					    null,
+					    options,
+					    options[1]);
+				
+				if (elecc == JOptionPane.YES_OPTION)
 					setVisible(false);
 			}
 		});

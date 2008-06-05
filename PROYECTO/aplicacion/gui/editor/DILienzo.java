@@ -900,14 +900,20 @@ public class DILienzo extends DIViewer implements MouseListener,
 			
 			if (!Documento.isSuported(doc.getPath()))
 			{
+				
+				Object[] options = {"Abrir en modo texto", "No abrir"};
+				
 				int eleccion = JOptionPane
-						.showConfirmDialog(
+						.showOptionDialog(
 								this,
 								"El formato del fichero no está soportado. ¿Desea abrirlo en modo texto?",
 								"Formato no soportado",
-								JOptionPane.YES_NO_OPTION);
+								JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+							    null,
+							    options,
+							    options[1]);
 
-				if (eleccion == 1) return;
+				if (eleccion == JOptionPane.NO_OPTION) return;
 				
 				force = true;
 			}

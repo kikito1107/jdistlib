@@ -517,11 +517,17 @@ public class PanelPrincipal extends DComponenteBase
 					{
 						public void actionPerformed(java.awt.event.ActionEvent e)
 						{
+							
+							Object[] options = {"Eliminar", "Cancelar",};
+							
 							int opcion = JOptionPane
-									.showConfirmDialog(
+									.showOptionDialog(
 											null,
 											"ÀSeguro que desea eliminar el documento o directorio seleccionado?",
-											"Aviso", JOptionPane.YES_NO_OPTION);
+											"Aviso", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+										    null,
+										    options,
+										    options[1]);
 							
 							if (opcion == JOptionPane.YES_OPTION)
 							{
@@ -1041,16 +1047,23 @@ public class PanelPrincipal extends DComponenteBase
 				return;
 			}
 			
-			int sel = JOptionPane.showConfirmDialog(this,
-					"El documento ya existe ÀDesea sobrescribirlo?",
-					"ÀSobrescribir?", JOptionPane.YES_NO_CANCEL_OPTION);
+
+			Object[] options = {"Sobreescribir", "Renombrar", "Cancelar"};
+			
+			
+			int sel = JOptionPane.showOptionDialog(this,
+					"El documento ya existe ÀQue desea hacer?",
+					"Fichero ya existente", JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,
+				    null,
+				    options,
+				    options[2]);
 
 			// el usuario ha cancelado la accion
-			if (sel == 2)
+			if (sel == JOptionPane.CANCEL_OPTION)
 				return;
 
 			// el usuario desea sobreescribir el documento
-			else if (sel == 0)
+			else if (sel == JOptionPane.YES_OPTION)
 			{
 				ClienteFicheros.cf.generarVersion(anterior, path);
 
@@ -1062,11 +1075,16 @@ public class PanelPrincipal extends DComponenteBase
 			}
 
 			// el usuario no desea sobreescribir el fichero
-			else if (sel == 1)
+			else if (sel == JOptionPane.NO_OPTION)
 			{
 				nombre = JOptionPane.showInputDialog("Nuevo nombre");
-				anterior = ClienteFicheros.cf.existeFichero(path + nombre,
-						DConector.Daplicacion);
+				
+				if(nombre != null && !nombre.equals("")) {
+					anterior = ClienteFicheros.cf.existeFichero(path + nombre,
+							DConector.Daplicacion);
+				}
+				else
+					return;
 			}
 		}
 

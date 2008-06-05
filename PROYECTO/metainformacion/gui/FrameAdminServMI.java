@@ -68,11 +68,17 @@ public class FrameAdminServMI extends JFrame
 
 	void botonGuardar_actionPerformed(ActionEvent e)
 	{
+		
+		Object[] options = {"Guardar","Cancelar"};
+		
 		int res = JOptionPane
-				.showConfirmDialog(
+				.showOptionDialog(
 						null,
 						"Desea guardar los contenidos del servidor de metainformacion?",
-						"Aviso", JOptionPane.YES_NO_OPTION);
+						"Aviso", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+					    null,
+					    options,
+					    options[1]);
 
 		if (res == JOptionPane.YES_OPTION) smi.salvar();
 	}

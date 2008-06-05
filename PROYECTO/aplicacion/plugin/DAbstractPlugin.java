@@ -248,11 +248,17 @@ public abstract class DAbstractPlugin extends DComponenteBase
 					&& !dp.usuario.equals(DConector.Dusuario)
 					&& ( getName().equals( dp.nombre) ))
 			{
-				res = JOptionPane.showConfirmDialog(null,
+				
+				Object[] options = {"Instalar", "No instalar"};
+				
+				res = JOptionPane.showOptionDialog(null,
 						"Hay una nueva version del plug-in " + getName()
 								+ " (Version Actual: " + getVersion()
 								+ ", Version Nueva: " + dp.version, "Aviso",
-						JOptionPane.YES_NO_OPTION);
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+					    null,
+					    options,
+					    options[1]);
 
 				if (res == JOptionPane.YES_OPTION)
 				{

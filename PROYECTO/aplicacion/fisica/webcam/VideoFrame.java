@@ -365,9 +365,6 @@ public class VideoFrame extends JFrame
 	public static void main(String args[])
 	{
 		VideoConferencia.establecerOrigen();
-		// String ip = JOptionPane.showInputDialog("Inserte IP de otro
-		// ordenador");
-
 		String ip = "localhost";
 		new VideoFrame(ip).run();
 	}
