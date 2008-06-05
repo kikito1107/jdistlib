@@ -145,16 +145,16 @@ public class PanelPrincipal extends DComponenteBase
 			// dar soporte para documentos
 			BorderLayout b = new BorderLayout();
 			
-			b.setHgap(12);  // Generated
-			b.setVgap(12); 
+			b.setHgap(6);  // Generated
+			b.setVgap(6); 
 			
 			JPanel aux = new JPanel(b);
 			aux.add(getPanelLateral(), BorderLayout.WEST);
 			aux.add(getPanelEspacioTrabajo(), BorderLayout.CENTER);
 			BorderLayout borderLayout = new BorderLayout();
 			
-			borderLayout.setHgap(8);  // Generated
-			borderLayout.setVgap(8);  // Generated
+			borderLayout.setHgap(6);  // Generated
+			borderLayout.setVgap(6);  // Generated
 			
 			this.setLayout(borderLayout);
 			
@@ -165,8 +165,8 @@ public class PanelPrincipal extends DComponenteBase
 			this.add(aux, BorderLayout.CENTER);
 
 			BorderLayout barrLay = new BorderLayout();
-			barrLay.setHgap(8);
-			barrLay.setVgap(8);
+			barrLay.setHgap(6);
+			barrLay.setVgap(6);
 			JPanel barr = new JPanel(barrLay);
 			barr.add(new JPanel(), BorderLayout.WEST);
 			barr.add(getBarraProgreso(), BorderLayout.CENTER);
@@ -259,6 +259,7 @@ public class PanelPrincipal extends DComponenteBase
 			jLabel.setMinimumSize(new Dimension(100, 25));
 			panelLateral = new JPanel();
 
+			panelLateral.setMinimumSize(new Dimension(300, 200));
 			panelLateral.setBorder(new LineBorder(Color.GRAY, 2));
 			
 			
@@ -345,7 +346,6 @@ public class PanelPrincipal extends DComponenteBase
 			herramientasDocumentos.add(getBotonDescargar());
 			herramientasDocumentos.add(new Separador());
 			herramientasDocumentos.add(this.getAgregarCarpeta());
-			herramientasDocumentos.add(new Separador());
 			herramientasDocumentos.add(getBotonEliminarFichero());
 			herramientasDocumentos.add(new Separador());
 			herramientasDocumentos.add(getBotonInfo());
@@ -495,7 +495,8 @@ public class PanelPrincipal extends DComponenteBase
 
 		return botonImprimirDocumento;
 	}
-
+	
+	
 	/**
 	 * Accede al boton eliminarFichero
 	 * @return el botonEliminarFichero inicializado
@@ -511,7 +512,7 @@ public class PanelPrincipal extends DComponenteBase
 			
 			botonEliminarFich.setToolTipText("Eliminar el documento o directorio seleccionado (solo elimina directorios vacios)");
 			
-			botonEliminarFich.setIcon(new ImageIcon("Resources/delete2.png"));
+			botonEliminarFich.setIcon(new ImageIcon("Resources/page_white_delete.png"));
 			botonEliminarFich
 					.addActionListener(new java.awt.event.ActionListener()
 					{
@@ -1074,7 +1075,7 @@ public class PanelPrincipal extends DComponenteBase
 				anterior = null;
 			}
 
-			// el usuario no desea sobreescribir el fichero
+			// el usuario  desea renombrar el fichero
 			else if (sel == JOptionPane.NO_OPTION)
 			{
 				nombre = JOptionPane.showInputDialog("Nuevo nombre");
@@ -1086,6 +1087,9 @@ public class PanelPrincipal extends DComponenteBase
 				else
 					return;
 			}
+			// el usuario ha cerrado el dialogo
+			else if (sel == JOptionPane.CLOSED_OPTION)
+				return;
 		}
 
 		byte[] bytes = null;

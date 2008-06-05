@@ -69,7 +69,7 @@ public class FrameAdminServMI extends JFrame
 	void botonGuardar_actionPerformed(ActionEvent e)
 	{
 		
-		Object[] options = {"Guardar","Cancelar"};
+		Object[] options = {"Guardar Datos","Cancelar"};
 		
 		int res = JOptionPane
 				.showOptionDialog(

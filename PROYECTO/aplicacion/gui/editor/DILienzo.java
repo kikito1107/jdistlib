@@ -564,8 +564,9 @@ public class DILienzo extends DIViewer implements MouseListener,
 	{
 		e.consume();
 
-		if (!estaSeleccionando) {
-			
+		if (!estaSeleccionando)
+		{
+
 			switch (modoDibujo)
 			{
 				case RECTANGULO:
@@ -614,7 +615,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 					repaint();
 
 					break;
-					
+
 				case LINEAS:
 					Linea l = new Linea(x1, y1, e.getX(), e.getY());
 					l.setColor(colorActual);
@@ -894,30 +895,34 @@ public class DILienzo extends DIViewer implements MouseListener,
 		if (conectadoDC() && ( doc.getPath() != null )
 				&& !doc.getPath().equals(""))
 		{
-			
-			
+
 			boolean force = false;
-			
+
 			if (!Documento.isSuported(doc.getPath()))
 			{
-				
-				Object[] options = {"Abrir en modo texto", "No abrir"};
-				
+
+				Object[] options =
+				{ "Abrir en modo texto", "No abrir" };
+
 				int eleccion = JOptionPane
 						.showOptionDialog(
 								this,
 								"El formato del fichero no está soportado. ¿Desea abrirlo en modo texto?",
 								"Formato no soportado",
-								JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
-							    null,
-							    options,
-							    options[1]);
+								JOptionPane.YES_NO_OPTION,
+								JOptionPane.QUESTION_MESSAGE, null, options,
+								options[1]);
 
-				if (eleccion == JOptionPane.NO_OPTION) return;
-				
+				if (eleccion == JOptionPane.NO_OPTION
+						|| eleccion == JOptionPane.CLOSED_OPTION) 
+				{
+					doc.setPath("");	
+					return;
+				}
+
 				force = true;
 			}
-			
+
 			DJLienzoEvent e = new DJLienzoEvent();
 			e.tipo = new Integer(DJLienzoEvent.SINCRONIZACION.intValue());
 			e.path = new String(doc.getPath());
@@ -943,9 +948,10 @@ public class DILienzo extends DIViewer implements MouseListener,
 				}
 				else
 				{
-						JOptionPane.showMessageDialog(this.padre, "Error al cargar el fichero " + doc.getPath()
-										+ " desde el servidor");
-						doc.setPath("");
+					JOptionPane.showMessageDialog(this.padre,
+							"Error al cargar el fichero " + doc.getPath()
+									+ " desde el servidor");
+					doc.setPath("");
 				}
 
 				e.sincronizarFichero = new Boolean(false);
@@ -1000,11 +1006,10 @@ public class DILienzo extends DIViewer implements MouseListener,
 				{
 					return;
 				}
-				
+
 				TransferP2P.pararHebra();
 				TransferP2P.establecerServidor(id, doc);
 
-				
 				evt.idDestino = new Integer(id);
 				evt.puerto = new Integer(TransferP2P.getPort());
 				evt.tipo = DJLienzoEvent.RESPUESTA_SINCRONIZACION;

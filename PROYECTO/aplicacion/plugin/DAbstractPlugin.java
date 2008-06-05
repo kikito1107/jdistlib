@@ -18,24 +18,8 @@ import componentes.base.HebraProcesadoraBase;
 import Deventos.DEvent;
 
 /**
- * @author anab
- *
- */
-/**
- * @author anab
- *
- */
-/**
- * @author anab
- *
- */
-/**
- * @author anab
- *
- */
-/**
- * @author anab
- *
+ * 
+ * @author Carlos
  */
 public abstract class DAbstractPlugin extends DComponenteBase
 {
@@ -249,12 +233,12 @@ public abstract class DAbstractPlugin extends DComponenteBase
 					&& ( getName().equals( dp.nombre) ))
 			{
 				
-				Object[] options = {"Instalar", "No instalar"};
+				Object[] options = {"Instalar Nueva Versi—n", "Conservar Versi—n Actual"};
 				
 				res = JOptionPane.showOptionDialog(null,
 						"Hay una nueva version del plug-in " + getName()
 								+ " (Version Actual: " + getVersion()
-								+ ", Version Nueva: " + dp.version, "Aviso",
+								+ ", Version Nueva: " + dp.version, "Nuevo Version Disponible",
 						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
 					    null,
 					    options,
@@ -267,15 +251,22 @@ public abstract class DAbstractPlugin extends DComponenteBase
 					receiveMe(dp.ip, dp.jarPath);
 
 					// reconstruir los plugins
+					
+					Object[] options2 = {"Reiniciar Ahora", "M‡s tarde"};
+					
 					res = JOptionPane
-							.showConfirmDialog(
+							.showOptionDialog(
 									null,
 									"Debera reiniciar la aplicacion para que la nueva version del plugin: "
 											+ getName()
 											+ " funcione correctamente. ÀCerrarla ahora?",
-									"Aviso", JOptionPane.YES_NO_OPTION);
+									"Aviso", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+								    null,
+								    options2,
+								    options2[1]);
 					if (res == JOptionPane.YES_OPTION)
 					{
+						DConector.obtenerDC().salir();
 						System.exit(0);
 					}
 					
