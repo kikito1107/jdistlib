@@ -4,17 +4,17 @@ import Deventos.DEvent;
 import aplicacion.fisica.documentos.MIDocumento;
 
 /**
- * Modificar la BD
+ * Eventos enviados desde y hacia el servidor de ficheros
  * 
- * @author anab, carlos
+ * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez.
  */
 public class DFileEvent extends DEvent
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -1925222008496901194L;
 
+	/*
+	 * Conjunto de constantes que indican los tipos de eventos soportados. 
+	 */
 	public static final Integer NOTIFICAR_INSERTAR_FICHERO = new Integer(177);
 
 	public static final Integer NOTIFICAR_MODIFICACION_FICHERO = new Integer(
@@ -37,15 +37,29 @@ public class DFileEvent extends DEvent
 
 	public static final Integer RESPUESTA_EXISTE_FICHERO = new Integer(185);
 	
-
+	/**
+	 * Path del fichero
+	 */
 	public String path = null;
 
+	/**
+	 * Metainformacion de un documento
+	 */
 	public MIDocumento fichero = null;
 
+	/**
+	 * Directorio padre de un documento
+	 */
 	public MIDocumento padre = null;
 	
+	/**
+	 * Resultado del acceso a un fichero
+	 */
 	public Boolean res = null;
 
+	/**
+	 * Constructor por defecto
+	 */
 	public DFileEvent()
 	{
 

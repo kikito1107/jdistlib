@@ -44,7 +44,7 @@ public class MIDocumento implements Serializable
 	 */
 	public final static char PERMISO_ESCRITURA = 'w';
 	
-	/**
+	/*
 	 * Conjunto de constantes para indicar distintos formatos de fichero
 	 * que son soportados por el sistema de forma predefinida.
 	 */
