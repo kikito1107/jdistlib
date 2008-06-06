@@ -2,11 +2,12 @@ package aplicacion.gui.componentes;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.Toolkit;
 import java.util.Vector;
 
@@ -31,6 +32,10 @@ import metainformacion.MIUsuario;
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.ClienteFicheros;
 import aplicacion.fisica.documentos.MIDocumento;
+import javax.swing.JToolBar;
+import javax.swing.JSplitPane;
+
+import util.Separador;
 
 public class EnviarMensaje extends JDialog
 {
@@ -43,11 +48,9 @@ public class EnviarMensaje extends JDialog
 
 	private JButton Enviar = null;
 
-	private JButton Cancelar = null;
-
 	private JPanel panelCentro = null;
 
-	private JPanel panelOeste = null;
+	private JPanel panelOeste = null;  //  @jve:decl-index=0:visual-constraint="691,207"
 
 	private JScrollPane jScrollPane = null;
 
@@ -59,15 +62,11 @@ public class EnviarMensaje extends JDialog
 
 	private JTextField destinatario = null;
 
-	private JPanel panelCentral = null;
+	private JPanel panelCentral = null;  //  @jve:decl-index=0:visual-constraint="683,69"
 	
 	private String dest = null;
 
-	private JPanel panelDest = null;
-
 	private JLabel jLabel = null;
-
-	private JPanel panelAsunto = null;
 
 	private JTextField asunto = null;
 
@@ -76,6 +75,18 @@ public class EnviarMensaje extends JDialog
 	private MIDocumento mif = null;
 	
 	private String asunt = "";
+
+	private JLabel Asunto = null;
+
+	private JToolBar barra = null;
+
+	private JButton Adjuntar = null;
+
+	private JSplitPane split = null;
+
+	private JButton botonAgenda = null;
+	
+	private boolean agendaMostrada = true;
 
 	/**
 	 * This is the default constructor
@@ -139,11 +150,14 @@ public class EnviarMensaje extends JDialog
 	{
 		if (jContentPane == null)
 		{
+			BorderLayout borderLayout = new BorderLayout();
+			borderLayout.setHgap(0);  // Generated
+			borderLayout.setVgap(0);  // Generated
 			jContentPane = new JPanel();
-			jContentPane.setLayout(new BorderLayout());
-			jContentPane.add(getPanelSur(), BorderLayout.SOUTH);  // Generated
-			jContentPane.add(getPanelOeste(), BorderLayout.WEST);  // Generated
-			jContentPane.add(getPanelCentral(), BorderLayout.CENTER);  // Generated
+			jContentPane.setLayout(borderLayout);  // Generated
+			jContentPane.add(getPanelSur(), BorderLayout.NORTH
+					);  // Generated
+			jContentPane.add(getSplit(), BorderLayout.CENTER);  // Generated
 		}
 		return jContentPane;
 	}
@@ -159,16 +173,9 @@ public class EnviarMensaje extends JDialog
 		{
 			try
 			{
-				GridBagConstraints gridBagConstraints1 = new GridBagConstraints();
-				gridBagConstraints1.gridx = 1;  // Generated
-				gridBagConstraints1.gridy = 0;  // Generated
-				GridBagConstraints gridBagConstraints = new GridBagConstraints();
-				gridBagConstraints.gridx = 0;  // Generated
-				gridBagConstraints.gridy = 0;  // Generated
 				panelSur = new JPanel();
-				panelSur.setLayout(new GridBagLayout());  // Generated
-				panelSur.add(getEnviar(), gridBagConstraints);  // Generated
-				panelSur.add(getCancelar(), gridBagConstraints1);  // Generated
+				panelSur.setLayout(new BorderLayout());  // Generated
+				panelSur.add(getBarra(), BorderLayout.NORTH);  // Generated
 			}
 			catch (java.lang.Throwable e)
 			{
@@ -192,6 +199,8 @@ public class EnviarMensaje extends JDialog
 				Enviar = new JButton();
 				Enviar.setText("Enviar");  // Generated
 				Enviar.setIcon(new ImageIcon("Resources/icon_email.gif"));  // Generated
+				Enviar.setPreferredSize(new Dimension(61, 24));  // Generated
+				Enviar.setBorderPainted(false);
 				Enviar.addActionListener(new java.awt.event.ActionListener()
 				{
 					public void actionPerformed(java.awt.event.ActionEvent e)
@@ -248,37 +257,6 @@ public class EnviarMensaje extends JDialog
 	}
 
 	/**
-	 * This method initializes Cancelar	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
-	private JButton getCancelar()
-	{
-		if (Cancelar == null)
-		{
-			try
-			{
-				Cancelar = new JButton();
-				Cancelar.setText("Cancelar");  // Generated
-				Cancelar.setIcon(new ImageIcon("Resources/cancel.png"));  // Generated
-				Cancelar.addActionListener(new java.awt.event.ActionListener()
-				{
-					public void actionPerformed(java.awt.event.ActionEvent e)
-					{
-						mif = null;
-						setVisible(false);
-					}
-				});
-			}
-			catch (java.lang.Throwable e)
-			{
-				// TODO: Something
-			}
-		}
-		return Cancelar;
-	}
-
-	/**
 	 * This method initializes panelCentro	
 	 * 	
 	 * @return javax.swing.JPanel	
@@ -294,10 +272,11 @@ public class EnviarMensaje extends JDialog
 				gridBagConstraints2.gridy = 0;  // Generated
 				gridBagConstraints2.weightx = 1.0;  // Generated
 				gridBagConstraints2.weighty = 1.0;  // Generated
+				gridBagConstraints2.insets = new Insets(2, 2, 2, 3);  // Generated
 				gridBagConstraints2.gridx = 0;  // Generated
 				panelCentro = new JPanel();
 				panelCentro.setLayout(new GridBagLayout());  // Generated
-				panelCentro.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.gray, 2), "Mensaje", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Lucida Grande", Font.PLAIN, 13), Color.black));  // Generated
+				panelCentro.setBorder(BorderFactory.createTitledBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.gray), "Mensaje", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Lucida Grande", Font.PLAIN, 13), Color.black));  // Generated
 				panelCentro.add(getJScrollPane(), gridBagConstraints2);  // Generated
 			}
 			catch (java.lang.Throwable e)
@@ -324,7 +303,7 @@ public class EnviarMensaje extends JDialog
 				borderLayout2.setVgap(1);  // Generated
 				panelOeste = new JPanel();
 				panelOeste.setLayout(borderLayout2);  // Generated
-				panelOeste.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.gray, 2), "Agenda", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Lucida Grande", Font.PLAIN, 13), Color.black));  // Generated
+				panelOeste.setBorder(BorderFactory.createTitledBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.gray), "Agenda", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Lucida Grande", Font.PLAIN, 13), Color.black));  // Generated
 				panelOeste.setPreferredSize(new Dimension(120, 28));  // Generated
 				panelOeste.add(getArbol(), BorderLayout.WEST);  // Generated
 			}
@@ -348,6 +327,7 @@ public class EnviarMensaje extends JDialog
 			try
 			{
 				jScrollPane = new JScrollPane();
+				jScrollPane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));  // Generated
 				jScrollPane.setViewportView(getArea());  // Generated
 			}
 			catch (java.lang.Throwable e)
@@ -441,15 +421,45 @@ public class EnviarMensaje extends JDialog
 		{
 			try
 			{
-				GridLayout gridLayout = new GridLayout();
-				gridLayout.setRows(2);  // Generated
-				gridLayout.setVgap(7);  // Generated
-				gridLayout.setHgap(6);  // Generated
+				GridBagConstraints gridBagConstraints7 = new GridBagConstraints();
+				gridBagConstraints7.gridx = 0;  // Generated
+				gridBagConstraints7.fill = GridBagConstraints.BOTH;  // Generated
+				gridBagConstraints7.insets = new Insets(0, 4, 0, 0);  // Generated
+				gridBagConstraints7.gridy = 1;  // Generated
+				Asunto = new JLabel();
+				Asunto.setText("Asunto:");  // Generated
+				Asunto.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);  // Generated
+				GridBagConstraints gridBagConstraints6 = new GridBagConstraints();
+				gridBagConstraints6.gridx = 0;  // Generated
+				gridBagConstraints6.fill = GridBagConstraints.HORIZONTAL;  // Generated
+				gridBagConstraints6.gridy = 1;  // Generated
+				GridBagConstraints gridBagConstraints5 = new GridBagConstraints();
+				gridBagConstraints5.gridx = 0;  // Generated
+				gridBagConstraints5.fill = GridBagConstraints.BOTH;  // Generated
+				gridBagConstraints5.insets = new Insets(0, 4, 0, 0);  // Generated
+				gridBagConstraints5.gridy = 0;  // Generated
+				GridBagConstraints gridBagConstraints4 = new GridBagConstraints();
+				gridBagConstraints4.fill = GridBagConstraints.BOTH;  // Generated
+				gridBagConstraints4.gridy = 1;  // Generated
+				gridBagConstraints4.weightx = 1.0;  // Generated
+				gridBagConstraints4.ipadx = 1;  // Generated
+				gridBagConstraints4.insets = new Insets(3, 10, 2, 2);  // Generated
+				gridBagConstraints4.gridx = 1;  // Generated
+				GridBagConstraints gridBagConstraints3 = new GridBagConstraints();
+				gridBagConstraints3.fill = GridBagConstraints.BOTH;  // Generated
+				gridBagConstraints3.gridy = 0;  // Generated
+				gridBagConstraints3.weightx = 1.0;  // Generated
+				gridBagConstraints3.ipadx = 1;  // Generated
+				gridBagConstraints3.insets = new Insets(3, 10, 2, 2);  // Generated
+				gridBagConstraints3.gridx = 1;  // Generated
 				panelNorte = new JPanel();
-				panelNorte.setLayout(gridLayout);  // Generated
-				panelNorte.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.gray, 2), "Datos Env’o", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Lucida Grande", Font.PLAIN, 13), Color.black));  // Generated
-				panelNorte.add(getPanelDest(), null);  // Generated
-				panelNorte.add(getPanelAsunto(), null);  // Generated
+				panelNorte.setLayout(new GridBagLayout());  // Generated
+				panelNorte.setBorder(BorderFactory.createTitledBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.gray), "Datos Env’o", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Lucida Grande", Font.PLAIN, 13), Color.black));  // Generated
+				panelNorte.add(getDestinatario(), gridBagConstraints3);  // Generated
+				panelNorte.add(getAsunto(), gridBagConstraints4);  // Generated
+				panelNorte.add(getJLabel(), gridBagConstraints5);  // Generated
+				panelNorte.add(Asunto, gridBagConstraints7);  // Generated
+				panelNorte.add(label, gridBagConstraints6);  // Generated
 			}
 			catch (java.lang.Throwable e)
 			{
@@ -494,8 +504,8 @@ public class EnviarMensaje extends JDialog
 			try
 			{
 				BorderLayout borderLayout1 = new BorderLayout();
-				borderLayout1.setHgap(1);  // Generated
-				borderLayout1.setVgap(1);  // Generated
+				borderLayout1.setHgap(2);  // Generated
+				borderLayout1.setVgap(5);  // Generated
 				panelCentral = new JPanel();
 				panelCentral.setLayout(borderLayout1);  // Generated
 				panelCentral.add(getPanelNorte(), BorderLayout.NORTH);  // Generated
@@ -510,30 +520,6 @@ public class EnviarMensaje extends JDialog
 	}
 
 	/**
-	 * This method initializes panelDest	
-	 * 	
-	 * @return javax.swing.JPanel	
-	 */
-	private JPanel getPanelDest()
-	{
-		if (panelDest == null)
-		{
-			try
-			{
-				panelDest = new JPanel();
-				panelDest.setLayout(new BorderLayout());  // Generated
-				panelDest.add(getDestinatario(), BorderLayout.CENTER);  // Generated
-				panelDest.add(getJLabel(), BorderLayout.WEST);  // Generated
-			}
-			catch (java.lang.Throwable e)
-			{
-				// TODO: Something
-			}
-		}
-		return panelDest;
-	}
-
-	/**
 	 * This method initializes jLabel	
 	 * 	
 	 * @return javax.swing.JLabel	
@@ -545,7 +531,8 @@ public class EnviarMensaje extends JDialog
 			try
 			{
 				jLabel = new JLabel();
-				jLabel.setText("Destinatario:     ");  // Generated
+				jLabel.setText("Destinatario:");  // Generated
+				jLabel.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);  // Generated
 			}
 			catch (java.lang.Throwable e)
 			{
@@ -555,31 +542,6 @@ public class EnviarMensaje extends JDialog
 		return jLabel;
 	}
 
-	/**
-	 * This method initializes panelAsunto	
-	 * 	
-	 * @return javax.swing.JPanel	
-	 */
-	private JPanel getPanelAsunto()
-	{
-		if (panelAsunto == null)
-		{
-			try
-			{
-				label = new JLabel();
-				label.setText("Asunto:             ");  // Generated
-				panelAsunto = new JPanel();
-				panelAsunto.setLayout(new BorderLayout());  // Generated
-				panelAsunto.add(getAsunto(), BorderLayout.CENTER);  // Generated
-				panelAsunto.add(label, BorderLayout.WEST);  // Generated
-			}
-			catch (java.lang.Throwable e)
-			{
-				// TODO: Something
-			}
-		}
-		return panelAsunto;
-	}
 
 	/**
 	 * This method initializes asunto	
@@ -609,6 +571,128 @@ public class EnviarMensaje extends JDialog
 		em.setModal(true);
 		em.setVisible(true);
 		return em.mif;
+	}
+
+	/**
+	 * This method initializes barra	
+	 * 	
+	 * @return javax.swing.JToolBar	
+	 */
+	private JToolBar getBarra()
+	{
+		if (barra == null)
+		{
+			try
+			{
+				barra = new JToolBar();
+				barra.setFloatable(false);  // Generated
+				barra.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);  // Generated
+				barra.setPreferredSize(new Dimension(69, 32));  // Generated
+				barra.add(getAdjuntar());  // Generated
+				barra.add(getBotonAgenda());  // Generated
+				barra.add(new Separador());
+				barra.add(getEnviar());  // Generated
+				
+			}
+			catch (java.lang.Throwable e)
+			{
+				// TODO: Something
+			}
+		}
+		return barra;
+	}
+
+	/**
+	 * This method initializes Adjuntar	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private JButton getAdjuntar()
+	{
+		if (Adjuntar == null)
+		{
+			try
+			{
+				Adjuntar = new JButton();
+				Adjuntar.setPreferredSize(new Dimension(61, 24));  // Generated
+				Adjuntar.setIcon(new ImageIcon("Resources/attach.png"));  // Generated
+				Adjuntar.setText("Adjuntar");  // Generated
+				Adjuntar.setBorderPainted(false);  // Generated
+			}
+			catch (java.lang.Throwable e)
+			{
+				// TODO: Something
+			}
+		}
+		return Adjuntar;
+	}
+
+	/**
+	 * This method initializes split	
+	 * 	
+	 * @return javax.swing.JSplitPane	
+	 */
+	private JSplitPane getSplit()
+	{
+		if (split == null)
+		{
+			try
+			{
+				split = new JSplitPane();
+				split.setLeftComponent(this.getPanelOeste());
+				split.setRightComponent(this.getPanelCentral());
+				split.setOneTouchExpandable(false);
+				split.setDividerLocation(120);
+				split.setResizeWeight(0.0);
+				split.setEnabled(false);
+			}
+			catch (java.lang.Throwable e)
+			{
+				// TODO: Something
+			}
+		}
+		return split;
+	}
+
+	/**
+	 * This method initializes botonAgenda	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private JButton getBotonAgenda()
+	{
+		if (botonAgenda == null)
+		{
+			try
+			{
+				botonAgenda = new JButton();
+				botonAgenda.setPreferredSize(new Dimension(61, 24));  // Generated
+				botonAgenda.setIcon(new ImageIcon("Resources/book.png"));  // Generated
+				botonAgenda.setText("Ocultar Agenda");  // Generated
+				botonAgenda.setBorderPainted(false);  // Generated
+				botonAgenda.addActionListener(new java.awt.event.ActionListener()
+				{
+					public void actionPerformed(java.awt.event.ActionEvent e)
+					{
+						if (agendaMostrada) {
+							split.setDividerLocation(0);
+							agendaMostrada = false;
+							botonAgenda.setText("Mostrar Agenda");  // Generated
+						}
+						else {
+							split.setDividerLocation(120);
+							agendaMostrada = true;
+							botonAgenda.setText("Ocultar Agenda");  // Generated
+						}
+					}
+				});
+			}
+			catch (java.lang.Throwable e)
+			{
+				// TODO: Something
+			}
+		}
+		return botonAgenda;
 	}
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"
