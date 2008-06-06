@@ -13,21 +13,26 @@ import aplicacion.fisica.documentos.Documento;
 import aplicacion.fisica.documentos.MIDocumento;
 
 /**
- * Filtro de documentos para mensajes
- * @author ana
- *
+ * Filtro de documento para mensajes
+ * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez.
  */
 public class MSGFilter implements DocumentFilter
 {
 	/**
-	 * Constructor
-	 *
+	 * Constructor por defecto
 	 */
 	public MSGFilter()
 	{
 		
 	}
 
+	/**
+	 * Obtiene un documento interpretado como un mensaje
+	 * @param path Path del mensaje a abrir
+	 * @param usuario Nombre del usuario que quiere abrir el documento
+	 * @param rol Rol que desempe–a el usuario
+	 * @return Objeto de la clase @see Documento. Devuelve null si ha ocurrido algun error
+	 */
 	public Documento getDocumento(String path, String usuario, String rol)
 	{
 		StringBuffer contents = new StringBuffer();
@@ -139,6 +144,11 @@ public class MSGFilter implements DocumentFilter
 		return doc;
 	}
 
+	/**
+	 * Comprueba si la extension se corresponde con un fichero de mensaje (MSG)
+	 * @param extension Extension del tipo de documento a consultar
+	 * @return True si es una extension tipica para un mensaje (.msg) y False en caso contrario
+	 */
 	public boolean isSupported(String extension)
 	{
 		if (extension.toLowerCase().compareTo(MIDocumento.TIPO_MENSAJE) == 0)

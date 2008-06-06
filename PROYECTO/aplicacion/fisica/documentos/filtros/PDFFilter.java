@@ -19,17 +19,27 @@ import aplicacion.fisica.documentos.Documento;
 import aplicacion.fisica.documentos.MIDocumento;
 
 /**
- * Filtro de documento para pdf's
+ * Filtro de documento para ficheros en formato pdf
  * @author carlos
  *
  */
 public class PDFFilter implements DocumentFilter
 {
+	/**
+	 * Constructor por defecto
+	 */
 	public PDFFilter()
 	{
 		 
 	}
 	
+	/**
+	 * Obtiene un documento interpretado como pdf
+	 * @param path Path del documento a abrir
+	 * @param usuario Nombre del usuario que quiere abrir el documento
+	 * @param rol Rol que desempe–a el usuario
+	 * @return Objeto de la clase @see Documento. Devuelve null si ha ocurrido algun error
+	 */
 	public Documento getDocumento(String path, String usuario, String rol)
 	{
 		File file = new File(ServidorFicheros.getDirectorioBase()
@@ -89,6 +99,11 @@ public class PDFFilter implements DocumentFilter
 		return null;
 	}
 
+	/**
+	 * Comprueba si la extension se corresponde con un fichero pdf
+	 * @param extension Extension del tipo de documento a consultar
+	 * @return True si es una extension tipica para un pdf y False en caso contrario
+	 */
 	public boolean isSupported(String extension)
 	{
 		if (extension.toLowerCase().compareTo(MIDocumento.TIPO_PDF) == 0)
