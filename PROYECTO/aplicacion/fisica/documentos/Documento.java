@@ -30,8 +30,8 @@ import aplicacion.fisica.documentos.filtros.PDFFilter;
 import aplicacion.fisica.documentos.filtros.TXTFilter;
 
 /**
- * Clase que representa un documento al que se le pueden agregar anotaciones
- * @author carlos, anab
+ * Clase que representa un documento, sus paginas y sus anotaciones.
+ * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz
  */
 public class Documento implements Serializable, Printable
 {
@@ -49,6 +49,10 @@ public class Documento implements Serializable, Printable
 
 	private static Vector<DocumentFilter> filtros = new Vector<DocumentFilter>();
 
+	/**
+	 * De forma estatica se agregan los filtros predeterminados para los distintos
+	 * formatos de fichero.
+	 */
 	static {
 		Documento.addFilter(new MSGFilter());
 		Documento.addFilter(new ImageFilter());
@@ -57,7 +61,7 @@ public class Documento implements Serializable, Printable
 	}
 	
 	/**
-	 * Crea un nuevo documento
+	 * Constructor por defecto
 	 */
 	public Documento()
 	{
@@ -65,9 +69,9 @@ public class Documento implements Serializable, Printable
 	}
 	
 	/**
-	 * Crea un nuevo documento
-	 * @param usu usuario
-	 * @param ro rol
+	 * Constructor con parametros
+	 * @param usu Usuario que crea el documento
+	 * @param ro Rol que desempe–a actualmente el usuario que crea el documento
 	 */
 	public Documento( String usu, String ro )
 	{
@@ -77,7 +81,7 @@ public class Documento implements Serializable, Printable
 
 	/**
 	 * Accede a la metainformacion del documento: path, propietario, ...
-	 * @return la metainformacion
+	 * @return Objeto de la clase @see MIDocumento con la metainformacion del documento
 	 */
 	public MIDocumento getMetainformacion()
 	{
@@ -85,8 +89,8 @@ public class Documento implements Serializable, Printable
 	}
 
 	/**
-	 * Actualiza la metainformacion
-	 * @param datosBD
+	 * Actualiza la metainformacion del documento
+	 * @param datosBD Objeto de la clase @see MIDocumento con la nueva metainformacion del documento
 	 */
 	public void setMetainformacion(MIDocumento datosBD)
 	{
@@ -95,8 +99,8 @@ public class Documento implements Serializable, Printable
 
 	/**
 	 * Agrega una nueva pagina al documento
-	 * @param index posicion de la nueva pagina
-	 * @param o nueva pagina
+	 * @param index Posicion de la nueva pagina dentro del documento
+	 * @param o Objeto de la clase @see Pagina con la nueva pagina a insertar
 	 */
 	public void insertarPagina(int index, Pagina o)
 	{
@@ -105,8 +109,8 @@ public class Documento implements Serializable, Printable
 
 	/**
 	 * Inserta una imagen en el documento como una nueva pagina
-	 * @param index posicion de la nueva pagina
-	 * @param o imagen a insertar como pagina
+	 * @param index Posicion de la nueva pagina dentro del documento
+	 * @param o Imagen a insertar como nueva pagina
 	 */
 	public void insertarPagina(int index, Image o)
 	{
@@ -120,7 +124,7 @@ public class Documento implements Serializable, Printable
 
 	/**
 	 * Agrega una nueva pagina al final del documento
-	 * @param pag pagina a agregar
+	 * @param pag Objeto de la clase @see Pagina a agregar
 	 */
 	public void addPagina(Pagina pag)
 	{
@@ -130,7 +134,7 @@ public class Documento implements Serializable, Printable
 	
 	/**
 	 * Agrega una imagen como nueva pagina al final del documento
-	 * @param img imagen a agregar
+	 * @param img Imagen a agregar como nueva pagina
 	 */
 	public void addPagina(Image img)
 	{
@@ -142,7 +146,7 @@ public class Documento implements Serializable, Printable
 
 	/**
 	 * Agrega una imagen como nueva pagina al final del documento
-	 * @param img imagen a agregar
+	 * @param img Imagen a agregar como nueva pagina
 	 */
 	public void addPagina(ImageIcon img)
 	{
@@ -154,7 +158,7 @@ public class Documento implements Serializable, Printable
 
 	/**
 	 * Elimina una pagina del documento
-	 * @param index numero de la pagina a eliminar
+	 * @param index Numero de pagina a eliminar
 	 */
 	public void delPagina(int index)
 	{
@@ -162,8 +166,8 @@ public class Documento implements Serializable, Printable
 	}
 
 	/**
-	 * Establece el usuario del documento
-	 * @param us nombre del usuario
+	 * Establece el usuario propietario del documento
+	 * @param us Nombre del usuario propietario del documento
 	 */
 	public void setUsuario(String us)
 	{
@@ -171,8 +175,8 @@ public class Documento implements Serializable, Printable
 	}
 
 	/**
-	 * Establece el rol del usuario del documento
-	 * @param ro el rol
+	 * Establece el rol que desempe–a el usuario propietario del documento
+	 * @param ro Nombre del rol que desempe–a el usuario propietario del documento
 	 */
 	public void setRol(String ro)
 	{
@@ -181,7 +185,7 @@ public class Documento implements Serializable, Printable
 
 	/**
 	 * Consulta el numero de paginas del documento
-	 * @return entero con el numero de paginas
+	 * @return Numero de paginas del documento
 	 */
 	public int getNumeroPaginas()
 	{
@@ -191,7 +195,8 @@ public class Documento implements Serializable, Printable
 	/**
 	 * Accede a una pagina del documento
 	 * @param index posicion de la pagina
-	 * @return la pagina solicitada. Si la posicion de la pagina no es valida devuelve null
+	 * @return Objeto de la clase @see Pagina con la pagina solicitada. 
+	 * 		   Si la posicion de la pagina no es valida devuelve null.
 	 */
 	public Pagina getPagina(int index)
 	{
@@ -201,8 +206,8 @@ public class Documento implements Serializable, Printable
 	}
 
 	/**
-	 * 
-	 * @return
+	 * Obtiene el usuario propietario del documento
+	 * @return Nombre del usuario propietario del documento
 	 */
 	public String getUsuario()
 	{
@@ -210,8 +215,8 @@ public class Documento implements Serializable, Printable
 	}
 
 	/**
-	 * 
-	 * @return
+	 * Obtiene el rol que desempe–a el propietario del documento
+	 * @return Nombre del rol que desempe–a el propietario del documento
 	 */
 	public String getRol()
 	{
@@ -219,8 +224,8 @@ public class Documento implements Serializable, Printable
 	}
 
 	/**
-	 * Agrega un filtro
-	 * @param flt el nuevo filtro
+	 * Agrega un filtro para interpretar nuevos tipos de ficheros
+	 * @param flt Filtro nuevo a agregar
 	 */
 	public static void addFilter(DocumentFilter flt)
 	{
@@ -232,7 +237,7 @@ public class Documento implements Serializable, Printable
 	 * @param path path del fichero
 	 * @return true si el tipo es soportado y false en caso contrario
 	 */
-	public static boolean isSuported(String path){
+	public static boolean isSupported(String path){
 
 		int ind_ext = path.lastIndexOf(".");
 

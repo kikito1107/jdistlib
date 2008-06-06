@@ -898,7 +898,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 
 			boolean force = false;
 
-			if (!Documento.isSuported(doc.getPath()))
+			if (!Documento.isSupported(doc.getPath()))
 			{
 
 				Object[] options =
