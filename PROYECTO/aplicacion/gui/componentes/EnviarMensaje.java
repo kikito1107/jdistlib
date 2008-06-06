@@ -37,6 +37,10 @@ import javax.swing.JSplitPane;
 
 import util.Separador;
 
+/**
+ * Clase que permite enviar un mensaje de texto a alguno de los usuarios del sistema
+ * @author anab
+ */
 public class EnviarMensaje extends JDialog
 {
 
@@ -566,6 +570,14 @@ public class EnviarMensaje extends JDialog
 		return asunto;
 	}
 	
+	
+	/**
+	 * Inicia la ventana de mensaje para enviar (o reenviar) un mesjaje
+	 * @param nombre destinatario
+	 * @param asunto asunto del mensaje
+	 * @param mensaje mesaje (si lo hay)
+	 * @return la metainformacion del fichero que hay que enviar
+	 */
 	public static MIDocumento getMensaje(String nombre, String asunto,String mensaje){
 		EnviarMensaje em = new EnviarMensaje(nombre, asunto, mensaje);
 		em.setModal(true);
@@ -575,7 +587,6 @@ public class EnviarMensaje extends JDialog
 
 	/**
 	 * This method initializes barra	
-	 * 	
 	 * @return javax.swing.JToolBar	
 	 */
 	private JToolBar getBarra()
@@ -604,7 +615,6 @@ public class EnviarMensaje extends JDialog
 
 	/**
 	 * This method initializes Adjuntar	
-	 * 	
 	 * @return javax.swing.JButton	
 	 */
 	private JButton getAdjuntar()
@@ -629,7 +639,6 @@ public class EnviarMensaje extends JDialog
 
 	/**
 	 * This method initializes split	
-	 * 	
 	 * @return javax.swing.JSplitPane	
 	 */
 	private JSplitPane getSplit()
@@ -656,7 +665,6 @@ public class EnviarMensaje extends JDialog
 
 	/**
 	 * This method initializes botonAgenda	
-	 * 	
 	 * @return javax.swing.JButton	
 	 */
 	private JButton getBotonAgenda()
