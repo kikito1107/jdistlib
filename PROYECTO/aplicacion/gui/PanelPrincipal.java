@@ -524,7 +524,7 @@ public class PanelPrincipal extends DComponenteBase
 							int opcion = JOptionPane
 									.showOptionDialog(
 											null,
-											"ÀSeguro que desea eliminar el documento o directorio seleccionado?",
+											"ÀSeguro que desea eliminar el documento o directorio seleccionado?\nEsta acci—n no podr‡ se deshecha",
 											"Aviso", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
 										    null,
 										    options,
