@@ -7,9 +7,8 @@ import java.rmi.registry.LocateRegistry;
 import aplicacion.fisica.documentos.Documento;
 
 /**
- * Transfiere fichero entre dos ordenadores v’a RMI
- * @author anab
- *
+ * Transfiere un fichero entre dos ordenadores v’a RMI
+ * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz.
  */
 public class Transfer
 {
@@ -22,8 +21,8 @@ public class Transfer
 	private static boolean serverExecuted = false;
 
 	/**
-	 * Inicializa
-	 * @param ip_orig ip del servidor
+	 * Constructor
+	 * @param ip_orig Direccion IP del ordenador del cual recibiremos o enviaremos el fichero
 	 * @param fich path del fichero a mover
 	 */
 	public Transfer( String ip_orig, String fich )
@@ -31,7 +30,6 @@ public class Transfer
 		path = fich;
 		ip_origen = ip_orig;
 	}
-
 	
 	private static synchronized void setServerExecuted(boolean b)
 	{
@@ -44,7 +42,7 @@ public class Transfer
 	}
 	
 	/**
-	 * Inicia el servidor RMI
+	 * Inicia el servidor RMI para poder realizar transferencias
 	 */
 	public static void establecerServidor()
 	{
@@ -61,8 +59,8 @@ public class Transfer
 
 	/**
 	 * Recibe un documento del servidor
-	 * @param forceText bandera booleana que indica si hay que forzar la conversion a texto
-	 * @return el documento si todo ha ido ok y null en caso contrario
+	 * @param forceText Bandera booleana que indica si hay que forzar la conversion a texto
+	 * @return Objeto de tipo @see Documento si todo ha ido correctamente y null en caso contrario
 	 */
 	public Documento receiveDocumento(boolean forceText)
 	{
@@ -82,8 +80,8 @@ public class Transfer
 
 	/**
 	 * Envia un documento al servidor
-	 * @param d documento
-	 * @return true si todo ha ido ok y false en caso contrario
+	 * @param d Documento a enviar
+	 * @return True si todo fue correcto y false en caso contrario
 	 */
 	public boolean sendDocumento(Documento d)
 	{
@@ -102,8 +100,8 @@ public class Transfer
 	}
 
 	/**
-	 * Recibe los datos de un fichero desde el servidor
-	 * @return vector de byte con el contenido del fichero solicitado
+	 * Recibe los bytes de un fichero desde el servidor
+	 * @return Vector de bytes con el contenido del fichero solicitado
 	 */
 	public byte[] receiveFileBytes()
 	{
@@ -122,9 +120,9 @@ public class Transfer
 	}
 
 	/**
-	 * Envia los datos de un fichero al servidor
-	 * @param datos vector de byte con el contenido del fichero
-	 * @return true si la transferencia a ido ok y false en caso contrario
+	 * Envia los bytes de un fichero al servidor
+	 * @param datos Vector de bytes con el contenido del fichero
+	 * @return True si la transferencia ha sido correcta. False en caso contrario
 	 */
 	public boolean sendFile(byte[] datos)
 	{
@@ -144,15 +142,19 @@ public class Transfer
 
 	/**
 	 * Hebra que ejecuta el servidor RMI
-	 * @author anab
-	 *
 	 */
 	private class ServerThread extends Thread
 	{
+		/**
+		 * Constructor por defecto
+		 */
 		public ServerThread()
 		{
 		}
 
+		/**
+		 * Ejecucion de la hebra
+		 */
 		@Override
 		public void run()
 		{
