@@ -7,8 +7,8 @@ import java.util.Date;
 import figuras.Figura;
 
 /**
- * Anotacion realizada sobre una pagina determinada de un documento
- * @author anab, carlos
+ * Anotacion realizada sobre una pagina determinada de un documento del sistema
+ * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
 public class Anotacion implements Serializable
 {
@@ -24,9 +24,9 @@ public class Anotacion implements Serializable
 
 	/**
 	 * Constructor
-	 * @param cont figura a dibujar en la anotacion
-	 * @param usuario usuario que realiza la anotacion
-	 * @param rol rol bajo el cual el usuario realizo la anotacion
+	 * @param cont Figura a dibujar en la anotacion.
+	 * @param usuario Usuario que realiza la anotacion
+	 * @param rol Rol bajo el cual el usuario realizo la anotacion
 	 */
 	public Anotacion(Figura cont, String usuario, String rol)
 	{
@@ -36,19 +36,9 @@ public class Anotacion implements Serializable
 		this.rol = rol;
 	}
 
-
-	/**
-	 * Establece la figura a dibujar
-	 * @param cont
-	 */
-	public void setContenido(Figura cont)
-	{
-		
-	}
-
 	/**
 	 * Devuelve la figura a dibujar
-	 * @return
+	 * @return Figura a dibujar.
 	 */
 	public Figura getContenido()
 	{
@@ -76,7 +66,7 @@ public class Anotacion implements Serializable
 
 	/**
 	 * Consulta la fecha y hora en la que fue realizada la anotacion
-	 * @return cadena con la representaci—n de la fecha en el siguiente formato: dd/MMMMM/yyyy 'a las' hh:mm
+	 * @return Cadena con la representaci—n de la fecha en el siguiente formato: dd/MMMMM/yyyy 'a las' hh:mm
 	 */
 	public String getFecha()
 	{
