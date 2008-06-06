@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.Vector;
 
 import util.Fecha;
-import aplicacion.fisica.ConectorBD;
+import aplicacion.fisica.ConectorBDMetainformacion;
 
 /**
  * <p>
@@ -18,14 +18,14 @@ import aplicacion.fisica.ConectorBD;
  */
 public class LectorBD_MI
 {
-	ConectorBD conexion = null;
+	ConectorBDMetainformacion conexion = null;
 
 	/**
 	 * Inicializa la clase, creando un nuevo objeto conexi—n BD
 	 */
 	public LectorBD_MI()
 	{
-		conexion = new ConectorBD();
+		conexion = new ConectorBDMetainformacion();
 		conexion.abrir();
 	}
 

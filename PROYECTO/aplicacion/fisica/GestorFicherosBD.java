@@ -229,7 +229,7 @@ public class GestorFicherosBD
 	{
 		try
 		{
-			ConectorBD con = new ConectorBD();
+			ConectorBDMetainformacion con = new ConectorBDMetainformacion();
 			con.abrir();
 
 			ResultSet rs = con
@@ -310,7 +310,7 @@ public class GestorFicherosBD
 		try
 		{
 			// conectamos con la base de datos de metainformacion
-			ConectorBD con = new ConectorBD();
+			ConectorBDMetainformacion con = new ConectorBDMetainformacion();
 			con.abrir();
 
 			// realizamos la consulta

@@ -14,9 +14,7 @@ import java.sql.Statement;
 /**
  * Esta clase contiene la funcionalidad necesaria para manejar una base de datos
  * 
- * @created 19-enero-2008 1:13
- * @version 1.0
- * @author Ana Belen Pelegrina Ortiz, Carlos Rodriguez Dominguez
+ * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
 public class ConectorBDFicheros
 {
