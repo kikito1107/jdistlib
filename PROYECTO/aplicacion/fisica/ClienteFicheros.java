@@ -19,7 +19,11 @@ import aplicacion.fisica.eventos.DFileEvent;
 import aplicacion.fisica.eventos.DNodeEvent;
 
 /**
- * Cliente del modulo de ficheros
+ * Cliente del modulo de ficheros. Se encarga de comunicarse con JavaSpaces
+ * y enviar los distintos eventos que son necesarios para la gestion de los ficheros
+ * desde el cliente.
+ * 
+ * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
 public class ClienteFicheros
 {
@@ -41,9 +45,20 @@ public class ClienteFicheros
 
 	private DefaultMutableTreeNode raiz = null;
 
+	/**
+	 * Variable que indica la ip de conexion para hacer uso de RMI
+	 * y permitir el envio y recepcion de documentos.
+	 */
 	public static String ipConexion = null;
 
 	@SuppressWarnings( "static-access" )
+	/**
+	 * Constructor.
+	 * @param aplicacion2 Nombre de la aplicacion en la que se registrara esta clase
+	 * @param usuario2 Nombre del usuario que hara uso de esta clase
+	 * @param clave2 Clave del usuario que hara uso de esta clase
+	 * @param rol2 Rol actual que desempe–a el usuario dentro del sistema
+	 */
 	public ClienteFicheros( String aplicacion2, String usuario2, String clave2,
 			String rol2 )
 	{
@@ -58,14 +73,18 @@ public class ClienteFicheros
 	}
 
 	/**
-	 * Obtiene el arbol de documentos asociado al usuario+rol
-	 * @return la raiz del arbol
+	 * Obtiene el arbol de documentos asociado al usuario (con el rol especificado)
+	 * @return La raiz del arbol
 	 */
 	public DefaultMutableTreeNode getArbolDoc()
 	{
 		return raiz;
 	}
 	
+	/**
+	 * Metodo que se encarga de localizar el JavaSpaces. Si no se encuentra, entonces
+	 * el sistema emite un mensaje de error y se cierra la aplicacion cliente.
+	 */
 	private void localizarJavaSpace()
 	{
 		// Encargada de localizar el JavaSpace
@@ -87,14 +106,19 @@ public class ClienteFicheros
 		}
 	}
 
+	/**
+	 * Metodo estatico que devuelve el cliente de ficheros que se esta utilizando en
+	 * este momento. Es una instancia de esta propia clase.
+	 * @return El cliente de ficheros actual.
+	 */
 	public static ClienteFicheros obtenerClienteFicheros()
 	{
 		return cf;
 	}
 
 	/**
-	 * inicializa el cliente enviando una solicitud de sincronizaciï¿½n al
-	 * servidor de Metainformaciï¿½n
+	 * Inicializa el cliente enviando una solicitud de sincronizacion al
+	 * servidor de Metainformacion
 	 */
 	public void inicializar()
 	{
@@ -102,17 +126,16 @@ public class ClienteFicheros
 		{
 			// ********** SINCRONIZACION CON EL SERVIDOR DE ficheros *********//
 
-			// evento en el que se almacenarï¿½ la respuesta del servidor a la
-			// peticiï¿½n de sincronizaciï¿½n del SF
+			// evento en el que se almacenara la respuesta del servidor a la
+			// peticion de sincronizacion del SF
 			DNodeEvent leido = null;
 
-			// evento que serï¿½ enviado al servidor para solicitar
-			// sincronizaciï¿½n
+			// evento que sera enviado al servidor para solicitar
+			// sincronizacia
 			DEvent evento = new DEvent();
 
 			// evento "template" utilizado para leer la respuesta a la
-			// peticiï¿½n
-			// de sincronizaciï¿½n del servidor
+			// peticion de sincronizacion del servidor
 			DNodeEvent plantilla = new DNodeEvent();
 
 			// origen y destino del evento
@@ -170,7 +193,7 @@ public class ClienteFicheros
 	}
 
 	/**
-	 * Envia un evento al servidor de Ficheros para que este elimine un fichero de la BD y del sistema de archivos
+	 * Envia un evento al servidor de Ficheros para que este elimine un fichero (su metainformacion y el fichero fisico)
 	 * @param f metainformacion del documento a borrar
 	 * @param aplicacion aplicacion desde la que se solicita borrar el documento
 	 */
@@ -206,7 +229,7 @@ public class ClienteFicheros
 	}
 
 	/**
-	 * Envia un evento al servidor de Ficheros para que este agrege un fichero a la BD
+	 * Envia un evento al servidor de Ficheros para que este agrege un fichero
 	 * @param f metainformacion del documento
 	 * @param aplicacion aplicacion desde la que se solicita borrar el documento
 	 * @return metainformacion del documento borrado, actualizada con nuevos datos
@@ -233,7 +256,7 @@ public class ClienteFicheros
 
 			space.write(evt, null, leaseWriteTime);
 			
-//			 inicializamos la plantilla
+			// inicializamos la plantilla
 			plantilla.origen = new Integer(30); // Servidor ficheros
 			plantilla.destino = new Integer(31); // Cliente ficheros
 			plantilla.tipo = new Integer(DFileEvent.RESPUESTA_INSERTAR_FICHERO
@@ -319,7 +342,7 @@ public class ClienteFicheros
 	}
 	
 	/**
-	 * Modifica los datos de un fichero en la BD
+	 * Modifica la metainformacion de un fichero
 	 * @param f metainformacion nueva
 	 * @param aplicacion aplicacion desde la cual se hace la solicitud
 	 */
@@ -354,7 +377,14 @@ public class ClienteFicheros
 		}
 	}
 
-	
+	/**
+	 * Genera una nueva version de un fichero ya existente
+	 * @param doc Documento al cual generar una nueva version
+	 * @param path Path del fichero al que queremos agregar una version nueva
+	 * @post En el servidor de ficheros se genera un nuevo fichero con igual nombre
+	 *       que el fichero original, en el mismo path, pero en cuya metainformacion
+	 *       aparece que es un fichero de version (tipo VER).
+	 */
 	public void generarVersion(MIDocumento doc, String path) {
 		Date fecha = new Date();
 
@@ -383,7 +413,8 @@ public class ClienteFicheros
 	
 
 	/**
-	 * Encargada de localizar el JavaSpace
+	 * Hebra encargada de localizar el JavaSpace. Es instanciada e iniciada
+	 * por el metodo @see localizarJavaSpace
 	 */
 	private class HebraLocalizadora implements Runnable
 	{
@@ -394,8 +425,8 @@ public class ClienteFicheros
 		int i = 0;
 
 		/**
-		 * @param nombreJavaSpace
-		 *            String Nombre del JavaSpace que deseamos localizar
+		 * Constructor de la hebra de localizacion del JavaSpace
+		 * @param nombreJavaSpace Nombre del JavaSpace que deseamos localizar
 		 */
 		public HebraLocalizadora( String nombreJavaSpace )
 		{
@@ -431,10 +462,9 @@ public class ClienteFicheros
 	}
 
 	/**
-	 * 
 	 * Mediante esta clase podemos indicar que no ha sido posible localizar el
 	 * JavaSpace pasado el tiempo indicado. De esta forma evitamos que el
-	 * programa se quede bloqueado en la fase de localizacion del JavasPace
+	 * programa se quede bloqueado en la fase de localizacion del JavaSpace
 	 */
 	private class HebraDetectoraError implements Runnable
 	{
@@ -444,8 +474,8 @@ public class ClienteFicheros
 		Thread t = null;
 
 		/**
-		 * @param tiempoEspera
-		 *            int Tiempo que deseamos esperar
+		 * Constructor de la hebra localizadora de error
+		 * @param tiempoEspera Tiempo que deseamos esperar
 		 */
 		public HebraDetectoraError( int tiempoEspera )
 		{
@@ -480,9 +510,9 @@ public class ClienteFicheros
 
 	/**
 	 * Dado el comportamiento concurrente de las 2 Hebras mediante este Monitor
-	 * gestionamos la informacion sobre la inicializacion. La clase DConector
-	 * realizara una llamada a inicializacionCorrecta() quedï¿½ndose bloqueada
-	 * hasta que se producza la correcta localizacion del JavaSpace o se
+	 * gestionamos la informacion sobre la inicializacion. La clase @see DConector
+	 * realizara una llamada a inicializacionCorrecta() quedandose bloqueada
+	 * hasta que se produzca la correcta localizacion del JavaSpace o se
 	 * sobrepase el tiempo de espera sin haber sido localizado.
 	 */
 	private class Monitor
@@ -497,7 +527,7 @@ public class ClienteFicheros
 		 * Bloquea al llamante hasta que se produzca una actualizacion de las
 		 * variables inicializado o error
 		 * 
-		 * @return boolean Devuelve si se ha producido o no la inicializacion
+		 * @return Devuelve si se ha producido o no la inicializacion
 		 */
 		public synchronized boolean inicializacionCorrecta()
 		{
@@ -524,6 +554,7 @@ public class ClienteFicheros
 		/**
 		 * Devuelve si se ha sobrepasado el tiempo de espera sin haber sido
 		 * localizado el JavaSpace
+		 * @return Devuelve true si hay un error y false si no lo hay
 		 */
 		public synchronized boolean getError()
 		{
@@ -531,10 +562,9 @@ public class ClienteFicheros
 		}
 
 		/**
-		 * Cambamos el valor d ela variable error
+		 * Cambiamos el valor de la variable error
 		 * 
-		 * @param b
-		 *            boolean Valor deseado
+		 * @param b Valor deseado para la variable de error
 		 */
 		public synchronized void setError(boolean b)
 		{
@@ -544,6 +574,7 @@ public class ClienteFicheros
 
 		/**
 		 * Devuelve si se ha localizado el JavaSpace
+		 * @return True si se localizo el JavaSpace. False en caso contrario
 		 */
 		public synchronized boolean getInicializado()
 		{
@@ -551,10 +582,10 @@ public class ClienteFicheros
 		}
 
 		/**
-		 * Cambiamos el valor de la variable inicializado
+		 * Cambiamos el valor de la variable inicializado para indicar si se
+		 * ha localizado o no el JavaSpace.
 		 * 
-		 * @param b
-		 *            boolean Valor deseado
+		 * @param b Valor deseado para la variable inicializado
 		 */
 		public synchronized void setInicializado(boolean b)
 		{
@@ -564,6 +595,7 @@ public class ClienteFicheros
 
 		/**
 		 * Devuelve si se ha sincronizado
+		 * @return True si se ha sincronizado. False en otro caso.
 		 */
 		public synchronized boolean getSincronizado()
 		{
@@ -571,10 +603,10 @@ public class ClienteFicheros
 		}
 
 		/**
-		 * Cambiamos el valor de la variable sincronizado
+		 * Cambiamos el valor de la variable sincronizado para indicar
+		 * si se ha sincronizado ya o no.
 		 * 
-		 * @param b
-		 *            boolean Valor deseado
+		 * @param b Valor deseado para la variable sincronizado.
 		 */
 		public synchronized void setSincronizado(boolean b)
 		{
