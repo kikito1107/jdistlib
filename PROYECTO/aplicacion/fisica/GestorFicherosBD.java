@@ -9,9 +9,10 @@ import metainformacion.MIUsuario;
 import aplicacion.fisica.documentos.MIDocumento;
 
 /**
- * Permite acceder a la base de datos de ficheros y consultar, ampliar, modificar y/o eliminar los datos almacenados en ella
- * @author Carlos Rodriguez Dominguez, Ana Belen Pelegrina Ortiz
+ * Permite usar de forma apropiada la clase @see ConectorBDFicheros. Provee de metodos
+ * que permiten recuperar, modificar o eliminar informacion referida a los documentos del sistema.
  * 
+ * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz
  */
 public class GestorFicherosBD
 {
@@ -29,8 +30,7 @@ public class GestorFicherosBD
 	/**
 	 * Permite acceder al primer nivel del sistema de ficheros
 	 * 
-	 * @return un vector de FicheroBD con los ficheros y directorios del primer
-	 *         nivel
+	 * @return Vector de @see MIDocumento con los ficheros y directorios del primer nivel
 	 */
 	public Vector<MIDocumento> recuperar()
 	{
@@ -61,12 +61,12 @@ public class GestorFicherosBD
 	}
 
 	/**
-	 * Permite recuperar el contenido de un directorio (incluido el propio
+	 * Permite recuperar el contenido de un directorio (se incluye el propio
 	 * directorio)
 	 * 
-	 * @param id
-	 *            identificador del directorio
-	 * @return un vector con los ficheros contenidos en el directorio
+	 * @param id Identificador del directorio
+	 * @return Vector con los ficheros contenidos en el directorio y el directorio
+	 * 		   propiamente dicho.
 	 */
 	public Vector<MIDocumento> recuperarDirectorio(int id)
 	{
@@ -104,10 +104,9 @@ public class GestorFicherosBD
 	/**
 	 * Permite acceder al directorio padre de un fichero
 	 * 
-	 * @param id
-	 *            id del directorio al que queremos acceder
-	 * @return el directoiro padre del fichero. Si el directorio no tiene padre
-	 *         ('/') devuelve null
+	 * @param id Identificador del directorio al que queremos acceder
+	 * @return El directoiro padre del fichero. Si el directorio no tiene padre
+	 *         ('/'), devuelve null.
 	 */
 	public MIDocumento obtenerPadre(int id)
 	{
@@ -147,11 +146,10 @@ public class GestorFicherosBD
 	}
 
 	/**
-	 * DEvuelve un fichero a partir de su id
+	 * Devuelve un fichero a partir de su identificador
 	 * 
-	 * @param id
-	 *            identificador del fichero
-	 * @return el fichero, si no existe ningún fichero con ese id devuelve null
+	 * @param id Identificador del fichero a recuperar
+	 * @return El fichero. Si no existe ningún fichero con el identificador dado, devuelve null.
 	 */
 	private MIDocumento construirFicheroBD(int id)
 	{
@@ -175,12 +173,12 @@ public class GestorFicherosBD
 	}
 
 	/**
-	 * Construye un objeto de la clase FicheroBD a partir de los datos de un
+	 * Construye un objeto de la clase @see MIDocumento a partir de los datos de un
 	 * ResultSet
 	 * 
-	 * @param rs
-	 *            result set conteniendo los datos del fichero
-	 * @return el objeto FicheroBD
+	 * @param rs ResultSet conteniendo los datos del fichero
+	 * @return El objeto @see MIDocumento ya inicializado. Ocurriera algun error,
+	 * 		   devuelve null.
 	 */
 	private MIDocumento construirFicheroBD(ResultSet rs)
 	{
@@ -218,11 +216,10 @@ public class GestorFicherosBD
 
 	/**
 	 * Busca en la base de datos de Metainformacion a un usuario a traves de su
-	 * ID
+	 * identificador
 	 * 
-	 * @param id
-	 *            id del usario
-	 * @return un objeto de la clase MIUsuario representando al usuario. Si no
+	 * @param id Identificador del Usuario
+	 * @return Un objeto de la clase @see MIUsuario representando al usuario. Si no
 	 *         se encuentra al usuario se devuelve null
 	 */
 	private MIUsuario obtenerUsuario(int id)
@@ -256,8 +253,10 @@ public class GestorFicherosBD
 	}
 
 	/**
-	 * 
-	 * @param f
+	 * Inserta un nuevo documento en la base de datos.
+	 * @param f Documento a insertar
+	 * @return El mismo documento si todo fue correcto. Si algo
+	 * 		   fue mal, devuelve null.
 	 */
 	public MIDocumento insertarNuevoFichero(MIDocumento f)
 	{
@@ -299,11 +298,12 @@ public class GestorFicherosBD
 	}
 
 	/**
-	 * Obtiene el rol a través de su ID
+	 * Obtiene un rol a partir de su identificador.
 	 * 
-	 * @param id
-	 *            id del rol
-	 * @return un objeto de la clase MIRol correpondiente al id
+	 * @param id Identificador del rol
+	 * @return Un objeto de la clase @see MIRol correpondiente al identificador.
+	 *         Si el identificador es desconocido u ocurre algun error, entonces
+	 *         devuelve null.
 	 */
 	private MIRol obtenerRol(int id)
 	{
@@ -338,9 +338,12 @@ public class GestorFicherosBD
 	}
 
 	/**
+	 * Obtiene un documento a partir de su identificador.
 	 * 
-	 * @param id
-	 * @return
+	 * @param id Identificador del documento
+	 * @return Un objeto de la clase @see MIDocumento correpondiente al identificador.
+	 *         Si el identificador es desconocido u ocurre algun error, entonces
+	 *         devuelve null.
 	 */
 	public MIDocumento buscarFichero(int id)
 	{
@@ -377,9 +380,9 @@ public class GestorFicherosBD
 	}
 
 	/**
-	 * Busca un fichero en la BD por su path
-	 * @param path path del fichero
-	 * @return la metainformacion del fichero
+	 * Busca un fichero en la BD por su path fisico en el servidor de ficheros
+	 * @param path Path fisico del documento
+	 * @return Objeto de la clase @see MIDocumento con la metainformacion del fichero
 	 */
 	public MIDocumento buscarFicheroPath(String path)
 	{
@@ -429,7 +432,7 @@ public class GestorFicherosBD
 
 	/**
 	 * Modifica la metainformacion de un fichero en la BD
-	 * @param f el fichero con la nueva MI
+	 * @param f el fichero con la nueva metainformacion
 	 */
 	public void modificarFichero(MIDocumento f)
 	{
@@ -464,7 +467,7 @@ public class GestorFicherosBD
 
 	/**
 	 * Elimina de la BD los datos de un documento
-	 * @param f metainformacion del documento a borrar
+	 * @param f Metainformacion del documento a borrar
 	 */
 	public void eliminarFichero(MIDocumento f)
 	{

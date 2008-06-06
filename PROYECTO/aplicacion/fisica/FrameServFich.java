@@ -13,13 +13,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 /**
- * Ventana del servidor de ficheros
- * @author anab
- *
+ * Ventana para servidor de ficheros
+ * 
+ * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
 public class FrameServFich extends JFrame
 {
-
 	private static final long serialVersionUID = 1L;
 
 	private JPanel jContentPane = null;
@@ -33,7 +32,7 @@ public class FrameServFich extends JFrame
 	private JButton botonSalir = null;
 
 	/**
-	 * This is the default constructor
+	 * Constructor por defecto
 	 */
 	public FrameServFich()
 	{
@@ -42,9 +41,7 @@ public class FrameServFich extends JFrame
 	}
 
 	/**
-	 * This method initializes this
-	 * 
-	 * @return void
+	 * Metodo que inicializa los componentes graficos de la ventana
 	 */
 	private void initialize()
 	{
@@ -57,9 +54,9 @@ public class FrameServFich extends JFrame
 	}
 
 	/**
-	 * This method initializes jContentPane
+	 * Metodo que inicializa el panel contenedor de la ventana.
 	 * 
-	 * @return javax.swing.JPanel
+	 * @return JPanel que actuara como panel contenedor (ContentPane).
 	 */
 	private JPanel getJContentPane()
 	{
@@ -74,9 +71,10 @@ public class FrameServFich extends JFrame
 	}
 
 	/**
-	 * This method initializes scroll	
+	 * Metodo que inicializa un panel con scroll para el area de texto donde se mostraran
+	 * los mensajes recibidos por el servidor de ficheros.	
 	 * 	
-	 * @return javax.swing.JScrollPane	
+	 * @return JScrollPane para la ventana de mensajes	
 	 */
 	private JScrollPane getScroll()
 	{
@@ -96,9 +94,9 @@ public class FrameServFich extends JFrame
 	}
 
 	/**
-	 * This method initializes consola	
+	 * Area de texto para mostrar los mensajes recibidos por el servidor de ficheros
 	 * 	
-	 * @return javax.swing.JTextArea	
+	 * @return Area de texto inicializada	
 	 */
 	private JTextArea getConsola()
 	{
@@ -119,9 +117,9 @@ public class FrameServFich extends JFrame
 	}
 
 	/**
-	 * This method initializes panelSur	
+	 * Panel donde se situara un boton para poder salir del servidor de ficheros.
 	 * 	
-	 * @return javax.swing.JPanel	
+	 * @return JPanel inicializado
 	 */
 	private JPanel getPanelSur()
 	{
@@ -153,9 +151,9 @@ public class FrameServFich extends JFrame
 	}
 	
 	/**
-	 * This method initializes botonSalir	
+	 * Metodo que inicializa el boton que permite salir del servidor de ficheros	
 	 * 	
-	 * @return javax.swing.JButton	
+	 * @return JButton ya inicializado
 	 */
 	private JButton getBotonSalir()
 	{
@@ -182,4 +180,4 @@ public class FrameServFich extends JFrame
 		return botonSalir;
 	}
 
-}  //  @jve:decl-index=0:visual-constraint="10,10"
+}

@@ -24,9 +24,10 @@ import aplicacion.fisica.eventos.DNodeEvent;
 import aplicacion.fisica.net.Transfer;
 
 /**
- * Implementacion del servidor de ficheros
+ * Clase que implementa al servidor de ficheros
+ * 
+ * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz.
  */
-
 public class ServidorFicheros
 {
 	GestorFicherosBD gestor = null;
@@ -53,16 +54,19 @@ public class ServidorFicheros
 
 	
 	/**
-	 * Devuelve el directorio en el que se almacena los archivos localmente
-	 * @return
+	 * Devuelve el directorio en el que se almacenan los ficheros y directorios localmente.
+	 * Todas las peticiones a '/' que se hagan al servidor, seran automaticamente redirigidas
+	 * a este directorio fisico.
+	 * 
+	 * @return Directorio donde se estan almacenando los documentos y directorios del servidor
+	 *         en el ordenador local.
 	 */
 	public static String getDirectorioBase(){
 		return directorioBase;
 	}
 	
 	/**
-	 * Constructor
-	 *
+	 * Constructor por defecto
 	 */
 	public ServidorFicheros()
 	{
@@ -139,9 +143,9 @@ public class ServidorFicheros
 
 	/**
 	 * Recupera los ficheros a los que un usuario bajo un determinado rol tiene acceso
-	 * @param usuario nombre del usuario
-	 * @param rol nombre del rol
-	 * @return el arbol con la estructura de directorios
+	 * @param usuario Nombre del usuario
+	 * @param rol Nombre del rol que desempe–a el usuario en estos momentos
+	 * @return Arbol con la estructura de directorios
 	 */
 	private DefaultMutableTreeNode obtenerArbol(String usuario, String rol)
 	{
@@ -158,6 +162,13 @@ public class ServidorFicheros
 	}
 
 
+	/**
+	 * Agrega un fichero al arbol con la estructura de directorios 
+	 * @param f Documento que se desea agregar
+	 * @param padre Directorio padre que tendra el documento
+	 * @param usuario Usuario propietario del documento
+	 * @param rol Rol con el que el usuario creo el documento
+	 */
 	private void agregarFichero(MIDocumento f, DefaultMutableTreeNode padre,
 			String usuario, String rol)
 	{
@@ -185,8 +196,6 @@ public class ServidorFicheros
 
 	/**
 	 * Hebra encargada de procesar los eventos recibidos
-	 * @author anab
-	 *
 	 */
 	private class HebraProcesadora implements Runnable
 	{
@@ -194,6 +203,9 @@ public class ServidorFicheros
 
 		DEvent plantilla = new DEvent();
 
+		/**
+		 * Ejecucion de la hebra.
+		 */
 		public void run()
 		{
 			plantilla.destino = new Integer(30); // Servidor ficheros
@@ -380,10 +392,12 @@ public class ServidorFicheros
 
 	/**
 	 * Hebra encargada de enviar los eventos
-	 * @author anab
 	 */
 	private class HebraEnvio implements Runnable
 	{
+		/**
+		 * Ejecucion de la hebra
+		 */
 		public void run()
 		{
 			while (true)
