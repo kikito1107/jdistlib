@@ -234,8 +234,8 @@ public class Documento implements Serializable, Printable
 	
 	/**
 	 * Comprueba si el tipo de un documento es soportado
-	 * @param path path del fichero
-	 * @return true si el tipo es soportado y false en caso contrario
+	 * @param path Path del fichero a comprobar
+	 * @return True si el tipo es soportado y False en caso contrario
 	 */
 	public static boolean isSupported(String path){
 
@@ -254,11 +254,12 @@ public class Documento implements Serializable, Printable
 	}
 
 	/**
-	 * Abre un documento 
-	 * @param path path del documento
-	 * @param usuario usuario que desea abrir el documento
-	 * @param rol rol del usuario que desea abrir el documento
-	 * @return el documento abierto. Devuelve null si ha ocurrido algun error
+	 * Abre un fichero y lo devuelve en forma de objeto de esta clase
+	 * @param path Path del documento a abrir
+	 * @param usuario Usuario que desea abrir el documento
+	 * @param rol Rol que desempe–a actualmente el usuario que desea abrir el documento
+	 * @return Objeto de esta clase con los contenidos del documento a abrir. 
+	 * 		   Devuelve null si ha ocurrido algun error.
 	 */
 	@SuppressWarnings( "unchecked" )
 	public static Documento openDocument(String path, String usuario, String rol)
@@ -310,9 +311,9 @@ public class Documento implements Serializable, Printable
 
 	/**
 	 * Guarda el documento
-	 * @param doc documento a guardar
-	 * @param path_original paht del documento
-	 * @return true si el documento ha sido guardado con exito y false en caso contrario
+	 * @param doc Documento a guardar
+	 * @param path_original Path en el que guardar el documento
+	 * @return True si el documento ha sido guardado con exito y False en caso contrario
 	 */
 	public static boolean saveDocument(Documento doc, String path_original)
 	{
@@ -341,7 +342,7 @@ public class Documento implements Serializable, Printable
 
 	/**
 	 * Path del documento
-	 * @return the path
+	 * @return El path del documento
 	 */
 	public String getPath()
 	{
@@ -350,8 +351,7 @@ public class Documento implements Serializable, Printable
 
 	/**
 	 * Establece el path del documento
-	 * @param path
-	 *            the path to set
+	 * @param path El path nuevo que tendra el documento actual
 	 */
 	public void setPath(String path)
 	{
@@ -360,7 +360,7 @@ public class Documento implements Serializable, Printable
 	
 	
 	/**
-	 * Imprime el documento
+	 * Imprime el documento actual.
 	 */
 	public void imprimir()
 	{
@@ -368,6 +368,9 @@ public class Documento implements Serializable, Printable
 		p.inicializar(this);
 	}
 
+	/**
+	 * Clase que permite imprimir un documento soportado.
+	 */
 	private class Impresora
 	{
 		int x;
@@ -389,9 +392,8 @@ public class Documento implements Serializable, Printable
 		/**
 		 * Inicializa la impresora
 		 * 
-		 * @param nombredoc
-		 *            nombre del documento a imprimir
-		 * @return true si la inicializaci—n a sido exitosa false en caso
+		 * @param nombredoc Nombre del documento a imprimir
+		 * @return True si la inicializaci—n ha sido exitosa. False en caso
 		 *         contrario
 		 */
 		public boolean inicializar(Documento d)
@@ -427,6 +429,15 @@ public class Documento implements Serializable, Printable
 		}
 	}
 
+	/**
+	 * Metodo creado para dar soporte a la interfaz Printable.
+	 * 
+	 *  @param graphics Graficos a imprimir
+	 *  @param pageFormat Formato de cada pagina que se desea imprimir
+	 *  @param pageIndex Pagina que se desea imprimir
+	 *  @return De la interfaz Printable, la constante PAGE_EXISTS si fue todo correcto
+	 *          o NO_SUCH_PAGE si la pagina a imprimir no existe.
+	 */
 	public int print(Graphics graphics, PageFormat pageFormat, int pageIndex)
 			throws PrinterException
 	{
