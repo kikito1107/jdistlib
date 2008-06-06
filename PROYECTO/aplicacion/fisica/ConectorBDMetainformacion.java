@@ -12,7 +12,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * Esta clase contiene la funcionalidad necesaria para manejar una base de datos
+ * Esta clase contiene la funcionalidad necesaria para manejar la base de datos
+ * que contendra la informacion del servidor de metainformacion.
  * 
  * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
