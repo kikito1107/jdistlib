@@ -19,19 +19,20 @@ import net.jini.space.JavaSpace;
 
 /**
  * Implementa un esclavo genérico para aplicaciones paralelas con arquitectura
- * Maestro/Esclavo. No es necesario reescribirlo para cada programa concreto 
- * (salvo necesidades específicas). Basta con crear una clase que herede de TaskeEntry
- * y reimplementar el método execute
+ * Maestro/Esclavo. No es necesario reescribirlo para cada programa concreto
+ * (salvo necesidades específicas). Basta con crear una clase que herede de
+ * TaskeEntry y reimplementar el método execute
+ * 
  * @author anab
- *
+ * 
  */
 public final class GenericWorker implements Runnable
 {
 	private JavaSpace space;
-	
+
 	private JTextArea output = null;
 
-	public GenericWorker(JTextArea t)
+	public GenericWorker( JTextArea t )
 	{
 		try
 		{
@@ -102,7 +103,7 @@ public final class GenericWorker implements Runnable
 				catch (Exception ex)
 				{
 					// RemoteException or BadTransactionException
-					// lease expiration will take care of the 
+					// lease expiration will take care of the
 					// transaction
 				}
 				output.append("Task cancelled\n");

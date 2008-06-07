@@ -21,10 +21,10 @@ public final class JarResources
 	public boolean debugOn = false;
 
 	// jar resource mapping tables
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	private Hashtable htSizes = new Hashtable();
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	private Hashtable htJarContents = new Hashtable();
 
 	// a jar file
@@ -55,7 +55,7 @@ public final class JarResources
 	}
 
 	/** initializes internal hash tables with Jar file resources. */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	private void init()
 	{
 		try
@@ -148,40 +148,4 @@ public final class JarResources
 
 		return ( sb.toString() );
 	}
-
-	/**
-	 * Is a test driver. Given a jar file and a resource name, it trys to
-	 * extract the resource and then tells us whether it could or not.
-	 * 
-	 * <strong>Example</strong> Let's say you have a JAR file which jarred up a
-	 * bunch of gif image files. Now, by using JarResources, you could extract,
-	 * create, and display those images on-the-fly.
-	 * 
-	 * <pre>
-	 *     ...
-	 *     JarResources JR=new JarResources(&quot;GifBundle.jar&quot;);
-	 *     Image image=Toolkit.createImage(JR.getResource(&quot;logo.gif&quot;);
-	 *     Image logo=Toolkit.getDefaultToolkit().createImage(
-	 *                   JR.getResources(&quot;logo.gif&quot;)
-	 *                   );
-	 *     ...
-	 * </pre>
-	 */
-	public static void main(String[] args) throws IOException
-	{
-		if (args.length != 2)
-		{
-			System.err
-					.println("usage: java JarResources <jar file name> <resource name>");
-			System.exit(1);
-		}
-
-		JarResources jr = new JarResources(args[0]);
-		byte[] buff = jr.getResource(args[1]);
-		if (buff == null)
-			System.out.println("Could not find " + args[1] + ".");
-		else System.out.println("Found " + args[1] + " (length=" + buff.length
-				+ ").");
-	}
-
 } // End of JarResources class.

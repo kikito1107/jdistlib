@@ -34,12 +34,12 @@ import calculoparalelo.eventos.PoisonPill;
 
 import componentes.base.DJFrame;
 
+/**
+ * Implementacion del maestro para el calculo paralelo de primos
+ * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz
+ */
 public class PrimeMaster extends GenericMaster
 {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -6440774130079581275L;
 
 	private JPanel jPanel = null;
@@ -61,8 +61,10 @@ public class PrimeMaster extends GenericMaster
 	private JButton botonStart = null;
 	
 	private int  tamBloques = -1;
-	int min;
-	int max;
+	
+	private int min;
+	
+	private int max;
 
 	private JPanel panelFondo = null;
 
@@ -90,8 +92,9 @@ public class PrimeMaster extends GenericMaster
 	
 	int respuestasRecibidas = 0;
 	
-	Calendar inicio = null;
-	Calendar fin = null;
+	private Calendar inicio = null;
+	
+	private Calendar fin = null;
 	
 	private DJFrame ventana = null;
 	
@@ -117,7 +120,7 @@ public class PrimeMaster extends GenericMaster
 	
 	private boolean standalone = false;
 
-	private String lan = Messages.EN;
+	private String lan = Messages.ES;
 
 	public PrimeMaster(boolean sa) throws Exception
 	{	
@@ -128,9 +131,7 @@ public class PrimeMaster extends GenericMaster
 	}
 
 	/**
-	 * This method initializes this
-	 * 
-	 * 
+	 * Inicializacion de los componentes graficos
 	 */
 	@Override
 	public void init()
@@ -266,11 +267,6 @@ public class PrimeMaster extends GenericMaster
 		
 	}
 
-	/**
-	 * This method initializes jPanel
-	 * 
-	 * @return javax.swing.JPanel
-	 */
 	private JPanel getJPanel()
 	{
 		if (jPanel == null)
@@ -339,11 +335,6 @@ public class PrimeMaster extends GenericMaster
 		return jPanel;
 	}
 
-	/**
-	 * This method initializes campoMin
-	 * 
-	 * @return javax.swing.JTextField
-	 */
 	private JTextField getCampoMin()
 	{
 		if (campoMin == null)
@@ -362,11 +353,6 @@ public class PrimeMaster extends GenericMaster
 		return campoMin;
 	}
 
-	/**
-	 * This method initializes campoMax
-	 * 
-	 * @return javax.swing.JTextField
-	 */
 	private JTextField getCampoMax()
 	{
 		if (campoMax == null)
@@ -385,11 +371,6 @@ public class PrimeMaster extends GenericMaster
 		return campoMax;
 	}
 
-	/**
-	 * This method initializes campoTamBloques
-	 * 
-	 * @return javax.swing.JTextField
-	 */
 	private JTextField getCampoTamBloques()
 	{
 		if (campoTamBloques == null)
@@ -407,11 +388,6 @@ public class PrimeMaster extends GenericMaster
 		return campoTamBloques;
 	}
 
-	/**
-	 * This method initializes botonStart
-	 * 
-	 * @return javax.swing.JButton
-	 */
 	private JButton getBotonStart()
 	{
 		if (botonStart == null)
@@ -474,11 +450,6 @@ public class PrimeMaster extends GenericMaster
 		return botonStart;
 	}
 
-	/**
-	 * This method initializes panelFondo	
-	 * 	
-	 * @return javax.swing.JPanel	
-	 */
 	private JPanel getPanelFondo()
 	{
 		if (panelFondo == null)
@@ -503,11 +474,6 @@ public class PrimeMaster extends GenericMaster
 		return panelFondo;
 	}
 
-	/**
-	 * This method initializes panelREs	
-	 * 	
-	 * @return javax.swing.JPanel	
-	 */
 	private JPanel getPanelREs()
 	{
 		if (panelRes == null)
@@ -536,11 +502,6 @@ public class PrimeMaster extends GenericMaster
 		return panelRes;
 	}
 
-	/**
-	 * This method initializes jScrollPane	
-	 * 	
-	 * @return javax.swing.JScrollPane	
-	 */
 	private JScrollPane getJScrollPane()
 	{
 		if (jScrollPane == null)
@@ -560,11 +521,6 @@ public class PrimeMaster extends GenericMaster
 		return jScrollPane;
 	}
 
-	/**
-	 * This method initializes jTextArea	
-	 * 	
-	 * @return javax.swing.JTextArea	
-	 */
 	private JTextArea getJTextArea()
 	{
 		if (jTextArea == null)
@@ -585,11 +541,6 @@ public class PrimeMaster extends GenericMaster
 		return jTextArea;
 	}
 
-	/**
-	 * This method initializes panelEntrada	
-	 * 	
-	 * @return javax.swing.JPanel	
-	 */
 	private JPanel getPanelEntrada()
 	{
 		if (panelEntrada == null)
@@ -613,11 +564,6 @@ public class PrimeMaster extends GenericMaster
 		return panelEntrada;
 	}
 
-	/**
-	 * This method initializes tabs	
-	 * 	
-	 * @return javax.swing.JTabbedPane	
-	 */
 	private JTabbedPane getTabs()
 	{
 		if (tabs == null)
@@ -636,11 +582,6 @@ public class PrimeMaster extends GenericMaster
 		return tabs;
 	}
 
-	/**
-	 * This method initializes panelEsclavo	
-	 * 	
-	 * @return javax.swing.JPanel	
-	 */
 	private JPanel getPanelEsclavo()
 	{
 		if (panelEsclavo == null)
@@ -677,11 +618,6 @@ public class PrimeMaster extends GenericMaster
 		return esclavoIniciado;
 	}
 
-	/**
-	 * This method initializes panelTiempo	
-	 * 	
-	 * @return javax.swing.JPanel	
-	 */
 	private JPanel getPanelTiempo()
 	{
 		if (panelTiempo == null)
@@ -714,11 +650,6 @@ public class PrimeMaster extends GenericMaster
 		return panelTiempo;
 	}
 
-	/**
-	 * This method initializes botonIniciarEsclavo	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
 	private JButton getBotonIniciarEsclavo()
 	{
 		if (botonIniciarEsclavo == null)
@@ -794,11 +725,6 @@ public class PrimeMaster extends GenericMaster
 		ventana.dispose();
 	}
 	
-	/**
-	 * This method initializes verDatosEnviados	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
 	private JButton getVerDatosEnviados()
 	{
 		if (verDatosEnviados == null)
@@ -823,11 +749,6 @@ public class PrimeMaster extends GenericMaster
 		return verDatosEnviados;
 	}
 
-	/**
-	 * This method initializes ventanaConsola	
-	 * 	
-	 * @return javax.swing.JFrame	
-	 */
 	private JFrame getVentanaConsola()
 	{
 		if (ventanaConsola == null)
@@ -848,11 +769,6 @@ public class PrimeMaster extends GenericMaster
 		return ventanaConsola;
 	}
 
-	/**
-	 * This method initializes panelConsola	
-	 * 	
-	 * @return javax.swing.JPanel	
-	 */
 	private JPanel getPanelConsola()
 	{
 		if (panelConsola == null)
@@ -872,11 +788,6 @@ public class PrimeMaster extends GenericMaster
 		return panelConsola;
 	}
 
-	/**
-	 * This method initializes scrollConsola	
-	 * 	
-	 * @return javax.swing.JScrollPane	
-	 */
 	private JScrollPane getScrollConsola()
 	{
 		if (scrollConsola == null)
@@ -896,11 +807,6 @@ public class PrimeMaster extends GenericMaster
 		return scrollConsola;
 	}
 
-	/**
-	 * This method initializes consola	
-	 * 	
-	 * @return javax.swing.JTextArea	
-	 */
 	private JTextArea getConsola()
 	{
 		if (consola == null)
@@ -919,11 +825,6 @@ public class PrimeMaster extends GenericMaster
 		return consola;
 	}
 
-	/**
-	 * This method initializes limpiar	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
 	private JButton getLimpiar()
 	{
 		if (limpiar == null)
@@ -949,11 +850,6 @@ public class PrimeMaster extends GenericMaster
 		return limpiar;
 	}
 
-	/**
-	 * This method initializes scrollSalidaEsclavo	
-	 * 	
-	 * @return javax.swing.JScrollPane	
-	 */
 	private JScrollPane getScrollSalidaEsclavo()
 	{
 		if (scrollSalidaEsclavo == null)
@@ -971,11 +867,6 @@ public class PrimeMaster extends GenericMaster
 		return scrollSalidaEsclavo;
 	}
 
-	/**
-	 * This method initializes consolaEsclavo	
-	 * 	
-	 * @return javax.swing.JTextArea	
-	 */
 	private JTextArea getConsolaEsclavo()
 	{
 		if (consolaEsclavo == null)
@@ -988,21 +879,8 @@ public class PrimeMaster extends GenericMaster
 			}
 			catch (java.lang.Throwable e)
 			{
-				// TODO: Something
 			}
 		}
 		return consolaEsclavo;
 	}
-
-	public static void main(String[] args){
-		try
-		{
-			new PrimeMaster(true).start();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
-
-} //  @jve:decl-index=0:visual-constraint="10,10"
+}

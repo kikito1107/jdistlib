@@ -5,8 +5,17 @@ import net.jini.space.JavaSpace;
 
 /**
  * Entrada que permite enviar entrada de JS con c—digo ejecutable.
- * @author anab
+ * 
+ * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz
  */
-public interface Command extends Entry {    
-    public Entry execute(JavaSpace space);
+public interface Command extends Entry
+{
+	/**
+	 * Metodo que realiza la ejecucion requerida
+	 * 
+	 * @param space
+	 *            JavaSpace en el cual escribiremos el comando
+	 * @return Entrada en el JavaSpace
+	 */
+	public Entry execute(JavaSpace space);
 }

@@ -74,7 +74,7 @@ public class PrimeTask extends TaskEntry
 				contador++;
 			}
 		
-		return new PrimeResult(primos, contador, mensaje);
+		return new PrimeResult(primos, mensaje);
 	}
 
 	private boolean esPrimo(int c)

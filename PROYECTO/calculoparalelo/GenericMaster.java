@@ -14,25 +14,40 @@ import calculoparalelo.eventos.TaskEntry;
 import componentes.base.DComponenteBase;
 
 /**
- * Maestro genérico para aplicaciones paralelas con estructura Master/Slave. Es necesario
- * modificarlo para cada problema concreto
- * @author anab
+ * Maestro genérico para aplicaciones paralelas con estructura Master/Slave. Es
+ * necesario modificarlo para cada problema concreto
+ * 
+ * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
-public abstract class GenericMaster extends DAbstractPlugin {
-    protected JavaSpace space;
-    
-    protected GenericWorker esclavo = null;
+public abstract class GenericMaster extends DAbstractPlugin
+{
+	protected JavaSpace space;
 
-    protected GenericMaster( String nombre, boolean conexionDC,
+	protected GenericWorker esclavo = null;
+
+	/**
+	 * Constructor
+	 * 
+	 * @param nombre
+	 *            Nombre del componente
+	 * @param conexionDC
+	 *            Indica si queremos conectarnos directamente al
+	 * @see DConector
+	 * @param padre
+	 *            Padre del componente
+	 * @throws Exception
+	 */
+	protected GenericMaster( String nombre, boolean conexionDC,
 			DComponenteBase padre ) throws Exception
 	{
 		super(nombre, conexionDC, padre);
 	}
-    
-    @Override
-	public void init() {
-    	
-        try
+
+	@Override
+	public void init()
+	{
+
+		try
 		{
 			space = SpaceLocator.getSpace();
 		}
@@ -40,56 +55,89 @@ public abstract class GenericMaster extends DAbstractPlugin {
 		{
 			e.printStackTrace();
 		}
-        
-        GenerateThread gThread = new GenerateThread();
-        gThread.start();
-        CollectThread cThread = new CollectThread();
-        cThread.start();
-    }
 
-    protected abstract void generateTasks();
+		GenerateThread gThread = new GenerateThread();
+		gThread.start();
+		CollectThread cThread = new CollectThread();
+		cThread.start();
+	}
 
-    protected abstract void collectResults();
+	/**
+	 * Genera las tareas para cada uno de los esclavos
+	 */
+	protected abstract void generateTasks();
 
+	/**
+	 * Recolecta los resultados obtenidos desde los esclavos
+	 */
+	protected abstract void collectResults();
 
-        protected final void writeTask(TaskEntry task) {
-            try {
-                    space.write(task, null, Lease.FOREVER);
-            } catch (RemoteException e) {
-                    e.printStackTrace();
-            } catch (TransactionException e) {
-                    e.printStackTrace();
-            }
-        }
-        
-        protected  final Entry takeTask(Entry template) {
-            try {
-                    Entry result =
-                        space.take(template, null, Long.MAX_VALUE);
-                    return result;
-            } catch (RemoteException e) {
-                    e.printStackTrace();
-            } catch (TransactionException e) {
-                    e.printStackTrace();
-            } catch (UnusableEntryException e) {
-                    e.printStackTrace();
-            } catch (InterruptedException e) {
-                    System.out.println("Task cancelled");
-            }
-            return null;
-        }
-    
-    private class GenerateThread extends Thread {
-        @Override
-		public void run() {
-            generateTasks();
-        }
-    }
-    
-    private class CollectThread extends Thread {
-        @Override
-		public void run() {
-            collectResults();
-        }
-    }   
+	/**
+	 * Escribe una tarea en el JavaSpace
+	 * @param task Tarea a escribir
+	 */
+	protected final void writeTask(TaskEntry task)
+	{
+		try
+		{
+			space.write(task, null, Lease.FOREVER);
+		}
+		catch (RemoteException e)
+		{
+			e.printStackTrace();
+		}
+		catch (TransactionException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 
+	 * @param template
+	 * @return
+	 */
+	protected final Entry takeTask(Entry template)
+	{
+		try
+		{
+			Entry result = space.take(template, null, Long.MAX_VALUE);
+			return result;
+		}
+		catch (RemoteException e)
+		{
+			e.printStackTrace();
+		}
+		catch (TransactionException e)
+		{
+			e.printStackTrace();
+		}
+		catch (UnusableEntryException e)
+		{
+			e.printStackTrace();
+		}
+		catch (InterruptedException e)
+		{
+			System.out.println("Task cancelled");
+		}
+		return null;
+	}
+
+	private class GenerateThread extends Thread
+	{
+		@Override
+		public void run()
+		{
+			generateTasks();
+		}
+	}
+
+	private class CollectThread extends Thread
+	{
+		@Override
+		public void run()
+		{
+			collectResults();
+		}
+	}
 }

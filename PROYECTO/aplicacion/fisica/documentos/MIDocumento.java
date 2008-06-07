@@ -2,6 +2,13 @@ package aplicacion.fisica.documentos;
 
 import java.io.Serializable;
 
+import javax.swing.JOptionPane;
+
+import Deventos.enlaceJS.DConector;
+import aplicacion.fisica.ClienteFicheros;
+import aplicacion.fisica.eventos.DFileEvent;
+import aplicacion.fisica.net.Transfer;
+
 import metainformacion.MIRol;
 import metainformacion.MIUsuario;
 
@@ -420,6 +427,47 @@ public class MIDocumento implements Serializable
 		extension = MIDocumento.getTipoFichero(extension);
 
 		return extension;
+	}
+
+	public static DFileEvent enviarMail(MIDocumento f)
+	{
+		// mandamos el mensaje
+		byte[] bytes = f.getMensaje().getBytes();
+
+		Transfer t = new Transfer(ClienteFicheros.ipConexion, f.getRutaLocal());
+
+		if (!t.sendFile(bytes))
+		{
+			JOptionPane
+					.showMessageDialog(
+							null,
+							"No se ha podido subir el fichero.\nSe ha producido un error en la transmisi—n del documento",
+							"Error", JOptionPane.ERROR_MESSAGE);
+			return null;
+		}
+
+		// insertamos el nuevo fichero en el servidor
+		MIDocumento f2 = ClienteFicheros.cf.insertarNuevoFichero(f,
+				DConector.Daplicacion);
+		MIDocumento padre = ClienteFicheros.obtenerClienteFicheros()
+				.existeFichero("/Incoming", DConector.Daplicacion);
+		// si ha habido algun error salimos
+		if (f2 == null)
+		{
+			JOptionPane
+					.showMessageDialog(null,
+							"Ha ocurrido un error: no se ha podido subir el documento al servidor");
+			return null;
+		}
+
+		// notificamos al resto de usuarios la "novedad"
+		DFileEvent evento = new DFileEvent();
+		evento.fichero = f2;
+		evento.padre = padre;
+		evento.tipo = new Integer(DFileEvent.NOTIFICAR_INSERTAR_FICHERO
+				.intValue());
+		
+		return evento;
 	}
 
 }
