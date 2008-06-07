@@ -91,21 +91,8 @@ public class FramePanelDibujo extends DJFrame
 	@Override
 	public void setVisible(boolean b)
 	{
-
 		super.setVisible(b);
-
-		if (!b)
-		{
-
-			// String path = this.getLienzo().getPathDocumento();
-
-			/*
-			 * if (path != null && path != "")
-			 * DConector.obtenerDC().cerrarFichero(path);
-			 * 
-			 * System.out.println("Cerrando el editor");
-			 */
-		}
+		
 		repaint();
 		validate();
 		lienzo.repaint();
@@ -113,6 +100,10 @@ public class FramePanelDibujo extends DJFrame
 		lienzo.validate();
 	}
 
+	/**
+	 * Obtiene el lienzo sobre el que se pinta
+	 * @return Lienzo sobre el que se pinta
+	 */
 	public DIPanelEditor getLienzo()
 	{
 		return lienzo;
@@ -124,17 +115,30 @@ public class FramePanelDibujo extends DJFrame
 		super.paint(g);
 	}
 
+	/**
+	 * Asigna un documento para su edicion compartida
+	 * @param d Documento a editar
+	 */
 	public void setDocumento(Documento d)
 	{
 		lienzo.setDocumento(d);
 
 	}
 
+	/**
+	 * Obtiene el numero de componentes hijos
+	 * @return Numero de componentes hijo
+	 */
 	public int obtenerNumComponentesHijos()
 	{
 		return 1;
 	}
 
+	/**
+	 * Obtiene el componente i-esimo
+	 * @param i Indice del componente a obtener
+	 * @return Componente indicado o null si el componente no existe
+	 */
 	public DComponente obtenerComponente(int i)
 	{
 		DComponente dc = null;
@@ -148,21 +152,20 @@ public class FramePanelDibujo extends DJFrame
 		}
 		return dc;
 	}
-
-}
-
-class FrameDrawPanel_this_windowAdapter extends java.awt.event.WindowAdapter
-{
-	FramePanelDibujo adaptee;
-
-	FrameDrawPanel_this_windowAdapter( FramePanelDibujo adaptee )
+	
+	private class FrameDrawPanel_this_windowAdapter extends java.awt.event.WindowAdapter
 	{
-		this.adaptee = adaptee;
-	}
+		private FramePanelDibujo adaptee;
 
-	@Override
-	public void windowClosing(WindowEvent e)
-	{
-		adaptee.alCerrarVentana(e);
+		public FrameDrawPanel_this_windowAdapter( FramePanelDibujo adaptee )
+		{
+			this.adaptee = adaptee;
+		}
+
+		@Override
+		public void windowClosing(WindowEvent e)
+		{
+			adaptee.alCerrarVentana(e);
+		}
 	}
 }
