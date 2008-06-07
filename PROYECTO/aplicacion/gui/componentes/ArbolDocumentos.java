@@ -36,7 +36,6 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
-
 import metainformacion.ClienteMetaInformacion;
 import metainformacion.MIRol;
 import metainformacion.MIUsuario;
@@ -49,49 +48,55 @@ import aplicacion.fisica.net.Transfer;
 import aplicacion.gui.PanelPrincipal;
 
 /**
- * Clase que se encargar‡ de almacenar los datos de los documentos
- * @author anab
+ * Componente que muestra el arbol de documentos
+ * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
-public class ArbolDocumentos extends JTree implements Autoscroll {
-	    
-		private int margin = 12;
+public class ArbolDocumentos extends JTree implements Autoscroll
+{
+	private int margin = 12;
 
-
-	    public void autoscroll(Point p) {
-	      int realrow = getRowForLocation(p.x, p.y);
-	      Rectangle outer = getBounds();
-	      realrow = (p.y + outer.y <= margin ? realrow < 1 ? 0 : realrow - 1
-	          : realrow < getRowCount() - 1 ? realrow + 1 : realrow);
-	      scrollRowToVisible(realrow);
-	    }
-
-	    public Insets getAutoscrollInsets() {
-	      Rectangle outer = getBounds();
-	      Rectangle inner = getParent().getBounds();
-	      return new Insets(inner.y - outer.y + margin, inner.x - outer.x
-	          + margin, outer.height - inner.height - inner.y + outer.y
-	          + margin, outer.width - inner.width - inner.x + outer.x
-	          + margin);
-	    }
-
-
-	
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -3359982437919729727L;
 
 	private DefaultMutableTreeNode raiz = null;
-	private DefaultTreeModel model = null;
-	
-	TreeDragSource ds;
 
-	TreeDropTarget dt;
+	private DefaultTreeModel model = null;
+
+	@SuppressWarnings("unused")
+	private TreeDragSource ds;
+
+	@SuppressWarnings("unused")
+	private TreeDropTarget dt;
 	
 	/**
-	 * 
-	 * @param raiz
+	 * Metodo que debemos implementar para la interfaz Autoscroll
+	 * @param p Punto en el que estamos situados dentro del arbol
+	 */
+	public void autoscroll(Point p)
+	{
+		int realrow = getRowForLocation(p.x, p.y);
+		Rectangle outer = getBounds();
+		realrow = ( p.y + outer.y <= margin ? realrow < 1 ? 0 : realrow - 1
+				: realrow < getRowCount() - 1 ? realrow + 1 : realrow );
+		scrollRowToVisible(realrow);
+	}
+
+	/**
+	 * Metodo que debemos implementar para la interfaz Autoscroll
+	 * @return Margenes del autoscroll
+	 */
+	public Insets getAutoscrollInsets()
+	{
+		Rectangle outer = getBounds();
+		Rectangle inner = getParent().getBounds();
+		return new Insets(inner.y - outer.y + margin, inner.x - outer.x
+				+ margin, outer.height - inner.height - inner.y + outer.y
+				+ margin, outer.width - inner.width - inner.x + outer.x
+				+ margin);
+	}
+
+	/**
+	 * Constructor
+	 * @param raiz Raiz del arbol de documentos
 	 */
 	public ArbolDocumentos( DefaultMutableTreeNode raiz )
 	{
@@ -101,27 +106,28 @@ public class ArbolDocumentos extends JTree implements Autoscroll {
 				TreeSelectionModel.SINGLE_TREE_SELECTION);
 		this.setCellRenderer(new DocumentosCellRenderer());
 		//this.putClientProperty("JTree.lineStyle", "Horizontal");
-		
+
 		ds = new TreeDragSource(this, DnDConstants.ACTION_COPY_OR_MOVE);
-	    dt = new TreeDropTarget(this);
+		dt = new TreeDropTarget(this);
 		this.raiz = raiz;
-		
+
 		model = (DefaultTreeModel) this.getModel();
-		
+
 		this.expandRow(0);
-	}
-	
-	/**
-	 * Establece la raiz del arbol de directorios
-	 */
-	public void setRaiz(DefaultMutableTreeNode raizNueva){
-		if (raiz != null && model != null)
-			model.setRoot(raizNueva);
 	}
 
 	/**
-	 * 
-	 * @return
+	 * Establece la raiz del arbol de documentos
+	 */
+	public void setRaiz(DefaultMutableTreeNode raizNueva)
+	{
+		if (raiz != null && model != null) model.setRoot(raizNueva);
+	}
+
+	/**
+	 * Permite obtener la metainformacion del documento seleccionado
+	 * en el arbol
+	 * @return Metainformacion del documento seleccionado
 	 */
 	public MIDocumento getDocumentoSeleccionado()
 	{
@@ -138,8 +144,8 @@ public class ArbolDocumentos extends JTree implements Autoscroll {
 	}
 
 	/**
-	 * 
-	 * @return
+	 * Permite obtener el nodo seleccionado en el arbol
+	 * @return Nodo seleccionado
 	 */
 	public DefaultMutableTreeNode getNodoSeleccionado()
 	{
@@ -155,10 +161,12 @@ public class ArbolDocumentos extends JTree implements Autoscroll {
 	}
 
 	/**
-	 * 
-	 * @param n
-	 * @param id
-	 * @return
+	 * Permite buscar un nodo en el arbol iniciando la busqueda
+	 * desde otro nodo
+	 * @param n Nodo desde el que iniciar la busqueda
+	 * @param id Identificador del nodo a buscar
+	 * @return Nodo que se deseaba buscar o null si no se encontro
+	 *         u ocurrio algun error.
 	 */
 	public static DefaultMutableTreeNode buscarFichero(
 			DefaultMutableTreeNode n, int id)
@@ -180,16 +188,19 @@ public class ArbolDocumentos extends JTree implements Autoscroll {
 		}
 		else return null;
 	}
-	
-	
-	public void eliminarNodo(int id){
+
+	/**
+	 * Elimina un nodo del arbol
+	 * @param id Identificador del nodo a eliminar
+	 */
+	public void eliminarNodo(int id)
+	{
 		DefaultMutableTreeNode n = ArbolDocumentos.buscarFichero(raiz, id);
 		model.removeNodeFromParent(n);
 	}
 
 	/**
-	 * 
-	 *
+	 * Permite imprimir un documento
 	 */
 	public void imprimirFichero()
 	{
@@ -206,8 +217,7 @@ public class ArbolDocumentos extends JTree implements Autoscroll {
 	}
 
 	/**
-	 * 
-	 *
+	 * Permite guardar un documento de forma local
 	 */
 	public void guardarDocumentoLocalmente()
 	{
@@ -224,11 +234,12 @@ public class ArbolDocumentos extends JTree implements Autoscroll {
 		{
 			java.io.File f = jfc.getSelectedFile();
 
-			if (doc.esDirectorio()) 
+			if (doc.esDirectorio())
 			{
-				JOptionPane.showMessageDialog(null, "No puede guardar un directorio de forma local");
+				JOptionPane.showMessageDialog(null,
+						"No puede guardar un directorio de forma local");
 			}
-			
+
 			else
 			{
 
@@ -262,7 +273,7 @@ public class ArbolDocumentos extends JTree implements Autoscroll {
 
 	/**
 	 * Recupera la metainformacion relativa a un mensaje
-	 * @return la metainformacion del mensaje
+	 * @return Metainformacion del mensaje
 	 */
 	public MIDocumento recuperarMail()
 	{
@@ -271,27 +282,25 @@ public class ArbolDocumentos extends JTree implements Autoscroll {
 
 		// nos aseguramos de que sea un mensaje
 		if (doc.esDirectorio()) return null;
-		
+
 		if (!doc.getTipo().equals(MIDocumento.TIPO_MENSAJE)) return null;
 
-		
 		// recuperamos los datos del mensaje
 		Transfer t = new Transfer(ClienteFicheros.ipConexion, doc
 				.getRutaLocal());
 
 		byte[] datos = t.receiveFileBytes();
-		
 
 		// enviamos los datos
 		doc.setMensaje(new String(datos));
-		
+
 		// devolvemos la metainformacion
 		return doc;
 	}
 
 	/**
-	 * Elimina el fichero seleccionado (si se tienen los permisos suficientes)
-	 * @return
+	 * Elimina el documento seleccionado (si se tienen los permisos suficientes)
+	 * @return True si se elimino el documento con exito. False en caso contrario.
 	 */
 	public boolean eliminarFichero()
 	{
@@ -307,9 +316,9 @@ public class ArbolDocumentos extends JTree implements Autoscroll {
 				ClienteFicheros.obtenerClienteFicheros().borrarFichero(f,
 						DConector.Daplicacion);
 				return true;
-			} 
+			}
 			else if (f.comprobarPermisos(DConector.Dusuario, DConector.Drol,
-							MIDocumento.PERMISO_ESCRITURA))
+					MIDocumento.PERMISO_ESCRITURA))
 			{
 				DefaultMutableTreeNode nodo = this.getNodoSeleccionado();
 
@@ -336,9 +345,10 @@ public class ArbolDocumentos extends JTree implements Autoscroll {
 	}
 
 	/**
-	 * Agrega una carpeta a la carpeta seleccionada anteriormente
-	 * @param nombre nuevo nombre de la carpeta
-	 * @return el ficheroBD con los datos de la nueva carpeta
+	 * Agrega un nuevo directorio al directorio seleccionado actualmente
+	 * @param nombre Nombre del directorio a agregar
+	 * @return Metainformacion sobre el directorio creado o null si ocurrio
+	 *         algun error.
 	 */
 	public MIDocumento agregarCarpeta(String nombre)
 	{
@@ -383,10 +393,10 @@ public class ArbolDocumentos extends JTree implements Autoscroll {
 	}
 
 	/**
-	 * Comprueba si un fichero determinado existe en un determinado nodo
-	 * @param n nodo nodo del arbol en el que buscamos el documento
-	 * @param ruta ruta del fichero
-	 * @return true si el fichero ya existe en la ruta y false en caso contrario
+	 * Comprueba si un documento existe en un determinado nodo
+	 * @param n Nodo del arbol en el que buscamos el documento
+	 * @param ruta Path del documento
+	 * @return True si el fichero existe en la ruta especificada. False en caso contrario
 	 */
 	public boolean existeFichero(DefaultMutableTreeNode n, String ruta)
 	{
@@ -411,10 +421,11 @@ public class ArbolDocumentos extends JTree implements Autoscroll {
 	}
 
 	/**
-	 * Comprueba si un fichero determinado existe en un determinado nodo
-	 * @param n nodo nodo del arbol en el que buscamos el documento
-	 * @param ruta ruta del fichero
-	 * @return true si el fichero ya existe en la ruta y false en caso contrario
+	 * Buscar un documento en un nodo determinado
+	 * @param n Nodo del arbol en el que buscamos el documento
+	 * @param ruta Path del documento
+	 * @return Metainformacion del documento si fue encontrado o null
+	 *         si no se pudo encontrar
 	 */
 	public MIDocumento buscarFichero(DefaultMutableTreeNode n, String ruta)
 	{
@@ -442,23 +453,21 @@ public class ArbolDocumentos extends JTree implements Autoscroll {
 	}
 }
 
-//TreeDragSource.java
-//A drag source wrapper for a JTree. This class can be used to make
-//a rearrangeable DnD tree with the TransferableTreeNode class as the
-//transfer data type.
-
+/**
+ * Clase que implementa el origen de datos de un Drag and Drop
+ */
 class TreeDragSource implements DragSourceListener, DragGestureListener
 {
+	private DragSource source;
 
-	DragSource source;
+	@SuppressWarnings("unused")
+	private DragGestureRecognizer recognizer;
 
-	DragGestureRecognizer recognizer;
+	private TransferableTreeNode transferable;
 
-	TransferableTreeNode transferable;
+	private DefaultMutableTreeNode oldNode;
 
-	DefaultMutableTreeNode oldNode;
-
-	JTree sourceTree;
+	private JTree sourceTree;
 
 	public TreeDragSource( JTree tree, int actions )
 	{
@@ -468,30 +477,18 @@ class TreeDragSource implements DragSourceListener, DragGestureListener
 				actions, this);
 	}
 
-	/*
-	 * Drag Gesture Handler
-	 */
 	public void dragGestureRecognized(DragGestureEvent dge)
 	{
 		TreePath path = sourceTree.getSelectionPath();
 		if (( path == null ) || ( path.getPathCount() <= 1 ))
 		{
-			// We can't move the root node or an empty selection
 			return;
 		}
 		oldNode = (DefaultMutableTreeNode) path.getLastPathComponent();
 		transferable = new TransferableTreeNode(path);
 		source.startDrag(dge, DragSource.DefaultMoveNoDrop, transferable, this);
-
-		// If you support dropping the node anywhere, you should probably
-		// start with a valid move cursor:
-		//source.startDrag(dge, DragSource.DefaultMoveDrop, transferable,
-		// this);
 	}
 
-	/*
-	 * Drag Event Handlers
-	 */
 	public void dragEnter(DragSourceDragEvent dsde)
 	{
 	}
@@ -513,26 +510,19 @@ class TreeDragSource implements DragSourceListener, DragGestureListener
 
 	public void dragDropEnd(DragSourceDropEvent dsde)
 	{
-		/*
-		 * to support move or copy, we have to check which occurred:
-		 */
-		System.out.println("Drop Action: " + dsde.getDropAction());
+		//System.out.println("Drop Action: " + dsde.getDropAction());
 		if (dsde.getDropSuccess()
 				&& ( dsde.getDropAction() == DnDConstants.ACTION_MOVE ))
 		{
 			( (DefaultTreeModel) sourceTree.getModel() )
 					.removeNodeFromParent(oldNode);
 		}
-
-		/*
-		 * to support move only... if (dsde.getDropSuccess()) {
-		 * ((DefaultTreeModel)sourceTree.getModel()).removeNodeFromParent(oldNode); }
-		 */
 	}
 }
 
-//TreeDropTarget.java
-//A quick DropTarget that's looking for drops from draggable JTrees.
+/**
+ * Clase que implementa el objetivo de un Drag and Drop
+ */
 class TreeDropTarget implements DropTargetListener
 {
 
@@ -546,9 +536,6 @@ class TreeDropTarget implements DropTargetListener
 		target = new DropTarget(targetTree, this);
 	}
 
-	/*
-	 * Drop Event Handlers
-	 */
 	private TreeNode getNodeForEvent(DropTargetDragEvent dtde)
 	{
 		Point p = dtde.getLocation();
@@ -567,8 +554,6 @@ class TreeDropTarget implements DropTargetListener
 		}
 		else
 		{
-			// start by supporting move operations
-			//dtde.acceptDrag(DnDConstants.ACTION_MOVE);
 			dtde.acceptDrag(dtde.getDropAction());
 		}
 	}
@@ -576,12 +561,15 @@ class TreeDropTarget implements DropTargetListener
 	public void dragOver(DropTargetDragEvent dtde)
 	{
 		TreeNode node = getNodeForEvent(dtde);
-		
-		MIDocumento f = (MIDocumento) ((DefaultMutableTreeNode)node).getUserObject();
-		
+
+		MIDocumento f = (MIDocumento) ( (DefaultMutableTreeNode) node )
+				.getUserObject();
+
 		// no se puede mover un documento a otro documento!!
 		// ni tampoco mover cosas a una carpeta sin permiso de escritura
-		if (!f.esDirectorio() || !f.comprobarPermisos(DConector.Dusuario, DConector.Drol, MIDocumento.PERMISO_ESCRITURA))
+		if (!f.esDirectorio()
+				|| !f.comprobarPermisos(DConector.Dusuario, DConector.Drol,
+						MIDocumento.PERMISO_ESCRITURA))
 		{
 			dtde.rejectDrag();
 		}
@@ -594,35 +582,32 @@ class TreeDropTarget implements DropTargetListener
 			{
 				p = (TreePath) tr.getTransferData(flavors[0]);
 				DefaultMutableTreeNode node2 = (DefaultMutableTreeNode) p
-				.getLastPathComponent();
-				
-				MIDocumento f2 = (MIDocumento) (node2).getUserObject();
-		
-				if (f2.esDirectorio() || !f2.comprobarPermisos(DConector.Dusuario, DConector.Drol, MIDocumento.PERMISO_ESCRITURA))
+						.getLastPathComponent();
+
+				MIDocumento f2 = (MIDocumento) ( node2 ).getUserObject();
+
+				if (f2.esDirectorio()
+						|| !f2.comprobarPermisos(DConector.Dusuario,
+								DConector.Drol, MIDocumento.PERMISO_ESCRITURA))
 				{
 					dtde.rejectDrag();
-				} 
-				else 
+				}
+				else
 				{
-				
-					// start by supporting move operations
-					//dtde.acceptDrag(DnDConstants.ACTION_MOVE);
 					dtde.acceptDrag(dtde.getDropAction());
 				}
 			}
 			catch (UnsupportedFlavorException e)
 			{
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				dtde.rejectDrag();
 			}
 			catch (IOException e)
 			{
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				dtde.rejectDrag();
 			}
-	
+
 		}
 	}
 
@@ -642,9 +627,9 @@ class TreeDropTarget implements DropTargetListener
 		TreePath parentpath = tree.getClosestPathForLocation(pt.x, pt.y);
 		DefaultMutableTreeNode parent = (DefaultMutableTreeNode) parentpath
 				.getLastPathComponent();
-		
+
 		// rechazamos que se muevan documentos a cosas que no sean carpetas 
-		if ( !((MIDocumento)parent.getUserObject()).esDirectorio() )
+		if (!( (MIDocumento) parent.getUserObject() ).esDirectorio())
 		{
 			dtde.rejectDrop();
 			return;
@@ -662,37 +647,29 @@ class TreeDropTarget implements DropTargetListener
 					TreePath p = (TreePath) tr.getTransferData(element);
 					DefaultMutableTreeNode node = (DefaultMutableTreeNode) p
 							.getLastPathComponent();
-					
-					MIDocumento f = (MIDocumento)node.getUserObject();
-					
-					
+
+					MIDocumento f = (MIDocumento) node.getUserObject();
+
 					DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
 					model.insertNodeInto(node, parent, 0);
 					dtde.dropComplete(true);
-					
-					//TODO cambiar el path al al nodo movido
-					
-					
-					//JOptionPane.showMessageDialog(null, "el nodo movido es: " + f.getNombre());
-					
+
 					TreeNode[] nuevo = model.getPathToRoot(node);
-					
-					DefaultMutableTreeNode nuevoPadre = (DefaultMutableTreeNode)nuevo[nuevo.length-2];
-					
-					String nuevoPath = ((MIDocumento) nuevoPadre.getUserObject()).getRutaLocal();
-					
+
+					DefaultMutableTreeNode nuevoPadre = (DefaultMutableTreeNode) nuevo[nuevo.length - 2];
+
+					String nuevoPath = ( (MIDocumento) nuevoPadre
+							.getUserObject() ).getRutaLocal();
+
 					if (nuevoPath.equals("/"))
-						nuevoPath +=  f.getNombre();
-					else
-						nuevoPath +=  "/" + f.getNombre();
-					
-					
-					
+						nuevoPath += f.getNombre();
+					else nuevoPath += "/" + f.getNombre();
+
 					f.setRutaLocal(nuevoPath);
-					
-					f.setPadre(((MIDocumento) nuevoPadre.getUserObject()).getId());
-					
-					
+
+					f.setPadre(( (MIDocumento) nuevoPadre.getUserObject() )
+							.getId());
+
 					DFileEvent evento = new DFileEvent();
 					evento.fichero = f;
 
@@ -703,7 +680,7 @@ class TreeDropTarget implements DropTargetListener
 									.intValue());
 
 					PanelPrincipal.notificarModificacionFichero(evento);
-					
+
 					return;
 				}
 			}
@@ -717,19 +694,17 @@ class TreeDropTarget implements DropTargetListener
 	}
 }
 
-//TransferableTreeNode.java
-//A Transferable TreePath to be used with Drag & Drop applications.
-//
+/**
+ * Clase que implementa un nodo que acepta el evento Drag and Drop
+ */
 class TransferableTreeNode implements Transferable
 {
-
 	public static DataFlavor TREE_PATH_FLAVOR = new DataFlavor(TreePath.class,
 			"Tree Path");
 
-	DataFlavor flavors[] =
-	{ TREE_PATH_FLAVOR };
+	private DataFlavor flavors[] = { TREE_PATH_FLAVOR };
 
-	TreePath path;
+	private TreePath path;
 
 	public TransferableTreeNode( TreePath tp )
 	{
