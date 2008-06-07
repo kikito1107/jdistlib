@@ -1,11 +1,8 @@
 package componentes.gui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.util.Vector;
-
-import javax.swing.JScrollPane;
 
 import Deventos.DEvent;
 import Deventos.DJToggleButtonEvent;
@@ -19,21 +16,16 @@ import componentes.listeners.DJToggleButtonListener;
 import componentes.listeners.LJToggleButtonListener;
 
 /**
- * Toggle button compartido. Consultar documentaciñn del proyecto para ver su
- * funcionamiento
+ * Componente correspondiente a un Toggle Button compartido.
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public class DIToggleButton extends DComponenteBase implements
 		java.io.Serializable
 {
-
 	private static final long serialVersionUID = 1L;
 
-	BorderLayout borderLayout1 = new BorderLayout();
-
-	JScrollPane jScrollPane1 = new JScrollPane();
-
-	DJToggleButton boton = null;
+	private DJToggleButton boton = null;
 
 	/**
 	 * @param nombre

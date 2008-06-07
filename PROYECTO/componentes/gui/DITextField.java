@@ -5,8 +5,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.util.Vector;
 
-import javax.swing.JScrollPane;
-
 import Deventos.DEvent;
 import Deventos.DJTextFieldEvent;
 import Deventos.enlaceJS.DConector;
@@ -18,38 +16,18 @@ import componentes.base.HebraProcesadoraBase;
 import componentes.listeners.DJTextFieldListener;
 
 /**
- * <p>
- * Title:
- * </p>
- * <p>
- * Description:
- * </p>
- * <p>
- * Copyright: Copyright (c) 2004
- * </p>
- * <p>
- * Company:
- * </p>
- * 
- * @author not attributable
- * @version 1.0
+ * Componente correspondiente a un ComboBox compartido.
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public class DITextField extends DComponenteBase implements
 		java.io.Serializable
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -3145458660155757109L;
 
-	BorderLayout borderLayout1 = new BorderLayout();
+	private DJTextField campotexto = new DJTextField();
 
-	JScrollPane jScrollPane1 = new JScrollPane();
-
-	DJTextField campotexto = new DJTextField();
-
-	BorderLayout borderLayout2 = new BorderLayout();
+	private BorderLayout borderLayout2 = new BorderLayout();
 
 	public DITextField( String nombre, boolean conexionDC, DComponenteBase padre )
 	{

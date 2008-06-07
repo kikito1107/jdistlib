@@ -17,9 +17,12 @@ import Deventos.enlaceJS.DConector;
 import componentes.base.DJChat;
 import Deventos.DJChatEvent;
 
+/**
+ * Componente para a un Chat privado
+ * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz
+ */
 public class PanelChatPrivado extends JPanel
 {
-
 	private static final long serialVersionUID = 1L;
 
 	private JPanel PanelIntroTexto = null;
@@ -39,7 +42,7 @@ public class PanelChatPrivado extends JPanel
 	private JScrollPane jScrollPane = null;
 
 	/**
-	 * This is the default constructor
+	 * Constructor por defecto
 	 */
 	public PanelChatPrivado( DJChat p )
 	{
@@ -49,16 +52,15 @@ public class PanelChatPrivado extends JPanel
 		receptores = new Vector<String>();
 	}
 
+	/**
+	 * Agrega un receptor para el chat privado
+	 * @param nombre Nombre del usuario que recibira el chat privado
+	 */
 	public void agregarReceptor(String nombre)
 	{
 		if (!receptores.contains(nombre)) receptores.add(nombre);
 	}
 
-	/**
-	 * This method initializes this
-	 * 
-	 * @return void
-	 */
 	private void initialize()
 	{
 		BorderLayout borderLayout1 = new BorderLayout();
@@ -71,11 +73,6 @@ public class PanelChatPrivado extends JPanel
 		this.add(getJScrollPane(), BorderLayout.CENTER);
 	}
 
-	/**
-	 * This method initializes PanelIntroTexto
-	 * 
-	 * @return javax.swing.JPanel
-	 */
 	private JPanel getPanelIntroTexto()
 	{
 		if (PanelIntroTexto == null)
@@ -91,11 +88,6 @@ public class PanelChatPrivado extends JPanel
 		return PanelIntroTexto;
 	}
 
-	/**
-	 * This method initializes Texto
-	 * 
-	 * @return javax.swing.JTextField
-	 */
 	private JTextField getTexto()
 	{
 		if (Texto == null)
@@ -118,11 +110,6 @@ public class PanelChatPrivado extends JPanel
 		return Texto;
 	}
 
-	/**
-	 * This method initializes botonEviar
-	 * 
-	 * @return javax.swing.JButton
-	 */
 	private JButton getBotonEviar()
 	{
 		if (botonEviar == null)
@@ -149,7 +136,7 @@ public class PanelChatPrivado extends JPanel
 	 * Envia un mesaje al usuario con el que estamos conversando
 	 * 
 	 * @param mensaje
-	 *            mensaje
+	 *            Mensaje a enviar
 	 */
 	public void enviarMensaje(String mensaje)
 	{
@@ -166,11 +153,6 @@ public class PanelChatPrivado extends JPanel
 		}
 	}
 
-	/**
-	 * This method initializes textoChat
-	 * 
-	 * @return javax.swing.JTextArea
-	 */
 	private JTextArea getTextoChat()
 	{
 		if (textoChat == null)
@@ -183,6 +165,10 @@ public class PanelChatPrivado extends JPanel
 		return textoChat;
 	}
 
+	/**
+	 * Asigna el destinatario de la conversacion
+	 * @param d Destinatario de la conversacion
+	 */
 	public void setDestinatario(String d)
 	{
 		if (( destinatario == null ) || !destinatario.equals(d))
@@ -192,11 +178,18 @@ public class PanelChatPrivado extends JPanel
 		}
 	}
 
+	/**
+	 * Obtener el destinatario de una conversacion
+	 * @return Destinatario de la conversacion
+	 */
 	public String getDestinatario()
 	{
 		return destinatario;
 	}
 
+	/**
+	 * Cierra una conversacion
+	 */
 	public void cerrarConversacion()
 	{
 		DJChatEvent ev = new DJChatEvent();
@@ -205,17 +198,17 @@ public class PanelChatPrivado extends JPanel
 		padre.enviarEvento(ev);
 	}
 
+	/**
+	 * Envia un mensaje a un usuario
+	 * @param usuario Usuario al que enviamos el mensaje
+	 * @param mensaje Mensaje a enviar
+	 */
 	public void nuevoMensaje(String usuario, String mensaje)
 	{
 		textoChat.setText(textoChat.getText() + "\n[" + usuario + "]: "
 				+ mensaje);
 	}
 
-	/**
-	 * This method initializes jScrollPane
-	 * 
-	 * @return javax.swing.JScrollPane
-	 */
 	private JScrollPane getJScrollPane()
 	{
 		if (jScrollPane == null)
@@ -228,4 +221,4 @@ public class PanelChatPrivado extends JPanel
 		return jScrollPane;
 	}
 
-} // @jve:decl-index=0:visual-constraint="7,19"
+}

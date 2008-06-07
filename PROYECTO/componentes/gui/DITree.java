@@ -19,21 +19,17 @@ import componentes.listeners.DJTreeListener;
 import componentes.listeners.LJTreeListener;
 
 /**
- * Arbol compartido. Consultar documentaciñn del proyecto para ver su
- * funcionamiento
+ * Componente correspondiente a un Arbol compartido.
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
 public class DITree extends DComponenteBase implements java.io.Serializable
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 4168312720558774854L;
 
-	BorderLayout borderLayout1 = new BorderLayout();
+	private JScrollPane jScrollPane1 = new JScrollPane();
 
-	JScrollPane jScrollPane1 = new JScrollPane();
-
-	DJTree arbol = null;
+	private DJTree arbol = null;
 
 	/**
 	 * @param nombre

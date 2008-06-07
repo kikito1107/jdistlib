@@ -20,15 +20,12 @@ import componentes.listeners.DJListListener;
 import componentes.listeners.LJListListener;
 
 /**
- * Lista de elementos distribuida. Consultar documentacion del proyecto para ver
- * su funcionamiento.
+ * Componente correspondiente a una Lista compartida.
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public class DILista extends DComponenteBase implements java.io.Serializable
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 3347591559680463259L;
 
 	private BorderLayout borderLayout1 = new BorderLayout();
