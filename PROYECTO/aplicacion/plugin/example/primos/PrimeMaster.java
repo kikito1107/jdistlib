@@ -148,7 +148,7 @@ public class PrimeMaster extends GenericMaster
 			
 			//ventana.setLocation(null);
 			
-			ventana.setTitle(Messages.getString("PrimeMaster.4")); // Generated //$NON-NLS-1$
+			ventana.setTitle(Messages.getString("PrimeMaster.4")); // Generated
 			ventana.setPreferredSize(new Dimension(350, 360));  // Generated
 			ventana.setContentPane(getTabs());  // Generated
 			ventana.setSize(new Dimension(322, 396)); // Generated

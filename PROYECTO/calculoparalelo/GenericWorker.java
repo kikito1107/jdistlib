@@ -49,10 +49,12 @@ public final class GenericWorker implements Runnable
 		Thread thread = new Thread(this);
 		thread.start();
 	}
-	
+
 	/**
 	 * Constructor con parametros
-	 * @param t Area de texto donde se pintaran los mensajes
+	 * 
+	 * @param t
+	 *            Area de texto donde se pintaran los mensajes
 	 */
 	public GenericWorker( JTextArea t )
 	{
@@ -82,12 +84,13 @@ public final class GenericWorker implements Runnable
 		}
 		catch (RemoteException e)
 		{
-			throw new RuntimeException("No se pudo obtener un snapshot del JavaSpace");
+			throw new RuntimeException(
+					"No se pudo obtener un snapshot del JavaSpace");
 		}
 
 		while (true)
 		{
-			if (output != null)	output.append("Obteniendo tarea\n");
+			if (output != null) output.append("Obteniendo tarea\n");
 
 			Transaction txn = getTransaction();
 			if (txn == null)
@@ -103,8 +106,8 @@ public final class GenericWorker implements Runnable
 				if (result != null)
 				{
 					space.write(result, txn, task.resultLeaseTime());
-					
-					if (output != null)	output.append(result.mensaje + "\n");
+
+					if (output != null) output.append(result.mensaje + "\n");
 				}
 				txn.commit();
 			}
@@ -132,14 +135,15 @@ public final class GenericWorker implements Runnable
 					// lease expiration will take care of the
 					// transaction
 				}
-				
-				if (output != null)	output.append("Tarea cancelada\n");
+
+				if (output != null) output.append("Tarea cancelada\n");
 			}
 		}
 	}
 
 	/**
 	 * Obtiene la transaccion usada para JavaSpace
+	 * 
 	 * @return Transaccion usada
 	 */
 	public Transaction getTransaction()

@@ -32,7 +32,7 @@ public abstract class GenericMaster extends DAbstractPlugin
 	 *            Nombre del componente
 	 * @param conexionDC
 	 *            Indica si queremos conectarnos directamente al
-	 * 				@see DConector
+	 * @see DConector
 	 * @param padre
 	 *            Padre del componente
 	 * @throws Exception
@@ -74,7 +74,9 @@ public abstract class GenericMaster extends DAbstractPlugin
 
 	/**
 	 * Escribe una tarea en el JavaSpace
-	 * @param task Tarea a escribir
+	 * 
+	 * @param task
+	 *            Tarea a escribir
 	 */
 	protected final void writeTask(TaskEntry task)
 	{
@@ -94,7 +96,9 @@ public abstract class GenericMaster extends DAbstractPlugin
 
 	/**
 	 * Coge una tarea del JavaSpace
-	 * @param template Plantilla de la entrada a recuperar
+	 * 
+	 * @param template
+	 *            Plantilla de la entrada a recuperar
 	 * @return Entrada recuperada
 	 */
 	protected final Entry takeTask(Entry template)
