@@ -1362,7 +1362,7 @@ public class PanelPrincipal extends DComponenteBase
 		}
 		else
 		{
-			frame.this_windowClosing(null);
+			frame.alCerrarVentana(null);
 		}
 
 		if (this.arbolDocumentos != null) arbolDocumentos.repaint();

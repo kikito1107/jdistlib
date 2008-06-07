@@ -11,31 +11,27 @@ import componentes.base.DComponente;
 import componentes.base.DJFrame;
 
 /**
- * <p>Title: </p>
- * <p>Description: </p>
- * <p>Copyright: Copyright (c) 2004</p>
- * <p>Company: </p>
- * @author not attributable
- * @version 1.0
- */
-
-/**
- * Clase que implementa una ventana con un panel de dibujo
+ * Ventana con un panel de dibujo de la clase @see DIPanelEditor
+ * 
+ * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz
  */
 public class FramePanelDibujo extends DJFrame
 {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 84713594362863139L;
 
-	BorderLayout borderLayout1 = new BorderLayout();
+	private BorderLayout borderLayout1 = new BorderLayout();
 
-	DIPanelEditor lienzo = null;
+	private DIPanelEditor lienzo = null;
 
 	private static boolean standalone = false;
 
+	/**
+	 * Constructor
+	 * @param sa Indica si la ventana funcionara como
+	 * 			ventana de una aplicacion completa o si
+	 * 			sera parte de otra aplicacion (sera una
+	 * 			ventana lanzada por otros componentes graficos)
+	 */
 	public FramePanelDibujo( boolean sa )
 	{
 		super(true, "MousesRemotos2");
@@ -50,7 +46,11 @@ public class FramePanelDibujo extends DJFrame
 		}
 	}
 
-	void init() throws Exception
+	/**
+	 * Inicializa los componentes graficos
+	 * @throws Exception
+	 */
+	private void init() throws Exception
 	{
 		this.getContentPane().setLayout(borderLayout1);
 		if (!standalone)
@@ -66,7 +66,11 @@ public class FramePanelDibujo extends DJFrame
 				+ " ::.");
 	}
 
-	public void this_windowClosing(WindowEvent e)
+	/**
+	 * Accion que se produce al cerrar una ventana
+	 * @param e Evento recibido
+	 */
+	public void alCerrarVentana(WindowEvent e)
 	{
 
 		DConector.obtenerDC()
@@ -159,6 +163,6 @@ class FrameDrawPanel_this_windowAdapter extends java.awt.event.WindowAdapter
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
-		adaptee.this_windowClosing(e);
+		adaptee.alCerrarVentana(e);
 	}
 }

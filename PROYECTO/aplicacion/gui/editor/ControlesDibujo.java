@@ -500,7 +500,7 @@ public class ControlesDibujo extends JPanel
 		if (lienzo.getPadre() != null)
 		{
 			lienzo.getPadre().dispose();
-			lienzo.getPadre().this_windowClosing(null);
+			lienzo.getPadre().alCerrarVentana(null);
 		}
 
 		// sincronizamos el lienzo

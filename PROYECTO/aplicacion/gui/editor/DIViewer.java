@@ -17,10 +17,9 @@ import Deventos.DEvent;
 import Deventos.DJViewerEvent;
 
 /**
- * Implementacion de un visor de imagenes distribuido
+ * Componente que implementa un visor de imagenes distribuido
  * 
- * @author Carlos Rodriguez Dominguez
- * @date 1-1-2008
+ * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz
  */
 public class DIViewer extends DComponenteBase
 {
@@ -28,6 +27,13 @@ public class DIViewer extends DComponenteBase
 
 	private Image imagen;
 
+	/**
+	 * Constructor
+	 * @param nombre Nombre del componente
+	 * @param conexionDC Indica si deseamos realizar una conexion
+	 * 					directa con el @see DConector
+	 * @param padre Ventana padre de este componente
+	 */
 	public DIViewer( String nombre, boolean conexionDC, DComponenteBase padre )
 	{
 		super(nombre, conexionDC, padre);
@@ -47,11 +53,19 @@ public class DIViewer extends DComponenteBase
 		imagen = null;
 	}
 
+	/**
+	 * Obtiene la imagen mostrada
+	 * @return Imagen mostrada
+	 */
 	public Image getImage()
 	{
 		return imagen;
 	}
 
+	/**
+	 * Asigna la imagen a mostrar
+	 * @param filename Nombre del fichero que tiene la imagen a mostrar
+	 */
 	public void setImage(String filename)
 	{
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
@@ -71,6 +85,10 @@ public class DIViewer extends DComponenteBase
 		}
 	}
 
+	/**
+	 * Asigna la imagen a mostrar
+	 * @param img Imagen a mostrar
+	 */
 	public void setImage(Image img)
 	{
 		MediaTracker mediatracker = new MediaTracker(this);
@@ -89,6 +107,10 @@ public class DIViewer extends DComponenteBase
 		}
 	}
 
+	/**
+	 * Obtiene un evento con la informacion de estado del componente
+	 * @return Evento con la informacion de estado del componente
+	 */
 	public DJViewerEvent obtenerInfoEstado()
 	{
 		DJViewerEvent de = new DJViewerEvent();
@@ -97,6 +119,10 @@ public class DIViewer extends DComponenteBase
 		return de;
 	}
 
+	/**
+	 * Procesa la informacion de estado del componente
+	 * @param evento Evento recibido
+	 */
 	public void procesarInfoEstado(DJViewerEvent evento)
 	{
 		setImage(evento.contenido.getImage());
