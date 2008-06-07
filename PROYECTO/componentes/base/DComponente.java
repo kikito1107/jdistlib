@@ -7,7 +7,7 @@ import Deventos.DMIEvent;
 /**
  * Interfaz que debe implementar cualquier componente de la plataforma.
  * 
- * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ * @author Juan Antonio Iba√±ez Santorum. Carlos Rodriguez Dominguez. Ana Belen
  *         Pelegrina Ortiz
  */
 public interface DComponente

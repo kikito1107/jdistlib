@@ -69,7 +69,7 @@ public class ControlesPizarra extends JPanel
 	/**
 	 * Devuelve el color actual
 	 * 
-	 * @return el número asociado al color actual
+	 * @return el n√±mero asociado al color actual
 	 */
 	public int getColorActual()
 	{
@@ -304,7 +304,7 @@ public class ControlesPizarra extends JPanel
 		{
 			botonRehacer = new JButton();
 			botonRehacer.setText("");
-			botonRehacer.setToolTipText("Rehace el último trazo eliminado");
+			botonRehacer.setToolTipText("Rehace el √±ltimo trazo eliminado");
 			botonRehacer.setIcon(new ImageIcon("./Resources/arrow_redo.png"));
 			botonRehacer.addActionListener(new java.awt.event.ActionListener()
 			{

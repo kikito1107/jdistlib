@@ -44,7 +44,7 @@ public class AlmacenMetaInformacion
 	 * @param clave
 	 *            String Clave para el usuario
 	 * @return MIInformacionConexion El campo infoCompleta.identificacionValida
-	 *         de esta clase contendra valdra true si la identifiación ha sido
+	 *         de esta clase contendra valdra true si la identifiaciÃ±n ha sido
 	 *         correcta o false en otro caso. Si ha sido valida contendra toda
 	 *         la informacion necesaria que sera devuelta a la aplicacion para
 	 *         una inicializacion correcta. Ver clase
@@ -65,7 +65,7 @@ public class AlmacenMetaInformacion
 			if (usr != null)
 			{
 				if (!usr.getClave().equals(clave))
-					mensajeError = new String("Contraseña incorrecta");
+					mensajeError = new String("ContraseÃ±a incorrecta");
 				if (usr.online())
 					mensajeError = new String(
 							"Ya hay un usuario identificado con ese nombre");
@@ -218,7 +218,7 @@ public class AlmacenMetaInformacion
 	 * 
 	 * @param aplicacion
 	 *            String Aplicacion de la cual queremos la informacion
-	 * @return Vector Vector de tamaño 2. En la primera posicion tiene un vector
+	 * @return Vector Vector de tamaÃ±o 2. En la primera posicion tiene un vector
 	 *         con los nombres de los usuarios conectados. En la segunda
 	 *         posicion tiene un vector con los roles con los que estan
 	 *         conectados esos usuarios. Si no existe la aplicacion devolvera
@@ -428,12 +428,12 @@ public class AlmacenMetaInformacion
 	}
 
 	/**
-	 * Añadimos un nuevo rol a los permitidos de un usuario
+	 * AÃ±adimos un nuevo rol a los permitidos de un usuario
 	 * 
 	 * @param aplicacion
 	 *            String Aplicacion a la que pertenece el usuario
 	 * @param usuario
-	 *            String Usuario al cual queremos añadir un nuevo rol permitido
+	 *            String Usuario al cual queremos aÃ±adir un nuevo rol permitido
 	 * @param rol
 	 *            String Nuevo rol permitido
 	 */
@@ -456,7 +456,7 @@ public class AlmacenMetaInformacion
 		usr.setEsAdministrador(administrador);
 		if (apl != null)
 			mensaje = apl.nuevoUsuario(usr);
-		else mensaje = "No se ha podido a–adir el usuario";
+		else mensaje = "No se ha podido aÃ±adir el usuario";
 		return mensaje;
 	}
 
@@ -541,7 +541,7 @@ public class AlmacenMetaInformacion
 	 *            String Nombre de la aplicacion de la que deseamos buscar su
 	 *            metainformacion
 	 * @return MIAplicacion Metainformacion buscada. En caso de no existir una
-	 *         aplicación con ese nombre valdra null.
+	 *         aplicaciÃ±n con ese nombre valdra null.
 	 */
 	private MIAplicacion obtenerAplicacion(String nombre)
 	{

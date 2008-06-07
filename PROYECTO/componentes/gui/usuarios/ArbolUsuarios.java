@@ -5,7 +5,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
 /**
- * Clase que encapsula el comportamiento del ‡rbol que lista los usuarios por
+ * Clase que encapsula el comportamiento del Ã±rbol que lista los usuarios por
  * rol
  * 
  * @author Ana Belen Pelegrina Ortiz
@@ -15,7 +15,7 @@ public class ArbolUsuarios extends JTree
 	private static final long serialVersionUID = 6421964450995473440L;
 
 	/**
-	 * Nodo ra’z de ‡rbol
+	 * Nodo raÃ±z de Ã±rbol
 	 */
 	DefaultMutableTreeNode raiz;
 
@@ -27,10 +27,10 @@ public class ArbolUsuarios extends JTree
 	ArbolUsuarios esto;
 
 	/**
-	 * Constructor del çrbol
+	 * Constructor del Ã±rbol
 	 * 
 	 * @param root
-	 *            raiz del ‡rbol
+	 *            raiz del Ã±rbol
 	 */
 	public ArbolUsuarios( DefaultMutableTreeNode root )
 	{
@@ -55,7 +55,7 @@ public class ArbolUsuarios extends JTree
 	}
 
 	/**
-	 * Inserta un nuevo usuario en el ‡rbol en la rama correspondiente a su rol
+	 * Inserta un nuevo usuario en el Ã±rbol en la rama correspondiente a su rol
 	 * 
 	 * @param Rol
 	 *            rol del nuevo usuario
@@ -77,11 +77,11 @@ public class ArbolUsuarios extends JTree
 	}
 
 	/**
-	 * Busca el nodo del ‡rbol del que cuelgan todos los usuario bajo el rol Rol
+	 * Busca el nodo del Ã±rbol del que cuelgan todos los usuario bajo el rol Rol
 	 * 
 	 * @param Rol
 	 *            rol a buscar
-	 * @return el nodo en cuesti—n. Si no lo encuentra devuelve <b>null</b>
+	 * @return el nodo en cuestiÃ±n. Si no lo encuentra devuelve <b>null</b>
 	 */
 	public DefaultMutableTreeNode buscarRol(String Rol)
 	{
@@ -208,7 +208,7 @@ public class ArbolUsuarios extends JTree
 	}
 
 	/**
-	 * Busca un usuario en el ‡rbol
+	 * Busca un usuario en el Ã±rbol
 	 * 
 	 * @param ramaRol
 	 *            nodo en el que se encuentra el usuario

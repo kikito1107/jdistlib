@@ -3,7 +3,7 @@ package aplicacion.plugin;
 import java.util.Vector;
 
 /**
- * Clase encargada de la gestión de los plugins, controlar el acceso a los
+ * Clase encargada de la gesti√±n de los plugins, controlar el acceso a los
  * plugins y notificar a las hebras que asi lo deseen los cambios producidos en
  * los plugins
  * 
@@ -52,7 +52,7 @@ public class PluginContainer
 	}
 
 	/**
-	 * La hebra que ejecuta este método espera hasta que se notifique algun
+	 * La hebra que ejecuta este m√±todo espera hasta que se notifique algun
 	 * cambio en la lista de plugins
 	 */
 	public static void actualizar()
@@ -66,7 +66,7 @@ public class PluginContainer
 	}
 
 	/**
-	 * Permite acceder al plugin i-ésimo
+	 * Permite acceder al plugin i-√±simo
 	 * 
 	 * @param index
 	 *            Posicion del plugin en la lista
@@ -157,7 +157,7 @@ public class PluginContainer
 	 * Consulta el numero de plugins cargados actualmente
 	 * 
 	 * @return Numero de plugins cargados actualmente. Devuelve -1 si se ha
-	 *         producido algún error.
+	 *         producido alg√±n error.
 	 */
 	public static int numPlugins()
 	{
@@ -239,11 +239,11 @@ public class PluginContainer
 		}
 
 		/**
-		 * Notifica a todas las hebras que estén esperando por una actulizacion
+		 * Notifica a todas las hebras que est√±n esperando por una actulizacion
 		 * de la lista de plugin que esta se ha producido. EL efecto de esta
 		 * llamada es que se despiertan todas la hebras que estaban esperando;
 		 * el planificador decide que hebra de la que se acaban de despertar se
-		 * ejecutará primero.
+		 * ejecutar√± primero.
 		 */
 		public synchronized void notificarPlugins()
 		{

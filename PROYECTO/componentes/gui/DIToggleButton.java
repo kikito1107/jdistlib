@@ -19,7 +19,7 @@ import componentes.listeners.DJToggleButtonListener;
 import componentes.listeners.LJToggleButtonListener;
 
 /**
- * Toggle button compartido. Consultar documentaciÛn del proyecto para ver su
+ * Toggle button compartido. Consultar documentaci√±n del proyecto para ver su
  * funcionamiento
  */
 
@@ -97,7 +97,7 @@ public class DIToggleButton extends DComponenteBase implements
 	}
 
 	/**
-	 * Devuelve la instancia de la clase captadora que est· usando.
+	 * Devuelve la instancia de la clase captadora que est√± usando.
 	 * 
 	 * @return DJToggleButton Clase captadora
 	 */
@@ -108,7 +108,7 @@ public class DIToggleButton extends DComponenteBase implements
 
 	/**
 	 * Establece el nivel de permisos de este componente. No se recomienda
-	 * llamar a este mÈtodo desde el programa. Ser· llamado de forma autom·tica
+	 * llamar a este m√±todo desde el programa. Ser√± llamado de forma autom√±tica
 	 * cuando sea necesario
 	 * 
 	 * @param nivel
@@ -132,7 +132,7 @@ public class DIToggleButton extends DComponenteBase implements
 	 * Obtiene el numero de componentes hijos de este componente. SIEMPRE
 	 * devuelve 0
 	 * 
-	 * @return int N˙mero de componentes hijos. SIEMPRE devuelve 0.
+	 * @return int N√±mero de componentes hijos. SIEMPRE devuelve 0.
 	 */
 	@Override
 	public int obtenerNumComponentesHijos()
@@ -141,11 +141,11 @@ public class DIToggleButton extends DComponenteBase implements
 	}
 
 	/**
-	 * AÒade un DJListener a la clase captadora para recibir los eventos
+	 * A√±ade un DJListener a la clase captadora para recibir los eventos
 	 * generados por la interaccion del usuario con el componente
 	 * 
 	 * @param listener
-	 *            DJToggleButtonListener Listener a aÒadir
+	 *            DJToggleButtonListener Listener a a√±adir
 	 */
 	public void addDJToggleButtonListener(DJToggleButtonListener listener)
 	{
@@ -153,11 +153,11 @@ public class DIToggleButton extends DComponenteBase implements
 	}
 
 	/**
-	 * AÒade un LListener al componente para ser notificado cuando cambie el
+	 * A√±ade un LListener al componente para ser notificado cuando cambie el
 	 * estado del componente
 	 * 
 	 * @param listener
-	 *            LJToggleButtonListener Listener a aÒadir
+	 *            LJToggleButtonListener Listener a a√±adir
 	 */
 	public void addLJToggleButtonListener(LJToggleButtonListener listener)
 	{
@@ -165,12 +165,12 @@ public class DIToggleButton extends DComponenteBase implements
 	}
 
 	/**
-	 * AÒade un LUListener al componente para ser notificado cuando cambie el
+	 * A√±ade un LUListener al componente para ser notificado cuando cambie el
 	 * estado del componente. Solo sera notificado cuando el cambio de estado se
 	 * deba a una accion realizada por el usuario de la aplicacion.
 	 * 
 	 * @param listener
-	 *            LJButtonListener Listener a aÒadir
+	 *            LJButtonListener Listener a a√±adir
 	 */
 	public void addLUJToggleButtonListener(LJToggleButtonListener listener)
 	{
@@ -246,8 +246,8 @@ public class DIToggleButton extends DComponenteBase implements
 	}
 
 	/**
-	 * Mediante una llamada a este mÈtodo se envÌa un mensaje de peticion de
-	 * sincronizacion. No se debe llamar a este mÈtodo de forma directa. Ser·
+	 * Mediante una llamada a este m√±todo se env√±a un mensaje de peticion de
+	 * sincronizacion. No se debe llamar a este m√±todo de forma directa. Ser√±
 	 * llamado de forma automatica cuando sea necesario realizar la
 	 * sincronizacion
 	 */
@@ -308,7 +308,7 @@ public class DIToggleButton extends DComponenteBase implements
 
 	/**
 	 * Hebra procesadora de eventos. Se encarga de realizar las acciones que
-	 * correspondan cuando recibe un evento. TambÈn se encarga en su inicio de
+	 * correspondan cuando recibe un evento. Tamb√±n se encarga en su inicio de
 	 * sincronizar el componente.
 	 */
 	class HebraProcesadora extends HebraProcesadoraBase

@@ -24,7 +24,7 @@ import componentes.listeners.DJTextFieldListener;
 /**
  * Implementacion de la clase captadora de eventos para el componente TextField
  * 
- * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ * @author Juan Antonio Iba√±ez Santorum. Carlos Rodriguez Dominguez. Ana Belen
  *         Pelegrina Ortiz
  */
 public class DJTextField extends JTextField

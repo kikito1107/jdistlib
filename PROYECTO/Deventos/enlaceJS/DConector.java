@@ -34,7 +34,7 @@ import Deventos.DMIEvent;
  * <p>
  * Description: Un objeto de esta clase hara de conector entre el JavaSpace
  * 
- * y la aplicacion. Dispondrá de métodos para comunicarle el deseo de enviar
+ * y la aplicacion. Dispondr√± de m√±todos para comunicarle el deseo de enviar
  * 
  * o recibir mensajes del JavaSpace
  * </p>
@@ -77,7 +77,7 @@ public class DConector
 	private boolean identificado = false;
 
 	private DialogoLogin dialogoLogin = new DialogoLogin(new JFrame(),
-			"Introduzca su usuario y contraseña", false);
+			"Introduzca su usuario y contrase√±a", false);
 
 	private int tiempoSincronizacion = 4000;
 
@@ -140,7 +140,7 @@ public class DConector
 	 * @param tiempoSincronizacion
 	 *            int Tiempo en segundos que se espera desde
 	 * 
-	 * que se indica a los componentes que envÌen sus peticiones de
+	 * que se indica a los componentes que env√±en sus peticiones de
 	 * sincronizacion
 	 * 
 	 * hasta que se inician las hebras procesadoras de los componentes. Debe ser
@@ -226,7 +226,7 @@ public class DConector
 			while (!identificado)
 			{
 
-				// **************** PETICION USUARIO/CONTRASE—A
+				// **************** PETICION USUARIO/CONTRASE√±A
 				// ******************//
 
 				String[] datosLogin = dialogoLogin.obtenerDatosLogin();
@@ -727,7 +727,7 @@ public class DConector
 				System.err.println("Numero de usuarios activos "
 						+ ( tk.editores.size() - 1 ));
 
-				// si todavía quedan usuarios editando ese documento
+				// si todav√±a quedan usuarios editando ese documento
 				if (tk.editores.size() > 1)
 				{
 					tk.bajaUsuario(Dusuario);
@@ -782,7 +782,7 @@ public class DConector
 	public static int alta(DComponente componente)
 	{
 
-		// System.out.println("AÒadido. TamaÒo=" + v.size());
+		// System.out.println("A√±adido. Tama√±o=" + v.size());
 
 		DComponente c = null;
 
@@ -870,7 +870,7 @@ public class DConector
 
 		/**
 		 * 
-		 * MÈtodo que ejecuta la hebra
+		 * M√±todo que ejecuta la hebra
 		 * 
 		 */
 
@@ -959,7 +959,7 @@ public class DConector
 
 		/**
 		 * 
-		 * MÈtodo que ejecuta la hebra
+		 * M√±todo que ejecuta la hebra
 		 * 
 		 */
 
@@ -993,7 +993,7 @@ public class DConector
 	 * 
 	 * gestionamos la informacion sobre la inicializacion. La clase DConector
 	 * 
-	 * realizara una llamada a inicializacionCorrecta() qued·ndose bloqueada
+	 * realizara una llamada a inicializacionCorrecta() qued√±ndose bloqueada
 	 * 
 	 * hasta que se producza la correcta localizacion del JavaSpace o se
 	 * sobrepase

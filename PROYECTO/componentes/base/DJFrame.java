@@ -27,7 +27,7 @@ import Deventos.enlaceJS.DConector;
 /**
  * Implementacion de la clase captadora de eventos para el componente Frame
  * 
- * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ * @author Juan Antonio Iba√±ez Santorum. Carlos Rodriguez Dominguez. Ana Belen
  *         Pelegrina Ortiz
  */
 public class DJFrame extends JFrame
@@ -555,7 +555,7 @@ public class DJFrame extends JFrame
 										new Point(evento.px.intValue(),
 												evento.py.intValue()));
 
-								if (!conjuntoMouses.existe(evento.usuario)) // System.out.println("AÒadido
+								if (!conjuntoMouses.existe(evento.usuario)) // System.out.println("A√±adido
 									// usuario
 									// " +
 									// evento.usuario);

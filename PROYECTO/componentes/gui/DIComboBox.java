@@ -18,10 +18,10 @@ import componentes.listeners.DJComboBoxListener;
 import componentes.listeners.LJComboBoxListener;
 
 /**
- * ComboBox distribuido. Consultar documentacion del proyecto para ver su
- * funcionamiento.
+ * Componente correspondiente a un ComboBox compartido.
+ * @author Juan Antonio IbaÃ±ez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public class DIComboBox extends DComponenteBase implements java.io.Serializable
 {
 
@@ -38,12 +38,12 @@ public class DIComboBox extends DComponenteBase implements java.io.Serializable
 
 	/**
 	 * @param nombre
-	 *            String Nombre del componente.
+	 *            Nombre del componente.
 	 * @param conexionDC
-	 *            boolean TRUE si esta en contacto directo con el DConector (no
+	 *            TRUE si esta en contacto directo con el DConector (no
 	 *            es hijo de ningun otro componente) y FALSE en otro caso
 	 * @param padre
-	 *            DComponenteBase Componente padre de este componente. Si no
+	 *            Componente padre de este componente. Si no
 	 *            tiene padre establecer a null
 	 */
 	public DIComboBox( String nombre, boolean conexionDC, DComponenteBase padre )
@@ -64,14 +64,14 @@ public class DIComboBox extends DComponenteBase implements java.io.Serializable
 
 	/**
 	 * @param elementos
-	 *            String[] Array de elementos que contendra el combobox
+	 *            Array de elementos que contendra el combobox
 	 * @param nombre
-	 *            String Nombre del componente.
+	 *            Nombre del componente.
 	 * @param conexionDC
-	 *            boolean TRUE si esta en contacto directo con el DConector (no
+	 *            TRUE si esta en contacto directo con el DConector (no
 	 *            es hijo de ningun otro componente) y FALSE en otro caso
 	 * @param padre
-	 *            DComponenteBase Componente padre de este componente. Si no
+	 *            Componente padre de este componente. Si no
 	 *            tiene padre establecer a null
 	 */
 	public DIComboBox( String[] elementos, String nombre, boolean conexionDC,
@@ -100,7 +100,7 @@ public class DIComboBox extends DComponenteBase implements java.io.Serializable
 	}
 
 	/**
-	 * Devuelve la instancia de la clase captadora que está usando.
+	 * Devuelve la instancia de la clase captadora que estÃ± usando.
 	 * 
 	 * @return DJComboBox Clase captadora
 	 */
@@ -109,11 +109,19 @@ public class DIComboBox extends DComponenteBase implements java.io.Serializable
 		return combobox;
 	}
 
+	/**
+	 * Obtiene el componente captador asociado
+	 * @return Componente captador asociado
+	 */
 	public DJComboBox obtenerCmp()
 	{
 		return combobox;
 	}
 
+	/**
+	 * Comprueba si el componente se ve o no
+	 * @return True si esta oculto. False en caso contrario
+	 */
 	public boolean ocultoEnJerarquia()
 	{
 		boolean oculto = false;
@@ -128,11 +136,11 @@ public class DIComboBox extends DComponenteBase implements java.io.Serializable
 
 	/**
 	 * Establece el nivel de permisos de este componente. No se recomienda
-	 * llamar a este método desde el programa. Será llamado de forma automática
+	 * llamar a este metodo desde el programa. Sera llamado de forma automatica
 	 * cuando sea necesario
 	 * 
 	 * @param nivel
-	 *            int Nivel que queremos establecer
+	 *            Nivel que queremos establecer
 	 */
 	@Override
 	public void setNivelPermisos(int nivel)
@@ -174,7 +182,7 @@ public class DIComboBox extends DComponenteBase implements java.io.Serializable
 	 * Obtiene el numero de componentes hijos de este componente. SIEMPRE
 	 * devuelve 0
 	 * 
-	 * @return int Número de componentes hijos. SIEMPRE devuelve 0.
+	 * @return int NÃ±mero de componentes hijos. SIEMPRE devuelve 0.
 	 */
 	@Override
 	public int obtenerNumComponentesHijos()
@@ -183,11 +191,11 @@ public class DIComboBox extends DComponenteBase implements java.io.Serializable
 	}
 
 	/**
-	 * Añade un DJListener a la clase captadora para recibir los eventos
+	 * AÃ±ade un DJListener a la clase captadora para recibir los eventos
 	 * generados por la interaccion del usuario con el componente
 	 * 
 	 * @param listener
-	 *            DJComboBoxListener Listener a añadir
+	 *            DJComboBoxListener Listener a aÃ±adir
 	 */
 	public void addDJComboBoxListener(DJComboBoxListener listener)
 	{
@@ -195,11 +203,11 @@ public class DIComboBox extends DComponenteBase implements java.io.Serializable
 	}
 
 	/**
-	 * Añade un LListener al componente para ser notificado cuando cambie el
+	 * AÃ±ade un LListener al componente para ser notificado cuando cambie el
 	 * estado del componente
 	 * 
 	 * @param listener
-	 *            LJComboBoxListener Listener a añadir
+	 *            LJComboBoxListener Listener a aÃ±adir
 	 */
 	public void addLJComboBoxListener(LJComboBoxListener listener)
 	{
@@ -207,12 +215,12 @@ public class DIComboBox extends DComponenteBase implements java.io.Serializable
 	}
 
 	/**
-	 * Añade un LUListener al componente para ser notificado cuando cambie el
+	 * AÃ±ade un LUListener al componente para ser notificado cuando cambie el
 	 * estado del componente. Solo sera notificado cuando el cambio de estado se
 	 * deba a una accion realizada por el usuario de la aplicacion.
 	 * 
 	 * @param listener
-	 *            LJComboBoxListener Listener a añadir
+	 *            LJComboBoxListener Listener a aÃ±adir
 	 */
 	public void addLUJComboBoxListener(LJComboBoxListener listener)
 	{
@@ -297,8 +305,8 @@ public class DIComboBox extends DComponenteBase implements java.io.Serializable
 	}
 
 	/**
-	 * Mediante una llamada a este método se envía un mensaje de peticion de
-	 * sincronizacion. No se debe llamar a este método de forma directa. Será
+	 * Mediante una llamada a este mÃ±todo se envÃ±a un mensaje de peticion de
+	 * sincronizacion. No se debe llamar a este mÃ±todo de forma directa. SerÃ±
 	 * llamado de forma automatica cuando sea necesario realizar la
 	 * sincronizacion
 	 */
@@ -375,7 +383,7 @@ public class DIComboBox extends DComponenteBase implements java.io.Serializable
 
 	/**
 	 * Hebra procesadora de eventos. Se encarga de realizar las acciones que
-	 * correspondan cuando recibe un evento. Tambén se encarga en su inicio de
+	 * correspondan cuando recibe un evento. TambÃ±n se encarga en su inicio de
 	 * sincronizar el componente.
 	 */
 	class HebraProcesadora extends HebraProcesadoraBase
@@ -443,7 +451,7 @@ public class DIComboBox extends DComponenteBase implements java.io.Serializable
 			{
 				evento = (DJComboBoxEvent) colaRecepcion.extraerEvento();
 				ultimoProcesado = new Integer(evento.contador.intValue());
-				// Indicamos cual ha sido el último evento procesado
+				// Indicamos cual ha sido el Ã±ltimo evento procesado
 				ultimoProcesado = new Integer(evento.contador.intValue());
 
 				if (( evento.tipo.intValue() == DJComboBoxEvent.SINCRONIZACION

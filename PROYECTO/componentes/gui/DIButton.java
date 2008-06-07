@@ -16,21 +16,21 @@ import componentes.listeners.DJButtonListener;
 import componentes.listeners.LJButtonListener;
 
 /**
- * Boton compartido. Consultar documentacion del proyecto para ver su
- * funcionamiento
+ * Componente grafico correspondiente a un boton compartido
+ * @author Juan Antonio IbaÃ±ez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public class DIButton extends DComponenteBase implements java.io.Serializable
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 7807193484457835590L;
 
 	private DJButton boton = null;
 
 	private String text = "";
 
+	/**
+	 * Constructor por defecto
+	 */
 	public DIButton()
 	{
 		super("boton", false, null);
@@ -48,13 +48,14 @@ public class DIButton extends DComponenteBase implements java.io.Serializable
 	};
 
 	/**
+	 * Constructor con parametros
 	 * @param nombre
-	 *            String Nombre del componente.
+	 *            Nombre del componente.
 	 * @param conexionDC
-	 *            boolean TRUE si esta en contacto directo con el DConector (no
-	 *            es hijo de ningun otro componente) y FALSE en otro caso
+	 *            True si esta en contacto directo con el DConector (no
+	 *            es hijo de ningun otro componente). False en otro caso
 	 * @param padre
-	 *            DComponenteBase Componente padre de este componente. Si no
+	 *            Componente padre de este componente. Si no
 	 *            tiene padre establecer a null
 	 */
 	public DIButton( String nombre, boolean conexionDC, DComponenteBase padre )
@@ -73,14 +74,14 @@ public class DIButton extends DComponenteBase implements java.io.Serializable
 
 	/**
 	 * @param textoBoton
-	 *            String Cadena de texto que presentara el boton
+	 *            Cadena de texto que presentara el boton
 	 * @param nombre
-	 *            String Nombre del componente.
+	 *            Nombre del componente.
 	 * @param conexionDC
-	 *            boolean TRUE si esta en contacto directo con el DConector (no
+	 *            TRUE si esta en contacto directo con el DConector (no
 	 *            es hijo de ningun otro componente) y FALSE en otro caso
 	 * @param padre
-	 *            DComponenteBase Componente padre de este componente. Si no
+	 *            Componente padre de este componente. Si no
 	 *            tiene padre establecer a null
 	 */
 	public DIButton( String textoBoton, String nombre, boolean conexionDC,
@@ -110,20 +111,28 @@ public class DIButton extends DComponenteBase implements java.io.Serializable
 	}
 
 	/**
-	 * Devuelve la instancia de la clase captadora que está usando.
+	 * Devuelve la instancia de la clase captadora que esta usando.
 	 * 
-	 * @return DJButton Clase captadora
+	 * @return Clase captadora
 	 */
 	public DJButton obtenerJComponente()
 	{
 		return boton;
 	}
 
+	/**
+	 * Obtiene el texto mostrado en el boton
+	 * @return
+	 */
 	public String getText()
 	{
 		return boton.getText();
 	}
 
+	/**
+	 * Asigna un texto al boton
+	 * @param text Texto a asignar
+	 */
 	public void setText(String text)
 	{
 		boton.setText(text);
@@ -131,11 +140,11 @@ public class DIButton extends DComponenteBase implements java.io.Serializable
 
 	/**
 	 * Establece el nivel de permisos de este componente. No se recomienda
-	 * llamar a este método desde el programa. Será llamado de forma automática
+	 * llamar a este metodo desde el programa. Sera llamado de forma automatica
 	 * cuando sea necesario
 	 * 
 	 * @param nivel
-	 *            int Nivel que queremos establecer
+	 *            Nivel de permisos a establecer
 	 */
 	@Override
 	public void setNivelPermisos(int nivel)
@@ -147,10 +156,10 @@ public class DIButton extends DComponenteBase implements java.io.Serializable
 	}
 
 	/**
-	 * Obtiene la información de estado del componente que normalmente sera
+	 * Obtiene la informacion de estado del componente que normalmente sera
 	 * adjuntada aun evento de respuesta de sincronizacion
 	 * 
-	 * @return DJButtonEvent Evento que describe el estado del componente
+	 * @return Evento que describe el estado del componente
 	 */
 	public DJButtonEvent getInfoEstado()
 	{
@@ -163,7 +172,7 @@ public class DIButton extends DComponenteBase implements java.io.Serializable
 	 * recibida tras una peticion de sincronizacion
 	 * 
 	 * @param evento
-	 *            DJButtonEvent Evento con la informacion del estado
+	 *            Evento con la informacion del estado
 	 */
 	public void procesarInfoEstado(DJButtonEvent evento)
 	{
@@ -175,7 +184,7 @@ public class DIButton extends DComponenteBase implements java.io.Serializable
 	 * Obtiene el numero de componentes hijos de este componente. SIEMPRE
 	 * devuelve 0
 	 * 
-	 * @return int Número de componentes hijos. SIEMPRE devuelve 0.
+	 * @return Numero de componentes hijos. SIEMPRE devuelve 0.
 	 */
 	@Override
 	public int obtenerNumComponentesHijos()
@@ -184,11 +193,11 @@ public class DIButton extends DComponenteBase implements java.io.Serializable
 	}
 
 	/**
-	 * Añade un DJListener a la clase captadora para recibir los eventos
+	 * AÃ±ade un DJListener a la clase captadora para recibir los eventos
 	 * generados por la interaccion del usuario con el componente
 	 * 
 	 * @param listener
-	 *            DJButtonListener Listener a añadir
+	 *            Listener a aÃ±adir
 	 */
 	public void addDJButtonListener(DJButtonListener listener)
 	{
@@ -196,11 +205,11 @@ public class DIButton extends DComponenteBase implements java.io.Serializable
 	}
 
 	/**
-	 * Añade un LListener al componente para ser notificado cuando cambie el
+	 * AÃ±ade un LListener al componente para ser notificado cuando cambie el
 	 * estado del componente
 	 * 
 	 * @param listener
-	 *            LJButtonListener Listener a añadir
+	 *            Listener a aÃ±adir
 	 */
 	public void addLJButtonListener(LJButtonListener listener)
 	{
@@ -208,12 +217,12 @@ public class DIButton extends DComponenteBase implements java.io.Serializable
 	}
 
 	/**
-	 * Añade un LUListener al componente para ser notificado cuando cambie el
+	 * AÃ±ade un LUListener al componente para ser notificado cuando cambie el
 	 * estado del componente. Solo sera notificado cuando el cambio de estado se
 	 * deba a una accion realizada por el usuario de la aplicacion.
 	 * 
 	 * @param listener
-	 *            LJButtonListener Listener a añadir
+	 *            Listener a aÃ±adir
 	 */
 	public void addLUJButtonListener(LJButtonListener listener)
 	{
@@ -223,7 +232,7 @@ public class DIButton extends DComponenteBase implements java.io.Serializable
 	/**
 	 * Obtiene los DJListener que tiene asociado el componente
 	 * 
-	 * @return Vector Vector de listeners DJButtonListener
+	 * @return Vector de listeners DJButtonListener
 	 */
 	@SuppressWarnings("unchecked")
 	public Vector getDJButtonListeners()
@@ -234,7 +243,7 @@ public class DIButton extends DComponenteBase implements java.io.Serializable
 	/**
 	 * Obtiene los LJListener que tiene asociado el componente
 	 * 
-	 * @return Vector Vector de listeners LJButtonListener
+	 * @return Vector de listeners LJButtonListener
 	 */
 	@SuppressWarnings("unchecked")
 	public Vector getLJButtonListeners()
@@ -245,7 +254,7 @@ public class DIButton extends DComponenteBase implements java.io.Serializable
 	/**
 	 * Obtiene los LUJListener que tiene asociado el componente
 	 * 
-	 * @return Vector Vector de listeners LJButtonListener
+	 * @return Vector de listeners LJButtonListener
 	 */
 	@SuppressWarnings("unchecked")
 	public Vector getLUJButtonListeners()
@@ -298,8 +307,8 @@ public class DIButton extends DComponenteBase implements java.io.Serializable
 	}
 
 	/**
-	 * Mediante una llamada a este método se envía un mensaje de peticion de
-	 * sincronizacion. No se debe llamar a este método de forma directa. Será
+	 * Mediante una llamada a este mÃ±todo se envÃ±a un mensaje de peticion de
+	 * sincronizacion. No se debe llamar a este mÃ±todo de forma directa. SerÃ±
 	 * llamado de forma automatica cuando sea necesario realizar la
 	 * sincronizacion
 	 */
@@ -319,7 +328,7 @@ public class DIButton extends DComponenteBase implements java.io.Serializable
 	 * eventos que se reciban. Este metodo no debe llamarse de forma directa.
 	 * Sera llamado de forma automatica cuando sea necesario.
 	 * 
-	 * @return HebraProcesadoraBase Nueva hebra procesadora
+	 * @return Nueva hebra procesadora
 	 */
 	@Override
 	public HebraProcesadoraBase crearHebraProcesadora()
@@ -332,7 +341,7 @@ public class DIButton extends DComponenteBase implements java.io.Serializable
 	 * eventos que se reciben desde la clase captadora. Normalmente este
 	 * tratamiento se reduce a enviar el evento.
 	 * 
-	 * @return DJButtonListener Listener creado
+	 * @return Listener creado
 	 */
 	public DJButtonListener crearDJListener()
 	{
@@ -359,7 +368,7 @@ public class DIButton extends DComponenteBase implements java.io.Serializable
 
 	/**
 	 * Hebra procesadora de eventos. Se encarga de realizar las acciones que
-	 * correspondan cuando recibe un evento. Tambén se encarga en su inicio de
+	 * correspondan cuando recibe un evento. Tambien se encarga en su inicio de
 	 * sincronizar el componente.
 	 */
 	class HebraProcesadora extends HebraProcesadoraBase

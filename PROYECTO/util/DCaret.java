@@ -1,6 +1,6 @@
 /*
 
-	Implementar el acceso a las estaciones existentes de forma atómica
+	Implementar el acceso a las estaciones existentes de forma atÃ±mica
 
 
 

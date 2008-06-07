@@ -143,7 +143,7 @@ public class DialogoSincronizacion extends JDialog
 					dialogo.etiquetaIcono.setIcon(dialogo.icono3);
 					Thread.sleep(150L);
 
-					// Si no debe parpadear se quedar· bloqueado hasta que se
+					// Si no debe parpadear se quedar√± bloqueado hasta que se
 					// indique
 					// lo contrario
 					dialogo.monitor.getParpadeo();

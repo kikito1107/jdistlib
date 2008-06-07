@@ -7,7 +7,7 @@ import java.rmi.registry.LocateRegistry;
 import aplicacion.fisica.documentos.Documento;
 
 /**
- * Transfiere un fichero entre dos ordenadores vía RMI
+ * Transfiere un fichero entre dos ordenadores v√±a RMI
  * 
  * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz.
  */
@@ -177,8 +177,8 @@ public class Transfer
 
 			try
 			{
-				// Se indica a rmiregistry dónde están las clases.
-				// Cambiar el path al sitio en el que esté. Es importante
+				// Se indica a rmiregistry d√±nde est√±n las clases.
+				// Cambiar el path al sitio en el que est√±. Es importante
 				// mantener la barra al final.
 
 				String ruta = "./";

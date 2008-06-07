@@ -330,7 +330,7 @@ public class MIDocumento implements Serializable
 	 * @param u
 	 *            Usuario que solicita comprobar los permisos de un documento
 	 * @param r
-	 *            Rol que desempeña el usario que solicita el acceso al
+	 *            Rol que desempe√±a el usario que solicita el acceso al
 	 *            documento
 	 * @param modo
 	 *            Indicacion de si queremos acceder en modo escritura o en modo
@@ -441,7 +441,7 @@ public class MIDocumento implements Serializable
 			JOptionPane
 					.showMessageDialog(
 							null,
-							"No se ha podido subir el fichero.\nSe ha producido un error en la transmisión del documento",
+							"No se ha podido subir el fichero.\nSe ha producido un error en la transmisi√±n del documento",
 							"Error", JOptionPane.ERROR_MESSAGE);
 			return null;
 		}

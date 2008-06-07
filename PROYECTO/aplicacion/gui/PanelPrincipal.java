@@ -116,7 +116,7 @@ public class PanelPrincipal extends DComponenteBase
 
 	private VentanaCambiarRol vRol = null;
 
-	// ============= INICIALIZACIÓN ===========================
+	// ============= INICIALIZACI√±N ===========================
 
 	/**
 	 * Constructor
@@ -534,7 +534,7 @@ public class PanelPrincipal extends DComponenteBase
 							int opcion = JOptionPane
 									.showOptionDialog(
 											null,
-											"¿Seguro que desea eliminar el documento o directorio seleccionado?\nEsta acción no se podrá deshacer",
+											"√±Seguro que desea eliminar el documento o directorio seleccionado?\nEsta acci√±n no se podr√± deshacer",
 											"Aviso", JOptionPane.YES_NO_OPTION,
 											JOptionPane.QUESTION_MESSAGE, null,
 											options, options[1]);
@@ -832,7 +832,7 @@ public class PanelPrincipal extends DComponenteBase
 								evento.tipo = new Integer(
 										DJChatEvent.MENSAJE_PRIVADO);
 								evento.receptores.add(usuario);
-								evento.mensaje = "Solicita una nueva conversación";
+								evento.mensaje = "Solicita una nueva conversaci√±n";
 
 								PluginContainer.getPlugin(i).enviarEvento(
 										evento);
@@ -847,7 +847,7 @@ public class PanelPrincipal extends DComponenteBase
 							{
 								JOptionPane
 										.showMessageDialog(null,
-												"No puedes mantener una conversación contigo mismo");
+												"No puedes mantener una conversaci√±n contigo mismo");
 							}
 						}
 
@@ -898,7 +898,7 @@ public class PanelPrincipal extends DComponenteBase
 									evento.ipVC = InetAddress.getLocalHost()
 											.getHostAddress();
 
-									evento.mensaje = "Solicita una nueva conversación";
+									evento.mensaje = "Solicita una nueva conversaci√±n";
 
 									PluginContainer.getPlugin(i).enviarEvento(
 											evento);
@@ -908,7 +908,7 @@ public class PanelPrincipal extends DComponenteBase
 								{
 									JOptionPane
 											.showMessageDialog(null,
-													"Ha ocurrido un error en la comunicación. Inténtelo más tarde");
+													"Ha ocurrido un error en la comunicaci√±n. Int√±ntelo m√±s tarde");
 									return;
 								}
 
@@ -923,7 +923,7 @@ public class PanelPrincipal extends DComponenteBase
 							{
 								JOptionPane
 										.showMessageDialog(null,
-												"No puedes mantener una conversación contigo mismo");
+												"No puedes mantener una conversaci√±n contigo mismo");
 							}
 						}
 
@@ -1395,7 +1395,7 @@ public class PanelPrincipal extends DComponenteBase
 	// ============================================================
 
 	/**
-	 * Comprueba que los permisos actuales del documentos permiten que éste siga
+	 * Comprueba que los permisos actuales del documentos permiten que √±ste siga
 	 * editandose
 	 * 
 	 * @param f

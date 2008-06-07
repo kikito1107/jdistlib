@@ -570,7 +570,7 @@ public class ArbolDocumentos extends JTree implements Autoscroll
 			{ "Sobreescribir", "Renombrar", "Cancelar" };
 
 			int sel = JOptionPane.showOptionDialog(this,
-					"El documento ya existe ¿Que desea hacer?",
+					"El documento ya existe √±Que desea hacer?",
 					"Fichero ya existente", JOptionPane.YES_NO_CANCEL_OPTION,
 					JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
 
@@ -641,13 +641,13 @@ public class ArbolDocumentos extends JTree implements Autoscroll
 		// enviamos el nuevo fichero al servidor
 		Transfer t = new Transfer(ClienteFicheros.ipConexion, path + nombre);
 
-		// si se ha producido algún error: MENSAJE y SALIMOS
+		// si se ha producido alg√±n error: MENSAJE y SALIMOS
 		if (!t.sendFile(bytes))
 		{
 			JOptionPane
 					.showMessageDialog(
 							null,
-							"No se ha podido subir el fichero.\nSe ha producido un error en la transmisión del documento",
+							"No se ha podido subir el fichero.\nSe ha producido un error en la transmisi√±n del documento",
 							"Error", JOptionPane.ERROR_MESSAGE);
 
 			return null;

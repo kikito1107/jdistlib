@@ -6,7 +6,7 @@ import Deventos.DEvent;
 /**
  * Implementacion de la hebra procesadora de eventos
  * 
- * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ * @author Juan Antonio Iba√±ez Santorum. Carlos Rodriguez Dominguez. Ana Belen
  *         Pelegrina Ortiz
  */
 public class HebraProcesadoraBase implements Runnable

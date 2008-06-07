@@ -57,7 +57,7 @@ public class FramePrincipal extends JFrame
 	}
 
 	/**
-	 * Accion ejecutada al cerrar la ventana. Se enviara una señal al
+	 * Accion ejecutada al cerrar la ventana. Se enviara una se√±al al
 	 * 
 	 * @see DConector indicando que saldremos de la aplicacion.
 	 * @param e

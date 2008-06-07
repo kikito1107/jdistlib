@@ -34,7 +34,7 @@ import componentes.listeners.LJChatListener;
 /**
  * Implementacion de la clase captadora de eventos para el componente Chat
  * 
- * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ * @author Juan Antonio Iba√±ez Santorum. Carlos Rodriguez Dominguez. Ana Belen
  *         Pelegrina Ortiz
  */
 public class DJChat extends JPanel
@@ -220,7 +220,7 @@ public class DJChat extends JPanel
 				nombres.add(evento.usuario);
 				conversaciones.add(new PanelChatPrivado(this));
 				JFrame nuevaVentana = new JFrame();
-				nuevaVentana.setTitle(":: Conversación privada con "
+				nuevaVentana.setTitle(":: Conversaci√±n privada con "
 						+ ev1.usuario + " ::");
 				nuevaVentana.getContentPane().add(conversaciones.lastElement());
 

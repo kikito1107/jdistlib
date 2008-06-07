@@ -1,11 +1,8 @@
 package componentes.gui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.util.Vector;
-
-import javax.swing.JScrollPane;
 
 import Deventos.DEvent;
 import Deventos.DJCheckBoxEvent;
@@ -19,20 +16,15 @@ import componentes.listeners.DJCheckBoxListener;
 import componentes.listeners.LJCheckBoxListener;
 
 /**
- * Checkbox compartido. Consultar documentacion del proyecto para ver su
- * funcionamiento
+ * Componente correspondiente a un CheckBox compartido.
+ * @author Juan Antonio IbaÃ±ez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public class DICheckBox extends DComponenteBase implements java.io.Serializable
 {
-
 	private static final long serialVersionUID = 1L;
 
-	BorderLayout borderLayout1 = new BorderLayout();
-
-	JScrollPane jScrollPane1 = new JScrollPane();
-
-	DJCheckBox checkbox = null;
+	private DJCheckBox checkbox = null;
 
 	public DICheckBox()
 	{
@@ -41,12 +33,12 @@ public class DICheckBox extends DComponenteBase implements java.io.Serializable
 
 	/**
 	 * @param nombre
-	 *            String Nombre del componente.
+	 *            Nombre del componente.
 	 * @param conexionDC
-	 *            boolean TRUE si esta en contacto directo con el DConector (no
+	 *            TRUE si esta en contacto directo con el DConector (no
 	 *            es hijo de ningun otro componente) y FALSE en otro caso
 	 * @param padre
-	 *            DComponenteBase Componente padre de este componente. Si no
+	 *            Componente padre de este componente. Si no
 	 *            tiene padre establecer a null
 	 */
 	public DICheckBox( String nombre, boolean conexionDC, DComponenteBase padre )
@@ -66,14 +58,14 @@ public class DICheckBox extends DComponenteBase implements java.io.Serializable
 
 	/**
 	 * @param textoCheckBox
-	 *            String Cadena de texto que presentara la checkbox.
+	 *            Cadena de texto que presentara la checkbox.
 	 * @param nombre
-	 *            String Nombre del componente.
+	 *            Nombre del componente.
 	 * @param conexionDC
-	 *            boolean TRUE si esta en contacto directo con el DConector (no
+	 *            TRUE si esta en contacto directo con el DConector (no
 	 *            es hijo de ningun otro componente) y FALSE en otro caso
 	 * @param padre
-	 *            DComponenteBase Componente padre de este componente. Si no
+	 *            Componente padre de este componente. Si no
 	 *            tiene padre establecer a null
 	 */
 	public DICheckBox( String textoCheckBox, String nombre, boolean conexionDC,
@@ -101,7 +93,7 @@ public class DICheckBox extends DComponenteBase implements java.io.Serializable
 	}
 
 	/**
-	 * Devuelve la instancia de la clase captadora que está usando.
+	 * Devuelve la instancia de la clase captadora que esta usando.
 	 * 
 	 * @return DJCheckBox Clase captadora
 	 */
@@ -112,7 +104,7 @@ public class DICheckBox extends DComponenteBase implements java.io.Serializable
 
 	/**
 	 * Establece el nivel de permisos de este componente. No se recomienda
-	 * llamar a este método desde el programa. Será llamado de forma automática
+	 * llamar a este metodo desde el programa. Sera llamado de forma automatica
 	 * cuando sea necesario
 	 * 
 	 * @param nivel
@@ -127,6 +119,10 @@ public class DICheckBox extends DComponenteBase implements java.io.Serializable
 		else checkbox.setForeground(Color.BLACK);
 	}
 
+	/**
+	 * Obtiene un evento con la informacion de estado del componente
+	 * @return Evento con la informacion de estado
+	 */
 	public DJCheckBoxEvent obtenerInfoEstado()
 	{
 		return checkbox.obtenerInfoEstado();
@@ -136,7 +132,7 @@ public class DICheckBox extends DComponenteBase implements java.io.Serializable
 	 * Obtiene el numero de componentes hijos de este componente. SIEMPRE
 	 * devuelve 0
 	 * 
-	 * @return int Número de componentes hijos. SIEMPRE devuelve 0.
+	 * @return Numero de componentes hijos. SIEMPRE devuelve 0.
 	 */
 	@Override
 	public int obtenerNumComponentesHijos()
@@ -145,11 +141,11 @@ public class DICheckBox extends DComponenteBase implements java.io.Serializable
 	}
 
 	/**
-	 * Añade un DJListener a la clase captadora para recibir los eventos
+	 * AÃ±ade un DJListener a la clase captadora para recibir los eventos
 	 * generados por la interaccion del usuario con el componente
 	 * 
 	 * @param listener
-	 *            DJCheckBoxListener Listener a añadir
+	 *            Listener a aÃ±adir
 	 */
 	public void addDJCheckBoxListener(DJCheckBoxListener listener)
 	{
@@ -157,11 +153,11 @@ public class DICheckBox extends DComponenteBase implements java.io.Serializable
 	}
 
 	/**
-	 * Añade un LListener al componente para ser notificado cuando cambie el
+	 * AÃ±ade un LListener al componente para ser notificado cuando cambie el
 	 * estado del componente
 	 * 
 	 * @param listener
-	 *            LJCheckBoxListener Listener a añadir
+	 *            Listener a aÃ±adir
 	 */
 	public void addLJCheckBoxListener(LJCheckBoxListener listener)
 	{
@@ -169,12 +165,12 @@ public class DICheckBox extends DComponenteBase implements java.io.Serializable
 	}
 
 	/**
-	 * Añade un LUListener al componente para ser notificado cuando cambie el
+	 * AÃ±ade un LUListener al componente para ser notificado cuando cambie el
 	 * estado del componente. Solo sera notificado cuando el cambio de estado se
 	 * deba a una accion realizada por el usuario de la aplicacion.
 	 * 
 	 * @param listener
-	 *            LJButtonListener Listener a añadir
+	 *            Listener a aÃ±adir
 	 */
 	public void addLUJCheckBoxListener(LJCheckBoxListener listener)
 	{
@@ -184,7 +180,7 @@ public class DICheckBox extends DComponenteBase implements java.io.Serializable
 	/**
 	 * Obtiene los DJListener que tiene asociado el componente
 	 * 
-	 * @return Vector Vector de listeners DJCheckBoxListener
+	 * @return Vector de listeners DJCheckBoxListener
 	 */
 	@SuppressWarnings("unchecked")
 	public Vector getDJCheckBoxListeners()
@@ -259,8 +255,8 @@ public class DICheckBox extends DComponenteBase implements java.io.Serializable
 	}
 
 	/**
-	 * Mediante una llamada a este método se envía un mensaje de peticion de
-	 * sincronizacion. No se debe llamar a este método de forma directa. Será
+	 * Mediante una llamada a este metodo se envia un mensaje de peticion de
+	 * sincronizacion. No se debe llamar a este metodo de forma directa. SerÃ±
 	 * llamado de forma automatica cuando sea necesario realizar la
 	 * sincronizacion
 	 */
@@ -281,7 +277,7 @@ public class DICheckBox extends DComponenteBase implements java.io.Serializable
 	 * eventos que se reciben desde la clase captadora. Normalmente este
 	 * tratamiento se reduce a enviar el evento.
 	 * 
-	 * @return DJCheckBoxListener Listener creado
+	 * @return Listener creado
 	 */
 	public DJCheckBoxListener crearDJListener()
 	{
@@ -293,7 +289,7 @@ public class DICheckBox extends DComponenteBase implements java.io.Serializable
 	 * eventos que se reciban. Este metodo no debe llamarse de forma directa.
 	 * Sera llamado de forma automatica cuando sea necesario.
 	 * 
-	 * @return HebraProcesadoraBase Nueva hebra procesadora
+	 * @return Nueva hebra procesadora
 	 */
 	@Override
 	public HebraProcesadoraBase crearHebraProcesadora()
@@ -322,7 +318,7 @@ public class DICheckBox extends DComponenteBase implements java.io.Serializable
 
 	/**
 	 * Hebra procesadora de eventos. Se encarga de realizar las acciones que
-	 * correspondan cuando recibe un evento. Tambén se encarga en su inicio de
+	 * correspondan cuando recibe un evento. Tambien se encarga en su inicio de
 	 * sincronizar el componente.
 	 */
 	class HebraProcesadora extends HebraProcesadoraBase

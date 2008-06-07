@@ -62,7 +62,7 @@ public class Anotacion implements Serializable
 	}
 
 	/**
-	 * Accede al rol que desempeñaba el usuario cuando realizo la anotacion
+	 * Accede al rol que desempe√±aba el usuario cuando realizo la anotacion
 	 * 
 	 * @return String con el nombre del rol
 	 */
@@ -74,7 +74,7 @@ public class Anotacion implements Serializable
 	/**
 	 * Consulta la fecha y hora en la que fue realizada la anotacion
 	 * 
-	 * @return Cadena con la representación de la fecha en el siguiente formato:
+	 * @return Cadena con la representaci√±n de la fecha en el siguiente formato:
 	 *         dd/MMMMM/yyyy 'a las' hh:mm
 	 */
 	public String getFecha()

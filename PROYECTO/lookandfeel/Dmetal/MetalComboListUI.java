@@ -35,7 +35,7 @@ public class MetalComboListUI extends BasicListUI
 	}
 
 	/**
-	 * Con la sobrecarga de este método hacemos que se instalen solo los
+	 * Con la sobrecarga de este mÃ±todo hacemos que se instalen solo los
 	 * listener que deseamos
 	 */
 	@Override

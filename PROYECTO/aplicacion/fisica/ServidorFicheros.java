@@ -147,7 +147,7 @@ public class ServidorFicheros
 	 * @param usuario
 	 *            Nombre del usuario
 	 * @param rol
-	 *            Nombre del rol que desempeña el usuario en estos momentos
+	 *            Nombre del rol que desempe√±a el usuario en estos momentos
 	 * @return Arbol con la estructura de directorios
 	 */
 	private DefaultMutableTreeNode obtenerArbol(String usuario, String rol)
@@ -352,7 +352,7 @@ public class ServidorFicheros
 								System.err
 										.println("Error al renombrar el fichero de anotaciones");
 							else System.err
-									.println("Fichero renombrado con éxito");
+									.println("Fichero renombrado con √±xito");
 
 						}
 						gestor.modificarFichero(( (DFileEvent) leido ).fichero);

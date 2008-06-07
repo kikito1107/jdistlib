@@ -91,7 +91,7 @@ public class DocumentosCellRenderer extends DefaultTreeCellRenderer
 		else if (leaf && isFolder(value))
 		{
 			setIcon(iconoCarpeta);
-			setToolTipText("Carpeta vacía");
+			setToolTipText("Carpeta vac√±a");
 		}
 
 		return this;

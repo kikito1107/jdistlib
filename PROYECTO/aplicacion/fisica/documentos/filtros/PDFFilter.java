@@ -42,7 +42,7 @@ public class PDFFilter implements DocumentFilter
 	 * @param usuario
 	 *            Nombre del usuario que quiere abrir el documento
 	 * @param rol
-	 *            Rol que desempeña el usuario
+	 *            Rol que desempe√±a el usuario
 	 * @return Objeto de la clase
 	 * @see Documento. Devuelve null si ha ocurrido algun error
 	 */

@@ -85,10 +85,10 @@ public class GestorFicherosBD
 			ResultSet rs = conexion
 					.select("SELECT * FROM fichero WHERE padre='" + id + "'");
 
-			// añasdimos el propio directorio
+			// a√±adimos el propio directorio
 			res.add(construirFicheroBD(id));
 
-			// añadimos cada uno de los ficheros de directorio
+			// a√±adimos cada uno de los ficheros de directorio
 			while (rs.next())
 				res.add(construirFicheroBD(rs));
 
@@ -156,7 +156,7 @@ public class GestorFicherosBD
 	 * 
 	 * @param id
 	 *            Identificador del fichero a recuperar
-	 * @return El fichero. Si no existe ningún fichero con el identificador
+	 * @return El fichero. Si no existe ning√±n fichero con el identificador
 	 *         dado, devuelve null.
 	 */
 	private MIDocumento construirFicheroBD(int id)
@@ -441,7 +441,7 @@ public class GestorFicherosBD
 	}
 
 	/**
-	 * Cierra la conexión con la base de datos
+	 * Cierra la conexi√±n con la base de datos
 	 */
 	public void cerrarConexion()
 	{

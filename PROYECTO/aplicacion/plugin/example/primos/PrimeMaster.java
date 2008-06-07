@@ -54,7 +54,7 @@ public class PrimeMaster extends GenericMaster
 
 	private JLabel maximo = null;
 
-	private JLabel Tama–o = null;
+	private JLabel Tamano = null;
 
 	private boolean start = false;
 
@@ -287,8 +287,8 @@ public class PrimeMaster extends GenericMaster
 				GridBagConstraints gridBagConstraints5 = new GridBagConstraints();
 				gridBagConstraints5.gridx = 0; // Generated
 				gridBagConstraints5.gridy = 2; // Generated
-				Tama–o = new JLabel();
-				Tama–o.setText(Messages.getString("PrimeMaster.15")); // Generated //$NON-NLS-1$
+				Tamano = new JLabel();
+				Tamano.setText(Messages.getString("PrimeMaster.15")); // Generated //$NON-NLS-1$
 				GridBagConstraints gridBagConstraints4 = new GridBagConstraints();
 				gridBagConstraints4.gridx = 0; // Generated
 				gridBagConstraints4.gridy = 1; // Generated
@@ -322,7 +322,7 @@ public class PrimeMaster extends GenericMaster
 				jPanel.add(getCampoTamBloques(), gridBagConstraints2); // Generated
 				jPanel.add(etqMin, gridBagConstraints3); // Generated
 				jPanel.add(maximo, gridBagConstraints4); // Generated
-				jPanel.add(Tama–o, gridBagConstraints5); // Generated
+				jPanel.add(Tamano, gridBagConstraints5); // Generated
 				jPanel.add(getVerDatosEnviados(), gridBagConstraints14);  // Generated
 				jPanel.add(etiqueta, gridBagConstraints21);  // Generated
 				//jPanel.add(getBotonStart(), gridBagConstraints11); // Generated

@@ -3,7 +3,7 @@ package Deventos;
 import net.jini.core.entry.Entry;
 
 /**
- * Clase genérica de eventos. Implementa la interfaz Entry para poder ser
+ * Clase genÃ±rica de eventos. Implementa la interfaz Entry para poder ser
  * escrito en el JavaSpace.
  */
 
@@ -18,7 +18,7 @@ public class DEvent implements Entry
 
 	public Integer destino = null; // Destino del evento
 
-	public Long contador = null; // Número de secuencia del evento
+	public Long contador = null; // NÃ±mero de secuencia del evento
 
 	public String usuario = null; // Usuario que genera el evento
 
@@ -34,7 +34,7 @@ public class DEvent implements Entry
 
 	// el evento
 
-	public Integer ultimoProcesado = null; // Último evento procesado por el
+	public Integer ultimoProcesado = null; // Ã±ltimo evento procesado por el
 
 	// componente
 

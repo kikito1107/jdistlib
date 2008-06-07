@@ -9,7 +9,7 @@ import java.io.Serializable;
  * componente. El permiso solo tiene sentido en relacion con un usuario
  * </p>
  * 
- * @author Juan Antonio Ibañez Santorum (looper@telefonica.net)
+ * @author Juan Antonio IbaÃ±ez Santorum (looper@telefonica.net)
  */
 
 public class MIComponente implements Serializable

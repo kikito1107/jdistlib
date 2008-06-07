@@ -25,7 +25,7 @@ import componentes.listeners.LJMenuItemListener;
  * Implementacion de la clase captadora de eventos para el componente Elemento
  * de menu
  * 
- * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ * @author Juan Antonio Iba√±ez Santorum. Carlos Rodriguez Dominguez. Ana Belen
  *         Pelegrina Ortiz
  */
 public class DJMenuItem extends JMenuItem implements DComponente

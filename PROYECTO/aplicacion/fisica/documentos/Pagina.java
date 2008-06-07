@@ -139,7 +139,7 @@ public class Pagina implements Serializable
 	 * Consulta las anotaciones realizadas en la pagina bajo un determinado rol
 	 * 
 	 * @param rol
-	 *            Rol que desempeñaban los usuarios que realizaron una anotacion
+	 *            Rol que desempe√±aban los usuarios que realizaron una anotacion
 	 *            en la pagina
 	 * @return Vector conteniendo las anotaciones requeridas
 	 */

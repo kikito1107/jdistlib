@@ -18,7 +18,7 @@ import componentes.listeners.LJButtonListener;
 /**
  * Implementacion de la clase captadora de eventos para el componente Boton
  * 
- * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ * @author Juan Antonio Iba√±ez Santorum. Carlos Rodriguez Dominguez. Ana Belen
  *         Pelegrina Ortiz
  */
 public class DJButton extends JButton

@@ -76,7 +76,7 @@ public class Documento implements Serializable, Printable
 	 * @param usu
 	 *            Usuario que crea el documento
 	 * @param ro
-	 *            Rol que desempeña actualmente el usuario que crea el documento
+	 *            Rol que desempe√±a actualmente el usuario que crea el documento
 	 */
 	public Documento( String usu, String ro )
 	{
@@ -200,10 +200,10 @@ public class Documento implements Serializable, Printable
 	}
 
 	/**
-	 * Establece el rol que desempeña el usuario propietario del documento
+	 * Establece el rol que desempe√±a el usuario propietario del documento
 	 * 
 	 * @param ro
-	 *            Nombre del rol que desempeña el usuario propietario del
+	 *            Nombre del rol que desempe√±a el usuario propietario del
 	 *            documento
 	 */
 	public void setRol(String ro)
@@ -248,9 +248,9 @@ public class Documento implements Serializable, Printable
 	}
 
 	/**
-	 * Obtiene el rol que desempeña el propietario del documento
+	 * Obtiene el rol que desempe√±a el propietario del documento
 	 * 
-	 * @return Nombre del rol que desempeña el propietario del documento
+	 * @return Nombre del rol que desempe√±a el propietario del documento
 	 */
 	public String getRol()
 	{
@@ -299,7 +299,7 @@ public class Documento implements Serializable, Printable
 	 * @param usuario
 	 *            Usuario que desea abrir el documento
 	 * @param rol
-	 *            Rol que desempeña actualmente el usuario que desea abrir el
+	 *            Rol que desempe√±a actualmente el usuario que desea abrir el
 	 *            documento
 	 * @return Objeto de esta clase con los contenidos del documento a abrir.
 	 *         Devuelve null si ha ocurrido algun error.
@@ -445,7 +445,7 @@ public class Documento implements Serializable, Printable
 		 * 
 		 * @param nombredoc
 		 *            Nombre del documento a imprimir
-		 * @return True si la inicialización ha sido exitosa. False en caso
+		 * @return True si la inicializaci√±n ha sido exitosa. False en caso
 		 *         contrario
 		 */
 		public boolean inicializar(Documento d)
@@ -513,7 +513,7 @@ public class Documento implements Serializable, Printable
 				v.get(i).getContenido().dibujar(graphics);
 			}
 
-			System.out.println("Solicitando página " + pageIndex);
+			System.out.println("Solicitando p√±gina " + pageIndex);
 
 			return PAGE_EXISTS;
 		}

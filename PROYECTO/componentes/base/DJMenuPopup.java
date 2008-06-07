@@ -5,7 +5,7 @@ import javax.swing.JPopupMenu;
 /**
  * Implementacion de la clase captadora de eventos para el componente Popup Menu
  * 
- * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ * @author Juan Antonio Iba√±ez Santorum. Carlos Rodriguez Dominguez. Ana Belen
  *         Pelegrina Ortiz
  */
 public class DJMenuPopup extends JPopupMenu

@@ -124,10 +124,10 @@ public class DMetalTreeUI extends BasicTreeUI
 
 	/**
 	 * Nos traduce un TreePath a un array de enteros de forma que en cada
-	 * posiciÛn del array nos indica cual es el elemento seleccionado en ese
+	 * posici√±n del array nos indica cual es el elemento seleccionado en ese
 	 * nivel. Por ejemplo el array {0,2,1} nos indicaria que el hijo
 	 * seleccionado del raiz es el tercer elemento (ya que se empieza a numerar
-	 * en 0) y de ese elemento est· seleccionado su segundo hijo.
+	 * en 0) y de ese elemento est√± seleccionado su segundo hijo.
 	 * 
 	 * @param path
 	 *            TreePath El TreePath que queremos traducir

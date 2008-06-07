@@ -144,8 +144,8 @@ public class EnviarMensaje extends JDialog
 				int elecc = JOptionPane
 						.showOptionDialog(
 								null,
-								"El mensaje no ha sido enviado todavía\n¿Realmente desea salir?",
-								"¡Atención!", JOptionPane.YES_NO_OPTION,
+								"El mensaje no ha sido enviado todav√±a\n√±Realmente desea salir?",
+								"√±Atenci√±n!", JOptionPane.YES_NO_OPTION,
 								JOptionPane.QUESTION_MESSAGE, null, options,
 								options[1]);
 
@@ -207,7 +207,7 @@ public class EnviarMensaje extends JDialog
 								|| area.getText().equals(""))
 						{
 							JOptionPane.showMessageDialog(null,
-									"¡Quedan campos sin rellenar!");
+									"√±Quedan campos sin rellenar!");
 							return;
 						}
 
@@ -459,7 +459,7 @@ public class EnviarMensaje extends JDialog
 				panelNorte.setLayout(new GridBagLayout()); // Generated
 				panelNorte.setBorder(BorderFactory
 						.createTitledBorder(BorderFactory.createMatteBorder(1,
-								0, 0, 0, Color.gray), "Datos Envío",
+								0, 0, 0, Color.gray), "Datos Env√±o",
 								TitledBorder.DEFAULT_JUSTIFICATION,
 								TitledBorder.DEFAULT_POSITION, new Font(
 										"Lucida Grande", Font.PLAIN, 13),

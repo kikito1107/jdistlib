@@ -680,8 +680,8 @@ public class DMenuMetalPopupMenuUI extends PopupMenuUI
 					if (mi.getUI() instanceof BasicMenuItemUI)
 					{
 						// Se comenta por razones de acceso. Aparentemente no
-						// habr· problemas ya
-						// que esta clase solo se usar· para el popup del
+						// habr√± problemas ya
+						// que esta clase solo se usar√± para el popup del
 						// JComboBox
 						// ( (BasicMenuItemUI) mi.getUI()).doClick(msm);
 					}

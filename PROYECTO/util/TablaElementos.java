@@ -7,10 +7,10 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 
 /**
- * Clase con la que se simplifica el uso de las tablas JTable añadiendo metodos
+ * Clase con la que se simplifica el uso de las tablas JTable aÃ±adiendo metodos
  * utiles para su utilizacion.
  * 
- * @author Juan Antonio Ibañez Santorum - ejido2002@hotmail.com
+ * @author Juan Antonio IbaÃ±ez Santorum - ejido2002@hotmail.com
  */
 
 public class TablaElementos extends JTable
@@ -34,10 +34,10 @@ public class TablaElementos extends JTable
 	}
 
 	/**
-	 * Añadir una fila a la tabla
+	 * AÃ±adir una fila a la tabla
 	 * 
 	 * @param fila
-	 *            Fila que deseamos añadir
+	 *            Fila que deseamos aÃ±adir
 	 */
 	public void aniadir(String[] fila)
 	{
@@ -45,10 +45,10 @@ public class TablaElementos extends JTable
 	}
 
 	/**
-	 * Añadir varias filas a la tabla
+	 * AÃ±adir varias filas a la tabla
 	 * 
 	 * @param filas
-	 *            Filas que deseamos añadir
+	 *            Filas que deseamos aÃ±adir
 	 */
 	public void aniadir(String[][] filas)
 	{
@@ -209,7 +209,7 @@ public class TablaElementos extends JTable
 		}
 
 		/**
-		 * Añadir una fila a la tabla
+		 * AÃ±adir una fila a la tabla
 		 * 
 		 * @param fila
 		 *            Fila que queremos insertar

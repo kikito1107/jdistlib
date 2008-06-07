@@ -62,7 +62,7 @@ public class ClienteFicheros
 	 * @param clave2
 	 *            Clave del usuario que hara uso de esta clase
 	 * @param rol2
-	 *            Rol actual que desempeña el usuario dentro del sistema
+	 *            Rol actual que desempe√±a el usuario dentro del sistema
 	 */
 	public ClienteFicheros( String aplicacion2, String usuario2, String clave2,
 			String rol2 )

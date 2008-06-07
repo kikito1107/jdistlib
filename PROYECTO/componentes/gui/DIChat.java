@@ -15,25 +15,23 @@ import componentes.listeners.LJChatListener;
 
 /**
  * Chat con el que pueden hablar todos los usuarios de la aplicacion
+ * @author Juan Antonio IbaÃ±ez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public class DIChat extends DComponenteBase implements java.io.Serializable
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 370978067165523554L;
 
-	DJChat chat = new DJChat();
+	private DJChat chat = new DJChat();
 
 	/**
 	 * @param nombre
-	 *            String Nombre del componente.
+	 *            Nombre del componente.
 	 * @param conexionDC
-	 *            boolean TRUE si esta en contacto directo con el DConector (no
+	 *            TRUE si esta en contacto directo con el DConector (no
 	 *            es hijo de ningun otro componente) y FALSE en otro caso
 	 * @param padre
-	 *            DComponenteBase Componente padre de este componente. Si no
+	 *            Componente padre de este componente. Si no
 	 *            tiene padre establecer a null
 	 */
 	public DIChat( String nombre, boolean conexionDC, DComponenteBase padre )
@@ -50,6 +48,9 @@ public class DIChat extends DComponenteBase implements java.io.Serializable
 		}
 	}
 
+	/**
+	 * Constructor por defecto
+	 */
 	public DIChat()
 	{
 		super();
@@ -63,16 +64,27 @@ public class DIChat extends DComponenteBase implements java.io.Serializable
 		// desactivar();//*******************************************************************************
 	}
 
+	/**
+	 * Elimina el texto que haya en el chat
+	 */
 	public void limpiarTexto()
 	{
 		chat.limpiarTexto();
 	}
 
+	/**
+	 * Obtiene el texto que haya en el chat
+	 * @return Texto del chat
+	 */
 	public String getTexto()
 	{
 		return chat.getTexto();
 	}
 
+	/**
+	 * Asigna una fuente al chat
+	 * @param f Fuente a asignar
+	 */
 	public void setFuente(Font f)
 	{
 		chat.setFuente(f);
@@ -80,11 +92,11 @@ public class DIChat extends DComponenteBase implements java.io.Serializable
 
 	/**
 	 * Establece el nivel de permisos de este componente. No se recomienda
-	 * llamar a este método desde el programa. Será llamado de forma automática
+	 * llamar a este metodo desde el programa. Sera llamado de forma automatica
 	 * cuando sea necesario
 	 * 
 	 * @param nivel
-	 *            int Nivel que queremos establecer
+	 *            Nivel que queremos establecer
 	 */
 	@Override
 	public void setNivelPermisos(int nivel)
@@ -99,7 +111,7 @@ public class DIChat extends DComponenteBase implements java.io.Serializable
 	 * Obtiene el numero de componentes hijos de este componente. SIEMPRE
 	 * devuelve 0
 	 * 
-	 * @return int Número de componentes hijos. SIEMPRE devuelve 0.
+	 * @return Numero de componentes hijos. SIEMPRE devuelve 0.
 	 */
 	@Override
 	public int obtenerNumComponentesHijos()
@@ -108,11 +120,11 @@ public class DIChat extends DComponenteBase implements java.io.Serializable
 	}
 
 	/**
-	 * Añade un DJListener a la clase captadora para recibir los eventos
+	 * AÃ±ade un DJListener a la clase captadora para recibir los eventos
 	 * generados por la interaccion del usuario con el componente
 	 * 
 	 * @param listener
-	 *            DJChatListener Listener a añadir
+	 *            Listener a aÃ±adir
 	 */
 	public void addDJChatListener(DJChatListener listener)
 	{
@@ -120,11 +132,11 @@ public class DIChat extends DComponenteBase implements java.io.Serializable
 	}
 
 	/**
-	 * Añade un LListener al componente para ser notificado cuando cambie el
+	 * AÃ±ade un LListener al componente para ser notificado cuando cambie el
 	 * estado del componente
 	 * 
 	 * @param listener
-	 *            LJChatListener Listener a añadir
+	 *            Listener a aÃ±adir
 	 */
 	public void addLJChatListener(LJChatListener listener)
 	{
@@ -134,7 +146,7 @@ public class DIChat extends DComponenteBase implements java.io.Serializable
 	/**
 	 * Obtiene los DJListener que tiene asociado el componente
 	 * 
-	 * @return Vector Vector de listeners DJChatListener
+	 * @return Vector de listeners DJChatListener
 	 */
 	@SuppressWarnings("unchecked")
 	public Vector getDJChatListeners()
@@ -145,7 +157,7 @@ public class DIChat extends DComponenteBase implements java.io.Serializable
 	/**
 	 * Obtiene los LJListener que tiene asociado el componente
 	 * 
-	 * @return Vector Vector de listeners LJChatListener
+	 * @return Vector de listeners LJChatListener
 	 */
 	@SuppressWarnings("unchecked")
 	public Vector getLJChatListeners()
@@ -190,7 +202,7 @@ public class DIChat extends DComponenteBase implements java.io.Serializable
 	}
 
 	/**
-	 * Mediante una llamada a este método se envía un mensaje de peticion de
+	 * Mediante una llamada a este metodo se envia un mensaje de peticion de
 	 * sincronizacion. En este componente no se realiza sincronizacion por lo
 	 * que no tiene utilidad ninguna.
 	 */
@@ -210,7 +222,7 @@ public class DIChat extends DComponenteBase implements java.io.Serializable
 	 * eventos que se reciban. Este metodo no debe llamarse de forma directa.
 	 * Sera llamado de forma automatica cuando sea necesario.
 	 * 
-	 * @return HebraProcesadoraBase Nueva hebra procesadora
+	 * @return Nueva hebra procesadora
 	 */
 	@Override
 	public HebraProcesadoraBase crearHebraProcesadora()
@@ -231,7 +243,7 @@ public class DIChat extends DComponenteBase implements java.io.Serializable
 	 * correspondan cuando recibe un evento. En este caso no se realiza
 	 * sincronizacion dado que no es necesario.
 	 */
-	class HebraProcesadora extends HebraProcesadoraBase
+	private class HebraProcesadora extends HebraProcesadoraBase
 	{
 
 		HebraProcesadora( DComponente dc )

@@ -366,7 +366,7 @@ public class ControlesDibujo extends JPanel
 		{
 			botonRehacer = new JButton();
 			botonRehacer.setText("");
-			botonRehacer.setToolTipText("Rehace el œltimo trazo eliminado");
+			botonRehacer.setToolTipText("Rehace el Ã±ltimo trazo eliminado");
 			botonRehacer.setIcon(new ImageIcon("Resources/arrow_redo.png"));
 			botonRehacer.addActionListener(new java.awt.event.ActionListener()
 			{

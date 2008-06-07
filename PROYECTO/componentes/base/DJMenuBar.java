@@ -15,7 +15,7 @@ import Deventos.enlaceJS.DConector;
  * Implementacion de la clase captadora de eventos para el componente Barra de
  * Menu
  * 
- * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ * @author Juan Antonio Iba√±ez Santorum. Carlos Rodriguez Dominguez. Ana Belen
  *         Pelegrina Ortiz
  */
 public class DJMenuBar extends JMenuBar implements DComponente

@@ -10,7 +10,7 @@ import java.rmi.registry.LocateRegistry;
 import aplicacion.fisica.documentos.Documento;
 
 /**
- * Clase encargada de la transmisión de documentos entre usuarios
+ * Clase encargada de la transmisi√±n de documentos entre usuarios
  * 
  * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
@@ -162,8 +162,8 @@ public class TransferP2P
 
 			try
 			{
-				// Se indica a rmiregistry dónde están las clases.
-				// Cambiar el path al sitio en el que esté. Es importante
+				// Se indica a rmiregistry d√±nde est√±n las clases.
+				// Cambiar el path al sitio en el que est√±. Es importante
 				// mantener la barra al final.
 
 				String ruta = "./";

@@ -12,7 +12,7 @@ import java.util.Vector;
  * todos), rol por defecto y estado del usuario (conectado/desconectado)
  * </p>
  * 
- * @author Juan Antonio IbaÒez Santorum (looper@telefonica.net)
+ * @author Juan Antonio Iba√±ez Santorum (looper@telefonica.net)
  */
 public class MIUsuario implements Serializable
 {
@@ -88,7 +88,7 @@ public class MIUsuario implements Serializable
 	}
 
 	/**
-	 * Obtiene el rol actual del usuario. Solo tiene sentido si el usuario est·
+	 * Obtiene el rol actual del usuario. Solo tiene sentido si el usuario est√±
 	 * conectado
 	 * 
 	 * @return String Rol actual del usuario.
@@ -174,7 +174,7 @@ public class MIUsuario implements Serializable
 	 * 
 	 * @param componente
 	 *            String Componente sobre el que deseamos obtener informacion.
-	 * @return int Permiso del comoponente. Si el componente no est· definido
+	 * @return int Permiso del comoponente. Si el componente no est√± definido
 	 *         devuelve -1.
 	 */
 	public int getPermisoComponente(String componente)
@@ -188,7 +188,7 @@ public class MIUsuario implements Serializable
 
 	/**
 	 * Cambia el permiso del componente para el usuario. Si no existe el
-	 * componente se aÒade un nuevo componente con el permiso indicado
+	 * componente se a√±ade un nuevo componente con el permiso indicado
 	 * 
 	 * @param componente
 	 *            String Componente al que se quiere cambiar el permiso
@@ -210,9 +210,9 @@ public class MIUsuario implements Serializable
 	 * se crea la informacion para ese componente
 	 * 
 	 * @param componente
-	 *            String Componente que deseamos aÒadir
+	 *            String Componente que deseamos a√±adir
 	 * @param permiso
-	 *            int Permiso con el que queremos aÒadir el componente
+	 *            int Permiso con el que queremos a√±adir el componente
 	 */
 	public void nuevoPermisoComponente(String componente, int permiso)
 	{

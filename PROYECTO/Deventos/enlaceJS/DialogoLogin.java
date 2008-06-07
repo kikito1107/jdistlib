@@ -133,7 +133,7 @@ public class DialogoLogin extends JDialog
 			setVisible(false);
 		}
 		else JOptionPane.showMessageDialog(null,
-				"No debes dejar ningún campo vacío", "Error",
+				"No debes dejar ning√±n campo vac√±o", "Error",
 				JOptionPane.ERROR_MESSAGE);
 	}
 

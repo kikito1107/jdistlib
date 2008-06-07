@@ -23,7 +23,7 @@ import componentes.listeners.LJComboBoxListener;
 /**
  * Implementacion de la clase captadora de eventos para el componente ComboBox
  * 
- * @author Juan Antonio Iba–ez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ * @author Juan Antonio IbaÃ±ez Santorum. Carlos Rodriguez Dominguez. Ana Belen
  *         Pelegrina Ortiz
  */
 @SuppressWarnings( "unchecked" )
@@ -349,10 +349,10 @@ public class DJComboBox extends JComboBox
 	}
 
 	/**
-	 * Añadir un elemento a la lista
+	 * AÃ±adir un elemento a la lista
 	 * 
 	 * @param cadena
-	 *            Elemento que deseamos añadir
+	 *            Elemento que deseamos aÃ±adir
 	 */
 	public void aniadir(String cadena)
 	{
@@ -360,10 +360,10 @@ public class DJComboBox extends JComboBox
 	}
 
 	/**
-	 * Añadir un array de elementos a la lista
+	 * AÃ±adir un array de elementos a la lista
 	 * 
 	 * @param cadenas
-	 *            Array de elementos que deseamos añadir
+	 *            Array de elementos que deseamos aÃ±adir
 	 */
 	public void aniadir(String[] cadenas)
 	{
@@ -392,7 +392,7 @@ public class DJComboBox extends JComboBox
 	}
 
 	/**
-	 * Obtener elemento en el índice elegido
+	 * Obtener elemento en el Ã±ndice elegido
 	 * 
 	 * @param i
 	 *            Indice del elemento que deseamos obtener
@@ -446,7 +446,7 @@ public class DJComboBox extends JComboBox
 	}
 
 	/**
-	 * Eliminar elemento en el índice deseado
+	 * Eliminar elemento en el Ã±ndice deseado
 	 * 
 	 * @param i
 	 *            Indice del elemento que deseamos eliminar
@@ -619,7 +619,7 @@ public class DJComboBox extends JComboBox
 					 * System.out.println("HebraProcesadora(" + DID + "):
 					 * Recibido evento del tipo " + evento.tipo);
 					 */
-					// Indicamos cual ha sido el último evento procesado
+					// Indicamos cual ha sido el Ã±ltimo evento procesado
 					ultimoProcesado = new Integer(evento.contador.intValue());
 
 					if (( evento.tipo.intValue() == DJComboBoxEvent.SINCRONIZACION

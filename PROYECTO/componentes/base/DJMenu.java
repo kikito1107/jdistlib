@@ -31,7 +31,7 @@ import componentes.listeners.DJMenuListener;
 /**
  * Implementacion de la clase captadora de eventos para el componente Menu
  * 
- * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ * @author Juan Antonio Iba√±ez Santorum. Carlos Rodriguez Dominguez. Ana Belen
  *         Pelegrina Ortiz
  */
 public class DJMenu extends JMenu implements DComponente

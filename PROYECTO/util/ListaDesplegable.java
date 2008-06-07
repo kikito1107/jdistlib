@@ -3,7 +3,7 @@ package util;
 import javax.swing.JComboBox;
 
 /**
- * Lista desplegable con multitud de metodos útiles que facilitan su uso
+ * Lista desplegable con multitud de metodos Ã±tiles que facilitan su uso
  * 
  * @author LooPer (ejido2002@hotmail.com)
  */
@@ -28,7 +28,7 @@ public class ListaDesplegable extends JComboBox
 	 * Constructor al que se le pasa la lista de elementos a representar
 	 * 
 	 * @param listaDatos
-	 *            Array de elementosq que deseamos añadir
+	 *            Array de elementosq que deseamos aÃ±adir
 	 */
 	public ListaDesplegable( String[] listaDatos )
 	{
@@ -57,10 +57,10 @@ public class ListaDesplegable extends JComboBox
 	}
 
 	/**
-	 * Añadir un elemento a la lista
+	 * AÃ±adir un elemento a la lista
 	 * 
 	 * @param cadena
-	 *            Elemento que deseamos añadir
+	 *            Elemento que deseamos aÃ±adir
 	 */
 	public void aniadir(String cadena)
 	{
@@ -68,10 +68,10 @@ public class ListaDesplegable extends JComboBox
 	}
 
 	/**
-	 * Añadir un array de elementos a la lista
+	 * AÃ±adir un array de elementos a la lista
 	 * 
 	 * @param cadenas
-	 *            Array de elementos que deseamos añadir
+	 *            Array de elementos que deseamos aÃ±adir
 	 */
 	public void aniadir(String[] cadenas)
 	{
@@ -100,7 +100,7 @@ public class ListaDesplegable extends JComboBox
 	}
 
 	/**
-	 * Obtener elemento en el índice elegido
+	 * Obtener elemento en el Ã±ndice elegido
 	 * 
 	 * @param i
 	 *            Indice del elemento que deseamos obtener
@@ -154,7 +154,7 @@ public class ListaDesplegable extends JComboBox
 	}
 
 	/**
-	 * Eliminar elemento en el índice deseado
+	 * Eliminar elemento en el Ã±ndice deseado
 	 * 
 	 * @param i
 	 *            Indice del elemento que deseamos eliminar
@@ -209,7 +209,7 @@ public class ListaDesplegable extends JComboBox
 					aux[j] = new String(aux2);
 				}
 			}
-		// Vaciamos la lista y añadimos los nuevos elementos
+		// Vaciamos la lista y aÃ±adimos los nuevos elementos
 		this.vaciar();
 		this.aniadir(aux);
 	}

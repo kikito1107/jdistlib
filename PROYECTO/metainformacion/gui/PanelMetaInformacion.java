@@ -787,7 +787,7 @@ public class PanelMetaInformacion extends JPanel
 						.nuevoRolPermitido(usuario, rol);
 				if (mensaje.length() == 0)
 				{
-					JOptionPane.showMessageDialog(null, "Rol añadido", "OK",
+					JOptionPane.showMessageDialog(null, "Rol a√±adido", "OK",
 							JOptionPane.INFORMATION_MESSAGE);
 					listaCambiarRolesPermitidos.aniadirElemento(rol);
 				}

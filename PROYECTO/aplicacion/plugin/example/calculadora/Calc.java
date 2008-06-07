@@ -94,7 +94,7 @@ public class Calc extends Applet
 	}
 
 	/**
-	 * Esto permite que la clase se use como applet o como aplicaci—n
+	 * Esto permite que la clase se use como applet o como aplicaciÃ±n
 	 * independiente
 	 */
 	public static void main(String args[])
@@ -114,7 +114,7 @@ public class Calc extends Applet
 /* -------------------------------------------------- */
 
 /**
- * Keypad manipula la entrada de datos y la visualizaci—n de resultados
+ * Keypad manipula la entrada de datos y la visualizaciÃ±n de resultados
  */
 class Keypad extends Panel
 {
@@ -123,7 +123,7 @@ class Keypad extends Panel
 	private Display d;
 
 	/**
-	 * inicializa keypad, a–ade los botones, establece los colores, etc.
+	 * inicializa keypad, aÃ±ade los botones, establece los colores, etc.
 	 * 
 	 * @param display
 	 */
@@ -418,8 +418,8 @@ class Keypad extends Panel
 /* -------------------------------------------------- */
 
 /**
- * la clase Display gestiona la visualizaci—n del resultado calculado y tambiŽn
- * implementa las tecla de fucni—n de la calculadora
+ * la clase Display gestiona la visualizaciÃ±n del resultado calculado y tambiÃ±n
+ * implementa las tecla de fucniÃ±n de la calculadora
  */
 class Display extends Panel
 {
@@ -453,7 +453,7 @@ class Display extends Panel
 	}
 
 	/**
-	 * manipulaci—n del pulsado de un d’gito
+	 * manipulaciÃ±n del pulsado de un dÃ±gito
 	 */
 	void Digit(String digit)
 	{
@@ -470,7 +470,7 @@ class Display extends Panel
 	}
 
 	/**
-	 * manipulaci—n del punto decimal
+	 * manipulaciÃ±n del punto decimal
 	 */
 	void Dot()
 	{
@@ -487,7 +487,7 @@ class Display extends Panel
 
 	/**
 	 * si el usuario pulsa = sin haber pulsado antes un operador (+,-,x,/), pone
-	 * cero en la visualizaci—n
+	 * cero en la visualizaciÃ±n
 	 */
 	private void checkEquals()
 	{
@@ -517,7 +517,7 @@ class Display extends Panel
 	}
 
 	/**
-	 * operador multiplicaci—n para uso posterior.
+	 * operador multiplicaciÃ±n para uso posterior.
 	 */
 	void Mul()
 	{
@@ -526,7 +526,7 @@ class Display extends Panel
 	}
 
 	/**
-	 * operador divisi—n para uso posterior.
+	 * operador divisiÃ±n para uso posterior.
 	 */
 	void Div()
 	{
@@ -535,7 +535,7 @@ class Display extends Panel
 	}
 
 	/**
-	 * Interpreta el valor de la visualizaci—n como double y lo almacena para
+	 * Interpreta el valor de la visualizaciÃ±n como double y lo almacena para
 	 * uso posterior
 	 */
 	private void operation()
@@ -564,7 +564,7 @@ class Display extends Panel
 	}
 
 	/**
-	 * termina el œltimo c‡lculo y visualiza el resultado
+	 * termina el Ã±ltimo cÃ±lculo y visualiza el resultado
 	 */
 	void Equals()
 	{
@@ -603,7 +603,7 @@ class Display extends Panel
 	}
 
 	/**
-	 * limpia la visualizaci—n y el œltimo valor interno
+	 * limpia la visualizaciÃ±n y el Ã±ltimo valor interno
 	 */
 	void Clear()
 	{

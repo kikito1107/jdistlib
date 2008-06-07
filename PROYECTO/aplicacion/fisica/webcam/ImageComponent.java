@@ -60,10 +60,10 @@ public class ImageComponent extends JComponent
 	}
 
 	/**
-	 * Pone el tama–o de la imagen mostrada
+	 * Pone el tamaÃ±o de la imagen mostrada
 	 * 
 	 * @param newSize
-	 *            Nuevo tama–o para la imagen mostrada
+	 *            Nuevo tamaÃ±o para la imagen mostrada
 	 */
 	public void setImageSize(Dimension newSize)
 	{
@@ -106,7 +106,7 @@ public class ImageComponent extends JComponent
 	}
 
 	/**
-	 * Repinta la imagen con el tama–o requerido en el componente. Es usado por
+	 * Repinta la imagen con el tamaÃ±o requerido en el componente. Es usado por
 	 * la clase privada
 	 * 
 	 * @see ImageRunnable.
@@ -136,7 +136,7 @@ public class ImageComponent extends JComponent
 	}
 
 	/**
-	 * Devuelve el tama–o preferido para el componente
+	 * Devuelve el tamaÃ±o preferido para el componente
 	 */
 	@Override
 	public synchronized Dimension getPreferredSize()

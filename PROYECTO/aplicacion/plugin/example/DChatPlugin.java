@@ -182,7 +182,7 @@ public class DChatPlugin extends DAbstractPlugin
 				botonNuevoPrivado = new JButton(" ");
 				botonNuevoPrivado.setIcon(new ImageIcon("Resources/comments.png"));
 				botonNuevoPrivado
-						.setToolTipText("Invitar a un usuario a iniciar una conversaci—n privada");
+						.setToolTipText("Invitar a un usuario a iniciar una conversaciÃ±n privada");
 				this.botonNuevoPrivado.setBorder(null);
 				this.botonNuevoPrivado.setBorderPainted(false);
 				botonNuevoPrivado
@@ -201,13 +201,13 @@ public class DChatPlugin extends DAbstractPlugin
 									evento.tipo = new Integer(
 											DJChatEvent.MENSAJE_PRIVADO);
 									evento.receptores.add(usuario);
-									evento.mensaje = "Solicita una nueva conversaci—n";
+									evento.mensaje = "Solicita una nueva conversaciÃ±n";
 
 									chat.enviarEvento(evento);
 								}
 								else JOptionPane
 										.showMessageDialog(null,
-												"No puedes mantener una conversaci—n contigo mismo");
+												"No puedes mantener una conversaciÃ±n contigo mismo");
 							}
 						});
 			}
@@ -253,7 +253,7 @@ public class DChatPlugin extends DAbstractPlugin
 									{
 										JOptionPane
 												.showMessageDialog(null,
-														"Ha ocurrido un error en la comunicaci—n. IntŽntelo m‡s tarde");
+														"Ha ocurrido un error en la comunicaciÃ±n. IntÃ±ntelo mÃ±s tarde");
 										return;
 									}
 
@@ -295,7 +295,7 @@ public class DChatPlugin extends DAbstractPlugin
 				this.botonGuardarConversacion.setBorderPainted(false);
 				botonGuardarConversacion.setIcon(new ImageIcon("Resources/disk_local.png"));
 				botonGuardarConversacion
-						.setToolTipText("Guarda la conversaci—n en un documento de texto");
+						.setToolTipText("Guarda la conversaciÃ±n en un documento de texto");
 				botonGuardarConversacion
 						.addActionListener(new java.awt.event.ActionListener()
 						{
@@ -305,7 +305,7 @@ public class DChatPlugin extends DAbstractPlugin
 							{
 
 								JFileChooser jfc = new JFileChooser(
-										"Guardar Conversaci—n");
+										"Guardar ConversaciÃ±n");
 
 								jfc.setDialogType(JFileChooser.SAVE_DIALOG);
 
@@ -313,7 +313,7 @@ public class DChatPlugin extends DAbstractPlugin
 										.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
 								int op = jfc.showDialog(null,
-										"Guardar Conversaci—n");
+										"Guardar ConversaciÃ±n");
 
 								if (op == JFileChooser.APPROVE_OPTION)
 								{

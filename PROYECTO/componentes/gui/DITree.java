@@ -19,7 +19,7 @@ import componentes.listeners.DJTreeListener;
 import componentes.listeners.LJTreeListener;
 
 /**
- * Arbol compartido. Consultar documentación del proyecto para ver su
+ * Arbol compartido. Consultar documentaciÃ±n del proyecto para ver su
  * funcionamiento
  */
 public class DITree extends DComponenteBase implements java.io.Serializable
@@ -95,7 +95,7 @@ public class DITree extends DComponenteBase implements java.io.Serializable
 	}
 
 	/**
-	 * Devuelve la instancia de la clase captadora que está usando.
+	 * Devuelve la instancia de la clase captadora que estÃ± usando.
 	 * 
 	 * @return DJTree Clase captadora
 	 */
@@ -113,7 +113,7 @@ public class DITree extends DComponenteBase implements java.io.Serializable
 	 * Obtiene el numero de componentes hijos de este componente. SIEMPRE
 	 * devuelve 0
 	 * 
-	 * @return int Número de componentes hijos. SIEMPRE devuelve 0.
+	 * @return int NÃ±mero de componentes hijos. SIEMPRE devuelve 0.
 	 */
 	@Override
 	public int obtenerNumComponentesHijos()
@@ -122,11 +122,11 @@ public class DITree extends DComponenteBase implements java.io.Serializable
 	}
 
 	/**
-	 * Añade un DJListener a la clase captadora para recibir los eventos
+	 * AÃ±ade un DJListener a la clase captadora para recibir los eventos
 	 * generados por la interaccion del usuario con el componente
 	 * 
 	 * @param listener
-	 *            DJButtonListener Listener a añadir
+	 *            DJButtonListener Listener a aÃ±adir
 	 */
 	public void addDJTreeListener(DJTreeListener listener)
 	{
@@ -134,11 +134,11 @@ public class DITree extends DComponenteBase implements java.io.Serializable
 	}
 
 	/**
-	 * Añade un LListener al componente para ser notificado cuando cambie el
+	 * AÃ±ade un LListener al componente para ser notificado cuando cambie el
 	 * estado del componente
 	 * 
 	 * @param listener
-	 *            LJTreeListener Listener a añadir
+	 *            LJTreeListener Listener a aÃ±adir
 	 */
 	public void addLJTreeListener(LJTreeListener listener)
 	{
@@ -146,12 +146,12 @@ public class DITree extends DComponenteBase implements java.io.Serializable
 	}
 
 	/**
-	 * Añade un LUListener al componente para ser notificado cuando cambie el
+	 * AÃ±ade un LUListener al componente para ser notificado cuando cambie el
 	 * estado del componente. Solo sera notificado cuando el cambio de estado se
 	 * deba a una accion realizada por el usuario de la aplicacion.
 	 * 
 	 * @param listener
-	 *            LJTreeListener Listener a añadir
+	 *            LJTreeListener Listener a aÃ±adir
 	 */
 	public void addLUJTreeListener(LJTreeListener listener)
 	{
@@ -236,8 +236,8 @@ public class DITree extends DComponenteBase implements java.io.Serializable
 	}
 
 	/**
-	 * Mediante una llamada a este método se envía un mensaje de peticion de
-	 * sincronizacion. No se debe llamar a este método de forma directa. Será
+	 * Mediante una llamada a este mÃ±todo se envÃ±a un mensaje de peticion de
+	 * sincronizacion. No se debe llamar a este mÃ±todo de forma directa. SerÃ±
 	 * llamado de forma automatica cuando sea necesario realizar la
 	 * sincronizacion
 	 */
@@ -297,7 +297,7 @@ public class DITree extends DComponenteBase implements java.io.Serializable
 
 	/**
 	 * Hebra procesadora de eventos. Se encarga de realizar las acciones que
-	 * correspondan cuando recibe un evento. Tambén se encarga en su inicio de
+	 * correspondan cuando recibe un evento. TambÃ±n se encarga en su inicio de
 	 * sincronizar el componente.
 	 */
 	class HebraProcesadora extends HebraProcesadoraBase

@@ -19,7 +19,7 @@ import componentes.listeners.LJToggleButtonListener;
  * Implementacion de la clase captadora de eventos para el componente
  * ToogleButton
  * 
- * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ * @author Juan Antonio Iba√±ez Santorum. Carlos Rodriguez Dominguez. Ana Belen
  *         Pelegrina Ortiz
  */
 public class DJToggleButton extends JToggleButton

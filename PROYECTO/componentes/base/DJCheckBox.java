@@ -18,7 +18,7 @@ import componentes.listeners.LJCheckBoxListener;
 /**
  * Implementacion de la clase captadora de eventos para el componente CheckBox
  * 
- * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ * @author Juan Antonio Iba√±ez Santorum. Carlos Rodriguez Dominguez. Ana Belen
  *         Pelegrina Ortiz
  */
 public class DJCheckBox extends JCheckBox

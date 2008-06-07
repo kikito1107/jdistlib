@@ -14,7 +14,7 @@ import calculoparalelo.eventos.TaskEntry;
 import componentes.base.DComponenteBase;
 
 /**
- * Maestro genérico para aplicaciones paralelas con estructura Master/Slave. Es
+ * Maestro gen√±rico para aplicaciones paralelas con estructura Master/Slave. Es
  * necesario modificarlo para cada problema concreto
  * 
  * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez

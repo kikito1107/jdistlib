@@ -63,7 +63,7 @@ public class DMetalComboBoxUI extends BasicComboBoxUI
 	@Override
 	protected void installKeyboardActions()
 	{
-		// Dejando el contenido de este método vacío hacemos que el componente
+		// Dejando el contenido de este mÃ±todo vacÃ±o hacemos que el componente
 		// no responda a eventos del teclado
 	}
 
@@ -403,7 +403,7 @@ public class DMetalComboBoxUI extends BasicComboBoxUI
 		}
 
 		/**
-		 * Este metodo es el que decide la cuando cambiar la selección de la
+		 * Este metodo es el que decide la cuando cambiar la selecciÃ±n de la
 		 * lista. Por ejemplo cuando mueves el raton de un elemento de la lista
 		 * a otro
 		 * 
@@ -429,7 +429,7 @@ public class DMetalComboBoxUI extends BasicComboBoxUI
 			if (( list.getSelectedIndex() != index )
 					&& ( index != indiceVirtual ))
 			{
-				System.out.println("DMetalComboBoxUI: Cambio selección a item "
+				System.out.println("DMetalComboBoxUI: Cambio selecciÃ±n a item "
 						+ index);
 				indiceVirtual = index;
 				/*

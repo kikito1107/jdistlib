@@ -22,7 +22,7 @@ import Deventos.DMIEvent;
 
 /**
  * Con este componente podemos ver todos los usuarios que hay conectados que
- * estan desempeñando el mismo rol que nosotros
+ * estan desempe√±ando el mismo rol que nosotros
  */
 
 /**
@@ -48,7 +48,7 @@ public class ArbolUsuariosConectadosRol extends DComponenteBase
 	private ArbolUsuarios arbol = null;
 
 	/**
-	 * Raíz del árbol
+	 * Ra√±z del √±rbol
 	 */
 	private DefaultMutableTreeNode raiz = null;
 

@@ -11,7 +11,7 @@ import componentes.base.DComponenteBase;
 import Deventos.DMIEvent;
 
 /**
- * Etiqueta que nos muestra en cada momento el rol que estamos desempeñando
+ * Etiqueta que nos muestra en cada momento el rol que estamos desempeÃ±ando
  */
 
 public class DIEtiquetaRolActual extends DComponenteBase
@@ -162,7 +162,7 @@ public class DIEtiquetaRolActual extends DComponenteBase
 	 * Obtiene el numero de componentes hijos de este componente. SIEMPRE
 	 * devuelve 0
 	 * 
-	 * @return int Número de componentes hijos. SIEMPRE devuelve 0.
+	 * @return int NÃ±mero de componentes hijos. SIEMPRE devuelve 0.
 	 */
 	@Override
 	public int obtenerNumComponentesHijos()

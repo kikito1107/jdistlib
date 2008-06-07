@@ -135,7 +135,7 @@ public class PanelChatPrivado extends JPanel
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
-					// TODO Evento de envío de mensaje
+					// TODO Evento de env√±o de mensaje
 					enviarMensaje(Texto.getText());
 					Texto.setText("");
 

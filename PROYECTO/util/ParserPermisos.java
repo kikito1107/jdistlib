@@ -35,7 +35,7 @@ public class ParserPermisos
 			String nombreUsuarioFichero = f.getUsuario().getNombreUsuario();
 			String nombreRolFichero = f.getRol().getNombreRol();
 
-			// 1) El usuario es dueño del fichero
+			// 1) El usuario es due√±o del fichero
 			if (u.equals(nombreUsuarioFichero))
 			{
 				/*if (permisos.charAt(0) == 'r')
@@ -86,7 +86,7 @@ public class ParserPermisos
 			String nombreUsuarioFichero = f.getUsuario().getNombreUsuario();
 			String nombreRolFichero = f.getRol().getNombreRol();
 
-			// 1) El usuario es dueño del fichero
+			// 1) El usuario es due√±o del fichero
 			if (u.equals(nombreUsuarioFichero))
 			{
 				if (permisos.charAt(1) == 'w')

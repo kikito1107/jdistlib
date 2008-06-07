@@ -98,7 +98,7 @@ public class DIPanelEditor extends DComponenteBase
 	}
 
 	/**
-	 * Obtiene la información actual y la carga en un evento de lienzo
+	 * Obtiene la informaci√±n actual y la carga en un evento de lienzo
 	 * 
 	 * @return Evento con los datos actuales
 	 */

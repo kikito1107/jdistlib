@@ -20,8 +20,8 @@ import componentes.base.DComponenteBase;
 import Deventos.DMIEvent;
 
 /**
- * Con este componente podemos cambiar el rol que estamos desempeñando. Aparte
- * nos muestra que rol es el que estamos desempeñando en cada momento.
+ * Con este componente podemos cambiar el rol que estamos desempeÃ±ando. Aparte
+ * nos muestra que rol es el que estamos desempeÃ±ando en cada momento.
  */
 public class DICambioRol extends DComponenteBase
 {
@@ -143,7 +143,7 @@ public class DICambioRol extends DComponenteBase
 	 * Obtiene el numero de componentes hijos de este componente. SIEMPRE
 	 * devuelve 0
 	 * 
-	 * @return int Número de componentes hijos. SIEMPRE devuelve 0.
+	 * @return int NÃ±mero de componentes hijos. SIEMPRE devuelve 0.
 	 */
 	@Override
 	public int obtenerNumComponentesHijos()

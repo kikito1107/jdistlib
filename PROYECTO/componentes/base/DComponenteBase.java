@@ -21,7 +21,7 @@ import Deventos.enlaceJS.DConector;
  * metodos carecen de funcionalidad, por que debera de ser implementada por el
  * programador segun sus necesidades
  * 
- * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ * @author Juan Antonio Iba√±ez Santorum. Carlos Rodriguez Dominguez. Ana Belen
  *         Pelegrina Ortiz
  */
 public class DComponenteBase extends JPanel implements DComponente,
@@ -173,7 +173,7 @@ public class DComponenteBase extends JPanel implements DComponente,
 	}
 
 	/**
-	 * Devuelve el panel en el que se iran añadiendo los componentes que
+	 * Devuelve el panel en el que se iran a√±adiendo los componentes que
 	 * conforman el componente (distribuidos o no)
 	 * 
 	 * @return Panel de contenido
@@ -294,7 +294,7 @@ public class DComponenteBase extends JPanel implements DComponente,
 
 	// ********* METODOS ADD DEL PANEL ********************
 	/**
-	 * Añade un componente al panel de contenido
+	 * A√±ade un componente al panel de contenido
 	 * 
 	 * @param c
 	 *            Componente a agregar
@@ -309,7 +309,7 @@ public class DComponenteBase extends JPanel implements DComponente,
 	}
 
 	/**
-	 * Añade un componente al panel de contenido
+	 * A√±ade un componente al panel de contenido
 	 * 
 	 * @param c
 	 *            Componente a agregar
@@ -325,7 +325,7 @@ public class DComponenteBase extends JPanel implements DComponente,
 	}
 
 	/**
-	 * Añade un componente al panel de contenido
+	 * A√±ade un componente al panel de contenido
 	 * 
 	 * @param c
 	 *            Componente a agregar
@@ -339,7 +339,7 @@ public class DComponenteBase extends JPanel implements DComponente,
 	}
 
 	/**
-	 * Añade un componente al panel de contenido
+	 * A√±ade un componente al panel de contenido
 	 * 
 	 * @param c
 	 *            Componente a agregar
@@ -352,7 +352,7 @@ public class DComponenteBase extends JPanel implements DComponente,
 	}
 
 	/**
-	 * Añade un componente al panel de contenido
+	 * A√±ade un componente al panel de contenido
 	 * 
 	 * @param pm
 	 *            Popup Menu que se desea agregar

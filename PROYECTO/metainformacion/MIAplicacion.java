@@ -11,7 +11,7 @@ import java.util.Vector;
  * los componentes, usuarios definidos, roles definidos y componentes definidos.
  * </p>
  * 
- * @author Juan Antonio Ibañez Santorum (looper@telefonica.net)
+ * @author Juan Antonio Iba√±ez Santorum (looper@telefonica.net)
  */
 
 public class MIAplicacion implements Serializable
@@ -111,13 +111,13 @@ public class MIAplicacion implements Serializable
 		String mensaje = "";
 		if (getRol(rol.getNombreRol()) == null)
 			roles.add(rol);
-		else mensaje = "No se ha podido aÒadir al rol";
+		else mensaje = "No se ha podido a√±adir al rol";
 		return mensaje;
 	}
 
 	/**
 	 * Definimos un nuevo usuario para esta aplicacion. Si el rol por defecto es
-	 * nulo no lo añade
+	 * nulo no lo a√±ade
 	 * 
 	 * @param usuario
 	 *            MIUsuario Nuevo usuario
@@ -128,7 +128,7 @@ public class MIAplicacion implements Serializable
 		if (( getUsuario(usuario.getNombreUsuario()) == null )
 				&& ( getRol(usuario.getRolPorDefecto()) != null ))
 			usuarios.add(usuario);
-		else mensaje = "No se ha podido añadir al usuario";
+		else mensaje = "No se ha podido a√±adir al usuario";
 		return mensaje;
 	}
 
@@ -299,7 +299,7 @@ public class MIAplicacion implements Serializable
 	 * no existe no se realiza accion alguna
 	 * 
 	 * @param usuario
-	 *            String Usuario al que queremos aÒadir un nuevo rol permitido
+	 *            String Usuario al que queremos a√±adir un nuevo rol permitido
 	 * @param rol
 	 *            String Nuevo rol que le permitimos al usuario
 	 */
@@ -317,7 +317,7 @@ public class MIAplicacion implements Serializable
 			}
 			else mensaje = "No existe el rol";
 		}
-		else mensaje = "No se ha podido aÒadir el rol";
+		else mensaje = "No se ha podido a√±adir el rol";
 		return mensaje;
 	}
 
@@ -439,7 +439,7 @@ public class MIAplicacion implements Serializable
 	/**
 	 * Obtiene los usuarios conectados
 	 * 
-	 * @return Vector Vector de tamaÒo 2. En la primera posicion tiene un vector
+	 * @return Vector Vector de tama√±o 2. En la primera posicion tiene un vector
 	 *         con los nombres de los usuarios conectados. En la segunda
 	 *         posicion tiene un vector con los roles con los que estan
 	 *         conectados esos usuarios. Un posible valor devuelto podria ser:<br>

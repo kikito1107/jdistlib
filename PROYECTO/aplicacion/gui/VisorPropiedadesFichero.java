@@ -374,7 +374,7 @@ public class VisorPropiedadesFichero extends JDialog
 			gridBagConstraints14.insets = new Insets(2, 0, 2, 0); // Generated
 			gridBagConstraints14.gridy = 0;
 			etiquetaOwner = new JLabel();
-			etiquetaOwner.setText("Dueño:");
+			etiquetaOwner.setText("Due√±o:");
 			etiquetaOwner
 					.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT); // Generated
 			GridBagConstraints gridBagConstraints13 = new GridBagConstraints();
@@ -605,7 +605,7 @@ public class VisorPropiedadesFichero extends JDialog
 
 			areaTextoEditores.setEditable(false);
 			areaTextoEditores
-					.setToolTipText("Usuarios que están editando el documento en este momento");
+					.setToolTipText("Usuarios que est√±n editando el documento en este momento");
 			areaTextoEditores.setBackground(this.getContentPane()
 					.getBackground());
 		}
