@@ -30,9 +30,12 @@ import aplicacion.fisica.net.Transfer;
 import aplicacion.gui.VentanaCarga;
 import aplicacion.gui.componentes.SelectorFicherosDistribuido;
 
+/**
+ * 
+ * @author carlosrodriguezdominguez
+ */
 public class ControlesDibujo extends JPanel
 {
-
 	private static final long serialVersionUID = 1L;
 
 	private JComboBox listaPinceles = null;

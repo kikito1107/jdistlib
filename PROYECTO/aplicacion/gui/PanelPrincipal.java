@@ -296,7 +296,11 @@ public class PanelPrincipal extends DComponenteBase
 
 			panelLateral.setLayout(new GridBagLayout());
 			panelLateral.add(jLabel, gridBagConstraints); // Generated
-			panelLateral.add(getListaAplicaciones(), gridBagConstraints1); // Generated
+			
+			JScrollPane jscrollpane = new JScrollPane(getListaAplicaciones());
+			jscrollpane.setBorder(null);
+			jscrollpane.setMinimumSize(new Dimension(100, 200));
+			panelLateral.add(jscrollpane, gridBagConstraints1);
 			panelLateral.add(jLabel1, gridBagConstraints2); // Generated
 			panelLateral.add(getArbolUsuario(), gridBagConstraints3); // Generated
 			panelLateral.add(getHerramientasUsuarios(), gridBagConstraints4); // Generated
@@ -613,8 +617,8 @@ public class PanelPrincipal extends DComponenteBase
 
 						if (evento.padre != null) // por si es la raiz
 						{
-							System.err.println("directorio padre: "
-									+ evento.padre.getNombre());
+							//System.err.println("directorio padre: "
+							//		+ evento.padre.getNombre());
 
 							evento.tipo = new Integer(
 									DFileEvent.NOTIFICAR_MODIFICACION_FICHERO
@@ -1216,7 +1220,6 @@ public class PanelPrincipal extends DComponenteBase
 	{
 		if (listaAplicaciones == null)
 		{
-
 			listaAplicaciones = new PluginList(getModelo());
 			listaAplicaciones.setFont(fuente);
 			listaAplicaciones.setMinimumSize(new Dimension(100, 200));
@@ -1247,7 +1250,6 @@ public class PanelPrincipal extends DComponenteBase
 								}
 						}
 					});
-
 		}
 		return listaAplicaciones;
 	}

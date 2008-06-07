@@ -13,9 +13,13 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+/**
+ * Panel con la barra inferior del editor. Permite cambiar de pagina
+ * en el documento que se este editando.
+ * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
+ */
 public class BarraEstado extends JPanel
 {
-
 	private static final long serialVersionUID = 1L;
 
 	private JPanel jPanel = null;
@@ -39,7 +43,8 @@ public class BarraEstado extends JPanel
 	}
 
 	/**
-	 * This is the default constructor
+	 * Constructor
+	 * @param lienzo1 Lienzo que muestra el documento
 	 */
 	public BarraEstado( DILienzo lienzo1 )
 	{
@@ -49,9 +54,7 @@ public class BarraEstado extends JPanel
 	}
 
 	/**
-	 * This method initializes this
-	 * 
-	 * @return void
+	 * Inicializacion de los componentes graficos
 	 */
 	private void initialize()
 	{
@@ -74,11 +77,6 @@ public class BarraEstado extends JPanel
 		( new Thread(new HebraActualizacionPaginas()) ).start();
 	}
 
-	/**
-	 * This method initializes jPanel
-	 * 
-	 * @return javax.swing.JPanel
-	 */
 	private JPanel getJPanel()
 	{
 		if (jPanel == null)
@@ -89,11 +87,6 @@ public class BarraEstado extends JPanel
 		return jPanel;
 	}
 
-	/**
-	 * This method initializes jTextField
-	 * 
-	 * @return javax.swing.JTextField
-	 */
 	private JTextField getJTextField()
 	{
 		if (jTextField == null)
@@ -111,7 +104,6 @@ public class BarraEstado extends JPanel
 					if (e.getKeyChar() == '\n') try
 					{
 						int numPagina = Integer.parseInt(jTextField.getText());
-						System.out.println("valor introducido: " + numPagina);
 
 						if (numPagina <= lienzo.getNumPaginas())
 							lienzo.setPaginaActual(numPagina);
@@ -128,23 +120,25 @@ public class BarraEstado extends JPanel
 		return jTextField;
 	}
 
+	/**
+	 * Asigna el numero total de paginas del documento
+	 * @param numTotal Numero total de paginas del documento
+	 */
 	public void setNumTotalPaginas(int numTotal)
 	{
 		if (( numTotal > 0 ) && ( numTotal <= lienzo.getNumPaginas() ))
 			jLabel.setText("/ " + numTotal);
 	}
 
-	public void setPaginaActual(int numTotal)
+	/**
+	 * Asigna la pagina que se muestra actualmente del documento
+	 * @param num Numero de pagina a mostrar 
+	 */
+	public void setPaginaActual(int num)
 	{
-		// if (numTotal < lienzo.getNumPaginas())
-		jTextField.setText("" + numTotal);
+		jTextField.setText("" + num);
 	}
 
-	/**
-	 * This method initializes jPanel1
-	 * 
-	 * @return javax.swing.JPanel
-	 */
 	private JPanel getJPanel1()
 	{
 		if (jPanel1 == null)
@@ -159,20 +153,15 @@ public class BarraEstado extends JPanel
 			gridBagConstraints2.gridx = 0;
 			jPanel1 = new JPanel();
 			jPanel1.setLayout(new FlowLayout());
-			jPanel1.add(getJButton(), null);
+			jPanel1.add(getBotonAnterior(), null);
 			jPanel1.add(getJTextField(), null);
 			jPanel1.add(jLabel, null);
-			jPanel1.add(getJButton1(), null);
+			jPanel1.add(getBotonSiguiente(), null);
 		}
 		return jPanel1;
 	}
 
-	/**
-	 * This method initializes jButton
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private JButton getJButton()
+	private JButton getBotonAnterior()
 	{
 		if (jButton == null)
 		{
@@ -204,7 +193,7 @@ public class BarraEstado extends JPanel
 	 * 
 	 * @return javax.swing.JButton
 	 */
-	private JButton getJButton1()
+	private JButton getBotonSiguiente()
 	{
 		if (jButton1 == null)
 		{
@@ -231,8 +220,14 @@ public class BarraEstado extends JPanel
 		return jButton1;
 	}
 
+	/**
+	 * Hebra que actualiza el numero de paginas que se muestra
+	 */
 	private class HebraActualizacionPaginas extends Thread
 	{
+		/**
+		 * Ejecucion de la hebra
+		 */
 		@Override
 		public void run()
 		{
@@ -268,4 +263,4 @@ public class BarraEstado extends JPanel
 		}
 	}
 
-} // @jve:decl-index=0:visual-constraint="41,14"
+}

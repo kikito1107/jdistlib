@@ -25,12 +25,12 @@ import Deventos.DMIEvent;
  * estan desempe–ando el mismo rol que nosotros
  */
 
-@SuppressWarnings( "serial" )
 /**
  * Clase que muestra un panel con los usuarios conectados clasificados por roles
  */
 public class ArbolUsuariosConectadosRol extends DComponenteBase
 {
+	private static final long serialVersionUID = -2985335833062437115L;
 
 	/**
 	 * Layout del panel

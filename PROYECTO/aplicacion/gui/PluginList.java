@@ -24,8 +24,6 @@ class PluginList extends JList
 	{
 		super();
 
-		// Attach a mouse motion adapter to let us know the mouse is over an
-		// item and to show the tip.
 		addMouseMotionListener(new MouseMotionAdapter()
 		{
 			public void mouseMoved(MouseEvent e)
@@ -54,8 +52,6 @@ class PluginList extends JList
 	{
 		super(lm);
 
-		// Attach a mouse motion adapter to let us know the mouse is over an
-		// item and to show the tip.
 		addMouseMotionListener(new MouseMotionAdapter()
 		{
 			public void mouseMoved(MouseEvent e)
