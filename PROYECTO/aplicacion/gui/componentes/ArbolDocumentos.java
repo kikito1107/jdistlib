@@ -396,6 +396,12 @@ public class ArbolDocumentos extends JTree implements Autoscroll
 			MIRol rol = ClienteMetaInformacion.cmi.getRol(DConector.Drol);
 
 			if (user == null || rol == null) return null;
+			
+			if (!f.comprobarPermisos(user.getNombreUsuario(), rol.getNombreRol(), MIDocumento.PERMISO_ESCRITURA))
+			{
+				JOptionPane.showMessageDialog(null, "No tiene permisos suficientes para crear la carpeta");
+				return null;
+			}
 
 			nuevo.setNombre(nombre);
 			nuevo.setPadre(f.getId());
@@ -476,6 +482,202 @@ public class ArbolDocumentos extends JTree implements Autoscroll
 			return null;
 		}
 		else return null;
+	}
+
+	/**
+	 * Sube un fichero al servidor en la carpeta que esta seleccionada
+	 * actualmente. Si se intenta subir un fichero duplicado, muestra un mensaje
+	 * de error indicando si el usuario desea: cancelar, cambiar el nombre o
+	 * sobreescribir.
+	 * 
+	 * @return Evento para enviar al servidor de ficheros o null si ocurrio
+	 *         algun error
+	 */
+	public DFileEvent subirFicheroServidor()
+	{
+		// obtenemos los datos del fichero asociados al nodo seleccionado
+		MIDocumento carpeta = getDocumentoSeleccionado();
+
+		// si el fichero escogido no es directorio, salimos
+		if (carpeta == null)
+		{
+			JOptionPane.showMessageDialog(null,
+					"Debe escoger un directorio al cual subir el documento");
+			return null;
+		}
+
+		if (!carpeta.esDirectorio())
+		{
+			DefaultMutableTreeNode df = ArbolDocumentos.buscarFichero(
+					(DefaultMutableTreeNode) getModel().getRoot(), carpeta
+							.getPadre());
+
+			carpeta = buscarFichero(df, ( (MIDocumento) df.getUserObject() )
+					.getRutaLocal());
+		}
+
+		String path = carpeta.getRutaLocal() + "/";
+
+		if (path.equals("//")) path = "/";
+
+		// recuperamos el usuario y el rol
+		MIUsuario user = ClienteMetaInformacion.cmi
+				.getUsuarioConectado(DConector.Dusuario);
+		MIRol rol = ClienteMetaInformacion.cmi.getRol(DConector.Drol);
+
+		// si se ha producido algun error, salimos
+		if (( user == null ) || ( rol == null )) return null;
+
+		if (!carpeta.comprobarPermisos(user.getNombreUsuario(), rol
+				.getNombreRol(), MIDocumento.PERMISO_ESCRITURA))
+		{
+			JOptionPane
+					.showMessageDialog(null,
+							"No tiene permiso para escribir en el directorio seleccionado");
+			return null;
+		}
+
+		// mostramos el selector de ficheros
+		JFileChooser jfc = new JFileChooser("Subir Documento Servidor");
+
+		int op = jfc.showDialog(null, "Aceptar");
+
+		// si no se ha escogido la opcion aceptar en el dialogo de apertura de
+		// fichero salimos
+		if (op != JFileChooser.APPROVE_OPTION) return null;
+
+		java.io.File f = jfc.getSelectedFile();
+
+		String nombre = f.getName();
+
+		MIDocumento anterior = ClienteFicheros.cf.existeFichero(path + nombre,
+				DConector.Daplicacion);
+
+		while (anterior != null)
+		{
+			// si no tenemos permisos de escritura sobre el documento no podemos
+			// sobrescribirlo
+			if (!anterior.comprobarPermisos(DConector.Dusuario, DConector.Drol,
+					MIDocumento.PERMISO_ESCRITURA))
+			{
+				JOptionPane
+						.showMessageDialog(null,
+								"No tiene suficientes privilegios para subir ese documento");
+				return null;
+			}
+
+			Object[] options =
+			{ "Sobreescribir", "Renombrar", "Cancelar" };
+
+			int sel = JOptionPane.showOptionDialog(this,
+					"El documento ya existe ÀQue desea hacer?",
+					"Fichero ya existente", JOptionPane.YES_NO_CANCEL_OPTION,
+					JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
+
+			// el usuario ha cancelado la accion
+			if (sel == JOptionPane.CANCEL_OPTION)
+				return null;
+
+			// el usuario desea sobreescribir el documento
+			else if (sel == JOptionPane.YES_OPTION)
+			{
+				ClienteFicheros.cf.generarVersion(anterior, path);
+
+				eliminarNodo(anterior.getId());
+
+				repaint();
+
+				anterior = null;
+			}
+
+			// el usuario desea renombrar el fichero
+			else if (sel == JOptionPane.NO_OPTION)
+			{
+				nombre = JOptionPane.showInputDialog("Nuevo nombre");
+
+				if (nombre != null && !nombre.equals(""))
+				{
+					anterior = ClienteFicheros.cf.existeFichero(path + nombre,
+							DConector.Daplicacion);
+				}
+				else return null;
+			}
+			// el usuario ha cerrado el dialogo
+			else if (sel == JOptionPane.CLOSED_OPTION) return null;
+		}
+
+		byte[] bytes = null;
+		try
+		{
+			// abrimos el fichero en modo lectura
+			RandomAccessFile raf = new RandomAccessFile(f.getAbsolutePath(),
+					"r");
+
+			// consultamos el tamanio del fichero, reservamos
+			// memoria suficiente, leemos el fichero y lo cerramos
+			bytes = new byte[(int) raf.length()];
+			raf.read(bytes);
+			raf.close();
+		}
+		catch (FileNotFoundException ex)
+		{
+			JOptionPane.showMessageDialog(null, "El fichero no existe",
+					"Error", JOptionPane.ERROR_MESSAGE);
+			return null;
+		}
+		catch (IOException e1)
+		{
+			JOptionPane.showMessageDialog(null,
+					"Error en la lectura del fichero", "Error",
+					JOptionPane.ERROR_MESSAGE);
+			return null;
+		}
+
+		// creamos el nuevo fichero a almacenar
+		MIDocumento fbd = new MIDocumento(-1, nombre, false, "rwrw--", user,
+				rol, carpeta.getId(), path + nombre, MIDocumento
+						.getExtension(nombre));
+
+		// enviamos el nuevo fichero al servidor
+		Transfer t = new Transfer(ClienteFicheros.ipConexion, path + nombre);
+
+		// si se ha producido algœn error: MENSAJE y SALIMOS
+		if (!t.sendFile(bytes))
+		{
+			JOptionPane
+					.showMessageDialog(
+							null,
+							"No se ha podido subir el fichero.\nSe ha producido un error en la transmisi—n del documento",
+							"Error", JOptionPane.ERROR_MESSAGE);
+
+			return null;
+		}
+
+		// si no se ha producido ningun error al subir el fichero
+		else
+		{
+			// insertamos el nuevo fichero en el servidor
+			MIDocumento f2 = ClienteFicheros.cf.insertarNuevoFichero(fbd,
+					DConector.Daplicacion);
+
+			// si ha habido algun error salimos
+			if (f2 == null)
+			{
+				JOptionPane
+						.showMessageDialog(this,
+								"Ha ocurrido un error: no se ha podido subir el documento al servidor");
+				return null;
+			}
+
+			// notificamos al resto de usuarios la "novedad"
+			DFileEvent evento = new DFileEvent();
+			evento.fichero = f2;
+			evento.padre = carpeta;
+			evento.tipo = new Integer(DFileEvent.NOTIFICAR_INSERTAR_FICHERO
+					.intValue());
+
+			return evento;
+		}
 	}
 }
 

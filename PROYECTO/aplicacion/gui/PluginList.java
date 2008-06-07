@@ -70,7 +70,6 @@ class PluginList extends JList
 					}
 					catch (ClassCastException e2)
 					{
-						System.out.println("valor de index " + index);
 						return;
 					}
 

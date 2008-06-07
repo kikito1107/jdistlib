@@ -195,9 +195,9 @@ public class TransferP2P
 
 				System.out.println("Servicio RMI activo en " + host
 						+ " sobre el puerto " + port);
-				System.out
-						.println("Ha sido creado el objeto con identificador "
-								+ id);
+				//System.out
+				//		.println("Ha sido creado el objeto con identificador "
+				//				+ id);
 
 			}
 			catch (Exception e)
@@ -218,14 +218,11 @@ public class TransferP2P
 				{
 				}
 
-			System.out.println("Salimos del bucle!!!!!");
-
 			try
 			{
 				// desligamos el nombre del objeto anteriormente registrado
 				Naming.unbind("//" + host + ":" + port
 						+ "/TransferenciaFicheroP2P" + id);
-				System.out.println("Objeto desligado!!!");
 			}
 			catch (RemoteException e)
 			{

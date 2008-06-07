@@ -506,8 +506,6 @@ public class DILienzo extends DIViewer implements MouseListener,
 
 			if (p != null) v = p.getAnotaciones();
 
-			// System.out.println("x: "+ x + " y: " + y);
-
 			if (v != null)
 			{
 
@@ -560,7 +558,6 @@ public class DILienzo extends DIViewer implements MouseListener,
 					{
 						Texto t = new Texto(x1, y1, rsp);
 
-						// System.out.println("x: " + x1 + " y: " + y1);
 						t.setColor(colorActual);
 
 						DJLienzoEvent evt2 = new DJLienzoEvent();

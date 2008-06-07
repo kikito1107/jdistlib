@@ -8,16 +8,12 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Point;
 import java.awt.Toolkit;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -32,8 +28,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
 import metainformacion.ClienteMetaInformacion;
-import metainformacion.MIRol;
-import metainformacion.MIUsuario;
 import util.Separador;
 import Deventos.DEvent;
 import Deventos.DJChatEvent;
@@ -356,8 +350,8 @@ public class PanelPrincipal extends DComponenteBase
 			herramientasDocumentos.add(getButonSubir());
 			herramientasDocumentos.add(getBotonDescargar());
 			herramientasDocumentos.add(new Separador());
-			herramientasDocumentos.add(this.getAgregarCarpeta());
 			herramientasDocumentos.add(getBotonEliminarFichero());
+			herramientasDocumentos.add(this.getAgregarCarpeta());
 			herramientasDocumentos.add(new Separador());
 			herramientasDocumentos.add(getBotonInfo());
 		}
@@ -431,10 +425,6 @@ public class PanelPrincipal extends DComponenteBase
 
 							if (f != null)
 							{
-
-								System.out.println("ID de la nueva carpeta "
-										+ f.getId());
-
 								DFileEvent evento = new DFileEvent();
 								evento.padre = arbolDocumentos
 										.getDocumentoSeleccionado();
@@ -545,7 +535,7 @@ public class PanelPrincipal extends DComponenteBase
 							int opcion = JOptionPane
 									.showOptionDialog(
 											null,
-											"ÀSeguro que desea eliminar el documento o directorio seleccionado?\nEsta acci—n no podr‡ se deshacer",
+											"ÀSeguro que desea eliminar el documento o directorio seleccionado?\nEsta acci—n no se podr‡ deshacer",
 											"Aviso", JOptionPane.YES_NO_OPTION,
 											JOptionPane.QUESTION_MESSAGE, null,
 											options, options[1]);
@@ -833,9 +823,6 @@ public class PanelPrincipal extends DComponenteBase
 						if (PluginContainer.getPlugin(i).getName().equals(
 								"Chat"))
 						{
-
-							System.out.println("Encontrado plugin chat");
-
 							String usuario = arbolUsuario
 									.getUsuarioSeleccionado();
 
@@ -971,7 +958,6 @@ public class PanelPrincipal extends DComponenteBase
 
 					if (f != null)
 					{
-
 						enviarMail(f);
 					}
 				}
@@ -1052,186 +1038,8 @@ public class PanelPrincipal extends DComponenteBase
 	 */
 	private void subirFicheroServidor()
 	{
-		// obtenemos los datos del fichero asociados al nodo seleccionado
-		MIDocumento carpeta = arbolDocumentos.getDocumentoSeleccionado();
-
-		// si el fichero escogido no es directorio, salimos
-		if (carpeta == null)
-		{
-			JOptionPane.showMessageDialog(null,
-					"Debe escoger un directorio al cual subir el documento");
-			return;
-		}
-
-		if (!carpeta.esDirectorio())
-		{
-			DefaultMutableTreeNode df = ArbolDocumentos.buscarFichero(
-					(DefaultMutableTreeNode) arbolDocumentos.getModel()
-							.getRoot(), carpeta.getPadre());
-			
-			carpeta = arbolDocumentos.buscarFichero(df, ((MIDocumento)df.getUserObject()).getRutaLocal());
-		}
-
-		String path = carpeta.getRutaLocal() + "/";
-
-		if (path.equals("//")) path = "/";
-
-		// recuperamos el usuario y el rol
-		MIUsuario user = ClienteMetaInformacion.cmi
-				.getUsuarioConectado(DConector.Dusuario);
-		MIRol rol = ClienteMetaInformacion.cmi.getRol(DConector.Drol);
-
-		// si se ha producido algun error, salimos
-		if (( user == null ) || ( rol == null )) return;
-
-		if (!carpeta.comprobarPermisos(user.getNombreUsuario(), rol
-				.getNombreRol(), MIDocumento.PERMISO_ESCRITURA))
-		{
-			JOptionPane
-					.showMessageDialog(null,
-							"No tiene permiso para escribir en el directorio seleccionado");
-			return;
-		}
-
-		// mostramos el selector de ficheros
-		JFileChooser jfc = new JFileChooser("Subir Documento Servidor");
-
-		int op = jfc.showDialog(null, "Aceptar");
-
-		// si no se ha escogido la opcion aceptar en el dialogo de apertura de
-		// fichero salimos
-		if (op != JFileChooser.APPROVE_OPTION) return;
-
-		java.io.File f = jfc.getSelectedFile();
-
-		String nombre = f.getName();
-
-		MIDocumento anterior = ClienteFicheros.cf.existeFichero(path + nombre,
-				DConector.Daplicacion);
-
-		while (anterior != null)
-		{
-			// si no tenemos permisos de escritura sobre el documento no podemos
-			// sobrescribirlo
-			if (!anterior.comprobarPermisos(DConector.Dusuario, DConector.Drol,
-					MIDocumento.PERMISO_ESCRITURA))
-			{
-				JOptionPane
-						.showMessageDialog(null,
-								"No tiene suficientes privilegios para subir ese documento");
-				return;
-			}
-
-			Object[] options =
-			{ "Sobreescribir", "Renombrar", "Cancelar" };
-
-			int sel = JOptionPane.showOptionDialog(this,
-					"El documento ya existe ÀQue desea hacer?",
-					"Fichero ya existente", JOptionPane.YES_NO_CANCEL_OPTION,
-					JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
-
-			// el usuario ha cancelado la accion
-			if (sel == JOptionPane.CANCEL_OPTION)
-				return;
-
-			// el usuario desea sobreescribir el documento
-			else if (sel == JOptionPane.YES_OPTION)
-			{
-				ClienteFicheros.cf.generarVersion(anterior, path);
-
-				arbolDocumentos.eliminarNodo(anterior.getId());
-
-				arbolDocumentos.repaint();
-
-				anterior = null;
-			}
-
-			// el usuario desea renombrar el fichero
-			else if (sel == JOptionPane.NO_OPTION)
-			{
-				nombre = JOptionPane.showInputDialog("Nuevo nombre");
-
-				if (nombre != null && !nombre.equals(""))
-				{
-					anterior = ClienteFicheros.cf.existeFichero(path + nombre,
-							DConector.Daplicacion);
-				}
-				else return;
-			}
-			// el usuario ha cerrado el dialogo
-			else if (sel == JOptionPane.CLOSED_OPTION) return;
-		}
-
-		byte[] bytes = null;
-		try
-		{
-			// abrimos el fichero en modo lectura
-			RandomAccessFile raf = new RandomAccessFile(f.getAbsolutePath(),
-					"r");
-
-			// consultamos el tamanio del fichero, reservamos
-			// memoria suficiente, leemos el fichero y lo cerramos
-			bytes = new byte[(int) raf.length()];
-			raf.read(bytes);
-			raf.close();
-		}
-		catch (FileNotFoundException ex)
-		{
-			JOptionPane.showMessageDialog(null, "El fichero no existe",
-					"Error", JOptionPane.ERROR_MESSAGE);
-			return;
-		}
-		catch (IOException e1)
-		{
-			JOptionPane.showMessageDialog(null,
-					"Error en la lectura del fichero", "Error",
-					JOptionPane.ERROR_MESSAGE);
-			return;
-		}
-
-		// creamos el nuevo fichero a almacenar
-		MIDocumento fbd = new MIDocumento(-1, nombre, false, "rwrw--", user,
-				rol, carpeta.getId(), path + nombre, MIDocumento
-						.getExtension(nombre));
-
-		// enviamos el nuevo fichero al servidor
-		Transfer t = new Transfer(ClienteFicheros.ipConexion, path + nombre);
-
-		// si se ha producido algœn error: MENSAJE y SALIMOS
-		if (!t.sendFile(bytes))
-		{
-			JOptionPane
-					.showMessageDialog(
-							null,
-							"No se ha podido subir el fichero.\nSe ha producido un error en la transmisi—n del documento",
-							"Error", JOptionPane.ERROR_MESSAGE);
-		}
-
-		// si no se ha producido ningun error al subir el fichero
-		else
-		{
-			// insertamos el nuevo fichero en el servidor
-			MIDocumento f2 = ClienteFicheros.cf.insertarNuevoFichero(fbd,
-					DConector.Daplicacion);
-
-			// si ha habido algun error salimos
-			if (f2 == null)
-			{
-				JOptionPane
-						.showMessageDialog(this,
-								"Ha ocurrido un error: no se ha podido subir el documento al servidor");
-				return;
-			}
-
-			// notificamos al resto de usuarios la "novedad"
-			DFileEvent evento = new DFileEvent();
-			evento.fichero = f2;
-			evento.padre = carpeta;
-			evento.tipo = new Integer(DFileEvent.NOTIFICAR_INSERTAR_FICHERO
-					.intValue());
-			enviarEvento(evento);
-		}
-
+		DFileEvent evento = arbolDocumentos.subirFicheroServidor();
+		if (evento != null) enviarEvento(evento);
 	}
 
 	/**
@@ -1524,8 +1332,6 @@ public class PanelPrincipal extends DComponenteBase
 
 					if (padre == null)
 					{
-						System.out.println("Padre del nuevo nodo "
-								+ dfe.padre.getId());
 						return;
 					}
 					else
