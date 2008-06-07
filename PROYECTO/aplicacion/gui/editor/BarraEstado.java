@@ -14,8 +14,9 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 /**
- * Panel con la barra inferior del editor. Permite cambiar de pagina
- * en el documento que se este editando.
+ * Panel con la barra inferior del editor. Permite cambiar de pagina en el
+ * documento que se este editando.
+ * 
  * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
 public class BarraEstado extends JPanel
@@ -35,16 +36,22 @@ public class BarraEstado extends JPanel
 	private JButton jButton1 = null;
 
 	DILienzo lienzo;
-	
-	public BarraEstado(){
+
+	/**
+	 * Constructor por defecto
+	 */
+	public BarraEstado()
+	{
 		super();
-		lienzo = new DILienzo("",false, null);
+		lienzo = new DILienzo("", false, null);
 		initialize();
 	}
 
 	/**
-	 * Constructor
-	 * @param lienzo1 Lienzo que muestra el documento
+	 * Constructor con parametros
+	 * 
+	 * @param lienzo1
+	 *            Lienzo que muestra el documento
 	 */
 	public BarraEstado( DILienzo lienzo1 )
 	{
@@ -122,7 +129,9 @@ public class BarraEstado extends JPanel
 
 	/**
 	 * Asigna el numero total de paginas del documento
-	 * @param numTotal Numero total de paginas del documento
+	 * 
+	 * @param numTotal
+	 *            Numero total de paginas del documento
 	 */
 	public void setNumTotalPaginas(int numTotal)
 	{
@@ -132,7 +141,9 @@ public class BarraEstado extends JPanel
 
 	/**
 	 * Asigna la pagina que se muestra actualmente del documento
-	 * @param num Numero de pagina a mostrar 
+	 * 
+	 * @param num
+	 *            Numero de pagina a mostrar
 	 */
 	public void setPaginaActual(int num)
 	{

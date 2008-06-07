@@ -12,7 +12,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -31,8 +30,9 @@ import aplicacion.gui.VentanaCarga;
 import aplicacion.gui.componentes.SelectorFicherosDistribuido;
 
 /**
+ * Panel con los controles para el editor distribuido
  * 
- * @author carlosrodriguezdominguez
+ * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz
  */
 public class ControlesDibujo extends JPanel
 {
@@ -40,9 +40,7 @@ public class ControlesDibujo extends JPanel
 
 	private JComboBox listaPinceles = null;
 
-	DefaultComboBoxModel modeloPincel = null;
-
-	DefaultComboBoxModel modeloColores = null;
+	private DefaultComboBoxModel modeloPincel = null;
 
 	private DILienzo lienzo = null;
 
@@ -79,45 +77,30 @@ public class ControlesDibujo extends JPanel
 	private JButton botonImprimir = null;
 
 	private JButton botonGuardarLocal = null;
-	
+
 	private JToggleButton botonSeleccionar = null;
-	
+
 	private MonitorAbrir m = null;
-	
-	MIDocumento f = null;
-	
-	public ControlesDibujo(){
-		
+
+	private MIDocumento f = null;
+
+	/**
+	 * Constructor por defecto
+	 */
+	public ControlesDibujo()
+	{
 		lienzo = new DILienzo("", false, null);
 		m = new MonitorAbrir();
 		new HebraAbrir();
 		initialize();
 	}
-
+	
 	/**
-	 * Devuelve el color actual
-	 * 
-	 * @return el nœmero asociado al color actual
+	 * Constructor con parametros
+	 * @param l Lienzo al que asociaremos los controles de dibujo
+	 * @param be Barra de estado del lienzo
 	 */
-	public int getColorActual()
-	{
-		return colorActual;
-	}
-
-	/**
-	 * Obtiene el tipo de trazo usado en este momento
-	 * 
-	 * @return el entero que representa el tipo de trazo
-	 */
-	public int getTrazoActual()
-	{
-		return trazoActual;
-	}
-
-	/**
-	 * This is the default constructor
-	 */
-	public ControlesDibujo( DILienzo l, BarraEstado be )
+	public ControlesDibujo(DILienzo l, BarraEstado be)
 	{
 		super();
 		lienzo = l;
@@ -126,14 +109,26 @@ public class ControlesDibujo extends JPanel
 		initialize();
 	}
 
-	public void setPadre(JFrame p)
+	/**
+	 * Devuelve el color actual
+	 * @return Numero asociado al color actual
+	 */
+	public int getColorActual()
 	{
+		return colorActual;
 	}
 
 	/**
-	 * This method initializes this
-	 * 
-	 * @return void
+	 * Obtiene el tipo de trazo usado en este momento
+	 * @return Numero que representa el tipo de trazo
+	 */
+	public int getTrazoActual()
+	{
+		return trazoActual;
+	}
+
+	/**
+	 * Inicializa los componentes graficos
 	 */
 	private void initialize()
 	{
@@ -150,11 +145,9 @@ public class ControlesDibujo extends JPanel
 	}
 
 	/**
-	 * This method initializes jComboBox
-	 * 
-	 * @return javax.swing.JComboBox
+	 * Muestra un dialogo para seleccionar el color para pintar
+	 * @return Color escogido en el dialogo
 	 */
-
 	private Color elegirColor()
 	{
 		Color c = javax.swing.JColorChooser.showDialog(null, "Escoge el Color",
@@ -162,11 +155,6 @@ public class ControlesDibujo extends JPanel
 		return c;
 	}
 
-	/**
-	 * This method initializes jComboBox1
-	 * 
-	 * @return javax.swing.JComboBox
-	 */
 	private JComboBox getListaPinceles()
 	{
 		if (listaPinceles == null)
@@ -197,11 +185,6 @@ public class ControlesDibujo extends JPanel
 		return listaPinceles;
 	}
 
-	/**
-	 * This method initializes jButton4
-	 * 
-	 * @return javax.swing.JButton
-	 */
 	private JButton getBotonLimpiar()
 	{
 		if (botonLimpiarLienzo == null)
@@ -238,11 +221,6 @@ public class ControlesDibujo extends JPanel
 		return botonLimpiarLienzo;
 	}
 
-	/**
-	 * This method initializes jButton
-	 * 
-	 * @return javax.swing.JButton
-	 */
 	private JButton getBotonDeshacer()
 	{
 		if (botonDeshacer == null)
@@ -274,11 +252,6 @@ public class ControlesDibujo extends JPanel
 		return botonDeshacer;
 	}
 
-	/**
-	 * This method initializes jButton3
-	 * 
-	 * @return javax.swing.JButton
-	 */
 	private JButton getBotonBorrar()
 	{
 		if (botonBorrar == null)
@@ -307,7 +280,7 @@ public class ControlesDibujo extends JPanel
 		}
 		return botonBorrar;
 	}
-	
+
 	private JToggleButton getBotonSeleccionar()
 	{
 		if (botonSeleccionar == null)
@@ -318,26 +291,24 @@ public class ControlesDibujo extends JPanel
 			botonSeleccionar.setBorderPainted(false);
 			botonSeleccionar.setPreferredSize(new Dimension(30, 24));
 			botonSeleccionar.setSize(new Dimension(30, 24));
-			botonSeleccionar.setIcon(new ImageIcon("Resources/puntero_seleccion.png"));
+			botonSeleccionar.setIcon(new ImageIcon(
+					"Resources/puntero_seleccion.png"));
 			botonSeleccionar
 					.setToolTipText("Permite alternar entre el modo de seleccion y el modo de pintura");
-			botonSeleccionar.addActionListener(new java.awt.event.ActionListener()
-			{
-				public void actionPerformed(java.awt.event.ActionEvent e)
-				{
-					lienzo.setEstaSeleccionando(botonSeleccionar.isSelected());
-				}
-			});
+			botonSeleccionar
+					.addActionListener(new java.awt.event.ActionListener()
+					{
+						public void actionPerformed(java.awt.event.ActionEvent e)
+						{
+							lienzo.setEstaSeleccionando(botonSeleccionar
+									.isSelected());
+						}
+					});
 		}
-		
+
 		return botonSeleccionar;
 	}
-	
-	/**
-	 * This method initializes jButton21
-	 * 
-	 * @return javax.swing.JButton
-	 */
+
 	private JButton getBotonAnterior()
 	{
 		if (botonAnterior == null)
@@ -360,20 +331,14 @@ public class ControlesDibujo extends JPanel
 		return botonAnterior;
 	}
 
-	/**
-	 * This method initializes jButton211
-	 * 
-	 * @return javax.swing.JButton
-	 */
 	private JButton getBotonSiguiente()
 	{
 		if (botonSiguiente == null)
 		{
 			botonSiguiente = new JButton();
-			botonSiguiente
-					.setIcon(new ImageIcon("Resources/arrow_right.png"));
+			botonSiguiente.setIcon(new ImageIcon("Resources/arrow_right.png"));
 			botonSiguiente.setToolTipText("Seleccionar el siguiente elemento");
-			botonSiguiente.setPreferredSize(new Dimension(32,24));
+			botonSiguiente.setPreferredSize(new Dimension(32, 24));
 			botonSiguiente
 					.addActionListener(new java.awt.event.ActionListener()
 					{
@@ -389,11 +354,6 @@ public class ControlesDibujo extends JPanel
 		return botonSiguiente;
 	}
 
-	/**
-	 * This method initializes jButton
-	 * 
-	 * @return javax.swing.JButton
-	 */
 	private JButton getBotonRehacer()
 	{
 		if (botonRehacer == null)
@@ -420,11 +380,6 @@ public class ControlesDibujo extends JPanel
 		return botonRehacer;
 	}
 
-	/**
-	 * This method initializes jToolBar
-	 * 
-	 * @return javax.swing.JToolBar
-	 */
 	private JToolBar getBarraHerramientas()
 	{
 		if (barraHerramientas == null)
@@ -468,22 +423,12 @@ public class ControlesDibujo extends JPanel
 		return barraHerramientas;
 	}
 
-	/**
-	 * This method initializes separator41
-	 * 
-	 * @return util.Separador
-	 */
 	private Separador getSeparator41()
 	{
 		if (separator41 == null) separator41 = new Separador();
 		return separator41;
 	}
 
-	/**
-	 * This method initializes botonLimpiarImagen1
-	 * 
-	 * @return javax.swing.JButton
-	 */
 	private JButton getBotonColores()
 	{
 		if (botonPaletaColores == null)
@@ -491,10 +436,10 @@ public class ControlesDibujo extends JPanel
 			botonPaletaColores = new JButton("Colores");
 			botonPaletaColores.setBorder(null);
 			botonPaletaColores.setBorderPainted(false);
-			botonPaletaColores
-					.setIcon(new ImageIcon("Resources/palette.png"));
+			botonPaletaColores.setIcon(new ImageIcon("Resources/palette.png"));
 			botonPaletaColores.setText("Colores   ");
-			botonPaletaColores.setToolTipText("Cambia el color que usara para pintar");
+			botonPaletaColores
+					.setToolTipText("Cambia el color que usara para pintar");
 			botonPaletaColores
 					.addActionListener(new java.awt.event.ActionListener()
 					{
@@ -509,11 +454,6 @@ public class ControlesDibujo extends JPanel
 		return botonPaletaColores;
 	}
 
-	/**
-	 * This method initializes botonCargarImagen11
-	 * 
-	 * @return javax.swing.JButton
-	 */
 	private JButton getBotonAbrir()
 	{
 		if (botonAbrir == null)
@@ -522,19 +462,20 @@ public class ControlesDibujo extends JPanel
 			botonAbrir.setBorder(null);
 			botonAbrir.setToolTipText("Carga la imagen de fondo");
 			botonAbrir.setBorderPainted(false);
-			botonAbrir.setIcon(new ImageIcon("Resources/folder-open_16x16.png"));
+			botonAbrir
+					.setIcon(new ImageIcon("Resources/folder-open_16x16.png"));
 			botonAbrir.setPreferredSize(new Dimension(35, 24));
 			botonAbrir.addActionListener(new java.awt.event.ActionListener()
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
 
-					f = SelectorFicherosDistribuido.getDatosFichero(
-							lienzo.getPadre(), DConector.raiz);
+					f = SelectorFicherosDistribuido.getDatosFichero(lienzo
+							.getPadre(), DConector.raiz);
 
 					if (( f != null ) && !f.getRutaLocal().equals(""))
 					{
-					
+
 						m.notificarAbrir();
 					}
 
@@ -544,28 +485,26 @@ public class ControlesDibujo extends JPanel
 		return botonAbrir;
 	}
 
-	private void accionAbrir() {
-		
+	/**
+	 * Accion realizada al abrir un documento en el lienzo
+	 */
+	private void accionAbrir()
+	{
 		// cerramos la ventana
-		if (lienzo.getPadre() != null) {
+		if (lienzo.getPadre() != null)
+		{
 			lienzo.getPadre().dispose();
 			lienzo.getPadre().this_windowClosing(null);
 		}
-		
+
 		// sincronizamos el lienzo
 		lienzo.getDocumento().setPath(f.getRutaLocal());
 		lienzo.sincronizar();
-		
+
 		// volvemos a mostrar la ventana
-		if (lienzo.getPadre()!=null)
-			lienzo.getPadre().setVisible(true);
+		if (lienzo.getPadre() != null) lienzo.getPadre().setVisible(true);
 	}
-	
-	/**
-	 * This method initializes botonCargarImagen1
-	 * 
-	 * @return javax.swing.JButton
-	 */
+
 	private JButton getBotonGuardar()
 	{
 		if (botonGuardar == null)
@@ -602,11 +541,6 @@ public class ControlesDibujo extends JPanel
 		return botonGuardar;
 	}
 
-	/**
-	 * This method initializes botonImprimir
-	 * 
-	 * @return javax.swing.JButton
-	 */
 	private JButton getBotonImprimir()
 	{
 		if (botonImprimir == null)
@@ -629,11 +563,6 @@ public class ControlesDibujo extends JPanel
 		return botonImprimir;
 	}
 
-	/**
-	 * This method initializes botonGuardarLocal
-	 * 
-	 * @return javax.swing.JButton
-	 */
 	private JButton getBotonGuardarLocal()
 	{
 		if (botonGuardarLocal == null)
@@ -643,7 +572,8 @@ public class ControlesDibujo extends JPanel
 			botonGuardarLocal
 					.setToolTipText("Guarda el documento actual localmente");
 			botonGuardarLocal.setBorderPainted(false);
-			botonGuardarLocal.setIcon(new ImageIcon("Resources/disk_local.png"));
+			botonGuardarLocal
+					.setIcon(new ImageIcon("Resources/disk_local.png"));
 			botonGuardarLocal.setPreferredSize(new Dimension(35, 24));
 			botonGuardarLocal
 					.addActionListener(new java.awt.event.ActionListener()
@@ -693,52 +623,52 @@ public class ControlesDibujo extends JPanel
 		}
 		return botonGuardarLocal;
 	}
+
+	// ============= HEBRAS ===================
 	
-	
-//	 ============= HEBRAS
-	// ===================================================================
 	/**
 	 * Hebra que se encarga de abrir los documentos
-	 * 
-	 * @author anab
 	 */
 	private class HebraAbrir implements Runnable
 	{
-
+		/**
+		 * Constructor
+		 */
 		public HebraAbrir()
 		{
 			Thread hebra = new Thread(this);
 			hebra.start();
 		}
 
+		/**
+		 * Ejecucion de la hebra
+		 */
 		public void run()
 		{
 			VentanaCarga v = new VentanaCarga();
-			
+
 			while (true)
 			{
-
-				
 				// esperamos a que se solicite la lectura
 				m.abrir();
-				
-				v.mostrar("Abriendo...", "Abriendo el fichero " + f.getNombre(), true);
+
+				v.mostrar("Abriendo...",
+						"Abriendo el fichero " + f.getNombre(), true);
 				// abrimos el documento
 				accionAbrir();
 				v.ocultar();
 			}
-
 		}
-
 	}
-	
-	
+
 	/**
 	 * Monitor que controla la apertura de documentos
 	 */
 	private class MonitorAbrir
 	{
-
+		/**
+		 * Acciones de sincronizacion al abrir un documento
+		 */
 		public synchronized void abrir()
 		{
 			try
@@ -749,13 +679,14 @@ public class ControlesDibujo extends JPanel
 			{
 				e.printStackTrace();
 			}
-
 		}
-
+		/**
+		 * Acciones de sincronizacion al notificar la 
+		 * apertura de un documento
+		 */
 		public synchronized void notificarAbrir()
 		{
 			notifyAll();
 		}
 	}
-
-} // @jve:decl-index=0:visual-constraint="-78,19"
+}

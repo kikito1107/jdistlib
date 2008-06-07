@@ -37,16 +37,12 @@ import figuras.TrazoManoAlzada;
 
 /**
  * Implementacion de un editor basico de imagenes distribuido
- * @author Ana Belen Pelegrina Ortiz
- * @date 9-2-2008
+ * 
+ * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
 public class DILienzo extends DIViewer implements MouseListener,
 		MouseMotionListener
 {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 6690106456671059169L;
 
 	/**
@@ -176,7 +172,9 @@ public class DILienzo extends DIViewer implements MouseListener,
 
 	/**
 	 * Establece el color actual para dibujar
-	 * @param unColor  el nuevo color actual
+	 * 
+	 * @param unColor
+	 *            el nuevo color actual
 	 */
 	public void setColor(Color unColor)
 	{
@@ -185,6 +183,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 
 	/**
 	 * Indica si una anotacion esta seleccionado
+	 * 
 	 * @param b
 	 */
 	public void setEstaSeleccionando(boolean b)
@@ -194,6 +193,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 
 	/**
 	 * Devuelve el documento con el que se está trabajando actualmente
+	 * 
 	 * @return
 	 */
 	public Documento getDocumento()
@@ -203,7 +203,9 @@ public class DILienzo extends DIViewer implements MouseListener,
 
 	/**
 	 * Establece el documento de trabajo
-	 * @param nuevo documento de trabajo
+	 * 
+	 * @param nuevo
+	 *            documento de trabajo
 	 */
 	public void setDocumento(Documento nuevo)
 	{
@@ -216,7 +218,9 @@ public class DILienzo extends DIViewer implements MouseListener,
 
 	/**
 	 * Establece el trazo del dibujo
-	 * @param trazo tipo de trazo
+	 * 
+	 * @param trazo
+	 *            tipo de trazo
 	 */
 	public void setTrazo(int trazo)
 	{
@@ -233,6 +237,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 
 	/**
 	 * Inicializa el lienzo
+	 * 
 	 * @throws Exception
 	 */
 	private void init() throws Exception
@@ -255,7 +260,9 @@ public class DILienzo extends DIViewer implements MouseListener,
 
 	/**
 	 * Establece la ventana en la que es dibujado el lienzo
-	 * @param j ventana en la que se dibuja el lienzo
+	 * 
+	 * @param j
+	 *            ventana en la que se dibuja el lienzo
 	 */
 	public void setPadre(FramePanelDibujo j)
 	{
@@ -309,7 +316,9 @@ public class DILienzo extends DIViewer implements MouseListener,
 
 	/**
 	 * Método que permite invertir un color
-	 * @param c color a invertir
+	 * 
+	 * @param c
+	 *            color a invertir
 	 * @return color invertido
 	 */
 	public static Color invertirColor(Color c)
@@ -351,6 +360,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 
 	/**
 	 * Devuelve el número de la página actual
+	 * 
 	 * @return
 	 */
 	public int getNumPaginas()
@@ -360,6 +370,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 
 	/**
 	 * Recupera la página actual del documento visualizado
+	 * 
 	 * @return el número de la página actual
 	 */
 	public int getPaginaActual()
@@ -828,7 +839,9 @@ public class DILienzo extends DIViewer implements MouseListener,
 
 	/**
 	 * Deshace el ultimo trazo realizado en el lienzo
-	 * @param i página
+	 * 
+	 * @param i
+	 *            página
 	 */
 	public void deshacer(int i)
 	{
@@ -864,7 +877,9 @@ public class DILienzo extends DIViewer implements MouseListener,
 
 	/**
 	 * Borra un objeto de la lista de objetos dibujados
-	 * @param posicion posicion del objeto a borrar
+	 * 
+	 * @param posicion
+	 *            posicion del objeto a borrar
 	 * @param i
 	 */
 	public void borrarObjeto(int posicion, int i)
@@ -914,9 +929,9 @@ public class DILienzo extends DIViewer implements MouseListener,
 								options[1]);
 
 				if (eleccion == JOptionPane.NO_OPTION
-						|| eleccion == JOptionPane.CLOSED_OPTION) 
+						|| eleccion == JOptionPane.CLOSED_OPTION)
 				{
-					doc.setPath("");	
+					doc.setPath("");
 					return;
 				}
 
@@ -978,6 +993,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 
 	/**
 	 * Procesa un evento recibido
+	 * 
 	 * @arg evento evento recibido
 	 */
 	@Override
