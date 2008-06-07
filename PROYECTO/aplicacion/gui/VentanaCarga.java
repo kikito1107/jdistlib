@@ -8,9 +8,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+/**
+ * Dialogo que se muestra al cargar la aplicacion
+ * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
+ */
 public class VentanaCarga extends JFrame
 {
-
 	private static final long serialVersionUID = 1L;
 
 	private JPanel jContentPane = null;
@@ -18,40 +21,32 @@ public class VentanaCarga extends JFrame
 	private JLabel etiquetaIcono = null; 
 		
 	protected ImageIcon icono1 = null;
+	
 	protected ImageIcon icono2 = null;
+	
 	protected ImageIcon icono3 = null;
 	
-	//private Monitor monitor = new Monitor();
-
 	/**
-	 * @param owner
+	 * Constructor
 	 */
 	public VentanaCarga( )
 	{
 		super();
 		
 		initialize();
-		//pack();
 		Thread hp = new Thread(new HebraParpadeo(this));
-
-		
 		hp.start();
 	}
 
 	/**
-	 * This method initializes this
-	 * 
-	 * @return void
+	 * Inicializacion de los componentes graficos
 	 */
 	private void initialize()
 	{
 		this.setSize(330, 85);
 		this.setAlwaysOnTop(true);
-		this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);  // Generated
+		this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		this.setContentPane(getJContentPane());
-		
-
-
 		
 		icono1 = new ImageIcon("Resources/logo_1.png");
 		icono2 = new ImageIcon("Resources/logo_2.png");
@@ -61,8 +56,10 @@ public class VentanaCarga extends JFrame
 	
 	/**
 	 * Muesta el dialogo de carga
-	 * @param mensaje
-	 * @param parpadeo
+	 * @param titulo Titulo del dialogo
+	 * @param mensaje Mensaje a mostrar en el dialogo
+	 * @param parpadeo Indica si deseamos que se produzca un parpadeo en el
+	 *                 logotipo o no.
 	 */
 	public void mostrar(String titulo, String mensaje, boolean parpadeo)
 	{
@@ -77,15 +74,17 @@ public class VentanaCarga extends JFrame
 		}
 	}
 
+	/**
+	 * Permite ocultar el dialogo
+	 */
 	public void ocultar()
 	{
 		this.setVisible(false);
 	}
 	
 	/**
-	 * This method initializes jContentPane
-	 * 
-	 * @return javax.swing.JPanel
+	 * Obtiene el panel contenedor del dialogo
+	 * @return Panel contenedor ya inicializado
 	 */
 	private JPanel getJContentPane()
 	{
@@ -103,22 +102,32 @@ public class VentanaCarga extends JFrame
 		}
 		return jContentPane;
 	}
+	
+	/**
+	 * Hebra que permite crear el efecto de parpadeo sobre el logotipo
+	 */
 	private class HebraParpadeo implements Runnable
 	{
-		VentanaCarga vc  = null;
+		private VentanaCarga vc  = null;
 		
-		public HebraParpadeo(VentanaCarga v){
+		/**
+		 * Constructor
+		 * @param v Ventana de carga a la que vamos a realizar el parpadeo
+		 *          del logotipo
+		 */
+		public HebraParpadeo(VentanaCarga v)
+		{
 			vc = v;
 		}
 		
+		/**
+		 * Ejecucion de la hebra
+		 */
 		public void run()
 		{
 			while (true)
 				try
-				{
-
-					//System.out.println("Iniciada hebra parpadeo");
-					
+				{				
 					vc.etiquetaIcono.setIcon(icono1);
 					vc.repaint();
 					Thread.sleep(150L);
@@ -138,5 +147,4 @@ public class VentanaCarga extends JFrame
 
 		}
 	}
-
-}  //  @jve:decl-index=0:visual-constraint="10,10"
+}

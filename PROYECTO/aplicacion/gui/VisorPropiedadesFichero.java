@@ -24,9 +24,12 @@ import javax.swing.border.TitledBorder;
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.documentos.MIDocumento;
 
+/**
+ * Dialogo que muestra las propiedades de un documento
+ * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
+ */
 public class VisorPropiedadesFichero extends JDialog
 {
-
 	private static final long serialVersionUID = 1L;
 
 	private JPanel jContentPane = null;
@@ -84,7 +87,10 @@ public class VisorPropiedadesFichero extends JDialog
 	private JPanel panelEditores = null;
 
 	/**
-	 * @param owner
+	 * Constructor
+	 * @param owner Ventana que hace uso de este dialogo
+	 * @param f Metainformacion del documento cuyas propiedades
+	 *          deseamos mostrar
 	 */
 	public VisorPropiedadesFichero( Frame owner, MIDocumento f )
 	{
@@ -94,9 +100,7 @@ public class VisorPropiedadesFichero extends JDialog
 	}
 
 	/**
-	 * This method initializes this
-	 * 
-	 * @return void
+	 * Inicializacion de los componentes graficos
 	 */
 	private void initialize()
 	{
@@ -104,10 +108,6 @@ public class VisorPropiedadesFichero extends JDialog
 		this.setContentPane(getJContentPane());
 	}
 
-	/**
-	 * This method initializes jContentPane
-	 * @return javax.swing.JPanel
-	 */
 	private JPanel getJContentPane()
 	{
 		if (jContentPane == null)
@@ -123,10 +123,6 @@ public class VisorPropiedadesFichero extends JDialog
 		return jContentPane;
 	}
 
-	/**
-	 * This method initializes nombreFichero
-	 * @return javax.swing.JTextField
-	 */
 	private JTextField getNombreFichero()
 	{
 		if (nombreFichero == null)
@@ -138,11 +134,6 @@ public class VisorPropiedadesFichero extends JDialog
 		return nombreFichero;
 	}
 
-	/**
-	 * This method initializes pathFichero
-	 * 
-	 * @return javax.swing.JTextField
-	 */
 	private JTextField getPathFichero()
 	{
 		if (usuario == null)
@@ -164,11 +155,6 @@ public class VisorPropiedadesFichero extends JDialog
 		return usuario;
 	}
 
-	/**
-	 * This method initializes panelPermisos
-	 * 
-	 * @return javax.swing.JPanel
-	 */
 	private JPanel getPanelPermisos()
 	{
 		if (panelPermisos == null)
@@ -246,11 +232,6 @@ public class VisorPropiedadesFichero extends JDialog
 		return panelPermisos;
 	}
 
-	/**
-	 * This method initializes lecturaU
-	 * 
-	 * @return javax.swing.JCheckBox
-	 */
 	private JCheckBox getLecturaU()
 	{
 		if (lecturaU == null)
@@ -264,11 +245,6 @@ public class VisorPropiedadesFichero extends JDialog
 		return lecturaU;
 	}
 
-	/**
-	 * This method initializes escrituraU
-	 * 
-	 * @return javax.swing.JCheckBox
-	 */
 	private JCheckBox getEscrituraU()
 	{
 		if (escrituraU == null)
@@ -281,11 +257,6 @@ public class VisorPropiedadesFichero extends JDialog
 		return escrituraU;
 	}
 
-	/**
-	 * This method initializes lecturaR
-	 * 
-	 * @return javax.swing.JCheckBox
-	 */
 	private JCheckBox getLecturaR()
 	{
 		if (lecturaR == null)
@@ -298,11 +269,6 @@ public class VisorPropiedadesFichero extends JDialog
 		return lecturaR;
 	}
 
-	/**
-	 * This method initializes escrituraR
-	 * 
-	 * @return javax.swing.JCheckBox
-	 */
 	private JCheckBox getEscrituraR()
 	{
 		if (escrituraR == null)
@@ -315,11 +281,6 @@ public class VisorPropiedadesFichero extends JDialog
 		return escrituraR;
 	}
 
-	/**
-	 * This method initializes lecturaO
-	 * 
-	 * @return javax.swing.JCheckBox
-	 */
 	private JCheckBox getLecturaO()
 	{
 		if (lecturaO == null)
@@ -332,11 +293,6 @@ public class VisorPropiedadesFichero extends JDialog
 		return lecturaO;
 	}
 
-	/**
-	 * This method initializes escrituraO
-	 * 
-	 * @return javax.swing.JCheckBox
-	 */
 	private JCheckBox getEscrituraO()
 	{
 		if (escrituraO == null)
@@ -349,11 +305,6 @@ public class VisorPropiedadesFichero extends JDialog
 		return escrituraO;
 	}
 
-	/**
-	 * This method initializes panelDatos
-	 * 
-	 * @return javax.swing.JPanel
-	 */
 	private JPanel getPanelDatos()
 	{
 		if (panelDatos == null)
@@ -452,11 +403,6 @@ public class VisorPropiedadesFichero extends JDialog
 		return panelDatos;
 	}
 
-	/**
-	 * This method initializes jTextField
-	 * 
-	 * @return javax.swing.JTextField
-	 */
 	private JTextField getJTextField()
 	{
 		if (rol == null)
@@ -477,11 +423,6 @@ public class VisorPropiedadesFichero extends JDialog
 		return rol;
 	}
 
-	/**
-	 * This method initializes jButton
-	 * 
-	 * @return javax.swing.JButton
-	 */
 	private JButton getJButton()
 	{
 		if (jButton == null)
@@ -569,11 +510,6 @@ public class VisorPropiedadesFichero extends JDialog
 		return jButton;
 	}
 
-	/**
-	 * This method initializes jButton1
-	 * 
-	 * @return javax.swing.JButton
-	 */
 	private JButton getJButton1()
 	{
 		if (jButton1 == null)
@@ -614,22 +550,7 @@ public class VisorPropiedadesFichero extends JDialog
 
 		setVisible(true);
 	}
-
-	public static MIDocumento verInfoFichero(MIDocumento fichero, Frame owner)
-	{
-
-		VisorPropiedadesFichero f = new VisorPropiedadesFichero(owner, fichero);
-
-		f.verPropiedades();
-
-		return f.fichero;
-	}
-
-	/**
-	 * This method initializes esDirectorio
-	 * 
-	 * @return javax.swing.JCheckBox
-	 */
+	
 	private JCheckBox getEsDirectorio()
 	{
 		if (esDirectorio == null)
@@ -646,11 +567,6 @@ public class VisorPropiedadesFichero extends JDialog
 		return esDirectorio;
 	}
 
-	/**
-	 * This method initializes areaTextoEditores
-	 * 
-	 * @return javax.swing.JTextArea
-	 */
 	private JTextArea getAreaTextoEditores()
 	{
 		if (areaTextoEditores == null)
@@ -679,12 +595,7 @@ public class VisorPropiedadesFichero extends JDialog
 		}
 		return areaTextoEditores;
 	}
-
-	/**
-	 * This method initializes panelEditores
-	 * 
-	 * @return javax.swing.JPanel
-	 */
+	
 	private JPanel getPanelEditores()
 	{
 		if (panelEditores == null)
@@ -705,4 +616,22 @@ public class VisorPropiedadesFichero extends JDialog
 		}
 		return panelEditores;
 	}
-}  //  @jve:decl-index=0:visual-constraint="-27,-51"
+
+	/**
+	 * Muestra las propiedades de un documento
+	 * @param fichero Metainformacion del documento cuyas propiedades deseamos
+	 *                mostrar en una ventana
+	 * @param owner Ventana padre del dialogo a mostrar
+	 * @return La metainformacion del documento si todo fue correcto o null
+	 *         si algo fue mal.
+	 */
+	public static MIDocumento verInfoFichero(MIDocumento fichero, Frame owner)
+	{
+
+		VisorPropiedadesFichero f = new VisorPropiedadesFichero(owner, fichero);
+
+		f.verPropiedades();
+
+		return f.fichero;
+	}
+}

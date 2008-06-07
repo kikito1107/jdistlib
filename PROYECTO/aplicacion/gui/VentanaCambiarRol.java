@@ -6,18 +6,20 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import componentes.gui.usuarios.DICambioRol;
 
+/**
+ * Ventana que permite realizar el cambio de rol de un usuario
+ * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
+ */
 public class VentanaCambiarRol extends DJFrame
 {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 4130806553519520953L;
+	
 	private JPanel panelPrincipal = null;
+	
 	private DICambioRol DICambioRol = null;
+	
 	/**
-	 * This method initializes 
-	 * 
+	 * Constructor
 	 */
 	public VentanaCambiarRol() {
 		super(false, "");
@@ -25,8 +27,7 @@ public class VentanaCambiarRol extends DJFrame
 	}
 
 	/**
-	 * This method initializes this
-	 * 
+	 * Inicializacion de los componentes
 	 */
 	private void initialize() {
 		try {
@@ -36,15 +37,13 @@ public class VentanaCambiarRol extends DJFrame
 				
 		}
 		catch (java.lang.Throwable e) {
-			//  Do Something
 		}
 	}
 
 	/**
-	 * This method initializes panelPrincipal	
-	 * 	
-	 * @return javax.swing.JPanel	
-	 */
+	 * Obtiene el panel principal
+	 * @return Panel principal de la ventana ya inicializado
+	 */ 
 	private JPanel getPanelPrincipal()
 	{
 		if (panelPrincipal == null)
@@ -64,9 +63,10 @@ public class VentanaCambiarRol extends DJFrame
 	}
 
 	/**
-	 * This method initializes DICambioRol	
-	 * 	
-	 * @return componentes.gui.usuarios.DICambioRol	
+	 * Obtiene el panel que contiene los roles permitidos para un usuario,
+	 * asi como un boton para cambiar entre estos roles.
+	 * @return Panel con la lista de roles permitidos para el usuario y
+	 *         el boton para cambiar entre roles.
 	 */
 	private DICambioRol getDICambioRol()
 	{
@@ -84,4 +84,4 @@ public class VentanaCambiarRol extends DJFrame
 		return DICambioRol;
 	}
 
-}  //  @jve:decl-index=0:visual-constraint="10,10"
+}

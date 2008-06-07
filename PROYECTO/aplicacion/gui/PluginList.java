@@ -8,10 +8,17 @@ import javax.swing.ListModel;
 
 import aplicacion.plugin.DAbstractPlugin;
 
+/**
+ * Componente con la lista de plugins del sistema
+ * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
+ */
 class PluginList extends JList
 {
 	private static final long serialVersionUID = 8824514161904171898L;
 
+	/**
+	 * Constructor por defecto
+	 */
 	public PluginList()
 	{
 		super();
@@ -35,6 +42,10 @@ class PluginList extends JList
 		});
 	}
 	
+	/**
+	 * Constructor con parametros
+	 * @param lm Modelo para la lista de aplicaciones
+	 */
 	public PluginList(ListModel lm)
 	{
 		super(lm);
@@ -65,8 +76,13 @@ class PluginList extends JList
 		});
 	}
 
-
-	// Expose the getToolTipText event of our JList
+	/**
+	 * Permite mostrar tooltips en cada entrada de la lista
+	 * @param e Evento de raton recibido
+	 * @return Cadena de texto con el tooltip del elemento en el que
+	 * 		   este situado el raton en este momento
+	 */
+	@Override
 	public String getToolTipText(MouseEvent e)
 	{
 		return super.getToolTipText();
