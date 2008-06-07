@@ -11,6 +11,7 @@ import aplicacion.fisica.documentos.Documento;
 
 /**
  * Clase encargada de la transmisi—n de documentos entre usuarios
+ * 
  * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
 public class TransferP2P
@@ -27,18 +28,23 @@ public class TransferP2P
 
 	/**
 	 * Constructor
-	 * @param ip_orig Direccion IP de origen de la conexion
-	 * @param identificador Identificador de la conexion a realizar
-	 * @param puerto Puerto donde se desean realizar las transmisiones
+	 * 
+	 * @param ip_orig
+	 *            Direccion IP de origen de la conexion
+	 * @param identificador
+	 *            Identificador de la conexion a realizar
+	 * @param puerto
+	 *            Puerto donde se desean realizar las transmisiones
 	 */
 	public TransferP2P( String ip_orig, int identificador, int puerto )
 	{
 		ip_origen = ip_orig;
 		id = identificador;
 	}
-	
+
 	/**
 	 * Consulta el puerto donde se encuentra esperando el servidor
+	 * 
 	 * @return Puerto donde esta en estado "listen" el servidor
 	 */
 	public static int getPort()
@@ -46,21 +52,23 @@ public class TransferP2P
 		return port;
 	}
 
-
 	private static synchronized void setServerExecuted(boolean b)
 	{
 		serverExecuted = b;
 	}
-	
+
 	private static synchronized boolean getServerExecuted()
 	{
 		return serverExecuted;
 	}
-	
+
 	/**
 	 * Inicia el servidor RMI para la transferencia entre usuarios
-	 * @param id Identificador del objeto registrado
-	 * @param doc Documento a enviar
+	 * 
+	 * @param id
+	 *            Identificador del objeto registrado
+	 * @param doc
+	 *            Documento a enviar
 	 */
 	public synchronized static void establecerServidor(int id, Documento doc)
 	{
@@ -85,7 +93,7 @@ public class TransferP2P
 		{
 
 			setServerExecuted(false);
-			
+
 			try
 			{
 				Thread.sleep(2000L);
@@ -101,6 +109,7 @@ public class TransferP2P
 
 	/**
 	 * Recepcion del documento desde el servidor RMI
+	 * 
 	 * @return El documento si todo fue correcto o null en caso contrario
 	 */
 	public Documento receive()
@@ -131,8 +140,11 @@ public class TransferP2P
 
 		/**
 		 * Constructor de la hebra
-		 * @param identificador Identificador del objeto registrado
-		 * @param doc Documento a enviar a traves del servidor
+		 * 
+		 * @param identificador
+		 *            Identificador del objeto registrado
+		 * @param doc
+		 *            Documento a enviar a traves del servidor
 		 */
 		public ServerThread( int identificador, Documento doc )
 		{
@@ -147,7 +159,7 @@ public class TransferP2P
 		public void run()
 		{
 			String host = null;
-			
+
 			try
 			{
 				// Se indica a rmiregistry d—nde est‡n las clases.
@@ -166,19 +178,19 @@ public class TransferP2P
 				}
 				catch (Exception e)
 				{
-					//e.printStackTrace();
-					
-					//se lanza una excepcion esperada, porque se hace un registro
-					//duplicado. no modificar nada.
+					// e.printStackTrace();
+
+					// se lanza una excepcion esperada, porque se hace un
+					// registro
+					// duplicado. no modificar nada.
 				}
 
 				// Se publica el objeto AccesoMesa
-				TransmisorFicherosP2P tf = new TransferenciaFicheroP2P(
-						d);
-				
+				TransmisorFicherosP2P tf = new TransferenciaFicheroP2P(d);
+
 				host = InetAddress.getLocalHost().getHostName();
-				
-				Naming.rebind("//"+host+":" + port
+
+				Naming.rebind("//" + host + ":" + port
 						+ "/TransferenciaFicheroP2P" + id, tf);
 
 				System.out.println("Servicio RMI activo en " + host
@@ -211,7 +223,7 @@ public class TransferP2P
 			try
 			{
 				// desligamos el nombre del objeto anteriormente registrado
-				Naming.unbind("//"+host+":" + port
+				Naming.unbind("//" + host + ":" + port
 						+ "/TransferenciaFicheroP2P" + id);
 				System.out.println("Objeto desligado!!!");
 			}

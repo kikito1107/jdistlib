@@ -14,6 +14,7 @@ import aplicacion.fisica.documentos.MIDocumento;
 
 /**
  * Filtro de documento para mensajes
+ * 
  * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez.
  */
 public class MSGFilter implements DocumentFilter
@@ -23,15 +24,20 @@ public class MSGFilter implements DocumentFilter
 	 */
 	public MSGFilter()
 	{
-		
+
 	}
 
 	/**
 	 * Obtiene un documento interpretado como un mensaje
-	 * @param path Path del mensaje a abrir
-	 * @param usuario Nombre del usuario que quiere abrir el documento
-	 * @param rol Rol que desempe–a el usuario
-	 * @return Objeto de la clase @see Documento. Devuelve null si ha ocurrido algun error
+	 * 
+	 * @param path
+	 *            Path del mensaje a abrir
+	 * @param usuario
+	 *            Nombre del usuario que quiere abrir el documento
+	 * @param rol
+	 *            Rol que desempe–a el usuario
+	 * @return Objeto de la clase
+	 * @see Documento. Devuelve null si ha ocurrido algun error
 	 */
 	public Documento getDocumento(String path, String usuario, String rol)
 	{
@@ -86,20 +92,22 @@ public class MSGFilter implements DocumentFilter
 		String[] lineas = contenido.split("\n");
 		String str;
 		int npag = 1;
-		for (int i=0; i<lineas.length; i++)
+		for (int i = 0; i < lineas.length; i++)
 		{
-			if (i == 0 || i == 1) //poner el campo De: y el campo Asunto: en negrita
+			if (i == 0 || i == 1) // poner el campo De: y el campo Asunto: en
+									// negrita
 			{
 				font = new Font("Arial", Font.BOLD, 16);
 				g.setFont(font);
 			}
-			
-			else //el resto ponerlo normal
+
+			else
+			// el resto ponerlo normal
 			{
 				font = new Font("Arial", Font.PLAIN, 16);
 				g.setFont(font);
 			}
-			
+
 			str = lineas[i];
 
 			// Pintamos la linea. Si la longitud es mayor de 80 la dividimos
@@ -146,14 +154,17 @@ public class MSGFilter implements DocumentFilter
 
 	/**
 	 * Comprueba si la extension se corresponde con un fichero de mensaje (MSG)
-	 * @param extension Extension del tipo de documento a consultar
-	 * @return True si es una extension tipica para un mensaje (.msg) y False en caso contrario
+	 * 
+	 * @param extension
+	 *            Extension del tipo de documento a consultar
+	 * @return True si es una extension tipica para un mensaje (.msg) y False en
+	 *         caso contrario
 	 */
 	public boolean isSupported(String extension)
 	{
 		if (extension.toLowerCase().compareTo(MIDocumento.TIPO_MENSAJE) == 0)
 			return true;
-		
+
 		else return false;
 	}
 

@@ -49,6 +49,7 @@ import aplicacion.gui.PanelPrincipal;
 
 /**
  * Componente que muestra el arbol de documentos
+ * 
  * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
 public class ArbolDocumentos extends JTree implements Autoscroll
@@ -61,15 +62,17 @@ public class ArbolDocumentos extends JTree implements Autoscroll
 
 	private DefaultTreeModel model = null;
 
-	@SuppressWarnings("unused")
+	@SuppressWarnings( "unused" )
 	private TreeDragSource ds;
 
-	@SuppressWarnings("unused")
+	@SuppressWarnings( "unused" )
 	private TreeDropTarget dt;
-	
+
 	/**
 	 * Metodo que debemos implementar para la interfaz Autoscroll
-	 * @param p Punto en el que estamos situados dentro del arbol
+	 * 
+	 * @param p
+	 *            Punto en el que estamos situados dentro del arbol
 	 */
 	public void autoscroll(Point p)
 	{
@@ -82,6 +85,7 @@ public class ArbolDocumentos extends JTree implements Autoscroll
 
 	/**
 	 * Metodo que debemos implementar para la interfaz Autoscroll
+	 * 
 	 * @return Margenes del autoscroll
 	 */
 	public Insets getAutoscrollInsets()
@@ -96,7 +100,9 @@ public class ArbolDocumentos extends JTree implements Autoscroll
 
 	/**
 	 * Constructor
-	 * @param raiz Raiz del arbol de documentos
+	 * 
+	 * @param raiz
+	 *            Raiz del arbol de documentos
 	 */
 	public ArbolDocumentos( DefaultMutableTreeNode raiz )
 	{
@@ -105,7 +111,7 @@ public class ArbolDocumentos extends JTree implements Autoscroll
 		this.getSelectionModel().setSelectionMode(
 				TreeSelectionModel.SINGLE_TREE_SELECTION);
 		this.setCellRenderer(new DocumentosCellRenderer());
-		//this.putClientProperty("JTree.lineStyle", "Horizontal");
+		// this.putClientProperty("JTree.lineStyle", "Horizontal");
 
 		ds = new TreeDragSource(this, DnDConstants.ACTION_COPY_OR_MOVE);
 		dt = new TreeDropTarget(this);
@@ -125,8 +131,8 @@ public class ArbolDocumentos extends JTree implements Autoscroll
 	}
 
 	/**
-	 * Permite obtener la metainformacion del documento seleccionado
-	 * en el arbol
+	 * Permite obtener la metainformacion del documento seleccionado en el arbol
+	 * 
 	 * @return Metainformacion del documento seleccionado
 	 */
 	public MIDocumento getDocumentoSeleccionado()
@@ -145,6 +151,7 @@ public class ArbolDocumentos extends JTree implements Autoscroll
 
 	/**
 	 * Permite obtener el nodo seleccionado en el arbol
+	 * 
 	 * @return Nodo seleccionado
 	 */
 	public DefaultMutableTreeNode getNodoSeleccionado()
@@ -161,12 +168,14 @@ public class ArbolDocumentos extends JTree implements Autoscroll
 	}
 
 	/**
-	 * Permite buscar un nodo en el arbol iniciando la busqueda
-	 * desde otro nodo
-	 * @param n Nodo desde el que iniciar la busqueda
-	 * @param id Identificador del nodo a buscar
-	 * @return Nodo que se deseaba buscar o null si no se encontro
-	 *         u ocurrio algun error.
+	 * Permite buscar un nodo en el arbol iniciando la busqueda desde otro nodo
+	 * 
+	 * @param n
+	 *            Nodo desde el que iniciar la busqueda
+	 * @param id
+	 *            Identificador del nodo a buscar
+	 * @return Nodo que se deseaba buscar o null si no se encontro u ocurrio
+	 *         algun error.
 	 */
 	public static DefaultMutableTreeNode buscarFichero(
 			DefaultMutableTreeNode n, int id)
@@ -191,7 +200,9 @@ public class ArbolDocumentos extends JTree implements Autoscroll
 
 	/**
 	 * Elimina un nodo del arbol
-	 * @param id Identificador del nodo a eliminar
+	 * 
+	 * @param id
+	 *            Identificador del nodo a eliminar
 	 */
 	public void eliminarNodo(int id)
 	{
@@ -273,6 +284,7 @@ public class ArbolDocumentos extends JTree implements Autoscroll
 
 	/**
 	 * Recupera la metainformacion relativa a un mensaje
+	 * 
 	 * @return Metainformacion del mensaje
 	 */
 	public MIDocumento recuperarMail()
@@ -300,7 +312,9 @@ public class ArbolDocumentos extends JTree implements Autoscroll
 
 	/**
 	 * Elimina el documento seleccionado (si se tienen los permisos suficientes)
-	 * @return True si se elimino el documento con exito. False en caso contrario.
+	 * 
+	 * @return True si se elimino el documento con exito. False en caso
+	 *         contrario.
 	 */
 	public boolean eliminarFichero()
 	{
@@ -346,7 +360,9 @@ public class ArbolDocumentos extends JTree implements Autoscroll
 
 	/**
 	 * Agrega un nuevo directorio al directorio seleccionado actualmente
-	 * @param nombre Nombre del directorio a agregar
+	 * 
+	 * @param nombre
+	 *            Nombre del directorio a agregar
 	 * @return Metainformacion sobre el directorio creado o null si ocurrio
 	 *         algun error.
 	 */
@@ -357,7 +373,7 @@ public class ArbolDocumentos extends JTree implements Autoscroll
 		if (f.esDirectorio())
 		{
 
-			//creamos el nodo
+			// creamos el nodo
 			MIDocumento nuevo = new MIDocumento();
 
 			if (!f.getRutaLocal().equals("/"))
@@ -371,7 +387,7 @@ public class ArbolDocumentos extends JTree implements Autoscroll
 				return null;
 			}
 
-			//recuperamos el usuario y el rol
+			// recuperamos el usuario y el rol
 			MIUsuario user = ClienteMetaInformacion.cmi
 					.getUsuarioConectado(DConector.Dusuario);
 			MIRol rol = ClienteMetaInformacion.cmi.getRol(DConector.Drol);
@@ -394,9 +410,13 @@ public class ArbolDocumentos extends JTree implements Autoscroll
 
 	/**
 	 * Comprueba si un documento existe en un determinado nodo
-	 * @param n Nodo del arbol en el que buscamos el documento
-	 * @param ruta Path del documento
-	 * @return True si el fichero existe en la ruta especificada. False en caso contrario
+	 * 
+	 * @param n
+	 *            Nodo del arbol en el que buscamos el documento
+	 * @param ruta
+	 *            Path del documento
+	 * @return True si el fichero existe en la ruta especificada. False en caso
+	 *         contrario
 	 */
 	public boolean existeFichero(DefaultMutableTreeNode n, String ruta)
 	{
@@ -422,10 +442,13 @@ public class ArbolDocumentos extends JTree implements Autoscroll
 
 	/**
 	 * Buscar un documento en un nodo determinado
-	 * @param n Nodo del arbol en el que buscamos el documento
-	 * @param ruta Path del documento
-	 * @return Metainformacion del documento si fue encontrado o null
-	 *         si no se pudo encontrar
+	 * 
+	 * @param n
+	 *            Nodo del arbol en el que buscamos el documento
+	 * @param ruta
+	 *            Path del documento
+	 * @return Metainformacion del documento si fue encontrado o null si no se
+	 *         pudo encontrar
 	 */
 	public MIDocumento buscarFichero(DefaultMutableTreeNode n, String ruta)
 	{
@@ -460,7 +483,7 @@ class TreeDragSource implements DragSourceListener, DragGestureListener
 {
 	private DragSource source;
 
-	@SuppressWarnings("unused")
+	@SuppressWarnings( "unused" )
 	private DragGestureRecognizer recognizer;
 
 	private TransferableTreeNode transferable;
@@ -510,7 +533,7 @@ class TreeDragSource implements DragSourceListener, DragGestureListener
 
 	public void dragDropEnd(DragSourceDropEvent dsde)
 	{
-		//System.out.println("Drop Action: " + dsde.getDropAction());
+		// System.out.println("Drop Action: " + dsde.getDropAction());
 		if (dsde.getDropSuccess()
 				&& ( dsde.getDropAction() == DnDConstants.ACTION_MOVE ))
 		{
@@ -628,7 +651,7 @@ class TreeDropTarget implements DropTargetListener
 		DefaultMutableTreeNode parent = (DefaultMutableTreeNode) parentpath
 				.getLastPathComponent();
 
-		// rechazamos que se muevan documentos a cosas que no sean carpetas 
+		// rechazamos que se muevan documentos a cosas que no sean carpetas
 		if (!( (MIDocumento) parent.getUserObject() ).esDirectorio())
 		{
 			dtde.rejectDrop();
@@ -702,7 +725,8 @@ class TransferableTreeNode implements Transferable
 	public static DataFlavor TREE_PATH_FLAVOR = new DataFlavor(TreePath.class,
 			"Tree Path");
 
-	private DataFlavor flavors[] = { TREE_PATH_FLAVOR };
+	private DataFlavor flavors[] =
+	{ TREE_PATH_FLAVOR };
 
 	private TreePath path;
 

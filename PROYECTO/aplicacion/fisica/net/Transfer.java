@@ -8,6 +8,7 @@ import aplicacion.fisica.documentos.Documento;
 
 /**
  * Transfiere un fichero entre dos ordenadores v’a RMI
+ * 
  * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz.
  */
 public class Transfer
@@ -22,25 +23,29 @@ public class Transfer
 
 	/**
 	 * Constructor
-	 * @param ip_orig Direccion IP del ordenador del cual recibiremos o enviaremos el fichero
-	 * @param fich path del fichero a mover
+	 * 
+	 * @param ip_orig
+	 *            Direccion IP del ordenador del cual recibiremos o enviaremos
+	 *            el fichero
+	 * @param fich
+	 *            path del fichero a mover
 	 */
 	public Transfer( String ip_orig, String fich )
 	{
 		path = fich;
 		ip_origen = ip_orig;
 	}
-	
+
 	private static synchronized void setServerExecuted(boolean b)
 	{
 		serverExecuted = b;
 	}
-	
+
 	private static synchronized boolean getServerExecuted()
 	{
 		return serverExecuted;
 	}
-	
+
 	/**
 	 * Inicia el servidor RMI para poder realizar transferencias
 	 */
@@ -59,16 +64,20 @@ public class Transfer
 
 	/**
 	 * Recibe un documento del servidor
-	 * @param forceText Bandera booleana que indica si hay que forzar la conversion a texto
-	 * @return Objeto de tipo @see Documento si todo ha ido correctamente y null en caso contrario
+	 * 
+	 * @param forceText
+	 *            Bandera booleana que indica si hay que forzar la conversion a
+	 *            texto
+	 * @return Objeto de tipo
+	 * @see Documento si todo ha ido correctamente y null en caso contrario
 	 */
 	public Documento receiveDocumento(boolean forceText)
 	{
 		try
 		{
-			TransmisorFicheros ar = (TransmisorFicheros) Naming
-					.lookup("//" + ip_origen + "/TransferenciaFichero");
-			
+			TransmisorFicheros ar = (TransmisorFicheros) Naming.lookup("//"
+					+ ip_origen + "/TransferenciaFichero");
+
 			return ar.getDocument(path, forceText);
 		}
 		catch (Exception ex)
@@ -80,15 +89,17 @@ public class Transfer
 
 	/**
 	 * Envia un documento al servidor
-	 * @param d Documento a enviar
+	 * 
+	 * @param d
+	 *            Documento a enviar
 	 * @return True si todo fue correcto y false en caso contrario
 	 */
 	public boolean sendDocumento(Documento d)
 	{
 		try
 		{
-			TransmisorFicheros ar = (TransmisorFicheros) Naming
-					.lookup("//" + ip_origen + "/TransferenciaFichero");
+			TransmisorFicheros ar = (TransmisorFicheros) Naming.lookup("//"
+					+ ip_origen + "/TransferenciaFichero");
 
 			return ar.sendDocument(d);
 		}
@@ -101,14 +112,15 @@ public class Transfer
 
 	/**
 	 * Recibe los bytes de un fichero desde el servidor
+	 * 
 	 * @return Vector de bytes con el contenido del fichero solicitado
 	 */
 	public byte[] receiveFileBytes()
 	{
 		try
 		{
-			TransmisorFicheros ar = (TransmisorFicheros) Naming
-					.lookup("//" + ip_origen + "/TransferenciaFichero");
+			TransmisorFicheros ar = (TransmisorFicheros) Naming.lookup("//"
+					+ ip_origen + "/TransferenciaFichero");
 
 			return ar.getByteFiles(path);
 		}
@@ -121,15 +133,18 @@ public class Transfer
 
 	/**
 	 * Envia los bytes de un fichero al servidor
-	 * @param datos Vector de bytes con el contenido del fichero
-	 * @return True si la transferencia ha sido correcta. False en caso contrario
+	 * 
+	 * @param datos
+	 *            Vector de bytes con el contenido del fichero
+	 * @return True si la transferencia ha sido correcta. False en caso
+	 *         contrario
 	 */
 	public boolean sendFile(byte[] datos)
 	{
 		try
 		{
-			TransmisorFicheros ar = (TransmisorFicheros) Naming
-					.lookup("//" + ip_origen + "/TransferenciaFichero");
+			TransmisorFicheros ar = (TransmisorFicheros) Naming.lookup("//"
+					+ ip_origen + "/TransferenciaFichero");
 
 			return ar.sendByteFile(datos, path);
 		}
@@ -159,7 +174,7 @@ public class Transfer
 		public void run()
 		{
 			String host = null;
-			
+
 			try
 			{
 				// Se indica a rmiregistry d—nde est‡n las clases.
@@ -176,9 +191,9 @@ public class Transfer
 
 				// Se publica el objeto AccesoMesa
 				host = InetAddress.getLocalHost().getHostName();
-				
+
 				TransmisorFicheros tf = new TransferenciaFichero();
-				Naming.rebind("//"+host+"/TransferenciaFichero", tf);
+				Naming.rebind("//" + host + "/TransferenciaFichero", tf);
 
 				System.out.println("Servicio RMI activo en " + host
 						+ " sobre el puerto " + port);

@@ -38,12 +38,13 @@ import javax.swing.JSplitPane;
 import util.Separador;
 
 /**
- * Clase que permite enviar un mensaje de texto a alguno de los usuarios del sistema
- * @author anab
+ * Dialogo que permite enviar un mensaje de texto a alguno de los usuarios del
+ * sistema
+ * 
+ * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
 public class EnviarMensaje extends JDialog
 {
-
 	private static final long serialVersionUID = 1L;
 
 	private JPanel jContentPane = null;
@@ -54,7 +55,7 @@ public class EnviarMensaje extends JDialog
 
 	private JPanel panelCentro = null;
 
-	private JPanel panelOeste = null;  //  @jve:decl-index=0:visual-constraint="691,207"
+	private JPanel panelOeste = null;
 
 	private JScrollPane jScrollPane = null;
 
@@ -66,8 +67,8 @@ public class EnviarMensaje extends JDialog
 
 	private JTextField destinatario = null;
 
-	private JPanel panelCentral = null;  //  @jve:decl-index=0:visual-constraint="683,69"
-	
+	private JPanel panelCentral = null;
+
 	private String dest = null;
 
 	private JLabel jLabel = null;
@@ -75,9 +76,9 @@ public class EnviarMensaje extends JDialog
 	private JTextField asunto = null;
 
 	private JLabel label = null;
-	
+
 	private MIDocumento mif = null;
-	
+
 	private String asunt = "";
 
 	private JLabel Asunto = null;
@@ -89,33 +90,38 @@ public class EnviarMensaje extends JDialog
 	private JSplitPane split = null;
 
 	private JButton botonAgenda = null;
-	
+
 	private boolean agendaMostrada = true;
 
 	/**
-	 * This is the default constructor
+	 * Constructor
+	 * 
+	 * @param destin
+	 *            Usuario de destino del mensaje
+	 * @param asunto
+	 *            Asunto del mensaje
+	 * @param mensaje
+	 *            Mensaje a enviar
 	 */
-	public EnviarMensaje(String destin, String asunto, String mensaje)
+	public EnviarMensaje( String destin, String asunto, String mensaje )
 	{
 		super();
-		
+
 		dest = destin;
-		
+
 		asunt = asunto;
-		
+
 		initialize();
-		
+
 		area.setText(mensaje);
 	}
 
 	/**
-	 * This method initializes this
-	 * 
-	 * @return void
+	 * Inicializacion de los componentes graficos
 	 */
 	private void initialize()
 	{
-		
+
 		this.setSize(638, 452);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		Dimension frameSize = getSize();
@@ -132,45 +138,37 @@ public class EnviarMensaje extends JDialog
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent e)
 			{
-				Object[] options = {"Salir","Cancelar"};
-				
-				int elecc = JOptionPane.showOptionDialog(null, "El mensaje no ha sido enviado todavía\n¿Realmente desea salir?", "¡Atención!", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,
-					    null,
-					    options,
-					    options[1]);
-				
-				if (elecc == JOptionPane.YES_OPTION)
-					setVisible(false);
+				Object[] options =
+				{ "Salir", "Cancelar" };
+
+				int elecc = JOptionPane
+						.showOptionDialog(
+								null,
+								"El mensaje no ha sido enviado todavía\n¿Realmente desea salir?",
+								"¡Atención!", JOptionPane.YES_NO_OPTION,
+								JOptionPane.QUESTION_MESSAGE, null, options,
+								options[1]);
+
+				if (elecc == JOptionPane.YES_OPTION) setVisible(false);
 			}
 		});
 	}
 
-	/**
-	 * This method initializes jContentPane
-	 * 
-	 * @return javax.swing.JPanel
-	 */
 	private JPanel getJContentPane()
 	{
 		if (jContentPane == null)
 		{
 			BorderLayout borderLayout = new BorderLayout();
-			borderLayout.setHgap(0);  // Generated
-			borderLayout.setVgap(0);  // Generated
+			borderLayout.setHgap(0); // Generated
+			borderLayout.setVgap(0); // Generated
 			jContentPane = new JPanel();
-			jContentPane.setLayout(borderLayout);  // Generated
-			jContentPane.add(getPanelSur(), BorderLayout.NORTH
-					);  // Generated
-			jContentPane.add(getSplit(), BorderLayout.CENTER);  // Generated
+			jContentPane.setLayout(borderLayout); // Generated
+			jContentPane.add(getPanelSur(), BorderLayout.NORTH); // Generated
+			jContentPane.add(getSplit(), BorderLayout.CENTER); // Generated
 		}
 		return jContentPane;
 	}
 
-	/**
-	 * This method initializes panelSur	
-	 * 	
-	 * @return javax.swing.JPanel	
-	 */
 	private JPanel getPanelSur()
 	{
 		if (panelSur == null)
@@ -178,8 +176,8 @@ public class EnviarMensaje extends JDialog
 			try
 			{
 				panelSur = new JPanel();
-				panelSur.setLayout(new BorderLayout());  // Generated
-				panelSur.add(getBarra(), BorderLayout.NORTH);  // Generated
+				panelSur.setLayout(new BorderLayout()); // Generated
+				panelSur.add(getBarra(), BorderLayout.NORTH); // Generated
 			}
 			catch (java.lang.Throwable e)
 			{
@@ -189,11 +187,6 @@ public class EnviarMensaje extends JDialog
 		return panelSur;
 	}
 
-	/**
-	 * This method initializes Enviar	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
 	private JButton getEnviar()
 	{
 		if (Enviar == null)
@@ -201,70 +194,80 @@ public class EnviarMensaje extends JDialog
 			try
 			{
 				Enviar = new JButton();
-				Enviar.setText("Enviar");  // Generated
-				Enviar.setIcon(new ImageIcon("Resources/icon_email.gif"));  // Generated
-				Enviar.setPreferredSize(new Dimension(61, 24));  // Generated
+				Enviar.setText("Enviar"); // Generated
+				Enviar.setIcon(new ImageIcon("Resources/icon_email.gif")); // Generated
+				Enviar.setPreferredSize(new Dimension(61, 24)); // Generated
 				Enviar.setBorderPainted(false);
 				Enviar.addActionListener(new java.awt.event.ActionListener()
 				{
 					public void actionPerformed(java.awt.event.ActionEvent e)
 					{
-						if (destinatario.getText().equals("") || asunto.getText().equals("") || area.getText().equals("")) {
-							JOptionPane.showMessageDialog(null, "¡Quedan campos sin rellenar!");
+						if (destinatario.getText().equals("")
+								|| asunto.getText().equals("")
+								|| area.getText().equals(""))
+						{
+							JOptionPane.showMessageDialog(null,
+									"¡Quedan campos sin rellenar!");
 							return;
 						}
-							
-						
+
 						mif = new MIDocumento();
-						MIDocumento buzon = ClienteFicheros.obtenerClienteFicheros().existeFichero("/Incoming", DConector.Daplicacion);
-						
-						if (buzon == null) {
-							JOptionPane.showMessageDialog(null, "Buzon no encontrado, no se puede enviar el mensjae");
-							 setVisible(false);
-							 mif = null;
+						MIDocumento buzon = ClienteFicheros
+								.obtenerClienteFicheros().existeFichero(
+										"/Incoming", DConector.Daplicacion);
+
+						if (buzon == null)
+						{
+							JOptionPane
+									.showMessageDialog(null,
+											"Buzon no encontrado, no se puede enviar el mensjae");
+							setVisible(false);
+							mif = null;
 							return;
 						}
-						mif.setNombre(getAsunto().getText()+"."+MIDocumento.TIPO_MENSAJE);
+						mif.setNombre(getAsunto().getText() + "."
+								+ MIDocumento.TIPO_MENSAJE);
 						mif.setTipo(MIDocumento.TIPO_MENSAJE);
-						mif.setRutaLocal("/Incoming/" + mif.toString()+"."+MIDocumento.TIPO_MENSAJE);
+						mif.setRutaLocal("/Incoming/" + mif.toString() + "."
+								+ MIDocumento.TIPO_MENSAJE);
 						mif.setId(-1);
 						mif.setPermisos("rw----");
-						
+
 						mif.setPadre(buzon.getId());
-						
-						MIUsuario destino = ClienteMetaInformacion.obtenerCMI().obtenerDatosUsuario(destinatario.getText());//.getUsuario();
-						
-						
-						if (destino == null) {
-							JOptionPane.showMessageDialog(null, "Usuario no existente:  " + arbol.getSelectedValue().toString());
-							 setVisible(false);
-							 mif = null;
+
+						MIUsuario destino = ClienteMetaInformacion.obtenerCMI()
+								.obtenerDatosUsuario(destinatario.getText());// .getUsuario();
+
+						if (destino == null)
+						{
+							JOptionPane.showMessageDialog(null,
+									"Usuario no existente:  "
+											+ arbol.getSelectedValue()
+													.toString());
+							setVisible(false);
+							mif = null;
 							return;
 						}
-						MIRol rol = ClienteMetaInformacion.obtenerCMI().getRol(destino.getRolPorDefecto());
-						mif.setUsuario( destino  );
-						mif.setRol( rol );
-						mif.setMensaje("De: "+DConector.Dusuario+"\n"+
-									   "Asunto: "+getAsunto().getText()+"\n"+
-										"\n"+area.getText());
+						MIRol rol = ClienteMetaInformacion.obtenerCMI().getRol(
+								destino.getRolPorDefecto());
+						mif.setUsuario(destino);
+						mif.setRol(rol);
+						mif.setMensaje("De: " + DConector.Dusuario + "\n"
+								+ "Asunto: " + getAsunto().getText() + "\n"
+								+ "\n" + area.getText());
 						setVisible(false);
-						
+
 					}
 				});
 			}
 			catch (java.lang.Throwable e)
 			{
-				// TODO: Something
+
 			}
 		}
 		return Enviar;
 	}
 
-	/**
-	 * This method initializes panelCentro	
-	 * 	
-	 * @return javax.swing.JPanel	
-	 */
 	private JPanel getPanelCentro()
 	{
 		if (panelCentro == null)
@@ -272,16 +275,22 @@ public class EnviarMensaje extends JDialog
 			try
 			{
 				GridBagConstraints gridBagConstraints2 = new GridBagConstraints();
-				gridBagConstraints2.fill = GridBagConstraints.BOTH;  // Generated
-				gridBagConstraints2.gridy = 0;  // Generated
-				gridBagConstraints2.weightx = 1.0;  // Generated
-				gridBagConstraints2.weighty = 1.0;  // Generated
-				gridBagConstraints2.insets = new Insets(2, 2, 2, 3);  // Generated
-				gridBagConstraints2.gridx = 0;  // Generated
+				gridBagConstraints2.fill = GridBagConstraints.BOTH; // Generated
+				gridBagConstraints2.gridy = 0; // Generated
+				gridBagConstraints2.weightx = 1.0; // Generated
+				gridBagConstraints2.weighty = 1.0; // Generated
+				gridBagConstraints2.insets = new Insets(2, 2, 2, 3); // Generated
+				gridBagConstraints2.gridx = 0; // Generated
 				panelCentro = new JPanel();
-				panelCentro.setLayout(new GridBagLayout());  // Generated
-				panelCentro.setBorder(BorderFactory.createTitledBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.gray), "Mensaje", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Lucida Grande", Font.PLAIN, 13), Color.black));  // Generated
-				panelCentro.add(getJScrollPane(), gridBagConstraints2);  // Generated
+				panelCentro.setLayout(new GridBagLayout()); // Generated
+				panelCentro.setBorder(BorderFactory
+						.createTitledBorder(BorderFactory.createMatteBorder(1,
+								0, 0, 0, Color.gray), "Mensaje",
+								TitledBorder.DEFAULT_JUSTIFICATION,
+								TitledBorder.DEFAULT_POSITION, new Font(
+										"Lucida Grande", Font.PLAIN, 13),
+								Color.black)); // Generated
+				panelCentro.add(getJScrollPane(), gridBagConstraints2); // Generated
 			}
 			catch (java.lang.Throwable e)
 			{
@@ -291,11 +300,6 @@ public class EnviarMensaje extends JDialog
 		return panelCentro;
 	}
 
-	/**
-	 * This method initializes panelOeste	
-	 * 	
-	 * @return javax.swing.JPanel	
-	 */
 	private JPanel getPanelOeste()
 	{
 		if (panelOeste == null)
@@ -303,27 +307,28 @@ public class EnviarMensaje extends JDialog
 			try
 			{
 				BorderLayout borderLayout2 = new BorderLayout();
-				borderLayout2.setHgap(1);  // Generated
-				borderLayout2.setVgap(1);  // Generated
+				borderLayout2.setHgap(1);
+				borderLayout2.setVgap(1);
 				panelOeste = new JPanel();
-				panelOeste.setLayout(borderLayout2);  // Generated
-				panelOeste.setBorder(BorderFactory.createTitledBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.gray), "Agenda", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Lucida Grande", Font.PLAIN, 13), Color.black));  // Generated
-				panelOeste.setPreferredSize(new Dimension(120, 28));  // Generated
-				panelOeste.add(getArbol(), BorderLayout.WEST);  // Generated
+				panelOeste.setLayout(borderLayout2);
+				panelOeste.setBorder(BorderFactory
+						.createTitledBorder(BorderFactory.createMatteBorder(1,
+								0, 0, 0, Color.gray), "Agenda",
+								TitledBorder.DEFAULT_JUSTIFICATION,
+								TitledBorder.DEFAULT_POSITION, new Font(
+										"Lucida Grande", Font.PLAIN, 13),
+								Color.black));
+				panelOeste.setPreferredSize(new Dimension(120, 28));
+				panelOeste.add(getArbol(), BorderLayout.WEST);
 			}
 			catch (java.lang.Throwable e)
 			{
-				// TODO: Something
+
 			}
 		}
 		return panelOeste;
 	}
 
-	/**
-	 * This method initializes jScrollPane	
-	 * 	
-	 * @return javax.swing.JScrollPane	
-	 */
 	private JScrollPane getJScrollPane()
 	{
 		if (jScrollPane == null)
@@ -331,22 +336,18 @@ public class EnviarMensaje extends JDialog
 			try
 			{
 				jScrollPane = new JScrollPane();
-				jScrollPane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));  // Generated
-				jScrollPane.setViewportView(getArea());  // Generated
+				jScrollPane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0,
+						0));
+				jScrollPane.setViewportView(getArea()); 
 			}
 			catch (java.lang.Throwable e)
 			{
-				// TODO: Something
+				
 			}
 		}
 		return jScrollPane;
 	}
 
-	/**
-	 * This method initializes area	
-	 * 	
-	 * @return javax.swing.JTextArea	
-	 */
 	private JTextArea getArea()
 	{
 		if (area == null)
@@ -358,67 +359,64 @@ public class EnviarMensaje extends JDialog
 			}
 			catch (java.lang.Throwable e)
 			{
-				// TODO: Something
+				
 			}
 		}
 		return area;
 	}
 
-	/**
-	 * This method initializes arbol	
-	 * 	
-	 * @return componentes.gui.usuarios.ArbolUsuariosConectadosRol	
-	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	private JList getArbol()
 	{
 		if (arbol == null)
 		{
 			try
 			{
-				Vector v = ClienteMetaInformacion.obtenerCMI().obtenerUsuarios();
+				Vector v = ClienteMetaInformacion.obtenerCMI()
+						.obtenerUsuarios();
 				int seleccionado = -1;
-				for (int i=0; i<v.size(); ++i){
-					if (v.get(i).equals(dest)) {
+				for (int i = 0; i < v.size(); ++i)
+				{
+					if (v.get(i).equals(dest))
+					{
 						seleccionado = i;
 						this.getDestinatario().setText(dest);
 					}
 				}
-				
+
 				arbol = new JList(v);
-				
-				if (seleccionado >= 0)
-					arbol.setSelectedIndex(seleccionado);
-				
-				arbol.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);  // Generated
-				arbol.setToolTipText("Lista de usuarios");  // Generated
-				arbol.setPreferredSize(new Dimension(108, 28));  // Generated
-				arbol.setVisible(true);  // Generated
-				
+
+				if (seleccionado >= 0) arbol.setSelectedIndex(seleccionado);
+
+				arbol.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); 
+				arbol.setToolTipText("Lista de usuarios"); 
+				arbol.setPreferredSize(new Dimension(108, 28)); 
+				arbol.setVisible(true); 
+
 				arbol.setBorder(new LineBorder(Color.GRAY, 1));
-					
-				arbol.addListSelectionListener(new javax.swing.event.ListSelectionListener()
-				{
-					public void valueChanged(javax.swing.event.ListSelectionEvent e)
-					{
-						if (arbol.getSelectedValue() != null)
-							getDestinatario().setText(arbol.getSelectedValue().toString());
-					}
-				});
+
+				arbol
+						.addListSelectionListener(new javax.swing.event.ListSelectionListener()
+						{
+							public void valueChanged(
+									javax.swing.event.ListSelectionEvent e)
+							{
+								if (arbol.getSelectedValue() != null)
+									getDestinatario()
+											.setText(
+													arbol.getSelectedValue()
+															.toString());
+							}
+						});
 			}
 			catch (java.lang.Throwable e)
 			{
-				// TODO: Something
+				
 			}
 		}
 		return arbol;
 	}
 
-	/**
-	 * This method initializes panelNorte	
-	 * 	
-	 * @return javax.swing.JPanel	
-	 */
 	private JPanel getPanelNorte()
 	{
 		if (panelNorte == null)
@@ -426,44 +424,51 @@ public class EnviarMensaje extends JDialog
 			try
 			{
 				GridBagConstraints gridBagConstraints7 = new GridBagConstraints();
-				gridBagConstraints7.gridx = 0;  // Generated
-				gridBagConstraints7.fill = GridBagConstraints.BOTH;  // Generated
-				gridBagConstraints7.insets = new Insets(0, 4, 0, 0);  // Generated
-				gridBagConstraints7.gridy = 1;  // Generated
+				gridBagConstraints7.gridx = 0; // Generated
+				gridBagConstraints7.fill = GridBagConstraints.BOTH; // Generated
+				gridBagConstraints7.insets = new Insets(0, 4, 0, 0); // Generated
+				gridBagConstraints7.gridy = 1; // Generated
 				Asunto = new JLabel();
-				Asunto.setText("Asunto:");  // Generated
-				Asunto.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);  // Generated
+				Asunto.setText("Asunto:"); // Generated
+				Asunto
+						.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT); // Generated
 				GridBagConstraints gridBagConstraints6 = new GridBagConstraints();
-				gridBagConstraints6.gridx = 0;  // Generated
-				gridBagConstraints6.fill = GridBagConstraints.HORIZONTAL;  // Generated
-				gridBagConstraints6.gridy = 1;  // Generated
+				gridBagConstraints6.gridx = 0; // Generated
+				gridBagConstraints6.fill = GridBagConstraints.HORIZONTAL; // Generated
+				gridBagConstraints6.gridy = 1; // Generated
 				GridBagConstraints gridBagConstraints5 = new GridBagConstraints();
-				gridBagConstraints5.gridx = 0;  // Generated
-				gridBagConstraints5.fill = GridBagConstraints.BOTH;  // Generated
-				gridBagConstraints5.insets = new Insets(0, 4, 0, 0);  // Generated
-				gridBagConstraints5.gridy = 0;  // Generated
+				gridBagConstraints5.gridx = 0; // Generated
+				gridBagConstraints5.fill = GridBagConstraints.BOTH; // Generated
+				gridBagConstraints5.insets = new Insets(0, 4, 0, 0); // Generated
+				gridBagConstraints5.gridy = 0; // Generated
 				GridBagConstraints gridBagConstraints4 = new GridBagConstraints();
-				gridBagConstraints4.fill = GridBagConstraints.BOTH;  // Generated
-				gridBagConstraints4.gridy = 1;  // Generated
-				gridBagConstraints4.weightx = 1.0;  // Generated
-				gridBagConstraints4.ipadx = 1;  // Generated
-				gridBagConstraints4.insets = new Insets(3, 10, 2, 2);  // Generated
-				gridBagConstraints4.gridx = 1;  // Generated
+				gridBagConstraints4.fill = GridBagConstraints.BOTH; // Generated
+				gridBagConstraints4.gridy = 1; // Generated
+				gridBagConstraints4.weightx = 1.0; // Generated
+				gridBagConstraints4.ipadx = 1; // Generated
+				gridBagConstraints4.insets = new Insets(3, 10, 2, 2); // Generated
+				gridBagConstraints4.gridx = 1; // Generated
 				GridBagConstraints gridBagConstraints3 = new GridBagConstraints();
-				gridBagConstraints3.fill = GridBagConstraints.BOTH;  // Generated
-				gridBagConstraints3.gridy = 0;  // Generated
-				gridBagConstraints3.weightx = 1.0;  // Generated
-				gridBagConstraints3.ipadx = 1;  // Generated
-				gridBagConstraints3.insets = new Insets(3, 10, 2, 2);  // Generated
-				gridBagConstraints3.gridx = 1;  // Generated
+				gridBagConstraints3.fill = GridBagConstraints.BOTH; // Generated
+				gridBagConstraints3.gridy = 0; // Generated
+				gridBagConstraints3.weightx = 1.0; // Generated
+				gridBagConstraints3.ipadx = 1; // Generated
+				gridBagConstraints3.insets = new Insets(3, 10, 2, 2); // Generated
+				gridBagConstraints3.gridx = 1; // Generated
 				panelNorte = new JPanel();
-				panelNorte.setLayout(new GridBagLayout());  // Generated
-				panelNorte.setBorder(BorderFactory.createTitledBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.gray), "Datos Envío", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Lucida Grande", Font.PLAIN, 13), Color.black));  // Generated
-				panelNorte.add(getDestinatario(), gridBagConstraints3);  // Generated
-				panelNorte.add(getAsunto(), gridBagConstraints4);  // Generated
-				panelNorte.add(getJLabel(), gridBagConstraints5);  // Generated
-				panelNorte.add(Asunto, gridBagConstraints7);  // Generated
-				panelNorte.add(label, gridBagConstraints6);  // Generated
+				panelNorte.setLayout(new GridBagLayout()); // Generated
+				panelNorte.setBorder(BorderFactory
+						.createTitledBorder(BorderFactory.createMatteBorder(1,
+								0, 0, 0, Color.gray), "Datos Envío",
+								TitledBorder.DEFAULT_JUSTIFICATION,
+								TitledBorder.DEFAULT_POSITION, new Font(
+										"Lucida Grande", Font.PLAIN, 13),
+								Color.black)); // Generated
+				panelNorte.add(getDestinatario(), gridBagConstraints3); // Generated
+				panelNorte.add(getAsunto(), gridBagConstraints4); // Generated
+				panelNorte.add(getJLabel(), gridBagConstraints5); // Generated
+				panelNorte.add(Asunto, gridBagConstraints7); // Generated
+				panelNorte.add(label, gridBagConstraints6); // Generated
 			}
 			catch (java.lang.Throwable e)
 			{
@@ -473,11 +478,6 @@ public class EnviarMensaje extends JDialog
 		return panelNorte;
 	}
 
-	/**
-	 * This method initializes destinatario	
-	 * 	
-	 * @return javax.swing.JTextField	
-	 */
 	private JTextField getDestinatario()
 	{
 		if (destinatario == null)
@@ -486,7 +486,7 @@ public class EnviarMensaje extends JDialog
 			{
 				destinatario = new JTextField();
 				destinatario.setBorder(new LineBorder(Color.GRAY, 1));
-				destinatario.setPreferredSize(new Dimension(200, 18));  // Generated
+				destinatario.setPreferredSize(new Dimension(200, 18)); // Generated
 			}
 			catch (java.lang.Throwable e)
 			{
@@ -496,11 +496,6 @@ public class EnviarMensaje extends JDialog
 		return destinatario;
 	}
 
-	/**
-	 * This method initializes panelCentral	
-	 * 	
-	 * @return javax.swing.JPanel	
-	 */
 	private JPanel getPanelCentral()
 	{
 		if (panelCentral == null)
@@ -508,12 +503,12 @@ public class EnviarMensaje extends JDialog
 			try
 			{
 				BorderLayout borderLayout1 = new BorderLayout();
-				borderLayout1.setHgap(2);  // Generated
-				borderLayout1.setVgap(5);  // Generated
+				borderLayout1.setHgap(2); // Generated
+				borderLayout1.setVgap(5); // Generated
 				panelCentral = new JPanel();
-				panelCentral.setLayout(borderLayout1);  // Generated
-				panelCentral.add(getPanelNorte(), BorderLayout.NORTH);  // Generated
-				panelCentral.add(getPanelCentro(), BorderLayout.CENTER);  // Generated
+				panelCentral.setLayout(borderLayout1); // Generated
+				panelCentral.add(getPanelNorte(), BorderLayout.NORTH); // Generated
+				panelCentral.add(getPanelCentro(), BorderLayout.CENTER); // Generated
 			}
 			catch (java.lang.Throwable e)
 			{
@@ -523,11 +518,6 @@ public class EnviarMensaje extends JDialog
 		return panelCentral;
 	}
 
-	/**
-	 * This method initializes jLabel	
-	 * 	
-	 * @return javax.swing.JLabel	
-	 */
 	private JLabel getJLabel()
 	{
 		if (jLabel == null)
@@ -535,8 +525,9 @@ public class EnviarMensaje extends JDialog
 			try
 			{
 				jLabel = new JLabel();
-				jLabel.setText("Destinatario:");  // Generated
-				jLabel.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);  // Generated
+				jLabel.setText("Destinatario:"); // Generated
+				jLabel
+						.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT); // Generated
 			}
 			catch (java.lang.Throwable e)
 			{
@@ -546,12 +537,6 @@ public class EnviarMensaje extends JDialog
 		return jLabel;
 	}
 
-
-	/**
-	 * This method initializes asunto	
-	 * 	
-	 * @return javax.swing.JTextField	
-	 */
 	private JTextField getAsunto()
 	{
 		if (asunto == null)
@@ -559,8 +544,8 @@ public class EnviarMensaje extends JDialog
 			try
 			{
 				asunto = new JTextField(this.asunt);
-				asunto.setBorder(new LineBorder(Color.GRAY, 1));  // Generated
-				asunto.setPreferredSize(new Dimension(200, 18));  // Generated
+				asunto.setBorder(new LineBorder(Color.GRAY, 1)); // Generated
+				asunto.setPreferredSize(new Dimension(200, 18)); // Generated
 			}
 			catch (java.lang.Throwable e)
 			{
@@ -570,25 +555,6 @@ public class EnviarMensaje extends JDialog
 		return asunto;
 	}
 	
-	
-	/**
-	 * Inicia la ventana de mensaje para enviar (o reenviar) un mesjaje
-	 * @param nombre destinatario
-	 * @param asunto asunto del mensaje
-	 * @param mensaje mesaje (si lo hay)
-	 * @return la metainformacion del fichero que hay que enviar
-	 */
-	public static MIDocumento getMensaje(String nombre, String asunto,String mensaje){
-		EnviarMensaje em = new EnviarMensaje(nombre, asunto, mensaje);
-		em.setModal(true);
-		em.setVisible(true);
-		return em.mif;
-	}
-
-	/**
-	 * This method initializes barra	
-	 * @return javax.swing.JToolBar	
-	 */
 	private JToolBar getBarra()
 	{
 		if (barra == null)
@@ -596,14 +562,15 @@ public class EnviarMensaje extends JDialog
 			try
 			{
 				barra = new JToolBar();
-				barra.setFloatable(false);  // Generated
-				barra.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);  // Generated
-				barra.setPreferredSize(new Dimension(69, 32));  // Generated
-				barra.add(getAdjuntar());  // Generated
-				barra.add(getBotonAgenda());  // Generated
+				barra.setFloatable(false); // Generated
+				barra
+						.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT); // Generated
+				barra.setPreferredSize(new Dimension(69, 32)); // Generated
+				barra.add(getAdjuntar()); // Generated
+				barra.add(getBotonAgenda()); // Generated
 				barra.add(new Separador());
-				barra.add(getEnviar());  // Generated
-				
+				barra.add(getEnviar()); // Generated
+
 			}
 			catch (java.lang.Throwable e)
 			{
@@ -613,10 +580,6 @@ public class EnviarMensaje extends JDialog
 		return barra;
 	}
 
-	/**
-	 * This method initializes Adjuntar	
-	 * @return javax.swing.JButton	
-	 */
 	private JButton getAdjuntar()
 	{
 		if (Adjuntar == null)
@@ -624,10 +587,10 @@ public class EnviarMensaje extends JDialog
 			try
 			{
 				Adjuntar = new JButton();
-				Adjuntar.setPreferredSize(new Dimension(61, 24));  // Generated
-				Adjuntar.setIcon(new ImageIcon("Resources/attach.png"));  // Generated
-				Adjuntar.setText("Adjuntar");  // Generated
-				Adjuntar.setBorderPainted(false);  // Generated
+				Adjuntar.setPreferredSize(new Dimension(61, 24)); // Generated
+				Adjuntar.setIcon(new ImageIcon("Resources/attach.png")); // Generated
+				Adjuntar.setText("Adjuntar"); // Generated
+				Adjuntar.setBorderPainted(false); // Generated
 			}
 			catch (java.lang.Throwable e)
 			{
@@ -637,10 +600,6 @@ public class EnviarMensaje extends JDialog
 		return Adjuntar;
 	}
 
-	/**
-	 * This method initializes split	
-	 * @return javax.swing.JSplitPane	
-	 */
 	private JSplitPane getSplit()
 	{
 		if (split == null)
@@ -663,10 +622,6 @@ public class EnviarMensaje extends JDialog
 		return split;
 	}
 
-	/**
-	 * This method initializes botonAgenda	
-	 * @return javax.swing.JButton	
-	 */
 	private JButton getBotonAgenda()
 	{
 		if (botonAgenda == null)
@@ -674,26 +629,30 @@ public class EnviarMensaje extends JDialog
 			try
 			{
 				botonAgenda = new JButton();
-				botonAgenda.setPreferredSize(new Dimension(61, 24));  // Generated
-				botonAgenda.setIcon(new ImageIcon("Resources/book.png"));  // Generated
-				botonAgenda.setText("Ocultar Agenda");  // Generated
-				botonAgenda.setBorderPainted(false);  // Generated
-				botonAgenda.addActionListener(new java.awt.event.ActionListener()
-				{
-					public void actionPerformed(java.awt.event.ActionEvent e)
-					{
-						if (agendaMostrada) {
-							split.setDividerLocation(0);
-							agendaMostrada = false;
-							botonAgenda.setText("Mostrar Agenda");  // Generated
-						}
-						else {
-							split.setDividerLocation(120);
-							agendaMostrada = true;
-							botonAgenda.setText("Ocultar Agenda");  // Generated
-						}
-					}
-				});
+				botonAgenda.setPreferredSize(new Dimension(61, 24)); // Generated
+				botonAgenda.setIcon(new ImageIcon("Resources/book.png")); // Generated
+				botonAgenda.setText("Ocultar Agenda"); // Generated
+				botonAgenda.setBorderPainted(false); // Generated
+				botonAgenda
+						.addActionListener(new java.awt.event.ActionListener()
+						{
+							public void actionPerformed(
+									java.awt.event.ActionEvent e)
+							{
+								if (agendaMostrada)
+								{
+									split.setDividerLocation(0);
+									agendaMostrada = false;
+									botonAgenda.setText("Mostrar Agenda"); // Generated
+								}
+								else
+								{
+									split.setDividerLocation(120);
+									agendaMostrada = true;
+									botonAgenda.setText("Ocultar Agenda"); // Generated
+								}
+							}
+						});
 			}
 			catch (java.lang.Throwable e)
 			{
@@ -703,4 +662,19 @@ public class EnviarMensaje extends JDialog
 		return botonAgenda;
 	}
 
-}  //  @jve:decl-index=0:visual-constraint="10,10"
+	/**
+	 * Crea una ventana de mensaje para su envio o reenvio
+	 * @param nombre Nombre del destinatario del mensaje
+	 * @param asunto Asunto del mensaje
+	 * @param mensaje Mensaje a enviar o reenviar
+	 * @return Metainformacion del mensaje enviado
+	 */
+	public static MIDocumento getMensaje(String nombre, String asunto,
+			String mensaje)
+	{
+		EnviarMensaje em = new EnviarMensaje(nombre, asunto, mensaje);
+		em.setModal(true);
+		em.setVisible(true);
+		return em.mif;
+	}
+}

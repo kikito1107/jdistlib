@@ -7,6 +7,7 @@ import aplicacion.fisica.documentos.Documento;
 
 /**
  * Transfiere documentos entre usuarios
+ * 
  * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
 public class TransferenciaFicheroP2P extends UnicastRemoteObject implements
@@ -18,8 +19,10 @@ public class TransferenciaFicheroP2P extends UnicastRemoteObject implements
 
 	/**
 	 * Constructor
-	 * @param doc Documento a enviar
-	 * @throws RemoteException 
+	 * 
+	 * @param doc
+	 *            Documento a enviar
+	 * @throws RemoteException
 	 */
 	public TransferenciaFicheroP2P( Documento doc ) throws RemoteException
 	{
@@ -29,6 +32,7 @@ public class TransferenciaFicheroP2P extends UnicastRemoteObject implements
 
 	/**
 	 * Devuelve el documento que se desea enviar
+	 * 
 	 * @return Documento que se desea enviar
 	 */
 	public Documento getDocumento()

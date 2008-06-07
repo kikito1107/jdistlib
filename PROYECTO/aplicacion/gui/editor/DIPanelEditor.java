@@ -27,7 +27,6 @@ public class DIPanelEditor extends DComponenteBase
 
 	private JScrollPane jsp = null;
 
-
 	public String getPathDocumento()
 	{
 		return lienzo.getDocumento().getPath();
@@ -35,9 +34,8 @@ public class DIPanelEditor extends DComponenteBase
 
 	public void setPathDocumento(String pathDocumento)
 	{
-		lienzo.getDocumento().setPath(  pathDocumento);
+		lienzo.getDocumento().setPath(pathDocumento);
 	}
-
 
 	/**
 	 * Crea un nuevo objeto de la clase DIPanelDibujo
@@ -48,7 +46,7 @@ public class DIPanelEditor extends DComponenteBase
 	 * @param padre
 	 */
 	public DIPanelEditor( String nombre, boolean conexionDC,
-			DComponenteBase padre, FramePanelDibujo papi)
+			DComponenteBase padre, FramePanelDibujo papi )
 	{
 		super(nombre, conexionDC, padre);
 
@@ -57,7 +55,6 @@ public class DIPanelEditor extends DComponenteBase
 
 		barra = new BarraEstado(lienzo);
 		controles = new ControlesDibujo(lienzo, barra);
-		
 
 		init();
 	}

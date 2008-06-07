@@ -20,8 +20,9 @@ import aplicacion.fisica.documentos.MIDocumento;
 
 /**
  * Filtro de documento para ficheros en formato pdf
+ * 
  * @author carlos
- *
+ * 
  */
 public class PDFFilter implements DocumentFilter
 {
@@ -30,20 +31,24 @@ public class PDFFilter implements DocumentFilter
 	 */
 	public PDFFilter()
 	{
-		 
+
 	}
-	
+
 	/**
 	 * Obtiene un documento interpretado como pdf
-	 * @param path Path del documento a abrir
-	 * @param usuario Nombre del usuario que quiere abrir el documento
-	 * @param rol Rol que desempe–a el usuario
-	 * @return Objeto de la clase @see Documento. Devuelve null si ha ocurrido algun error
+	 * 
+	 * @param path
+	 *            Path del documento a abrir
+	 * @param usuario
+	 *            Nombre del usuario que quiere abrir el documento
+	 * @param rol
+	 *            Rol que desempe–a el usuario
+	 * @return Objeto de la clase
+	 * @see Documento. Devuelve null si ha ocurrido algun error
 	 */
 	public Documento getDocumento(String path, String usuario, String rol)
 	{
-		File file = new File(ServidorFicheros.getDirectorioBase()
-				+ path);
+		File file = new File(ServidorFicheros.getDirectorioBase() + path);
 		RandomAccessFile raf;
 		Documento res = new Documento(usuario, rol);
 
@@ -101,8 +106,11 @@ public class PDFFilter implements DocumentFilter
 
 	/**
 	 * Comprueba si la extension se corresponde con un fichero pdf
-	 * @param extension Extension del tipo de documento a consultar
-	 * @return True si es una extension tipica para un pdf y False en caso contrario
+	 * 
+	 * @param extension
+	 *            Extension del tipo de documento a consultar
+	 * @return True si es una extension tipica para un pdf y False en caso
+	 *         contrario
 	 */
 	public boolean isSupported(String extension)
 	{
@@ -110,5 +118,5 @@ public class PDFFilter implements DocumentFilter
 			return true;
 		else return false;
 	}
-	
+
 }

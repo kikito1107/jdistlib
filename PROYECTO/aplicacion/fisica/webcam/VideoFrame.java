@@ -49,7 +49,10 @@ public class VideoFrame extends JFrame
 
 	/**
 	 * Constructor
-	 * @param ip IP del usuario con el que queremos realizar una videoconferencia
+	 * 
+	 * @param ip
+	 *            IP del usuario con el que queremos realizar una
+	 *            videoconferencia
 	 */
 	public VideoFrame( String ip )
 	{
@@ -61,10 +64,12 @@ public class VideoFrame extends JFrame
 		this.webcamPanel.add(img_remota);
 		this.myWebcam.add(img_local);
 	}
-	
+
 	/**
 	 * Convierte una imagen a una BufferedImage
-	 * @param im Imagen a convertir
+	 * 
+	 * @param im
+	 *            Imagen a convertir
 	 * @return Imagen convertida en una BufferedImage
 	 */
 	private static BufferedImage convert(Image im)
@@ -76,7 +81,7 @@ public class VideoFrame extends JFrame
 		bg.dispose();
 		return bi;
 	}
-	
+
 	/**
 	 * Inicializacion de todos los componentes graficos
 	 */
@@ -220,7 +225,9 @@ public class VideoFrame extends JFrame
 
 	/**
 	 * Accion que se ejecuta al capturar una imagen para guardarla en un fichero
-	 * @param evt Evento recibido
+	 * 
+	 * @param evt
+	 *            Evento recibido
 	 */
 	private void botonCapturaActionPerformed(java.awt.event.ActionEvent evt)
 	{
@@ -241,9 +248,11 @@ public class VideoFrame extends JFrame
 	}
 
 	/**
-	 * Accion ejecutada al iniciar o parar un envio de imagenes
-	 * desde nuestra webcam
-	 * @param evt Evento recibido
+	 * Accion ejecutada al iniciar o parar un envio de imagenes desde nuestra
+	 * webcam
+	 * 
+	 * @param evt
+	 *            Evento recibido
 	 */
 	private void ini_stopActionPerformed(java.awt.event.ActionEvent evt)
 	{
@@ -278,9 +287,11 @@ public class VideoFrame extends JFrame
 	}
 
 	/**
-	 * Evento de raton que permite mover la imagen que esta enviando
-	 * nuestra webcam a traves de la imagen que estamos recibiendo.
-	 * @param evt Evento de raton recibido
+	 * Evento de raton que permite mover la imagen que esta enviando nuestra
+	 * webcam a traves de la imagen que estamos recibiendo.
+	 * 
+	 * @param evt
+	 *            Evento de raton recibido
 	 */
 	private void myWebcamMouseDragged(java.awt.event.MouseEvent evt)
 	{
@@ -347,8 +358,8 @@ public class VideoFrame extends JFrame
 	}
 
 	/**
-	 * Hebra que muestra la imagen que nosotros estamos enviando
-	 * al usuario con el que estamos realizando la videoconferencia.
+	 * Hebra que muestra la imagen que nosotros estamos enviando al usuario con
+	 * el que estamos realizando la videoconferencia.
 	 */
 	private class HebraMiWebcam extends Thread
 	{
@@ -383,8 +394,8 @@ public class VideoFrame extends JFrame
 	}
 
 	/**
-	 * Metodo que muestra esta ventana e inicia todas las hebras necesarias
-	 * para su correcto funcionamiento.
+	 * Metodo que muestra esta ventana e inicia todas las hebras necesarias para
+	 * su correcto funcionamiento.
 	 */
 	public void run()
 	{

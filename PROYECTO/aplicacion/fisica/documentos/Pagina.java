@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 
 /**
  * Clase que representa una pagina de un Documento
+ * 
  * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez.
  */
 public class Pagina implements Serializable
@@ -28,6 +29,7 @@ public class Pagina implements Serializable
 
 	/**
 	 * Devuelve la imagen contenida en la pagina
+	 * 
 	 * @return Imagen que representa una pagina
 	 */
 	public Image getImagen()
@@ -37,7 +39,9 @@ public class Pagina implements Serializable
 
 	/**
 	 * Establece la imagen que representa una pagina
-	 * @param pag Imagen a establecer como pagina
+	 * 
+	 * @param pag
+	 *            Imagen a establecer como pagina
 	 */
 	public void setImagen(Image pag)
 	{
@@ -46,7 +50,9 @@ public class Pagina implements Serializable
 
 	/**
 	 * Establece la imagen que representa una pagina
-	 * @param pag Imagen a establecer como pagina
+	 * 
+	 * @param pag
+	 *            Imagen a establecer como pagina
 	 */
 	public void setImagen(ImageIcon pag)
 	{
@@ -55,7 +61,9 @@ public class Pagina implements Serializable
 
 	/**
 	 * Agrega una anotacion a la pagina
-	 * @param anot Anotacion a agregar
+	 * 
+	 * @param anot
+	 *            Anotacion a agregar
 	 */
 	public void addAnotacion(Anotacion anot)
 	{
@@ -64,7 +72,9 @@ public class Pagina implements Serializable
 
 	/**
 	 * Elimina una anotacion de la pagina
-	 * @param index Posicion de la anotacion a eliminar
+	 * 
+	 * @param index
+	 *            Posicion de la anotacion a eliminar
 	 */
 	public void delAnotacion(int index)
 	{
@@ -73,8 +83,11 @@ public class Pagina implements Serializable
 
 	/**
 	 * Agrega una anotacion a la pagina en una determinada posicion
-	 * @param index Posicion que ocupara la nueva anotacion
-	 * @param anot Anotacion a agregar
+	 * 
+	 * @param index
+	 *            Posicion que ocupara la nueva anotacion
+	 * @param anot
+	 *            Anotacion a agregar
 	 */
 	public void setAnotacion(int index, Anotacion anot)
 	{
@@ -83,7 +96,9 @@ public class Pagina implements Serializable
 
 	/**
 	 * Permite asignar a la pagina un vector con nuevas anotaciones
-	 * @param anot Vector conteniendo las nuevas anotaciones
+	 * 
+	 * @param anot
+	 *            Vector conteniendo las nuevas anotaciones
 	 */
 	public void setAnotaciones(Vector<Anotacion> anot)
 	{
@@ -93,6 +108,7 @@ public class Pagina implements Serializable
 
 	/**
 	 * Devuelve las anotaciones de la pagina
+	 * 
 	 * @return Vector que contiene las anotaciones de la pagina
 	 */
 	public Vector<Anotacion> getAnotaciones()
@@ -102,8 +118,11 @@ public class Pagina implements Serializable
 
 	/**
 	 * Consulta las anotaciones realizadas por un usario en la pagina
-	 * @param usu Usuario del cual queremos consultar las anotaciones 
-	 * @return Vector conteniendo las anotaciones introducidas por el usuario requerido
+	 * 
+	 * @param usu
+	 *            Usuario del cual queremos consultar las anotaciones
+	 * @return Vector conteniendo las anotaciones introducidas por el usuario
+	 *         requerido
 	 */
 	public Vector<Anotacion> getAnotacionesUsuario(String usu)
 	{
@@ -118,7 +137,10 @@ public class Pagina implements Serializable
 
 	/**
 	 * Consulta las anotaciones realizadas en la pagina bajo un determinado rol
-	 * @param rol Rol que desempe–aban los usuarios que realizaron una anotacion en la pagina
+	 * 
+	 * @param rol
+	 *            Rol que desempe–aban los usuarios que realizaron una anotacion
+	 *            en la pagina
 	 * @return Vector conteniendo las anotaciones requeridas
 	 */
 	public Vector<Anotacion> getAnotacionesRol(String rol)

@@ -34,8 +34,8 @@ public class ConectorBDFicheros
 
 	/**
 	 * Inicializaci—n de atributos est‡ticos: Este bloque se ejecutara al
-	 * cargarse las clases de la aplicacion (se ejecutara antes de todo lo demas). 
-	 * Si ocurriera algun error, entonces la aplicacion se cerraria.
+	 * cargarse las clases de la aplicacion (se ejecutara antes de todo lo
+	 * demas). Si ocurriera algun error, entonces la aplicacion se cerraria.
 	 */
 	static
 	{
@@ -119,6 +119,7 @@ public class ConectorBDFicheros
 
 	/**
 	 * Abre una conexion con la Base de Datos
+	 * 
 	 * @return True si la conexion se abrio con exito. False en caso contrario
 	 */
 	public boolean abrir()
@@ -146,7 +147,8 @@ public class ConectorBDFicheros
 	/**
 	 * Ejecuta una consulta del tipo SELECT, que devuelve un objeto ResultSet
 	 * 
-	 * @param comando Expresion para la consulta en SQL
+	 * @param comando
+	 *            Expresion para la consulta en SQL
 	 * @return ResultSet con los resultados obtenidos por la consulta.
 	 */
 	public ResultSet select(String comando)
@@ -189,8 +191,10 @@ public class ConectorBDFicheros
 	 * Ejecuta consultas SQL del tipo INSER, UPDATE o DELETE que no devuelven un
 	 * resultado de consulta
 	 * 
-	 * @param comando Expresion para la consulta en SQL
-	 * @return True si se ha ejecutado la consulta con exito, False en otro caso.
+	 * @param comando
+	 *            Expresion para la consulta en SQL
+	 * @return True si se ha ejecutado la consulta con exito, False en otro
+	 *         caso.
 	 */
 	public boolean update(String comando)
 	{
@@ -217,8 +221,10 @@ public class ConectorBDFicheros
 	 * Ejecuta consultas SQL del tipo DELETE que no devuelven un resultado de
 	 * consulta
 	 * 
-	 * @param comando Expresion de la consulta SQL
-	 * @return True si se ha ejecutado la consulta con exito. False en otro caso.
+	 * @param comando
+	 *            Expresion de la consulta SQL
+	 * @return True si se ha ejecutado la consulta con exito. False en otro
+	 *         caso.
 	 */
 	public boolean delete(String comando)
 	{
@@ -229,8 +235,10 @@ public class ConectorBDFicheros
 	 * Ejecuta consultas SQL del tipo INSERT que no devuelven un resultado de
 	 * consulta
 	 * 
-	 * @param comando Expresion de la consulta SQL
-	 * @return True si se ha ejecutado la consulta con exito. False en otro caso.
+	 * @param comando
+	 *            Expresion de la consulta SQL
+	 * @return True si se ha ejecutado la consulta con exito. False en otro
+	 *         caso.
 	 */
 	public boolean insert(String comando)
 	{
@@ -241,8 +249,10 @@ public class ConectorBDFicheros
 	 * Genera un nuevo id para el campo <b>columna</b> de la tabla de nombre
 	 * <b>tabla</b>
 	 * 
-	 * @param tabla Nombre de la tabla para la que queremos generar un nuevo id
-	 * @param columna Nombre de la columna para la cual queremos generar el nuevo id
+	 * @param tabla
+	 *            Nombre de la tabla para la que queremos generar un nuevo id
+	 * @param columna
+	 *            Nombre de la columna para la cual queremos generar el nuevo id
 	 * @return El nuevo id generado
 	 */
 	public int generaId(String tabla, String columna)

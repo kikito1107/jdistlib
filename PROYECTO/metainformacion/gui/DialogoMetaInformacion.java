@@ -76,13 +76,16 @@ public class DialogoMetaInformacion extends JDialog
 	 * This method initializes this
 	 * 
 	 */
-	private void initialize() {
-		try {
-            this.setContentPane(getContent());  // Generated
-				
+	private void initialize()
+	{
+		try
+		{
+			this.setContentPane(getContent()); // Generated
+
 		}
-		catch (java.lang.Throwable e) {
-			//  Do Something
+		catch (java.lang.Throwable e)
+		{
+			// Do Something
 		}
 	}
 
@@ -108,7 +111,7 @@ public class DialogoMetaInformacion extends JDialog
 
 	private void jbInit() throws Exception
 	{
-		
+
 	}
 
 	public void inicializar(String rol)
@@ -129,9 +132,9 @@ public class DialogoMetaInformacion extends JDialog
 	}
 
 	/**
-	 * This method initializes content	
-	 * 	
-	 * @return javax.swing.JPanel	
+	 * This method initializes content
+	 * 
+	 * @return javax.swing.JPanel
 	 */
 	private JPanel getContent()
 	{
@@ -140,9 +143,9 @@ public class DialogoMetaInformacion extends JDialog
 			try
 			{
 				content = new JPanel();
-				content.setLayout(new BorderLayout());  // Generated
-				content.add(jPanel1, BorderLayout.CENTER);  // Generated
-				content.add(getPanelInferior(), BorderLayout.SOUTH);  // Generated
+				content.setLayout(new BorderLayout()); // Generated
+				content.add(jPanel1, BorderLayout.CENTER); // Generated
+				content.add(getPanelInferior(), BorderLayout.SOUTH); // Generated
 			}
 			catch (java.lang.Throwable e)
 			{
@@ -153,9 +156,9 @@ public class DialogoMetaInformacion extends JDialog
 	}
 
 	/**
-	 * This method initializes panelInferior	
-	 * 	
-	 * @return javax.swing.JPanel	
+	 * This method initializes panelInferior
+	 * 
+	 * @return javax.swing.JPanel
 	 */
 	private JPanel getPanelInferior()
 	{
@@ -164,14 +167,14 @@ public class DialogoMetaInformacion extends JDialog
 			try
 			{
 				GridBagConstraints gridBagConstraints1 = new GridBagConstraints();
-				gridBagConstraints1.gridx = 1;  // Generated
+				gridBagConstraints1.gridx = 1; // Generated
 				GridBagConstraints gridBagConstraints = new GridBagConstraints();
-				gridBagConstraints.gridx = 0;  // Generated
-				gridBagConstraints.gridy = 0;  // Generated
+				gridBagConstraints.gridx = 0; // Generated
+				gridBagConstraints.gridy = 0; // Generated
 				panelInferior = new JPanel();
-				panelInferior.setLayout(new GridBagLayout());  // Generated
-				panelInferior.add(getBotonGuardar(), gridBagConstraints1);  // Generated
-				panelInferior.add(getBotonSalir(), gridBagConstraints);  // Generated
+				panelInferior.setLayout(new GridBagLayout()); // Generated
+				panelInferior.add(getBotonGuardar(), gridBagConstraints1); // Generated
+				panelInferior.add(getBotonSalir(), gridBagConstraints); // Generated
 			}
 			catch (java.lang.Throwable e)
 			{
@@ -182,9 +185,9 @@ public class DialogoMetaInformacion extends JDialog
 	}
 
 	/**
-	 * This method initializes botonGuardar	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes botonGuardar
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getBotonGuardar()
 	{
@@ -193,16 +196,19 @@ public class DialogoMetaInformacion extends JDialog
 			try
 			{
 				botonGuardar = new JButton();
-				botonGuardar.setText("Guardar");  // Generated
-				botonGuardar.setIcon(new ImageIcon("Resources/disk.png"));  // Generated
-				botonGuardar.addActionListener(new java.awt.event.ActionListener()
-				{
-					public void actionPerformed(java.awt.event.ActionEvent e)
-					{
-						ClienteMetaInformacion.obtenerCMI().guardarCambiosBD();
-						setVisible(false);
-					}
-				});
+				botonGuardar.setText("Guardar"); // Generated
+				botonGuardar.setIcon(new ImageIcon("Resources/disk.png")); // Generated
+				botonGuardar
+						.addActionListener(new java.awt.event.ActionListener()
+						{
+							public void actionPerformed(
+									java.awt.event.ActionEvent e)
+							{
+								ClienteMetaInformacion.obtenerCMI()
+										.guardarCambiosBD();
+								setVisible(false);
+							}
+						});
 			}
 			catch (java.lang.Throwable e)
 			{
@@ -213,9 +219,9 @@ public class DialogoMetaInformacion extends JDialog
 	}
 
 	/**
-	 * This method initializes botonSalir	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes botonSalir
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getBotonSalir()
 	{
@@ -224,15 +230,17 @@ public class DialogoMetaInformacion extends JDialog
 			try
 			{
 				botonSalir = new JButton();
-				botonSalir.setText("Salir");  // Generated
-				botonSalir.setIcon(new ImageIcon("Resources/door_open.png"));  // Generated
-				botonSalir.addActionListener(new java.awt.event.ActionListener()
-				{
-					public void actionPerformed(java.awt.event.ActionEvent e)
-					{
-						setVisible(false);
-					}
-				});
+				botonSalir.setText("Salir"); // Generated
+				botonSalir.setIcon(new ImageIcon("Resources/door_open.png")); // Generated
+				botonSalir
+						.addActionListener(new java.awt.event.ActionListener()
+						{
+							public void actionPerformed(
+									java.awt.event.ActionEvent e)
+							{
+								setVisible(false);
+							}
+						});
 			}
 			catch (java.lang.Throwable e)
 			{

@@ -8,6 +8,7 @@ import figuras.Figura;
 
 /**
  * Anotacion realizada sobre una pagina determinada de un documento del sistema
+ * 
  * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
 public class Anotacion implements Serializable
@@ -19,16 +20,20 @@ public class Anotacion implements Serializable
 	private String usuario;
 
 	private String rol;
-	
+
 	private Date fecha = null;
 
 	/**
 	 * Constructor
-	 * @param cont Figura a dibujar en la anotacion.
-	 * @param usuario Usuario que realiza la anotacion
-	 * @param rol Rol bajo el cual el usuario realizo la anotacion
+	 * 
+	 * @param cont
+	 *            Figura a dibujar en la anotacion.
+	 * @param usuario
+	 *            Usuario que realiza la anotacion
+	 * @param rol
+	 *            Rol bajo el cual el usuario realizo la anotacion
 	 */
-	public Anotacion(Figura cont, String usuario, String rol)
+	public Anotacion( Figura cont, String usuario, String rol )
 	{
 		fecha = new Date();
 		contenido = cont;
@@ -38,6 +43,7 @@ public class Anotacion implements Serializable
 
 	/**
 	 * Devuelve la figura a dibujar
+	 * 
 	 * @return Figura a dibujar.
 	 */
 	public Figura getContenido()
@@ -47,6 +53,7 @@ public class Anotacion implements Serializable
 
 	/**
 	 * Accede al usuario que realiza la anotacion
+	 * 
 	 * @return String con el nombre del autor
 	 */
 	public String getUsuario()
@@ -56,6 +63,7 @@ public class Anotacion implements Serializable
 
 	/**
 	 * Accede al rol que desempe–aba el usuario cuando realizo la anotacion
+	 * 
 	 * @return String con el nombre del rol
 	 */
 	public String getRol()
@@ -63,16 +71,17 @@ public class Anotacion implements Serializable
 		return rol;
 	}
 
-
 	/**
 	 * Consulta la fecha y hora en la que fue realizada la anotacion
-	 * @return Cadena con la representaci—n de la fecha en el siguiente formato: dd/MMMMM/yyyy 'a las' hh:mm
+	 * 
+	 * @return Cadena con la representaci—n de la fecha en el siguiente formato:
+	 *         dd/MMMMM/yyyy 'a las' hh:mm
 	 */
 	public String getFecha()
 	{
-		SimpleDateFormat formato = new SimpleDateFormat("dd/MMMMM/yyyy 'a las' hh:mm");
-		
-		
+		SimpleDateFormat formato = new SimpleDateFormat(
+				"dd/MMMMM/yyyy 'a las' hh:mm");
+
 		return formato.format(fecha);
 	}
 }

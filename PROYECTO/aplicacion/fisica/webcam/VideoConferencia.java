@@ -24,9 +24,8 @@ import com.lti.civil.DefaultCaptureSystemFactorySingleton;
 import com.lti.civil.awt.AWTImageConverter;
 
 /**
- * Clase que se encarga de la captura de imagenes desde la webcam
- * y de su envio a traves de RMI al usuario con el que estamos realizando
- * la videoconferencia.
+ * Clase que se encarga de la captura de imagenes desde la webcam y de su envio
+ * a traves de RMI al usuario con el que estamos realizando la videoconferencia.
  * 
  * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz
  */
@@ -42,14 +41,16 @@ public class VideoConferencia
 
 	private static boolean stopped = true;
 
-	@SuppressWarnings("unused")
+	@SuppressWarnings( "unused" )
 	private static ImageIcon image_now = null;
 
 	private static ImageIcon image_now_local = null;
 
 	/**
 	 * Constructor
-	 * @param ip_orig IP del usuario con el que queremos hacer una videoconferencia
+	 * 
+	 * @param ip_orig
+	 *            IP del usuario con el que queremos hacer una videoconferencia
 	 */
 	public VideoConferencia( String ip_orig )
 	{
@@ -59,26 +60,32 @@ public class VideoConferencia
 	/**
 	 * Asigna la direccion IP del usuario con el que queremos realizar la
 	 * videoconferencia.
-	 * @param ip IP del usuario con el que queremos realizar la videoconferencia
+	 * 
+	 * @param ip
+	 *            IP del usuario con el que queremos realizar la
+	 *            videoconferencia
 	 */
 	public void set_ip_origen(String ip)
 	{
 		ip_origen = ip;
 
 	}
-	
+
 	/**
 	 * Permite parar la captura y envio de imagenes de la webcam.
-	 * @param b Indica si queremos parar o no la captura y envio de imagenes
-	 *          de la webcam
+	 * 
+	 * @param b
+	 *            Indica si queremos parar o no la captura y envio de imagenes
+	 *            de la webcam
 	 */
 	public static void setStopped(boolean b)
 	{
 		stopped = b;
 	}
-	
+
 	/**
 	 * Permite obtener la imagen capturada por nuestra webcam
+	 * 
 	 * @return Imagen capturada por nuestra webcam
 	 */
 	public static ImageIcon getImageActualLocal()
@@ -87,8 +94,7 @@ public class VideoConferencia
 	}
 
 	/**
-	 * Establece un servidor RMI para el envio de imagenes de
-	 * la webcam.
+	 * Establece un servidor RMI para el envio de imagenes de la webcam.
 	 */
 	public static void establecerOrigen()
 	{
@@ -104,8 +110,9 @@ public class VideoConferencia
 	}
 
 	/**
-	 * Recibe una imagen del usuario con el que estamos realizando
-	 * la videoconferencia.
+	 * Recibe una imagen del usuario con el que estamos realizando la
+	 * videoconferencia.
+	 * 
 	 * @return Imagen recibida del usuario
 	 */
 	public ImageIcon receive()
@@ -205,27 +212,27 @@ public class VideoConferencia
 		{
 			try
 			{
-				//Definir un sistema de captura
+				// Definir un sistema de captura
 				final CaptureSystemFactory factory = DefaultCaptureSystemFactorySingleton
 						.instance();
 				system = factory.createCaptureSystem();
 				system.init();
-				
-				//establecer el servidor de sockets
+
+				// establecer el servidor de sockets
 				ServerSocket servidor = new ServerSocket(4445);
 				Socket conexion = null;
 				salida = new Vector<ObjectOutputStream>();
-				
-				//iniciar la captura desde la webcam
+
+				// iniciar la captura desde la webcam
 				CaptureStream captureStream = iniciarCaptura();
 
-				//ejecucion del servidor
+				// ejecucion del servidor
 				while (true)
 				{
-					//solo capturar si no hemos parado la captura
+					// solo capturar si no hemos parado la captura
 					if (!stopped)
 					{
-						//si debemos comenzar la captura por primera vez...
+						// si debemos comenzar la captura por primera vez...
 						if (conversacionParada)
 						{
 							captureStream.start();
@@ -236,8 +243,8 @@ public class VideoConferencia
 						salida.add(new ObjectOutputStream(conexion
 								.getOutputStream()));
 					}
-					
-					//si hemos parado la captura...
+
+					// si hemos parado la captura...
 					else
 					{
 
@@ -255,11 +262,12 @@ public class VideoConferencia
 
 		/**
 		 * Permite comenzar a capturar desde la webcam
+		 * 
 		 * @return Flujo de imagenes de la webcam
 		 * @throws IOException
 		 * @throws CaptureException
 		 */
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings( "unchecked" )
 		private CaptureStream iniciarCaptura() throws IOException,
 				CaptureException
 		{

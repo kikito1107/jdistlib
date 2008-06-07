@@ -153,7 +153,7 @@ public class DJList extends ListaElementos
 		t.start();
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public DJListEvent obtenerInfoEstado()
 	{
 		DJListEvent evento = new DJListEvent();
@@ -253,7 +253,7 @@ public class DJList extends ListaElementos
 		return null;
 	}
 
-	@SuppressWarnings("unused")
+	@SuppressWarnings( "unused" )
 	private class Listener implements DJListListener
 	{
 		private int ultimaEnviada = -1;

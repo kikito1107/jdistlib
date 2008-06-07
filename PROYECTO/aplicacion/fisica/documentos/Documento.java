@@ -31,6 +31,7 @@ import aplicacion.fisica.documentos.filtros.TXTFilter;
 
 /**
  * Clase que representa un documento, sus paginas y sus anotaciones.
+ * 
  * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz
  */
 public class Documento implements Serializable, Printable
@@ -50,16 +51,17 @@ public class Documento implements Serializable, Printable
 	private static Vector<DocumentFilter> filtros = new Vector<DocumentFilter>();
 
 	/**
-	 * De forma estatica se agregan los filtros predeterminados para los distintos
-	 * formatos de fichero.
+	 * De forma estatica se agregan los filtros predeterminados para los
+	 * distintos formatos de fichero.
 	 */
-	static {
+	static
+	{
 		Documento.addFilter(new MSGFilter());
 		Documento.addFilter(new ImageFilter());
 		Documento.addFilter(new PDFFilter());
 		Documento.addFilter(new TXTFilter());
 	}
-	
+
 	/**
 	 * Constructor por defecto
 	 */
@@ -67,11 +69,14 @@ public class Documento implements Serializable, Printable
 	{
 
 	}
-	
+
 	/**
 	 * Constructor con parametros
-	 * @param usu Usuario que crea el documento
-	 * @param ro Rol que desempe–a actualmente el usuario que crea el documento
+	 * 
+	 * @param usu
+	 *            Usuario que crea el documento
+	 * @param ro
+	 *            Rol que desempe–a actualmente el usuario que crea el documento
 	 */
 	public Documento( String usu, String ro )
 	{
@@ -81,7 +86,9 @@ public class Documento implements Serializable, Printable
 
 	/**
 	 * Accede a la metainformacion del documento: path, propietario, ...
-	 * @return Objeto de la clase @see MIDocumento con la metainformacion del documento
+	 * 
+	 * @return Objeto de la clase
+	 * @see MIDocumento con la metainformacion del documento
 	 */
 	public MIDocumento getMetainformacion()
 	{
@@ -90,7 +97,10 @@ public class Documento implements Serializable, Printable
 
 	/**
 	 * Actualiza la metainformacion del documento
-	 * @param datosBD Objeto de la clase @see MIDocumento con la nueva metainformacion del documento
+	 * 
+	 * @param datosBD
+	 *            Objeto de la clase
+	 * @see MIDocumento con la nueva metainformacion del documento
 	 */
 	public void setMetainformacion(MIDocumento datosBD)
 	{
@@ -99,8 +109,12 @@ public class Documento implements Serializable, Printable
 
 	/**
 	 * Agrega una nueva pagina al documento
-	 * @param index Posicion de la nueva pagina dentro del documento
-	 * @param o Objeto de la clase @see Pagina con la nueva pagina a insertar
+	 * 
+	 * @param index
+	 *            Posicion de la nueva pagina dentro del documento
+	 * @param o
+	 *            Objeto de la clase
+	 * @see Pagina con la nueva pagina a insertar
 	 */
 	public void insertarPagina(int index, Pagina o)
 	{
@@ -109,8 +123,11 @@ public class Documento implements Serializable, Printable
 
 	/**
 	 * Inserta una imagen en el documento como una nueva pagina
-	 * @param index Posicion de la nueva pagina dentro del documento
-	 * @param o Imagen a insertar como nueva pagina
+	 * 
+	 * @param index
+	 *            Posicion de la nueva pagina dentro del documento
+	 * @param o
+	 *            Imagen a insertar como nueva pagina
 	 */
 	public void insertarPagina(int index, Image o)
 	{
@@ -120,21 +137,23 @@ public class Documento implements Serializable, Printable
 		paginas.insertElementAt(nueva, index);
 	}
 
-	
-
 	/**
 	 * Agrega una nueva pagina al final del documento
-	 * @param pag Objeto de la clase @see Pagina a agregar
+	 * 
+	 * @param pag
+	 *            Objeto de la clase
+	 * @see Pagina a agregar
 	 */
 	public void addPagina(Pagina pag)
 	{
 		paginas.add(pag);
 	}
-	
-	
+
 	/**
 	 * Agrega una imagen como nueva pagina al final del documento
-	 * @param img Imagen a agregar como nueva pagina
+	 * 
+	 * @param img
+	 *            Imagen a agregar como nueva pagina
 	 */
 	public void addPagina(Image img)
 	{
@@ -146,7 +165,9 @@ public class Documento implements Serializable, Printable
 
 	/**
 	 * Agrega una imagen como nueva pagina al final del documento
-	 * @param img Imagen a agregar como nueva pagina
+	 * 
+	 * @param img
+	 *            Imagen a agregar como nueva pagina
 	 */
 	public void addPagina(ImageIcon img)
 	{
@@ -158,7 +179,9 @@ public class Documento implements Serializable, Printable
 
 	/**
 	 * Elimina una pagina del documento
-	 * @param index Numero de pagina a eliminar
+	 * 
+	 * @param index
+	 *            Numero de pagina a eliminar
 	 */
 	public void delPagina(int index)
 	{
@@ -167,7 +190,9 @@ public class Documento implements Serializable, Printable
 
 	/**
 	 * Establece el usuario propietario del documento
-	 * @param us Nombre del usuario propietario del documento
+	 * 
+	 * @param us
+	 *            Nombre del usuario propietario del documento
 	 */
 	public void setUsuario(String us)
 	{
@@ -176,7 +201,10 @@ public class Documento implements Serializable, Printable
 
 	/**
 	 * Establece el rol que desempe–a el usuario propietario del documento
-	 * @param ro Nombre del rol que desempe–a el usuario propietario del documento
+	 * 
+	 * @param ro
+	 *            Nombre del rol que desempe–a el usuario propietario del
+	 *            documento
 	 */
 	public void setRol(String ro)
 	{
@@ -185,6 +213,7 @@ public class Documento implements Serializable, Printable
 
 	/**
 	 * Consulta el numero de paginas del documento
+	 * 
 	 * @return Numero de paginas del documento
 	 */
 	public int getNumeroPaginas()
@@ -194,9 +223,12 @@ public class Documento implements Serializable, Printable
 
 	/**
 	 * Accede a una pagina del documento
-	 * @param index posicion de la pagina
-	 * @return Objeto de la clase @see Pagina con la pagina solicitada. 
-	 * 		   Si la posicion de la pagina no es valida devuelve null.
+	 * 
+	 * @param index
+	 *            posicion de la pagina
+	 * @return Objeto de la clase
+	 * @see Pagina con la pagina solicitada. Si la posicion de la pagina no es
+	 *      valida devuelve null.
 	 */
 	public Pagina getPagina(int index)
 	{
@@ -207,6 +239,7 @@ public class Documento implements Serializable, Printable
 
 	/**
 	 * Obtiene el usuario propietario del documento
+	 * 
 	 * @return Nombre del usuario propietario del documento
 	 */
 	public String getUsuario()
@@ -216,6 +249,7 @@ public class Documento implements Serializable, Printable
 
 	/**
 	 * Obtiene el rol que desempe–a el propietario del documento
+	 * 
 	 * @return Nombre del rol que desempe–a el propietario del documento
 	 */
 	public String getRol()
@@ -225,19 +259,24 @@ public class Documento implements Serializable, Printable
 
 	/**
 	 * Agrega un filtro para interpretar nuevos tipos de ficheros
-	 * @param flt Filtro nuevo a agregar
+	 * 
+	 * @param flt
+	 *            Filtro nuevo a agregar
 	 */
 	public static void addFilter(DocumentFilter flt)
 	{
 		filtros.add(flt);
 	}
-	
+
 	/**
 	 * Comprueba si el tipo de un documento es soportado
-	 * @param path Path del fichero a comprobar
+	 * 
+	 * @param path
+	 *            Path del fichero a comprobar
 	 * @return True si el tipo es soportado y False en caso contrario
 	 */
-	public static boolean isSupported(String path){
+	public static boolean isSupported(String path)
+	{
 
 		int ind_ext = path.lastIndexOf(".");
 
@@ -247,19 +286,23 @@ public class Documento implements Serializable, Printable
 
 		// comprobar si es fichero soportado
 		for (int i = 0; i < filtros.size(); i++)
-			if (filtros.get(i).isSupported(sub))
-				return true;
-		
+			if (filtros.get(i).isSupported(sub)) return true;
+
 		return false;
 	}
 
 	/**
 	 * Abre un fichero y lo devuelve en forma de objeto de esta clase
-	 * @param path Path del documento a abrir
-	 * @param usuario Usuario que desea abrir el documento
-	 * @param rol Rol que desempe–a actualmente el usuario que desea abrir el documento
-	 * @return Objeto de esta clase con los contenidos del documento a abrir. 
-	 * 		   Devuelve null si ha ocurrido algun error.
+	 * 
+	 * @param path
+	 *            Path del documento a abrir
+	 * @param usuario
+	 *            Usuario que desea abrir el documento
+	 * @param rol
+	 *            Rol que desempe–a actualmente el usuario que desea abrir el
+	 *            documento
+	 * @return Objeto de esta clase con los contenidos del documento a abrir.
+	 *         Devuelve null si ha ocurrido algun error.
 	 */
 	@SuppressWarnings( "unchecked" )
 	public static Documento openDocument(String path, String usuario, String rol)
@@ -280,7 +323,8 @@ public class Documento implements Serializable, Printable
 		// comprobar si el fichero .anot existe
 		if (doc != null)
 		{
-			File f = new File(ServidorFicheros.getDirectorioBase()+ path + ".anot");
+			File f = new File(ServidorFicheros.getDirectorioBase() + path
+					+ ".anot");
 			if (f.exists())
 				try
 				{
@@ -311,13 +355,18 @@ public class Documento implements Serializable, Printable
 
 	/**
 	 * Guarda el documento
-	 * @param doc Documento a guardar
-	 * @param path_original Path en el que guardar el documento
-	 * @return True si el documento ha sido guardado con exito y False en caso contrario
+	 * 
+	 * @param doc
+	 *            Documento a guardar
+	 * @param path_original
+	 *            Path en el que guardar el documento
+	 * @return True si el documento ha sido guardado con exito y False en caso
+	 *         contrario
 	 */
 	public static boolean saveDocument(Documento doc, String path_original)
 	{
-		File f = new File(ServidorFicheros.getDirectorioBase() + path_original + ".anot");
+		File f = new File(ServidorFicheros.getDirectorioBase() + path_original
+				+ ".anot");
 
 		try
 		{
@@ -342,6 +391,7 @@ public class Documento implements Serializable, Printable
 
 	/**
 	 * Path del documento
+	 * 
 	 * @return El path del documento
 	 */
 	public String getPath()
@@ -351,14 +401,15 @@ public class Documento implements Serializable, Printable
 
 	/**
 	 * Establece el path del documento
-	 * @param path El path nuevo que tendra el documento actual
+	 * 
+	 * @param path
+	 *            El path nuevo que tendra el documento actual
 	 */
 	public void setPath(String path)
 	{
 		this.path = path;
 	}
-	
-	
+
 	/**
 	 * Imprime el documento actual.
 	 */
@@ -392,7 +443,8 @@ public class Documento implements Serializable, Printable
 		/**
 		 * Inicializa la impresora
 		 * 
-		 * @param nombredoc Nombre del documento a imprimir
+		 * @param nombredoc
+		 *            Nombre del documento a imprimir
 		 * @return True si la inicializaci—n ha sido exitosa. False en caso
 		 *         contrario
 		 */
@@ -432,11 +484,14 @@ public class Documento implements Serializable, Printable
 	/**
 	 * Metodo creado para dar soporte a la interfaz Printable.
 	 * 
-	 *  @param graphics Graficos a imprimir
-	 *  @param pageFormat Formato de cada pagina que se desea imprimir
-	 *  @param pageIndex Pagina que se desea imprimir
-	 *  @return De la interfaz Printable, la constante PAGE_EXISTS si fue todo correcto
-	 *          o NO_SUCH_PAGE si la pagina a imprimir no existe.
+	 * @param graphics
+	 *            Graficos a imprimir
+	 * @param pageFormat
+	 *            Formato de cada pagina que se desea imprimir
+	 * @param pageIndex
+	 *            Pagina que se desea imprimir
+	 * @return De la interfaz Printable, la constante PAGE_EXISTS si fue todo
+	 *         correcto o NO_SUCH_PAGE si la pagina a imprimir no existe.
 	 */
 	public int print(Graphics graphics, PageFormat pageFormat, int pageIndex)
 			throws PrinterException

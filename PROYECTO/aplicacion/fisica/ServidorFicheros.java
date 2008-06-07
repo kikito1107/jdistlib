@@ -49,22 +49,22 @@ public class ServidorFicheros
 	private static long leaseWriteTime = Lease.FOREVER;
 
 	private static long leaseReadTime = Long.MAX_VALUE;
-	
+
 	private static String directorioBase = "data";
 
-	
 	/**
-	 * Devuelve el directorio en el que se almacenan los ficheros y directorios localmente.
-	 * Todas las peticiones a '/' que se hagan al servidor, seran automaticamente redirigidas
-	 * a este directorio fisico.
+	 * Devuelve el directorio en el que se almacenan los ficheros y directorios
+	 * localmente. Todas las peticiones a '/' que se hagan al servidor, seran
+	 * automaticamente redirigidas a este directorio fisico.
 	 * 
-	 * @return Directorio donde se estan almacenando los documentos y directorios del servidor
-	 *         en el ordenador local.
+	 * @return Directorio donde se estan almacenando los documentos y
+	 *         directorios del servidor en el ordenador local.
 	 */
-	public static String getDirectorioBase(){
+	public static String getDirectorioBase()
+	{
 		return directorioBase;
 	}
-	
+
 	/**
 	 * Constructor por defecto
 	 */
@@ -89,27 +89,27 @@ public class ServidorFicheros
 		try
 		{
 			String datos;
-			
+
 			datos = br.readLine();
-			
+
 			String data[] = datos.split(" ");
-			
-			if (data.length != 2){
+
+			if (data.length != 2)
+			{
 				System.err
-				.println("Error en lectura de fichero de configuracion de directorio");
+						.println("Error en lectura de fichero de configuracion de directorio");
 				System.exit(1);
 			}
-			
+
 			directorioBase = data[1];
 		}
 		catch (IOException e)
 		{
 			System.err
-					.println("Error en lectura de fichero: "
-							+ e.getMessage());
+					.println("Error en lectura de fichero: " + e.getMessage());
 			System.exit(2);
 		}
-		
+
 		gestor = new GestorFicherosBD();
 		FrameServFich.println("ServidorFicheros: Almacen de ficheros creado");
 		FrameServFich.println("ServidorFicheros: Localizando JavaSpace");
@@ -140,11 +140,14 @@ public class ServidorFicheros
 		Transfer.establecerServidor();
 	}
 
-
 	/**
-	 * Recupera los ficheros a los que un usuario bajo un determinado rol tiene acceso
-	 * @param usuario Nombre del usuario
-	 * @param rol Nombre del rol que desempe–a el usuario en estos momentos
+	 * Recupera los ficheros a los que un usuario bajo un determinado rol tiene
+	 * acceso
+	 * 
+	 * @param usuario
+	 *            Nombre del usuario
+	 * @param rol
+	 *            Nombre del rol que desempe–a el usuario en estos momentos
 	 * @return Arbol con la estructura de directorios
 	 */
 	private DefaultMutableTreeNode obtenerArbol(String usuario, String rol)
@@ -161,18 +164,22 @@ public class ServidorFicheros
 		return raiz;
 	}
 
-
 	/**
-	 * Agrega un fichero al arbol con la estructura de directorios 
-	 * @param f Documento que se desea agregar
-	 * @param padre Directorio padre que tendra el documento
-	 * @param usuario Usuario propietario del documento
-	 * @param rol Rol con el que el usuario creo el documento
+	 * Agrega un fichero al arbol con la estructura de directorios
+	 * 
+	 * @param f
+	 *            Documento que se desea agregar
+	 * @param padre
+	 *            Directorio padre que tendra el documento
+	 * @param usuario
+	 *            Usuario propietario del documento
+	 * @param rol
+	 *            Rol con el que el usuario creo el documento
 	 */
 	private void agregarFichero(MIDocumento f, DefaultMutableTreeNode padre,
 			String usuario, String rol)
 	{
-	
+
 		// si es una version la ocultamos al usuario
 		if (f.getTipo() != null && f.getTipo().equals("VER")) return;
 
@@ -249,41 +256,41 @@ public class ServidorFicheros
 								.println("Leido evento insercion nuevo fichero");
 
 						if (gestor == null) gestor = new GestorFicherosBD();
-						
+
 						DFileEvent evt = (DFileEvent) leido;
 
-						if (evt.fichero.esDirectorio()) {
-							File f = new File(directorioBase+evt.fichero.getRutaLocal());
+						if (evt.fichero.esDirectorio())
+						{
+							File f = new File(directorioBase
+									+ evt.fichero.getRutaLocal());
 							f.mkdir();
 							System.err.println("Carpeta creada");
 						}
-						
+
 						MIDocumento res = gestor
 								.insertarNuevoFichero(evt.fichero);
-						
-						
- 						
-							DFileEvent nuevo = new DFileEvent();
-	
-							nuevo.tipo = new Integer(
-									DFileEvent.RESPUESTA_INSERTAR_FICHERO);
-							nuevo.origen = new Integer(30);
-							nuevo.destino = new Integer(31);
-							nuevo.aplicacion = new String(leido.aplicacion);
-							nuevo.fichero = res;
-							
-							if (res != null)
-								nuevo.res = new Boolean(true);
-							else
-								nuevo.res = new Boolean(false);
-							
-							colaEnvio.nuevoEvento(nuevo);
+
+						DFileEvent nuevo = new DFileEvent();
+
+						nuevo.tipo = new Integer(
+								DFileEvent.RESPUESTA_INSERTAR_FICHERO);
+						nuevo.origen = new Integer(30);
+						nuevo.destino = new Integer(31);
+						nuevo.aplicacion = new String(leido.aplicacion);
+						nuevo.fichero = res;
+
+						if (res != null)
+							nuevo.res = new Boolean(true);
+						else nuevo.res = new Boolean(false);
+
+						colaEnvio.nuevoEvento(nuevo);
 
 					}
 					else if (leido.tipo.intValue() == DFileEvent.NOTIFICAR_ELIMINAR_FICHERO
 							.intValue())
 					{
-						FrameServFich.println("Leido evento eliminacion  fichero");
+						FrameServFich
+								.println("Leido evento eliminacion  fichero");
 
 						if (gestor == null) gestor = new GestorFicherosBD();
 
@@ -294,15 +301,17 @@ public class ServidorFicheros
 
 						FrameServFich.println("Fichero a borrar: " + path);
 
-						File f = new File(directorioBase+path);
-						
-						
-						if (!( (DFileEvent) leido ).fichero.esDirectorio()) {
-							File fAnot = new File(directorioBase + path + ".anot");
-							
+						File f = new File(directorioBase + path);
+
+						if (!( (DFileEvent) leido ).fichero.esDirectorio())
+						{
+							File fAnot = new File(directorioBase + path
+									+ ".anot");
+
 							if (fAnot.exists() && !fAnot.delete())
-								System.err.println("Error borrando el archivo de anotaciones: "
-										+ path);
+								System.err
+										.println("Error borrando el archivo de anotaciones: "
+												+ path);
 						}
 
 						if (!f.delete())
@@ -324,9 +333,9 @@ public class ServidorFicheros
 						String old = gestor.buscarFichero(id).getRutaLocal();
 						String new_ = ( (DFileEvent) leido ).fichero
 								.getRutaLocal();
-						File f = new File(directorioBase+old);
+						File f = new File(directorioBase + old);
 
-						File f2 = new File(directorioBase+new_);
+						File f2 = new File(directorioBase + new_);
 
 						System.err.println("Ruta local: " + old);
 						System.err.println("Ruta nueva " + new_);
@@ -336,8 +345,8 @@ public class ServidorFicheros
 						else
 						{
 
-							f = new File(directorioBase+old + ".anot");
-							f2 = new File(directorioBase+new_ + ".anot");
+							f = new File(directorioBase + old + ".anot");
+							f2 = new File(directorioBase + new_ + ".anot");
 
 							if (!f.renameTo(f2))
 								System.err
@@ -348,36 +357,38 @@ public class ServidorFicheros
 						}
 						gestor.modificarFichero(( (DFileEvent) leido ).fichero);
 					}
-					
+
 					else if (leido.tipo.intValue() == DFileEvent.EXISTE_FICHERO
 							.intValue())
 					{
-						System.err
-								.println("Leida solicitud info fichero");
+						System.err.println("Leida solicitud info fichero");
 
 						if (gestor == null) gestor = new GestorFicherosBD();
-						
+
 						// cambiar el nombre del fichero
-						MIDocumento f = gestor.buscarFicheroPath(( (DFileEvent) leido ).path);
-						
+						MIDocumento f = gestor
+								.buscarFicheroPath(( (DFileEvent) leido ).path);
+
 						DFileEvent nuevo = new DFileEvent();
-						
+
 						nuevo.tipo = new Integer(
 								DFileEvent.RESPUESTA_EXISTE_FICHERO);
 						nuevo.origen = new Integer(30);
 						nuevo.destino = new Integer(31);
 						nuevo.aplicacion = new String(leido.aplicacion);
 						nuevo.fichero = f;
-						
-						if (f.getId() == -100) {
+
+						if (f.getId() == -100)
+						{
 							System.err.println("El fichero no existe");
 							nuevo.res = new Boolean(false);
 						}
-						else {
+						else
+						{
 							System.err.println("El fichero existe");
 							nuevo.res = new Boolean(true);
 						}
-						
+
 						colaEnvio.nuevoEvento(nuevo);
 					}
 

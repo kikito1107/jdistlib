@@ -56,6 +56,7 @@ import componentes.gui.usuarios.ArbolUsuariosConectadosRol;
 
 /**
  * Panel de la ventana de la aplicacion principal
+ * 
  * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
 public class PanelPrincipal extends DComponenteBase
@@ -75,7 +76,7 @@ public class PanelPrincipal extends DComponenteBase
 	private JButton editarUsuario = null;
 
 	private JButton iniciarChat = null;
-	
+
 	private JButton iniciarVC = null;
 
 	private JButton enviarMensaje = null;
@@ -103,7 +104,7 @@ public class PanelPrincipal extends DComponenteBase
 	private ArbolUsuariosConectadosRol arbolUsuario = null;
 
 	private JButton botonSubir = null;
-	
+
 	private JButton cambiarRol = null;
 
 	private JButton reenviar = null;
@@ -119,20 +120,23 @@ public class PanelPrincipal extends DComponenteBase
 	private JProgressBar barraProgreso = null;
 
 	private MonitorAbrir monitor = null;
-	
-	private VentanaCambiarRol vRol = null;
-	
-	
 
-	// ============= INICIALIZACIÓN  ===========================
+	private VentanaCambiarRol vRol = null;
+
+	// ============= INICIALIZACIÓN ===========================
 
 	/**
 	 * Constructor
-	 * @param nombre Nombre del componente para registrarlo en el servidor
-	 *               de metainformacion.
-	 * @param conexionDC Indicamos si deseamos realizar una conexion directa con DConector
-	 *                   para comprobacion de permisos sobre el componente distribuido
-	 * @param padre Componente padre en el que estara situado este componente
+	 * 
+	 * @param nombre
+	 *            Nombre del componente para registrarlo en el servidor de
+	 *            metainformacion.
+	 * @param conexionDC
+	 *            Indicamos si deseamos realizar una conexion directa con
+	 *            DConector para comprobacion de permisos sobre el componente
+	 *            distribuido
+	 * @param padre
+	 *            Componente padre en el que estara situado este componente
 	 */
 	public PanelPrincipal( String nombre, boolean conexionDC,
 			DComponenteBase padre )
@@ -144,20 +148,20 @@ public class PanelPrincipal extends DComponenteBase
 
 			// dar soporte para documentos
 			BorderLayout b = new BorderLayout();
-			
-			b.setHgap(6);  // Generated
-			b.setVgap(6); 
-			
+
+			b.setHgap(6); // Generated
+			b.setVgap(6);
+
 			JPanel aux = new JPanel(b);
 			aux.add(getPanelLateral(), BorderLayout.WEST);
 			aux.add(getPanelEspacioTrabajo(), BorderLayout.CENTER);
 			BorderLayout borderLayout = new BorderLayout();
-			
-			borderLayout.setHgap(6);  // Generated
-			borderLayout.setVgap(6);  // Generated
-			
+
+			borderLayout.setHgap(6); // Generated
+			borderLayout.setVgap(6); // Generated
+
 			this.setLayout(borderLayout);
-			
+
 			this.add(new JPanel(), BorderLayout.NORTH);
 			this.add(new JPanel(), BorderLayout.EAST);
 			this.add(new JPanel(), BorderLayout.WEST);
@@ -172,19 +176,19 @@ public class PanelPrincipal extends DComponenteBase
 			barr.add(getBarraProgreso(), BorderLayout.CENTER);
 			barr.add(new JPanel(), BorderLayout.EAST);
 			barr.add(new JPanel(), BorderLayout.SOUTH);
-			
+
 			this.add(barr, BorderLayout.SOUTH);
 
 			inicializarEditor();
 			inicializarVRol();
-			
+
 			esto = this;
-			
+
 			monitor = new MonitorAbrir();
-			
+
 			new HebraPlugins();
 			new HebraAbrir();
-			
+
 		}
 		catch (Exception ex)
 		{
@@ -195,7 +199,8 @@ public class PanelPrincipal extends DComponenteBase
 	/**
 	 * Inicializa la ventana de cambio de rol
 	 */
-	private void inicializarVRol(){
+	private void inicializarVRol()
+	{
 		vRol = new VentanaCambiarRol();
 		vRol.setVisible(false);
 		vRol.pack();
@@ -211,7 +216,7 @@ public class PanelPrincipal extends DComponenteBase
 		vRol.setLocation(( screenSize.width - vRolSize.width ) / 2,
 				( screenSize.height - vRolSize.height ) / 2);
 	}
-	
+
 	/**
 	 * Inicia la ventana del editor colaborativo
 	 */
@@ -235,10 +240,10 @@ public class PanelPrincipal extends DComponenteBase
 		if (this.arbolDocumentos != null) this.arbolDocumentos.repaint();
 	}
 
-	
 	// ============= GUI =================================================
 	/**
 	 * Obtiene el panel lateral con la lista de usuarios
+	 * 
 	 * @return El panel ya inicializado
 	 */
 	private JPanel getPanelLateral()
@@ -249,11 +254,13 @@ public class PanelPrincipal extends DComponenteBase
 			jLabel1.setMinimumSize(new Dimension(80, 25));
 			jLabel1.setFont(new Font("Lucida Sans", Font.BOLD, 12));
 			jLabel1.setText("Usuarios");
-			jLabel1.setToolTipText("Lista de los usuarios conectados, organizados por rol");
+			jLabel1
+					.setToolTipText("Lista de los usuarios conectados, organizados por rol");
 			jLabel1.setIcon(new ImageIcon("Resources/group.png"));
 			jLabel = new JLabel();
 			jLabel.setText("Aplicaciones");
-			jLabel.setToolTipText("Lista de las aplicaciones disponibles. Doble Click sobre el nombre para ejecutar");
+			jLabel
+					.setToolTipText("Lista de las aplicaciones disponibles. Doble Click sobre el nombre para ejecutar");
 			jLabel.setFont(new Font("Lucida Sans", Font.BOLD, 12));
 			jLabel.setIcon(new ImageIcon("Resources/bricks.png"));
 			jLabel.setMinimumSize(new Dimension(100, 25));
@@ -261,45 +268,45 @@ public class PanelPrincipal extends DComponenteBase
 
 			panelLateral.setMinimumSize(new Dimension(300, 200));
 			panelLateral.setBorder(new LineBorder(Color.GRAY, 2));
-			
-			
+
 			GridBagConstraints gridBagConstraints4 = new GridBagConstraints();
-			gridBagConstraints4.fill = GridBagConstraints.VERTICAL;  // Generated
-			gridBagConstraints4.gridy = 4;  // Generated
-			gridBagConstraints4.weightx = 1.0;  // Generated
-			gridBagConstraints4.gridx = 0;  // Generated
+			gridBagConstraints4.fill = GridBagConstraints.VERTICAL; // Generated
+			gridBagConstraints4.gridy = 4; // Generated
+			gridBagConstraints4.weightx = 1.0; // Generated
+			gridBagConstraints4.gridx = 0; // Generated
 			GridBagConstraints gridBagConstraints3 = new GridBagConstraints();
-			gridBagConstraints3.fill = GridBagConstraints.BOTH;  // Generated
-			gridBagConstraints3.gridy = 3;  // Generated
-			gridBagConstraints3.weightx = 1.0;  // Generated
-			gridBagConstraints3.weighty = 1.0;  // Generated
-			gridBagConstraints3.gridx = 0;  // Generated
+			gridBagConstraints3.fill = GridBagConstraints.BOTH; // Generated
+			gridBagConstraints3.gridy = 3; // Generated
+			gridBagConstraints3.weightx = 1.0; // Generated
+			gridBagConstraints3.weighty = 1.0; // Generated
+			gridBagConstraints3.gridx = 0; // Generated
 			GridBagConstraints gridBagConstraints2 = new GridBagConstraints();
-			gridBagConstraints2.gridx = 0;  // Generated
-			gridBagConstraints2.gridy = 2;  // Generated
+			gridBagConstraints2.gridx = 0; // Generated
+			gridBagConstraints2.gridy = 2; // Generated
 
 			GridBagConstraints gridBagConstraints1 = new GridBagConstraints();
-			gridBagConstraints1.fill = GridBagConstraints.BOTH;  // Generated
-			gridBagConstraints1.gridy = 1;  // Generated
-			gridBagConstraints1.weightx = 1.0;  // Generated
-			gridBagConstraints1.weighty = 1.0;  // Generated
-			gridBagConstraints1.gridx = 0;  // Generated
+			gridBagConstraints1.fill = GridBagConstraints.BOTH; // Generated
+			gridBagConstraints1.gridy = 1; // Generated
+			gridBagConstraints1.weightx = 1.0; // Generated
+			gridBagConstraints1.weighty = 1.0; // Generated
+			gridBagConstraints1.gridx = 0; // Generated
 			GridBagConstraints gridBagConstraints = new GridBagConstraints();
-			gridBagConstraints.gridx = 0;  // Generated
-			gridBagConstraints.gridy = 0;  // Generated
+			gridBagConstraints.gridx = 0; // Generated
+			gridBagConstraints.gridy = 0; // Generated
 
 			panelLateral.setLayout(new GridBagLayout());
-			panelLateral.add(jLabel, gridBagConstraints);  // Generated
-			panelLateral.add(getListaAplicaciones(), gridBagConstraints1);  // Generated
-			panelLateral.add(jLabel1, gridBagConstraints2);  // Generated
-			panelLateral.add(getArbolUsuario(), gridBagConstraints3);  // Generated
-			panelLateral.add(getHerramientasUsuarios(), gridBagConstraints4);  // Generated
+			panelLateral.add(jLabel, gridBagConstraints); // Generated
+			panelLateral.add(getListaAplicaciones(), gridBagConstraints1); // Generated
+			panelLateral.add(jLabel1, gridBagConstraints2); // Generated
+			panelLateral.add(getArbolUsuario(), gridBagConstraints3); // Generated
+			panelLateral.add(getHerramientasUsuarios(), gridBagConstraints4); // Generated
 		}
 		return panelLateral;
 	}
 
 	/**
 	 * Obtiene el panel con el arbol de documentos
+	 * 
 	 * @return Panel con el arbol de documentos ya inicializado
 	 */
 	private JPanel getPanelEspacioTrabajo()
@@ -316,19 +323,19 @@ public class PanelPrincipal extends DComponenteBase
 			panelEspacioTrabajo.setBorder(new LineBorder(Color.GRAY, 1));
 			panelEspacioTrabajo.add(getHerramientasDocumentos(),
 					BorderLayout.NORTH);
-			
+
 			JScrollPane scrollArbol = new JScrollPane(getArbolDocumentos());
-			
+
 			scrollArbol.setBorder(new LineBorder(Color.GRAY, 1));
-			
-			panelEspacioTrabajo.add(scrollArbol,
-					BorderLayout.CENTER);
+
+			panelEspacioTrabajo.add(scrollArbol, BorderLayout.CENTER);
 		}
 		return panelEspacioTrabajo;
 	}
 
 	/**
 	 * Obtiene la barra de herramientas para los documentos
+	 * 
 	 * @return Barra de herramientas inicializada
 	 */
 	private JToolBar getHerramientasDocumentos()
@@ -355,6 +362,7 @@ public class PanelPrincipal extends DComponenteBase
 
 	/**
 	 * Obtiene la barra de progreso
+	 * 
 	 * @return Barra de progreso correctamente inicializada
 	 */
 	private JProgressBar getBarraProgreso()
@@ -366,7 +374,7 @@ public class PanelPrincipal extends DComponenteBase
 			barraProgreso.setIndeterminate(false);
 
 			barraProgreso.setValue(0);
-			
+
 			barraProgreso.setMaximumSize(new Dimension(20, 200));
 
 			barraProgreso.setForeground(Color.GRAY);
@@ -377,6 +385,7 @@ public class PanelPrincipal extends DComponenteBase
 
 	/**
 	 * Obtiene el boton para agregar una carpeta
+	 * 
 	 * @return Boton para agregar una carpeta ya inicializado
 	 */
 	private JButton getAgregarCarpeta()
@@ -390,9 +399,10 @@ public class PanelPrincipal extends DComponenteBase
 
 			agregarCarpeta
 					.setIcon(new ImageIcon("Resources/nueva_carpeta.png"));
-			
-			agregarCarpeta.setToolTipText("Agrega una carpeta nueva a la carpeta seleccionada");
-			
+
+			agregarCarpeta
+					.setToolTipText("Agrega una carpeta nueva a la carpeta seleccionada");
+
 			agregarCarpeta
 					.addActionListener(new java.awt.event.ActionListener()
 					{
@@ -440,6 +450,7 @@ public class PanelPrincipal extends DComponenteBase
 
 	/**
 	 * Obtiene el boton para descargar un documento
+	 * 
 	 * @return Boton para descargar un documento ya inicializado
 	 */
 	private JButton getBotonDescargar()
@@ -452,8 +463,9 @@ public class PanelPrincipal extends DComponenteBase
 
 			botonDescargar
 					.setIcon(new ImageIcon("Resources/page_white_put.png"));
-			
-			botonDescargar.setToolTipText("Descarga el documento seleccionado de forma local");
+
+			botonDescargar
+					.setToolTipText("Descarga el documento seleccionado de forma local");
 
 			botonDescargar
 					.addActionListener(new java.awt.event.ActionListener()
@@ -470,6 +482,7 @@ public class PanelPrincipal extends DComponenteBase
 
 	/**
 	 * Obtiene el boton para imprimir un documento
+	 * 
 	 * @return Boton para imprimir un documento ya inicializado
 	 */
 	private JButton getBotonImprimirDocumento()
@@ -479,7 +492,8 @@ public class PanelPrincipal extends DComponenteBase
 			botonImprimirDocumento = new JButton();;
 			botonImprimirDocumento.setBorderPainted(false);
 			botonImprimirDocumento.setText("");
-			botonImprimirDocumento.setToolTipText("Imprime el documento seleccionado");
+			botonImprimirDocumento
+					.setToolTipText("Imprime el documento seleccionado");
 
 			botonImprimirDocumento.setIcon(new ImageIcon(
 					"Resources/printer.png"));
@@ -495,10 +509,10 @@ public class PanelPrincipal extends DComponenteBase
 
 		return botonImprimirDocumento;
 	}
-	
-	
+
 	/**
 	 * Obtiene el boton para eliminar un documento
+	 * 
 	 * @return Boton para eliminar un documento ya inicializado
 	 */
 	private JButton getBotonEliminarFichero()
@@ -509,27 +523,29 @@ public class PanelPrincipal extends DComponenteBase
 			botonEliminarFich = new JButton();
 			botonEliminarFich.setText("");
 			botonEliminarFich.setBorderPainted(false);
-			
-			botonEliminarFich.setToolTipText("Eliminar el documento o directorio seleccionado (solo elimina directorios vacios)");
-			
-			botonEliminarFich.setIcon(new ImageIcon("Resources/page_white_delete.png"));
+
+			botonEliminarFich
+					.setToolTipText("Eliminar el documento o directorio seleccionado (solo elimina directorios vacios)");
+
+			botonEliminarFich.setIcon(new ImageIcon(
+					"Resources/page_white_delete.png"));
 			botonEliminarFich
 					.addActionListener(new java.awt.event.ActionListener()
 					{
 						public void actionPerformed(java.awt.event.ActionEvent e)
 						{
-							
-							Object[] options = {"Eliminar", "Cancelar",};
-							
+
+							Object[] options =
+							{ "Eliminar", "Cancelar", };
+
 							int opcion = JOptionPane
 									.showOptionDialog(
 											null,
 											"¿Seguro que desea eliminar el documento o directorio seleccionado?\nEsta acción no podrá se deshecha",
-											"Aviso", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
-										    null,
-										    options,
-										    options[1]);
-							
+											"Aviso", JOptionPane.YES_NO_OPTION,
+											JOptionPane.QUESTION_MESSAGE, null,
+											options, options[1]);
+
 							if (opcion == JOptionPane.YES_OPTION)
 							{
 								MIDocumento f = arbolDocumentos
@@ -544,7 +560,7 @@ public class PanelPrincipal extends DComponenteBase
 											DFileEvent.NOTIFICAR_ELIMINAR_FICHERO
 													.intValue());
 									enviarEvento(evento);
-									
+
 									arbolDocumentos.setSelectionRow(0);
 								}
 
@@ -561,6 +577,7 @@ public class PanelPrincipal extends DComponenteBase
 
 	/**
 	 * Obtiene el boton para obtener informacion de un documento
+	 * 
 	 * @return Boton para obtener informacion de un documento ya inicializado
 	 */
 	private JButton getBotonInfo()
@@ -571,8 +588,9 @@ public class PanelPrincipal extends DComponenteBase
 			botonInfo.setText("");
 			botonInfo.setBorderPainted(false);
 			botonInfo.setIcon(new ImageIcon("Resources/information.png"));
-			botonInfo.setToolTipText("Obtiene la informacion del documento o directorio seleccionado. Permite cambiar los permisos de acceso");
-			
+			botonInfo
+					.setToolTipText("Obtiene la informacion del documento o directorio seleccionado. Permite cambiar los permisos de acceso");
+
 			botonInfo.addActionListener(new java.awt.event.ActionListener()
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
@@ -596,14 +614,14 @@ public class PanelPrincipal extends DComponenteBase
 						if (evento.padre != null) // por si es la raiz
 						{
 							System.err.println("directorio padre: "
-								+ evento.padre.getNombre());
+									+ evento.padre.getNombre());
 
 							evento.tipo = new Integer(
-								DFileEvent.NOTIFICAR_MODIFICACION_FICHERO
-										.intValue());
+									DFileEvent.NOTIFICAR_MODIFICACION_FICHERO
+											.intValue());
 							enviarEvento(evento);
 							ClienteFicheros.obtenerClienteFicheros()
-								.modificarFichero(f, DConector.Daplicacion);
+									.modificarFichero(f, DConector.Daplicacion);
 						}
 					}
 				}
@@ -614,6 +632,7 @@ public class PanelPrincipal extends DComponenteBase
 
 	/**
 	 * Obtiene el boton para abrir un documento
+	 * 
 	 * @return Boton para abrir un documento ya inicializado
 	 */
 	private JButton getBotonAbrirDoc()
@@ -625,8 +644,9 @@ public class PanelPrincipal extends DComponenteBase
 			botonAbrirDoc.setIcon(new ImageIcon(
 					"Resources/folder_page_white.png"));
 
-			botonAbrirDoc.setToolTipText("Abre el documento seleccionado para visualizarlo o anotar sobre el");
-			
+			botonAbrirDoc
+					.setToolTipText("Abre el documento seleccionado para visualizarlo o anotar sobre el");
+
 			botonAbrirDoc.setBorderPainted(false);
 			botonAbrirDoc.addActionListener(new java.awt.event.ActionListener()
 			{
@@ -639,9 +659,9 @@ public class PanelPrincipal extends DComponenteBase
 		return botonAbrirDoc;
 	}
 
-	
 	/**
 	 * Obtiene el boton para cambiar de rol
+	 * 
 	 * @return Boton para cambiar de rol ya inicializado
 	 */
 	private JButton getBotonCambiarRol()
@@ -650,12 +670,11 @@ public class PanelPrincipal extends DComponenteBase
 		{
 			cambiarRol = new JButton();
 
-			cambiarRol.setIcon(new ImageIcon(
-					"Resources/user_edit.png"));
+			cambiarRol.setIcon(new ImageIcon("Resources/user_edit.png"));
 
 			cambiarRol.setBorderPainted(false);
 			cambiarRol.setToolTipText("Cambiar el rol actual");
-			
+
 			cambiarRol.addActionListener(new java.awt.event.ActionListener()
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
@@ -664,12 +683,11 @@ public class PanelPrincipal extends DComponenteBase
 
 				}
 
-
 			});
 		}
 		return cambiarRol;
 	}
-	
+
 	/**
 	 * Muestra la ventana de cambio de rol
 	 */
@@ -677,10 +695,10 @@ public class PanelPrincipal extends DComponenteBase
 	{
 		vRol.setVisible(true);
 	}
-	
-	
+
 	/**
 	 * Obtiene el arbol de documentos
+	 * 
 	 * @return Arbol de documentos ya inicializado
 	 */
 	private JTree getArbolDocumentos()
@@ -690,7 +708,7 @@ public class PanelPrincipal extends DComponenteBase
 			arbolDocumentos = new ArbolDocumentos(DConector.raiz);
 
 			arbolDocumentos.setFont(fuente);
-			
+
 			arbolDocumentos.setSelectionRow(0);
 
 			arbolDocumentos.addMouseListener(new java.awt.event.MouseAdapter()
@@ -707,6 +725,7 @@ public class PanelPrincipal extends DComponenteBase
 
 	/**
 	 * Obtiene el boton para editar usuarios
+	 * 
 	 * @return Boton para editar el sistema ya inicializado
 	 */
 	private JButton getEditarUsuario()
@@ -716,7 +735,8 @@ public class PanelPrincipal extends DComponenteBase
 			editarUsuario = new JButton();
 			editarUsuario.setIcon(new ImageIcon("Resources/group_gear.png"));
 			editarUsuario.setBorderPainted(false);
-			editarUsuario.setToolTipText("Edita la informacion del sistema sobre usuarios, roles y permisos sobre componentes. Solo para administradores");
+			editarUsuario
+					.setToolTipText("Edita la informacion del sistema sobre usuarios, roles y permisos sobre componentes. Solo para administradores");
 
 			if (!ClienteMetaInformacion.obtenerCMI().permisosAdministracion())
 			{
@@ -742,6 +762,7 @@ public class PanelPrincipal extends DComponenteBase
 
 	/**
 	 * Obtiene la barra de herramientas para los usuarios
+	 * 
 	 * @return Barra de herramientas para los usuarios ya inicializada
 	 */
 	private JToolBar getHerramientasUsuarios()
@@ -749,7 +770,7 @@ public class PanelPrincipal extends DComponenteBase
 		if (herramientasUsuarios == null)
 		{
 			herramientasUsuarios = new JToolBar();
-			//herramientasUsuarios.setBorder(new LineBorder(Color.GRAY, 1));
+			// herramientasUsuarios.setBorder(new LineBorder(Color.GRAY, 1));
 			herramientasUsuarios.setSize(new Dimension(183, 32));
 			herramientasUsuarios.setLocation(new Point(3, 364));
 
@@ -758,18 +779,21 @@ public class PanelPrincipal extends DComponenteBase
 			s1.setMinimumSize(new Dimension(20, 15));
 			s2.setMinimumSize(new Dimension(20, 15));
 			herramientasUsuarios.setFloatable(false);
-			herramientasUsuarios.add(getEditarUsuario()); //edicion de usuarios
-			herramientasUsuarios.add(this.getBotonCambiarRol()); //cambio de rol
-			herramientasUsuarios.add(s1); //separador
-			herramientasUsuarios.add(getIniciarChat()); //chat entre usuarios
-			herramientasUsuarios.add(getEnviarMensaje()); //envio de mensajes
-			herramientasUsuarios.add( this.getIniciarVC()); //videoconferencia
+			herramientasUsuarios.add(getEditarUsuario()); // edicion de
+															// usuarios
+			herramientasUsuarios.add(this.getBotonCambiarRol()); // cambio de
+																	// rol
+			herramientasUsuarios.add(s1); // separador
+			herramientasUsuarios.add(getIniciarChat()); // chat entre usuarios
+			herramientasUsuarios.add(getEnviarMensaje()); // envio de mensajes
+			herramientasUsuarios.add(this.getIniciarVC()); // videoconferencia
 		}
 		return herramientasUsuarios;
 	}
 
 	/**
 	 * Obtiene el arbol de usuarios conectados
+	 * 
 	 * @return Arbol de usuarios conectados ya inicializado
 	 */
 	private ArbolUsuariosConectadosRol getArbolUsuario()
@@ -784,6 +808,7 @@ public class PanelPrincipal extends DComponenteBase
 
 	/**
 	 * Obtiene el boton para iniciar un chat entre usuarios
+	 * 
 	 * @return Boton para iniciar un chat ya inicializado
 	 */
 	private JButton getIniciarChat()
@@ -793,14 +818,16 @@ public class PanelPrincipal extends DComponenteBase
 			iniciarChat = new JButton();
 			iniciarChat.setIcon(new ImageIcon("Resources/comment.gif"));
 			iniciarChat.setBorderPainted(false);
-			iniciarChat.setToolTipText("Inicia un chat privado con el usuario seleccionado");
+			iniciarChat
+					.setToolTipText("Inicia un chat privado con el usuario seleccionado");
 
 			iniciarChat.addActionListener(new java.awt.event.ActionListener()
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
 					for (int i = 0; i < PluginContainer.numPlugins(); ++i)
-						if (PluginContainer.getPlugin(i).getName().equals("Chat"))
+						if (PluginContainer.getPlugin(i).getName().equals(
+								"Chat"))
 						{
 
 							System.out.println("Encontrado plugin chat");
@@ -817,16 +844,20 @@ public class PanelPrincipal extends DComponenteBase
 								evento.receptores.add(usuario);
 								evento.mensaje = "Solicita una nueva conversación";
 
-								PluginContainer.getPlugin(i).enviarEvento(evento);
+								PluginContainer.getPlugin(i).enviarEvento(
+										evento);
 							}
 							else if (usuario == null)
 							{
-								JOptionPane.showMessageDialog(null, "Debe seleccionar el usuario con el que mantener la conversacion");
+								JOptionPane
+										.showMessageDialog(null,
+												"Debe seleccionar el usuario con el que mantener la conversacion");
 							}
 							else if (usuario.equals(DConector.Dusuario))
 							{
-								JOptionPane.showMessageDialog(null,
-								"No puedes mantener una conversación contigo mismo");
+								JOptionPane
+										.showMessageDialog(null,
+												"No puedes mantener una conversación contigo mismo");
 							}
 						}
 
@@ -835,9 +866,10 @@ public class PanelPrincipal extends DComponenteBase
 		}
 		return iniciarChat;
 	}
-	
+
 	/**
 	 * Obtiene el boton para iniciar una videoconferencia entre usuarios
+	 * 
 	 * @return Boton para iniciar una videoconferencia ya inicializado
 	 */
 	private JButton getIniciarVC()
@@ -847,14 +879,16 @@ public class PanelPrincipal extends DComponenteBase
 			iniciarVC = new JButton();
 			iniciarVC.setIcon(new ImageIcon("Resources/webcam.png"));
 			iniciarVC.setBorderPainted(false);
-			iniciarVC.setToolTipText("Inicia un chat privado con el usuario seleccionado");
+			iniciarVC
+					.setToolTipText("Inicia un chat privado con el usuario seleccionado");
 
 			iniciarVC.addActionListener(new java.awt.event.ActionListener()
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
 					for (int i = 0; i < PluginContainer.numPlugins(); ++i)
-						if (PluginContainer.getPlugin(i).getName().equals("Chat"))
+						if (PluginContainer.getPlugin(i).getName().equals(
+								"Chat"))
 						{
 
 							String usuario = arbolUsuario
@@ -864,9 +898,9 @@ public class PanelPrincipal extends DComponenteBase
 									&& !usuario.equals(DConector.Dusuario))
 							{
 								DJChatEvent evento = new DJChatEvent();
-			
+
 								evento.receptores.add(usuario);
-								
+
 								evento.tipo = new Integer(
 										DJChatEvent.INICIAR_VC.intValue());
 								try
@@ -876,7 +910,8 @@ public class PanelPrincipal extends DComponenteBase
 
 									evento.mensaje = "Solicita una nueva conversación";
 
-									PluginContainer.getPlugin(i).enviarEvento(evento);
+									PluginContainer.getPlugin(i).enviarEvento(
+											evento);
 
 								}
 								catch (UnknownHostException e1)
@@ -886,17 +921,19 @@ public class PanelPrincipal extends DComponenteBase
 													"Ha ocurrido un error en la comunicación. Inténtelo más tarde");
 									return;
 								}
-								
-								
+
 							}
 							else if (usuario == null)
 							{
-								JOptionPane.showMessageDialog(null, "Debe seleccionar el usuario con el que mantener la conversacion");
+								JOptionPane
+										.showMessageDialog(null,
+												"Debe seleccionar el usuario con el que mantener la conversacion");
 							}
 							else if (usuario.equals(DConector.Dusuario))
 							{
-								JOptionPane.showMessageDialog(null,
-								"No puedes mantener una conversación contigo mismo");
+								JOptionPane
+										.showMessageDialog(null,
+												"No puedes mantener una conversación contigo mismo");
 							}
 						}
 
@@ -908,6 +945,7 @@ public class PanelPrincipal extends DComponenteBase
 
 	/**
 	 * Obtiene el boton para enviar mensajes entre usuarios
+	 * 
 	 * @return Boton para enviar mensajes ya inicializado
 	 */
 	private JButton getEnviarMensaje()
@@ -917,7 +955,8 @@ public class PanelPrincipal extends DComponenteBase
 			enviarMensaje = new JButton();
 			enviarMensaje.setIcon(new ImageIcon("Resources/icon_email.gif"));
 			enviarMensaje.setBorderPainted(false);
-			enviarMensaje.setToolTipText("Envia un mensaje a un usuario para que lo lea la proxima vez que se conecte");
+			enviarMensaje
+					.setToolTipText("Envia un mensaje a un usuario para que lo lea la proxima vez que se conecte");
 
 			enviarMensaje.addActionListener(new java.awt.event.ActionListener()
 			{
@@ -939,6 +978,7 @@ public class PanelPrincipal extends DComponenteBase
 
 	/**
 	 * Obtiene el boton para subir documentos
+	 * 
 	 * @return Boton para subir documentos ya inicializado
 	 */
 	private JButton getButonSubir()
@@ -948,7 +988,8 @@ public class PanelPrincipal extends DComponenteBase
 			botonSubir = new JButton();;
 			botonSubir.setBorderPainted(false);
 			botonSubir.setText("");
-			botonSubir.setToolTipText("Sube un fichero local para compartirlo con el resto de usuarios");
+			botonSubir
+					.setToolTipText("Sube un fichero local para compartirlo con el resto de usuarios");
 
 			botonSubir.setIcon(new ImageIcon("Resources/subir_documento.png"));
 			botonSubir.addActionListener(new java.awt.event.ActionListener()
@@ -964,6 +1005,7 @@ public class PanelPrincipal extends DComponenteBase
 
 	/**
 	 * Obtiene el boton para reenviar mensajes
+	 * 
 	 * @return Boton para reenviar mensajes ya inicializado
 	 */
 	private JButton getReenviar()
@@ -1042,22 +1084,24 @@ public class PanelPrincipal extends DComponenteBase
 
 		while (anterior != null)
 		{
-			// si no tenemos permisos de escritura sobre el documento no podemos sobrescribirlo
-			if (!anterior.comprobarPermisos(DConector.Dusuario, DConector.Drol, MIDocumento.PERMISO_ESCRITURA) ) {
-				JOptionPane.showMessageDialog(null, "No tiene suficientes privilegios para subir ese documento");
+			// si no tenemos permisos de escritura sobre el documento no podemos
+			// sobrescribirlo
+			if (!anterior.comprobarPermisos(DConector.Dusuario, DConector.Drol,
+					MIDocumento.PERMISO_ESCRITURA))
+			{
+				JOptionPane
+						.showMessageDialog(null,
+								"No tiene suficientes privilegios para subir ese documento");
 				return;
 			}
-			
 
-			Object[] options = {"Sobreescribir", "Renombrar", "Cancelar"};
-			
-			
+			Object[] options =
+			{ "Sobreescribir", "Renombrar", "Cancelar" };
+
 			int sel = JOptionPane.showOptionDialog(this,
 					"El documento ya existe ¿Que desea hacer?",
-					"Fichero ya existente", JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,
-				    null,
-				    options,
-				    options[2]);
+					"Fichero ya existente", JOptionPane.YES_NO_CANCEL_OPTION,
+					JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
 
 			// el usuario ha cancelado la accion
 			if (sel == JOptionPane.CANCEL_OPTION)
@@ -1075,21 +1119,20 @@ public class PanelPrincipal extends DComponenteBase
 				anterior = null;
 			}
 
-			// el usuario  desea renombrar el fichero
+			// el usuario desea renombrar el fichero
 			else if (sel == JOptionPane.NO_OPTION)
 			{
 				nombre = JOptionPane.showInputDialog("Nuevo nombre");
-				
-				if(nombre != null && !nombre.equals("")) {
+
+				if (nombre != null && !nombre.equals(""))
+				{
 					anterior = ClienteFicheros.cf.existeFichero(path + nombre,
 							DConector.Daplicacion);
 				}
-				else
-					return;
+				else return;
 			}
 			// el usuario ha cerrado el dialogo
-			else if (sel == JOptionPane.CLOSED_OPTION)
-				return;
+			else if (sel == JOptionPane.CLOSED_OPTION) return;
 		}
 
 		byte[] bytes = null;
@@ -1120,8 +1163,9 @@ public class PanelPrincipal extends DComponenteBase
 		}
 
 		// creamos el nuevo fichero a almacenar
-		MIDocumento fbd = new MIDocumento(-1, nombre, false, "rwrw--", user, rol,
-				carpeta.getId(), path + nombre, MIDocumento.getExtension(nombre));
+		MIDocumento fbd = new MIDocumento(-1, nombre, false, "rwrw--", user,
+				rol, carpeta.getId(), path + nombre, MIDocumento
+						.getExtension(nombre));
 
 		// enviamos el nuevo fichero al servidor
 		Transfer t = new Transfer(ClienteFicheros.ipConexion, path + nombre);
@@ -1165,6 +1209,7 @@ public class PanelPrincipal extends DComponenteBase
 
 	/**
 	 * Obtiene la lista de aplicaciones
+	 * 
 	 * @return Lista de aplicaciones ya inicializada
 	 */
 	private JList getListaAplicaciones()
@@ -1172,35 +1217,36 @@ public class PanelPrincipal extends DComponenteBase
 		if (listaAplicaciones == null)
 		{
 
-
 			listaAplicaciones = new PluginList(getModelo());
 			listaAplicaciones.setFont(fuente);
 			listaAplicaciones.setMinimumSize(new Dimension(100, 200));
-			listaAplicaciones.setBorder(new MatteBorder(2,0,2,0,Color.GRAY));
+			listaAplicaciones
+					.setBorder(new MatteBorder(2, 0, 2, 0, Color.GRAY));
 
-			listaAplicaciones.addMouseListener(new java.awt.event.MouseAdapter()
-				{
-					@Override
-					public void mouseClicked(java.awt.event.MouseEvent e)
+			listaAplicaciones
+					.addMouseListener(new java.awt.event.MouseAdapter()
 					{
-						if (e.getClickCount() == 2)
-							try
-							{
-								if (PluginContainer.numPlugins() > 0
-										&& listaAplicaciones
-												.getSelectedIndex() > -1)
+						@Override
+						public void mouseClicked(java.awt.event.MouseEvent e)
+						{
+							if (e.getClickCount() == 2)
+								try
 								{
-									DAbstractPlugin seleccionado = (DAbstractPlugin) listaAplicaciones
-											.getSelectedValue();
-									seleccionado.start();	
+									if (PluginContainer.numPlugins() > 0
+											&& listaAplicaciones
+													.getSelectedIndex() > -1)
+									{
+										DAbstractPlugin seleccionado = (DAbstractPlugin) listaAplicaciones
+												.getSelectedValue();
+										seleccionado.start();
+									}
 								}
-							}
-							catch (Exception e1)
-							{
-								e1.printStackTrace();
-							}
+								catch (Exception e1)
+								{
+									e1.printStackTrace();
+								}
 						}
-				});
+					});
 
 		}
 		return listaAplicaciones;
@@ -1208,11 +1254,14 @@ public class PanelPrincipal extends DComponenteBase
 
 	/**
 	 * Obtiene el modelo de datos de la lista de aplicaciones
+	 * 
 	 * @return El modelo ya inicializado
 	 */
-	private DefaultListModel getModelo(){
-	
-		if (this.modeloAplicaciones == null) {
+	private DefaultListModel getModelo()
+	{
+
+		if (this.modeloAplicaciones == null)
+		{
 			modeloAplicaciones = new DefaultListModel();
 
 			for (int i = 0; i < PluginContainer.numPlugins(); ++i)
@@ -1221,17 +1270,19 @@ public class PanelPrincipal extends DComponenteBase
 					modeloAplicaciones.addElement(PluginContainer.getPlugin(i));
 			}
 		}
-		
+
 		return modeloAplicaciones;
 	}
-	
+
 	/**
 	 * Envia un mensaje
-	 * @param f Metainformacion del mensaje
+	 * 
+	 * @param f
+	 *            Metainformacion del mensaje
 	 */
 	private void enviarMail(MIDocumento f)
 	{
-		
+
 		// mandamos el mensaje
 		byte[] bytes = f.getMensaje().getBytes();
 
@@ -1278,7 +1329,7 @@ public class PanelPrincipal extends DComponenteBase
 		MIDocumento f = arbolDocumentos.getDocumentoSeleccionado();
 
 		if (f == null || f.esDirectorio()) return;
-		
+
 		if (!f.comprobarPermisos(DConector.Dusuario, DConector.Drol,
 				MIDocumento.PERMISO_LECTURA))
 		{
@@ -1298,11 +1349,10 @@ public class PanelPrincipal extends DComponenteBase
 		frame.getLienzo().setPathDocumento(f.getRutaLocal());
 
 		barraProgreso.setIndeterminate(true);
-		
-		frame.getLienzo().getLienzo().sincronizar();
-		
-		barraProgreso.setIndeterminate(false);
 
+		frame.getLienzo().getLienzo().sincronizar();
+
+		barraProgreso.setIndeterminate(false);
 
 		if (!frame.getLienzo().getLienzo().getDocumento().getPath().equals(""))
 		{
@@ -1316,9 +1366,12 @@ public class PanelPrincipal extends DComponenteBase
 		if (this.arbolDocumentos != null) arbolDocumentos.repaint();
 	}
 
-	// ========= DCOMPONENTES =========================================================
+	// ========= DCOMPONENTES
+	// =========================================================
 	/**
-	 * Obtiene el numero de componentes hijo que son distribuidos en este componente
+	 * Obtiene el numero de componentes hijo que son distribuidos en este
+	 * componente
+	 * 
 	 * @return Numero de componentes hijo.
 	 */
 	@Override
@@ -1329,7 +1382,9 @@ public class PanelPrincipal extends DComponenteBase
 
 	/**
 	 * Obtiene el componente i-esimo de este componente
-	 * @param i Indice del componente a obtener
+	 * 
+	 * @param i
+	 *            Indice del componente a obtener
 	 * @return Componente obtenido o null si el componente i no existe
 	 */
 	@Override
@@ -1353,7 +1408,9 @@ public class PanelPrincipal extends DComponenteBase
 	// ========= EVENTOS =================================================
 	/**
 	 * Notifica la modificacion de un fichero al servidor
-	 * @param f evento a enviar
+	 * 
+	 * @param f
+	 *            evento a enviar
 	 */
 	public static void notificarModificacionFichero(DFileEvent f)
 	{
@@ -1364,7 +1421,9 @@ public class PanelPrincipal extends DComponenteBase
 
 	/**
 	 * Procesa un evento que le llega desde la red
-	 * @param evento Evento a procesar
+	 * 
+	 * @param evento
+	 *            Evento a procesar
 	 */
 	@Override
 	public void procesarEvento(DEvent evento)
@@ -1514,32 +1573,41 @@ public class PanelPrincipal extends DComponenteBase
 			if (this.arbolDocumentos != null) arbolDocumentos.repaint();
 		}
 	}
-	
+
 	/**
 	 * Procesa un evento de metainformacion
-	 * @param e Evento de metainformacion
+	 * 
+	 * @param e
+	 *            Evento de metainformacion
 	 */
 	@Override
-	public void procesarMetaInformacion(DMIEvent e) {
+	public void procesarMetaInformacion(DMIEvent e)
+	{
 		super.procesarMetaInformacion(e);
-		
+
 		if (e.tipo.intValue() == DMIEvent.NOTIFICACION_CAMBIO_ROL_USUARIO
-				.intValue() && e.usuario.equals(DConector.Dusuario) )
+				.intValue()
+				&& e.usuario.equals(DConector.Dusuario))
 		{
 			ClienteFicheros.cf.inicializar();
 			arbolDocumentos.setRaiz(ClienteFicheros.cf.getArbolDoc());
 		}
 	}
 
-	// ========= PERMISOS ============================================================
+	// ========= PERMISOS
+	// ============================================================
 
 	/**
 	 * Comprueba que los permisos actuales del documentos permiten que éste siga
 	 * editandose
-	 * @param f fichero a comprobar
-	 * @param eliminado  indica si el documentos ha sido editado
+	 * 
+	 * @param f
+	 *            fichero a comprobar
+	 * @param eliminado
+	 *            indica si el documentos ha sido editado
 	 */
-	public void comprobarPermisosDocumentoActual(MIDocumento f, boolean eliminado)
+	public void comprobarPermisosDocumentoActual(MIDocumento f,
+			boolean eliminado)
 	{
 		if (!f.comprobarPermisos(DConector.Dusuario, DConector.Drol,
 				MIDocumento.PERMISO_LECTURA)
@@ -1562,7 +1630,6 @@ public class PanelPrincipal extends DComponenteBase
 			}
 	}
 
-	
 	// ============= SALIR ==============================================
 	/**
 	 * Accion a efectuar al salir de la aplicacion
@@ -1573,12 +1640,14 @@ public class PanelPrincipal extends DComponenteBase
 		if (frame.getLienzo() == null) return;
 		if (frame.getLienzo().getLienzo() == null) return;
 		if (frame.getLienzo().getLienzo().getDocumento() == null) return;
-		if (frame.getLienzo().getLienzo().getDocumento().getPath() == null) return;
-		
-		if ( !frame.getLienzo().getLienzo().getDocumento().getPath().equals("") )
-			DConector.obtenerDC().cerrarFichero(frame.getLienzo().getLienzo().getDocumento().getPath());
+		if (frame.getLienzo().getLienzo().getDocumento().getPath() == null)
+			return;
+
+		if (!frame.getLienzo().getLienzo().getDocumento().getPath().equals(""))
+			DConector.obtenerDC().cerrarFichero(
+					frame.getLienzo().getLienzo().getDocumento().getPath());
 	}
-	
+
 	// ============= HEBRAS ==============================================
 	/**
 	 * Hebra que se encarga de abrir los documentos
@@ -1633,7 +1702,7 @@ public class PanelPrincipal extends DComponenteBase
 			{
 				// esperamos a que se actualicen los plugins
 				PluginContainer.actualizar();
-				
+
 				// eliminamos todos los plugins de la lista
 				esto.getModelo().removeAllElements();
 
@@ -1641,7 +1710,8 @@ public class PanelPrincipal extends DComponenteBase
 				for (int i = 0; i < PluginContainer.numPlugins(); ++i)
 				{
 					if (PluginContainer.getPlugin(i).shouldShowIt())
-						esto.getModelo().addElement(PluginContainer.getPlugin(i));
+						esto.getModelo().addElement(
+								PluginContainer.getPlugin(i));
 				}
 
 				// repintamos la lista
@@ -1671,8 +1741,8 @@ public class PanelPrincipal extends DComponenteBase
 		}
 
 		/**
-		 * Operaciones del monitor a la hora de notificar
-		 * la apertura de un documento
+		 * Operaciones del monitor a la hora de notificar la apertura de un
+		 * documento
 		 */
 		public synchronized void notificarAbrir()
 		{

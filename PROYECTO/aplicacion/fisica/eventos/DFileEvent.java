@@ -13,7 +13,7 @@ public class DFileEvent extends DEvent
 	private static final long serialVersionUID = -1925222008496901194L;
 
 	/*
-	 * Conjunto de constantes que indican los tipos de eventos soportados. 
+	 * Conjunto de constantes que indican los tipos de eventos soportados.
 	 */
 	public static final Integer NOTIFICAR_INSERTAR_FICHERO = new Integer(177);
 
@@ -32,11 +32,11 @@ public class DFileEvent extends DEvent
 	public static final Integer SINCRONIZACION = new Integer(184);
 
 	public static final Integer RESPUESTA_SINCRONIZACION = new Integer(185);
-	
+
 	public static final Integer EXISTE_FICHERO = new Integer(184);
 
 	public static final Integer RESPUESTA_EXISTE_FICHERO = new Integer(185);
-	
+
 	/**
 	 * Path del fichero
 	 */
@@ -51,7 +51,7 @@ public class DFileEvent extends DEvent
 	 * Directorio padre de un documento
 	 */
 	public MIDocumento padre = null;
-	
+
 	/**
 	 * Resultado del acceso a un fichero
 	 */

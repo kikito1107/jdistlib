@@ -8,20 +8,22 @@ import componentes.gui.usuarios.DICambioRol;
 
 /**
  * Ventana que permite realizar el cambio de rol de un usuario
+ * 
  * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
 public class VentanaCambiarRol extends DJFrame
 {
 	private static final long serialVersionUID = 4130806553519520953L;
-	
+
 	private JPanel panelPrincipal = null;
-	
+
 	private DICambioRol DICambioRol = null;
-	
+
 	/**
 	 * Constructor
 	 */
-	public VentanaCambiarRol() {
+	public VentanaCambiarRol()
+	{
 		super(false, "");
 		initialize();
 	}
@@ -29,21 +31,25 @@ public class VentanaCambiarRol extends DJFrame
 	/**
 	 * Inicializacion de los componentes
 	 */
-	private void initialize() {
-		try {
-            this.setSize(new Dimension(366, 307));  // Generated
-            this.setContentPane(getPanelPrincipal());  // Generated
-            this.setTitle(".:: Cambiar Rol ::.");  // Generated
-				
+	private void initialize()
+	{
+		try
+		{
+			this.setSize(new Dimension(366, 307)); // Generated
+			this.setContentPane(getPanelPrincipal()); // Generated
+			this.setTitle(".:: Cambiar Rol ::."); // Generated
+
 		}
-		catch (java.lang.Throwable e) {
+		catch (java.lang.Throwable e)
+		{
 		}
 	}
 
 	/**
 	 * Obtiene el panel principal
+	 * 
 	 * @return Panel principal de la ventana ya inicializado
-	 */ 
+	 */
 	private JPanel getPanelPrincipal()
 	{
 		if (panelPrincipal == null)
@@ -51,8 +57,8 @@ public class VentanaCambiarRol extends DJFrame
 			try
 			{
 				panelPrincipal = new JPanel();
-				panelPrincipal.setLayout(new BorderLayout());  // Generated
-				panelPrincipal.add(getDICambioRol(), BorderLayout.CENTER);  // Generated
+				panelPrincipal.setLayout(new BorderLayout()); // Generated
+				panelPrincipal.add(getDICambioRol(), BorderLayout.CENTER); // Generated
 			}
 			catch (java.lang.Throwable e)
 			{
@@ -63,10 +69,11 @@ public class VentanaCambiarRol extends DJFrame
 	}
 
 	/**
-	 * Obtiene el panel que contiene los roles permitidos para un usuario,
-	 * asi como un boton para cambiar entre estos roles.
-	 * @return Panel con la lista de roles permitidos para el usuario y
-	 *         el boton para cambiar entre roles.
+	 * Obtiene el panel que contiene los roles permitidos para un usuario, asi
+	 * como un boton para cambiar entre estos roles.
+	 * 
+	 * @return Panel con la lista de roles permitidos para el usuario y el boton
+	 *         para cambiar entre roles.
 	 */
 	private DICambioRol getDICambioRol()
 	{

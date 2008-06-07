@@ -4,7 +4,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import Deventos.DEvent;
 
-
 /**
  * Eventos para obtener nodos del sistem de ficheros a partir de la BD
  * 
@@ -15,7 +14,7 @@ public class DNodeEvent extends DEvent
 	private static final long serialVersionUID = 1L;
 
 	/*
-	 * Conjunto de constantes que indican los tipos de eventos soportados. 
+	 * Conjunto de constantes que indican los tipos de eventos soportados.
 	 */
 	public static final Integer OBTENER_NODO = new Integer(1);
 

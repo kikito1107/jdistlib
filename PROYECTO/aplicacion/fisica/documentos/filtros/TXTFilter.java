@@ -14,8 +14,9 @@ import aplicacion.fisica.documentos.MIDocumento;
 
 /**
  * Filtro de documento para ficheros de texto plano
+ * 
  * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz.
- *
+ * 
  */
 public class TXTFilter implements DocumentFilter
 {
@@ -24,15 +25,20 @@ public class TXTFilter implements DocumentFilter
 	 */
 	public TXTFilter()
 	{
-		
+
 	}
 
 	/**
 	 * Obtiene un documento interpretado como texto plano
-	 * @param path Path del documento a abrir
-	 * @param usuario Nombre del usuario que quiere abrir el documento
-	 * @param rol Rol que desempe–a el usuario
-	 * @return Objeto de la clase @see Documento. Devuelve null si ha ocurrido algun error
+	 * 
+	 * @param path
+	 *            Path del documento a abrir
+	 * @param usuario
+	 *            Nombre del usuario que quiere abrir el documento
+	 * @param rol
+	 *            Rol que desempe–a el usuario
+	 * @return Objeto de la clase
+	 * @see Documento. Devuelve null si ha ocurrido algun error
 	 */
 	public Documento getDocumento(String path, String usuario, String rol)
 	{
@@ -134,15 +140,19 @@ public class TXTFilter implements DocumentFilter
 	}
 
 	/**
-	 * Comprueba si la extension se corresponde con un fichero de texto plano (txt)
-	 * @param extension Extension del tipo de documento a consultar
-	 * @return True si es una extension tipica para un texto plano y False en caso contrario
+	 * Comprueba si la extension se corresponde con un fichero de texto plano
+	 * (txt)
+	 * 
+	 * @param extension
+	 *            Extension del tipo de documento a consultar
+	 * @return True si es una extension tipica para un texto plano y False en
+	 *         caso contrario
 	 */
 	public boolean isSupported(String extension)
 	{
 		if (extension.toLowerCase().compareTo(MIDocumento.TIPO_BANDEJA_TXT) == 0)
 			return true;
-		
+
 		else return false;
 	}
 

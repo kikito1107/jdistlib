@@ -42,7 +42,7 @@ public class MetalInternalFrameUI extends BasicInternalFrameUI
 
 	private static String FRAME_TYPE = "JInternalFrame.frameType";
 
-	@SuppressWarnings("unused")
+	@SuppressWarnings( "unused" )
 	private static String NORMAL_FRAME = "normal";
 
 	private static String PALETTE_FRAME = "palette";

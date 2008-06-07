@@ -23,12 +23,12 @@ import Deventos.DEvent;
 
 public class HebraProcesadoraBase implements Runnable
 {
-	@SuppressWarnings("unused")
+	@SuppressWarnings( "unused" )
 	private ColaEventos colaEnvio = null;
 
 	private ColaEventos colaRecepcion = null;
 
-	@SuppressWarnings("unused")
+	@SuppressWarnings( "unused" )
 	private DComponente dc = null;
 
 	public HebraProcesadoraBase( DComponente dc )

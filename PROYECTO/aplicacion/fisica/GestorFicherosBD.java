@@ -9,8 +9,10 @@ import metainformacion.MIUsuario;
 import aplicacion.fisica.documentos.MIDocumento;
 
 /**
- * Permite usar de forma apropiada la clase @see ConectorBDFicheros. Provee de metodos
- * que permiten recuperar, modificar o eliminar informacion referida a los documentos del sistema.
+ * Permite usar de forma apropiada la clase
+ * 
+ * @see ConectorBDFicheros. Provee de metodos que permiten recuperar, modificar
+ *      o eliminar informacion referida a los documentos del sistema.
  * 
  * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz
  */
@@ -30,7 +32,8 @@ public class GestorFicherosBD
 	/**
 	 * Permite acceder al primer nivel del sistema de ficheros
 	 * 
-	 * @return Vector de @see MIDocumento con los ficheros y directorios del primer nivel
+	 * @return Vector de
+	 * @see MIDocumento con los ficheros y directorios del primer nivel
 	 */
 	public Vector<MIDocumento> recuperar()
 	{
@@ -44,7 +47,8 @@ public class GestorFicherosBD
 			rs.next();
 
 			// recuperamos el contenido del directorio / (junto con el propio /)
-			Vector<MIDocumento> dir = recuperarDirectorio(rs.getInt("id_fichero"));
+			Vector<MIDocumento> dir = recuperarDirectorio(rs
+					.getInt("id_fichero"));
 
 			// cerramos la conexion
 			rs.close();
@@ -64,9 +68,10 @@ public class GestorFicherosBD
 	 * Permite recuperar el contenido de un directorio (se incluye el propio
 	 * directorio)
 	 * 
-	 * @param id Identificador del directorio
-	 * @return Vector con los ficheros contenidos en el directorio y el directorio
-	 * 		   propiamente dicho.
+	 * @param id
+	 *            Identificador del directorio
+	 * @return Vector con los ficheros contenidos en el directorio y el
+	 *         directorio propiamente dicho.
 	 */
 	public Vector<MIDocumento> recuperarDirectorio(int id)
 	{
@@ -104,7 +109,8 @@ public class GestorFicherosBD
 	/**
 	 * Permite acceder al directorio padre de un fichero
 	 * 
-	 * @param id Identificador del directorio al que queremos acceder
+	 * @param id
+	 *            Identificador del directorio al que queremos acceder
 	 * @return El directoiro padre del fichero. Si el directorio no tiene padre
 	 *         ('/'), devuelve null.
 	 */
@@ -148,8 +154,10 @@ public class GestorFicherosBD
 	/**
 	 * Devuelve un fichero a partir de su identificador
 	 * 
-	 * @param id Identificador del fichero a recuperar
-	 * @return El fichero. Si no existe ningœn fichero con el identificador dado, devuelve null.
+	 * @param id
+	 *            Identificador del fichero a recuperar
+	 * @return El fichero. Si no existe ningœn fichero con el identificador
+	 *         dado, devuelve null.
 	 */
 	private MIDocumento construirFicheroBD(int id)
 	{
@@ -173,12 +181,14 @@ public class GestorFicherosBD
 	}
 
 	/**
-	 * Construye un objeto de la clase @see MIDocumento a partir de los datos de un
-	 * ResultSet
+	 * Construye un objeto de la clase
 	 * 
-	 * @param rs ResultSet conteniendo los datos del fichero
-	 * @return El objeto @see MIDocumento ya inicializado. Ocurriera algun error,
-	 * 		   devuelve null.
+	 * @see MIDocumento a partir de los datos de un ResultSet
+	 * 
+	 * @param rs
+	 *            ResultSet conteniendo los datos del fichero
+	 * @return El objeto
+	 * @see MIDocumento ya inicializado. Ocurriera algun error, devuelve null.
 	 */
 	private MIDocumento construirFicheroBD(ResultSet rs)
 	{
@@ -203,8 +213,8 @@ public class GestorFicherosBD
 			MIRol rol = null;
 			if (!rs.wasNull()) rol = obtenerRol(id_rol);
 
-			return new MIDocumento(id, nombre, es_directorio, permisos, mu, rol,
-					id_padre, ruta_local, tipo);
+			return new MIDocumento(id, nombre, es_directorio, permisos, mu,
+					rol, id_padre, ruta_local, tipo);
 		}
 		catch (Exception ex)
 		{
@@ -218,9 +228,11 @@ public class GestorFicherosBD
 	 * Busca en la base de datos de Metainformacion a un usuario a traves de su
 	 * identificador
 	 * 
-	 * @param id Identificador del Usuario
-	 * @return Un objeto de la clase @see MIUsuario representando al usuario. Si no
-	 *         se encuentra al usuario se devuelve null
+	 * @param id
+	 *            Identificador del Usuario
+	 * @return Un objeto de la clase
+	 * @see MIUsuario representando al usuario. Si no se encuentra al usuario se
+	 *      devuelve null
 	 */
 	private MIUsuario obtenerUsuario(int id)
 	{
@@ -254,9 +266,11 @@ public class GestorFicherosBD
 
 	/**
 	 * Inserta un nuevo documento en la base de datos.
-	 * @param f Documento a insertar
-	 * @return El mismo documento si todo fue correcto. Si algo
-	 * 		   fue mal, devuelve null.
+	 * 
+	 * @param f
+	 *            Documento a insertar
+	 * @return El mismo documento si todo fue correcto. Si algo fue mal,
+	 *         devuelve null.
 	 */
 	public MIDocumento insertarNuevoFichero(MIDocumento f)
 	{
@@ -271,21 +285,19 @@ public class GestorFicherosBD
 				int id_rol = f.getRol().getIdentificador();
 				int id = conexion.generaId("Fichero", "id_fichero");
 				f.setId(id);
-				String parametros = id
-						+ ", '" + f.getNombre() + "', " + isdir + ", '"
-						+ f.getPermisos() + "'," + id_user + ", " + id_rol
-						+ "," + f.getPadre() + ",'" + f.getRutaLocal()
+				String parametros = id + ", '" + f.getNombre() + "', " + isdir
+						+ ", '" + f.getPermisos() + "'," + id_user + ", "
+						+ id_rol + "," + f.getPadre() + ",'" + f.getRutaLocal()
 						+ "', '" + f.getTipo() + "'";
 
 				// insertamos la nueva tupla en fichero
 				if (!conexion.insert("INSERT INTO fichero values(" + parametros
-						+ ")")) 
-					{
-					 	System.err.println("ERROR en el insert");
-					 	return null;
-					}
-				else
-					return f;
+						+ ")"))
+				{
+					System.err.println("ERROR en el insert");
+					return null;
+				}
+				else return f;
 			}
 			else return null;
 
@@ -300,10 +312,11 @@ public class GestorFicherosBD
 	/**
 	 * Obtiene un rol a partir de su identificador.
 	 * 
-	 * @param id Identificador del rol
-	 * @return Un objeto de la clase @see MIRol correpondiente al identificador.
-	 *         Si el identificador es desconocido u ocurre algun error, entonces
-	 *         devuelve null.
+	 * @param id
+	 *            Identificador del rol
+	 * @return Un objeto de la clase
+	 * @see MIRol correpondiente al identificador. Si el identificador es
+	 *      desconocido u ocurre algun error, entonces devuelve null.
 	 */
 	private MIRol obtenerRol(int id)
 	{
@@ -340,15 +353,16 @@ public class GestorFicherosBD
 	/**
 	 * Obtiene un documento a partir de su identificador.
 	 * 
-	 * @param id Identificador del documento
-	 * @return Un objeto de la clase @see MIDocumento correpondiente al identificador.
-	 *         Si el identificador es desconocido u ocurre algun error, entonces
-	 *         devuelve null.
+	 * @param id
+	 *            Identificador del documento
+	 * @return Un objeto de la clase
+	 * @see MIDocumento correpondiente al identificador. Si el identificador es
+	 *      desconocido u ocurre algun error, entonces devuelve null.
 	 */
 	public MIDocumento buscarFichero(int id)
 	{
 		MIDocumento f = new MIDocumento();
-		
+
 		f.setId(-100);
 
 		ResultSet rs = conexion
@@ -356,7 +370,8 @@ public class GestorFicherosBD
 
 		try
 		{
-			if (rs != null) {
+			if (rs != null)
+			{
 				while (rs.next())
 				{
 					f.setId(id);
@@ -366,7 +381,7 @@ public class GestorFicherosBD
 					f.setRutaLocal(rs.getString("ruta_local"));
 					f.setTipo(rs.getString("tipo"));
 				}
-	
+
 				rs.close();
 			}
 		}
@@ -381,13 +396,16 @@ public class GestorFicherosBD
 
 	/**
 	 * Busca un fichero en la BD por su path fisico en el servidor de ficheros
-	 * @param path Path fisico del documento
-	 * @return Objeto de la clase @see MIDocumento con la metainformacion del fichero
+	 * 
+	 * @param path
+	 *            Path fisico del documento
+	 * @return Objeto de la clase
+	 * @see MIDocumento con la metainformacion del fichero
 	 */
 	public MIDocumento buscarFicheroPath(String path)
 	{
 		MIDocumento f = new MIDocumento();
-		
+
 		f.setId(-100);
 
 		ResultSet rs = conexion
@@ -395,9 +413,9 @@ public class GestorFicherosBD
 
 		try
 		{
-			if (rs != null) {
-				
-			
+			if (rs != null)
+			{
+
 				while (rs.next())
 				{
 					f.setId(rs.getInt("id_fichero"));
@@ -409,7 +427,7 @@ public class GestorFicherosBD
 					f.setUsuario(this.obtenerUsuario(rs.getInt("usuario")));
 					f.setRol(this.obtenerRol(rs.getInt("rol")));
 				}
-				
+
 				rs.close();
 			}
 		}
@@ -421,7 +439,7 @@ public class GestorFicherosBD
 
 		return f;
 	}
-	
+
 	/**
 	 * Cierra la conexi—n con la base de datos
 	 */
@@ -432,7 +450,9 @@ public class GestorFicherosBD
 
 	/**
 	 * Modifica la metainformacion de un fichero en la BD
-	 * @param f el fichero con la nueva metainformacion
+	 * 
+	 * @param f
+	 *            el fichero con la nueva metainformacion
 	 */
 	public void modificarFichero(MIDocumento f)
 	{
@@ -443,9 +463,8 @@ public class GestorFicherosBD
 			{
 
 				String consulta = "UPDATE fichero SET nombre='" + f.getNombre()
-						+ "', permisos ='" + f.getPermisos()
-						+ "', padre =" + f.getPadre()
-						+ ", tipo ='" + f.getTipo()
+						+ "', permisos ='" + f.getPermisos() + "', padre ="
+						+ f.getPadre() + ", tipo ='" + f.getTipo()
 						+ "',  ruta_local ='" + f.getRutaLocal()
 						+ "' WHERE id_fichero=" + f.getId();
 
@@ -462,12 +481,12 @@ public class GestorFicherosBD
 			ex.printStackTrace();
 		}
 	}
-	
-
 
 	/**
 	 * Elimina de la BD los datos de un documento
-	 * @param f Metainformacion del documento a borrar
+	 * 
+	 * @param f
+	 *            Metainformacion del documento a borrar
 	 */
 	public void eliminarFichero(MIDocumento f)
 	{
@@ -502,7 +521,9 @@ public class GestorFicherosBD
 
 	/**
 	 * Elimina un directorio de la base de datos de forma recursiva
-	 * @param id_fichero el identificador del directorio
+	 * 
+	 * @param id_fichero
+	 *            el identificador del directorio
 	 */
 	public void eliminarDirectorio(int id_fichero)
 	{

@@ -45,10 +45,10 @@ public class FrameServFich extends JFrame
 	 */
 	private void initialize()
 	{
-		consola.setBackground(Color.black);  // Generated
-		consola.setForeground(Color.green);  // Generated
+		consola.setBackground(Color.black); // Generated
+		consola.setForeground(Color.green); // Generated
 		this.setSize(419, 322);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  // Generated
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Generated
 		this.setContentPane(getJContentPane());
 		this.setTitle(".:: Servidor Ficheros ::.");
 	}
@@ -64,17 +64,17 @@ public class FrameServFich extends JFrame
 		{
 			jContentPane = new JPanel();
 			jContentPane.setLayout(new BorderLayout());
-			jContentPane.add(getScroll(), BorderLayout.CENTER);  // Generated
-			jContentPane.add(getPanelSur(), BorderLayout.SOUTH);  // Generated
+			jContentPane.add(getScroll(), BorderLayout.CENTER); // Generated
+			jContentPane.add(getPanelSur(), BorderLayout.SOUTH); // Generated
 		}
 		return jContentPane;
 	}
 
 	/**
-	 * Metodo que inicializa un panel con scroll para el area de texto donde se mostraran
-	 * los mensajes recibidos por el servidor de ficheros.	
-	 * 	
-	 * @return JScrollPane para la ventana de mensajes	
+	 * Metodo que inicializa un panel con scroll para el area de texto donde se
+	 * mostraran los mensajes recibidos por el servidor de ficheros.
+	 * 
+	 * @return JScrollPane para la ventana de mensajes
 	 */
 	private JScrollPane getScroll()
 	{
@@ -83,7 +83,7 @@ public class FrameServFich extends JFrame
 			try
 			{
 				scroll = new JScrollPane();
-				scroll.setViewportView(getConsola());  // Generated
+				scroll.setViewportView(getConsola()); // Generated
 			}
 			catch (java.lang.Throwable e)
 			{
@@ -94,9 +94,10 @@ public class FrameServFich extends JFrame
 	}
 
 	/**
-	 * Area de texto para mostrar los mensajes recibidos por el servidor de ficheros
-	 * 	
-	 * @return Area de texto inicializada	
+	 * Area de texto para mostrar los mensajes recibidos por el servidor de
+	 * ficheros
+	 * 
+	 * @return Area de texto inicializada
 	 */
 	private JTextArea getConsola()
 	{
@@ -105,8 +106,8 @@ public class FrameServFich extends JFrame
 			try
 			{
 				consola = new JTextArea();
-				consola.setBackground(Color.black);  // Generated
-				consola.setForeground(Color.green);  // Generated
+				consola.setBackground(Color.black); // Generated
+				consola.setForeground(Color.green); // Generated
 			}
 			catch (java.lang.Throwable e)
 			{
@@ -117,8 +118,9 @@ public class FrameServFich extends JFrame
 	}
 
 	/**
-	 * Panel donde se situara un boton para poder salir del servidor de ficheros.
-	 * 	
+	 * Panel donde se situara un boton para poder salir del servidor de
+	 * ficheros.
+	 * 
 	 * @return JPanel inicializado
 	 */
 	private JPanel getPanelSur()
@@ -128,11 +130,11 @@ public class FrameServFich extends JFrame
 			try
 			{
 				GridBagConstraints gridBagConstraints = new GridBagConstraints();
-				gridBagConstraints.gridx = 0;  // Generated
-				gridBagConstraints.gridy = 0;  // Generated
+				gridBagConstraints.gridx = 0; // Generated
+				gridBagConstraints.gridy = 0; // Generated
 				panelSur = new JPanel();
-				panelSur.setLayout(new GridBagLayout());  // Generated
-				panelSur.add(getBotonSalir(), gridBagConstraints);  // Generated
+				panelSur.setLayout(new GridBagLayout()); // Generated
+				panelSur.add(getBotonSalir(), gridBagConstraints); // Generated
 			}
 			catch (java.lang.Throwable e)
 			{
@@ -144,15 +146,18 @@ public class FrameServFich extends JFrame
 
 	/**
 	 * Pinta una cadena de texto al final de la consola
-	 * @param s la cadena a pintar
+	 * 
+	 * @param s
+	 *            la cadena a pintar
 	 */
-	public static void println(String s ){
+	public static void println(String s)
+	{
 		consola.append(s + "\n");
 	}
-	
+
 	/**
-	 * Metodo que inicializa el boton que permite salir del servidor de ficheros	
-	 * 	
+	 * Metodo que inicializa el boton que permite salir del servidor de ficheros
+	 * 
 	 * @return JButton ya inicializado
 	 */
 	private JButton getBotonSalir()
@@ -162,15 +167,17 @@ public class FrameServFich extends JFrame
 			try
 			{
 				botonSalir = new JButton();
-				botonSalir.setIcon(new ImageIcon("Resources/door_open.png"));  // Generated
-				botonSalir.setText("Salir");  // Generated
-				botonSalir.addActionListener(new java.awt.event.ActionListener()
-				{
-					public void actionPerformed(java.awt.event.ActionEvent e)
-					{
-						System.exit(0);
-					}
-				});
+				botonSalir.setIcon(new ImageIcon("Resources/door_open.png")); // Generated
+				botonSalir.setText("Salir"); // Generated
+				botonSalir
+						.addActionListener(new java.awt.event.ActionListener()
+						{
+							public void actionPerformed(
+									java.awt.event.ActionEvent e)
+							{
+								System.exit(0);
+							}
+						});
 			}
 			catch (java.lang.Throwable e)
 			{

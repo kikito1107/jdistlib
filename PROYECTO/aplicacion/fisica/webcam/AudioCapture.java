@@ -18,6 +18,7 @@ import javax.swing.JFrame;
 
 /**
  * Clase encargada con la captura del audio para la videoconferencia
+ * 
  * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz
  */
 public class AudioCapture extends JFrame
@@ -213,7 +214,7 @@ public class AudioCapture extends JFrame
 		@Override
 		public void run()
 		{
-				
+
 			byteArrayOutputStream = new ByteArrayOutputStream();
 			stopCapture = false;
 			try
@@ -226,11 +227,10 @@ public class AudioCapture extends JFrame
 					// buffer of the data line.
 					int cnt = targetDataLine.read(tempBuffer, 0,
 							tempBuffer.length);
-					
+
 					if (cnt > 0) // Save data in output stream object.
 						byteArrayOutputStream.write(tempBuffer, 0, cnt);
-					
-					
+
 				}// end while
 				byteArrayOutputStream.close();
 			}

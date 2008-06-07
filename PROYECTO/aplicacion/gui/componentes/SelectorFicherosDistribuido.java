@@ -18,9 +18,12 @@ import javax.swing.tree.TreePath;
 
 import aplicacion.fisica.documentos.MIDocumento;
 
+/**
+ * Dialogo para abrir un documento del servidor de ficheros
+ * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
+ */
 public class SelectorFicherosDistribuido extends JDialog
 {
-
 	private static final long serialVersionUID = 1L;
 
 	private JPanel jContentPane = null;
@@ -40,7 +43,9 @@ public class SelectorFicherosDistribuido extends JDialog
 	private MIDocumento fichero = null;
 
 	/**
-	 * @param owner
+	 * Constructor
+	 * @param owner Ventana padre del dialogo
+	 * @param raiz Nodo que se usara como raiz del arbol mostrado
 	 */
 	public SelectorFicherosDistribuido( Frame owner, DefaultMutableTreeNode raiz )
 	{
@@ -50,9 +55,7 @@ public class SelectorFicherosDistribuido extends JDialog
 	}
 
 	/**
-	 * This method initializes this
-	 * 
-	 * @return void
+	 * Inicializacion de los componentes graficos
 	 */
 	private void initialize()
 	{
@@ -61,11 +64,6 @@ public class SelectorFicherosDistribuido extends JDialog
 		this.setContentPane(getJContentPane());
 	}
 
-	/**
-	 * This method initializes jContentPane
-	 * 
-	 * @return javax.swing.JPanel
-	 */
 	private JPanel getJContentPane()
 	{
 		if (jContentPane == null)
@@ -78,11 +76,6 @@ public class SelectorFicherosDistribuido extends JDialog
 		return jContentPane;
 	}
 
-	/**
-	 * This method initializes jPanel
-	 * 
-	 * @return javax.swing.JPanel
-	 */
 	private JPanel getJPanel()
 	{
 		if (jPanel == null)
@@ -96,22 +89,18 @@ public class SelectorFicherosDistribuido extends JDialog
 			jPanel = new JPanel();
 			jPanel.setLayout(new GridBagLayout());
 			jPanel.add(getJButton(), gridBagConstraints);
-			jPanel.add(getJButton1(), gridBagConstraints1);
+			jPanel.add(getBotonCancelar(), gridBagConstraints1);
 		}
 		return jPanel;
 	}
 
-	/**
-	 * This method initializes jButton
-	 * 
-	 * @return javax.swing.JButton
-	 */
 	private JButton getJButton()
 	{
 		if (botonAceptar == null)
 		{
 			botonAceptar = new JButton();
-			botonAceptar.setIcon(new ImageIcon("Resources/folder-open_16x16.png"));
+			botonAceptar.setIcon(new ImageIcon(
+					"Resources/folder-open_16x16.png"));
 			botonAceptar.setText("Abrir");
 			botonAceptar.addActionListener(new java.awt.event.ActionListener()
 			{
@@ -124,6 +113,13 @@ public class SelectorFicherosDistribuido extends JDialog
 		return botonAceptar;
 	}
 
+	/**
+	 * Muestra el arbol de documentos y obtiene la metainformacion 
+	 * del documento seleccionado
+	 * @param owner Ventana padre para el dialogo
+	 * @param raiz Nodo que se usara como raiz del arbols
+	 * @return Metainformacion del documento seleccionado
+	 */
 	public static MIDocumento getDatosFichero(Frame owner,
 			DefaultMutableTreeNode raiz)
 	{
@@ -136,6 +132,9 @@ public class SelectorFicherosDistribuido extends JDialog
 
 	}
 
+	/**
+	 * Configura el dialogo para que se pueda seleccionar un documento
+	 */
 	private void getPath()
 	{
 		setTitle("Selecciona el documento");
@@ -155,12 +154,7 @@ public class SelectorFicherosDistribuido extends JDialog
 		setVisible(true);
 	}
 
-	/**
-	 * This method initializes jButton1
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private JButton getJButton1()
+	private JButton getBotonCancelar()
 	{
 		if (botonCancelar == null)
 		{
@@ -178,11 +172,6 @@ public class SelectorFicherosDistribuido extends JDialog
 		return botonCancelar;
 	}
 
-	/**
-	 * This method initializes jPanel1
-	 * 
-	 * @return javax.swing.JPanel
-	 */
 	private JPanel getJPanel1()
 	{
 		if (jPanel1 == null)
@@ -194,11 +183,6 @@ public class SelectorFicherosDistribuido extends JDialog
 		return jPanel1;
 	}
 
-	/**
-	 * This method initializes jTree
-	 * 
-	 * @return javax.swing.JTree
-	 */
 	private JTree getArbol()
 	{
 		if (arbol == null)
@@ -227,6 +211,9 @@ public class SelectorFicherosDistribuido extends JDialog
 		return arbol;
 	}
 
+	/**
+	 * Accion que se realiza al hacer doble click en un nodo del arbol
+	 */
 	private void accionAceptar()
 	{
 		TreePath[] dtp = arbol.getSelectionPaths();
@@ -234,12 +221,10 @@ public class SelectorFicherosDistribuido extends JDialog
 		if (( dtp != null ) && ( dtp.length > 0 ))
 		{
 
-			
-
 			fichero = arbol.getDocumentoSeleccionado();
 
 			setVisible(false);
 		}
 	}
 
-} // @jve:decl-index=0:visual-constraint="10,10"
+}

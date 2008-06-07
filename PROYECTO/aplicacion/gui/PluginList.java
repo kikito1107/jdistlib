@@ -10,6 +10,7 @@ import aplicacion.plugin.DAbstractPlugin;
 
 /**
  * Componente con la lista de plugins del sistema
+ * 
  * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
 class PluginList extends JList
@@ -35,18 +36,21 @@ class PluginList extends JList
 				if (index > -1)
 				{
 					theList.setToolTipText(null);
-					DAbstractPlugin text = (DAbstractPlugin) model.getElementAt(index);
+					DAbstractPlugin text = (DAbstractPlugin) model
+							.getElementAt(index);
 					theList.setToolTipText(text.getDescripcion());
 				}
 			}
 		});
 	}
-	
+
 	/**
 	 * Constructor con parametros
-	 * @param lm Modelo para la lista de aplicaciones
+	 * 
+	 * @param lm
+	 *            Modelo para la lista de aplicaciones
 	 */
-	public PluginList(ListModel lm)
+	public PluginList( ListModel lm )
 	{
 		super(lm);
 
@@ -62,15 +66,18 @@ class PluginList extends JList
 				if (index > -1)
 				{
 					theList.setToolTipText(null);
-					try {
-						DAbstractPlugin text = (DAbstractPlugin) model.getElementAt(index);
+					try
+					{
+						DAbstractPlugin text = (DAbstractPlugin) model
+								.getElementAt(index);
 						theList.setToolTipText(text.getDescripcion());
 					}
-					catch (ClassCastException e2) {
+					catch (ClassCastException e2)
+					{
 						System.out.println("valor de index " + index);
 						return;
 					}
-					
+
 				}
 			}
 		});
@@ -78,9 +85,11 @@ class PluginList extends JList
 
 	/**
 	 * Permite mostrar tooltips en cada entrada de la lista
-	 * @param e Evento de raton recibido
-	 * @return Cadena de texto con el tooltip del elemento en el que
-	 * 		   este situado el raton en este momento
+	 * 
+	 * @param e
+	 *            Evento de raton recibido
+	 * @return Cadena de texto con el tooltip del elemento en el que este
+	 *         situado el raton en este momento
 	 */
 	@Override
 	public String getToolTipText(MouseEvent e)

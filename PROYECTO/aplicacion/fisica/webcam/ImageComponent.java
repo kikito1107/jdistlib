@@ -14,6 +14,7 @@ import javax.swing.SwingUtilities;
 
 /**
  * Componente que muestra las imagenes capturadas por la webcam
+ * 
  * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz
  */
 public class ImageComponent extends JComponent
@@ -37,7 +38,9 @@ public class ImageComponent extends JComponent
 
 	/**
 	 * Constructor con parametros
-	 * @param padre Ventana donde esta situada este componente
+	 * 
+	 * @param padre
+	 *            Ventana donde esta situada este componente
 	 */
 	public ImageComponent( JFrame padre )
 	{
@@ -46,7 +49,9 @@ public class ImageComponent extends JComponent
 
 	/**
 	 * Asigna una imagen a este componente para que sea mostrada
-	 * @param image Imagen a asignar al componente
+	 * 
+	 * @param image
+	 *            Imagen a asignar al componente
 	 */
 	public void setImage(Image image)
 	{
@@ -56,7 +61,9 @@ public class ImageComponent extends JComponent
 
 	/**
 	 * Pone el tama–o de la imagen mostrada
-	 * @param newSize Nuevo tama–o para la imagen mostrada
+	 * 
+	 * @param newSize
+	 *            Nuevo tama–o para la imagen mostrada
 	 */
 	public void setImageSize(Dimension newSize)
 	{
@@ -69,9 +76,9 @@ public class ImageComponent extends JComponent
 	}
 
 	/**
-	 * Hebra encargada de actualizar la imagen mostrada en el componente.
-	 * Si actualizamos la imagen a mostrar, entonces este componente se
-	 * encargara de actualizar su visualizacion.
+	 * Hebra encargada de actualizar la imagen mostrada en el componente. Si
+	 * actualizamos la imagen a mostrar, entonces este componente se encargara
+	 * de actualizar su visualizacion.
 	 */
 	private class ImageRunnable implements Runnable
 	{
@@ -79,7 +86,9 @@ public class ImageComponent extends JComponent
 
 		/**
 		 * Constructor
-		 * @param newImage Imagen a poner en el componente
+		 * 
+		 * @param newImage
+		 *            Imagen a poner en el componente
 		 */
 		public ImageRunnable( Image newImage )
 		{
@@ -97,9 +106,12 @@ public class ImageComponent extends JComponent
 	}
 
 	/**
-	 * Repinta la imagen con el tama–o requerido en el componente.
-	 * Es usado por la clase privada @see ImageRunnable.
-	 * @param image Imagen a mostrar en el componente
+	 * Repinta la imagen con el tama–o requerido en el componente. Es usado por
+	 * la clase privada
+	 * 
+	 * @see ImageRunnable.
+	 * @param image
+	 *            Imagen a mostrar en el componente
 	 */
 	private synchronized void setImageInSwingThread(Image image)
 	{
@@ -111,8 +123,8 @@ public class ImageComponent extends JComponent
 	}
 
 	/**
-	 * Reimplementacion del metodo paint para que muestre la imagen
-	 * que queremos pintar en el componente.
+	 * Reimplementacion del metodo paint para que muestre la imagen que queremos
+	 * pintar en el componente.
 	 */
 	@Override
 	public synchronized void paint(Graphics g)
@@ -131,14 +143,15 @@ public class ImageComponent extends JComponent
 	{
 		return size;
 	}
-	
+
 	/**
-	 * Obtiene la imagen mostrada en el componente. El metodo
-	 * esta sincronizado por si se accede desde multiples hebras
-	 * a la imagen.
+	 * Obtiene la imagen mostrada en el componente. El metodo esta sincronizado
+	 * por si se accede desde multiples hebras a la imagen.
+	 * 
 	 * @return
 	 */
-	public synchronized Image getImage(){
+	public synchronized Image getImage()
+	{
 		return image;
 	}
 }
