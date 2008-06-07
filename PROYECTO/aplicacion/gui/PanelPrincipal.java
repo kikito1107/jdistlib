@@ -296,7 +296,7 @@ public class PanelPrincipal extends DComponenteBase
 
 			panelLateral.setLayout(new GridBagLayout());
 			panelLateral.add(jLabel, gridBagConstraints); // Generated
-			
+
 			JScrollPane jscrollpane = new JScrollPane(getListaAplicaciones());
 			jscrollpane.setBorder(null);
 			jscrollpane.setMinimumSize(new Dimension(100, 200));
@@ -545,7 +545,7 @@ public class PanelPrincipal extends DComponenteBase
 							int opcion = JOptionPane
 									.showOptionDialog(
 											null,
-											"ÀSeguro que desea eliminar el documento o directorio seleccionado?\nEsta acci—n no podr‡ se deshecha",
+											"ÀSeguro que desea eliminar el documento o directorio seleccionado?\nEsta acci—n no podr‡ se deshacer",
 											"Aviso", JOptionPane.YES_NO_OPTION,
 											JOptionPane.QUESTION_MESSAGE, null,
 											options, options[1]);
@@ -617,8 +617,8 @@ public class PanelPrincipal extends DComponenteBase
 
 						if (evento.padre != null) // por si es la raiz
 						{
-							//System.err.println("directorio padre: "
-							//		+ evento.padre.getNombre());
+							// System.err.println("directorio padre: "
+							// + evento.padre.getNombre());
 
 							evento.tipo = new Integer(
 									DFileEvent.NOTIFICAR_MODIFICACION_FICHERO
@@ -784,9 +784,9 @@ public class PanelPrincipal extends DComponenteBase
 			s2.setMinimumSize(new Dimension(20, 15));
 			herramientasUsuarios.setFloatable(false);
 			herramientasUsuarios.add(getEditarUsuario()); // edicion de
-															// usuarios
+			// usuarios
 			herramientasUsuarios.add(this.getBotonCambiarRol()); // cambio de
-																	// rol
+			// rol
 			herramientasUsuarios.add(s1); // separador
 			herramientasUsuarios.add(getIniciarChat()); // chat entre usuarios
 			herramientasUsuarios.add(getEnviarMensaje()); // envio de mensajes
@@ -1056,10 +1056,20 @@ public class PanelPrincipal extends DComponenteBase
 		MIDocumento carpeta = arbolDocumentos.getDocumentoSeleccionado();
 
 		// si el fichero escogido no es directorio, salimos
-		if (carpeta == null || !carpeta.esDirectorio())
+		if (carpeta == null)
 		{
-			JOptionPane.showMessageDialog(null, "Debe escoger un directorio al cual subir el documento");
+			JOptionPane.showMessageDialog(null,
+					"Debe escoger un directorio al cual subir el documento");
 			return;
+		}
+
+		if (!carpeta.esDirectorio())
+		{
+			DefaultMutableTreeNode df = ArbolDocumentos.buscarFichero(
+					(DefaultMutableTreeNode) arbolDocumentos.getModel()
+							.getRoot(), carpeta.getPadre());
+			
+			carpeta = arbolDocumentos.buscarFichero(df, ((MIDocumento)df.getUserObject()).getRutaLocal());
 		}
 
 		String path = carpeta.getRutaLocal() + "/";
@@ -1074,12 +1084,15 @@ public class PanelPrincipal extends DComponenteBase
 		// si se ha producido algun error, salimos
 		if (( user == null ) || ( rol == null )) return;
 
-		if (!carpeta.comprobarPermisos(user.getNombreUsuario(), rol.getNombreRol(), MIDocumento.PERMISO_ESCRITURA))
+		if (!carpeta.comprobarPermisos(user.getNombreUsuario(), rol
+				.getNombreRol(), MIDocumento.PERMISO_ESCRITURA))
 		{
-			JOptionPane.showMessageDialog(null, "No tiene permiso para escribir en el directorio seleccionado");
+			JOptionPane
+					.showMessageDialog(null,
+							"No tiene permiso para escribir en el directorio seleccionado");
 			return;
 		}
-		
+
 		// mostramos el selector de ficheros
 		JFileChooser jfc = new JFileChooser("Subir Documento Servidor");
 

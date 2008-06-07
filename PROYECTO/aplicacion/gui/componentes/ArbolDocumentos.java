@@ -124,6 +124,9 @@ public class ArbolDocumentos extends JTree implements Autoscroll
 
 	/**
 	 * Establece la raiz del arbol de documentos
+	 * 
+	 * @param raizNueva
+	 *            Nueva raiz del arbol
 	 */
 	public void setRaiz(DefaultMutableTreeNode raizNueva)
 	{
