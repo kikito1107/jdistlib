@@ -3,7 +3,6 @@ package aplicacion.plugin.example.gestor;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.util.Vector;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
@@ -29,9 +28,13 @@ import aplicacion.plugin.PluginContainer;
 
 import java.awt.Font;
 
+/**
+ * Ventana para la gestion de plugins.
+ * 
+ * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz
+ */
 public class GestorPlugins extends JFrame
 {
-
 	private static final long serialVersionUID = 1L;
 
 	private JPanel jContentPane = null;
@@ -48,10 +51,8 @@ public class GestorPlugins extends JFrame
 
 	private JScrollPane panelScroll = null;
 
-	Vector<DAbstractPlugin> plugins = null;
-
 	/**
-	 * This is the default constructor
+	 * Constructor
 	 */
 	public GestorPlugins()
 	{
@@ -60,10 +61,8 @@ public class GestorPlugins extends JFrame
 	}
 
 	/**
-	 * This method initializes this
-	 * 
-	 * @return void
-	 */
+	 * Inicializar los componentes graficos 
+	*/
 	private void initialize()
 	{
 		this.setSize(379, 379);
@@ -73,11 +72,6 @@ public class GestorPlugins extends JFrame
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 
-	/**
-	 * This method initializes jContentPane
-	 * 
-	 * @return javax.swing.JPanel
-	 */
 	private JPanel getJContentPane()
 	{
 		if (jContentPane == null)
@@ -90,11 +84,6 @@ public class GestorPlugins extends JFrame
 		return jContentPane;
 	}
 
-	/**
-	 * Inicializa el panel de scroll sobre el que esta tablaPlugin
-	 * 
-	 * @return el scroll
-	 */
 	private JScrollPane getScroll()
 	{
 		if (panelScroll == null)
@@ -106,11 +95,6 @@ public class GestorPlugins extends JFrame
 		return panelScroll;
 	}
 
-	/**
-	 * This method initializes TablaPluginsInstalados
-	 * 
-	 * @return javax.swing.JTable
-	 */
 	private JTable getTablaPluginsInstalados()
 	{
 		if (tablaPlugins == null)
@@ -153,11 +137,6 @@ public class GestorPlugins extends JFrame
 		return tablaPlugins;
 	}
 
-	/**
-	 * This method initializes PanelBotones
-	 * 
-	 * @return javax.swing.JPanel
-	 */
 	private JPanel getPanelBotones()
 	{
 		if (PanelBotones == null)
@@ -176,11 +155,6 @@ public class GestorPlugins extends JFrame
 		return PanelBotones;
 	}
 
-	/**
-	 * This method initializes EliminarPlugin
-	 * 
-	 * @return javax.swing.JButton
-	 */
 	private JButton getEliminarPlugin()
 	{
 		if (EliminarPlugin == null)
@@ -210,7 +184,7 @@ public class GestorPlugins extends JFrame
 	}
 
 	/**
-	 * Elimina un plugin: lo borra de la lista de plugins de la aplicacion y
+	 * Elimina un plugin: Lo borra de la lista de plugins de la aplicacion y
 	 * elimina el fichero .jar asociado al plugin
 	 * 
 	 * @param numPlugin
@@ -240,11 +214,6 @@ public class GestorPlugins extends JFrame
 		modeloTabla.removeRow(numPlugin);
 	}
 
-	/**
-	 * This method initializes AgregarPlugin
-	 * 
-	 * @return javax.swing.JButton
-	 */
 	private JButton getAgregarPlugin()
 	{
 		if (AgregarPlugin == null)
@@ -321,11 +290,6 @@ public class GestorPlugins extends JFrame
 		return AgregarPlugin;
 	}
 
-	/**
-	 * Inicializa el modelo de la tabla de plugisn
-	 * 
-	 * @return
-	 */
 	private DefaultTableModel getDefaultTableModel()
 	{
 
@@ -346,8 +310,10 @@ public class GestorPlugins extends JFrame
 		return modeloTabla;
 	}
 
-	
-	public class ListenerPlugins implements TableModelListener {
+	/**
+	 * Listener de plugins
+	 */
+	private class ListenerPlugins implements TableModelListener {
         public void tableChanged(TableModelEvent evt) {
             if (evt.getType() == TableModelEvent.UPDATE && evt.getColumn() == 3) {
             	
@@ -363,7 +329,6 @@ public class GestorPlugins extends JFrame
 	
 	/**
 	 * Inicializa el modelo de la tabla
-	 * 
 	 */
 	public void inicializarModelo()
 	{
@@ -385,4 +350,4 @@ public class GestorPlugins extends JFrame
 		}
 	}
 
-} // @jve:decl-index=0:visual-constraint="10,10"
+}

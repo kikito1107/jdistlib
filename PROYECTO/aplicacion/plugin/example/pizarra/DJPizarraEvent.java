@@ -8,49 +8,81 @@ import Deventos.DJViewerEvent;
 import figuras.Figura;
 
 /**
- * 
- * @author Carlos Rodriguez Dominguez
- * @date 2-1-2008
- */
-
-/**
  * Clase que implementa los eventos asociados a un lienzo de dibujo
+ * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz
  */
 public class DJPizarraEvent extends DJViewerEvent
 {
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Identificador de evento de sincronizacion
+	 */
 	public static final Integer SINCRONIZACION = new Integer(453);
 
+	/**
+	 * Identificador de evento de respuesta de sincronizacion
+	 */
 	public static final Integer RESPUESTA_SINCRONIZACION = new Integer(
 			SINCRONIZACION.intValue() + 1);
 
+	/**
+	 * Identificador de evento de nueva anotacion
+	 */
 	public static final Integer NUEVA_ANOTACION = new Integer(SINCRONIZACION
 			.intValue() + 2);
 
+	/**
+	 * Identificador de evento de limpieza de lienzo
+	 */
 	public static final Integer LIMPIEZA_LIENZO = new Integer(SINCRONIZACION
 			.intValue() + 4);
 
+	/**
+	 * Identificador de evento de deshacer
+	 */
 	public static final Integer DESHACER = new Integer(SINCRONIZACION
 			.intValue() + 5);
 
+	/**
+	 * Identificador de evento de borrado
+	 */
 	public static final Integer BORRADO = new Integer(
 			SINCRONIZACION.intValue() + 6);
 
+	/**
+	 * Identificador de evento de rehacer
+	 */
 	public static final Integer REHACER = new Integer(
 			SINCRONIZACION.intValue() + 7);
 
+	/**
+	 * Figura asociada al evento
+	 */
 	public Figura dibujo = null;;
 
+	/**
+	 * Conjunto de figuras del evento
+	 */
 	public Vector<Figura> dibujos = null;
 
+	/**
+	 * Indice de la figura a borrar
+	 */
 	public Integer aBorrar = null;
 
+	/**
+	 * Constructor por defecto
+	 */
 	public DJPizarraEvent()
 	{
 
 	}
 
+	/**
+	 * Constructor de copias
+	 * @param evento Evento a copiar
+	 */
 	public DJPizarraEvent( DJPizarraEvent evento )
 	{
 		this.origen = ( evento.origen == null ) ? null : new Integer(

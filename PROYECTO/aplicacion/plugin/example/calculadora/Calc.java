@@ -13,17 +13,13 @@ import java.awt.Panel;
 import java.awt.event.KeyEvent;
 
 /**
- * Calculadora sencilla
+ * Calculadora sencilla que funciona con el teclado
  */
 public class Calc extends Applet
 {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -7918703585424936374L;
 
-	Display display = new Display();
+	private Display display = new Display();
 
 	/**
 	 * inicializa el applet Calc
@@ -40,15 +36,13 @@ public class Calc extends Applet
 	}
 
 	/**
-	 * manipulador para las funciones de la calculadora.
+	 * Acciones para cada funcion de la calculadora
 	 */
 	@Override
 	public boolean action(Event ev, Object arg)
 	{
-
 		if (ev.target instanceof Button)
 		{
-
 			String label = (String) arg;
 			if (label.equals("C"))
 			{
@@ -126,14 +120,14 @@ class Keypad extends Panel
 {
 	private static final long serialVersionUID = -2027493051307560236L;
 
-	Display d;
+	private Display d;
 
 	/**
 	 * inicializa keypad, a–ade los botones, establece los colores, etc.
 	 * 
 	 * @param display
 	 */
-	Keypad( Display display )
+	public Keypad( Display display )
 	{
 
 		Button b = new Button();

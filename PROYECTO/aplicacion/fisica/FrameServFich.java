@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -175,7 +176,14 @@ public class FrameServFich extends JFrame
 							public void actionPerformed(
 									java.awt.event.ActionEvent e)
 							{
-								System.exit(0);
+								Object[] etiquetas = new Object[]{"Salir", "Cancelar"};
+								int opcion = JOptionPane.showOptionDialog(null, "Si sale del servidor debera reiniciar los servicios de JINI\n"+
+																				"para que el funcionamiento del sistema cuando vuelva a iniciarlo sea el esperado", 
+																		"Aviso", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, etiquetas, etiquetas[0]);
+								if (opcion == JOptionPane.YES_OPTION)
+								{
+									System.exit(0);
+								}
 							}
 						});
 			}

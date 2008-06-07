@@ -8,7 +8,6 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
@@ -16,16 +15,17 @@ import javax.swing.JToolBar;
 
 import util.Separador;
 
+/**
+ * Panel con los controles para la pizarra distribuida
+ * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz
+ */
 public class ControlesPizarra extends JPanel
 {
-
 	private static final long serialVersionUID = 1L;
 
 	private JComboBox listaPinceles = null;
 
-	DefaultComboBoxModel modeloPincel = null;
-
-	DefaultComboBoxModel modeloColores = null;
+	private DefaultComboBoxModel modeloPincel = null;
 
 	private Pizarra pizarra = null;
 
@@ -56,6 +56,17 @@ public class ControlesPizarra extends JPanel
 	private JToggleButton botonSeleccionar = null;
 
 	/**
+	 * Constructor por defecto
+	 * @param l Pizarra a la que queremos asignar los controles
+	 */
+	public ControlesPizarra( Pizarra l )
+	{
+		super();
+		pizarra = l;
+		initialize();
+	}
+	
+	/**
 	 * Devuelve el color actual
 	 * 
 	 * @return el nœmero asociado al color actual
@@ -75,25 +86,6 @@ public class ControlesPizarra extends JPanel
 		return trazoActual;
 	}
 
-	/**
-	 * This is the default constructor
-	 */
-	public ControlesPizarra( Pizarra l )
-	{
-		super();
-		pizarra = l;
-		initialize();
-	}
-
-	public void setPadre(JFrame p)
-	{
-	}
-
-	/**
-	 * This method initializes this
-	 * 
-	 * @return void
-	 */
 	private void initialize()
 	{
 		GridLayout gridLayout = new GridLayout();
@@ -109,11 +101,9 @@ public class ControlesPizarra extends JPanel
 	}
 
 	/**
-	 * This method initializes jComboBox
-	 * 
-	 * @return javax.swing.JComboBox
+	 * Permite seleccionar un color en un selector de colores
+	 * @return Color seleccionado
 	 */
-
 	private Color elegirColor()
 	{
 		Color c = javax.swing.JColorChooser.showDialog(null, "Escoge el Color",
@@ -121,11 +111,6 @@ public class ControlesPizarra extends JPanel
 		return c;
 	}
 
-	/**
-	 * This method initializes jComboBox1
-	 * 
-	 * @return javax.swing.JComboBox
-	 */
 	private JComboBox getListaPinceles()
 	{
 		if (listaPinceles == null)
@@ -156,11 +141,6 @@ public class ControlesPizarra extends JPanel
 		return listaPinceles;
 	}
 
-	/**
-	 * This method initializes jButton4
-	 * 
-	 * @return javax.swing.JButton
-	 */
 	private JButton getBotonLimpiar()
 	{
 		if (botonLimpiarLienzo == null)
@@ -194,11 +174,6 @@ public class ControlesPizarra extends JPanel
 		return botonLimpiarLienzo;
 	}
 
-	/**
-	 * This method initializes jButton
-	 * 
-	 * @return javax.swing.JButton
-	 */
 	private JButton getBotonDeshacer()
 	{
 		if (botonDeshacer == null)
@@ -227,11 +202,6 @@ public class ControlesPizarra extends JPanel
 		return botonDeshacer;
 	}
 
-	/**
-	 * This method initializes jButton3
-	 * 
-	 * @return javax.swing.JButton
-	 */
 	private JButton getBotonBorrar()
 	{
 		if (botonBorrar == null)
@@ -282,11 +252,6 @@ public class ControlesPizarra extends JPanel
 		return botonSeleccionar;
 	}
 
-	/**
-	 * This method initializes jButton21
-	 * 
-	 * @return javax.swing.JButton
-	 */
 	private JButton getBotonAnterior()
 	{
 		if (botonAnterior == null)
@@ -309,11 +274,6 @@ public class ControlesPizarra extends JPanel
 		return botonAnterior;
 	}
 
-	/**
-	 * This method initializes jButton211
-	 * 
-	 * @return javax.swing.JButton
-	 */
 	private JButton getBotonSiguiente()
 	{
 		if (botonSiguiente == null)
@@ -338,11 +298,6 @@ public class ControlesPizarra extends JPanel
 		return botonSiguiente;
 	}
 
-	/**
-	 * This method initializes jButton
-	 * 
-	 * @return javax.swing.JButton
-	 */
 	private JButton getBotonRehacer()
 	{
 		if (botonRehacer == null)
@@ -367,11 +322,6 @@ public class ControlesPizarra extends JPanel
 		return botonRehacer;
 	}
 
-	/**
-	 * This method initializes jToolBar
-	 * 
-	 * @return javax.swing.JToolBar
-	 */
 	private JToolBar getBarraHerramientas()
 	{
 		if (barraHerramientas == null)
@@ -410,11 +360,6 @@ public class ControlesPizarra extends JPanel
 		return barraHerramientas;
 	}
 
-	/**
-	 * This method initializes botonLimpiarImagen1
-	 * 
-	 * @return javax.swing.JButton
-	 */
 	private JButton getBotonColores()
 	{
 		if (botonPaletaColores == null)
@@ -440,4 +385,4 @@ public class ControlesPizarra extends JPanel
 		return botonPaletaColores;
 	}
 
-} // @jve:decl-index=0:visual-constraint="-78,19"
+}

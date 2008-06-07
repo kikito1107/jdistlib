@@ -29,18 +29,13 @@ import figuras.Texto;
 import figuras.TrazoManoAlzada;
 
 /**
- * Implementacion de un editor basico de imagenes distribuido
+ * Implementacion de una pizarra distribuida
  * 
- * @author Ana Belen Pelegrina Ortiz
- * @date 9-2-2008
+ * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
 public class Pizarra extends DIViewer implements MouseListener,
 		MouseMotionListener
 {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -2746544910515149389L;
 
 	/**
@@ -48,20 +43,37 @@ public class Pizarra extends DIViewer implements MouseListener,
 	 */
 	private JFrame padre = null;
 
-	/**
+	/*
 	 * Modos de dibujo para las anotaciones
+	 */
+	/**
+	 * Modo de dibujo con lineas
 	 */
 	public static final int LINEAS = 0;
 
+	/**
+	 * Modo de dibujo a mano alzada
+	 */
 	public static final int MANO_ALZADA = 1;
 
+	/**
+	 * Modo para escribir texto
+	 */
 	public static final int TEXTO = 2;
 
+	/**
+	 * Modo para dibujar rectangulos
+	 */
 	public static final int RECTANGULO = 3;
 
+	/**
+	 * Modo para dibujar elipses
+	 */
 	public static final int ELIPSE = 4;
 
-	/** Indica si se ha sincronizado ya el lienzo */
+	/** Indica si se ha sincronizado ya el lienzo 
+	 * 
+	 */
 	public boolean sincronizada = false;
 
 	/**
@@ -78,29 +90,30 @@ public class Pizarra extends DIViewer implements MouseListener,
 	/**
 	 * Modo de dibujo, puede ser lineas o puntos. Inicialmente es lineas
 	 */
-	int modoDibujo = LINEAS;
+	private int modoDibujo = LINEAS;
 
 	/**
 	 * Anotación actualmente seleccionada
 	 */
-	public int anotacionSeleccionada = -1;
+	private int anotacionSeleccionada = -1;
 
 	/**
 	 * Vector con las anotaciones realizadas
 	 */
-	Vector<Figura> anotaciones = new Vector<Figura>();
+	private Vector<Figura> anotaciones = new Vector<Figura>();
 
 	/**
 	 * Vector que contiene los objetos que han sido borrados
 	 */
-	Vector<Figura> anotacionesBorradas = new Vector<Figura>();
+	private Vector<Figura> anotacionesBorradas = new Vector<Figura>();
 
-	/**
+	/*
 	 * Coordenadas del trazo actual
 	 */
-	int x1, y1;
-
-	int x2, y2;
+	private int x1;
+	private int y1;
+	private int x2;
+	private int y2;
 
 	/**
 	 * Hebra encargada del procesamiento de los eventos
@@ -116,9 +129,10 @@ public class Pizarra extends DIViewer implements MouseListener,
 	 * Constructor de la clase
 	 * 
 	 * @param nombre
-	 *            nombre del componente
-	 * @param conexionDC
-	 * @param padre
+	 *            Nombre del componente
+	 * @param conexionDC Indica si queremos tener una conexion directa
+	 * 					 con el DConector
+	 * @param padre Componente padre de este componente
 	 */
 	public Pizarra( String nombre, boolean conexionDC, DComponenteBase padre )
 	{
@@ -140,13 +154,17 @@ public class Pizarra extends DIViewer implements MouseListener,
 	 * Establece el color actual para dibujar
 	 * 
 	 * @param unColor
-	 *            el nuevo color actual
+	 *            Nuevo color
 	 */
 	public void setColor(Color unColor)
 	{
 		colorActual = unColor;
 	}
 
+	/**
+	 * Asigna si se esta seleccionando o no
+	 * @param b Indica si deseamos seleccionar o pintar
+	 */
 	public void setEstaSeleccionando(boolean b)
 	{
 		estaSeleccionando = b;
@@ -190,14 +208,17 @@ public class Pizarra extends DIViewer implements MouseListener,
 	}
 
 	/**
-	 * @return the objetoSeleccionado
+	 * Obtiene el objeto seleccionado
+	 * @return Objeto seleccionado
 	 */
 	public int getObjetoSeleccionado()
 	{
 		return anotacionSeleccionada;
 	}
 
-	
+	/**
+	 * Selecciona el siguiente objeto
+	 */
 	public void siguienteObjeto(){
 		if (anotacionSeleccionada == -1)
 			anotacionSeleccionada = 0;
@@ -212,6 +233,9 @@ public class Pizarra extends DIViewer implements MouseListener,
 		this.repaint();
 	}
 	
+	/**
+	 * Selecciona el objeto anterior
+	 */
 	public void anteriorObjeto(){
 		if (anotacionSeleccionada == -1)
 			anotacionSeleccionada = anotaciones.size()-1;
@@ -620,7 +644,7 @@ public class Pizarra extends DIViewer implements MouseListener,
 	/**
 	 * Procesa un evento recibido
 	 * 
-	 * @arg evento evento recibido
+	 * @param evento Evento recibido
 	 */
 	@Override
 	@SuppressWarnings( "static-access" )
@@ -683,8 +707,6 @@ public class Pizarra extends DIViewer implements MouseListener,
 
 	/**
 	 * Hebra que se encarga de procesar los eventos asociados al lienzo
-	 * 
-	 * @author Ana Belen Pelegrina Ortiz
 	 */
 	private class HebraProcesadora extends HebraProcesadoraBase
 	{
