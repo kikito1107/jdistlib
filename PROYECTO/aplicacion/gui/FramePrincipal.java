@@ -4,17 +4,16 @@ import java.awt.BorderLayout;
 import java.awt.event.WindowEvent;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 
 import Deventos.enlaceJS.DConector;
-
-import componentes.base.DJFrame;
 
 /**
  * Ventana principal de la plataforma.
  * 
  * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
-public class FramePrincipal extends DJFrame
+public class FramePrincipal extends JFrame
 {
 	private static final long serialVersionUID = 3179403669427211858L;
 
@@ -27,7 +26,7 @@ public class FramePrincipal extends DJFrame
 	 */
 	public FramePrincipal()
 	{
-		super(false, "MousesRemotos");
+		super();
 		try
 		{
 			init();
