@@ -3,8 +3,10 @@ package aplicacion.plugin;
 import java.util.Vector;
 
 /**
- * Clase encargada de la gesti—n de los plugins, controlar el acceso a los plugins y notificar a las hebras 
- * que asi lo deseen los cambios producidos en los plugins
+ * Clase encargada de la gesti—n de los plugins, controlar el acceso a los
+ * plugins y notificar a las hebras que asi lo deseen los cambios producidos en
+ * los plugins
+ * 
  * @author anab
  */
 public class PluginContainer
@@ -18,62 +20,66 @@ public class PluginContainer
 	 * Monitor encargado de sincronizar el acceso a los plugins
 	 */
 	private static MonitorPlugins monitor = null;
-	
+
 	/**
 	 * Flag booleano que indica si el contenedor ha sido ya creado
 	 */
-	private static boolean created  = false;
-	
+	private static boolean created = false;
+
 	/**
 	 * Inicializa el contenedor de plugins si no ha sido ya inicializado
 	 */
 	public PluginContainer()
 	{
-		
-		if (!created) {
-			
-			//	cargar los plugins
+
+		if (!created)
+		{
+
+			// cargar los plugins
 			try
 			{
-				plugins =  DPluginLoader.getAllPlugins("plugin");
+				plugins = DPluginLoader.getAllPlugins("plugin");
 			}
 			catch (Exception e)
 			{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			
+
 			monitor = new MonitorPlugins();
 			created = true;
 		}
 	}
-	
+
 	/**
-	 * La hebra que ejecuta este mtodo espera hasta que se notifique algun cambio en la lista de plugins
+	 * La hebra que ejecuta este mtodo espera hasta que se notifique algun
+	 * cambio en la lista de plugins
 	 */
-	public static void actualizar(){
+	public static void actualizar()
+	{
 		monitor.actualizar();
 	}
-	
+
 	/**
 	 * Permite acceder al plugin i-simo
-	 * @param index posicion del plugin en la lista
-	 * @return el plugin si el valor del indice es correcto, -1 en caso contrario
+	 * 
+	 * @param index
+	 *            Posicion del plugin en la lista
+	 * @return El plugin si el valor del indice es correcto, -1 en caso
+	 *         contrario
 	 */
-	public static DAbstractPlugin getPlugin(int index){
+	public static DAbstractPlugin getPlugin(int index)
+	{
 		if (index >= 0 && index < plugins.size())
 			return plugins.get(index);
-		else 
-			return null;
+		else return null;
 	}
-	
-	
+
 	/**
 	 * Elimina un plugin de la lista de plugins
 	 * 
 	 * @param namen
-	 *            nombre del plugin a eliminar
+	 *            Nombre del plugin a eliminar
 	 */
 	public static void eliminarPlugin(String namen)
 	{
@@ -90,24 +96,31 @@ public class PluginContainer
 		// notificamos la eliminacion del plugin
 		monitor.notificarPlugins();
 	}
-	
+
 	/**
 	 * Comprueba si el i-esimo plugin de la lista es visible
-	 * @param i posicion del plugin
-	 * @return true si el plugin es visible y false en caso contrario
+	 * 
+	 * @param i
+	 *            Posicion del plugin
+	 * @return True si el plugin es visible. False en caso contrario
 	 */
-	public static boolean isVisible(int i) {
+	public static boolean isVisible(int i)
+	{
 		return plugins.get(i).shouldShowIt();
 	}
 
-	
 	/**
 	 * Establece si un plugin ha de ser visible o no
-	 * @param b booleano que indica si el plugin ha de ser visible o no
-	 * @param name nombre del plugin
+	 * 
+	 * @param b
+	 *            Indica si el plugin ha de ser visible de forma predeterminada
+	 *            o no
+	 * @param name
+	 *            Nombre del plugin
 	 */
-	public static void setVisible(boolean b, String name) {
-		
+	public static void setVisible(boolean b, String name)
+	{
+
 		boolean encontrada = false;
 
 		for (int i = 0; i < plugins.size() && !encontrada; ++i)
@@ -121,13 +134,11 @@ public class PluginContainer
 		monitor.notificarPlugins();
 	}
 
-	
-	
 	/**
-	 * Agreaga un plugin a la lista
+	 * Agrega un plugin a la lista
 	 * 
 	 * @param a
-	 *            plugin a agregar
+	 *            Plugin a agregar
 	 */
 	public static void agregarPlugin(DAbstractPlugin a)
 	{
@@ -140,7 +151,8 @@ public class PluginContainer
 	/**
 	 * Consulta el numero de plugins cargados actualmente
 	 * 
-	 * @return el numero de plugins. Devuelve -1 si se ha producido algœn error
+	 * @return Numero de plugins cargados actualmente. Devuelve -1 si se ha
+	 *         producido algœn error.
 	 */
 	public static int numPlugins()
 	{
@@ -154,8 +166,8 @@ public class PluginContainer
 	 * Consulta el nombre del fichero jar asociado a un plugin
 	 * 
 	 * @param index
-	 *            posicion del plugin en la lista
-	 * @return el nombre del jar
+	 *            Posicion del plugin en la lista
+	 * @return Nombre del jar que contiene el plugin
 	 * @throws ArrayIndexOutOfBoundsException
 	 */
 	public static String getPluginJarName(int index)
@@ -170,8 +182,8 @@ public class PluginContainer
 	 * Consulta la version del plugin
 	 * 
 	 * @param index
-	 *            posicion del plugin en la lista
-	 * @return la version
+	 *            Posicion del plugin en la lista
+	 * @return Version del plugin
 	 * @throws ArrayIndexOutOfBoundsException
 	 */
 	public static long getVersionPlugin(int index)
@@ -186,8 +198,8 @@ public class PluginContainer
 	 * Consulta el nombre de un plugin
 	 * 
 	 * @param index
-	 *            posicion del plugin en la lista
-	 * @return el nombre
+	 *            Posicion del plugin en la lista
+	 * @return Nombre del plugin
 	 * @throws ArrayIndexOutOfBoundsException
 	 */
 	public static String getPluginName(int index)
@@ -197,14 +209,14 @@ public class PluginContainer
 
 		return jarName;
 	}
-	
+
 	/**
 	 * Monitor que controla la actualizacion de la lista de aplicaciones
 	 */
 	private class MonitorPlugins
 	{
 		/**
-		 * Metodo que controla el acceso a la lista de plugins. Toda hebra que 
+		 * Metodo que controla el acceso a la lista de plugins. Toda hebra que
 		 * llame a este metodo se queda "dormida" hasta que se ejecute el metodo
 		 * notificarPlugins()
 		 */
@@ -223,9 +235,10 @@ public class PluginContainer
 
 		/**
 		 * Notifica a todas las hebras que estn esperando por una actulizacion
-		 * de la lista de plugin que esta se ha producido. EL efecto de esta llamada
-		 * es que se despiertan todas la hebras que estaban esperando; el planificador
-		 * decide que hebra de la que se acaban de despertar se ejecutar‡ primero.
+		 * de la lista de plugin que esta se ha producido. EL efecto de esta
+		 * llamada es que se despiertan todas la hebras que estaban esperando;
+		 * el planificador decide que hebra de la que se acaban de despertar se
+		 * ejecutar‡ primero.
 		 */
 		public synchronized void notificarPlugins()
 		{

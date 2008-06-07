@@ -8,12 +8,27 @@ import java.util.jar.JarFile;
 
 import aplicacion.plugin.jar.JarClassLoader;
 
+/**
+ * Permite cargar los plugins en la plataforma
+ * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz
+ */
 public class DPluginLoader
 {
+	/**
+	 * Obtiene el plugin contenido en un fichero
+	 * @param file Fichero jar con el plugin a cargar
+	 * @return Plugin del fichero o null si el fichero
+	 *         no contiene ningun plugin o si ocurrio algun error
+	 * @throws Exception
+	 */
 	@SuppressWarnings( "unchecked" )
 	public static synchronized DAbstractPlugin getPlugin(String file) throws Exception
 	{
+		//modificar el classpath para agregar el fichero
 		ClassPathModifier.addFile(new File(file));
+		
+		//cargar el fichero jar para obtener los elementos
+		//que contiene
 		JarClassLoader jcl = new JarClassLoader(file);
 
 		String className = null;
@@ -34,6 +49,9 @@ public class DPluginLoader
 				cls = jcl.loadClass(className, true);
 				
 				try{
+					//si se puede hacer un casting como
+					//subclase de DAbstracPlugin, entonces
+					//es un plugin valido
 					cls.asSubclass(DAbstractPlugin.class);
 					return (DAbstractPlugin)cls.newInstance();
 				}
@@ -50,6 +68,12 @@ public class DPluginLoader
 		return null;
 	}
 
+	/**
+	 * Obtiene todos los plugins de un directorio
+	 * @param directory Directorio del cual obtener todos los plugins
+	 * @return Vector con los plugins contenidos en el directorio especificado
+	 * @throws Exception
+	 */
 	public static synchronized Vector<DAbstractPlugin> getAllPlugins(String directory)
 			throws Exception
 	{

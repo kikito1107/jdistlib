@@ -26,6 +26,10 @@ public class ClassPathModifier
 		addFile(f);
 	}
 
+	/**
+	 * Agrega un fichero al classpath
+	 * @param f Fichero a agregar al classpath
+	 */
 	public static void addFile(File f)
 	{
 		try
@@ -38,6 +42,10 @@ public class ClassPathModifier
 		}
 	}
 
+	/**
+	 * Agrega una URL al classpath
+	 * @param u URL a agregar al classpath
+	 */
 	public static void addURL(URL u)
 	{
 		URLClassLoader sysloader = (URLClassLoader) ClassLoader
