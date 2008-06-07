@@ -178,7 +178,8 @@ public class FrameServFich extends JFrame
 							{
 								Object[] etiquetas = new Object[]{"Salir", "Cancelar"};
 								int opcion = JOptionPane.showOptionDialog(null, "Si sale del servidor debera reiniciar los servicios de JINI\n"+
-																				"para que el funcionamiento del sistema cuando vuelva a iniciarlo sea el esperado", 
+																				"para que el funcionamiento del sistema cuando vuelva a iniciarlo\n"+
+																				"sea el esperado. Disculpe las molestias.", 
 																		"Aviso", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, etiquetas, etiquetas[0]);
 								if (opcion == JOptionPane.YES_OPTION)
 								{
