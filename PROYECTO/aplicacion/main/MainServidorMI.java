@@ -8,9 +8,10 @@ import javax.swing.UIManager;
 import metainformacion.gui.FrameAdminServMI;
 
 /**
- * Clase para lanzar el servidor de Metainformacion
+ * Clase principal para lanzar el servidor de metainformacion
+ * 
+ * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
-
 public class MainServidorMI
 {
 	boolean packFrame = false;
@@ -41,6 +42,12 @@ public class MainServidorMI
 
 	}
 
+	/**
+	 * Metodo main. Establece el Look&Feel y abre la ventana de la aplicacion
+	 * 
+	 * @param args
+	 *            Argumentos de la aplicacion. Son ignorados
+	 */
 	public static void main(String[] args)
 	{
 		try

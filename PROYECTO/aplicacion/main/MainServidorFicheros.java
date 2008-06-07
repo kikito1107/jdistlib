@@ -8,11 +8,17 @@ import javax.swing.UIManager;
 import aplicacion.fisica.FrameServFich;
 import aplicacion.fisica.ServidorFicheros;
 
+/**
+ * Clase principal para lanzar el servidor de ficheros
+ * 
+ * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
+ */
 public class MainServidorFicheros
 {
 	private boolean packFrame = false;
-	
-	public MainServidorFicheros(){
+
+	public MainServidorFicheros()
+	{
 		FrameServFich frame = new FrameServFich();
 		// Validate frames that have preset sizes
 		// Pack frames that have useful preferred size info, e.g. from their
@@ -35,7 +41,13 @@ public class MainServidorFicheros
 				( screenSize.height - frameSize.height ) / 2);
 		frame.setVisible(true);
 	}
-	
+
+	/**
+	 * Metodo main. Establece el Look&Feel y abre la ventana de la aplicacion
+	 * 
+	 * @param args
+	 *            Argumentos de la aplicacion. Son ignorados
+	 */
 	public static void main(String args[])
 	{
 		try

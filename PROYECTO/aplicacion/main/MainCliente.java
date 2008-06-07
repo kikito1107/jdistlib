@@ -10,31 +10,17 @@ import aplicacion.gui.FramePrincipal;
 import aplicacion.plugin.PluginContainer;
 
 /**
+ * Clase principal para lanzar el cliente de la plataforma
  * 
- * <p>
- * Title: Main Cliente
- * </p>
- * <p>
- * Description: Main de la aplicacion de los clientes
- * </p>
- * <p>
- * Copyright: Copyright (c) 2004
- * </p>
- * <p>
- * Company: 
- * </p>
- * 
- * @author Ana B., Carlos
- * @version 1.2
+ * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
 public class MainCliente
 {
-	boolean packFrame = false;
+	private boolean packFrame = false;
 
-	DConector d = null;
+	private DConector d = null;
 
-	// Construct the application
-	private MainCliente()
+	public MainCliente()
 	{
 		d = new DConector("AplicacionDePrueba");
 		d.inicializar();
@@ -64,8 +50,11 @@ public class MainCliente
 	}
 
 	/**
-	 * Metodo main. Establece el Look&Feel, inicia el contendor del Plugins y la ventana principal de la aplicacion
-	 * @param args argumentos. son ignorados
+	 * Metodo main. Establece el Look&Feel, inicia el contendor del Plugins y la
+	 * ventana principal de la aplicacion
+	 * 
+	 * @param args
+	 *            Argumentos de la aplicacion. Son ignorados
 	 */
 	public static void main(String[] args)
 	{
@@ -78,10 +67,10 @@ public class MainCliente
 		{
 			e.printStackTrace();
 		}
-		
+
 		// inicializamos el contenedor de plugins
 		new PluginContainer();
-		
+
 		// iniciamos la GUI
 		new MainCliente();
 	}
