@@ -1052,11 +1052,15 @@ public class PanelPrincipal extends DComponenteBase
 	 */
 	private void subirFicheroServidor()
 	{
-		// obtenemos los datos del fichero asociados a ese nodo
+		// obtenemos los datos del fichero asociados al nodo seleccionado
 		MIDocumento carpeta = arbolDocumentos.getDocumentoSeleccionado();
 
 		// si el fichero escogido no es directorio, salimos
-		if (carpeta == null || !carpeta.esDirectorio()) return;
+		if (carpeta == null || !carpeta.esDirectorio())
+		{
+			JOptionPane.showMessageDialog(null, "Debe escoger un directorio al cual subir el documento");
+			return;
+		}
 
 		String path = carpeta.getRutaLocal() + "/";
 
@@ -1070,6 +1074,12 @@ public class PanelPrincipal extends DComponenteBase
 		// si se ha producido algun error, salimos
 		if (( user == null ) || ( rol == null )) return;
 
+		if (!carpeta.comprobarPermisos(user.getNombreUsuario(), rol.getNombreRol(), MIDocumento.PERMISO_ESCRITURA))
+		{
+			JOptionPane.showMessageDialog(null, "No tiene permiso para escribir en el directorio seleccionado");
+			return;
+		}
+		
 		// mostramos el selector de ficheros
 		JFileChooser jfc = new JFileChooser("Subir Documento Servidor");
 

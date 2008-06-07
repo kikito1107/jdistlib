@@ -5,12 +5,21 @@ import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 
+/**
+ * Permite modificar el classpath de la aplicacion
+ * de forma dinamica
+ * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz
+ */
 public class ClassPathModifier
 {
 	@SuppressWarnings("unchecked")
 	private static final Class[] parameters = new Class[]
 	{ URL.class };
 
+	/**
+	 * Agrega un fichero al classpath
+	 * @param s Path del fichero
+	 */
 	public static void addFile(String s)
 	{
 		File f = new File(s);
