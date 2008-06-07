@@ -3,16 +3,20 @@ package aplicacion.plugin.example;
 import aplicacion.plugin.DAbstractPlugin;
 import aplicacion.plugin.example.gestor.GestorPlugins;
 
+/**
+ * Plugin que permite gestionar los plugins de la plataforma
+ * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz
+ */
 public class DGestorPlugins extends DAbstractPlugin
 {
-
 	private GestorPlugins gestorPlugin = null;
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -6310087937591625336L;
 
+	/**
+	 * Constructor
+	 * @throws Exception
+	 */
 	public DGestorPlugins() throws Exception
 	{
 		super("GestorPlugin", false, null);

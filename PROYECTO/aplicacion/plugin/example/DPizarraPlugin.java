@@ -10,18 +10,23 @@ import componentes.base.DComponenteBase;
 import componentes.base.DJFrame;
 import Deventos.DEvent;
 
+/**
+ * Plugin con una pizarra compartida para realizar
+ * dibujos con otros usuarios
+ * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz
+ */
 public class DPizarraPlugin extends DAbstractPlugin
 {
-
 	private DJFrame ventanaPizarra = null;
 
-	Pizarra p = null;
+	private Pizarra p = null;
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -6310087937591625336L;
 
+	/**
+	 * Constructor
+	 * @throws Exception
+	 */
 	public DPizarraPlugin() throws Exception
 	{
 		super("pizarra plugin", false, null);

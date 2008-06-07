@@ -30,20 +30,25 @@ import componentes.gui.usuarios.ArbolUsuariosConectadosRol;
 import Deventos.DEvent;
 import Deventos.DJChatEvent;
 
+/**
+ * Plugin de chat entre usuarios
+ * 
+ * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
+ */
 public class DChatPlugin extends DAbstractPlugin
 {
-
 	private DJFrame ventanaChat = null;
 
-	ArbolUsuariosConectadosRol arbol = null;
+	private ArbolUsuariosConectadosRol arbol = null;
 
-	DIChat chat;
-
-	/**
-	 * 
-	 */
+	private DIChat chat;
+	
 	private static final long serialVersionUID = -6310087937591625336L;
 
+	/**
+	 * Constructor
+	 * @throws Exception
+	 */
 	public DChatPlugin() throws Exception
 	{
 		super("chatplugin", false, null);
@@ -60,10 +65,11 @@ public class DChatPlugin extends DAbstractPlugin
 	@Override
 	public void init() throws Exception
 	{
-		version = 5;
+		version = 6;
 		nombre = "Chat";
 		shouldShow = true;
 		jarFile = "chat.jar";
+		versioningEnabled = true;
 		categoria = DAbstractPlugin.CATEGORIA_COMUNICACION;
 		descripcion = "Chat con videoconferencia integrada. Permite mensajes privados y publicos";
 		
@@ -81,15 +87,15 @@ public class DChatPlugin extends DAbstractPlugin
 		ventanaChat.getContentPane().setLayout(new BorderLayout());
 		ventanaChat.getContentPane().add(centro, BorderLayout.CENTER);
 		ventanaChat.getContentPane().add(oeste, BorderLayout.WEST);
-		ventanaChat.setTitle(":: Chat - " + DConector.Dusuario + " ::");
 		ventanaChat.setResizable(true);
 	}
 
 	@Override
 	public void start() throws Exception
-	{
+	{		
 		ventanaChat.pack();
 		ventanaChat.setSize(550, 430);
+		ventanaChat.setTitle(":: Chat - " + DConector.Dusuario + " ::");
 
 		ventanaChat.setLocationRelativeTo(null);
 
@@ -113,12 +119,10 @@ public class DChatPlugin extends DAbstractPlugin
 	}
 
 	/**
-	 * 
-	 * @author anab
+	 * Clase que implementa los componentes graficos del chat
 	 */
 	private class PanelControlChat extends JPanel
 	{
-
 		private static final long serialVersionUID = 1L;
 
 		private JToolBar barra = null;
@@ -136,7 +140,7 @@ public class DChatPlugin extends DAbstractPlugin
 		private JButton botonFuente = null;
 
 		/**
-		 * This is the default constructor
+		 * Constructor
 		 */
 		public PanelControlChat()
 		{
@@ -144,11 +148,6 @@ public class DChatPlugin extends DAbstractPlugin
 			initialize();
 		}
 
-		/**
-		 * This method initializes this
-		 * 
-		 * @return void
-		 */
 		private void initialize()
 		{
 			this.setSize(496, 39);
@@ -158,11 +157,6 @@ public class DChatPlugin extends DAbstractPlugin
 			this.add(getBarra(), BorderLayout.CENTER);
 		}
 
-		/**
-		 * This method initializes barra
-		 * 
-		 * @return javax.swing.JToolBar
-		 */
 		private JToolBar getBarra()
 		{
 			if (barra == null)
@@ -181,11 +175,6 @@ public class DChatPlugin extends DAbstractPlugin
 			return barra;
 		}
 
-		/**
-		 * This method initializes botonNuevoPrivado
-		 * 
-		 * @return javax.swing.JButton
-		 */
 		private JButton getBotonNuevoPrivado()
 		{
 			if (botonNuevoPrivado == null)
@@ -225,11 +214,6 @@ public class DChatPlugin extends DAbstractPlugin
 			return botonNuevoPrivado;
 		}
 
-		/**
-		 * This method initializes botonNuevaVC
-		 * 
-		 * @return javax.swing.JButton
-		 */
 		private JButton getBotonNuevaVC()
 		{
 			if (botonNuevaVC == null)
@@ -280,11 +264,6 @@ public class DChatPlugin extends DAbstractPlugin
 			return botonNuevaVC;
 		}
 
-		/**
-		 * This method initializes botonSalir
-		 * 
-		 * @return javax.swing.JButton
-		 */
 		private JButton getBotonSalir()
 		{
 			if (botonSalir == null)
@@ -307,11 +286,6 @@ public class DChatPlugin extends DAbstractPlugin
 			return botonSalir;
 		}
 
-		/**
-		 * This method initializes botonGuardarConversacion
-		 * 
-		 * @return javax.swing.JButton
-		 */
 		private JButton getBotonGuardarConversacion()
 		{
 			if (botonGuardarConversacion == null)
@@ -390,11 +364,6 @@ public class DChatPlugin extends DAbstractPlugin
 			return botonGuardarConversacion;
 		}
 
-		/**
-		 * This method initializes botonLimpiar
-		 * 
-		 * @return javax.swing.JButton
-		 */
 		private JButton getBotonLimpiar()
 		{
 			if (botonLimpiar == null)
@@ -416,11 +385,6 @@ public class DChatPlugin extends DAbstractPlugin
 			return botonLimpiar;
 		}
 
-		/**
-		 * This method initializes botonFuente
-		 * 
-		 * @return javax.swing.JButton
-		 */
 		private JButton getBotonFuente()
 		{
 			if (botonFuente == null)

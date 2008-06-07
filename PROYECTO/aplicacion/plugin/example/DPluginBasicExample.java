@@ -4,12 +4,21 @@ import aplicacion.fisica.webcam.VideoConferencia;
 import aplicacion.fisica.webcam.VideoFrame;
 import aplicacion.plugin.DAbstractPlugin;
 
+/**
+ * Ejemplo basico de creacion de un plugin. Establece una videoconferencia
+ * con nuestro propio ordenador
+ * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz
+ */
 public class DPluginBasicExample extends DAbstractPlugin
 {
 	private static final long serialVersionUID = -9034900489624255928L;
 
 	private VideoFrame ventana = null;
 
+	/**
+	 * Constructor
+	 * @throws Exception
+	 */
 	public DPluginBasicExample() throws Exception
 	{
 		super("DpluginExample", false, null);
@@ -35,7 +44,6 @@ public class DPluginBasicExample extends DAbstractPlugin
 	@Override
 	public void start() throws Exception
 	{
-
 		VideoConferencia.establecerOrigen();
 
 		String ip = "localhost";

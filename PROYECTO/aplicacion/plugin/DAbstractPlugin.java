@@ -63,7 +63,7 @@ public abstract class DAbstractPlugin extends DComponenteBase
 	 * Indica si queremos activar la gestion de versiones del plugin
 	 * implementado
 	 */
-	protected boolean versioningEnabled;
+	protected boolean versioningEnabled = false;
 
 	/**
 	 * Indicamos si por defecto se deberia mostrar este plugin
@@ -95,7 +95,7 @@ public abstract class DAbstractPlugin extends DComponenteBase
 			DComponenteBase padre ) throws Exception
 	{
 		super(nombre, conexionDC, padre);
-
+		
 		register();
 	}
 
@@ -342,7 +342,7 @@ public abstract class DAbstractPlugin extends DComponenteBase
 	 * @param dp Evento de registro recibido
 	 */
 	private void procesarEvento(DPluginRegisterEvent dp)
-	{
+	{		
 		int res; // para almacenar el resultado de los confirm dialog's
 		if (dp.tipo.intValue() == DPluginRegisterEvent.RESPUESTA_SINCRONIZACION
 				.intValue())
@@ -443,7 +443,7 @@ public abstract class DAbstractPlugin extends DComponenteBase
 					respSincr = saux;
 				else vaux.add(saux);
 			}
-
+						
 			if (respSincr != null) procesarEvento(respSincr);
 
 			// Colocamos en la cola de recepcion los eventos que deben ser

@@ -5,21 +5,29 @@ import javax.swing.JFrame;
 import aplicacion.plugin.DAbstractPlugin;
 import aplicacion.plugin.example.calculadora.Calc;
 
+/**
+ * Plugin que implementa una calculadora totalmente
+ * local para cada usuario.
+ * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
+ */
 public class DCalcPlugin extends DAbstractPlugin
 {
-
+	private static final long serialVersionUID = -8085076836531967376L;
+	
 	private Calc eco;
 
 	private JFrame ventana;
 
+	/**
+	 * Constructor
+	 * @throws Exception
+	 */
 	public DCalcPlugin() throws Exception
 	{
 		super("CalcPlugin", false, null);
 		init();
 		// TODO Auto-generated constructor stub
 	}
-
-	private static final long serialVersionUID = -8085076836531967376L;
 
 	@Override
 	public DAbstractPlugin getInstance() throws Exception

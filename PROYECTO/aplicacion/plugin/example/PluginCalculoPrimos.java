@@ -7,22 +7,17 @@ import aplicacion.plugin.DAbstractPlugin;
 import aplicacion.plugin.example.primos.PrimeMaster;
 
 /**
- * @author anab
- *
+ * Plugin para el calculo paralelo de numeros primos
+ * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
 public class PluginCalculoPrimos extends DAbstractPlugin
 {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 3319470838794298216L;
-	PrimeMaster p;
+	
+	private PrimeMaster p;
 	
 	/**
-	 * @param nombre
-	 * @param conexionDC
-	 * @param padre
+	 * Constructor
 	 * @throws Exception
 	 */
 	public PluginCalculoPrimos( ) throws Exception
@@ -31,18 +26,12 @@ public class PluginCalculoPrimos extends DAbstractPlugin
 		init();
 	}
 
-	/* (non-Javadoc)
-	 * @see aplicacion.plugin.DAbstractPlugin#getInstance()
-	 */
 	@Override
 	public DAbstractPlugin getInstance() throws Exception
 	{
 		return new PluginCalculoPrimos();
 	}
 
-	/* (non-Javadoc)
-	 * @see aplicacion.plugin.DAbstractPlugin#init()
-	 */
 	@Override
 	public void init() throws Exception
 	{
@@ -56,18 +45,12 @@ public class PluginCalculoPrimos extends DAbstractPlugin
 		p = new PrimeMaster(false);
 	}
 
-	/* (non-Javadoc)
-	 * @see aplicacion.plugin.DAbstractPlugin#start()
-	 */
 	@Override
 	public void start() throws Exception
 	{
 		p.start();
 	}
 
-	/* (non-Javadoc)
-	 * @see aplicacion.plugin.DAbstractPlugin#stop()
-	 */
 	@Override
 	public void stop() throws Exception
 	{

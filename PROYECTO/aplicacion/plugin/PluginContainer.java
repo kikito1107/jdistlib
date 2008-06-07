@@ -57,7 +57,12 @@ public class PluginContainer
 	 */
 	public static void actualizar()
 	{
-		monitor.actualizar();
+		try{
+			monitor.actualizar();
+		}catch(NullPointerException ex)
+		{
+			
+		}
 	}
 
 	/**

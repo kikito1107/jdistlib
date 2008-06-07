@@ -70,7 +70,7 @@ public class MainCliente
 
 		// inicializamos el contenedor de plugins
 		new PluginContainer();
-
+		
 		// iniciamos la GUI
 		new MainCliente();
 	}
