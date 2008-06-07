@@ -17,16 +17,16 @@ import Deventos.DMIEvent;
 import Deventos.enlaceJS.DConector;
 
 /**
- * Componente base para construir componentes distribuidos. Para una descripcion
- * mas en profundidad consultar la documentacion del proyecto. Muchos de sus
- * metodos carecen de funcionalidad que deberá implementar el programador segun
- * sus necesidades
+ * Componente base para construir componentes distribuidos. Muchos de sus
+ * metodos carecen de funcionalidad, por que debera de ser implementada por el
+ * programador segun sus necesidades
+ * 
+ * @author Juan Antonio Iba–ez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public class DComponenteBase extends JPanel implements DComponente,
 		java.io.Serializable
 {
-
 	private static final long serialVersionUID = 1L;
 
 	private CardLayout cardLayout1 = new CardLayout();
@@ -35,15 +35,15 @@ public class DComponenteBase extends JPanel implements DComponente,
 
 	private JPanel pfrontal = new JPanel();
 
-	@SuppressWarnings("unused")
+	@SuppressWarnings( "unused" )
 	private boolean mostrado = true;
 
 	private boolean conexionDC = false;
 
-	@SuppressWarnings("unused")
+	@SuppressWarnings( "unused" )
 	private Vector<Object> djlisteners = new Vector<Object>(5);
 
-	@SuppressWarnings("unused")
+	@SuppressWarnings( "unused" )
 	private Vector<Object> ljlisteners = new Vector<Object>(5);
 
 	protected Integer DID = new Integer(-1);
@@ -68,11 +68,25 @@ public class DComponenteBase extends JPanel implements DComponente,
 
 	private boolean oculto = true;
 
+	/**
+	 * Constructor por defecto
+	 */
 	public DComponenteBase()
 	{
 		super();
 	}
 
+	/**
+	 * Constructor con parametros
+	 * 
+	 * @param nombre
+	 *            Nombre del componente
+	 * @param conexionDC
+	 *            Indica si deseamos realizar una conexion directa con el
+	 * @see DConector
+	 * @param padre
+	 *            Componente padre
+	 */
 	public DComponenteBase( String nombre, boolean conexionDC,
 			DComponenteBase padre )
 	{ // **********
@@ -101,6 +115,11 @@ public class DComponenteBase extends JPanel implements DComponente,
 		}
 	}
 
+	/**
+	 * Inicializacion de los componentes graficos
+	 * 
+	 * @throws Exception
+	 */
 	private void jbInit() throws Exception
 	{
 		super.setLayout(cardLayout1);
@@ -125,7 +144,7 @@ public class DComponenteBase extends JPanel implements DComponente,
 	}
 
 	/**
-	 * Método llamado cuando se oculta el padre del componente.
+	 * Metodo llamado cuando se oculta el padre del componente.
 	 */
 	public void padreOcultado()
 	{
@@ -139,7 +158,7 @@ public class DComponenteBase extends JPanel implements DComponente,
 	}
 
 	/**
-	 * Método llamado cuando el componente padre pasa de estado no visible a
+	 * Metodo llamado cuando el componente padre pasa de estado no visible a
 	 * esta visible
 	 */
 	public void padreMostrado()
@@ -154,10 +173,10 @@ public class DComponenteBase extends JPanel implements DComponente,
 	}
 
 	/**
-	 * Devuelve el panel en el que se irán añadiendo los componentes que
+	 * Devuelve el panel en el que se iran a–adiendo los componentes que
 	 * conforman el componente (distribuidos o no)
 	 * 
-	 * @return JPanel Panel de contenido
+	 * @return Panel de contenido
 	 */
 	public JPanel obtenerPanelContenido()
 	{
@@ -167,7 +186,7 @@ public class DComponenteBase extends JPanel implements DComponente,
 	/**
 	 * Obtiene el numero de componentes hijo que tiene el componente.
 	 * 
-	 * @return int Número de componentes hijos
+	 * @return Numero de componentes hijos
 	 */
 	public int obtenerNumComponentesHijos()
 	{
@@ -189,11 +208,11 @@ public class DComponenteBase extends JPanel implements DComponente,
 	}
 
 	/**
-	 * Obtiene el componente con el número indicado como parametro
+	 * Obtiene el componente con el numero indicado como parametro
 	 * 
 	 * @param num
-	 *            int Rango [0..n]
-	 * @return DComponente
+	 *            Numero de componente
+	 * @return Componente obtenido o null si el componente no es valido
 	 */
 	public DComponente obtenerComponente(int num)
 	{
@@ -205,7 +224,7 @@ public class DComponenteBase extends JPanel implements DComponente,
 	/**
 	 * Consultamos si esta en conexion directa con el DConector.
 	 * 
-	 * @return boolean TRUE si esta conectado al DConector. FALSE en otro caso
+	 * @return True si esta conectado al DConector. False en otro caso
 	 */
 	public boolean conectadoDC()
 	{
@@ -232,21 +251,16 @@ public class DComponenteBase extends JPanel implements DComponente,
 		padreOcultado();
 	}
 
-	/**
-	 * Consultamos si el componente esta oculto
-	 * 
-	 * @return boolean TRUE si esta oculto. FALSE en otro caso
-	 */
 	public boolean oculto()
 	{
 		return oculto;
 	}
 
 	/**
-	 * Realiza el envío de un evento
+	 * Realiza el envio de un evento
 	 * 
 	 * @param evento
-	 *            DEvent Evento que se desea enviar
+	 *            Evento que se desea enviar
 	 */
 	public void enviarEvento(DEvent evento)
 	{
@@ -270,7 +284,7 @@ public class DComponenteBase extends JPanel implements DComponente,
 	 * Establece el layoutmanager del panel de contenido
 	 * 
 	 * @param lm
-	 *            LayoutManager
+	 *            LayoutManager a establecer
 	 */
 	@Override
 	public void setLayout(LayoutManager lm)
@@ -280,13 +294,13 @@ public class DComponenteBase extends JPanel implements DComponente,
 
 	// ********* METODOS ADD DEL PANEL ********************
 	/**
-	 * Añade un componente al panel de contenido
+	 * A–ade un componente al panel de contenido
 	 * 
 	 * @param c
-	 *            Component
+	 *            Componente a agregar
 	 * @param i
-	 *            int
-	 * @return Component
+	 *            Identificador del componente
+	 * @return Componente agregado o null si ocurrio algun error
 	 */
 	@Override
 	public Component add(Component c, int i)
@@ -295,14 +309,14 @@ public class DComponenteBase extends JPanel implements DComponente,
 	}
 
 	/**
-	 * Añade un componente al panel de contenido
+	 * A–ade un componente al panel de contenido
 	 * 
 	 * @param c
-	 *            Component
+	 *            Componente a agregar
 	 * @param o
-	 *            Object
+	 *            Objeto con las restricciones del componente
 	 * @param i
-	 *            int
+	 *            Identificador del componente
 	 */
 	@Override
 	public void add(Component c, Object o, int i)
@@ -311,12 +325,12 @@ public class DComponenteBase extends JPanel implements DComponente,
 	}
 
 	/**
-	 * Añade un componente al panel de contenido
+	 * A–ade un componente al panel de contenido
 	 * 
 	 * @param c
-	 *            Component
+	 *            Componente a agregar
 	 * @param o
-	 *            Object
+	 *            Objeto con las restricciones del componente
 	 */
 	@Override
 	public void add(Component c, Object o)
@@ -325,11 +339,11 @@ public class DComponenteBase extends JPanel implements DComponente,
 	}
 
 	/**
-	 * Añade un componente al panel de contenido
+	 * A–ade un componente al panel de contenido
 	 * 
 	 * @param c
-	 *            Component
-	 * @return Component
+	 *            Componente a agregar
+	 * @return Componente agregado o null si ocurrio algun error
 	 */
 	@Override
 	public Component add(Component c)
@@ -338,10 +352,10 @@ public class DComponenteBase extends JPanel implements DComponente,
 	}
 
 	/**
-	 * Añade un componente al panel de contenido
+	 * A–ade un componente al panel de contenido
 	 * 
 	 * @param pm
-	 *            PopupMenu
+	 *            Popup Menu que se desea agregar
 	 */
 	@Override
 	public synchronized void add(PopupMenu pm)
@@ -350,12 +364,6 @@ public class DComponenteBase extends JPanel implements DComponente,
 	}
 
 	// ********* METODOS ASOCIADOS A LA INTERFAZ DCONECTOR ********************
-	/**
-	 * Se encola un evento para que sea procesado
-	 * 
-	 * @param evento
-	 *            DEvent Evento Evento que se desea encolar
-	 */
 	public void procesarEvento(DEvent evento)
 	{
 
@@ -364,25 +372,12 @@ public class DComponenteBase extends JPanel implements DComponente,
 		colaRecepcion.nuevoEvento(evento);
 	}
 
-	/**
-	 * Este metodo sera llamado por los componentes hijos cuando deseen enviar
-	 * un evento
-	 * 
-	 * @param evento
-	 *            DEvent Evento que desean enviar
-	 */
 	synchronized public void procesarEventoHijo(DEvent evento)
 	{
 		System.out.println(nombre + ": procesarEventoHijo(DEvent)");
 		System.out.flush();
 	}
 
-	/**
-	 * Realiza el procesamiento de un evento de metainformacion
-	 * 
-	 * @param evento
-	 *            DMIEvent
-	 */
 	public void procesarMetaInformacion(DMIEvent evento)
 	{
 		if (evento.tipo.intValue() == DMIEvent.INFO_COMPLETA.intValue())
@@ -423,27 +418,18 @@ public class DComponenteBase extends JPanel implements DComponente,
 		}
 	}
 
-	/**
-	 * Activa el componente
-	 */
 	public void activar()
 	{
 		System.out.println(nombre + ": activar()");
 		System.out.flush();
 	}
 
-	/**
-	 * Desactiva el componente
-	 */
 	public void desactivar()
 	{
 		System.out.println(nombre + ": desactivar()");
 		System.out.flush();
 	}
 
-	/**
-	 * Inicia la hebra procesadora del componente
-	 */
 	public void iniciarHebraProcesadora()
 	{
 		if (( hp = crearHebraProcesadora() ) != null)
@@ -459,31 +445,16 @@ public class DComponenteBase extends JPanel implements DComponente,
 		}
 	}
 
-	/**
-	 * Mediante este metodo se le solicita el componente que envie su peticion
-	 * de sincronizacion
-	 */
 	public void sincronizar()
 	{
 
 	}
 
-	/**
-	 * Devuelve el nivel de permisos actual del componente
-	 * 
-	 * @return int Permiso actual
-	 */
 	public int getNivelPermisos()
 	{
 		return nivelPermisos;
 	}
 
-	/**
-	 * Establece el permiso actual del componente
-	 * 
-	 * @param nivel
-	 *            int Permiso que se quiere establecer
-	 */
 	public void setNivelPermisos(int nivel)
 	{
 		nivelPermisos = nivel;
@@ -492,53 +463,26 @@ public class DComponenteBase extends JPanel implements DComponente,
 		else ocultar();
 	}
 
-	/**
-	 * Obtiene el ID del componente
-	 * 
-	 * @return Integer ID del componente
-	 */
 	public Integer getID()
 	{
 		return DID;
 	}
 
-	/**
-	 * Obtiene el nombre del componente
-	 * 
-	 * @return String Nombre
-	 */
 	public String getNombre()
 	{
 		return nombre;
 	}
 
-	/**
-	 * Devuelve la instancia de la hebra procesadora que se encargara de
-	 * procesar los eventos que se reciban
-	 * 
-	 * @return HebraProcesadoraBase Hebra que procesará los eventos
-	 */
 	public HebraProcesadoraBase crearHebraProcesadora()
 	{
 		return null;
 	}
 
-	/**
-	 * Devuelve la instancia de la clase que se esta usando como cola de
-	 * recepción
-	 * 
-	 * @return ColaEventos Cola de eventos
-	 */
 	public ColaEventos obtenerColaRecepcion()
 	{
 		return colaRecepcion;
 	}
 
-	/**
-	 * Devuelve la instancia de la clase que se esta usando como cola de envio
-	 * 
-	 * @return ColaEventos Cola de eventos
-	 */
 	public ColaEventos obtenerColaEnvio()
 	{
 		return colaEnvio;

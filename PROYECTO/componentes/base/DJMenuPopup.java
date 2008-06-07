@@ -3,36 +3,30 @@ package componentes.base;
 import javax.swing.JPopupMenu;
 
 /**
- * <p>
- * Title:
- * </p>
- * <p>
- * Description:
- * </p>
- * <p>
- * Copyright: Copyright (c) 2004
- * </p>
- * <p>
- * Company:
- * </p>
+ * Implementacion de la clase captadora de eventos para el componente Popup Menu
  * 
- * @author not attributable
- * @version 1.0
+ * @author Juan Antonio Iba–ez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public class DJMenuPopup extends JPopupMenu
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private static final String uiClassID = "DMenuMetalPopupMenuUI";
 
+	/**
+	 * Constructor por defecto
+	 */
 	public DJMenuPopup()
 	{
 	}
 
+	/**
+	 * Constructor con parametros
+	 * 
+	 * @param p0
+	 *            Etiqueta que mostrara el popup
+	 */
 	public DJMenuPopup( String p0 )
 	{
 		super(p0);

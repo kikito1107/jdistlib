@@ -21,29 +21,14 @@ import componentes.listeners.DJComboBoxListener;
 import componentes.listeners.LJComboBoxListener;
 
 /**
- * <p>
- * Title:
- * </p>
- * <p>
- * Description:
- * </p>
- * <p>
- * Copyright: Copyright (c) 2004
- * </p>
- * <p>
- * Company:
- * </p>
+ * Implementacion de la clase captadora de eventos para el componente ComboBox
  * 
- * @author not attributable
- * @version 1.0
+ * @author Juan Antonio Iba–ez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
-@SuppressWarnings("unchecked")
+@SuppressWarnings( "unchecked" )
 public class DJComboBox extends JComboBox
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -8382511447355412627L;
 
 	private static final String uiClassID = "DComboBoxUI";
@@ -68,7 +53,7 @@ public class DJComboBox extends JComboBox
 
 	private int nivelPermisos = 20;
 
-	DIComboBox padre = null;
+	private DIComboBox padre = null;
 
 	private boolean popupVisible = false;
 
@@ -488,7 +473,7 @@ public class DJComboBox extends JComboBox
 		}
 	}
 
-	@SuppressWarnings("unused")
+	@SuppressWarnings( "unused" )
 	private class Listener implements DJComboBoxListener
 	{
 

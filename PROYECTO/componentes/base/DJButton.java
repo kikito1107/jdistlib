@@ -16,36 +16,24 @@ import componentes.listeners.DJButtonListener;
 import componentes.listeners.LJButtonListener;
 
 /**
- * <p>
- * Title:
- * </p>
- * <p>
- * Description:
- * </p>
- * <p>
- * Copyright: Copyright (c) 2004
- * </p>
- * <p>
- * Company:
- * </p>
+ * Implementacion de la clase captadora de eventos para el componente Boton
  * 
- * @author not attributable
- * @version 1.0
+ * @author Juan Antonio Iba–ez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public class DJButton extends JButton
 {
 	private static final long serialVersionUID = 1L;
 
 	private static final String uiClassID = "DButtonUI";
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	private Vector djbuttonlisteners = new Vector(5);
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	private Vector ljbuttonlisteners = new Vector(5);
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	private Vector ujbuttonlisteners = new Vector(5);
 
 	private Integer DID = null;
@@ -62,12 +50,21 @@ public class DJButton extends JButton
 
 	private HebraProcesadoraBase hebraProcesadora = null;
 
+	/**
+	 * Constructor por defecto
+	 */
 	public DJButton()
 	{
 		this.nombre = null;
 		extrasConstructor();
 	}
 
+	/**
+	 * Constructor con parametros
+	 * 
+	 * @param p0
+	 *            Texto que mostrara el boton
+	 */
 	public DJButton( String p0 )
 	{
 		super(p0);
@@ -75,6 +72,12 @@ public class DJButton extends JButton
 		extrasConstructor();
 	}
 
+	/**
+	 * Constructor con parametros
+	 * 
+	 * @param p0
+	 *            Accion que realizara el boton
+	 */
 	public DJButton( Action p0 )
 	{
 		super(p0);
@@ -82,6 +85,12 @@ public class DJButton extends JButton
 		extrasConstructor();
 	}
 
+	/**
+	 * Constructor con parametros
+	 * 
+	 * @param p0
+	 *            Icono que mostrara el boton
+	 */
 	public DJButton( Icon p0 )
 	{
 		super(p0);
@@ -89,6 +98,14 @@ public class DJButton extends JButton
 		extrasConstructor();
 	}
 
+	/**
+	 * Constructor con parametros
+	 * 
+	 * @param p0
+	 *            Texto que mostrara el boton
+	 * @param p1
+	 *            Icono que mostrara el boton
+	 */
 	public DJButton( String p0, Icon p1 )
 	{
 		super(p0, p1);
@@ -107,73 +124,136 @@ public class DJButton extends JButton
 		return uiClassID;
 	}
 
-	@SuppressWarnings("unchecked")
+	/**
+	 * Permite agregar un listener para los eventos producidos
+	 * 
+	 * @param listener
+	 *            Listener a agregar
+	 */
+	@SuppressWarnings( "unchecked" )
 	public void addDJButtonListener(DJButtonListener listener)
 	{
 		djbuttonlisteners.add(listener);
 	}
 
-	@SuppressWarnings("unchecked")
+	/**
+	 * Permite agregar un listener para los eventos que sean propagados para
+	 * todos los usuarios conectados
+	 * 
+	 * @param listener
+	 *            Listener a agregar
+	 */
+	@SuppressWarnings( "unchecked" )
 	public void addLJButtonListener(LJButtonListener listener)
 	{
 		ljbuttonlisteners.add(listener);
 	}
 
-	@SuppressWarnings("unchecked")
+	/**
+	 * Permite agregar un listener para los eventos que sean para un usuario
+	 * concreto de los conectados
+	 * 
+	 * @param listener
+	 *            Listener a agregar
+	 */
+	@SuppressWarnings( "unchecked" )
 	public void addLUJButtonListener(LJButtonListener listener)
 	{
 		ujbuttonlisteners.add(listener);
 	}
 
-	@SuppressWarnings("unchecked")
+	/**
+	 * Permite obtener el vector de Listeners para los eventos distribuidos que
+	 * se produzcan
+	 * 
+	 * @return Vector de listeners
+	 */
+	@SuppressWarnings( "unchecked" )
 	public Vector getDJButtonListeners()
 	{
 		return djbuttonlisteners;
 	}
 
-	@SuppressWarnings("unchecked")
+	/**
+	 * Permite obtener el vector de Listeners para los eventos producidos para
+	 * los usuarios conectados
+	 * 
+	 * @return Vector de listeners
+	 */
+	@SuppressWarnings( "unchecked" )
 	public Vector getLJButtonListeners()
 	{
 		return ljbuttonlisteners;
 	}
 
-	@SuppressWarnings("unchecked")
+	/**
+	 * Permite obtener el vector de Listeners para los eventos producidos para
+	 * un usuario concreto de los conectados
+	 * 
+	 * @return Vector de listeners
+	 */
+	@SuppressWarnings( "unchecked" )
 	public Vector getLUJButtonListeners()
 	{
 		return ujbuttonlisteners;
 	}
 
+	/**
+	 * Elimina los listener que reciben los eventos distribuidos
+	 */
 	public void removeDJButtonListeners()
 	{
 		djbuttonlisteners.removeAllElements();
 	}
 
+	/**
+	 * Elimina los listener que reciben los eventos para los usuarios conectados
+	 * en el sistema
+	 */
 	public void removeLJButtonListeners()
 	{
 		ljbuttonlisteners.removeAllElements();
 	}
 
+	/**
+	 * Elimina los listener que reciben los eventos para un usuario conectado al
+	 * sistema
+	 */
 	public void removeLUJButtonListeners()
 	{
 		ujbuttonlisteners.removeAllElements();
 	}
 
+	/**
+	 * Habilita el componente
+	 */
 	public void activar()
 	{
 		setEnabled(true);
 	}
 
+	/**
+	 * Deshabilita el componente
+	 */
 	public void desactivar()
 	{
 		setEnabled(false);
 	}
 
+	/**
+	 * Inicia la hebra de procesamiento de eventos
+	 */
 	public void iniciarHebraProcesadora()
 	{
 		hebraProcesadora = crearHebraProcesadora();
 		hebraProcesadora.iniciarHebra();
 	}
 
+	/**
+	 * Obtiene un evento con la informacion de estado del componente
+	 * 
+	 * @return Evento con la informacion de estado del componente
+	 */
 	public DJButtonEvent obtenerInfoEstado()
 	{
 		DJButtonEvent evento = new DJButtonEvent();
@@ -181,7 +261,13 @@ public class DJButton extends JButton
 		return evento;
 	}
 
-	@SuppressWarnings("unchecked")
+	/**
+	 * Procesa un evento
+	 * 
+	 * @param evento
+	 *            Evento a procesar
+	 */
+	@SuppressWarnings( "unchecked" )
 	public void procesarEvento(DEvent evento)
 	{
 		int i;
@@ -222,6 +308,9 @@ public class DJButton extends JButton
 			}
 	}
 
+	/**
+	 * Sincroniza las instancias del componente
+	 */
 	public void sincronizar()
 	{
 		DJButtonEvent evento = new DJButtonEvent();
@@ -234,11 +323,23 @@ public class DJButton extends JButton
 		colaEnvio.nuevoEvento(evento);
 	}
 
+	/**
+	 * Obtiene el nivel de permisos del componente
+	 * 
+	 * @return Nivel de permisos del componente
+	 */
 	public int getNivelPermisos()
 	{
 		return nivelPermisos;
 	}
 
+	/**
+	 * Asigna un nivel de permisos a un componente y realiza los cambios
+	 * oportunos en el
+	 * 
+	 * @param nivel
+	 *            Nivel de permisos a asignar
+	 */
 	public void setNivelPermisos(int nivel)
 	{
 		/*
@@ -250,33 +351,61 @@ public class DJButton extends JButton
 		else setForeground(Color.GRAY);
 	}
 
+	/**
+	 * Obtiene el identificador del componente
+	 * 
+	 * @return Identificador del componente
+	 */
 	public Integer getID()
 	{
 		return DID;
 	}
 
+	/**
+	 * Obtiene el nombre del componente
+	 * 
+	 * @return
+	 */
 	public String getNombre()
 	{
 		return nombre;
 	}
 
+	/**
+	 * Obtiene la cola de recepcion de eventos
+	 * 
+	 * @return Cola de eventos
+	 */
 	public ColaEventos obtenerColaRecepcion()
 	{
 		return colaRecepcion;
 	}
 
+	/**
+	 * Obtiene la cola de envio de eventos
+	 * 
+	 * @return Cola de eventos
+	 */
 	public ColaEventos obtenerColaEnvio()
 	{
 		return colaEnvio;
 	}
 
+	/**
+	 * Crea la hebra de procesamiento de eventos
+	 * 
+	 * @return Hebra procesadora de eventos. En este caso devuelve null siempre.
+	 */
 	public HebraProcesadoraBase crearHebraProcesadora()
 	{
 		// return new HebraProcesadora(this);
 		return null;
 	}
 
-	@SuppressWarnings("unused")
+	/**
+	 * Permite escuchar los eventos producidos
+	 */
+	@SuppressWarnings( "unused" )
 	private class Listener implements DJButtonListener
 	{
 
@@ -322,7 +451,7 @@ public class DJButton extends JButton
 			super(dc);
 		}
 
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings( "unchecked" )
 		@Override
 		public void run()
 		{

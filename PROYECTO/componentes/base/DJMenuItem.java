@@ -22,36 +22,25 @@ import componentes.listeners.DJMenuItemListener;
 import componentes.listeners.LJMenuItemListener;
 
 /**
- * <p>
- * Title:
- * </p>
- * <p>
- * Description:
- * </p>
- * <p>
- * Copyright: Copyright (c) 2004
- * </p>
- * <p>
- * Company:
- * </p>
+ * Implementacion de la clase captadora de eventos para el componente Elemento
+ * de menu
  * 
- * @author not attributable
- * @version 1.0
+ * @author Juan Antonio Iba–ez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public class DJMenuItem extends JMenuItem implements DComponente
 {
 	private static final long serialVersionUID = 3018709029366109918L;
 
 	private static final String uiClassID = "DMenuMetalMenuItemUI";
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	private Vector djmenuitemlisteners = new Vector(5);
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	private Vector ljmenuitemlisteners = new Vector(5);
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	private Vector lujmenuitemlisteners = new Vector(5);
 
 	private Integer DID = new Integer(-1);
@@ -169,37 +158,37 @@ public class DJMenuItem extends JMenuItem implements DComponente
 		return uiClassID;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public void addDJMenuItemListener(DJMenuItemListener listener)
 	{
 		djmenuitemlisteners.add(listener);
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public void addLJMenuItemListener(LJMenuItemListener listener)
 	{
 		ljmenuitemlisteners.add(listener);
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public void addLUJMenuItemListener(LJMenuItemListener listener)
 	{
 		lujmenuitemlisteners.add(listener);
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector getDJMenuItemListeners()
 	{
 		return djmenuitemlisteners;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector getLJMenuItemListeners()
 	{
 		return ljmenuitemlisteners;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector getLUJMenuItemListeners()
 	{
 		return lujmenuitemlisteners;
@@ -368,7 +357,7 @@ public class DJMenuItem extends JMenuItem implements DComponente
 			this.menuitem = menuitem;
 		}
 
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings( "unchecked" )
 		public void run()
 		{
 			DJMenuItemEvent evento = null;

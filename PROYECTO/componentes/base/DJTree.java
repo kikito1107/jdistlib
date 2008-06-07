@@ -17,11 +17,14 @@ import Deventos.enlaceJS.DConector;
 import componentes.listeners.DJTreeListener;
 import componentes.listeners.LJTreeListener;
 
+/**
+ * Implementacion de la clase captadora de eventos para el componente Arbol
+ * 
+ * @author Juan Antonio Iba–ez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
+ */
 public class DJTree extends JTree
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -675023049630909773L;
 
 	private static final String uiClassID = "DTreeUI";
@@ -139,19 +142,19 @@ public class DJTree extends JTree
 		lujtreelisteners.removeAllElements();
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector getDJTreeListeners()
 	{
 		return djtreelisteners;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector getLJTreeListeners()
 	{
 		return ljtreelisteners;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector getLUJTreeListeners()
 	{
 		return lujtreelisteners;
@@ -180,7 +183,7 @@ public class DJTree extends JTree
 		return evento;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public void procesarEvento(DEvent ev)
 	{
 		DJTreeEvent evento = (DJTreeEvent) ev;
@@ -240,7 +243,7 @@ public class DJTree extends JTree
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector getEstado()
 	{
 		return ( (DMetalTreeUI) getUI() ).getEstado();
@@ -256,7 +259,7 @@ public class DJTree extends JTree
 		nivelPermisos = nivel;
 	}
 
-	@SuppressWarnings("unused")
+	@SuppressWarnings( "unused" )
 	private class Listener implements DJTreeListener
 	{
 
@@ -310,7 +313,7 @@ public class DJTree extends JTree
 			this.arbol = arbol;
 		}
 
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings( "unchecked" )
 		private void setEstado(Vector v)
 		{
 			( (DMetalTreeUI) getUI() ).setEstado(v);

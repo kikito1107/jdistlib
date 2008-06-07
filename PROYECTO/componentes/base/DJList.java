@@ -15,23 +15,11 @@ import componentes.listeners.DJListListener;
 import componentes.listeners.LJListListener;
 
 /**
- * <p>
- * Title:
- * </p>
- * <p>
- * Description:
- * </p>
- * <p>
- * Copyright: Copyright (c) 2004
- * </p>
- * <p>
- * Company:
- * </p>
+ * Implementacion de la clase captadora de eventos para el componente Lista
  * 
- * @author not attributable
- * @version 1.0
+ * @author Juan Antonio Iba–ez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public class DJList extends ListaElementos
 {
 

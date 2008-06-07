@@ -1,7 +1,6 @@
 package componentes.base;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
@@ -33,26 +32,13 @@ import componentes.listeners.DJChatListener;
 import componentes.listeners.LJChatListener;
 
 /**
- * <p>
- * Title:
- * </p>
- * <p>
- * Description:
- * </p>
- * <p>
- * Copyright: Copyright (c) 2004
- * </p>
- * <p>
- * Company:
- * </p>
+ * Implementacion de la clase captadora de eventos para el componente Chat
  * 
- * @author not attributable
- * @version 1.0
+ * @author Juan Antonio Iba–ez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public class DJChat extends JPanel
 {
-
 	private static final long serialVersionUID = 1L;
 
 	private Vector<Object> djchatlisteners = new Vector<Object>(5);
@@ -71,34 +57,35 @@ public class DJChat extends JPanel
 
 	private int nivelPermisos = 10;
 
-	BorderLayout borderLayout1 = new BorderLayout();
+	private BorderLayout borderLayout1 = new BorderLayout();
 
-	JPanel PanelTexto = new JPanel();
+	private JPanel PanelTexto = new JPanel();
 
-	JScrollPane PanelScroll = new JScrollPane();
+	private JScrollPane PanelScroll = new JScrollPane();
 
-	JScrollPane PanelScroll2 = new JScrollPane(
+	private JScrollPane PanelScroll2 = new JScrollPane(
 			ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-	BorderLayout borderLayout2 = new BorderLayout();
+	private BorderLayout borderLayout2 = new BorderLayout();
 
-	JTextArea areaTexto = new JTextArea();
+	private JTextArea areaTexto = new JTextArea();
 
-	JPanel PanelInferior = new JPanel();
+	private JPanel PanelInferior = new JPanel();
 
-	JTextField campoTexto = new JTextField();
+	private JTextField campoTexto = new JTextField();
 
-	FlowLayout flowLayout1 = new FlowLayout();
+	private JButton botonEnvio = new JButton();
 
-	JButton botonEnvio = new JButton();
+	private Vector<String> nombres = new Vector<String>();
 
-	Vector<String> nombres = new Vector<String>();
+	private Vector<PanelChatPrivado> conversaciones = new Vector<PanelChatPrivado>();
 
-	Vector<PanelChatPrivado> conversaciones = new Vector<PanelChatPrivado>();
+	private Vector<JFrame> ventanas = new Vector<JFrame>();
 
-	Vector<JFrame> ventanas = new Vector<JFrame>();
-
+	/**
+	 * Constructor por defecto
+	 */
 	public DJChat()
 	{
 		this.nombre = null;
@@ -110,14 +97,13 @@ public class DJChat extends JPanel
 		{
 			ex.printStackTrace();
 		}
-
-		/*
-		 * addDJChatListener(new Listener()); DID = new
-		 * Integer(DConector.alta(this)); colaEnvio =
-		 * DConector.getColaEventos();
-		 */
 	}
 
+	/**
+	 * Inicializacion de los componentes graficos
+	 * 
+	 * @throws Exception
+	 */
 	void jbInit() throws Exception
 	{
 		this.setLayout(borderLayout1);
@@ -164,6 +150,9 @@ public class DJChat extends JPanel
 		// desactivar();
 	}
 
+	/**
+	 * Habilita el componente
+	 */
 	public void activar()
 	{
 		areaTexto.setEnabled(true);
@@ -171,6 +160,9 @@ public class DJChat extends JPanel
 		botonEnvio.setEnabled(true);
 	}
 
+	/**
+	 * Deshabilita el componente
+	 */
 	public void desactivar()
 	{
 		areaTexto.setEnabled(false);
@@ -178,13 +170,22 @@ public class DJChat extends JPanel
 		botonEnvio.setEnabled(false);
 	}
 
+	/**
+	 * Inicia la hebra de procesamiento de eventos
+	 */
 	public void iniciarHebraProcesadora()
 	{
 		Thread t = new Thread(new HebraProcesadora(colaRecepcion, this));
 		t.start();
 	}
 
-	@SuppressWarnings("unchecked")
+	/**
+	 * Procesa un evento
+	 * 
+	 * @param evento
+	 *            Evento a procesar
+	 */
+	@SuppressWarnings( "unchecked" )
 	public void procesarEvento(DEvent evento)
 	{
 		DJChatEvent ev = (DJChatEvent) evento;
@@ -351,34 +352,61 @@ public class DJChat extends JPanel
 		}
 	}
 
+	/**
+	 * Envia un evento de Chat
+	 * 
+	 * @param e
+	 *            Evento a enviar
+	 */
 	public void enviarEvento(DJChatEvent e)
 	{
 		for (int i = 0; i < djchatlisteners.size(); i++)
 			( (DJChatListener) djchatlisteners.elementAt(i) ).nuevoMensaje(e);
 	}
 
+	/**
+	 * Sincroniza las instancias del componente
+	 */
 	public void sincronizar()
 	{
 		// No nos interesa sincronizar
 	}
 
+	/**
+	 * Obtiene el nivel de permisos del componente
+	 * 
+	 * @return Nivel de permisos del componente
+	 */
 	public int getNivelPermisos()
 	{
 		return nivelPermisos;
 	}
 
+	/**
+	 * Pone permiso de solo lectura
+	 */
 	public void permisoLectura()
 	{
 		campoTexto.setEnabled(false);
 		botonEnvio.setEnabled(false);
 	}
 
+	/**
+	 * Pone permiso de lectura y escritura
+	 */
 	public void permisoLecturaEscritura()
 	{
 		campoTexto.setEnabled(true);
 		botonEnvio.setEnabled(true);
 	}
 
+	/**
+	 * Asigna un nivel de permisos a un componente y realiza los cambios
+	 * oportunos en el
+	 * 
+	 * @param nivel
+	 *            Nivel de permisos a asignar
+	 */
 	public void setNivelPermisos(int nivel)
 	{
 		nivelPermisos = nivel;
@@ -395,65 +423,127 @@ public class DJChat extends JPanel
 		}
 	}
 
+	/**
+	 * Obtiene el identificador del componente
+	 * 
+	 * @return Identificador del componente
+	 */
 	public Integer getID()
 	{
 		return DID;
 	}
 
+	/**
+	 * Obtiene el nombre del componente
+	 * 
+	 * @return
+	 */
 	public String getNombre()
 	{
 		return nombre;
 	}
 
+	/**
+	 * Obtiene la cola de recepcion de eventos
+	 * 
+	 * @return Cola de eventos
+	 */
 	public ColaEventos obtenerColaRecepcion()
 	{
 		return colaRecepcion;
 	}
 
+	/**
+	 * Obtiene la cola de envio de eventos
+	 * 
+	 * @return Cola de eventos
+	 */
 	public ColaEventos obtenerColaEnvio()
 	{
 		return colaEnvio;
 	}
 
+	/**
+	 * Crea la hebra de procesamiento de eventos
+	 * 
+	 * @return Hebra procesadora de eventos. En este caso devuelve null siempre.
+	 */
 	public HebraProcesadoraBase crearHebraProcesadora()
 	{
-
 		return null;
 	}
 
+	/**
+	 * Permite agregar un listener para los eventos producidos
+	 * 
+	 * @param listener
+	 *            Listener a agregar
+	 */
 	public void addDJChatListener(DJChatListener listener)
 	{
 		djchatlisteners.add(listener);
 	}
 
+	/**
+	 * Permite agregar un listener para los eventos que sean propagados para
+	 * todos los usuarios conectados
+	 * 
+	 * @param listener
+	 *            Listener a agregar
+	 */
 	public void addLJChatListener(LJChatListener listener)
 	{
 		ljchatlisteners.add(listener);
 	}
 
-	@SuppressWarnings("unchecked")
+	/**
+	 * Permite obtener el vector de Listeners para los eventos distribuidos que
+	 * se produzcan
+	 * 
+	 * @return Vector de listeners
+	 */
+	@SuppressWarnings( "unchecked" )
 	public Vector getDJChatListeners()
 	{
 		return djchatlisteners;
 	}
 
-	@SuppressWarnings("unchecked")
+	/**
+	 * Permite obtener el vector de Listeners para los eventos producidos para
+	 * los usuarios conectados
+	 * 
+	 * @return Vector de listeners
+	 */
+	@SuppressWarnings( "unchecked" )
 	public Vector getLJChatListeners()
 	{
 		return ljchatlisteners;
 	}
 
+	/**
+	 * Elimina los listener que reciben los eventos distribuidos
+	 */
 	public void removeDJChatListeners()
 	{
 		djchatlisteners.removeAllElements();
 	}
 
+	/**
+	 * Elimina los listener que reciben los eventos para los usuarios conectados
+	 * en el sistema
+	 */
 	public void removeLJChatListeners()
 	{
 		ljchatlisteners.removeAllElements();
 	}
 
-	void botonEnvio_actionPerformed(ActionEvent e)
+	/**
+	 * Accion ejecutada al pulsar el boton de envio de un mensaje en el chat
+	 * 
+	 * @param e
+	 *            Evento a enviar
+	 */
+	private void botonEnvio_actionPerformed(ActionEvent e)
 	{
 		if (campoTexto.getText().length() > 0)
 		{
@@ -468,6 +558,9 @@ public class DJChat extends JPanel
 		}
 	}
 
+	/**
+	 * Permite escuchar los eventos producidos
+	 */
 	@SuppressWarnings( "unused" )
 	private class Listener implements DJChatListener
 	{
@@ -486,6 +579,9 @@ public class DJChat extends JPanel
 		}
 	}
 
+	/**
+	 * Hebra procesadora de eventos
+	 */
 	class HebraProcesadora implements Runnable
 	{
 
@@ -499,7 +595,7 @@ public class DJChat extends JPanel
 			this.chat = chat;
 		}
 
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings( "unchecked" )
 		public void run()
 		{
 			DJChatEvent evento = null;
@@ -561,19 +657,19 @@ public class DJChat extends JPanel
 
 	}
 
-}
-
-class DJChat_botonEnvio_actionAdapter implements java.awt.event.ActionListener
-{
-	DJChat adaptee;
-
-	DJChat_botonEnvio_actionAdapter( DJChat adaptee )
+	private class DJChat_botonEnvio_actionAdapter implements
+			java.awt.event.ActionListener
 	{
-		this.adaptee = adaptee;
-	}
+		DJChat adaptee;
 
-	public void actionPerformed(ActionEvent e)
-	{
-		adaptee.botonEnvio_actionPerformed(e);
+		DJChat_botonEnvio_actionAdapter( DJChat adaptee )
+		{
+			this.adaptee = adaptee;
+		}
+
+		public void actionPerformed(ActionEvent e)
+		{
+			adaptee.botonEnvio_actionPerformed(e);
+		}
 	}
 }

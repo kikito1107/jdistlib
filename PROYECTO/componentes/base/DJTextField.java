@@ -22,23 +22,11 @@ import Deventos.enlaceJS.DConector;
 import componentes.listeners.DJTextFieldListener;
 
 /**
- * <p>
- * Title:
- * </p>
- * <p>
- * Description:
- * </p>
- * <p>
- * Copyright: Copyright (c) 2004
- * </p>
- * <p>
- * Company:
- * </p>
+ * Implementacion de la clase captadora de eventos para el componente TextField
  * 
- * @author not attributable
- * @version 1.0
+ * @author Juan Antonio Iba–ez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public class DJTextField extends JTextField
 {
 	private static final String uiClassID = "DTextFieldUI";
@@ -265,7 +253,7 @@ public class DJTextField extends JTextField
 		return null;
 	}
 
-	@SuppressWarnings("unused")
+	@SuppressWarnings( "unused" )
 	private class Listener implements DJTextFieldListener
 	{
 		public void replace(DJTextFieldEvent evento)

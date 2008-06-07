@@ -28,11 +28,14 @@ import Deventos.enlaceJS.DConector;
 
 import componentes.listeners.DJMenuListener;
 
+/**
+ * Implementacion de la clase captadora de eventos para el componente Menu
+ * 
+ * @author Juan Antonio Iba–ez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
+ */
 public class DJMenu extends JMenu implements DComponente
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 7773903204628794169L;
 
 	private static final String uiClassID = "DMenuMetalMenuUI";

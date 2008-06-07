@@ -11,7 +11,7 @@ import java.util.Vector;
  * los componentes, usuarios definidos, roles definidos y componentes definidos.
  * </p>
  * 
- * @author Juan Antonio Ibañez Santorum (looper@telefonica.net)
+ * @author Juan Antonio Iba–ez Santorum (looper@telefonica.net)
  */
 
 public class MIAplicacion implements Serializable

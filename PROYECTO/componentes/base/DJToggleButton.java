@@ -16,23 +16,12 @@ import componentes.listeners.DJToggleButtonListener;
 import componentes.listeners.LJToggleButtonListener;
 
 /**
- * <p>
- * Title:
- * </p>
- * <p>
- * Description:
- * </p>
- * <p>
- * Copyright: Copyright (c) 2004
- * </p>
- * <p>
- * Company:
- * </p>
+ * Implementacion de la clase captadora de eventos para el componente
+ * ToogleButton
  * 
- * @author not attributable
- * @version 1.0
+ * @author Juan Antonio Iba–ez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public class DJToggleButton extends JToggleButton
 {
 	private static final String uiClassID = "DToggleButtonUI";
@@ -196,7 +185,7 @@ public class DJToggleButton extends JToggleButton
 		return evento;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public void procesarEvento(DEvent evento)
 	{
 		if (evento.tipo.intValue() == DJToggleButtonEvent.PRESIONADO.intValue())
@@ -277,7 +266,7 @@ public class DJToggleButton extends JToggleButton
 		return null;
 	}
 
-	@SuppressWarnings("unused")
+	@SuppressWarnings( "unused" )
 	private class Listener implements DJToggleButtonListener
 	{
 

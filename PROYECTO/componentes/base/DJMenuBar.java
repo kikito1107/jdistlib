@@ -12,26 +12,14 @@ import Deventos.DMIEvent;
 import Deventos.enlaceJS.DConector;
 
 /**
- * <p>
- * Title:
- * </p>
- * <p>
- * Description:
- * </p>
- * <p>
- * Copyright: Copyright (c) 2004
- * </p>
- * <p>
- * Company:
- * </p>
+ * Implementacion de la clase captadora de eventos para el componente Barra de
+ * Menu
  * 
- * @author not attributable
- * @version 1.0
+ * @author Juan Antonio Iba–ez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public class DJMenuBar extends JMenuBar implements DComponente
 {
-
 	private static final long serialVersionUID = 1L;
 
 	public static JLabel usuario = null;

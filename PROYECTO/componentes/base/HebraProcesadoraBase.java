@@ -4,23 +4,11 @@ import Deventos.ColaEventos;
 import Deventos.DEvent;
 
 /**
- * <p>
- * Title:
- * </p>
- * <p>
- * Description:
- * </p>
- * <p>
- * Copyright: Copyright (c) 2004
- * </p>
- * <p>
- * Company:
- * </p>
+ * Implementacion de la hebra procesadora de eventos
  * 
- * @author not attributable
- * @version 1.0
+ * @author Juan Antonio Iba–ez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public class HebraProcesadoraBase implements Runnable
 {
 	@SuppressWarnings( "unused" )
@@ -31,6 +19,12 @@ public class HebraProcesadoraBase implements Runnable
 	@SuppressWarnings( "unused" )
 	private DComponente dc = null;
 
+	/**
+	 * Constructor
+	 * 
+	 * @param dc
+	 *            Componente distribuido al que asociaremos la hebra
+	 */
 	public HebraProcesadoraBase( DComponente dc )
 	{
 		this.dc = dc;
@@ -38,11 +32,20 @@ public class HebraProcesadoraBase implements Runnable
 		this.colaRecepcion = dc.obtenerColaRecepcion();
 	}
 
+	/**
+	 * Ejecucion de la hebra. No hace nada, con lo que se debera implementar por
+	 * parte del programador
+	 */
 	public void run()
 	{
 
 	}
 
+	/**
+	 * Obtiene los eventos de la cola de recepcion
+	 * 
+	 * @return Array de eventos de la cola de recepcion
+	 */
 	public DEvent[] obtenerEventosColaRecepcion()
 	{
 		int numEventos = colaRecepcion.tamanio();
@@ -54,11 +57,19 @@ public class HebraProcesadoraBase implements Runnable
 		return eventos;
 	}
 
+	/**
+	 * Extrae de la cola de recepcion de eventos el siguiente evento disponible
+	 * 
+	 * @return Evento leido de la cola de recepcion
+	 */
 	public DEvent leerSiguienteEvento()
 	{
 		return colaRecepcion.extraerEvento();
 	}
 
+	/**
+	 * Inicia la ejecucion de la hebra
+	 */
 	public void iniciarHebra()
 	{
 		Thread t = new Thread(this);

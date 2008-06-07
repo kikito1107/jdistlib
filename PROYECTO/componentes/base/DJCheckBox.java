@@ -16,23 +16,11 @@ import componentes.listeners.DJCheckBoxListener;
 import componentes.listeners.LJCheckBoxListener;
 
 /**
- * <p>
- * Title:
- * </p>
- * <p>
- * Description:
- * </p>
- * <p>
- * Copyright: Copyright (c) 2004
- * </p>
- * <p>
- * Company:
- * </p>
+ * Implementacion de la clase captadora de eventos para el componente CheckBox
  * 
- * @author not attributable
- * @version 1.0
+ * @author Juan Antonio Iba–ez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public class DJCheckBox extends JCheckBox
 {
 	private static final long serialVersionUID = 1L;
@@ -57,6 +45,9 @@ public class DJCheckBox extends JCheckBox
 
 	private Integer ultimoProcesado = new Integer(-1);
 
+	/**
+	 * Constructor por defecto
+	 */
 	public DJCheckBox()
 	{
 		super();
@@ -64,6 +55,12 @@ public class DJCheckBox extends JCheckBox
 		extrasConstructor();
 	}
 
+	/**
+	 * Constructor con parametros
+	 * 
+	 * @param p0
+	 *            Texto que mostrara el checkbox
+	 */
 	public DJCheckBox( String p0 )
 	{
 		super(p0);
@@ -71,6 +68,14 @@ public class DJCheckBox extends JCheckBox
 		extrasConstructor();
 	}
 
+	/**
+	 * Constructor con parametros
+	 * 
+	 * @param p0
+	 *            Texto que mostrara el checkbox
+	 * @param p1
+	 *            Indica si el checkbox estara marcado o no
+	 */
 	public DJCheckBox( String p0, boolean p1 )
 	{
 		super(p0, p1);
@@ -78,6 +83,12 @@ public class DJCheckBox extends JCheckBox
 		extrasConstructor();
 	}
 
+	/**
+	 * Constructor con parametros
+	 * 
+	 * @param p0
+	 *            Accion que realizara el checkbox
+	 */
 	public DJCheckBox( Action p0 )
 	{
 		super(p0);
@@ -85,6 +96,12 @@ public class DJCheckBox extends JCheckBox
 		extrasConstructor();
 	}
 
+	/**
+	 * Constructor con parametros
+	 * 
+	 * @param p0
+	 *            Icono que mostrara el checkbox
+	 */
 	public DJCheckBox( Icon p0 )
 	{
 		super(p0);
@@ -92,6 +109,14 @@ public class DJCheckBox extends JCheckBox
 		extrasConstructor();
 	}
 
+	/**
+	 * Constructor con parametros
+	 * 
+	 * @param p0
+	 *            Icono que mostrara el checkbox
+	 * @param p1
+	 *            Indica si el checkbox estara marcado o no
+	 */
 	public DJCheckBox( Icon p0, boolean p1 )
 	{
 		super(p0, p1);
@@ -99,6 +124,14 @@ public class DJCheckBox extends JCheckBox
 		extrasConstructor();
 	}
 
+	/**
+	 * Constructor con parametros
+	 * 
+	 * @param p0
+	 *            Texto que mostrara el checkbox
+	 * @param p1
+	 *            Icono que mostrara el checkbox
+	 */
 	public DJCheckBox( String p0, Icon p1 )
 	{
 		super(p0, p1);
@@ -106,6 +139,16 @@ public class DJCheckBox extends JCheckBox
 		extrasConstructor();
 	}
 
+	/**
+	 * Constructor con parametros
+	 * 
+	 * @param p0
+	 *            Texto que mostrara el checkbox
+	 * @param p1
+	 *            Icono que mostrara el checkbox
+	 * @param p2
+	 *            Indica si el checkbox estara marcado o no
+	 */
 	public DJCheckBox( String p0, Icon p1, boolean p2 )
 	{
 		super(p0, p1, p2);
@@ -277,7 +320,7 @@ public class DJCheckBox extends JCheckBox
 		return null;
 	}
 
-	@SuppressWarnings("unused")
+	@SuppressWarnings( "unused" )
 	private class Listener implements DJCheckBoxListener
 	{
 
