@@ -18,14 +18,10 @@ import javax.swing.JFrame;
 
 /**
  * Clase encargada con la captura del audio para la videoconferencia
- * @author anab
+ * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz
  */
 public class AudioCapture extends JFrame
 {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	boolean stopCapture = false;

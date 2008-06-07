@@ -24,12 +24,14 @@ import com.lti.civil.DefaultCaptureSystemFactorySingleton;
 import com.lti.civil.awt.AWTImageConverter;
 
 /**
+ * Clase que se encarga de la captura de imagenes desde la webcam
+ * y de su envio a traves de RMI al usuario con el que estamos realizando
+ * la videoconferencia.
  * 
- * @author carlos
+ * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz
  */
 public class VideoConferencia
 {
-
 	private String ip_origen;
 
 	private static final int port = 4445;
@@ -45,27 +47,49 @@ public class VideoConferencia
 
 	private static ImageIcon image_now_local = null;
 
+	/**
+	 * Constructor
+	 * @param ip_orig IP del usuario con el que queremos hacer una videoconferencia
+	 */
 	public VideoConferencia( String ip_orig )
 	{
 		ip_origen = ip_orig;
 	}
 
+	/**
+	 * Asigna la direccion IP del usuario con el que queremos realizar la
+	 * videoconferencia.
+	 * @param ip IP del usuario con el que queremos realizar la videoconferencia
+	 */
 	public void set_ip_origen(String ip)
 	{
 		ip_origen = ip;
 
 	}
 	
+	/**
+	 * Permite parar la captura y envio de imagenes de la webcam.
+	 * @param b Indica si queremos parar o no la captura y envio de imagenes
+	 *          de la webcam
+	 */
 	public static void setStopped(boolean b)
 	{
 		stopped = b;
 	}
 	
+	/**
+	 * Permite obtener la imagen capturada por nuestra webcam
+	 * @return Imagen capturada por nuestra webcam
+	 */
 	public static ImageIcon getImageActualLocal()
 	{
 		return image_now_local;
 	}
 
+	/**
+	 * Establece un servidor RMI para el envio de imagenes de
+	 * la webcam.
+	 */
 	public static void establecerOrigen()
 	{
 		if (!serverExecuted)
@@ -79,7 +103,12 @@ public class VideoConferencia
 		}
 	}
 
-	public ImageIcon receive(int w, int h)
+	/**
+	 * Recibe una imagen del usuario con el que estamos realizando
+	 * la videoconferencia.
+	 * @return Imagen recibida del usuario
+	 */
+	public ImageIcon receive()
 	{
 		try
 		{
@@ -102,6 +131,9 @@ public class VideoConferencia
 		}
 	}
 
+	/**
+	 * Permite capturar directamente desde la webcam
+	 */
 	class MyCaptureObserver implements CaptureObserver
 	{
 
@@ -145,35 +177,55 @@ public class VideoConferencia
 		}
 	}
 
+	/**
+	 * Hebra que ejecuta el servidor RMI para el envio y recepcion de imagenes
+	 * de una webcam.
+	 */
 	private class ServerThread extends Thread
 	{
-
+		/**
+		 * Indica si se debe parar de capturar imagenes
+		 */
 		public boolean conversacionParada = true;
 
 		private CaptureSystem system = null;
 
+		/**
+		 * Constructor
+		 */
 		public ServerThread()
 		{
 		}
 
+		/**
+		 * Ejecucion de la hebra
+		 */
 		@Override
 		public void run()
 		{
 			try
 			{
+				//Definir un sistema de captura
 				final CaptureSystemFactory factory = DefaultCaptureSystemFactorySingleton
 						.instance();
 				system = factory.createCaptureSystem();
 				system.init();
+				
+				//establecer el servidor de sockets
 				ServerSocket servidor = new ServerSocket(4445);
 				Socket conexion = null;
 				salida = new Vector<ObjectOutputStream>();
+				
+				//iniciar la captura desde la webcam
 				CaptureStream captureStream = iniciarCaptura();
 
+				//ejecucion del servidor
 				while (true)
+				{
+					//solo capturar si no hemos parado la captura
 					if (!stopped)
 					{
-
+						//si debemos comenzar la captura por primera vez...
 						if (conversacionParada)
 						{
 							captureStream.start();
@@ -184,6 +236,8 @@ public class VideoConferencia
 						salida.add(new ObjectOutputStream(conexion
 								.getOutputStream()));
 					}
+					
+					//si hemos parado la captura...
 					else
 					{
 
@@ -191,6 +245,7 @@ public class VideoConferencia
 						conversacionParada = true;
 						Thread.sleep(1500);
 					}
+				}
 			}
 			catch (Exception ex)
 			{
@@ -198,6 +253,12 @@ public class VideoConferencia
 			}
 		}
 
+		/**
+		 * Permite comenzar a capturar desde la webcam
+		 * @return Flujo de imagenes de la webcam
+		 * @throws IOException
+		 * @throws CaptureException
+		 */
 		@SuppressWarnings("unchecked")
 		private CaptureStream iniciarCaptura() throws IOException,
 				CaptureException
