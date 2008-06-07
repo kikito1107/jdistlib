@@ -23,7 +23,7 @@ import net.jini.space.JavaSpace;
  * (salvo necesidades específicas). Basta con crear una clase que herede de
  * TaskeEntry y reimplementar el método execute
  * 
- * @author anab
+ * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  * 
  */
 public final class GenericWorker implements Runnable
@@ -32,6 +32,28 @@ public final class GenericWorker implements Runnable
 
 	private JTextArea output = null;
 
+	/**
+	 * Constructor por defecto
+	 */
+	public GenericWorker()
+	{
+		try
+		{
+			space = SpaceLocator.getSpace();
+		}
+		catch (Exception e)
+		{
+			throw new RuntimeException("Can't find the space");
+		}
+
+		Thread thread = new Thread(this);
+		thread.start();
+	}
+	
+	/**
+	 * Constructor con parametros
+	 * @param t Area de texto donde se pintaran los mensajes
+	 */
 	public GenericWorker( JTextArea t )
 	{
 		try
@@ -48,6 +70,9 @@ public final class GenericWorker implements Runnable
 		thread.start();
 	}
 
+	/**
+	 * Ejecucion del esclavo
+	 */
 	public void run()
 	{
 		Entry taskTmpl = null;
@@ -57,17 +82,17 @@ public final class GenericWorker implements Runnable
 		}
 		catch (RemoteException e)
 		{
-			throw new RuntimeException("Can't obtain a snapshot");
+			throw new RuntimeException("No se pudo obtener un snapshot del JavaSpace");
 		}
 
 		while (true)
 		{
-			output.append("getting task\n");
+			if (output != null)	output.append("Obteniendo tarea\n");
 
 			Transaction txn = getTransaction();
 			if (txn == null)
 			{
-				throw new RuntimeException("Can't obtain a transaction");
+				throw new RuntimeException("No se pudo obtener la transaccion");
 			}
 
 			try
@@ -78,7 +103,8 @@ public final class GenericWorker implements Runnable
 				if (result != null)
 				{
 					space.write(result, txn, task.resultLeaseTime());
-					output.append(result.mensaje + "\n");
+					
+					if (output != null)	output.append(result.mensaje + "\n");
 				}
 				txn.commit();
 			}
@@ -106,11 +132,16 @@ public final class GenericWorker implements Runnable
 					// lease expiration will take care of the
 					// transaction
 				}
-				output.append("Task cancelled\n");
+				
+				if (output != null)	output.append("Tarea cancelada\n");
 			}
 		}
 	}
 
+	/**
+	 * Obtiene la transaccion usada para JavaSpace
+	 * @return Transaccion usada
+	 */
 	public Transaction getTransaction()
 	{
 		TransactionManager mgr = null;
@@ -151,10 +182,5 @@ public final class GenericWorker implements Runnable
 			}
 		}
 		else return null;
-	}
-
-	public static void main(String[] args) throws Throwable
-	{
-		new GenericWorker(new JTextArea());
 	}
 }

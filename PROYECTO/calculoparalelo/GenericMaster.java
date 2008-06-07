@@ -32,7 +32,7 @@ public abstract class GenericMaster extends DAbstractPlugin
 	 *            Nombre del componente
 	 * @param conexionDC
 	 *            Indica si queremos conectarnos directamente al
-	 * @see DConector
+	 * 				@see DConector
 	 * @param padre
 	 *            Padre del componente
 	 * @throws Exception
@@ -93,9 +93,9 @@ public abstract class GenericMaster extends DAbstractPlugin
 	}
 
 	/**
-	 * 
-	 * @param template
-	 * @return
+	 * Coge una tarea del JavaSpace
+	 * @param template Plantilla de la entrada a recuperar
+	 * @return Entrada recuperada
 	 */
 	protected final Entry takeTask(Entry template)
 	{
@@ -123,6 +123,9 @@ public abstract class GenericMaster extends DAbstractPlugin
 		return null;
 	}
 
+	/**
+	 * Hebra encargada de generar las tareas
+	 */
 	private class GenerateThread extends Thread
 	{
 		@Override
@@ -132,6 +135,9 @@ public abstract class GenericMaster extends DAbstractPlugin
 		}
 	}
 
+	/**
+	 * Hebra encargada de recoger los resultados
+	 */
 	private class CollectThread extends Thread
 	{
 		@Override
