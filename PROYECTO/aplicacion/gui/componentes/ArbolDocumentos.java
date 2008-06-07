@@ -224,31 +224,38 @@ public class ArbolDocumentos extends JTree implements Autoscroll {
 		{
 			java.io.File f = jfc.getSelectedFile();
 
-			if (doc.esDirectorio()) return;
-
-			Transfer t = new Transfer(ClienteFicheros.ipConexion, doc
-					.getRutaLocal());
-
-			byte[] datos = t.receiveFileBytes();
-
-			try
+			if (doc.esDirectorio()) 
 			{
-				RandomAccessFile acf = new RandomAccessFile(
-						f.getAbsolutePath(), "rw");
-
-				acf.write(datos);
-
-				acf.close();
+				JOptionPane.showMessageDialog(null, "No puede guardar un directorio de forma local");
 			}
-			catch (FileNotFoundException e1)
+			
+			else
 			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			catch (IOException e3)
-			{
-				// TODO Auto-generated catch block
-				e3.printStackTrace();
+
+				Transfer t = new Transfer(ClienteFicheros.ipConexion, doc
+						.getRutaLocal());
+
+				byte[] datos = t.receiveFileBytes();
+
+				try
+				{
+					RandomAccessFile acf = new RandomAccessFile(f
+							.getAbsolutePath(), "rw");
+
+					acf.write(datos);
+
+					acf.close();
+				}
+				catch (FileNotFoundException e1)
+				{
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				catch (IOException e3)
+				{
+					// TODO Auto-generated catch block
+					e3.printStackTrace();
+				}
 			}
 		}
 	}

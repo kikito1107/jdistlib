@@ -56,11 +56,10 @@ import componentes.gui.usuarios.ArbolUsuariosConectadosRol;
 
 /**
  * Panel de la ventana de la aplicacion principal
- * @author anab
+ * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
 public class PanelPrincipal extends DComponenteBase
 {
-
 	private static final long serialVersionUID = 1L;
 
 	private JPanel panelLateral = null;
@@ -101,9 +100,7 @@ public class PanelPrincipal extends DComponenteBase
 
 	private FramePanelDibujo frame = null;
 
-	ArbolUsuariosConectadosRol arbolUsuario = null;
-
-	DefaultMutableTreeNode raiz = null;
+	private ArbolUsuariosConectadosRol arbolUsuario = null;
 
 	private JButton botonSubir = null;
 	
@@ -127,12 +124,15 @@ public class PanelPrincipal extends DComponenteBase
 	
 	
 
-	// ============= INICIALIZACIÓN
-	// ===================================================================
+	// ============= INICIALIZACIÓN  ===========================
 
 	/**
-	 * This method initializes jContentPane
-	 * @return javax.swing.JPanel
+	 * Constructor
+	 * @param nombre Nombre del componente para registrarlo en el servidor
+	 *               de metainformacion.
+	 * @param conexionDC Indicamos si deseamos realizar una conexion directa con DConector
+	 *                   para comprobacion de permisos sobre el componente distribuido
+	 * @param padre Componente padre en el que estara situado este componente
 	 */
 	public PanelPrincipal( String nombre, boolean conexionDC,
 			DComponenteBase padre )
@@ -238,8 +238,8 @@ public class PanelPrincipal extends DComponenteBase
 	
 	// ============= GUI =================================================
 	/**
-	 * This method initializes panelLateral
-	 * @return javax.swing.JPanel
+	 * Obtiene el panel lateral con la lista de usuarios
+	 * @return El panel ya inicializado
 	 */
 	private JPanel getPanelLateral()
 	{
@@ -299,8 +299,8 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * This method initializes panelEspacioTrabajo
-	 * @return javax.swing.JPanel
+	 * Obtiene el panel con el arbol de documentos
+	 * @return Panel con el arbol de documentos ya inicializado
 	 */
 	private JPanel getPanelEspacioTrabajo()
 	{
@@ -314,7 +314,7 @@ public class PanelPrincipal extends DComponenteBase
 			panelEspacioTrabajo.setFont(fuente);
 			panelEspacioTrabajo.setLayout(borderLayout2);
 			panelEspacioTrabajo.setBorder(new LineBorder(Color.GRAY, 1));
-			panelEspacioTrabajo.add(getHerraminetasDocumentos(),
+			panelEspacioTrabajo.add(getHerramientasDocumentos(),
 					BorderLayout.NORTH);
 			
 			JScrollPane scrollArbol = new JScrollPane(getArbolDocumentos());
@@ -328,10 +328,10 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * This method initializes herraminetasDocumentos
-	 * @return javax.swing.JToolBar
+	 * Obtiene la barra de herramientas para los documentos
+	 * @return Barra de herramientas inicializada
 	 */
-	private JToolBar getHerraminetasDocumentos()
+	private JToolBar getHerramientasDocumentos()
 	{
 		if (herramientasDocumentos == null)
 		{
@@ -354,8 +354,8 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * Accede a la barra de progreso
-	 * @return barraProgreso correctamente inicializada
+	 * Obtiene la barra de progreso
+	 * @return Barra de progreso correctamente inicializada
 	 */
 	private JProgressBar getBarraProgreso()
 	{
@@ -376,8 +376,8 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * Accede al boton getCarpeta
-	 * @return getCarpeta inicializado
+	 * Obtiene el boton para agregar una carpeta
+	 * @return Boton para agregar una carpeta ya inicializado
 	 */
 	private JButton getAgregarCarpeta()
 	{
@@ -439,8 +439,8 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * Accede al boton botonDescargar
-	 * @return botonDescargar inicializado
+	 * Obtiene el boton para descargar un documento
+	 * @return Boton para descargar un documento ya inicializado
 	 */
 	private JButton getBotonDescargar()
 	{
@@ -469,8 +469,8 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * Accede al botonImprimir
-	 * @return el botonImprimir inicializado
+	 * Obtiene el boton para imprimir un documento
+	 * @return Boton para imprimir un documento ya inicializado
 	 */
 	private JButton getBotonImprimirDocumento()
 	{
@@ -498,8 +498,8 @@ public class PanelPrincipal extends DComponenteBase
 	
 	
 	/**
-	 * Accede al boton eliminarFichero
-	 * @return el botonEliminarFichero inicializado
+	 * Obtiene el boton para eliminar un documento
+	 * @return Boton para eliminar un documento ya inicializado
 	 */
 	private JButton getBotonEliminarFichero()
 	{
@@ -560,8 +560,8 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * Accede al boton de la barra de herramientas de docuemntos botonInfo
-	 * @return el boton inicializado
+	 * Obtiene el boton para obtener informacion de un documento
+	 * @return Boton para obtener informacion de un documento ya inicializado
 	 */
 	private JButton getBotonInfo()
 	{
@@ -613,8 +613,8 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * This method initializes boton abrir documento
-	 * @return javax.swing.JButton
+	 * Obtiene el boton para abrir un documento
+	 * @return Boton para abrir un documento ya inicializado
 	 */
 	private JButton getBotonAbrirDoc()
 	{
@@ -641,8 +641,8 @@ public class PanelPrincipal extends DComponenteBase
 
 	
 	/**
-	 * This method initializes boton52131
-	 * @return javax.swing.JButton
+	 * Obtiene el boton para cambiar de rol
+	 * @return Boton para cambiar de rol ya inicializado
 	 */
 	private JButton getBotonCambiarRol()
 	{
@@ -680,8 +680,8 @@ public class PanelPrincipal extends DComponenteBase
 	
 	
 	/**
-	 * This method initializes arbolDocuementos
-	 * @return javax.swing.JTree
+	 * Obtiene el arbol de documentos
+	 * @return Arbol de documentos ya inicializado
 	 */
 	private JTree getArbolDocumentos()
 	{
@@ -706,8 +706,8 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * This method initializes editarUsuario
-	 * @return javax.swing.JButton
+	 * Obtiene el boton para editar usuarios
+	 * @return Boton para editar el sistema ya inicializado
 	 */
 	private JButton getEditarUsuario()
 	{
@@ -741,8 +741,8 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * This method initializes herrmientasUsuarios
-	 * @return javax.swing.JToolBar
+	 * Obtiene la barra de herramientas para los usuarios
+	 * @return Barra de herramientas para los usuarios ya inicializada
 	 */
 	private JToolBar getHerramientasUsuarios()
 	{
@@ -758,19 +758,19 @@ public class PanelPrincipal extends DComponenteBase
 			s1.setMinimumSize(new Dimension(20, 15));
 			s2.setMinimumSize(new Dimension(20, 15));
 			herramientasUsuarios.setFloatable(false);
-			herramientasUsuarios.add(getEditarUsuario());
-			herramientasUsuarios.add(this.getBotonCambiarRol());
-			herramientasUsuarios.add(s1);
-			herramientasUsuarios.add(getIniciarChat());
-			herramientasUsuarios.add(getEnviarMensaje());
-			herramientasUsuarios.add( this.getIniciarVC());
+			herramientasUsuarios.add(getEditarUsuario()); //edicion de usuarios
+			herramientasUsuarios.add(this.getBotonCambiarRol()); //cambio de rol
+			herramientasUsuarios.add(s1); //separador
+			herramientasUsuarios.add(getIniciarChat()); //chat entre usuarios
+			herramientasUsuarios.add(getEnviarMensaje()); //envio de mensajes
+			herramientasUsuarios.add( this.getIniciarVC()); //videoconferencia
 		}
 		return herramientasUsuarios;
 	}
 
 	/**
-	 * This method initializes arbolUsuario
-	 * @return
+	 * Obtiene el arbol de usuarios conectados
+	 * @return Arbol de usuarios conectados ya inicializado
 	 */
 	private ArbolUsuariosConectadosRol getArbolUsuario()
 	{
@@ -783,8 +783,8 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * This method initializes iniciarChat
-	 * @return javax.swing.JButton
+	 * Obtiene el boton para iniciar un chat entre usuarios
+	 * @return Boton para iniciar un chat ya inicializado
 	 */
 	private JButton getIniciarChat()
 	{
@@ -837,8 +837,8 @@ public class PanelPrincipal extends DComponenteBase
 	}
 	
 	/**
-	 * This method initializes iniciarChat
-	 * @return javax.swing.JButton
+	 * Obtiene el boton para iniciar una videoconferencia entre usuarios
+	 * @return Boton para iniciar una videoconferencia ya inicializado
 	 */
 	private JButton getIniciarVC()
 	{
@@ -907,8 +907,8 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * This method initializes enviarMensaje
-	 * @return javax.swing.JButton
+	 * Obtiene el boton para enviar mensajes entre usuarios
+	 * @return Boton para enviar mensajes ya inicializado
 	 */
 	private JButton getEnviarMensaje()
 	{
@@ -938,8 +938,8 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * Accede al boton para subir documentos
-	 * @return el botonSubir inicializado
+	 * Obtiene el boton para subir documentos
+	 * @return Boton para subir documentos ya inicializado
 	 */
 	private JButton getButonSubir()
 	{
@@ -963,8 +963,8 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * Boton para reenviar mensajes
-	 * @return el boton reenviar inicializado
+	 * Obtiene el boton para reenviar mensajes
+	 * @return Boton para reenviar mensajes ya inicializado
 	 */
 	private JButton getReenviar()
 	{
@@ -1164,8 +1164,8 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * This method initializes listaAplicaciones
-	 * @return javax.swing.JList
+	 * Obtiene la lista de aplicaciones
+	 * @return Lista de aplicaciones ya inicializada
 	 */
 	private JList getListaAplicaciones()
 	{
@@ -1207,8 +1207,8 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * accede al modelo de datos de la lista de aplicaciones
-	 * @return el modelo inicializado
+	 * Obtiene el modelo de datos de la lista de aplicaciones
+	 * @return El modelo ya inicializado
 	 */
 	private DefaultListModel getModelo(){
 	
@@ -1316,13 +1316,22 @@ public class PanelPrincipal extends DComponenteBase
 		if (this.arbolDocumentos != null) arbolDocumentos.repaint();
 	}
 
-	// ========= DCOMPONENTE =========================================================
+	// ========= DCOMPONENTES =========================================================
+	/**
+	 * Obtiene el numero de componentes hijo que son distribuidos en este componente
+	 * @return Numero de componentes hijo.
+	 */
 	@Override
 	public int obtenerNumComponentesHijos()
 	{
 		return 1;
 	}
 
+	/**
+	 * Obtiene el componente i-esimo de este componente
+	 * @param i Indice del componente a obtener
+	 * @return Componente obtenido o null si el componente i no existe
+	 */
 	@Override
 	public DComponente obtenerComponente(int i)
 	{
@@ -1353,6 +1362,10 @@ public class PanelPrincipal extends DComponenteBase
 				DConector.Daplicacion);
 	}
 
+	/**
+	 * Procesa un evento que le llega desde la red
+	 * @param evento Evento a procesar
+	 */
 	@Override
 	public void procesarEvento(DEvent evento)
 	{
@@ -1502,6 +1515,10 @@ public class PanelPrincipal extends DComponenteBase
 		}
 	}
 	
+	/**
+	 * Procesa un evento de metainformacion
+	 * @param e Evento de metainformacion
+	 */
 	@Override
 	public void procesarMetaInformacion(DMIEvent e) {
 		super.procesarMetaInformacion(e);
@@ -1565,16 +1582,21 @@ public class PanelPrincipal extends DComponenteBase
 	// ============= HEBRAS ==============================================
 	/**
 	 * Hebra que se encarga de abrir los documentos
-	 * @author anab
 	 */
 	private class HebraAbrir implements Runnable
 	{
+		/**
+		 * Constructor
+		 */
 		public HebraAbrir()
 		{
 			Thread hebra = new Thread(this);
 			hebra.start();
 		}
 
+		/**
+		 * Ejecucion de la hebra
+		 */
 		public void run()
 		{
 			while (true)
@@ -1589,17 +1611,22 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	/**
-	 * Hebra encargada de mantener la hebra de plugins actualizada
-	 * @author anab
+	 * Hebra encargada de mantener la lista de plugins actualizada
 	 */
 	private class HebraPlugins implements Runnable
 	{
+		/**
+		 * Constructor
+		 */
 		public HebraPlugins()
 		{
 			Thread hebra = new Thread(this);
 			hebra.start();
 		}
 
+		/**
+		 * Ejecucion de la hebra
+		 */
 		public void run()
 		{
 			while (true)
@@ -1628,6 +1655,9 @@ public class PanelPrincipal extends DComponenteBase
 	 */
 	private class MonitorAbrir
 	{
+		/**
+		 * Operaciones del monitor al abrir un documento
+		 */
 		public synchronized void abrir()
 		{
 			try
@@ -1640,6 +1670,10 @@ public class PanelPrincipal extends DComponenteBase
 			}
 		}
 
+		/**
+		 * Operaciones del monitor a la hora de notificar
+		 * la apertura de un documento
+		 */
 		public synchronized void notificarAbrir()
 		{
 			notifyAll();

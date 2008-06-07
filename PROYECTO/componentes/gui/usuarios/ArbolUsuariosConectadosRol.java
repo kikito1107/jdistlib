@@ -35,22 +35,22 @@ public class ArbolUsuariosConectadosRol extends DComponenteBase
 	/**
 	 * Layout del panel
 	 */
-	BorderLayout borderLayout1 = new BorderLayout();
+	private BorderLayout borderLayout1 = new BorderLayout();
 
 	/**
 	 * ScrollPane donde se guarda el arbol
 	 */
-	JScrollPane jScrollPane1 = new JScrollPane();
+	private JScrollPane jScrollPane1 = new JScrollPane();
 
 	/**
 	 * Arbol con los usuarios clasificados por rol
 	 */
-	ArbolUsuarios arbol = null;
+	private ArbolUsuarios arbol = null;
 
 	/**
 	 * Ra’z del ‡rbol
 	 */
-	DefaultMutableTreeNode raiz = null;
+	private DefaultMutableTreeNode raiz = null;
 
 	/**
 	 * @param nombre
