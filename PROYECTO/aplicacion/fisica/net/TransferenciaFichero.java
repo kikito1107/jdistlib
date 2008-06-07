@@ -11,8 +11,8 @@ import aplicacion.fisica.documentos.Documento;
 import aplicacion.fisica.documentos.filtros.TXTFilter;
 
 /**
- * Clase encargada de acceder a documentos desde el servidor
- * @author anab
+ * Metodos para la transferencia de documentos
+ * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez.
  */
 public class TransferenciaFichero extends UnicastRemoteObject implements
 		TransmisorFicheros
@@ -29,10 +29,10 @@ public class TransferenciaFichero extends UnicastRemoteObject implements
 	}
 	
 	/**
-	 * Construye un documento a partir de un fichero del FS
-	 * @param path path del fichero
-	 * @param force indica si hay que forzar la converion a a documento de texto
-	 * @return el documento si todo va ok y null en caso contrario
+	 * Construye un documento a partir de un fichero del sistema de ficheros
+	 * @param path Path del fichero
+	 * @param force Indica si hay que forzar la converion a un documento de texto
+	 * @return El documento si todo es correcto o null en caso contrario
 	 */
 	public Documento getDocument(String path, boolean force)
 	{
@@ -44,9 +44,9 @@ public class TransferenciaFichero extends UnicastRemoteObject implements
 	}
 
 	/**
-	 * Abre un fichero y devuelve el contenido de este
-	 * @param path path del fichero
-	 * @param vector de bytes con el contenido del fichero
+	 * Abre un fichero y devuelve los bytes contenidos en este
+	 * @param path Path del fichero
+	 * @param Vector de bytes con el contenido del fichero
 	 */
 	public byte[] getByteFiles(String path)
 	{
@@ -76,10 +76,10 @@ public class TransferenciaFichero extends UnicastRemoteObject implements
 	}
 
 	/**
-	 * Almacena un documento
-	 * @param bytes contenido del documento a almacenar
-	 * @param path path donde se quiere almacenar el fichero
-	 * @return true si el documento se ha almacenado correctamente y false en caso contrario
+	 * Almacena los bytes de un documento en un path determinado
+	 * @param bytes Contenido del documento a almacenar
+	 * @param path Path donde se quiere almacenar el fichero
+	 * @return True si el documento se ha almacenado correctamente. False en caso contrario
 	 */
 	public boolean sendByteFile(byte[] bytes, String path)
 	{
@@ -108,9 +108,9 @@ public class TransferenciaFichero extends UnicastRemoteObject implements
 	}
 
 	/**
-	 * Guarda un documento en el FS junto con sus anotaciones
-	 * @param d documento a guardar
-	 * @return true si se ha guardado correctamente y false en caso contrario
+	 * Guarda un documento en el sistema de ficheros junto con sus anotaciones
+	 * @param d Documento a guardar
+	 * @return True si se ha guardado correctamente. False en caso contrario
 	 */
 	public boolean sendDocument(Documento d) throws RemoteException
 	{

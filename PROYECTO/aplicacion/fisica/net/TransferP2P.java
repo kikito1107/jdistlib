@@ -11,7 +11,7 @@ import aplicacion.fisica.documentos.Documento;
 
 /**
  * Clase encargada de la transmisi—n de documentos entre usuarios
- * @author anab
+ * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
 public class TransferP2P
 {
@@ -26,10 +26,10 @@ public class TransferP2P
 	private static Thread hebra = null;
 
 	/**
-	 * 
-	 * @param ip_orig
-	 * @param identificador
-	 * @param puerto
+	 * Constructor
+	 * @param ip_orig Direccion IP de origen de la conexion
+	 * @param identificador Identificador de la conexion a realizar
+	 * @param puerto Puerto donde se desean realizar las transmisiones
 	 */
 	public TransferP2P( String ip_orig, int identificador, int puerto )
 	{
@@ -38,8 +38,8 @@ public class TransferP2P
 	}
 	
 	/**
-	 * Consulta el puerto donde se encuentra esperando el 
-	 * @return el puerto
+	 * Consulta el puerto donde se encuentra esperando el servidor
+	 * @return Puerto donde esta en estado "listen" el servidor
 	 */
 	public static int getPort()
 	{
@@ -58,9 +58,9 @@ public class TransferP2P
 	}
 	
 	/**
-	 * Inicia el servidor 
-	 * @param id identificador del objeto registrado
-	 * @param doc documento a enviar
+	 * Inicia el servidor RMI para la transferencia entre usuarios
+	 * @param id Identificador del objeto registrado
+	 * @param doc Documento a enviar
 	 */
 	public synchronized static void establecerServidor(int id, Documento doc)
 	{
@@ -77,7 +77,7 @@ public class TransferP2P
 	}
 
 	/**
-	 * Para la hebra, desliga el objeto registrado
+	 * Para la ejecucion de la hebra del servidor. Desliga el objeto registrado
 	 */
 	public synchronized static void pararHebra()
 	{
@@ -100,8 +100,8 @@ public class TransferP2P
 	}
 
 	/**
-	 * Envia el documento
-	 * @return el documento si todo ha ido ok y false en caso contrario
+	 * Recepcion del documento desde el servidor RMI
+	 * @return El documento si todo fue correcto o null en caso contrario
 	 */
 	public Documento receive()
 	{
@@ -122,20 +122,27 @@ public class TransferP2P
 
 	/**
 	 * Hebra encargada de gestionar el servidor RMI
-	 * @author ana
 	 */
 	private class ServerThread extends Thread
 	{
 		int id;
 
-		Documento d;
+		private Documento d;
 
+		/**
+		 * Constructor de la hebra
+		 * @param identificador Identificador del objeto registrado
+		 * @param doc Documento a enviar a traves del servidor
+		 */
 		public ServerThread( int identificador, Documento doc )
 		{
 			id = identificador;
 			d = doc;
 		}
 
+		/**
+		 * Ejecucion de la hebra
+		 */
 		@Override
 		public void run()
 		{
