@@ -94,13 +94,16 @@ public class ControlesDibujo extends JPanel
 		new HebraAbrir();
 		initialize();
 	}
-	
+
 	/**
 	 * Constructor con parametros
-	 * @param l Lienzo al que asociaremos los controles de dibujo
-	 * @param be Barra de estado del lienzo
+	 * 
+	 * @param l
+	 *            Lienzo al que asociaremos los controles de dibujo
+	 * @param be
+	 *            Barra de estado del lienzo
 	 */
-	public ControlesDibujo(DILienzo l, BarraEstado be)
+	public ControlesDibujo( DILienzo l, BarraEstado be )
 	{
 		super();
 		lienzo = l;
@@ -111,6 +114,7 @@ public class ControlesDibujo extends JPanel
 
 	/**
 	 * Devuelve el color actual
+	 * 
 	 * @return Numero asociado al color actual
 	 */
 	public int getColorActual()
@@ -120,6 +124,7 @@ public class ControlesDibujo extends JPanel
 
 	/**
 	 * Obtiene el tipo de trazo usado en este momento
+	 * 
 	 * @return Numero que representa el tipo de trazo
 	 */
 	public int getTrazoActual()
@@ -146,6 +151,7 @@ public class ControlesDibujo extends JPanel
 
 	/**
 	 * Muestra un dialogo para seleccionar el color para pintar
+	 * 
 	 * @return Color escogido en el dialogo
 	 */
 	private Color elegirColor()
@@ -625,7 +631,7 @@ public class ControlesDibujo extends JPanel
 	}
 
 	// ============= HEBRAS ===================
-	
+
 	/**
 	 * Hebra que se encarga de abrir los documentos
 	 */
@@ -680,9 +686,9 @@ public class ControlesDibujo extends JPanel
 				e.printStackTrace();
 			}
 		}
+
 		/**
-		 * Acciones de sincronizacion al notificar la 
-		 * apertura de un documento
+		 * Acciones de sincronizacion al notificar la apertura de un documento
 		 */
 		public synchronized void notificarAbrir()
 		{

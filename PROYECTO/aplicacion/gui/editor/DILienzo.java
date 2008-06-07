@@ -13,7 +13,6 @@ import java.util.Random;
 import java.util.Vector;
 
 import javax.swing.JOptionPane;
-import javax.swing.JToolTip;
 import javax.swing.border.EtchedBorder;
 
 import util.DialogoIntroTexto;
@@ -36,7 +35,7 @@ import figuras.Texto;
 import figuras.TrazoManoAlzada;
 
 /**
- * Implementacion de un editor basico de imagenes distribuido
+ * Implementacion de un editor de imagenes distribuido
  * 
  * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
@@ -50,42 +49,57 @@ public class DILienzo extends DIViewer implements MouseListener,
 	 */
 	private FramePanelDibujo padre = null;
 
-	JToolTip tt = new JToolTip();
-
-	/**
+	/*
 	 * Modos de dibujo para las anotaciones
+	 */
+	/**
+	 * Dibujar lineas
 	 */
 	public static final int LINEAS = 0;
 
+	/**
+	 * Dibujar a mano alzada
+	 */
 	public static final int MANO_ALZADA = 1;
 
+	/**
+	 * Escribir texto
+	 */
 	public static final int TEXTO = 2;
 
+	/**
+	 * Dibujar rectangulos
+	 */
 	public static final int RECTANGULO = 3;
 
+	/**
+	 * Dibujar elipses
+	 */
 	public static final int ELIPSE = 4;
 
-	/** Indica si se ha sincronizado ya el lienzo */
+	/**
+	 * Indica si se ha sincronizado ya el lienzo
+	 */
 	public boolean sincronizada = false;
 
-	/**
+	/*
 	 * Color con el que se dibujan las anotaciones
 	 */
 	private Color colorActual = Color.RED;
 
-	/**
-	 * Trazo que permite almancenar un trazo a mano alzada mientras está siendo
+	/*
+	 * Trazo que permite almacenar un trazo a mano alzada mientras está siendo
 	 * realizado
 	 */
 	private TrazoManoAlzada trazo = null;
 
-	/**
-	 * Modo de dibujo, puede ser lineas o puntos. Inicialmente es lineas
+	/*
+	 * Pincel de dibujo. Inicialmente es lineas
 	 */
-	int modoDibujo = LINEAS;
+	private int modoDibujo = LINEAS;
 
-	/**
-	 * documento de trabajo
+	/*
+	 * Documento de trabajo
 	 */
 	private Documento doc = new Documento();
 
@@ -94,12 +108,12 @@ public class DILienzo extends DIViewer implements MouseListener,
 	 */
 	public int anotacionSeleccionada = -1;
 
-	/**
+	/*
 	 * Vector que contiene los objetos que han sido borrados
 	 */
-	Vector<Anotacion> anotacionesBorradas = new Vector<Anotacion>();
+	private Vector<Anotacion> anotacionesBorradas = new Vector<Anotacion>();
 
-	/**
+	/*
 	 * Pagina actual del documento visualizada
 	 */
 	private int paginaActual = 0;
@@ -109,8 +123,8 @@ public class DILienzo extends DIViewer implements MouseListener,
 	 */
 	private boolean estaSeleccionando = false;
 
-	/**
-	 * Coordenada x inicial del trazo actual
+	/*
+	 * Coordenadas del trazo actual
 	 */
 	private int x1;
 
@@ -126,12 +140,31 @@ public class DILienzo extends DIViewer implements MouseListener,
 	private int id = ( new Random() ).nextInt(1000);
 
 	/**
-	 * Constructor de la clase
+	 * Constructor por defecto
+	 */
+	public DILienzo()
+	{
+		super("", false, null);
+		try
+		{
+			init();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Constructor con parametros
 	 * 
 	 * @param nombre
-	 *            nombre del componente
+	 *            Nombre del componente
 	 * @param conexionDC
+	 *            Indica si deseamos realizar una conexion directa con el
+	 * @see DConector.
 	 * @param padre
+	 *            Componente padre de este componente
 	 */
 	public DILienzo( String nombre, boolean conexionDC, DComponenteBase padre )
 	{
@@ -155,26 +188,10 @@ public class DILienzo extends DIViewer implements MouseListener,
 	}
 
 	/**
-	 * Constructor de oficio
-	 */
-	public DILienzo()
-	{
-		super("", false, null);
-		try
-		{
-			init();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
-
-	/**
 	 * Establece el color actual para dibujar
 	 * 
 	 * @param unColor
-	 *            el nuevo color actual
+	 *            Nuevo color actual
 	 */
 	public void setColor(Color unColor)
 	{
@@ -182,9 +199,10 @@ public class DILienzo extends DIViewer implements MouseListener,
 	}
 
 	/**
-	 * Indica si una anotacion esta seleccionado
+	 * Indica si se esta seleccionado
 	 * 
 	 * @param b
+	 *            Indicador de seleccion o no
 	 */
 	public void setEstaSeleccionando(boolean b)
 	{
@@ -194,7 +212,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 	/**
 	 * Devuelve el documento con el que se está trabajando actualmente
 	 * 
-	 * @return
+	 * @return Documento que se muestra en el lienzo
 	 */
 	public Documento getDocumento()
 	{
@@ -205,7 +223,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 	 * Establece el documento de trabajo
 	 * 
 	 * @param nuevo
-	 *            documento de trabajo
+	 *            Documento a mostrar en el lienzo
 	 */
 	public void setDocumento(Documento nuevo)
 	{
@@ -220,7 +238,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 	 * Establece el trazo del dibujo
 	 * 
 	 * @param trazo
-	 *            tipo de trazo
+	 *            Tipo de trazo
 	 */
 	public void setTrazo(int trazo)
 	{
@@ -242,11 +260,8 @@ public class DILienzo extends DIViewer implements MouseListener,
 	 */
 	private void init() throws Exception
 	{
-
 		this.createToolTip();
-
 		this.setToolTipText("");
-
 		this.setBorder(new EtchedBorder(2));
 	}
 
@@ -262,7 +277,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 	 * Establece la ventana en la que es dibujado el lienzo
 	 * 
 	 * @param j
-	 *            ventana en la que se dibuja el lienzo
+	 *            Ventana en la que se dibuja el lienzo
 	 */
 	public void setPadre(FramePanelDibujo j)
 	{
@@ -270,7 +285,8 @@ public class DILienzo extends DIViewer implements MouseListener,
 	}
 
 	/**
-	 * @return the objetoSeleccionado
+	 * Devuelve la anotacion que esta seleccionada
+	 * @return La anotacion seleccionada
 	 */
 	public int getObjetoSeleccionado()
 	{
@@ -318,8 +334,8 @@ public class DILienzo extends DIViewer implements MouseListener,
 	 * Método que permite invertir un color
 	 * 
 	 * @param c
-	 *            color a invertir
-	 * @return color invertido
+	 *            Color a invertir
+	 * @return Color invertido
 	 */
 	public static Color invertirColor(Color c)
 	{
@@ -361,7 +377,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 	/**
 	 * Devuelve el número de la página actual
 	 * 
-	 * @return
+	 * @return Numero de pagina mostrada
 	 */
 	public int getNumPaginas()
 	{
@@ -371,7 +387,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 	/**
 	 * Recupera la página actual del documento visualizado
 	 * 
-	 * @return el número de la página actual
+	 * @return Numero de la página actual
 	 */
 	public int getPaginaActual()
 	{
@@ -382,7 +398,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 	 * Establece la página actual con la que se está trabajando
 	 * 
 	 * @param numPagina
-	 *            número de la nueva página actual
+	 *            Número de la nueva página actual
 	 */
 	public void setPaginaActual(int numPagina)
 	{
@@ -401,7 +417,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 	/**
 	 * Devuelve el color actual
 	 * 
-	 * @return el color actual
+	 * @return Color actual
 	 */
 	public Color getColor()
 	{
@@ -425,9 +441,11 @@ public class DILienzo extends DIViewer implements MouseListener,
 	{
 	}
 
+	/**
+	 * Movimiento del raton sobre el componente
+	 */
 	public void mouseMoved(MouseEvent e)
 	{
-
 		//
 		// ToolTipManager.
 
@@ -465,6 +483,10 @@ public class DILienzo extends DIViewer implements MouseListener,
 		}
 	}
 
+	/**
+	 * Accion que se realiza al hacer un click con el raton
+	 * sobre el lienzo
+	 */
 	public void mousePressed(MouseEvent e)
 	{
 		e.consume();
@@ -571,13 +593,16 @@ public class DILienzo extends DIViewer implements MouseListener,
 		}
 	}
 
+	/**
+	 * Evento que se produce al dejar de hacer click
+	 * con el raton
+	 */
 	public void mouseReleased(MouseEvent e)
 	{
 		e.consume();
 
 		if (!estaSeleccionando)
 		{
-
 			switch (modoDibujo)
 			{
 				case RECTANGULO:
@@ -686,15 +711,10 @@ public class DILienzo extends DIViewer implements MouseListener,
 		}
 	}
 
-	@Override
-	public void setSize(int width, int height)
-	{
-		super.setSize(width, height);
-		this.setPreferredSize(new Dimension(width, height));
-		this.setMinimumSize(new Dimension(width, height));
-		this.setMaximumSize(new Dimension(width, height));
-	}
-
+	/**
+	 * Evento producido al arrastrar el raton con
+	 * un boton pulsado
+	 */
 	public void mouseDragged(MouseEvent e)
 	{
 		e.consume();
@@ -725,6 +745,20 @@ public class DILienzo extends DIViewer implements MouseListener,
 					break;
 			}
 		}
+	}
+	
+	/**
+	 * Pone el tamaño del lienzo
+	 * @param width Ancho del lienzo
+	 * @param height Alto del lienzo
+	 */
+	@Override
+	public void setSize(int width, int height)
+	{
+		super.setSize(width, height);
+		this.setPreferredSize(new Dimension(width, height));
+		this.setMinimumSize(new Dimension(width, height));
+		this.setMaximumSize(new Dimension(width, height));
 	}
 
 	// ***********************************************************************
@@ -840,15 +874,13 @@ public class DILienzo extends DIViewer implements MouseListener,
 	/**
 	 * Deshace el ultimo trazo realizado en el lienzo
 	 * 
-	 * @param i
-	 *            página
+	 * @param i Pagina a la que deshacer el ultimo trazo
 	 */
 	public void deshacer(int i)
 	{
 		// si se ha dibujado algo...
 		if (doc.getPagina(i).getAnotaciones().size() > 0)
 		{
-
 			Vector<Anotacion> anotaciones = doc.getPagina(i).getAnotaciones();
 
 			// eliminamos el último elemento dibujado y su color
@@ -879,8 +911,8 @@ public class DILienzo extends DIViewer implements MouseListener,
 	 * Borra un objeto de la lista de objetos dibujados
 	 * 
 	 * @param posicion
-	 *            posicion del objeto a borrar
-	 * @param i
+	 *            Indice del objeto a borrar
+	 * @param i Pagina donde se encuentra el objeto a eliminar
 	 */
 	public void borrarObjeto(int posicion, int i)
 	{
@@ -994,7 +1026,7 @@ public class DILienzo extends DIViewer implements MouseListener,
 	/**
 	 * Procesa un evento recibido
 	 * 
-	 * @arg evento evento recibido
+	 * @param evento Evento recibido
 	 */
 	@Override
 	@SuppressWarnings( "static-access" )
