@@ -4,26 +4,30 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
+/**
+ * Figura correspondiente a una linea
+ * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
+ */
 public class Linea extends Figura
 {
 	private static final long serialVersionUID = 3369752970214467809L;
 
 	/**
-	 * coordenada x de la esquina superior izquierda de la figura
+	 * Coordenada x de la esquina superior izquierda de la figura
 	 */
-	int xf;
+	protected int xf;
 
 	/**
-	 * coordenada y de la esquina superior izquierda de la figura
+	 * Coordenada y de la esquina superior izquierda de la figura
 	 */
-	int yf;
+	protected int yf;
 
 	/**
 	 * Crea una nueva e linea
-	 * @param x1 coordenada x de la esquina superior izquierda de la figura
-	 * @param y1 coordenada y de la esquina superior izquierda de la figura
-	 * @param xf1 coordenada x de la esquina inferior derecha de la figura
-	 * @param yf1 coordenada x de la esquina inferior derecha de la figura
+	 * @param x1 Coordenada x de la esquina superior izquierda de la figura
+	 * @param y1 Coordenada y de la esquina superior izquierda de la figura
+	 * @param xf1 Coordenada x de la esquina inferior derecha de la figura
+	 * @param yf1 Coordenada y de la esquina inferior derecha de la figura
 	 */
 	public Linea( int x1, int y1, int xf1, int yf1 )
 	{
@@ -47,7 +51,6 @@ public class Linea extends Figura
 	@Override
 	public boolean pertenece(int a, int b)
 	{
-
 		int x1 = x, xf1 = xf, y1 = y, yf1 = yf;
 		int margen = 10;
 
@@ -78,5 +81,4 @@ public class Linea extends Figura
 		}
 		else return false;
 	}
-
 }

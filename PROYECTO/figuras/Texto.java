@@ -5,40 +5,38 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
 /**
- * Clase que representa un texto a renderizar en un objeto Graphics
- * @author anab
- *
+ * Figura asociada a un texto
+ * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
 public class Texto extends Figura
 {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 6651266174731584301L;
 
+	/**
+	 * Pixeles de error permitidos
+	 */
 	private static final int error = 10;
 	
 	/**
 	 * Texto a pintar
 	 */
-	String texto = null;
+	private String texto = null;
 
 	/**
-	 * numero de lineas del texto
+	 * Numero de lineas del texto
 	 */
-	int num_lineas = 0;
+	private int num_lineas = 0;
 
 	/**
-	 * numero de columnas del texto
+	 * Numero de columnas del texto
 	 */
-	int num_columnas = 0;
+	private int num_columnas = 0;
 
 	/**
 	 * Crea un nuevo texto
-	 * @param x1 coordenada x de la esquina superior izquierda de la figura
-	 * @param y1 coordenada y  de la esquina superior izquierda de la figura
-	 * @param texto texto a pintar en pantalla
+	 * @param x1 Coordenada x de la esquina superior izquierda de la figura
+	 * @param y1 Coordenada y  de la esquina superior izquierda de la figura
+	 * @param texto Texto a pintar en pantalla
 	 */
 	public Texto( int x1, int y1, String texto1 )
 	{
@@ -54,8 +52,8 @@ public class Texto extends Figura
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
+		
 		String lineas[] = texto.split("\n");
-
 		int y_aux = y;
 
 		for (String element : lineas)
@@ -69,28 +67,23 @@ public class Texto extends Figura
 		}
 
 		num_lineas = y_aux;
-
 	}
 
 	@Override
 	public boolean pertenece(int a, int b)
 	{
-		// si las coerdenadas del punto son menores que el la esquina del texto 
-		// menos el margen de error
+		// si las coordenadas del punto son menores que el de la esquina del texto 
+		// menos el margen de error...
 		if (( a < x-error ) || ( b < y-error ))
 			return false;
 		else
 		{
 			int yf = num_lineas;
-
 			int xf = x + num_columnas * 5 + 7;
 
 			if (( a < xf+error ) && ( b < yf+error ))
 				return true;
 			else return false;
-
 		}
-
 	}
-
 }

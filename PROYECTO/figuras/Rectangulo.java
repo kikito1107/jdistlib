@@ -3,35 +3,34 @@ package figuras;
 import java.awt.Graphics;
 
 /**
- * Clase que representa un rectangulo
- * @author anab
+ * Figura correspondiente a un rectangulo
+ * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
 public class Rectangulo extends Figura
 {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -8639747747514475007L;
 
+	/**
+	 * Pixeles de error permitidos
+	 */
 	private static final int error = 10;
 	
 	/**
-	 * coordenada x de la esquina superior izquierda de la figura
+	 * Coordenada x de la esquina superior izquierda de la figura
 	 */
 	private int xf;
 
 	/**
-	 * coordenada y de la esquina superior izquierda de la figura
+	 * Coordenada y de la esquina superior izquierda de la figura
 	 */
 	private int yf;
 
 	/**
 	 * Crea un nuevo rectangulo
-	 * @param x1 coordenada x de la esquina superior izquierda de la figura
-	 * @param y1 coordenada y de la esquina superior izquierda de la figura
-	 * @param xf1 coordenada x de la esquina inferior derecha de la figura
-	 * @param yf1 coordenada x de la esquina inferior derecha de la figura
+	 * @param x1 Coordenada x de la esquina superior izquierda de la figura
+	 * @param y1 Coordenada y de la esquina superior izquierda de la figura
+	 * @param xf1 Coordenada x de la esquina inferior derecha de la figura
+	 * @param yf1 Coordenada x de la esquina inferior derecha de la figura
 	 */
 	public Rectangulo( int x1, int y1, int xf1, int yf1 )
 	{
