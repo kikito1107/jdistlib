@@ -24,24 +24,42 @@ public class DialogoLogin extends JDialog
 {
 	private static final long serialVersionUID = 8430574155310023329L;
 
-	JPanel panel1 = new JPanel();
+	private JPanel panel1 = new JPanel();
 
 	private String[] datosLogin = new String[2];
 
-	JTextField campoUsuario = new JTextField();
+	private JTextField campoUsuario = new JTextField();
 
-	JTextField campoPass = new JTextField();
+	private JTextField campoPass = new JTextField();
 
-	JLabel jLabel1 = new JLabel();
+	private JLabel jLabel1 = new JLabel();
 
-	JLabel jLabel2 = new JLabel();
+	private JLabel jLabel2 = new JLabel();
 
-	JLabel jLabel3 = new JLabel();
+	private JLabel jLabel3 = new JLabel();
 
-	JButton botonAceptar = new JButton();
+	private JButton botonAceptar = new JButton();
 
-	JButton jButton1 = new JButton();
+	private JButton botonCancelar = new JButton();
 
+	/**
+	 * Constructor por defecto
+	 */
+	public DialogoLogin()
+	{
+		this(null, "", false);
+	}
+
+	/**
+	 * Constructor con parametros
+	 * 
+	 * @param frame
+	 *            Ventana asociada al dialogo de login
+	 * @param title
+	 *            Titulo del dialogo
+	 * @param modal
+	 *            Indicar si es un dialogo modal o no
+	 */
 	public DialogoLogin( Frame frame, String title, boolean modal )
 	{
 		super(frame, title, modal);
@@ -56,11 +74,11 @@ public class DialogoLogin extends JDialog
 		}
 	}
 
-	public DialogoLogin()
-	{
-		this(null, "", false);
-	}
-
+	/**
+	 * Inicializacion de los componentes graficos
+	 * 
+	 * @throws Exception
+	 */
 	private void jbInit() throws Exception
 	{
 		panel1.setLayout(null);
@@ -87,9 +105,9 @@ public class DialogoLogin extends JDialog
 		this.setModal(true);
 		this.setResizable(false);
 		this.addWindowListener(new DialogoLogin_this_windowAdapter(this));
-		jButton1.setBounds(new Rectangle(178, 100, 96, 23));
-		jButton1.setText("Cancelar");
-		jButton1
+		botonCancelar.setBounds(new Rectangle(178, 100, 96, 23));
+		botonCancelar.setText("Cancelar");
+		botonCancelar
 				.addActionListener(new DialogoLogin_jButton1_actionAdapter(this));
 		getContentPane().add(panel1);
 		panel1.add(jLabel1, null);
@@ -98,13 +116,19 @@ public class DialogoLogin extends JDialog
 		panel1.add(campoPass, null);
 		panel1.add(jLabel3, null);
 		panel1.add(botonAceptar, null);
-		panel1.add(jButton1, null);
+		panel1.add(botonCancelar, null);
 
 		campoUsuario.select(0, campoUsuario.getText().length());
 
 		this.getRootPane().setDefaultButton(botonAceptar);
 	}
 
+	/**
+	 * Permite obtener un vector con los datos introducidos por el usuario
+	 * 
+	 * @return Array con dos cadenas de texto: El usuario y la clave
+	 *         introducidos
+	 */
 	public String[] obtenerDatosLogin()
 	{
 		setSize(330, 200);
@@ -122,7 +146,13 @@ public class DialogoLogin extends JDialog
 		return datosLogin;
 	}
 
-	void botonAceptar_actionPerformed(ActionEvent e)
+	/**
+	 * Accion realizada al pulsar el boton aceptar
+	 * 
+	 * @param e
+	 *            Evento recibido
+	 */
+	private void botonAceptar_actionPerformed(ActionEvent e)
 	{
 		if (( campoUsuario.getText().length() > 0 )
 				&& ( campoPass.getText().length() > 0 ))
@@ -136,65 +166,81 @@ public class DialogoLogin extends JDialog
 				JOptionPane.ERROR_MESSAGE);
 	}
 
-	void jButton1_actionPerformed(ActionEvent e)
+	/**
+	 * Accion realizada al pulsar el boton cancelar
+	 * 
+	 * @param e
+	 *            Evento recibido
+	 */
+	private void botonCancelar_actionPerformed(ActionEvent e)
 	{
-
 		// DConector.obtenerDC().salir();
 		System.exit(0);
 	}
 
-	void this_windowClosing(WindowEvent e)
+	/**
+	 * Accion realizada al cerrarse la ventana
+	 * 
+	 * @param e
+	 *            Evento recibido
+	 */
+	private void this_windowClosing(WindowEvent e)
 	{
 		// DConector.obtenerDC().salir();
 		System.exit(0);
 	}
 
-}
+	/*
+	 * **************************************** Adaptadores para las acciones
+	 * ****************************************
+	 */
 
-class DialogoLogin_botonAceptar_actionAdapter implements
-		java.awt.event.ActionListener
-{
-	DialogoLogin adaptee;
-
-	DialogoLogin_botonAceptar_actionAdapter( DialogoLogin adaptee )
+	private class DialogoLogin_botonAceptar_actionAdapter implements
+			java.awt.event.ActionListener
 	{
-		this.adaptee = adaptee;
+		private DialogoLogin adaptee;
+
+		public DialogoLogin_botonAceptar_actionAdapter( DialogoLogin adaptee )
+		{
+			this.adaptee = adaptee;
+		}
+
+		public void actionPerformed(ActionEvent e)
+		{
+			adaptee.botonAceptar_actionPerformed(e);
+		}
 	}
 
-	public void actionPerformed(ActionEvent e)
+	private class DialogoLogin_jButton1_actionAdapter implements
+			java.awt.event.ActionListener
 	{
-		adaptee.botonAceptar_actionPerformed(e);
-	}
-}
+		private DialogoLogin adaptee;
 
-class DialogoLogin_jButton1_actionAdapter implements
-		java.awt.event.ActionListener
-{
-	DialogoLogin adaptee;
+		public DialogoLogin_jButton1_actionAdapter( DialogoLogin adaptee )
+		{
+			this.adaptee = adaptee;
+		}
 
-	DialogoLogin_jButton1_actionAdapter( DialogoLogin adaptee )
-	{
-		this.adaptee = adaptee;
-	}
-
-	public void actionPerformed(ActionEvent e)
-	{
-		adaptee.jButton1_actionPerformed(e);
-	}
-}
-
-class DialogoLogin_this_windowAdapter extends java.awt.event.WindowAdapter
-{
-	DialogoLogin adaptee;
-
-	DialogoLogin_this_windowAdapter( DialogoLogin adaptee )
-	{
-		this.adaptee = adaptee;
+		public void actionPerformed(ActionEvent e)
+		{
+			adaptee.botonCancelar_actionPerformed(e);
+		}
 	}
 
-	@Override
-	public void windowClosing(WindowEvent e)
+	private class DialogoLogin_this_windowAdapter extends
+			java.awt.event.WindowAdapter
 	{
-		adaptee.this_windowClosing(e);
+		private DialogoLogin adaptee;
+
+		public DialogoLogin_this_windowAdapter( DialogoLogin adaptee )
+		{
+			this.adaptee = adaptee;
+		}
+
+		@Override
+		public void windowClosing(WindowEvent e)
+		{
+			adaptee.this_windowClosing(e);
+		}
 	}
 }

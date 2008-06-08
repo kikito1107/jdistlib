@@ -1,61 +1,53 @@
 package Deventos.enlaceJS;
 
 import java.awt.Color;
-import java.awt.Frame;
 import java.awt.Rectangle;
 import java.awt.event.WindowEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- * <p>
- * Title:
- * </p>
- * <p>
- * Description:
- * </p>
- * <p>
- * Copyright: Copyright (c) 2004
- * </p>
- * <p>
- * Company:
- * </p>
+ * Dialogo mostrado al realizar la sincronizacion de componentes
  * 
- * @author not attributable
- * @version 1.0
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public class DialogoSincronizacion extends JDialog
 {
-
 	private static final long serialVersionUID = 1L;
 
-	JPanel panel1 = new JPanel();
+	private JPanel panel1 = new JPanel();
 
-	Frame frame = new JFrame();
+	private JLabel etiquetaIcono = new JLabel();
 
-	protected JLabel etiquetaIcono = new JLabel();
-
-	JLabel etiqueta = new JLabel();
+	private JLabel etiqueta = new JLabel();
 
 	private final int x = 10;
 
 	private final int y = 10;
 
-	protected ImageIcon icono1 = null;
+	/*
+	 * Secuencia de iconos mostrada en la animacion del componente
+	 */
+	private ImageIcon icono1 = null;
 
-	protected ImageIcon icono2 = null;
+	private ImageIcon icono2 = null;
 
-	protected ImageIcon icono3 = null;
+	private ImageIcon icono3 = null;
 
-	private volatile Thread t = new Thread(new HebraParpadeo(this));
+	/*
+	 * Hebra para la animacion del icono
+	 */
+	private volatile Thread t = new Thread(new HebraAnimacion(this));
 
 	private Monitor monitor = new Monitor();
 
+	/**
+	 * Constructor
+	 */
 	public DialogoSincronizacion()
 	{
 		super();
@@ -72,6 +64,11 @@ public class DialogoSincronizacion extends JDialog
 		}
 	}
 
+	/**
+	 * Inicializacion de componentes graficos
+	 * 
+	 * @throws Exception
+	 */
 	private void jbInit() throws Exception
 	{
 		panel1.setLayout(null);
@@ -97,7 +94,15 @@ public class DialogoSincronizacion extends JDialog
 		t.start();
 	}
 
-	public void mostrar(String mensaje, boolean parpadeo)
+	/**
+	 * Muestra el dialogo
+	 * 
+	 * @param mensaje
+	 *            Mensaje a mostrar en el dialogo
+	 * @param animacion
+	 *            Indica si queremos realizar la animacion del icono
+	 */
+	public void mostrar(String mensaje, boolean animacion)
 	{
 		etiqueta.setText(mensaje);
 		// etiquetaIcono.setIcon(icono);
@@ -107,35 +112,55 @@ public class DialogoSincronizacion extends JDialog
 			this.setVisible(true);
 		}
 
-		monitor.setParpadeo(parpadeo);
+		monitor.setAnimacion(animacion);
 	}
 
+	/**
+	 * Oculta el dialogo
+	 */
 	public void ocultar()
 	{
 		this.setVisible(false);
-		monitor.setParpadeo(false);
+		monitor.setAnimacion(false);
 	}
 
-	void this_windowClosing(WindowEvent e)
+	/**
+	 * Accion ejecutada al cerrar el dialogo
+	 * 
+	 * @param e
+	 *            Evento recibido
+	 */
+	private void this_windowClosing(WindowEvent e)
 	{
 		DConector.obtenerDC().salir();
 	}
 
-	private class HebraParpadeo implements Runnable
+	/**
+	 * Hebra que realiza la animacion del icono
+	 */
+	private class HebraAnimacion implements Runnable
 	{
-		DialogoSincronizacion dialogo = null;
+		private DialogoSincronizacion dialogo = null;
 
-		HebraParpadeo( DialogoSincronizacion dialogo )
+		/**
+		 * Constructor
+		 * 
+		 * @param dialogo
+		 *            Dialog al cual realizar la animacion
+		 */
+		public HebraAnimacion( DialogoSincronizacion dialogo )
 		{
 			this.dialogo = dialogo;
 		}
 
+		/**
+		 * Ejecucion de la hebra
+		 */
 		public void run()
 		{
 			while (true)
 				try
 				{
-
 					dialogo.etiquetaIcono.setIcon(dialogo.icono1);
 					Thread.sleep(150L);
 					dialogo.etiquetaIcono.setIcon(dialogo.icono2);
@@ -144,26 +169,33 @@ public class DialogoSincronizacion extends JDialog
 					Thread.sleep(150L);
 
 					// Si no debe parpadear se quedara bloqueado hasta que se
-					// indique
-					// lo contrario
-					dialogo.monitor.getParpadeo();
-
+					// indique lo contrario
+					dialogo.monitor.getAnimacion();
 				}
 				catch (Exception e)
 				{
 					e.printStackTrace();
 				}
-
 		}
 	}
 
-	public class Monitor
+	/**
+	 * Sincroniza la animacion para evitar problemas cuando el dialogo se
+	 * ejecuta en mas de una instancia
+	 */
+	private class Monitor
 	{
-		private boolean parpadeo = false;
+		private boolean animacion = false;
 
-		public synchronized boolean getParpadeo()
+		/**
+		 * Bloquea la hebra que llame a este metodo si no se debe realizar la
+		 * animacion
+		 * 
+		 * @return Indica si se realiza la animacion
+		 */
+		public synchronized boolean getAnimacion()
 		{
-			if (!parpadeo) try
+			if (!animacion) try
 			{
 				wait();
 			}
@@ -171,31 +203,40 @@ public class DialogoSincronizacion extends JDialog
 			{
 				e.printStackTrace();
 			}
-			return parpadeo;
-
+			return animacion;
 		}
 
-		public synchronized void setParpadeo(boolean b)
+		/**
+		 * Permite indicar si debemos realizar la animacion. Desbloquea las
+		 * hebras bloqueadas si se paro la animacion anteriormente
+		 * 
+		 * @param b
+		 *            Indica si se debe realizar la animacion o no
+		 */
+		public synchronized void setAnimacion(boolean b)
 		{
-			parpadeo = b;
-			if (parpadeo) notifyAll();
+			animacion = b;
+			if (animacion) notifyAll();
 		}
 	}
 
-}
-
-class MensajesIni_this_windowAdapter extends java.awt.event.WindowAdapter
-{
-	DialogoSincronizacion adaptee;
-
-	MensajesIni_this_windowAdapter( DialogoSincronizacion adaptee )
+	/**
+	 * Adaptador para la accion de cerrar el dialogo
+	 */
+	private class MensajesIni_this_windowAdapter extends
+			java.awt.event.WindowAdapter
 	{
-		this.adaptee = adaptee;
-	}
+		DialogoSincronizacion adaptee;
 
-	@Override
-	public void windowClosing(WindowEvent e)
-	{
-		adaptee.this_windowClosing(e);
+		MensajesIni_this_windowAdapter( DialogoSincronizacion adaptee )
+		{
+			this.adaptee = adaptee;
+		}
+
+		@Override
+		public void windowClosing(WindowEvent e)
+		{
+			adaptee.this_windowClosing(e);
+		}
 	}
 }
