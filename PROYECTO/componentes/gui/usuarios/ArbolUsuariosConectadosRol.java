@@ -26,7 +26,11 @@ import Deventos.DMIEvent;
  */
 
 /**
- * Clase que muestra un panel con los usuarios conectados clasificados por roles
+ * Clase que muestra un panel con los usuarios conectados clasificados por
+ * roles. Con este componente podemos ver todos los usuarios que hay conectados
+ * que estan desempeñando el mismo rol que nosotros.
+ * 
+ * @author Carlos Rodriguez Dominguez
  */
 public class ArbolUsuariosConectadosRol extends DComponenteBase
 {
@@ -53,14 +57,16 @@ public class ArbolUsuariosConectadosRol extends DComponenteBase
 	private DefaultMutableTreeNode raiz = null;
 
 	/**
+	 * Constructor
+	 * 
 	 * @param nombre
-	 *            String Nombre del componente.
+	 *            Nombre del componente.
 	 * @param conexionDC
-	 *            boolean TRUE si esta en contacto directo con el DConector (no
-	 *            es hijo de ningun otro componente) y FALSE en otro caso
+	 *            True si esta en contacto directo con el DConector (no es hijo
+	 *            de ningun otro componente). False en otro caso
 	 * @param padre
-	 *            DComponenteBase Componente padre de este componente. Si no
-	 *            tiene padre establecer a null
+	 *            Componente padre de este componente. Si no tiene padre
+	 *            establecer a null
 	 */
 	public ArbolUsuariosConectadosRol( String nombre, boolean conexionDC,
 			DComponenteBase padre )
@@ -76,14 +82,20 @@ public class ArbolUsuariosConectadosRol extends DComponenteBase
 			e.printStackTrace();
 		}
 	}
-	
-	public ArbolUsuariosConectadosRol(){
-		
+
+	/**
+	 * Constructor por defecto. Permite usar la clase como un JavaBean
+	 */
+	public ArbolUsuariosConectadosRol()
+	{
+
 	}
 
 	/**
 	 * Procesa los eventos de Metainformacion que le llegan
-	 * @param evento DMIEvent Evento recibido
+	 * 
+	 * @param evento
+	 *            Evento recibido
 	 */
 	@Override
 	public void procesarMetaInformacion(DMIEvent evento)
@@ -118,6 +130,11 @@ public class ArbolUsuariosConectadosRol extends DComponenteBase
 		}
 	}
 
+	/**
+	 * Obtiene el usuario seleccionado en el arbol
+	 * 
+	 * @return Nombre del usuario seleccionado
+	 */
 	public String getUsuarioSeleccionado()
 	{
 
@@ -149,31 +166,30 @@ public class ArbolUsuariosConectadosRol extends DComponenteBase
 		raiz = new DefaultMutableTreeNode("Usuarios");
 		arbol = new ArbolUsuarios(raiz);
 		jScrollPane1 = new JScrollPane(arbol);
-		jScrollPane1.setBorder(new MatteBorder(2,0,2,0,Color.GRAY));
+		jScrollPane1.setBorder(new MatteBorder(2, 0, 2, 0, Color.GRAY));
 		this.add(jScrollPane1, BorderLayout.CENTER);
 
 		ArbolUsuariosConectadosRol.cambiarIconosArbol(arbol,
-				"Resources/page_user_dark.gif",
-				"Resources/page_user_dark.gif", "Resources/icon_user.gif",
-				"Resources/page_user_dark.gif");
+				"Resources/page_user_dark.gif", "Resources/page_user_dark.gif",
+				"Resources/icon_user.gif", "Resources/page_user_dark.gif");
 
 	}
 
 	/**
-	 * Actualiza la el arbol con los datos iniciales
+	 * Actualiza el arbol con los datos iniciales
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	private void actualizarLista()
 	{
 		Vector v = ClienteMetaInformacion.obtenerCMI().obtenerRoles();
 		Vector v2;
 		DefaultMutableTreeNode aux;
 
-		DefaultTreeModel modelo = (DefaultTreeModel)arbol.getModel();
-		
-		
-		if (v != null) {
-			
+		DefaultTreeModel modelo = (DefaultTreeModel) arbol.getModel();
+
+		if (v != null)
+		{
+
 			for (int i = 0; i < v.size(); ++i)
 			{
 				aux = new DefaultMutableTreeNode(v.get(i));
@@ -181,11 +197,13 @@ public class ArbolUsuariosConectadosRol extends DComponenteBase
 				v2 = ClienteMetaInformacion.obtenerCMI()
 						.obtenerUsuariosBajoRol(v.get(i).toString());
 
-				
-				if (( v2 != null ) && ( v2.size() > 0 )) {
-					
-					for (int j = 0; j < v2.size(); j++) {
-						modelo.insertNodeInto(new DefaultMutableTreeNode(v2.get(j)), aux, j);
+				if (( v2 != null ) && ( v2.size() > 0 ))
+				{
+
+					for (int j = 0; j < v2.size(); j++)
+					{
+						modelo.insertNodeInto(new DefaultMutableTreeNode(v2
+								.get(j)), aux, j);
 					}
 				}
 				modelo.insertNodeInto(aux, raiz, i);
@@ -197,7 +215,7 @@ public class ArbolUsuariosConectadosRol extends DComponenteBase
 	 * Obtiene el numero de componentes hijos de este componente. SIEMPRE
 	 * devuelve 0
 	 * 
-	 * @return int Numero de componentes hijos. SIEMPRE devuelve 0.
+	 * @return Numero de componentes hijos. SIEMPRE devuelve 0.
 	 */
 	@Override
 	public int obtenerNumComponentesHijos()
@@ -205,16 +223,31 @@ public class ArbolUsuariosConectadosRol extends DComponenteBase
 		return 0;
 	}
 
+	/**
+	 * Modifica los iconos que usara el arbol
+	 * 
+	 * @param arbol2
+	 *            Arbol al cual cambiar los iconos
+	 * @param close
+	 *            Nombre del fichero donde se encuentra el icono de una rama
+	 *            cerrada
+	 * @param open
+	 *            Nombre del fichero donde se encuentra el icono de una rama
+	 *            abierta
+	 * @param leaf
+	 *            Nombre del fichero donde se encuentra el icono para una hoja
+	 * @param no
+	 *            Nombre del fichero donde se encuentra el icono para un nodo
+	 *            del arbol
+	 */
 	public static void cambiarIconosArbol(JTree arbol2, String close,
 			String open, String leaf, String no)
 	{
-		// Retrieve the three icons
 		Icon leafIcon = new ImageIcon(leaf);
 		Icon openIcon = new ImageIcon(open);
 		Icon closedIcon = new ImageIcon(close);
 		Icon noIcon = new ImageIcon(no);
 
-		// Update only one tree instance
 		CustomCellRenderer renderer = new CustomCellRenderer(noIcon);
 
 		renderer.setLeafIcon(leafIcon);
@@ -225,15 +258,22 @@ public class ArbolUsuariosConectadosRol extends DComponenteBase
 	}
 }
 
+/**
+ * Clase que permite renderizar una celda del arbol de usuarios con iconos para
+ * cada uno de los componentes personalizados
+ */
 class CustomCellRenderer extends DefaultTreeCellRenderer
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -7075327761579832712L;
 
-	Icon noIcon = null;
+	private Icon noIcon = null;
 
+	/**
+	 * Constructor
+	 * 
+	 * @param n
+	 *            Icono para un nodo cualquiera
+	 */
 	public CustomCellRenderer( Icon n )
 	{
 		noIcon = n;
@@ -258,6 +298,13 @@ class CustomCellRenderer extends DefaultTreeCellRenderer
 		return this;
 	}
 
+	/**
+	 * Comprueba si el nodo se correponde al de un rol
+	 * 
+	 * @param value
+	 *            Nodo a examinar
+	 * @return True si el nodo es un nodo de rol. False en otro caso
+	 */
 	private boolean isRolNode(Object value)
 	{
 		boolean res = false;

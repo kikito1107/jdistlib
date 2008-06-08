@@ -20,34 +20,37 @@ import componentes.base.DComponenteBase;
 import Deventos.DMIEvent;
 
 /**
- * Con este componente podemos cambiar el rol que estamos desempeñando. Aparte
+ * Componente para poder cambiar el rol que estamos desempeñando. Aparte
  * nos muestra que rol es el que estamos desempeñando en cada momento.
+ * 
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. 
+ * 		   Ana Belen Pelegrina Ortiz
  */
 public class DICambioRol extends DComponenteBase
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 3140734302852368992L;
 
-	BorderLayout borderLayout1 = new BorderLayout();
+	private BorderLayout borderLayout1 = new BorderLayout();
 
-	JScrollPane jScrollPane1 = new JScrollPane();
+	private JScrollPane jScrollPane1 = new JScrollPane();
 
-	ListaElementos lista = new ListaElementos();
+	private ListaElementos lista = new ListaElementos();
 
-	TitledBorder borde;
+	private TitledBorder borde;
 
-	JPanel jPanel1 = new JPanel();
+	private JPanel jPanel1 = new JPanel();
 
-	JLabel etiquetaRol = new JLabel();
+	private JLabel etiquetaRol = new JLabel();
 
-	JLabel etiquetaTexto = new JLabel();
+	private JLabel etiquetaTexto = new JLabel();
 
-	JPanel jPanel2 = new JPanel();
+	private JPanel jPanel2 = new JPanel();
 
-	JButton botonCambiar = new JButton();
+	private JButton botonCambiar = new JButton();
 
+	/**
+	 * Constructor por defecto
+	 */
 	public DICambioRol()
 	{
 		super("CambioRol", true, null);
@@ -63,6 +66,13 @@ public class DICambioRol extends DComponenteBase
 
 	}
 
+	/**
+	 * Constructor con parametros
+	 * @param nombre Nombre del componente
+	 * @param conexionDC True si queremos una conexion directa con el @see DConector.
+	 * 					False en otro caso.
+	 * @param padre Componente padre a este componente
+	 */
 	public DICambioRol( String nombre, boolean conexionDC, DComponenteBase padre )
 	{
 		super(nombre, conexionDC, padre);
@@ -77,6 +87,10 @@ public class DICambioRol extends DComponenteBase
 		}
 	}
 
+	/**
+	 * Inicializacion de los componentes graficos
+	 * @throws Exception
+	 */
 	private void jbInit() throws Exception
 	{
 		borde = new TitledBorder(BorderFactory.createEtchedBorder(Color.white,
@@ -104,7 +118,7 @@ public class DICambioRol extends DComponenteBase
 	 * Procesa los eventos de Metainformacion que le llegan
 	 * 
 	 * @param evento
-	 *            DMIEvent Evento recibido
+	 *            Evento recibido
 	 */
 	@SuppressWarnings( "unchecked" )
 	@Override
@@ -152,7 +166,7 @@ public class DICambioRol extends DComponenteBase
 		return 0;
 	}
 
-	void botonCambiar_actionPerformed(ActionEvent e)
+	private void botonCambiar_actionPerformed(ActionEvent e)
 	{
 		String nuevoRol = lista.obtenerElementoSeleccionado();
 		if (nuevoRol != null)

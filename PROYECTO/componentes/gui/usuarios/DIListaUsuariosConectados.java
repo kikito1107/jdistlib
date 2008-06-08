@@ -14,33 +14,32 @@ import componentes.base.DComponenteBase;
 import Deventos.DMIEvent;
 
 /**
- * Con este componente podemos ver todos los usuarios que hay conectados en cada
- * momento.
+ * Componente para poder ver todos los usuarios que hay conectados 
+ * en cada momento.
+ * 
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. 
+ * 		   Ana Belen Pelegrina Ortiz
  */
-
 public class DIListaUsuariosConectados extends DComponenteBase
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 6491526090019528974L;
 
-	BorderLayout borderLayout1 = new BorderLayout();
+	private BorderLayout borderLayout1 = new BorderLayout();
 
-	JScrollPane jScrollPane1 = new JScrollPane();
+	private JScrollPane jScrollPane1 = new JScrollPane();
 
-	ListaElementos lista = new ListaElementos();
+	private ListaElementos lista = new ListaElementos();
 
-	TitledBorder borde;
+	private TitledBorder borde;
 
 	/**
 	 * @param nombre
-	 *            String Nombre del componente.
+	 *            Nombre del componente.
 	 * @param conexionDC
-	 *            boolean TRUE si esta en contacto directo con el DConector (no
+	 *            TRUE si esta en contacto directo con el DConector (no
 	 *            es hijo de ningun otro componente) y FALSE en otro caso
 	 * @param padre
-	 *            DComponenteBase Componente padre de este componente. Si no
+	 *            Componente padre de este componente. Si no
 	 *            tiene padre establecer a null
 	 */
 	public DIListaUsuariosConectados( String nombre, boolean conexionDC,
@@ -62,9 +61,9 @@ public class DIListaUsuariosConectados extends DComponenteBase
 	 * Procesa los eventos de Metainformacion que le llegan
 	 * 
 	 * @param evento
-	 *            DMIEvent Evento recibido
+	 *            Evento recibido
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	@Override
 	public void procesarMetaInformacion(DMIEvent evento)
 	{
@@ -83,6 +82,9 @@ public class DIListaUsuariosConectados extends DComponenteBase
 				.intValue()) lista.eliminarElemento(evento.usuario);
 	}
 
+	/**
+	 * Inicializacion de los componentes graficos
+	 */
 	private void jbInit() throws Exception
 	{
 		borde = new TitledBorder(BorderFactory.createEtchedBorder(Color.white,

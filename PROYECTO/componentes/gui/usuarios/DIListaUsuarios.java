@@ -15,33 +15,33 @@ import Deventos.DMIEvent;
 import componentes.base.DComponenteBase;
 
 /**
- * Con este componente podemos ver todos los usuarios que hay conectados en cada
- * momento.
+ * Componente para poder ver todos los usuarios que hay conectados 
+ * en cada momento.
+ * 
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. 
+ * 		   Ana Belen Pelegrina Ortiz
  */
-
 public class DIListaUsuarios extends DComponenteBase
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 6491526090019528974L;
 
-	BorderLayout borderLayout1 = new BorderLayout();
+	private BorderLayout borderLayout1 = new BorderLayout();
 
-	JScrollPane jScrollPane1 = new JScrollPane();
+	private JScrollPane jScrollPane1 = new JScrollPane();
 
-	ListaElementos lista = new ListaElementos();
+	private ListaElementos lista = new ListaElementos();
 
-	TitledBorder borde;
+	private TitledBorder borde;
 
 	/**
+	 * Constructor
 	 * @param nombre
-	 *            String Nombre del componente.
+	 *            Nombre del componente.
 	 * @param conexionDC
-	 *            boolean TRUE si esta en contacto directo con el DConector (no
+	 *            TRUE si esta en contacto directo con el DConector (no
 	 *            es hijo de ningun otro componente) y FALSE en otro caso
 	 * @param padre
-	 *            DComponenteBase Componente padre de este componente. Si no
+	 *            Componente padre de este componente. Si no
 	 *            tiene padre establecer a null
 	 */
 	public DIListaUsuarios( String nombre, boolean conexionDC,
@@ -63,43 +63,43 @@ public class DIListaUsuarios extends DComponenteBase
 	 * Procesa los eventos de Metainformacion que le llegan
 	 * 
 	 * @param evento
-	 *            DMIEvent Evento recibido
+	 *            Evento recibido
 	 */
 	@Override
 	public void procesarMetaInformacion(DMIEvent evento)
 	{
 		super.procesarMetaInformacion(evento);
-		/*if (evento.tipo.intValue() == DMIEvent.INFO_COMPLETA.intValue())
-		{
-			Vector v = (Vector) evento.infoCompleta.usuariosConectados
-					.elementAt(0);
-			lista.eliminarElementos();
-			for (int i = 0; i < v.size(); i++)
-				lista.aniadirElemento((String) v.elementAt(i));
-		}
-		if (evento.tipo.intValue() == DMIEvent.NOTIFICACION_CONEXION_USUARIO
-				.intValue()) lista.aniadirElemento(evento.usuario);
-		if (evento.tipo.intValue() == DMIEvent.NOTIFICACION_DESCONEXION_USUARIO
-				.intValue()) lista.eliminarElemento(evento.usuario);*/
+		/*
+		 * if (evento.tipo.intValue() == DMIEvent.INFO_COMPLETA.intValue()) {
+		 * Vector v = (Vector) evento.infoCompleta.usuariosConectados
+		 * .elementAt(0); lista.eliminarElementos(); for (int i = 0; i <
+		 * v.size(); i++) lista.aniadirElemento((String) v.elementAt(i)); } if
+		 * (evento.tipo.intValue() == DMIEvent.NOTIFICACION_CONEXION_USUARIO
+		 * .intValue()) lista.aniadirElemento(evento.usuario); if
+		 * (evento.tipo.intValue() == DMIEvent.NOTIFICACION_DESCONEXION_USUARIO
+		 * .intValue()) lista.eliminarElemento(evento.usuario);
+		 */
 	}
 
-	
-	@SuppressWarnings("unchecked")
+	/**
+	 * Inicializacion de los componentes graficos
+	 * @throws Exception
+	 */
+	@SuppressWarnings( "unchecked" )
 	private void jbInit() throws Exception
 	{
 		borde = new TitledBorder(BorderFactory.createEtchedBorder(Color.white,
 				new Color(165, 163, 151)), "Usuarios conectados");
 		this.setLayout(borderLayout1);
-		
+
 		Vector v = ClienteMetaInformacion.obtenerCMI().obtenerUsuarios();
-		
-		if (v != null)
-			for( int i=0; i<v.size(); ++i) {
-				lista.aniadirElemento(v.get(i).toString());
-				System.err.println("Agregando usuario " + v.get(i).toString());
-			}
-		
-		
+
+		if (v != null) for (int i = 0; i < v.size(); ++i)
+		{
+			lista.aniadirElemento(v.get(i).toString());
+			System.err.println("Agregando usuario " + v.get(i).toString());
+		}
+
 		this.obtenerPanelContenido().setBorder(borde);
 		this.add(jScrollPane1, BorderLayout.CENTER);
 		jScrollPane1.getViewport().add(lista, null);

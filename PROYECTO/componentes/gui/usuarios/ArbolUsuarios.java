@@ -14,35 +14,26 @@ public class ArbolUsuarios extends JTree
 {
 	private static final long serialVersionUID = 6421964450995473440L;
 
-	/**
-	 * Nodo raiz de arbol
-	 */
-	DefaultMutableTreeNode raiz;
+	private DefaultMutableTreeNode raiz;
 
-	DefaultTreeModel modelo = null;
+	private DefaultTreeModel modelo = null;
 
 	/**
-	 * 
-	 */
-	ArbolUsuarios esto;
-
-	/**
-	 * Constructor del arbol
+	 * Constructor
 	 * 
 	 * @param root
-	 *            raiz del arbol
+	 *            Raiz del arbol
 	 */
 	public ArbolUsuarios( DefaultMutableTreeNode root )
 	{
 		super(root);
 		raiz = root;
-		esto = this;
 		modelo = (DefaultTreeModel) this.getModel();
 		expandir();
 	}
 
 	/**
-	 * Expande el arbol
+	 * Expande completamente el arbol
 	 */
 	public void expandir()
 	{
@@ -58,9 +49,9 @@ public class ArbolUsuarios extends JTree
 	 * Inserta un nuevo usuario en el arbol en la rama correspondiente a su rol
 	 * 
 	 * @param Rol
-	 *            rol del nuevo usuario
+	 *            Rol del nuevo usuario
 	 * @param usuario
-	 *            nombre del nuevo usuario
+	 *            Nombre del nuevo usuario
 	 */
 	public void insertarNuevoUsuario(String Rol, String usuario)
 	{
@@ -80,8 +71,8 @@ public class ArbolUsuarios extends JTree
 	 * Busca el nodo del arbol del que cuelgan todos los usuario bajo el rol Rol
 	 * 
 	 * @param Rol
-	 *            rol a buscar
-	 * @return Nodo en cuestion. Si no lo encuentra devuelve <b>null</b>
+	 *            Rol a buscar
+	 * @return Nodo en cuestion. Si no se encuentra devuelve <b>null</b>
 	 */
 	public DefaultMutableTreeNode buscarRol(String Rol)
 	{
@@ -92,7 +83,7 @@ public class ArbolUsuarios extends JTree
 		for (int i = 0; ( i < numRoles ) && !encontrado; ++i)
 		{
 			tmp = (DefaultMutableTreeNode) modelo.getChild(raiz, i);
-			
+
 			if (tmp.getUserObject().equals(Rol))
 			{
 				encontrado = true;
@@ -107,7 +98,7 @@ public class ArbolUsuarios extends JTree
 	 * Elimina un usuario del arbol
 	 * 
 	 * @param Usuario
-	 *            nombre del usuario a eliminar
+	 *            Nombre del usuario a eliminar
 	 */
 	public void eliminarUsuario(String Usuario)
 	{
@@ -139,9 +130,9 @@ public class ArbolUsuarios extends JTree
 	 * Elimina un usuario del arbol
 	 * 
 	 * @param Rol
-	 *            rol bajo el que esta actualmente el usuario
+	 *            Rol bajo el que esta actualmente el usuario
 	 * @param Usuario
-	 *            usuario a eliminar
+	 *            Usuario a eliminar
 	 */
 	public void eliminarUsuario(String Rol, String Usuario)
 	{
@@ -158,11 +149,11 @@ public class ArbolUsuarios extends JTree
 	 * Cambiar el rol de un usuario en el arbol
 	 * 
 	 * @param antiguoRol
-	 *            rol actual del usuario
+	 *            Rol actual del usuario
 	 * @param nuevoRol
-	 *            nuevo rol
+	 *            Nuevo rol
 	 * @param usuario
-	 *            nombre del usuario
+	 *            Nombre del usuario
 	 */
 	public void cambiarRol(String antiguoRol, String nuevoRol, String usuario)
 	{
@@ -176,10 +167,10 @@ public class ArbolUsuarios extends JTree
 	 * Busca un usuario dentro del arbol
 	 * 
 	 * @param Rol
-	 *            rol bajo el que se encuentra actualmete el usuario
+	 *            Rol bajo el que se encuentra actualmete el usuario
 	 * @param usuario
-	 *            nombre del usuario
-	 * @return posicion en la que se encuentra el usuario
+	 *            Nombre del usuario
+	 * @return Posicion en la que se encuentra el usuario
 	 */
 	public int buscarUsuario(String Rol, String usuario)
 	{
@@ -211,10 +202,10 @@ public class ArbolUsuarios extends JTree
 	 * Busca un usuario en el arbol
 	 * 
 	 * @param ramaRol
-	 *            nodo en el que se encuentra el usuario
+	 *            Nodo en el que se encuentra el usuario
 	 * @param usuario
-	 *            nombre del usuario
-	 * @return indice donde se encuentra el usuario
+	 *            Nombre del usuario
+	 * @return Indice donde se encuentra el usuario
 	 */
 	public DefaultMutableTreeNode buscarUsuario(DefaultMutableTreeNode ramaRol,
 			String usuario)

@@ -14,35 +14,34 @@ import componentes.base.DComponenteBase;
 import Deventos.DMIEvent;
 
 /**
- * Con este componente podemos ver todos los usuarios conectados en cada momento
- * asi como el rol que estan desempeñando.
+ * Componente para poder ver todos los usuarios conectados en cada momento asi
+ * como el rol que estan desempeñando.
+ * 
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public class DIListaUsuariosConectadosInfoRol extends DComponenteBase
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -1569701889180299102L;
 
-	BorderLayout borderLayout1 = new BorderLayout();
+	private BorderLayout borderLayout1 = new BorderLayout();
 
-	JScrollPane jScrollPane1 = new JScrollPane();
+	private JScrollPane jScrollPane1 = new JScrollPane();
 
-	TitledBorder borde;
+	private TitledBorder borde;
 
-	TablaElementos tabla = new TablaElementos(new String[]
+	private TablaElementos tabla = new TablaElementos(new String[]
 	{ "Usuario", "Rol" });
 
 	/**
 	 * @param nombre
-	 *            String Nombre del componente.
+	 *            Nombre del componente.
 	 * @param conexionDC
-	 *            boolean TRUE si esta en contacto directo con el DConector (no
-	 *            es hijo de ningun otro componente) y FALSE en otro caso
+	 *            TRUE si esta en contacto directo con el DConector (no es hijo
+	 *            de ningun otro componente) y FALSE en otro caso
 	 * @param padre
-	 *            DComponenteBase Componente padre de este componente. Si no
-	 *            tiene padre establecer a null
+	 *            Componente padre de este componente. Si no tiene padre
+	 *            establecer a null
 	 */
 	public DIListaUsuariosConectadosInfoRol( String nombre, boolean conexionDC,
 			DComponenteBase padre )
@@ -59,6 +58,11 @@ public class DIListaUsuariosConectadosInfoRol extends DComponenteBase
 		}
 	}
 
+	/**
+	 * Inicializacion de los componentes graficos
+	 * 
+	 * @throws Exception
+	 */
 	private void jbInit() throws Exception
 	{
 		borde = new TitledBorder(BorderFactory.createEtchedBorder(Color.white,
@@ -73,9 +77,9 @@ public class DIListaUsuariosConectadosInfoRol extends DComponenteBase
 	 * Procesa los eventos de Metainformacion que le llegan
 	 * 
 	 * @param evento
-	 *            DMIEvent Evento recibido
+	 *            Evento recibido
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	@Override
 	public void procesarMetaInformacion(DMIEvent evento)
 	{
@@ -132,6 +136,14 @@ public class DIListaUsuariosConectadosInfoRol extends DComponenteBase
 		return 0;
 	}
 
+	/**
+	 * Busca un usuario en la lista
+	 * 
+	 * @param usuario
+	 *            Nombre del usuario a buscar
+	 * @return Devuelve el indice de la lista donde se encuentra el usuario. Si
+	 *         no lo encuentra, entonces devuelve -1.
+	 */
 	private int buscarUsuario(String usuario)
 	{
 		int pos = -1;
