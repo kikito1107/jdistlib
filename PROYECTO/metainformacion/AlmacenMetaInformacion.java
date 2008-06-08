@@ -249,6 +249,13 @@ public class AlmacenMetaInformacion
 		return v;
 	}
 
+	/**
+	 * Obtiene la metainformacion de todos los usuarios conectados
+	 * 
+	 * @param aplicacion
+	 *            Nombre de la aplicacion a la que se conectan los usuarios
+	 * @return Vector con la metainformacion de los usuarios
+	 */
 	public Vector<MIUsuario> obtenerDatosUsuariosConectados(String aplicacion)
 	{
 		MIAplicacion apl = obtenerAplicacion(aplicacion);
@@ -257,6 +264,14 @@ public class AlmacenMetaInformacion
 		return v;
 	}
 
+	/**
+	 * Obtiene la metainformacion de todos los usuarios, esten conectados o no
+	 * en este momento a la aplicacion
+	 * 
+	 * @param aplicacion
+	 *            Nombre de la aplicacion a la que pertenecen los usuarios
+	 * @return Vector con la metainformacion de los usuarios
+	 */
 	@SuppressWarnings( "unchecked" )
 	public Vector<MIUsuario> obtenerDatosUsuarios(String aplicacion)
 	{
@@ -266,6 +281,15 @@ public class AlmacenMetaInformacion
 		return v;
 	}
 
+	/**
+	 * Obtiene la metainformacion de un rol del sistema
+	 * 
+	 * @param aplicacion
+	 *            Nombre de la aplicacion
+	 * @param name
+	 *            Nombre del rol del cual obtener la metainformacion
+	 * @return Metainformacion del rol
+	 */
 	public MIRol obtenerDatosRol(String aplicacion, String name)
 	{
 
@@ -278,8 +302,17 @@ public class AlmacenMetaInformacion
 
 	// ****************************************************************************
 
-	// ************* METODOS PARA MANEJO DE METAINFORMACION
-	// ***********************
+	// ********* METODOS PARA MANEJO DE METAINFORMACION **********
+	/**
+	 * Obtiene el nombre de los usuarios que estan conectados en un rol
+	 * determinado
+	 * 
+	 * @param aplicacion
+	 *            Nombre de la aplicacion
+	 * @param rol
+	 *            Nombre del rol
+	 * @return Vector con los nombres de usuario
+	 */
 	public Vector<String> obtenerUsuariosBajoRol(String aplicacion, String rol)
 	{
 		Vector<String> v = new Vector<String>();
@@ -288,6 +321,13 @@ public class AlmacenMetaInformacion
 		return v; // Vector de String
 	}
 
+	/**
+	 * Obtiene el nombre de los usuarios de una aplicacion
+	 * 
+	 * @param aplicacion
+	 *            Nombre de la aplicacion
+	 * @return Vector con el nombre de los usuarios
+	 */
 	@SuppressWarnings( "unchecked" )
 	public Vector<String> obtenerUsuarios(String aplicacion)
 	{
@@ -307,6 +347,14 @@ public class AlmacenMetaInformacion
 		return usr; // Vector de String
 	}
 
+	/**
+	 * Obtiene los nombre de los usuarios cuya metainformacion no esta
+	 * actualizada en el sistema
+	 * 
+	 * @param aplicacion
+	 *            Nombre de la aplicacion
+	 * @return Vector con los nombres de usuario
+	 */
 	@SuppressWarnings( "unchecked" )
 	public Vector<String> obtenerUsuariosNoActualizados(String aplicacion)
 	{
@@ -326,6 +374,13 @@ public class AlmacenMetaInformacion
 		return usr; // Vector de String
 	}
 
+	/**
+	 * Obtiene el nombre de los roles existentes para una aplicacion concreta
+	 * 
+	 * @param aplicacion
+	 *            Nombre de la aplicacion
+	 * @return Vector con el nombre de los roles existentes
+	 */
 	@SuppressWarnings( "unchecked" )
 	public Vector<String> obtenerRoles(String aplicacion)
 	{
@@ -345,6 +400,14 @@ public class AlmacenMetaInformacion
 		return rl; // Vector de String
 	}
 
+	/**
+	 * Obtiene el nombre de los componentes existentes para una aplicacion
+	 * concreta
+	 * 
+	 * @param aplicacion
+	 *            Nombre de la aplicacion
+	 * @return Vector con el nombre de los componentes existentes
+	 */
 	@SuppressWarnings( "unchecked" )
 	public Vector<String> obtenerComponentes(String aplicacion)
 	{
@@ -365,13 +428,13 @@ public class AlmacenMetaInformacion
 	}
 
 	/**
-	 * Obtiene los roles permitidos a un cierto usuario
+	 * Obtiene los roles permitidos para un cierto usuario
 	 * 
 	 * @param aplicacion
-	 *            String Aplicacion a la que pertenece el usuario
+	 *            Aplicacion a la que pertenece el usuario
 	 * @param usuario
-	 *            String Usuario del cual queremos la informacion
-	 * @return Vector Vector de String que contiene los roles permitidos
+	 *            Usuario del cual queremos la informacion
+	 * @return Vector de String que contiene los roles permitidos
 	 */
 	@SuppressWarnings( "unchecked" )
 	public Vector<String> obtenerRolesPermitidos(String aplicacion,
@@ -388,6 +451,17 @@ public class AlmacenMetaInformacion
 		return v; // Vector de String
 	}
 
+	/**
+	 * Obtiene el nivel de permisos de un usuario para un componente concreto
+	 * 
+	 * @param aplicacion
+	 *            Nombre de la aplicacion
+	 * @param usuario
+	 *            Nombre del usuario
+	 * @param componente
+	 *            Nombre del componente
+	 * @return Nivel de permisos
+	 */
 	public int obtenerPermisoComponenteUsuario(String aplicacion,
 			String usuario, String componente)
 	{
@@ -398,6 +472,19 @@ public class AlmacenMetaInformacion
 		return permiso;
 	}
 
+	/**
+	 * Asigna un nivel de permisos para un componente y para un usuario concreto
+	 * 
+	 * @param aplicacion
+	 *            Nombre de la aplicacion
+	 * @param usuario
+	 *            Nombre del usuario
+	 * @param componente
+	 *            Nombre del componente
+	 * @param nuevoPermiso
+	 *            Nivel de permisos a asignar
+	 * @return True si se pudo asignar el nivel de permisos. False en otro caso
+	 */
 	public boolean setPermisoComponenteUsuario(String aplicacion,
 			String usuario, String componente, int nuevoPermiso)
 	{
@@ -409,6 +496,17 @@ public class AlmacenMetaInformacion
 		return cambiado;
 	}
 
+	/**
+	 * Obtiene el nivel de permisos para un componente y para un rol
+	 * 
+	 * @param aplicacion
+	 *            Nombre de la aplicacion
+	 * @param rol
+	 *            Nombre del rol
+	 * @param componente
+	 *            Nombre del componente
+	 * @return Nivel de permisos para el componente
+	 */
 	public int obtenerPermisoComponenteRol(String aplicacion, String rol,
 			String componente)
 	{
@@ -419,6 +517,19 @@ public class AlmacenMetaInformacion
 		return permiso;
 	}
 
+	/**
+	 * Asigna un nivel de permisos para un componente y para un rol concreto
+	 * 
+	 * @param aplicacion
+	 *            Nombre de la aplicacion
+	 * @param rol
+	 *            Nombre del rol
+	 * @param componente
+	 *            Nombre del componente
+	 * @param nuevoPermiso
+	 *            Nivel de permisos a asignar
+	 * @return True si se pudo asignar el nivel de permisos. False en otro caso
+	 */
 	public boolean setPermisoComponenteRol(String aplicacion, String rol,
 			String componente, int nuevoPermiso)
 	{
@@ -430,6 +541,15 @@ public class AlmacenMetaInformacion
 		return cambiado;
 	}
 
+	/**
+	 * Obtiene el nombre del rol que tiene actualmente el usuario
+	 * 
+	 * @param aplicacion
+	 *            Nombre de la aplicacion
+	 * @param usuario
+	 *            Nombre de usuario
+	 * @return Nombre del rol que tiene el usuario actualmente
+	 */
 	public String obtenerRolActualUsuario(String aplicacion, String usuario)
 	{
 		String rol = new String();
@@ -442,11 +562,11 @@ public class AlmacenMetaInformacion
 	 * Añadimos un nuevo rol a los permitidos de un usuario
 	 * 
 	 * @param aplicacion
-	 *            String Aplicacion a la que pertenece el usuario
+	 *            Aplicacion a la que pertenece el usuario
 	 * @param usuario
-	 *            String Usuario al cual queremos añadir un nuevo rol permitido
+	 *            Usuario al cual queremos añadir un nuevo rol permitido
 	 * @param rol
-	 *            String Nuevo rol permitido
+	 *            Nuevo rol permitido
 	 */
 	public String nuevoRolPermitidoUsuario(String aplicacion, String usuario,
 			String rol)
@@ -457,6 +577,21 @@ public class AlmacenMetaInformacion
 		return mensaje;
 	}
 
+	/**
+	 * Crea un nuevo usuario para una aplicacion
+	 * 
+	 * @param aplicacion
+	 *            Nombre de la aplicacion
+	 * @param usuario
+	 *            Nombre de usuario
+	 * @param clave
+	 *            Clave asociada al nombre de usuario
+	 * @param rolDefecto
+	 *            Rol por defecto para el usuario
+	 * @param administrador
+	 *            Indica si el usuario es administrador o no
+	 * @return Mensaje producido por el sistema al agregar el usuario
+	 */
 	public String nuevoUsuario(String aplicacion, String usuario, String clave,
 			String rolDefecto, boolean administrador)
 	{
@@ -471,6 +606,15 @@ public class AlmacenMetaInformacion
 		return mensaje;
 	}
 
+	/**
+	 * Crea un nuevo rol para una aplicacion
+	 * 
+	 * @param aplicacion
+	 *            Nombre de la aplicacion
+	 * @param rol
+	 *            Nombre del rol
+	 * @return Mensaje producido por el sistema al agregar el rol
+	 */
 	public String nuevoRol(String aplicacion, String rol)
 	{
 		String mensaje = "";
@@ -483,14 +627,14 @@ public class AlmacenMetaInformacion
 	}
 
 	/**
-	 * Eliminadmos un rol del los permitidos a un usuario
+	 * Elimina un rol de los permitidos para un usuario
 	 * 
 	 * @param aplicacion
-	 *            String Aplicacion a la que pertenece el usuario
+	 *            Aplicacion a la que pertenece el usuario
 	 * @param usuario
-	 *            String Usuario al cual queremos eliminar un rol permitido
+	 *            Usuario al cual queremos eliminar un rol permitido
 	 * @param rol
-	 *            String Rol que deseamos eliminar
+	 *            Rol que deseamos eliminar
 	 */
 	public String eliminarRolPermitidoUsuario(String aplicacion,
 			String usuario, String rol)
@@ -502,6 +646,15 @@ public class AlmacenMetaInformacion
 		return mensaje;
 	}
 
+	/**
+	 * Elimina un usuario de entre los disponibles para una aplicacion
+	 * 
+	 * @param aplicacion
+	 *            Nombre de la aplicacion
+	 * @param usuario
+	 *            Nombre del usuario
+	 * @return Mensaje producido por el sistema
+	 */
 	public String eliminarUsuario(String aplicacion, String usuario)
 	{
 		String mensaje = "";
@@ -512,6 +665,15 @@ public class AlmacenMetaInformacion
 		return mensaje;
 	}
 
+	/**
+	 * Elimina un rol de entre los disponibles para una aplicacion
+	 * 
+	 * @param aplicacion
+	 *            Nombre de la aplicacion
+	 * @param rol
+	 *            Nombre del rol
+	 * @return Mensaje producido por el sistema
+	 */
 	public String eliminarRol(String aplicacion, String rol)
 	{
 		String mensaje = null;
@@ -520,6 +682,11 @@ public class AlmacenMetaInformacion
 		return mensaje;
 	}
 
+	/**
+	 * Obtiene las aplicaciones registradas en el sistema
+	 * 
+	 * @return Vector con los nombre de aplicacion disponibles
+	 */
 	public Vector<String> obtenerAplicaciones()
 	{
 		Vector<String> v = new Vector<String>();
@@ -533,26 +700,24 @@ public class AlmacenMetaInformacion
 	}
 
 	/**
-	 * Guardamos la metainformacion disponible en memoria a una BD.
+	 * Guardamos la metainformacion disponible en memoria al almacen fisico
 	 */
 	public void salvar()
 	{
-
 		lector = new LectorBD_MI();
 		lector.actualizarBD(aplicaciones);
 		lector.cerrarConexion();
 	}
 
-	// ************ FUNCIONES DE APOYO
-	// ********************************************
+	// ************ FUNCIONES DE APOYO *******************
 	/**
 	 * Obtiene la metainformaicon disponible de una cierta aplicacion
 	 * 
 	 * @param nombre
-	 *            String Nombre de la aplicacion de la que deseamos buscar su
+	 *            Nombre de la aplicacion de la que deseamos buscar su
 	 *            metainformacion
-	 * @return MIAplicacion Metainformacion buscada. En caso de no existir una
-	 *         aplicacion con ese nombre valdra null.
+	 * @return Metainformacion buscada. En caso de no existir una aplicacion con
+	 *         ese nombre valdra null.
 	 */
 	private MIAplicacion obtenerAplicacion(String nombre)
 	{
@@ -566,6 +731,12 @@ public class AlmacenMetaInformacion
 		return aplicacion;
 	}
 
+	/**
+	 * Permite hacer un test del funcionamiento
+	 * 
+	 * @param args
+	 *            Argumentos. Son ignorados
+	 */
 	public static void main(String[] args)
 	{
 		AlmacenMetaInformacion smi = new AlmacenMetaInformacion();
@@ -578,5 +749,4 @@ public class AlmacenMetaInformacion
 		System.out.println(smi.obtenerPermisoComponenteRol(
 				"AplicacionDePrueba", "Empleado", "componente1"));
 	}
-
 }
