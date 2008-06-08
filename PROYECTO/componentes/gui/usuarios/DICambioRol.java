@@ -47,10 +47,11 @@ public class DICambioRol extends DComponenteBase
 	JPanel jPanel2 = new JPanel();
 
 	JButton botonCambiar = new JButton();
-	
-	public DICambioRol(){
-		super( "CambioRol", true, null);
-		
+
+	public DICambioRol()
+	{
+		super("CambioRol", true, null);
+
 		try
 		{
 			jbInit();
@@ -59,7 +60,7 @@ public class DICambioRol extends DComponenteBase
 		{
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public DICambioRol( String nombre, boolean conexionDC, DComponenteBase padre )
@@ -105,7 +106,7 @@ public class DICambioRol extends DComponenteBase
 	 * @param evento
 	 *            DMIEvent Evento recibido
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	@Override
 	public void procesarMetaInformacion(DMIEvent evento)
 	{
@@ -143,7 +144,7 @@ public class DICambioRol extends DComponenteBase
 	 * Obtiene el numero de componentes hijos de este componente. SIEMPRE
 	 * devuelve 0
 	 * 
-	 * @return int Nñmero de componentes hijos. SIEMPRE devuelve 0.
+	 * @return Numero de componentes hijos. SIEMPRE devuelve 0.
 	 */
 	@Override
 	public int obtenerNumComponentesHijos()
@@ -160,20 +161,19 @@ public class DICambioRol extends DComponenteBase
 						DConector.Dusuario, nuevoRol);
 	}
 
-}
-
-class DCambioRol_botonCambiar_actionAdapter implements
-		java.awt.event.ActionListener
-{
-	DICambioRol adaptee;
-
-	DCambioRol_botonCambiar_actionAdapter( DICambioRol adaptee )
+	private class DCambioRol_botonCambiar_actionAdapter implements
+			java.awt.event.ActionListener
 	{
-		this.adaptee = adaptee;
-	}
+		DICambioRol adaptee;
 
-	public void actionPerformed(ActionEvent e)
-	{
-		adaptee.botonCambiar_actionPerformed(e);
+		DCambioRol_botonCambiar_actionAdapter( DICambioRol adaptee )
+		{
+			this.adaptee = adaptee;
+		}
+
+		public void actionPerformed(ActionEvent e)
+		{
+			adaptee.botonCambiar_actionPerformed(e);
+		}
 	}
 }

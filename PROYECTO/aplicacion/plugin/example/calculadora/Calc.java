@@ -94,7 +94,7 @@ public class Calc extends Applet
 	}
 
 	/**
-	 * Esto permite que la clase se use como applet o como aplicaciñn
+	 * Esto permite que la clase se use como applet o como aplicacion
 	 * independiente
 	 */
 	public static void main(String args[])
@@ -114,7 +114,7 @@ public class Calc extends Applet
 /* -------------------------------------------------- */
 
 /**
- * Keypad manipula la entrada de datos y la visualizaciñn de resultados
+ * Keypad manipula la entrada de datos y la visualizacion de resultados
  */
 class Keypad extends Panel
 {
@@ -418,8 +418,8 @@ class Keypad extends Panel
 /* -------------------------------------------------- */
 
 /**
- * la clase Display gestiona la visualizaciñn del resultado calculado y tambiñn
- * implementa las tecla de fucniñn de la calculadora
+ * Gestiona la visualizacion del resultado calculado y tambien
+ * implementa las tecla de funcion de la calculadora
  */
 class Display extends Panel
 {
@@ -453,7 +453,7 @@ class Display extends Panel
 	}
 
 	/**
-	 * manipulaciñn del pulsado de un dñgito
+	 * manipulacion del pulsado de un digito
 	 */
 	void Digit(String digit)
 	{
@@ -470,7 +470,7 @@ class Display extends Panel
 	}
 
 	/**
-	 * manipulaciñn del punto decimal
+	 * manipulacion del punto decimal
 	 */
 	void Dot()
 	{
@@ -487,7 +487,7 @@ class Display extends Panel
 
 	/**
 	 * si el usuario pulsa = sin haber pulsado antes un operador (+,-,x,/), pone
-	 * cero en la visualizaciñn
+	 * cero en la visualizacion
 	 */
 	private void checkEquals()
 	{
@@ -517,7 +517,7 @@ class Display extends Panel
 	}
 
 	/**
-	 * operador multiplicaciñn para uso posterior.
+	 * operador multiplicacion para uso posterior.
 	 */
 	void Mul()
 	{
@@ -526,7 +526,7 @@ class Display extends Panel
 	}
 
 	/**
-	 * operador divisiñn para uso posterior.
+	 * operador division para uso posterior.
 	 */
 	void Div()
 	{
@@ -535,7 +535,7 @@ class Display extends Panel
 	}
 
 	/**
-	 * Interpreta el valor de la visualizaciñn como double y lo almacena para
+	 * Interpreta el valor de la visualizacion como double y lo almacena para
 	 * uso posterior
 	 */
 	private void operation()
@@ -564,7 +564,7 @@ class Display extends Panel
 	}
 
 	/**
-	 * termina el ñltimo cñlculo y visualiza el resultado
+	 * termina el ultimo calculo y visualiza el resultado
 	 */
 	void Equals()
 	{
@@ -603,7 +603,7 @@ class Display extends Panel
 	}
 
 	/**
-	 * limpia la visualizaciñn y el ñltimo valor interno
+	 * limpia la visualizacion y el ultimo valor interno
 	 */
 	void Clear()
 	{

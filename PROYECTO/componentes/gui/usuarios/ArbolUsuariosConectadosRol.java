@@ -48,7 +48,7 @@ public class ArbolUsuariosConectadosRol extends DComponenteBase
 	private ArbolUsuarios arbol = null;
 
 	/**
-	 * Rañz del ñrbol
+	 * Raiz del arbol
 	 */
 	private DefaultMutableTreeNode raiz = null;
 

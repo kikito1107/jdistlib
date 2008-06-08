@@ -465,7 +465,7 @@ public class DMetalToggleButtonUI extends BasicToggleButtonUI
 
 				// Al haber deshabilitado los eventos de entrada y salida del
 				// puntero siempre
-				// que se produzca un evento mouseReleased cambiarñ la seleccion
+				// que se produzca un evento mouseReleased cambiara la seleccion
 				// del togglebutton
 
 				// Cualquier mouseReleased() producira cambio de estado

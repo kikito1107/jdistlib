@@ -3,7 +3,7 @@ package util;
 import javax.swing.JComboBox;
 
 /**
- * Lista desplegable con multitud de metodos ñtiles que facilitan su uso
+ * Lista desplegable con multitud de metodos utiles que facilitan su uso
  * 
  * @author LooPer (ejido2002@hotmail.com)
  */
@@ -100,7 +100,7 @@ public class ListaDesplegable extends JComboBox
 	}
 
 	/**
-	 * Obtener elemento en el ñndice elegido
+	 * Obtener elemento en el indice elegido
 	 * 
 	 * @param i
 	 *            Indice del elemento que deseamos obtener
@@ -154,7 +154,7 @@ public class ListaDesplegable extends JComboBox
 	}
 
 	/**
-	 * Eliminar elemento en el ñndice deseado
+	 * Eliminar elemento en el indice deseado
 	 * 
 	 * @param i
 	 *            Indice del elemento que deseamos eliminar

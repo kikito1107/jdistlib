@@ -34,7 +34,7 @@ import Deventos.DMIEvent;
  * <p>
  * Description: Un objeto de esta clase hara de conector entre el JavaSpace
  * 
- * y la aplicacion. Dispondrñ de mñtodos para comunicarle el deseo de enviar
+ * y la aplicacion. Dispondra de metodos para comunicarle el deseo de enviar
  * 
  * o recibir mensajes del JavaSpace
  * </p>
@@ -140,7 +140,7 @@ public class DConector
 	 * @param tiempoSincronizacion
 	 *            int Tiempo en segundos que se espera desde
 	 * 
-	 * que se indica a los componentes que envñen sus peticiones de
+	 * que se indica a los componentes que envien sus peticiones de
 	 * sincronizacion
 	 * 
 	 * hasta que se inician las hebras procesadoras de los componentes. Debe ser
@@ -226,7 +226,7 @@ public class DConector
 			while (!identificado)
 			{
 
-				// **************** PETICION USUARIO/CONTRASEñA
+				// **************** PETICION USUARIO/CONTRASEÑA
 				// ******************//
 
 				String[] datosLogin = dialogoLogin.obtenerDatosLogin();
@@ -727,7 +727,7 @@ public class DConector
 				System.err.println("Numero de usuarios activos "
 						+ ( tk.editores.size() - 1 ));
 
-				// si todavña quedan usuarios editando ese documento
+				// si todavia quedan usuarios editando ese documento
 				if (tk.editores.size() > 1)
 				{
 					tk.bajaUsuario(Dusuario);
@@ -870,7 +870,7 @@ public class DConector
 
 		/**
 		 * 
-		 * Mñtodo que ejecuta la hebra
+		 * Metodo que ejecuta la hebra
 		 * 
 		 */
 
@@ -959,7 +959,7 @@ public class DConector
 
 		/**
 		 * 
-		 * Mñtodo que ejecuta la hebra
+		 * Metodo que ejecuta la hebra
 		 * 
 		 */
 
@@ -993,7 +993,7 @@ public class DConector
 	 * 
 	 * gestionamos la informacion sobre la inicializacion. La clase DConector
 	 * 
-	 * realizara una llamada a inicializacionCorrecta() quedñndose bloqueada
+	 * realizara una llamada a inicializacionCorrecta() quedandose bloqueada
 	 * 
 	 * hasta que se producza la correcta localizacion del JavaSpace o se
 	 * sobrepase

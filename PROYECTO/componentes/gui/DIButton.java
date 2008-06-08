@@ -307,8 +307,8 @@ public class DIButton extends DComponenteBase implements java.io.Serializable
 	}
 
 	/**
-	 * Mediante una llamada a este mñtodo se envña un mensaje de peticion de
-	 * sincronizacion. No se debe llamar a este mñtodo de forma directa. Serñ
+	 * Mediante una llamada a este metodo se envia un mensaje de peticion de
+	 * sincronizacion. No se debe llamar a este metodo de forma directa. Sera
 	 * llamado de forma automatica cuando sea necesario realizar la
 	 * sincronizacion
 	 */

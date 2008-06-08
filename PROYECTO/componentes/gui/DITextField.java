@@ -56,9 +56,9 @@ public class DITextField extends DComponenteBase implements
 	}
 
 	/**
-	 * Devuelve la instancia de la clase captadora que estñ usando.
+	 * Devuelve la instancia de la clase captadora que esta usando.
 	 * 
-	 * @return DJTextField Clase captadora
+	 * @return Clase captadora
 	 */
 	public DJTextField obtenerJComponente()
 	{

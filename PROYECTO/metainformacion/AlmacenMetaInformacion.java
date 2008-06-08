@@ -44,7 +44,7 @@ public class AlmacenMetaInformacion
 	 * @param clave
 	 *            String Clave para el usuario
 	 * @return MIInformacionConexion El campo infoCompleta.identificacionValida
-	 *         de esta clase contendra valdra true si la identifiaciñn ha sido
+	 *         de esta clase contendra valdra true si la identifiacion ha sido
 	 *         correcta o false en otro caso. Si ha sido valida contendra toda
 	 *         la informacion necesaria que sera devuelta a la aplicacion para
 	 *         una inicializacion correcta. Ver clase
@@ -541,7 +541,7 @@ public class AlmacenMetaInformacion
 	 *            String Nombre de la aplicacion de la que deseamos buscar su
 	 *            metainformacion
 	 * @return MIAplicacion Metainformacion buscada. En caso de no existir una
-	 *         aplicaciñn con ese nombre valdra null.
+	 *         aplicacion con ese nombre valdra null.
 	 */
 	private MIAplicacion obtenerAplicacion(String nombre)
 	{

@@ -445,7 +445,7 @@ public class Documento implements Serializable, Printable
 		 * 
 		 * @param nombredoc
 		 *            Nombre del documento a imprimir
-		 * @return True si la inicializaciñn ha sido exitosa. False en caso
+		 * @return True si la inicializacion ha sido exitosa. False en caso
 		 *         contrario
 		 */
 		public boolean inicializar(Documento d)
@@ -513,7 +513,7 @@ public class Documento implements Serializable, Printable
 				v.get(i).getContenido().dibujar(graphics);
 			}
 
-			System.out.println("Solicitando pñgina " + pageIndex);
+			System.out.println("Solicitando pagina " + pageIndex);
 
 			return PAGE_EXISTS;
 		}

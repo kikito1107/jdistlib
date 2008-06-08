@@ -22,7 +22,7 @@ public abstract class Figura implements Serializable
 	int y;
 
 	/**
-	 * Color con el que serñ representada la figura
+	 * Color con el que sera representada la figura
 	 */
 	Color color;
 

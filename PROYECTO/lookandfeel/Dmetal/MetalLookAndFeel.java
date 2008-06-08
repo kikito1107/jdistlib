@@ -1847,7 +1847,7 @@ public class MetalLookAndFeel extends BasicLookAndFeel
 	}
 
 	/**
-	 * Se incluye dado que no se puede acceder directamente a este mñtodo en su
+	 * Se incluye dado que no se puede acceder directamente a este metodo en su
 	 * superclase dado las restricciones de acceso
 	 * 
 	 * @return ActionMap

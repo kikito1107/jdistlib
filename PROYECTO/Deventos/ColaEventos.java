@@ -58,7 +58,7 @@ public class ColaEventos
 	}
 
 	/**
-	 * Devuelve el nñmero de eventos disponibles en la cola para ser extraidos
+	 * Devuelve el numero de eventos disponibles en la cola para ser extraidos
 	 * 
 	 * @return int
 	 */
@@ -68,9 +68,9 @@ public class ColaEventos
 	}
 
 	/**
-	 * Mñtodo para consultar si la cola esta o no vacia.
+	 * Metodo para consultar si la cola esta o no vacia.
 	 * 
-	 * @return boolean TRUE si esta vacia y FALSE en otro caso.
+	 * @return True si esta vacia. False en otro caso.
 	 */
 	public synchronized boolean vacia()
 	{

@@ -17,7 +17,7 @@ import Deventos.DMIEvent;
 
 /**
  * Con este componente podemos ver todos los usuarios que hay conectados que
- * estñn desempeñando el mismo rol que nosotros
+ * estan desempeñando el mismo rol que nosotros
  */
 
 public class DIListaUsuariosConectadosRol extends DComponenteBase
@@ -118,7 +118,7 @@ public class DIListaUsuariosConectadosRol extends DComponenteBase
 	 * Obtiene el numero de componentes hijos de este componente. SIEMPRE
 	 * devuelve 0
 	 * 
-	 * @return int Nñmero de componentes hijos. SIEMPRE devuelve 0.
+	 * @return Numero de componentes hijos. SIEMPRE devuelve 0.
 	 */
 	@Override
 	public int obtenerNumComponentesHijos()

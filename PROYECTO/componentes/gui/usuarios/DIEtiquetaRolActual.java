@@ -16,9 +16,6 @@ import Deventos.DMIEvent;
 
 public class DIEtiquetaRolActual extends DComponenteBase
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 5857319254930571802L;
 
 	private FlowLayout flowLayout1 = new FlowLayout();
@@ -162,7 +159,7 @@ public class DIEtiquetaRolActual extends DComponenteBase
 	 * Obtiene el numero de componentes hijos de este componente. SIEMPRE
 	 * devuelve 0
 	 * 
-	 * @return int Nñmero de componentes hijos. SIEMPRE devuelve 0.
+	 * @return Numero de componentes hijos. SIEMPRE devuelve 0.
 	 */
 	@Override
 	public int obtenerNumComponentesHijos()

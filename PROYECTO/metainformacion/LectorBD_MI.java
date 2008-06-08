@@ -14,14 +14,14 @@ import aplicacion.fisica.ConectorBDMetainformacion;
  * estructura de la Base de Datos
  * </p>
  * 
- * @author Ana Belñn Pelegrina Ortiz
+ * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
 public class LectorBD_MI
 {
 	ConectorBDMetainformacion conexion = null;
 
 	/**
-	 * Inicializa la clase, creando un nuevo objeto conexiñn BD
+	 * Inicializa la clase, creando un nuevo objeto conexion BD
 	 */
 	public LectorBD_MI()
 	{
@@ -30,7 +30,7 @@ public class LectorBD_MI
 	}
 
 	/**
-	 * Recupera de la base de datos la informaciñn de las aplicaciones
+	 * Recupera de la base de datos la informacion de las aplicaciones
 	 * 
 	 * @return Vector Devuelve un vector de MIAplicacion con las aplicaciones
 	 *         definidas en la base de datos
@@ -43,7 +43,7 @@ public class LectorBD_MI
 		MIRol rol = null;
 		MIUsuario usuario = null;
 
-		// Estos ResultSet se utilizarñn para almacenar los datos recuperados de
+		// Estos ResultSet se utilizaran para almacenar los datos recuperados de
 		// la bd mediante consultas
 		ResultSet aplicaciones = null;
 		ResultSet roles = null;
@@ -91,7 +91,7 @@ public class LectorBD_MI
 					aplicacion.nuevoComponente(componente);
 				}
 
-				// b) Recuperamos los roles asociados a la aplicaciñn actual
+				// b) Recuperamos los roles asociados a la aplicacion actual
 				roles = conexion
 						.select("SELECT rol.id_rol, rol.nombre_rol "
 								+ "FROM posibleRol, rol "
@@ -128,7 +128,7 @@ public class LectorBD_MI
 				// cerramos el enlace con la bd y liberamos memoria
 				roles.close();
 
-				// c) Recuperamos los usuarios asociados a la aplicaciñn actual
+				// c) Recuperamos los usuarios asociados a la aplicacion actual
 				usuarios = conexion
 						.select("SELECT * "
 								+ "FROM posibleUsuario, usuario "
@@ -197,8 +197,7 @@ public class LectorBD_MI
 		}
 		catch (SQLException e)
 		{
-			System.out.println("Error en la ejecuciñn");
-
+			//System.out.println("Error en la ejecucion");
 		}
 
 		try
@@ -457,8 +456,8 @@ public class LectorBD_MI
 	}
 
 	/**
-	 * Mñtodo main que prueba si la lectura de los datos desde la base de datos
-	 * es la correcta, pintñndolos en pantalla
+	 * Metodo main que prueba si la lectura de los datos desde la base de datos
+	 * es la correcta, pintandolos en pantalla
 	 * 
 	 * @param args
 	 *            argumentos del main. Se ignoran

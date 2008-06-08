@@ -5,7 +5,7 @@ import java.text.NumberFormat;
 
 /**
  * Clase utilizada para realizar varias operaciones de formateo de texto, y
- * nñmeros.<br>
+ * numeros.<br>
  * 
  * @author: Quicky
  * @version: 1.0
@@ -13,7 +13,7 @@ import java.text.NumberFormat;
 public class JhFormat
 {
 	/**
-	 * Campos para indicar si queremos trabajar con un nñmero o con un
+	 * Campos para indicar si queremos trabajar con un numero o con un
 	 * porcentaje
 	 */
 	public static final int NUMBER = 0;
@@ -21,7 +21,7 @@ public class JhFormat
 	public static final int PERCENT = 1;
 
 	/**
-	 * Mñtodo que cambia la coma del texto introducido por punto:
+	 * Metodo que cambia la coma del texto introducido por punto:
 	 * 
 	 * @param java.lang.String
 	 *            texto: El texto a ser formateado
@@ -51,7 +51,7 @@ public class JhFormat
 	}
 
 	/**
-	 * Mñtodo que cambia el punto del texto introducido por coma:
+	 * Metodo que cambia el punto del texto introducido por coma:
 	 * 
 	 * @param java.lang.String
 	 *            texto: El texto a ser formateado
@@ -85,10 +85,10 @@ public class JhFormat
 	}
 
 	/**
-	 * Mñtodo que devuelve la cadena rellena con espacios por la derecha, hasta
+	 * Metodo que devuelve la cadena rellena con espacios por la derecha, hasta
 	 * ocupar "lon" posiciones.
 	 * <ul>
-	 * <li>Utiliza el espacio como sñmbolo de relleno</li>
+	 * <li>Utiliza el espacio como simbolo de relleno</li>
 	 * 
 	 * </ul>
 	 * 
@@ -105,10 +105,10 @@ public class JhFormat
 	}
 
 	/**
-	 * Mñtodo que devuelve la cadena rellena con el caracter "car", hasta ocupar
+	 * Metodo que devuelve la cadena rellena con el caracter "car", hasta ocupar
 	 * "lon" posiciones, desde el lado indicado.
 	 * <ul>
-	 * <li>Utiliza el caracter como sñmbolo de relleno</li>
+	 * <li>Utiliza el caracter como simbolo de relleno</li>
 	 * <li>Valores posibles de lado
 	 * <ul>
 	 * <li>0: izquierda</li>
@@ -135,7 +135,7 @@ public class JhFormat
 		// Si tiene la misma longitud la devuelve
 		if (salida.length() == longitud) return salida;
 
-		// Si es mñs larga la trunca
+		// Si es mas larga la trunca
 		if (salida.length() > longitud) return salida.substring(0, longitud);
 
 		// Si es menor, entonces modificamos
@@ -148,7 +148,7 @@ public class JhFormat
 			else if (lado == 0) // Rellenar por la izquierda
 				for (int k = cadena.length(); k < longitud; k++)
 					salida = caracterRelleno + salida;
-			else return "Lado pasado a la funciñn fill es incorrecto";
+			else return "Lado pasado a la funcion fill es incorrecto";
 
 			return salida;
 		}
@@ -157,19 +157,19 @@ public class JhFormat
 	}
 
 	/**
-	 * Mñtodo que devuelve un nñmero convertido en texto bien formateado:
+	 * Metodo que devuelve un numero convertido en texto bien formateado:
 	 * <ul>
 	 * <li>Utiliza la coma como separador decimal</li>
 	 * <li>Utiliza el punto como separador de miles</li>
-	 * <li>Si tiene mñs decimales que los indicados realiza un redondeo hacia
+	 * <li>Si tiene mas decimales que los indicados realiza un redondeo hacia
 	 * arriba</li>
 	 * </ul>
 	 * 
 	 * @param java.math.BigDecimal
-	 *            cantidad: El nñmero a ser formateado.
+	 *            cantidad: El numero a ser formateado.
 	 * @param int
-	 *            nDecimales: El nñmero de decimales a mostrar.
-	 * @return java.lang.String Nñmero ya formateado
+	 *            nDecimales: El numero de decimales a mostrar.
+	 * @return java.lang.String Numero ya formateado
 	 */
 	private static String formatearNumero(BigDecimal importe, int nDecimales)
 	{
@@ -182,8 +182,8 @@ public class JhFormat
 
 	/**
 	 * <p>
-	 * Mñtodo que devuelve un nñmero convertido en texto bien formateado como
-	 * porcentaje. El nñmero entrante debe ser del tipo 0.53 para convertirlo en
+	 * Metodo que devuelve un numero convertido en texto bien formateado como
+	 * porcentaje. El numero entrante debe ser del tipo 0.53 para convertirlo en
 	 * 53%
 	 * </p>
 	 * 
@@ -191,16 +191,16 @@ public class JhFormat
 	 * <ul>
 	 * <li>Utiliza la coma como separador decimal</li>
 	 * <li>Utiliza el punto como separador de miles</li>
-	 * <li>Si tiene mñs decimales que los indicados realiza un redondeo hacia
+	 * <li>Si tiene mas decimales que los indicados realiza un redondeo hacia
 	 * arriba</li>
-	 * <li>Añade el sñmbolo de porcentaje al final</li>
+	 * <li>Añade el simbolo de porcentaje al final</li>
 	 * </ul>
 	 * 
 	 * @param java.math.BigDecimal
-	 *            cantidad: El nñmero a ser formateado.
+	 *            cantidad: El numero a ser formateado.
 	 * @param int
-	 *            nDecimales: El nñmero de decimales a mostrar.
-	 * @return java.lang.String Nñmero ya formateado
+	 *            nDecimales: El numero de decimales a mostrar.
+	 * @return java.lang.String Numero ya formateado
 	 */
 	private static String formatearPorcentaje(BigDecimal importe,
 			int nDecimales, boolean conSimbolo)
@@ -218,24 +218,24 @@ public class JhFormat
 	}
 
 	/**
-	 * Mñtodo que devuelve un nñmero convertido en texto bien formateado:
+	 * Metodo que devuelve un numero convertido en texto bien formateado:
 	 * <ul>
 	 * <li>Utiliza la coma como separador decimal</li>
 	 * <li>Utiliza el punto como separador de miles</li>
-	 * <li>Si tiene mñs decimales que los indicados realiza un redondeo hacia
+	 * <li>Si tiene mas decimales que los indicados realiza un redondeo hacia
 	 * arriba</li>
 	 * </ul>
-	 * Realiza una llamada al otro mñtodo indicando que no queremos el sñmbolo
+	 * Realiza una llamada al otro metodo indicando que no queremos el simbolo
 	 * del porcentaje al final
 	 * 
 	 * @param java.math.BigDecimal
-	 *            cantidad: El nñmero a ser formateado.
+	 *            cantidad: El numero a ser formateado.
 	 * @param int
-	 *            nDecimales: El nñmero de decimales a mostrar.
+	 *            nDecimales: El numero de decimales a mostrar.
 	 * @param int
 	 *            TipoCampo: indicamos si vamos a formatear un Numero o un
 	 *            Porcentaje
-	 * @return java.lang.String Nñmero ya formateado
+	 * @return java.lang.String Numero ya formateado
 	 */
 	public static String getFormatedNumber(BigDecimal cantidad, int nDecimales,
 			int TipoCampo)
@@ -244,60 +244,60 @@ public class JhFormat
 	}
 
 	/**
-	 * Mñtodo que devuelve un nñmero convertido en texto bien formateado:
+	 * Metodo que devuelve un numero convertido en texto bien formateado:
 	 * <ul>
 	 * <li>Utiliza la coma como separador decimal</li>
 	 * <li>Utiliza el punto como separador de miles</li>
-	 * <li>Si tiene mñs decimales que los indicados realiza un redondeo hacia
+	 * <li>Si tiene mas decimales que los indicados realiza un redondeo hacia
 	 * arriba</li>
 	 * </ul>
 	 * 
 	 * @param java.math.BigDecimal
-	 *            cantidad: El nñmero a ser formateado.
+	 *            cantidad: El numero a ser formateado.
 	 * @param int
-	 *            nDecimales: El nñmero de decimales a mostrar.
+	 *            nDecimales: El numero de decimales a mostrar.
 	 * @param int
 	 *            TipoCampo: indicamos si vamos a formatear un Numero o un
 	 *            Porcentaje
-	 * @return java.lang.String Nñmero ya formateado
+	 * @return java.lang.String Numero ya formateado
 	 */
 	public static String getFormatedNumber(BigDecimal cantidad, int nDecimales,
 			int TipoCampo, boolean simboloPorcentaje)
 	{
 		if (TipoCampo == JhFormat.NUMBER)
-			// Es un nñmero
+			// Es un numero
 			return formatearNumero(cantidad, nDecimales);
 		else if (TipoCampo == JhFormat.PERCENT) // Es un porcentaje
 			return formatearPorcentaje(cantidad, nDecimales, simboloPorcentaje);
-		else // Han pasado un valor no vñlido como tipo de datos
-		return "Tercer parñmetro pasado a getFormatedNumber ñrroneo";
+		else // Han pasado un valor no valido como tipo de datos
+		return "Tercer parametro pasado a getFormatedNumber erroneo";
 	}
 
 	/**
-	 * Mñtodo que devuelve un nñmero convertido en texto bien formateado:
+	 * Metodo que devuelve un numero convertido en texto bien formateado:
 	 * <ul>
 	 * <li>Utiliza la coma como separador decimal</li>
 	 * <li>Utiliza el punto como separador de miles</li>
-	 * <li>Si tiene mñs decimales que los indicados realiza un redondeo hacia
+	 * <li>Si tiene mas decimales que los indicados realiza un redondeo hacia
 	 * arriba</li>
 	 * </ul>
 	 * 
 	 * <pre>
-	 * Convierte la cadena pasada en un BigDecimal y llama al mñtodo &quot;getFormatedNumber&quot;
+	 * Convierte la cadena pasada en un BigDecimal y llama al metodo &quot;getFormatedNumber&quot;
 	 * </pre>
 	 * 
 	 * @param java.lang.String
-	 *            numero400: El nñmero a ser formateado (sin sñmbolo decimal)
+	 *            numero400: El numero a ser formateado (sin simbolo decimal)
 	 * @param int
-	 *            nDecimalesEntrada: El nñmero de decimales que tiene el nñmero
+	 *            nDecimalesEntrada: El numero de decimales que tiene el numero
 	 *            de Entrada.
 	 * @param int
-	 *            nDecimalesSalida: El nñmero de decimales que tendrñ el
+	 *            nDecimalesSalida: El numero de decimales que tendra el
 	 *            resultado
 	 * @param int
 	 *            TipoCampo: indicamos si vamos a formatear un Numero o un
 	 *            Porcentaje
-	 * @return java.lang.String Nñmero ya formateado
+	 * @return java.lang.String Numero ya formateado
 	 */
 	public static String getFormatedNumberForAS400(String numero400,
 			int nDecimalesEntrada, int nDecimalesSalida, int TipoCampo)
@@ -307,33 +307,33 @@ public class JhFormat
 	}
 
 	/**
-	 * Mñtodo que devuelve un nñmero convertido en texto bien formateado:
+	 * Metodo que devuelve un numero convertido en texto bien formateado:
 	 * <ul>
 	 * <li>Utiliza la coma como separador decimal</li>
 	 * <li>Utiliza el punto como separador de miles</li>
-	 * <li>Si tiene mñs decimales que los indicados realiza un redondeo hacia
+	 * <li>Si tiene mas decimales que los indicados realiza un redondeo hacia
 	 * arriba</li>
 	 * </ul>
 	 * 
 	 * <pre>
-	 * Convierte la cadena pasada en un BigDecimal y llama al mñtodo &quot;getFormatedNumber&quot;
+	 * Convierte la cadena pasada en un BigDecimal y llama al metodo &quot;getFormatedNumber&quot;
 	 * </pre>
 	 * 
 	 * @param java.lang.String
-	 *            numero400: El nñmero a ser formateado (sin sñmbolo decimal)
+	 *            numero400: El numero a ser formateado (sin simbolo decimal)
 	 * @param int
-	 *            nDecimalesEntrada: El nñmero de decimales que tiene el nñmero
+	 *            nDecimalesEntrada: El numero de decimales que tiene el numero
 	 *            de Entrada.
 	 * @param int
-	 *            nDecimalesSalida: El nñmero de decimales que tendrñ el
+	 *            nDecimalesSalida: El numero de decimales que tendra el
 	 *            resultado
 	 * @param int
 	 *            TipoCampo: indicamos si vamos a formatear un Numero o un
 	 *            Porcentaje
 	 * @param boolean
-	 *            simboloPorcentaje: indica si debe mostrar o no el sñmbolo del
+	 *            simboloPorcentaje: indica si debe mostrar o no el simbolo del
 	 *            Porcentaje
-	 * @return java.lang.String Nñmero ya formateado
+	 * @return java.lang.String Numero ya formateado
 	 */
 	public static String getFormatedNumberForAS400(String numero400,
 			int nDecimalesEntrada, int nDecimalesSalida, int TipoCampo,
@@ -349,16 +349,16 @@ public class JhFormat
 		importeEntrada = importeEntrada.divide(new BigDecimal(divisor),
 				BigDecimal.ROUND_HALF_UP);
 
-		// Llamo a la funciñn principal
+		// Llamo a la funcion principal
 		return getFormatedNumber(importeEntrada, nDecimalesSalida, TipoCampo,
 				simboloPorcentaje);
 	}
 
 	/**
-	 * Mñtodo que elimina el sñmbolo indicado de una cadena.
+	 * Metodo que elimina el simbolo indicado de una cadena.
 	 * 
 	 * @param java.lang.String
-	 *            cadena: Cadena de donde eliminaremos el sñmbolo
+	 *            cadena: Cadena de donde eliminaremos el simbolo
 	 * @param char
 	 *            simbolo: simbolo a eliminar
 	 * @return java.lang.String Cadena modificada

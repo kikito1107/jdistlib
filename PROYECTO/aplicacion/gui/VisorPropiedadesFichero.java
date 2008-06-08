@@ -605,7 +605,7 @@ public class VisorPropiedadesFichero extends JDialog
 
 			areaTextoEditores.setEditable(false);
 			areaTextoEditores
-					.setToolTipText("Usuarios que estñn editando el documento en este momento");
+					.setToolTipText("Usuarios que están editando el documento en este momento");
 			areaTextoEditores.setBackground(this.getContentPane()
 					.getBackground());
 		}

@@ -33,7 +33,7 @@ public class ConectorBDFicheros
 	private static final String fichero = "config";
 
 	/**
-	 * Inicializaciñn de atributos estñticos: Este bloque se ejecutara al
+	 * Inicialización de atributos estáticos: Este bloque se ejecutara al
 	 * cargarse las clases de la aplicacion (se ejecutara antes de todo lo
 	 * demas). Si ocurriera algun error, entonces la aplicacion se cerraria.
 	 */

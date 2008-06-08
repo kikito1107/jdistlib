@@ -91,7 +91,7 @@ public class DITree extends DComponenteBase implements java.io.Serializable
 	}
 
 	/**
-	 * Devuelve la instancia de la clase captadora que estñ usando.
+	 * Devuelve la instancia de la clase captadora que esta usando.
 	 * 
 	 * @return DJTree Clase captadora
 	 */
@@ -109,7 +109,7 @@ public class DITree extends DComponenteBase implements java.io.Serializable
 	 * Obtiene el numero de componentes hijos de este componente. SIEMPRE
 	 * devuelve 0
 	 * 
-	 * @return int Nñmero de componentes hijos. SIEMPRE devuelve 0.
+	 * @return Numero de componentes hijos. SIEMPRE devuelve 0.
 	 */
 	@Override
 	public int obtenerNumComponentesHijos()
@@ -232,8 +232,8 @@ public class DITree extends DComponenteBase implements java.io.Serializable
 	}
 
 	/**
-	 * Mediante una llamada a este mñtodo se envña un mensaje de peticion de
-	 * sincronizacion. No se debe llamar a este mñtodo de forma directa. Serñ
+	 * Mediante una llamada a este metodo se envia un mensaje de peticion de
+	 * sincronizacion. No se debe llamar a este metodo de forma directa. Sera
 	 * llamado de forma automatica cuando sea necesario realizar la
 	 * sincronizacion
 	 */
@@ -293,7 +293,7 @@ public class DITree extends DComponenteBase implements java.io.Serializable
 
 	/**
 	 * Hebra procesadora de eventos. Se encarga de realizar las acciones que
-	 * correspondan cuando recibe un evento. Tambñn se encarga en su inicio de
+	 * correspondan cuando recibe un evento. Tambien se encarga en su inicio de
 	 * sincronizar el componente.
 	 */
 	class HebraProcesadora extends HebraProcesadoraBase

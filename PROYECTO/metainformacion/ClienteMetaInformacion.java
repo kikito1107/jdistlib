@@ -105,8 +105,8 @@ public class ClienteMetaInformacion
 	}
 
 	/**
-	 * inicializa el cliente enviando una solicitud de sincronizaciñn al
-	 * servidor de Metainformaciñn
+	 * inicializa el cliente enviando una solicitud de sincronizacion al
+	 * servidor de Metainformacion
 	 */
 	public void inicializar()
 	{
@@ -115,18 +115,18 @@ public class ClienteMetaInformacion
 			// ********** SINCRONIZACION CON EL SERVIDOR DE METAINFORMACION
 			// *********//
 
-			// evento en el que se almacenarñ la respuesta del servidor a la
-			// peticiñn de sincronizaciñn
+			// evento en el que se almacenara la respuesta del servidor a la
+			// peticion de sincronizacion
 			DMIEvent leido = null;
 
-			// evento que serñ enviado al servidor para solicitar sincronizaciñn
+			// evento que sera enviado al servidor para solicitar sincronizacion
 			DMIEvent evento = new DMIEvent();
 
-			// evento "template" utilizado para leer la respuesta a la peticiñn
-			// de sincronizaciñn del servidor
+			// evento "template" utilizado para leer la respuesta a la peticion
+			// de sincronizacion del servidor
 			DMIEvent plantilla = new DMIEvent();
 
-			// aleatorio que servirñ de ID de la peticiñn de sincronizacion
+			// aleatorio que servira de ID de la peticion de sincronizacion
 			int idEvento = aleatorio();
 
 			// origen y destino del evento
@@ -177,8 +177,8 @@ public class ClienteMetaInformacion
 	}
 
 	/**
-	 * Identificamos al usuario para concederle, o no, el acceso a la aplicaciñn
-	 * en cuestiñn
+	 * Identificamos al usuario para concederle, o no, el acceso a la aplicacion
+	 * en cuestion
 	 * 
 	 * @return
 	 */
@@ -190,7 +190,7 @@ public class ClienteMetaInformacion
 		DMIEvent plantilla = null;
 		DMIEvent leido = null;
 
-		// infromaciñn de la conexion
+		// informacion de la conexion
 		MIInformacionConexion info = new MIInformacionConexion();
 
 		// ID del evento
@@ -671,7 +671,7 @@ public class ClienteMetaInformacion
 			{
 				v = leido.usuarios;
 
-				System.out.println("TAmaño v " + v.size());
+				//System.out.println("Tamaño v " + v.size());
 
 				for (int i = 0; i < v.size(); ++i)
 				{
@@ -1431,7 +1431,7 @@ public class ClienteMetaInformacion
 		}
 
 		/**
-		 * Mñtodo que ejecuta la hebra
+		 * Metodo que ejecuta la hebra
 		 */
 		public void run()
 		{
@@ -1481,7 +1481,7 @@ public class ClienteMetaInformacion
 		}
 
 		/**
-		 * Mñtodo que ejecuta la hebra
+		 * Metodo que ejecuta la hebra
 		 */
 		public void run()
 		{
@@ -1538,7 +1538,7 @@ public class ClienteMetaInformacion
 	/**
 	 * Dado el comportamiento concurrente de las 2 Hebras mediante este Monitor
 	 * gestionamos la informacion sobre la inicializacion. La clase DConector
-	 * realizara una llamada a inicializacionCorrecta() quedñndose bloqueada
+	 * realizara una llamada a inicializacionCorrecta() quedandose bloqueada
 	 * hasta que se producza la correcta localizacion del JavaSpace o se
 	 * sobrepase el tiempo de espera sin haber sido localizado.
 	 */

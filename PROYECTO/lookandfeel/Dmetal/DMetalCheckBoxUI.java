@@ -372,7 +372,7 @@ public class DMetalCheckBoxUI extends MetalRadioButtonUI
 
 				// Al haber deshabilitado los eventos de entrada y salida del
 				// puntero siempre
-				// que se produzca un evento mouseReleased cambiarñ la seleccion
+				// que se produzca un evento mouseReleased cambiara la seleccion
 				// del checkbox
 
 				// No miramos el modelo por lo que cualquier mouseReleased() va

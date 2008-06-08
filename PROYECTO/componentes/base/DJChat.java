@@ -220,7 +220,7 @@ public class DJChat extends JPanel
 				nombres.add(evento.usuario);
 				conversaciones.add(new PanelChatPrivado(this));
 				JFrame nuevaVentana = new JFrame();
-				nuevaVentana.setTitle(":: Conversaciñn privada con "
+				nuevaVentana.setTitle(":: Conversación privada con "
 						+ ev1.usuario + " ::");
 				nuevaVentana.getContentPane().add(conversaciones.lastElement());
 

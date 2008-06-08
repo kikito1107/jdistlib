@@ -156,7 +156,7 @@ public class GestorFicherosBD
 	 * 
 	 * @param id
 	 *            Identificador del fichero a recuperar
-	 * @return El fichero. Si no existe ningñn fichero con el identificador
+	 * @return El fichero. Si no existe ningun fichero con el identificador
 	 *         dado, devuelve null.
 	 */
 	private MIDocumento construirFicheroBD(int id)
@@ -441,7 +441,7 @@ public class GestorFicherosBD
 	}
 
 	/**
-	 * Cierra la conexiñn con la base de datos
+	 * Cierra la conexion con la base de datos
 	 */
 	public void cerrarConexion()
 	{

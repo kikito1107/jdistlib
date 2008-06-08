@@ -31,7 +31,7 @@ public class ConectorBDMetainformacion
 	private static String ip = null;
 
 	/**
-	 * Inicializaciñn de atributos estñticos: Este bloque se ejecutara al
+	 * Inicializacion de atributos estaticos: Este bloque se ejecutara al
 	 * cargarse las clases de la aplicacion (se ejecutara antes de todo lo
 	 * demas). Si ocurriera algun error, entonces la aplicacion se cerraria.
 	 */

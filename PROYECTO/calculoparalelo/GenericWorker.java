@@ -18,10 +18,10 @@ import net.jini.core.transaction.server.*;
 import net.jini.space.JavaSpace;
 
 /**
- * Implementa un esclavo genñrico para aplicaciones paralelas con arquitectura
+ * Implementa un esclavo generico para aplicaciones paralelas con arquitectura
  * Maestro/Esclavo. No es necesario reescribirlo para cada programa concreto
- * (salvo necesidades especñficas). Basta con crear una clase que herede de
- * TaskeEntry y reimplementar el mñtodo execute
+ * (salvo necesidades especificas). Basta con crear una clase que herede de
+ * TaskeEntry y reimplementar el metodo execute
  * 
  * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  * 

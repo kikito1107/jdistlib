@@ -88,7 +88,7 @@ public class MIUsuario implements Serializable
 	}
 
 	/**
-	 * Obtiene el rol actual del usuario. Solo tiene sentido si el usuario estñ
+	 * Obtiene el rol actual del usuario. Solo tiene sentido si el usuario esta
 	 * conectado
 	 * 
 	 * @return String Rol actual del usuario.
@@ -174,7 +174,7 @@ public class MIUsuario implements Serializable
 	 * 
 	 * @param componente
 	 *            String Componente sobre el que deseamos obtener informacion.
-	 * @return int Permiso del comoponente. Si el componente no estñ definido
+	 * @return int Permiso del comoponente. Si el componente no esta definido
 	 *         devuelve -1.
 	 */
 	public int getPermisoComponente(String componente)

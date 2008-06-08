@@ -74,7 +74,7 @@ public class Anotacion implements Serializable
 	/**
 	 * Consulta la fecha y hora en la que fue realizada la anotacion
 	 * 
-	 * @return Cadena con la representaciñn de la fecha en el siguiente formato:
+	 * @return Cadena con la representacion de la fecha en el siguiente formato:
 	 *         dd/MMMMM/yyyy 'a las' hh:mm
 	 */
 	public String getFecha()

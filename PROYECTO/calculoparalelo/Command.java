@@ -4,7 +4,7 @@ import net.jini.core.entry.Entry;
 import net.jini.space.JavaSpace;
 
 /**
- * Entrada que permite enviar entrada de JS con cñdigo ejecutable.
+ * Entrada que permite enviar entrada de JS con codigo ejecutable.
  * 
  * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz
  */

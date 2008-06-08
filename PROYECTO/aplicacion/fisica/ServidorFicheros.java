@@ -352,7 +352,7 @@ public class ServidorFicheros
 								System.err
 										.println("Error al renombrar el fichero de anotaciones");
 							else System.err
-									.println("Fichero renombrado con ñxito");
+									.println("Fichero renombrado con éxito");
 
 						}
 						gestor.modificarFichero(( (DFileEvent) leido ).fichero);

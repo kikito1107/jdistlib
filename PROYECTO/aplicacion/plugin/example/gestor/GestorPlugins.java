@@ -170,7 +170,7 @@ public class GestorPlugins extends JFrame
 						{
 							Object[] options = {"Eliminar Plugin","Cancelar"};
 							
-							int opc = JOptionPane.showOptionDialog(null, "Una vez eliminado el plugin esta acciñn no se puede deshacer\nñSeguro que desea eliminar el plugin?", "Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+							int opc = JOptionPane.showOptionDialog(null, "Una vez eliminado el plugin esta acción no se puede deshacer\n¿Seguro que desea eliminar el plugin?", "Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
 								    null,
 								    options,
 								    options[1]);
@@ -270,7 +270,7 @@ public class GestorPlugins extends JFrame
 					{
 						JOptionPane
 								.showMessageDialog(null,
-										"El fichero añadido no contiene un plugin vñlido.");
+										"El fichero añadido no contiene un plugin válido.");
 						if (!destino.delete())
 							JOptionPane
 									.showMessageDialog(null,

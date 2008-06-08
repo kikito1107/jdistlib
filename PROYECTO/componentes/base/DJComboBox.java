@@ -392,7 +392,7 @@ public class DJComboBox extends JComboBox
 	}
 
 	/**
-	 * Obtener elemento en el ñndice elegido
+	 * Obtener elemento en el indice elegido
 	 * 
 	 * @param i
 	 *            Indice del elemento que deseamos obtener
@@ -446,7 +446,7 @@ public class DJComboBox extends JComboBox
 	}
 
 	/**
-	 * Eliminar elemento en el ñndice deseado
+	 * Eliminar elemento en el indice deseado
 	 * 
 	 * @param i
 	 *            Indice del elemento que deseamos eliminar
@@ -619,7 +619,7 @@ public class DJComboBox extends JComboBox
 					 * System.out.println("HebraProcesadora(" + DID + "):
 					 * Recibido evento del tipo " + evento.tipo);
 					 */
-					// Indicamos cual ha sido el ñltimo evento procesado
+					// Indicamos cual ha sido el ultimo evento procesado
 					ultimoProcesado = new Integer(evento.contador.intValue());
 
 					if (( evento.tipo.intValue() == DJComboBoxEvent.SINCRONIZACION

@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
- * Clase utilizada para realizar varias operaciones de formateo de texto, nñmero
+ * Clase utilizada para realizar varias operaciones de formateo de texto, numero
  * y fechas.<br>
  * 
  * @author: LooPer (ejido2002@hotmail.com)
@@ -48,7 +48,7 @@ public class Fecha
 	private int Year;
 
 	/**
-	 * Construye una clase Fecha con la fecha y hora por defecto. La hora estñ
+	 * Construye una clase Fecha con la fecha y hora por defecto. La hora esta
 	 * en formato 24 horas.
 	 */
 	public Fecha()
@@ -78,7 +78,7 @@ public class Fecha
 	}
 
 	/**
-	 * Construye un objeto Fecha con la fecha pasada por parñmetros BigDecimal
+	 * Construye un objeto Fecha con la fecha pasada por parametros BigDecimal
 	 * 
 	 * @param year
 	 *            BigDecimal
@@ -94,7 +94,7 @@ public class Fecha
 	}
 
 	/**
-	 * Construye un objeto Fecha con la fecha y hora pasados por parñmetros
+	 * Construye un objeto Fecha con la fecha y hora pasados por parametros
 	 * BigDecimal
 	 * 
 	 * @param year
@@ -116,7 +116,7 @@ public class Fecha
 	}
 
 	/**
-	 * Construye un objeto Fecha con la fecha pasada como parñmetros.
+	 * Construye un objeto Fecha con la fecha pasada como parametros.
 	 * 
 	 * @param year
 	 *            int
@@ -142,7 +142,7 @@ public class Fecha
 	}
 
 	/**
-	 * Construye un objeto Fecha con la fecha pasada como parñmetros.
+	 * Construye un objeto Fecha con la fecha pasada como parametros.
 	 * 
 	 * @param year
 	 *            int
@@ -157,7 +157,7 @@ public class Fecha
 	}
 
 	/**
-	 * Construye un objeto Fecha con la fecha y hora pasados por parñmetros int
+	 * Construye un objeto Fecha con la fecha y hora pasados por parametros int
 	 * 
 	 * @param year
 	 *            int
@@ -178,7 +178,7 @@ public class Fecha
 
 	/**
 	 * Construye un objeto Fecha con la hora actual y la fecha pasada como
-	 * parñmetro segñn el formato indicado
+	 * parametro segun el formato indicado
 	 * 
 	 * @param fecha
 	 *            String
@@ -186,7 +186,7 @@ public class Fecha
 	 *            int El formato puede ser de tres tipos: 1- ddmmaaaa 2-
 	 *            aaaammdd 3- aaaa-mm-dd hh:mm:ss.m (Valor recuperado desde el
 	 *            SQLServer) 4- aaaamm El String fecha puede contener o no el
-	 *            sñmbolo "/".
+	 *            simbolo "/".
 	 */
 
 	public Fecha( String fecha, int formato ) throws Exception
@@ -196,7 +196,7 @@ public class Fecha
 
 	/**
 	 * Construye un objeto Fecha con la hora actual y la fecha pasada como
-	 * parñmetro segñn el formato indicado
+	 * parametro segun el formato indicado
 	 * 
 	 * @param fecha
 	 *            String
@@ -204,7 +204,7 @@ public class Fecha
 	 *            int El formato puede ser de tres tipos: 1- ddmmaaaa 2-
 	 *            aaaammdd 3- aaaa-mm-dd hh:mm:ss.m (Valor recuperado desde el
 	 *            SQLServer) 4- aaaamm El String fecha puede contener o no el
-	 *            sñmbolo "/".
+	 *            simbolo "/".
 	 */
 
 	public Fecha( String fecha, String separador, int formato )
@@ -223,13 +223,13 @@ public class Fecha
 		if (( fecha.trim().length() != 6 ) && ( fecha.trim().length() != 8 )
 				&& ( fecha.trim().length() != 10 )
 				&& ( fecha.trim().length() > 30 ))
-			throw new Exception("Longitud de fecha no vñlida");
+			throw new Exception("Longitud de fecha no valida");
 
 		switch (formato)
 		{
 			case 1:
 			{
-				// La fecha estñ en formato ddmmaaaa
+				// La fecha esta en formato ddmmaaaa
 				if (fecha.indexOf(separador) == -1)
 				{
 					// No hay barras
@@ -247,7 +247,7 @@ public class Fecha
 			}
 			case 2:
 			{
-				// La fecha estñ en formato aaaammdd
+				// La fecha esta en formato aaaammdd
 				if (fecha.indexOf(separador) == -1)
 				{
 					// No hay barras
@@ -281,7 +281,7 @@ public class Fecha
 			}
 			case 4:
 			{
-				// La fecha estñ en formato aaaamm
+				// La fecha esta en formato aaaamm
 				if (fecha.indexOf(separador) == -1)
 				{
 					// No hay barras
@@ -319,7 +319,7 @@ public class Fecha
 	 *            <li>1: Segundos</li>
 	 *            <li>2: Minutos</li>
 	 *            <li>3: Horas </li>
-	 *            <li>4: Dñas</li>
+	 *            <li>4: Dias</li>
 	 *            <li>5: Meses</li>
 	 *            <li>6: Años</li>
 	 *            </ul>
@@ -338,7 +338,7 @@ public class Fecha
 			{
 				case 1:
 				{
-					// Añadimos segundos, todavña no lo necesitamos
+					// Añadimos segundos, todavia no lo necesitamos
 					break;
 				}
 				case 2:
@@ -355,7 +355,7 @@ public class Fecha
 				}
 				case 4:
 				{
-					// Añadimos dñas
+					// Añadimos dias
 					calendar.add(Calendar.DATE, incremento);
 					break;
 				}
@@ -402,7 +402,7 @@ public class Fecha
 	}
 
 	/**
-	 * Comprueba si la fecha es menor que la que se pasa como parñmetro
+	 * Comprueba si la fecha es menor que la que se pasa como parametro
 	 * 
 	 * @param fecha2
 	 *            Fecha con la que queremos comparar
@@ -417,7 +417,7 @@ public class Fecha
 	}
 
 	/**
-	 * Comprueba si la fecha es mayor que la que se pasa como parñmetro
+	 * Comprueba si la fecha es mayor que la que se pasa como parametro
 	 * 
 	 * @param fecha2
 	 *            Fecha con la que queremos comparar
@@ -432,7 +432,7 @@ public class Fecha
 	}
 
 	/**
-	 * Comprueba si la fecha es igual que la que se pasa como parñmetro
+	 * Comprueba si la fecha es igual que la que se pasa como parametro
 	 * 
 	 * @param fecha2
 	 *            Fecha con la que queremos comparar
@@ -447,10 +447,10 @@ public class Fecha
 	}
 
 	/**
-	 * Compara dos fechas entre sñ Parñmetros de entrada: - fecha: variable de
-	 * tipo Date que recibe la funciñn Parñmetros de salida: - -1: si la fecha
-	 * es mayor que la pasada por parñmetro - 0: si la fecha introducida es
-	 * igual - 1: si la fecha es menor que la pasada por parñmetro
+	 * Compara dos fechas entre sus Parametros de entrada: - fecha: variable de
+	 * tipo Date que recibe la funcion Parametros de salida: - -1: si la fecha
+	 * es mayor que la pasada por parametro - 0: si la fecha introducida es
+	 * igual - 1: si la fecha es menor que la pasada por parametro
 	 */
 	public int compara(Fecha fecha2)
 	{
@@ -474,11 +474,11 @@ public class Fecha
 		if (mes > this.getMonth()) return 1;
 		if (mes < this.getMonth()) return -1;
 
-		// Si son del mismo año y mes comparamos el dña
+		// Si son del mismo año y mes comparamos el dia
 		if (dia > this.getDay()) return 1;
 		if (dia < this.getDay()) return -1;
 
-		// Si son del mismo dña comparamos las horas
+		// Si son del mismo dia comparamos las horas
 		if (hora > this.getHoras()) return 1;
 		if (hora < this.getHoras()) return -1;
 
@@ -615,7 +615,7 @@ public class Fecha
 	}
 
 	/**
-	 * Nos devuelve la hora con descripciñn larga
+	 * Nos devuelve la hora con descripcion larga
 	 * 
 	 * @return java.lang.String
 	 * @param formato
@@ -686,7 +686,7 @@ public class Fecha
 	}
 
 	/**
-	 * Nos devuelve la fecha con descripciñn larga
+	 * Nos devuelve la fecha con descripcion larga
 	 * 
 	 * @return java.lang.String
 	 * @param formato
@@ -731,7 +731,7 @@ public class Fecha
 	 * 
 	 * @return long
 	 * @param int
-	 *            campo Los valores de campo pueden ser: - 1: Dñas
+	 *            campo Los valores de campo pueden ser: - 1: Dias
 	 *            transcurridos. - 2: Meses transcurridos. - 3: Años
 	 *            transcurridos - 4: Horas transcurridas - 5: Segundos
 	 *            transcurridos
@@ -793,7 +793,7 @@ public class Fecha
 	}
 
 	/**
-	 * Inserte aquñ la descripciñn del mñtodo.
+	 * Inserte aqui la descripcion del metodo.
 	 * 
 	 * @return java.lang.String
 	 */
@@ -825,7 +825,7 @@ public class Fecha
 	}
 
 	/**
-	 * Construye un objeto Fecha con la fecha y hora pasados por parñmetros int
+	 * Construye un objeto Fecha con la fecha y hora pasados por parametros int
 	 * 
 	 * @param year
 	 *            int
@@ -854,8 +854,8 @@ public class Fecha
 	}
 
 	/**
-	 * Compara dos fechas entre sñ Parñmetros de entrada: - fecha: variable de
-	 * tipo Date que recibe la funciñn Parñmetros de salida: - -1: si la fecha
+	 * Compara dos fechas entre sus Parametros de entrada: - fecha: variable de
+	 * tipo Date que recibe la funcion Parametros de salida: - -1: si la fecha
 	 * introducida es menor - 0: si la fecha introducida es igual - 1: si la
 	 * fecha introducida es mayor
 	 */
@@ -905,8 +905,8 @@ public class Fecha
 	 * @param mes
 	 *            int Mes a validar
 	 * @param dia
-	 *            int Dña a validar
-	 * @return boolean Indica si la fecha es vñlida
+	 *            int Dia a validar
+	 * @return boolean Indica si la fecha es valida
 	 */
 	public boolean validaFecha(int ano, int mes, int dia)
 	{
@@ -930,9 +930,9 @@ public class Fecha
 	}
 
 	/**
-	 * Realiza la validaciñn de las horas.
+	 * Realiza la validacion de las horas.
 	 * 
-	 * @return boolean Indica si la hora es vñlida o no
+	 * @return boolean Indica si la hora es valida o no
 	 * @param hora
 	 *            int Hora a validar
 	 * @param minuto

@@ -441,7 +441,7 @@ public class MIDocumento implements Serializable
 			JOptionPane
 					.showMessageDialog(
 							null,
-							"No se ha podido subir el fichero.\nSe ha producido un error en la transmisiñn del documento",
+							"No se ha podido subir el fichero.\nSe ha producido un error en la transmisión del documento",
 							"Error", JOptionPane.ERROR_MESSAGE);
 			return null;
 		}

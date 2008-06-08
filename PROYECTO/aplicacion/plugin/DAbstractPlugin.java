@@ -352,7 +352,7 @@ public abstract class DAbstractPlugin extends DComponenteBase
 			{
 
 				Object[] options =
-				{ "Instalar Nueva Versiñn", "Conservar Versiñn Actual" };
+				{ "Instalar Nueva Versión", "Conservar Versión Actual" };
 
 				res = JOptionPane
 						.showOptionDialog(null,
@@ -374,14 +374,14 @@ public abstract class DAbstractPlugin extends DComponenteBase
 					// reconstruir los plugins
 
 					Object[] options2 =
-					{ "Reiniciar Ahora", "Mñs tarde" };
+					{ "Reiniciar Ahora", "Más tarde" };
 
 					res = JOptionPane
 							.showOptionDialog(
 									null,
 									"Debera reiniciar la aplicacion para que la nueva version del plugin: "
 											+ getName()
-											+ " funcione correctamente. ñCerrarla ahora?",
+											+ " funcione correctamente. ¿Cerrarla ahora?",
 									"Aviso", JOptionPane.YES_NO_OPTION,
 									JOptionPane.QUESTION_MESSAGE, null,
 									options2, options2[1]);
