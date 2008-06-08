@@ -5,26 +5,25 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
 /**
- * Elipse
- * @author anab
+ * Figura correspondiente a una elipse
+ * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
 public class Elipse extends Figura
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 2862430808358522126L;
-
+	
+	/*
+	 * Coordenadas de la esquina inferior derecha de la elipse
+	 */
 	private int xf;
-
 	private int yf;
 
 	/**
-	 * Crea una nueva elipse
+	 * Constructor
 	 * @param x1 coordenada x de la esquina superior izquierda de la figura
 	 * @param y1 coordenada y de la esquina superior izquierda de la figura
 	 * @param xf1 coordenada x de la esquina inferior derecha de la figura
-	 * @param yf1 coordenada x de la esquina inferior derecha de la figura
+	 * @param yf1 coordenada y de la esquina inferior derecha de la figura
 	 */
 	public Elipse( int x1, int y1, int xf1, int yf1 )
 	{

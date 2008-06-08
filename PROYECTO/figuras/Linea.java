@@ -6,10 +6,6 @@ import java.awt.RenderingHints;
 
 public class Linea extends Figura
 {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 3369752970214467809L;
 
 	/**
