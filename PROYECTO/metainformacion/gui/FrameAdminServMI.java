@@ -19,13 +19,12 @@ import metainformacion.ServidorMetaInformacion;
 
 /**
  * Frame que se abre al iniciar el servidor de Metainformacion
+ * 
+ * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz
  */
 
 public class FrameAdminServMI extends JFrame
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	BorderLayout borderLayout1 = new BorderLayout();
@@ -57,30 +56,13 @@ public class FrameAdminServMI extends JFrame
 	void jbInit() throws Exception
 	{
 		this.getContentPane().setLayout(borderLayout1);
-		consola.setBackground(Color.black);  // Generated
-		consola.setForeground(Color.green);  // Generated
+		consola.setBackground(Color.black); // Generated
+		consola.setForeground(Color.green); // Generated
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setContentPane(getPanel());  // Generated
-		this.setSize(new Dimension(352, 298));  // Generated
+		this.setContentPane(getPanel()); // Generated
+		this.setSize(new Dimension(352, 298)); // Generated
 		this.setResizable(false);
 		this.setTitle(".:: Servidor MetaInformacion ::.");
-	}
-
-	void botonGuardar_actionPerformed(ActionEvent e)
-	{
-		
-		Object[] options = {"Guardar Datos","Cancelar"};
-		
-		int res = JOptionPane
-				.showOptionDialog(
-						null,
-						"Desea guardar los contenidos del servidor de metainformacion?",
-						"Aviso", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
-					    null,
-					    options,
-					    options[1]);
-
-		if (res == JOptionPane.YES_OPTION) smi.salvar();
 	}
 
 	void botonCerrar_actionPerformed(ActionEvent e)
@@ -89,9 +71,9 @@ public class FrameAdminServMI extends JFrame
 	}
 
 	/**
-	 * This method initializes panel	
-	 * 	
-	 * @return javax.swing.JPanel	
+	 * This method initializes panel
+	 * 
+	 * @return javax.swing.JPanel
 	 */
 	private JPanel getPanel()
 	{
@@ -100,9 +82,9 @@ public class FrameAdminServMI extends JFrame
 			try
 			{
 				panel = new JPanel();
-				panel.setLayout(new BorderLayout());  // Generated
-				panel.add(getPanelSur(), BorderLayout.SOUTH);  // Generated
-				panel.add(getScroll(), BorderLayout.CENTER);  // Generated
+				panel.setLayout(new BorderLayout()); // Generated
+				panel.add(getPanelSur(), BorderLayout.SOUTH); // Generated
+				panel.add(getScroll(), BorderLayout.CENTER); // Generated
 			}
 			catch (java.lang.Throwable e)
 			{
@@ -113,9 +95,9 @@ public class FrameAdminServMI extends JFrame
 	}
 
 	/**
-	 * This method initializes panelSur	
-	 * 	
-	 * @return javax.swing.JPanel	
+	 * This method initializes panelSur
+	 * 
+	 * @return javax.swing.JPanel
 	 */
 	private JPanel getPanelSur()
 	{
@@ -124,11 +106,11 @@ public class FrameAdminServMI extends JFrame
 			try
 			{
 				GridBagConstraints gridBagConstraints = new GridBagConstraints();
-				gridBagConstraints.gridx = 0;  // Generated
-				gridBagConstraints.gridy = 0;  // Generated
+				gridBagConstraints.gridx = 0; // Generated
+				gridBagConstraints.gridy = 0; // Generated
 				panelSur = new JPanel();
-				panelSur.setLayout(new GridBagLayout());  // Generated
-				panelSur.add(getBotonSalir(), gridBagConstraints);  // Generated
+				panelSur.setLayout(new GridBagLayout()); // Generated
+				panelSur.add(getBotonSalir(), gridBagConstraints); // Generated
 			}
 			catch (java.lang.Throwable e)
 			{
@@ -139,9 +121,9 @@ public class FrameAdminServMI extends JFrame
 	}
 
 	/**
-	 * This method initializes botonSalir	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes botonSalir
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getBotonSalir()
 	{
@@ -150,23 +132,32 @@ public class FrameAdminServMI extends JFrame
 			try
 			{
 				botonSalir = new JButton();
-				botonSalir.setText("Salir");  // Generated
-				botonSalir.setIcon(new ImageIcon("Resources/door_open.png"));  // Generated
-				botonSalir.addActionListener(new java.awt.event.ActionListener()
-				{
-					public void actionPerformed(java.awt.event.ActionEvent e)
-					{
-						Object[] etiquetas = new Object[]{"Salir", "Cancelar"};
-						int opcion = JOptionPane.showOptionDialog(null, "Si sale del servidor debera reiniciar los servicios de JINI\n"+
-																		"para que el funcionamiento del sistema cuando vuelva a iniciarlo\n"+
-																		"sea el esperado. Disculpe las molestias.", 
-																"Aviso", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, etiquetas, etiquetas[0]);
-						if (opcion == JOptionPane.YES_OPTION)
+				botonSalir.setText("Salir"); // Generated
+				botonSalir.setIcon(new ImageIcon("Resources/door_open.png")); // Generated
+				botonSalir
+						.addActionListener(new java.awt.event.ActionListener()
 						{
-							System.exit(0);
-						}
-					}
-				});
+							public void actionPerformed(
+									java.awt.event.ActionEvent e)
+							{
+								Object[] etiquetas = new Object[]
+								{ "Salir", "Cancelar" };
+								int opcion = JOptionPane
+										.showOptionDialog(
+												null,
+												"Si sale del servidor debera reiniciar los servicios de JINI\n"
+														+ "para que el funcionamiento del sistema cuando vuelva a iniciarlo\n"
+														+ "sea el esperado. Disculpe las molestias.",
+												"Aviso",
+												JOptionPane.YES_NO_OPTION,
+												JOptionPane.WARNING_MESSAGE,
+												null, etiquetas, etiquetas[0]);
+								if (opcion == JOptionPane.YES_OPTION)
+								{
+									System.exit(0);
+								}
+							}
+						});
 			}
 			catch (java.lang.Throwable e)
 			{
@@ -177,9 +168,9 @@ public class FrameAdminServMI extends JFrame
 	}
 
 	/**
-	 * This method initializes scroll	
-	 * 	
-	 * @return javax.swing.JScrollPane	
+	 * This method initializes scroll
+	 * 
+	 * @return javax.swing.JScrollPane
 	 */
 	private JScrollPane getScroll()
 	{
@@ -188,7 +179,7 @@ public class FrameAdminServMI extends JFrame
 			try
 			{
 				scroll = new JScrollPane();
-				scroll.setViewportView(getConsola());  // Generated
+				scroll.setViewportView(getConsola()); // Generated
 			}
 			catch (java.lang.Throwable e)
 			{
@@ -199,9 +190,9 @@ public class FrameAdminServMI extends JFrame
 	}
 
 	/**
-	 * This method initializes consola	
-	 * 	
-	 * @return javax.swing.JTextArea	
+	 * This method initializes consola
+	 * 
+	 * @return javax.swing.JTextArea
 	 */
 	private JTextArea getConsola()
 	{
@@ -210,8 +201,8 @@ public class FrameAdminServMI extends JFrame
 			try
 			{
 				consola = new JTextArea();
-				consola.setBackground(Color.black);  // Generated
-				consola.setForeground(Color.green);  // Generated
+				consola.setBackground(Color.black); // Generated
+				consola.setForeground(Color.green); // Generated
 			}
 			catch (java.lang.Throwable e)
 			{
@@ -220,46 +211,9 @@ public class FrameAdminServMI extends JFrame
 		}
 		return consola;
 	}
-	
-	public static void println(String s) {
-		consola.append(s+"\n");
-	}
-	
-}  //  @jve:decl-index=0:visual-constraint="10,10"
 
-class FrameAdminServMI_botonGuardar_actionAdapter implements
-		java.awt.event.ActionListener
-{
-	FrameAdminServMI adaptee;
-
-	FrameAdminServMI_botonGuardar_actionAdapter( FrameAdminServMI adaptee )
+	public static void println(String s)
 	{
-		this.adaptee = adaptee;
+		consola.append(s + "\n");
 	}
-
-	public void actionPerformed(ActionEvent e)
-	{
-		adaptee.botonGuardar_actionPerformed(e);
-	}
-	
-
-}
-
-
-
-
-class FrameAdminServMI_botonCerrar_actionAdapter implements
-		java.awt.event.ActionListener
-{
-	FrameAdminServMI adaptee;
-
-	FrameAdminServMI_botonCerrar_actionAdapter( FrameAdminServMI adaptee )
-	{
-		this.adaptee = adaptee;
-	}
-
-	public void actionPerformed(ActionEvent e)
-	{
-		adaptee.botonCerrar_actionPerformed(e);
-	}
-}
+} // @jve:decl-index=0:visual-constraint="10,10"

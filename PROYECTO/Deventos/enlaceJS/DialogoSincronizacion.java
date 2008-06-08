@@ -47,7 +47,9 @@ public class DialogoSincronizacion extends JDialog
 	private final int y = 10;
 
 	protected ImageIcon icono1 = null;
+
 	protected ImageIcon icono2 = null;
+
 	protected ImageIcon icono3 = null;
 
 	private volatile Thread t = new Thread(new HebraParpadeo(this));
@@ -134,8 +136,6 @@ public class DialogoSincronizacion extends JDialog
 				try
 				{
 
-					
-					
 					dialogo.etiquetaIcono.setIcon(dialogo.icono1);
 					Thread.sleep(150L);
 					dialogo.etiquetaIcono.setIcon(dialogo.icono2);

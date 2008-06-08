@@ -14,7 +14,7 @@ public class TokenFichero extends Token
 	public String ip = null;
 
 	public Boolean sincronizar = null;
-	
+
 	public Vector<String> editores = null;
 
 	public TokenFichero( String aplicacion, String fichero )
@@ -31,7 +31,8 @@ public class TokenFichero extends Token
 
 	public void bajaUsuario(String usuario)
 	{
-		if (editores != null && editores.size()>0) {
+		if (editores != null && editores.size() > 0)
+		{
 			editores.remove(usuario);
 			System.err.println("El usuario " + usuario + " se da de baja");
 		}
@@ -39,11 +40,12 @@ public class TokenFichero extends Token
 
 	public void nuevoUsuario(String usuario)
 	{
-		if (editores != null) {
-			
+		if (editores != null)
+		{
+
 			// si el usuario ya estaba registrado no lo volvemos a anadir
 			if (editores.indexOf(usuario) != -1) return;
-			
+
 			editores.add(usuario);
 			System.err.println("El usuario " + usuario + " se da de alta");
 		}

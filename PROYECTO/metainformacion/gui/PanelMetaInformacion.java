@@ -373,9 +373,11 @@ public class PanelMetaInformacion extends JPanel
 		jSplitPane1.add(panelDerecho, JSplitPane.RIGHT);
 		jSplitPane1.add(panelIzquierdo, JSplitPane.LEFT);
 		panelPermisos.add(panelInferior, BorderLayout.SOUTH);
-		jTabbedPane1.addTab("Gestion permisos", new ImageIcon("Resources/tick.png"), panelPermisos, null);  // Generated
+		jTabbedPane1.addTab("Gestion permisos", new ImageIcon(
+				"Resources/tick.png"), panelPermisos, null); // Generated
 		jSplitPane1.setDividerLocation(100);
-		jTabbedPane1.addTab("Nuevo", new ImageIcon("Resources/user_add.png"), panelNuevo, null);  // Generated
+		jTabbedPane1.addTab("Nuevo", new ImageIcon("Resources/user_add.png"),
+				panelNuevo, null); // Generated
 		buttonGroup1.add(botonUsuario);
 		buttonGroup1.add(botonRol);
 		panelEliminar.add(jPanel3, BorderLayout.NORTH);
@@ -389,8 +391,10 @@ public class PanelMetaInformacion extends JPanel
 		jPanel7.add(jLabel5, null);
 		jPanel7.add(jLabel6, null);
 		jPanel7.add(botonEliminar, null);
-		jTabbedPane1.addTab("Eliminar", new ImageIcon("Resources/user_delete.png"), panelEliminar, null);  // Generated
-		jTabbedPane1.addTab("Cambiar Roles Permitidos", new ImageIcon("Resources/user_edit.png"), panelRolesPermitidos, null);  // Generated
+		jTabbedPane1.addTab("Eliminar", new ImageIcon(
+				"Resources/user_delete.png"), panelEliminar, null); // Generated
+		jTabbedPane1.addTab("Cambiar Roles Permitidos", new ImageIcon(
+				"Resources/user_edit.png"), panelRolesPermitidos, null); // Generated
 		panelRolesPermitidos.add(jPanel8, BorderLayout.NORTH);
 		jPanel8.add(botonRAniadir, null);
 		jPanel8.add(botonREliminar, null);
@@ -472,7 +476,7 @@ public class PanelMetaInformacion extends JPanel
 		}
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public void inicializar(String rol)
 	{
 		// ************************************************
@@ -647,8 +651,7 @@ public class PanelMetaInformacion extends JPanel
 			usuario = campoNombre.getText();
 			clave = campoClave.getText();
 			rolDefecto = listaRoles.getSeleccionado();
-			
-			
+
 			if (usuario.length() == 0)
 			{
 				JOptionPane.showMessageDialog(null,
@@ -664,7 +667,7 @@ public class PanelMetaInformacion extends JPanel
 						JOptionPane.ERROR_MESSAGE);
 				error = true;
 			}
-			
+
 			if (( listaRoles.getSelectedIndex() == 0 ) && !error)
 			{
 				JOptionPane.showMessageDialog(null, "Debes seleccionar un rol",
@@ -676,20 +679,20 @@ public class PanelMetaInformacion extends JPanel
 				String mensaje = ClienteMetaInformacion.obtenerCMI()
 						.nuevoUsuario(usuario, clave, rolDefecto,
 								checkAdmin.isSelected());
-				
+
 				String mensaje2 = ClienteMetaInformacion.obtenerCMI()
-				.nuevoRolPermitido(usuario, rolDefecto);
-				
+						.nuevoRolPermitido(usuario, rolDefecto);
+
 				if (mensaje.length() == 0 && mensaje2.length() == 0)
 					JOptionPane.showMessageDialog(null, "Usuario creado",
 							"Creacion de usuario",
 							JOptionPane.INFORMATION_MESSAGE);
 				if (mensaje.length() != 0)
 					JOptionPane.showMessageDialog(null, mensaje, "Error",
-						JOptionPane.ERROR_MESSAGE);
+							JOptionPane.ERROR_MESSAGE);
 				if (mensaje2.length() != 0)
 					JOptionPane.showMessageDialog(null, mensaje2, "Error",
-						JOptionPane.ERROR_MESSAGE);
+							JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		else
@@ -759,7 +762,7 @@ public class PanelMetaInformacion extends JPanel
 		}
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	void listaCambiarUsuarios_actionPerformed(ActionEvent e)
 	{
 		listaCambiarRolesPermitidos.eliminarElementos();

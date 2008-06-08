@@ -3,7 +3,8 @@ package Deventos;
 /**
  * Eventos distribuidos de raton
  * 
- * @author Juan Antonio Ibañez Santorum.
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
 public class DMouseEvent extends DEvent
 {
