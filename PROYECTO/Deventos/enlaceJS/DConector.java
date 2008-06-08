@@ -298,7 +298,7 @@ public class DConector
 
 			if (tk == null)
 				txn.commit(); // Confirmamos escritura del token el el
-								// JavaSpace
+			// JavaSpace
 			else contador = tk.sec.intValue();
 
 			// ***************************************************************//
@@ -1147,12 +1147,14 @@ public class DConector
 			// System.out.println("Desconexion usuario");
 		}
 
-		public void cambioRolUsuario(String usuario, String rol, String rolAntiguo, MICompleta info)
+		public void cambioRolUsuario(String usuario, String rol,
+				String rolAntiguo, MICompleta info)
 		{
 			if (usuario.equals(Dusuario)) Drol = info.rol;
-			
+
 			DMIEvent evento = new DMIEvent();
-			evento.tipo = new Integer(DMIEvent.NOTIFICACION_CAMBIO_ROL_USUARIO.intValue());
+			evento.tipo = new Integer(DMIEvent.NOTIFICACION_CAMBIO_ROL_USUARIO
+					.intValue());
 			evento.usuario = new String(usuario);
 			evento.rol = new String(rol);
 			evento.rolAntiguo = new String(rolAntiguo);
@@ -1160,20 +1162,26 @@ public class DConector
 			broadCastMI(evento);
 		}
 
-		public void cambioPermisoComponenteUsuario(String usuario, String componente, int permiso)
+		public void cambioPermisoComponenteUsuario(String usuario,
+				String componente, int permiso)
 		{
 			DMIEvent evento = new DMIEvent();
-			evento.tipo = new Integer(DMIEvent.NOTIFICACION_CAMBIO_PERMISO_COMPONENTE_USUARIO.intValue());
+			evento.tipo = new Integer(
+					DMIEvent.NOTIFICACION_CAMBIO_PERMISO_COMPONENTE_USUARIO
+							.intValue());
 			evento.usuario = new String(usuario);
 			evento.componente = new String(componente);
 			evento.permiso = new Integer(permiso);
 			broadCastMI(evento);
 		}
 
-		public void cambioPermisoComponenteRol(String rol, String componente, int permiso)
+		public void cambioPermisoComponenteRol(String rol, String componente,
+				int permiso)
 		{
 			DMIEvent evento = new DMIEvent();
-			evento.tipo = new Integer(DMIEvent.NOTIFICACION_CAMBIO_PERMISO_COMPONENTE_ROL.intValue());
+			evento.tipo = new Integer(
+					DMIEvent.NOTIFICACION_CAMBIO_PERMISO_COMPONENTE_ROL
+							.intValue());
 			evento.rol = new String(rol);
 			evento.componente = new String(componente);
 			evento.permiso = new Integer(permiso);
@@ -1183,7 +1191,8 @@ public class DConector
 		public void nuevoRolPermitido(String usuario, String rol)
 		{
 			DMIEvent evento = new DMIEvent();
-			evento.tipo = new Integer(DMIEvent.NOTIFICACION_NUEVO_ROL_PERMITIDO.intValue());
+			evento.tipo = new Integer(DMIEvent.NOTIFICACION_NUEVO_ROL_PERMITIDO
+					.intValue());
 			evento.usuario = new String(usuario);
 			evento.rol = new String(rol);
 			broadCastMI(evento);
@@ -1192,10 +1201,12 @@ public class DConector
 		public void eliminarRolPermitido(String usuario, String rol)
 		{
 			if (usuario.equals(Dusuario) && rol.equals(Drol))
-				ClienteMetaInformacion.obtenerCMI().cambiarRolUsuario(Dusuario,	DrolDefecto);
+				ClienteMetaInformacion.obtenerCMI().cambiarRolUsuario(Dusuario,
+						DrolDefecto);
 
 			DMIEvent evento = new DMIEvent();
-			evento.tipo = new Integer(DMIEvent.NOTIFICACION_ELIMINAR_ROL_PERMITIVO.intValue());
+			evento.tipo = new Integer(
+					DMIEvent.NOTIFICACION_ELIMINAR_ROL_PERMITIVO.intValue());
 			evento.usuario = new String(usuario);
 			evento.rol = new String(rol);
 			broadCastMI(evento);
@@ -1218,7 +1229,8 @@ public class DConector
 			else
 			{
 				DMIEvent evento = new DMIEvent();
-				evento.tipo = new Integer(DMIEvent.NOTIFICACION_USUARIO_ELIMINADO.intValue());
+				evento.tipo = new Integer(
+						DMIEvent.NOTIFICACION_USUARIO_ELIMINADO.intValue());
 				evento.usuario = new String(usuario);
 				broadCastMI(evento);
 			}
@@ -1227,10 +1239,12 @@ public class DConector
 		public void rolEliminado(String rol)
 		{
 			if (rol.equals(Drol))
-				ClienteMetaInformacion.obtenerCMI().cambiarRolUsuario(Dusuario,	DrolDefecto);
+				ClienteMetaInformacion.obtenerCMI().cambiarRolUsuario(Dusuario,
+						DrolDefecto);
 
 			DMIEvent evento = new DMIEvent();
-			evento.tipo = new Integer(DMIEvent.NOTIFICACION_ROL_ELIMINADO.intValue());
+			evento.tipo = new Integer(DMIEvent.NOTIFICACION_ROL_ELIMINADO
+					.intValue());
 			evento.rol = new String(rol);
 			broadCastMI(evento);
 		}
