@@ -3,15 +3,20 @@ package metainformacion;
 import java.util.Vector;
 
 /**
- * Clase para ayudar al almacenaje y consulta de toda la informacion
+ * Clase para ayudar al almacenado y consulta de toda la metainformacion
+ * 
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public class AlmacenMetaInformacion
 {
 	private Vector<MIAplicacion> aplicaciones = null;
 
 	private LectorBD_MI lector = null;
 
+	/**
+	 * Constructor
+	 */
 	public AlmacenMetaInformacion()
 	{
 		start();
@@ -32,25 +37,23 @@ public class AlmacenMetaInformacion
 		catch (Exception e)
 		{
 		}
-
 	}
 
 	/**
 	 * @param aplicacion
-	 *            String Nombre de la aplicacion desde la que nos estamos
-	 *            identificando
+	 *            Nombre de la aplicacion desde la que nos estamos identificando
 	 * @param usuario
-	 *            String Nombre de usuario del usuario que deseamos identificar
+	 *            Nombre de usuario del usuario que deseamos identificar
 	 * @param clave
-	 *            String Clave para el usuario
-	 * @return MIInformacionConexion El campo infoCompleta.identificacionValida
-	 *         de esta clase contendra valdra true si la identifiacion ha sido
-	 *         correcta o false en otro caso. Si ha sido valida contendra toda
-	 *         la informacion necesaria que sera devuelta a la aplicacion para
-	 *         una inicializacion correcta. Ver clase
+	 *            Clave para el usuario
+	 * @return El campo infoCompleta.identificacionValida de esta clase
+	 *         contendra valdra true si la identifiacion ha sido correcta o
+	 *         false en otro caso. Si ha sido valida contendra toda la
+	 *         informacion necesaria que sera devuelta a la aplicacion para una
+	 *         inicializacion correcta. Ver clase
 	 *         <code>MIInformacionConexion</code>.
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public MIInformacionConexion identificar(String aplicacion, String usuario,
 			String clave)
 	{
@@ -118,11 +121,11 @@ public class AlmacenMetaInformacion
 	 * Cambiamos el estado de un usuario a conectado.
 	 * 
 	 * @param aplicacion
-	 *            String Aplicacion a la que pertenece el usuario
+	 *            Aplicacion a la que pertenece el usuario
 	 * @param usuario
-	 *            String Usuario que se ha conectado
-	 * @return String Devuelve el rol con el que se ha conectado al usuario. Rol
-	 *         por defecto. Si el usuario o aplicacion no existe valdra null.
+	 *            Usuario que se ha conectado
+	 * @return Devuelve el rol con el que se ha conectado al usuario. Rol por
+	 *         defecto. Si el usuario o aplicacion no existe valdra null.
 	 */
 	public String usuarioConectado(String aplicacion, String usuario)
 	{
@@ -136,9 +139,9 @@ public class AlmacenMetaInformacion
 	 * Cambiamos el estado de un usuario a desconectado.
 	 * 
 	 * @param aplicacion
-	 *            String Aplicacion a la que pertenece el usuario
+	 *            Aplicacion a la que pertenece el usuario
 	 * @param usuario
-	 *            String Usuario que se ha conectado
+	 *            Usuario que se ha conectado
 	 */
 	public void usuarioDesconectado(String aplicacion, String usuario)
 	{
@@ -146,6 +149,14 @@ public class AlmacenMetaInformacion
 		if (apl != null) apl.setUsuarioDesconectado(usuario);
 	}
 
+	/**
+	 * Actualiza la marca de tiempo de un usuario
+	 * 
+	 * @param aplicacion
+	 *            Nombre de la aplicacion a la que esta conectada el usuario
+	 * @param usuario
+	 *            Nombre del usuario
+	 */
 	public void actualizarMarcaTiempoUsuario(String aplicacion, String usuario)
 	{
 		MIAplicacion apl = obtenerAplicacion(aplicacion);
@@ -158,17 +169,17 @@ public class AlmacenMetaInformacion
 	 * cambiar a ese rol
 	 * 
 	 * @param aplicacion
-	 *            String Aplicacion a la que pertenece el usuario
+	 *            Aplicacion a la que pertenece el usuario
 	 * @param usuario
-	 *            String Usuario que cambia de rol
+	 *            Usuario que cambia de rol
 	 * @param rol
-	 *            String Nuevo rol del usuario
-	 * @return String Devuelve el mensaje resultante del cambio de rol. Si la
-	 *         longitud es 0 es que no ha habido ningun error. Si es mayor que 0
-	 *         contiene el error producido. Si vale null es porque no existe la
+	 *            Nuevo rol del usuario
+	 * @return Devuelve el mensaje resultante del cambio de rol. Si la longitud
+	 *         es 0 es que no ha habido ningun error. Si es mayor que 0 contiene
+	 *         el error producido. Si vale null es porque no existe la
 	 *         aplicacion indicada
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public MICompleta cambiarRolUsuarioConectado(String aplicacion,
 			String usuario, String rol)
 	{
@@ -217,12 +228,12 @@ public class AlmacenMetaInformacion
 	 * Obtiene los usuarios conectados en un cierto momento
 	 * 
 	 * @param aplicacion
-	 *            String Aplicacion de la cual queremos la informacion
-	 * @return Vector Vector de tamaño 2. En la primera posicion tiene un vector
-	 *         con los nombres de los usuarios conectados. En la segunda
-	 *         posicion tiene un vector con los roles con los que estan
-	 *         conectados esos usuarios. Si no existe la aplicacion devolvera
-	 *         null. Un posible valor devuelto podria ser:<br>
+	 *            Aplicacion de la cual queremos la informacion
+	 * @return Vector de tamaño 2. En la primera posicion tiene un vector con
+	 *         los nombres de los usuarios conectados. En la segunda posicion
+	 *         tiene un vector con los roles con los que estan conectados esos
+	 *         usuarios. Si no existe la aplicacion devolvera null. Un posible
+	 *         valor devuelto podria ser:<br>
 	 *         <br>
 	 *         Vector1 -> [LooPer,PeTer]<br>
 	 *         Vector2 -> [Jefe,Empleado]<br>
@@ -246,7 +257,7 @@ public class AlmacenMetaInformacion
 		return v;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector<MIUsuario> obtenerDatosUsuarios(String aplicacion)
 	{
 		MIAplicacion apl = obtenerAplicacion(aplicacion);
@@ -277,7 +288,7 @@ public class AlmacenMetaInformacion
 		return v; // Vector de String
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector<String> obtenerUsuarios(String aplicacion)
 	{
 		Vector v = null;
@@ -296,7 +307,7 @@ public class AlmacenMetaInformacion
 		return usr; // Vector de String
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector<String> obtenerUsuariosNoActualizados(String aplicacion)
 	{
 		Vector v = null;
@@ -315,7 +326,7 @@ public class AlmacenMetaInformacion
 		return usr; // Vector de String
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector<String> obtenerRoles(String aplicacion)
 	{
 		Vector v = null;
@@ -334,7 +345,7 @@ public class AlmacenMetaInformacion
 		return rl; // Vector de String
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector<String> obtenerComponentes(String aplicacion)
 	{
 		Vector v = null;

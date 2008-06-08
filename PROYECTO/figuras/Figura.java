@@ -5,8 +5,8 @@ import java.awt.Graphics;
 import java.io.Serializable;
 
 /**
- * Clase abstracta para la creacion de una figura
- * que pueda usarse para pintar en un lienzo
+ * Clase abstracta para la creacion de una figura que pueda usarse para pintar
+ * en un lienzo
  * 
  * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz
  */
@@ -31,8 +31,11 @@ public abstract class Figura implements Serializable
 
 	/**
 	 * Crea una nueva figura
-	 * @param x1 Coordenada x de la esquina superior izquierda de la figura
-	 * @param y1 Coordenada y de la esquina superior izquierda de la figura
+	 * 
+	 * @param x1
+	 *            Coordenada x de la esquina superior izquierda de la figura
+	 * @param y1
+	 *            Coordenada y de la esquina superior izquierda de la figura
 	 */
 	public Figura( int x1, int y1 )
 	{
@@ -42,6 +45,7 @@ public abstract class Figura implements Serializable
 
 	/**
 	 * Consulta la coordena x de la figura
+	 * 
 	 * @return Coordenada x de la esquina superior izquierda de la figura
 	 */
 	public int getX()
@@ -51,15 +55,21 @@ public abstract class Figura implements Serializable
 
 	/**
 	 * Comprueba si un determinado punto pertenece a la figura
-	 * @param x Coordenada x del punto
-	 * @param y Coordenada y del punto
+	 * 
+	 * @param x
+	 *            Coordenada x del punto
+	 * @param y
+	 *            Coordenada y del punto
 	 * @return True si el punto pertenece a la figura. False en caso contrario
 	 */
 	public abstract boolean pertenece(int x, int y);
 
 	/**
-	 * Actualiza el valor de la coordenada x de la esquina superior izquierda de la figura
-	 * @param x Valor x a poner
+	 * Actualiza el valor de la coordenada x de la esquina superior izquierda de
+	 * la figura
+	 * 
+	 * @param x
+	 *            Valor x a poner
 	 */
 	public void setX(int x)
 	{
@@ -68,6 +78,7 @@ public abstract class Figura implements Serializable
 
 	/**
 	 * Consulta la coordenada y de la figura
+	 * 
 	 * @return Coordenada y de la esquina superior izquierda de la figura
 	 */
 	public int getY()
@@ -76,8 +87,11 @@ public abstract class Figura implements Serializable
 	}
 
 	/**
-	 * Actualiza el valor de la coordenada y de la esquina superior izquierda de la figura
-	 * @param y Valor y a poner
+	 * Actualiza el valor de la coordenada y de la esquina superior izquierda de
+	 * la figura
+	 * 
+	 * @param y
+	 *            Valor y a poner
 	 */
 	public void setY(int y)
 	{
@@ -86,6 +100,7 @@ public abstract class Figura implements Serializable
 
 	/**
 	 * Consulta el color de la figura
+	 * 
 	 * @return Color de la figura
 	 */
 	public Color getColor()
@@ -95,7 +110,9 @@ public abstract class Figura implements Serializable
 
 	/**
 	 * Establece el color de la figura
-	 * @param color Color a establecer
+	 * 
+	 * @param color
+	 *            Color a establecer
 	 */
 	public void setColor(Color color)
 	{
@@ -104,7 +121,9 @@ public abstract class Figura implements Serializable
 
 	/**
 	 * Dibuja la figura el un objeto graphics
-	 * @param g Grafico sobre el que dibujar la figura
+	 * 
+	 * @param g
+	 *            Grafico sobre el que dibujar la figura
 	 */
 	public abstract void dibujar(Graphics g);
 }

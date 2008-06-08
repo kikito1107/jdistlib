@@ -6,6 +6,7 @@ import java.awt.RenderingHints;
 
 /**
  * Figura correspondiente a una linea
+ * 
  * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
 public class Linea extends Figura
@@ -24,10 +25,15 @@ public class Linea extends Figura
 
 	/**
 	 * Crea una nueva e linea
-	 * @param x1 Coordenada x de la esquina superior izquierda de la figura
-	 * @param y1 Coordenada y de la esquina superior izquierda de la figura
-	 * @param xf1 Coordenada x de la esquina inferior derecha de la figura
-	 * @param yf1 Coordenada y de la esquina inferior derecha de la figura
+	 * 
+	 * @param x1
+	 *            Coordenada x de la esquina superior izquierda de la figura
+	 * @param y1
+	 *            Coordenada y de la esquina superior izquierda de la figura
+	 * @param xf1
+	 *            Coordenada x de la esquina inferior derecha de la figura
+	 * @param yf1
+	 *            Coordenada y de la esquina inferior derecha de la figura
 	 */
 	public Linea( int x1, int y1, int xf1, int yf1 )
 	{
@@ -45,7 +51,7 @@ public class Linea extends Figura
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
-		g2.drawLine(x, y, xf ,yf);
+		g2.drawLine(x, y, xf, yf);
 	}
 
 	@Override

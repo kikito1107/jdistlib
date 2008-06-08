@@ -5,6 +5,7 @@ import java.util.Vector;
 
 /**
  * Figura correspondiente a un trazo a mano alzada
+ * 
  * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
 public class TrazoManoAlzada extends Figura
@@ -19,14 +20,16 @@ public class TrazoManoAlzada extends Figura
 	/**
 	 * Constructor
 	 */
-	public TrazoManoAlzada( )
+	public TrazoManoAlzada()
 	{
 		super(-1, -1);
 	}
 
 	/**
 	 * Agrega una nueva linea al trazo
-	 * @param l Linea a agregar
+	 * 
+	 * @param l
+	 *            Linea a agregar
 	 */
 	public void agregarLinea(Linea l)
 	{
