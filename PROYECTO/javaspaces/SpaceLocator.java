@@ -19,19 +19,29 @@ package javaspaces;
 
 import net.jini.space.JavaSpace;
 
+/**
+ * Permite localizar el JavaSpace
+ */
 public class SpaceLocator
 {
-
+	/**
+	 * Obtiene el JavaSpace cuyo nombre es "JavaSpace"
+	 * @return JavaSpace obtenido
+	 * @throws Exception
+	 */
 	public static JavaSpace getSpace() throws Exception
 	{
-
 		return (JavaSpace) ServiceLocator.getService(JavaSpace.class);
-
 	}
 
+	/**
+	 * Obtiene el JavaSpace que tiene con un nombre determinado
+	 * @param spaceName Nombre del JavaSpace
+	 * @return JavaSpace obtenido
+	 * @throws Exception
+	 */
 	public static JavaSpace getSpace(String spaceName) throws Exception
 	{
-
 		try
 		{
 			return (JavaSpace) ServiceLocator.getService(JavaSpace.class,

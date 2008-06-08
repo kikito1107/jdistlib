@@ -29,6 +29,10 @@ import net.jini.discovery.DiscoveryPermission;
 import net.jini.discovery.LookupDiscovery;
 import net.jini.lookup.entry.Name;
 
+/**
+ * Permite localizar los servicios necesarios
+ * para el JavaSpace
+ */
 public class ServiceLocator
 {
 	private Object _proxy;
@@ -40,14 +44,12 @@ public class ServiceLocator
 	public static Object getService(Class<?> serviceClass)
 			throws java.io.IOException, InterruptedException
 	{
-
 		return getService(serviceClass, null);
 	}
 
 	public static Object getService(Class<?> serviceClass, String serviceName)
 			throws java.io.IOException, InterruptedException
 	{
-
 		ServiceLocator sl = new ServiceLocator();
 		return sl.getServiceImpl(serviceClass, serviceName);
 	}
@@ -55,7 +57,6 @@ public class ServiceLocator
 	private Object getServiceImpl(Class<?> serviceClass, String serviceName)
 			throws java.io.IOException, InterruptedException
 	{
-
 		Class<?>[] types = new Class[]
 		{ serviceClass };
 		Entry[] entry = null;
@@ -71,7 +72,6 @@ public class ServiceLocator
 		}
 
 		LookupDiscovery disco = null;
-
 		DiscoveryPermission dp = new DiscoveryPermission("*");
 
 		try
@@ -105,14 +105,12 @@ public class ServiceLocator
 			}
 		disco.terminate();
 		return _proxy;
-
 	}
 
-	class Listener implements DiscoveryListener
+	private class Listener implements DiscoveryListener
 	{
 		public void discovered(DiscoveryEvent ev)
 		{
-
 			ServiceRegistrar[] reg = ev.getRegistrars();
 			for (int i = 0; ( i < reg.length ) && ( _proxy == null ); i++)
 				findService(reg[i]);
@@ -125,14 +123,11 @@ public class ServiceLocator
 
 	private void findService(ServiceRegistrar lus)
 	{
-
 		try
 		{
 			synchronized (_lock)
 			{
-
 				_proxy = lus.lookup(_template);
-
 				if (_proxy != null) _lock.notifyAll();
 			}
 		}
@@ -140,6 +135,5 @@ public class ServiceLocator
 		{
 			ex.printStackTrace();
 		}
-
 	}
 }
