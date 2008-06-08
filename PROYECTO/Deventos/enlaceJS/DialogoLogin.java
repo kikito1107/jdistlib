@@ -16,13 +16,12 @@ import javax.swing.JTextField;
 
 /**
  * Dialogo mostrado al inicio para introducir el nombre de usuario y password
+ * 
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public class DialogoLogin extends JDialog
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 8430574155310023329L;
 
 	JPanel panel1 = new JPanel();
