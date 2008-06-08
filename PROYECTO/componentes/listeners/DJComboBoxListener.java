@@ -3,30 +3,36 @@ package componentes.listeners;
 import Deventos.DJComboBoxEvent;
 
 /**
- * <p>
- * Title:
- * </p>
- * <p>
- * Description:
- * </p>
- * <p>
- * Copyright: Copyright (c) 2004
- * </p>
- * <p>
- * Company:
- * </p>
+ * Interfaz para los listeners de los combobox distribuidos
  * 
- * @author not attributable
- * @version 1.0
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public interface DJComboBoxListener
 {
+	/**
+	 * Accion cuando se abre el combobox
+	 */
 	public void abierto();
 
+	/**
+	 * Accion cuando se cierra el combobox
+	 */
 	public void cerrado();
 
+	/**
+	 * Accion cuando se cambia la seleccion de un elemento de la lista
+	 * 
+	 * @param evento
+	 *            Evento recibido
+	 */
 	public void cambioSeleccionLista(DJComboBoxEvent evento);
 
+	/**
+	 * Accion cuando se realiza una seleccion en la lista
+	 * 
+	 * @param evento
+	 *            Evento recibido
+	 */
 	public void seleccion(DJComboBoxEvent evento);
 }

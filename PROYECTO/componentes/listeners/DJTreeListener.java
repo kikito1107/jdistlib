@@ -3,26 +3,26 @@ package componentes.listeners;
 import Deventos.DJTreeEvent;
 
 /**
- * <p>
- * Title:
- * </p>
- * <p>
- * Description:
- * </p>
- * <p>
- * Copyright: Copyright (c) 2004
- * </p>
- * <p>
- * Company:
- * </p>
+ * Interfaz para los listeners de los arboles distribuidos
  * 
- * @author not attributable
- * @version 1.0
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public interface DJTreeListener
 {
+	/**
+	 * Accion realizada al abrir o cerrar una rama del arbol
+	 * 
+	 * @param evento
+	 *            Evento recibido
+	 */
 	public void apertura_cierre(DJTreeEvent evento);
 
+	/**
+	 * Accion realizada al cambiar la seleccion de nodo del arbol
+	 * 
+	 * @param evento
+	 *            Evento recibido
+	 */
 	public void seleccion(DJTreeEvent evento);
 }

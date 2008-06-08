@@ -3,26 +3,18 @@ package componentes.listeners;
 import Deventos.DJListEvent;
 
 /**
- * <p>
- * Title:
- * </p>
- * <p>
- * Description:
- * </p>
- * <p>
- * Copyright: Copyright (c) 2004
- * </p>
- * <p>
- * Company:
- * </p>
+ * Interfaz para los listeners de las listas distribuidas
  * 
- * @author not attributable
- * @version 1.0
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public interface DJListListener
 {
-
+	/**
+	 * Accion al cambiar la posicion seleccionada en la lista
+	 * 
+	 * @param evento
+	 *            Evento recibido
+	 */
 	public void cambioPosicion(DJListEvent evento);
-
 }

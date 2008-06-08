@@ -1,24 +1,16 @@
 package componentes.listeners;
 
 /**
- * <p>
- * Title:
- * </p>
- * <p>
- * Description:
- * </p>
- * <p>
- * Copyright: Copyright (c) 2004
- * </p>
- * <p>
- * Company:
- * </p>
+ * Interfaz para los listeners de los eventos de item de menu para el conjunto
+ * de usuarios conectados
  * 
- * @author not attributable
- * @version 1.0
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public interface LJMenuItemListener
 {
+	/**
+	 * Accion realizada al seleccionar el item de menu
+	 */
 	public void dispararAccion();
 }

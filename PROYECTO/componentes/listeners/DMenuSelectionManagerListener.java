@@ -3,24 +3,18 @@ package componentes.listeners;
 import Deventos.DMenuSelectionManagerEvent;
 
 /**
- * <p>
- * Title:
- * </p>
- * <p>
- * Description:
- * </p>
- * <p>
- * Copyright: Copyright (c) 2004
- * </p>
- * <p>
- * Company:
- * </p>
+ * Interfaz para los listeners de los manager de seleccion de menu distribuidos
  * 
- * @author not attributable
- * @version 1.0
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public interface DMenuSelectionManagerListener
 {
+	/**
+	 * Accion realizada al cambiar path de seleccion de un menu
+	 * 
+	 * @param evento
+	 *            Evento recibido
+	 */
 	public void cambioPath(DMenuSelectionManagerEvent evento);
 }

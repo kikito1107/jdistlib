@@ -3,24 +3,18 @@ package componentes.listeners;
 import Deventos.DJChatEvent;
 
 /**
- * <p>
- * Title:
- * </p>
- * <p>
- * Description:
- * </p>
- * <p>
- * Copyright: Copyright (c) 2004
- * </p>
- * <p>
- * Company:
- * </p>
+ * Interfaz para los listeners del chat
  * 
- * @author not attributable
- * @version 1.0
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public interface DJChatListener
 {
+	/**
+	 * Accion al recibir un nuevo mensaje
+	 * 
+	 * @param evento
+	 *            Evento recibido
+	 */
 	public void nuevoMensaje(DJChatEvent evento);
 }

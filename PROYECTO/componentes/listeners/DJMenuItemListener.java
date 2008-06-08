@@ -3,24 +3,18 @@ package componentes.listeners;
 import Deventos.DJMenuItemEvent;
 
 /**
- * <p>
- * Title:
- * </p>
- * <p>
- * Description:
- * </p>
- * <p>
- * Copyright: Copyright (c) 2004
- * </p>
- * <p>
- * Company:
- * </p>
+ * Interfaz para los listeners de los items de menu distribuidos
  * 
- * @author not attributable
- * @version 1.0
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public interface DJMenuItemListener
 {
+	/**
+	 * Accion ejecutada al cambiar el estado del item de menu
+	 * 
+	 * @param evento
+	 *            Evento recibido
+	 */
 	public void cambioEstado(DJMenuItemEvent evento);
 }
