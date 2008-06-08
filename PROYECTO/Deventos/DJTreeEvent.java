@@ -3,28 +3,13 @@ package Deventos;
 import java.util.Vector;
 
 /**
- * <p>
- * Title:
- * </p>
- * <p>
- * Description:
- * </p>
- * <p>
- * Copyright: Copyright (c) 2004
- * </p>
- * <p>
- * Company:
- * </p>
+ * Eventos distribuidos de arbol
  * 
- * @author not attributable
- * @version 1.0
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public class DJTreeEvent extends DEvent
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 8023764190845874051L;
 
 	public static final Integer SINCRONIZACION = new Integer(0);
@@ -41,10 +26,19 @@ public class DJTreeEvent extends DEvent
 	@SuppressWarnings( "unchecked" )
 	public Vector estado = null;
 
+	/**
+	 * Constructor por defecto
+	 */
 	public DJTreeEvent()
 	{
 	}
 
+	/**
+	 * Constructor de copias
+	 * 
+	 * @param evento
+	 *            Evento a copiar
+	 */
 	@SuppressWarnings( "unchecked" )
 	public DJTreeEvent( DJTreeEvent evento )
 	{

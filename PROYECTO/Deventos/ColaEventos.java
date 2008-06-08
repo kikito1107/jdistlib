@@ -6,12 +6,17 @@ import java.util.Vector;
  * Cola FIFO de eventos. Permite un esquema productor-consumidor de forma
  * sencilla. Cuando un usuario intenta extraer un evento y no hay ninguno
  * quedara bloqueado hasta que se reciba alguno.
+ * 
+ * @author Juan Antonio Ibañez Santorum
  */
 @SuppressWarnings( "unchecked" )
 public class ColaEventos
 {
 	private Vector v = null;
 
+	/**
+	 * Constructor
+	 */
 	public ColaEventos()
 	{
 		v = new Vector();
@@ -21,9 +26,8 @@ public class ColaEventos
 	 * Introduce un nuevo evento en la cola
 	 * 
 	 * @param e
-	 *            DEvent Evento a introducir
+	 *            Evento a introducir
 	 */
-
 	public synchronized void nuevoEvento(DEvent e)
 	{
 		v.add(e);
@@ -34,7 +38,7 @@ public class ColaEventos
 	 * Extrae un evento de la cola. Si la cola esta vacia el que llama al metodo
 	 * quedara bloqueado hasta que haya eventos en la cola que extraer.
 	 * 
-	 * @return DEvent Evento extraido
+	 * @return Evento extraido
 	 */
 	public synchronized DEvent extraerEvento()
 	{
@@ -60,7 +64,7 @@ public class ColaEventos
 	/**
 	 * Devuelve el numero de eventos disponibles en la cola para ser extraidos
 	 * 
-	 * @return int
+	 * @return Numero de eventos en la cola
 	 */
 	public synchronized int tamanio()
 	{

@@ -1,28 +1,13 @@
 package Deventos;
 
 /**
- * <p>
- * Title:
- * </p>
- * <p>
- * Description:
- * </p>
- * <p>
- * Copyright: Copyright (c) 2004
- * </p>
- * <p>
- * Company:
- * </p>
+ * Eventos distribuidos de toggle button
  * 
- * @author not attributable
- * @version 1.0
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public class DJToggleButtonEvent extends DEvent
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 8168417816387222116L;
 
 	public static final Integer SINCRONIZACION = new Integer(0);
@@ -37,6 +22,9 @@ public class DJToggleButtonEvent extends DEvent
 
 	public Boolean marcado = null;
 
+	/**
+	 * Constructor
+	 */
 	public DJToggleButtonEvent()
 	{
 	}

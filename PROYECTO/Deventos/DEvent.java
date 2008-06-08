@@ -5,52 +5,81 @@ import net.jini.core.entry.Entry;
 /**
  * Clase generica de eventos. Implementa la interfaz Entry para poder ser
  * escrito en el JavaSpace.
+ * 
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public class DEvent implements Entry
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -4485497108474849738L;
 
-	public Integer origen = null; // Origen del evento
+	/**
+	 * Origen del evento
+	 */
+	public Integer origen = null;
 
-	public Integer destino = null; // Destino del evento
+	/**
+	 * Destino del evento
+	 */
+	public Integer destino = null;
 
-	public Long contador = null; // Numero de secuencia del evento
+	/**
+	 * Numero de secuencia del evento
+	 */
+	public Long contador = null;
 
-	public String usuario = null; // Usuario que genera el evento
+	/**
+	 * Nombre de usuario que genera el evento
+	 */
+	public String usuario = null;
 
+	/**
+	 * Nombre del rol
+	 */
 	public String rol = null;
 
-	public Integer tipo = null; // Tipo de evento
+	/**
+	 * Identificador del tipo de evento
+	 */
+	public Integer tipo = null;
 
-	public String aplicacion = null; // Aplicacion que genera el evento
+	/**
+	 * Nombre de la aplicacion que genera el evento
+	 */
+	public String aplicacion = null;
 
-	public Integer componente = null; // Componente que genera el evento
+	/**
+	 * Identificador del componente que genera el evento
+	 */
+	public Integer componente = null;
 
-	public String nombreComponente = null; // Nombre del componente que genera
+	/**
+	 * Nombre del componente que genera el evento
+	 */
+	public String nombreComponente = null;
 
-	// el evento
+	/**
+	 * Ultimo evento procesado
+	 */
+	public Integer ultimoProcesado = null;
 
-	public Integer ultimoProcesado = null; // ultimo evento procesado por el
+	/**
+	 * Evento adjunto a este evento
+	 */
+	public DEvent eventoAdjunto = null;
 
-	// componente
-
-	// que genera el evento
-
-	public DEvent eventoAdjunto = null; // Evento adjunto a este evento
-
+	/**
+	 * Constructor
+	 */
 	public DEvent()
 	{
 	}
 
 	/**
-	 * Constructor que crea un evento identico a otro dado
+	 * Constructor de copias
 	 * 
 	 * @param evento
-	 *            DEvent Evento de referencia para generar el nuevo evento
+	 *            Evento de referencia para generar el nuevo evento
 	 */
 	public DEvent( DEvent evento )
 	{
@@ -78,7 +107,7 @@ public class DEvent implements Entry
 	 * Adjunta un evento a este evento
 	 * 
 	 * @param evento
-	 *            DEvent Evento que se desea adjuntar
+	 *            Evento que se desea adjuntar
 	 */
 	public void aniadirEventoAdjunto(DEvent evento)
 	{
@@ -86,12 +115,11 @@ public class DEvent implements Entry
 	}
 
 	/**
-	 * Extrae el evento ajunto. Cuando se extrae el evento se actualizan sus
+	 * Extrae el evento adjunto. Cuando se extrae el evento se actualizan sus
 	 * miembros contador, usuario y aplicacion de tal forma que sean iguales a
 	 * los del evento en el que estaba adjuntado
 	 * 
-	 * @return DEvent null si no hay evento adjunto o el evento ajunto cuando lo
-	 *         hay
+	 * @return null si no hay evento adjunto o el evento adjunto si existe
 	 */
 	public DEvent extraerEventoAdjunto()
 	{
@@ -104,6 +132,9 @@ public class DEvent implements Entry
 		return eventoAdjunto;
 	}
 
+	/**
+	 * Convierte el evento a una cadena de texto para poder hacer logging
+	 */
 	@Override
 	public String toString()
 	{

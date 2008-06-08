@@ -1,28 +1,13 @@
 package Deventos;
 
 /**
- * <p>
- * Title:
- * </p>
- * <p>
- * Description:
- * </p>
- * <p>
- * Copyright: Copyright (c) 2004
- * </p>
- * <p>
- * Company:
- * </p>
+ * Eventos distribuidos de checkbox
  * 
- * @author not attributable
- * @version 1.0
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public class DJCheckBoxEvent extends DEvent
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 811553538312735248L;
 
 	public static final Integer SINCRONIZACION = new Integer(0);
@@ -37,6 +22,9 @@ public class DJCheckBoxEvent extends DEvent
 
 	public Boolean marcada = null;
 
+	/**
+	 * Constructor
+	 */
 	public DJCheckBoxEvent()
 	{
 	}

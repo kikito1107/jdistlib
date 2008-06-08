@@ -1,35 +1,7 @@
 package Deventos;
 
-/**
- * <p>
- * Title:
- * </p>
- * <p>
- * Description:
- * </p>
- * <p>
- * Copyright: Copyright (c) 2004
- * </p>
- * <p>
- * Company:
- * </p>
- * 
- * @author not attributable
- * @version 1.0
- */
-
-/*
- * public class EventoComponenteEjemplo extends DEvent { public static final
- * Integer CAMBIO_ELEMENTO = new Integer(1);
- * 
- * String elemento = null; String elmento = null; Integer abc = null; }
- */
-
 public class EventoComponenteEjemplo extends DEvent
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -8190715672274625520L;
 
 	public static final Integer CAMBIO_ELEMENTO = new Integer(2);

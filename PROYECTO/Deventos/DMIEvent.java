@@ -9,28 +9,13 @@ import metainformacion.MIRol;
 import metainformacion.MIUsuario;
 
 /**
- * <p>
- * Title:
- * </p>
- * <p>
- * Description:
- * </p>
- * <p>
- * Copyright: Copyright (c) 2004
- * </p>
- * <p>
- * Company:
- * </p>
+ * Eventos distribuidos de metainformacion
  * 
- * @author not attributable
- * @version 1.0
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public class DMIEvent extends DEvent
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -2794199637466668512L;
 
 	public static final Integer IDENTIFICACION = new Integer(0);
@@ -212,6 +197,13 @@ public class DMIEvent extends DEvent
 
 	public Vector<MIUsuario> usuarios = null;
 
+	/**
+	 * Obtiene los permisos asociados a un componente
+	 * 
+	 * @param componente
+	 *            Componente del cual hallar los permisos
+	 * @return Permisos del componente
+	 */
 	public int obtenerPermisoComponente(String componente)
 	{
 		int permiso = -1;
@@ -220,6 +212,14 @@ public class DMIEvent extends DEvent
 		return permiso;
 	}
 
+	/**
+	 * Obtiene la metainformacion de un componente dando su nombre registrado en
+	 * el sistema
+	 * 
+	 * @param componente
+	 *            Nombre del componente
+	 * @return Metainformacion del componente o null en caso de que no exista
+	 */
 	private MIComponente obtenerComponente(String componente)
 	{
 		MIComponente cmp = null;
@@ -233,6 +233,9 @@ public class DMIEvent extends DEvent
 		return cmp;
 	}
 
+	/**
+	 * Convierte el evento a una cadena de texto. Permite realizar logging
+	 */
 	@Override
 	public String toString()
 	{

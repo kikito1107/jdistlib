@@ -7,28 +7,13 @@ import javax.swing.ImageIcon;
 import util.ElementoLista;
 
 /**
- * <p>
- * Title:
- * </p>
- * <p>
- * Description:
- * </p>
- * <p>
- * Copyright: Copyright (c) 2004
- * </p>
- * <p>
- * Company:
- * </p>
+ * Eventos distribuidos de lista
  * 
- * @author not attributable
- * @version 1.0
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public class DJListEvent extends DEvent
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -2737865599786314171L;
 
 	public static final Integer SINCRONIZACION = new Integer(0);
@@ -51,7 +36,7 @@ public class DJListEvent extends DEvent
 
 	public ImageIcon imagen = null;
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector elementos = null;
 
 	public ElementoLista ellista = null;
@@ -60,10 +45,19 @@ public class DJListEvent extends DEvent
 
 	public String[] textos = null;
 
+	/**
+	 * Constructor
+	 */
 	public DJListEvent()
 	{
 	}
 
+	/**
+	 * Constructor con parametros
+	 * 
+	 * @param nuevaPosicion
+	 *            Nueva posicion de seleccion en la lista
+	 */
 	public DJListEvent( int nuevaPosicion )
 	{
 		posicion = new Integer(nuevaPosicion);

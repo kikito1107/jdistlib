@@ -1,28 +1,13 @@
 package Deventos;
 
 /**
- * <p>
- * Title:
- * </p>
- * <p>
- * Description:
- * </p>
- * <p>
- * Copyright: Copyright (c) 2004
- * </p>
- * <p>
- * Company:
- * </p>
+ * Eventos distribuidos de combobox
  * 
- * @author not attributable
- * @version 1.0
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public class DJComboBoxEvent extends DEvent
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -6226445574909006631L;
 
 	public static final Integer SINCRONIZACION = new Integer(0);
@@ -43,11 +28,20 @@ public class DJComboBoxEvent extends DEvent
 
 	public Integer seleccionLista = null;
 
+	/**
+	 * Constructor por defecto
+	 */
 	public DJComboBoxEvent()
 	{
 
 	}
 
+	/**
+	 * Constructor de copias
+	 * 
+	 * @param evento
+	 *            Evento a copiar
+	 */
 	public DJComboBoxEvent( DJComboBoxEvent evento )
 	{
 		this.origen = ( evento.origen == null ) ? null : new Integer(

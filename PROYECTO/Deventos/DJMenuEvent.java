@@ -3,28 +3,13 @@ package Deventos;
 import java.util.Vector;
 
 /**
- * <p>
- * Title:
- * </p>
- * <p>
- * Description:
- * </p>
- * <p>
- * Copyright: Copyright (c) 2004
- * </p>
- * <p>
- * Company:
- * </p>
+ * Eventos distribuidos de menu
  * 
- * @author not attributable
- * @version 1.0
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public class DJMenuEvent extends DEvent
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -8785660228126158590L;
 
 	public static final Integer SINCRONIZACION = new Integer(0);
@@ -33,6 +18,6 @@ public class DJMenuEvent extends DEvent
 
 	public static final Integer CAMBIO_ESTADO = new Integer(2);
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector path = null;
 }

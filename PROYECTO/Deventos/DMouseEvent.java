@@ -1,28 +1,12 @@
 package Deventos;
 
 /**
- * <p>
- * Title:
- * </p>
- * <p>
- * Description:
- * </p>
- * <p>
- * Copyright: Copyright (c) 2004
- * </p>
- * <p>
- * Company:
- * </p>
+ * Eventos distribuidos de raton
  * 
- * @author not attributable
- * @version 1.0
+ * @author Juan Antonio Ibañez Santorum.
  */
-
 public class DMouseEvent extends DEvent
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 7584830432002351244L;
 
 	public static final Integer CAMBIO_POSICION = new Integer(0);

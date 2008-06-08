@@ -1,29 +1,13 @@
 package Deventos;
 
 /**
- * <p>
- * Title:
- * </p>
- * <p>
- * Description:
- * </p>
- * <p>
- * Copyright: Copyright (c) 2004
- * </p>
- * <p>
- * Company:
- * </p>
+ * Eventos distribuidos de boton
  * 
- * @author not attributable
- * @version 1.0
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public class DJButtonEvent extends DEvent
 {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 4070549006834251523L;
 
 	public static final Integer SINCRONIZACION = new Integer(0);
@@ -36,10 +20,19 @@ public class DJButtonEvent extends DEvent
 
 	public Boolean pulsado = null;
 
+	/**
+	 * Constructor por defecto
+	 */
 	public DJButtonEvent()
 	{
 	}
 
+	/**
+	 * Constructor de copias
+	 * 
+	 * @param evento
+	 *            Evento a copiar
+	 */
 	public DJButtonEvent( DJButtonEvent evento )
 	{
 		this.origen = ( evento.origen == null ) ? null : new Integer(
@@ -65,5 +58,4 @@ public class DJButtonEvent extends DEvent
 				evento.pulsado.booleanValue());
 
 	}
-
 }

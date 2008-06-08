@@ -3,28 +3,49 @@ package Deventos;
 import javax.swing.ImageIcon;
 
 /**
+ * Eventos distribuidos para el visor
  * 
- * @author Carlos Rodriguez Dominguez
- * @date 2-1-2008
+ * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz
  */
-
 public class DJViewerEvent extends DEvent
 {
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Identificador de evento de sincronizacion
+	 */
 	public static final Integer SINCRONIZACION = new Integer(77);
 
+	/**
+	 * Identificador de evento de respuesta de sincronizacion
+	 */
 	public static final Integer RESPUESTA_SINCRONIZACION = new Integer(78);
 
+	/**
+	 * Identificador de evento de carga completa
+	 */
 	public static final Integer CARGADO = new Integer(2);
 
+	/**
+	 * Imagen asociada al evento. No es conveniente usar este campo debido a la
+	 * sobrecarga de informacion que se realiza sobre el JavaSpace
+	 */
 	public ImageIcon contenido = null;
 
+	/**
+	 * Constructor por defecto
+	 */
 	public DJViewerEvent()
 	{
 
 	}
 
+	/**
+	 * Constructor de copias
+	 * 
+	 * @param evento
+	 *            Evento a copiar
+	 */
 	public DJViewerEvent( DJViewerEvent evento )
 	{
 		this.origen = ( evento.origen == null ) ? null : new Integer(
@@ -47,5 +68,4 @@ public class DJViewerEvent extends DEvent
 				: new Integer(evento.ultimoProcesado.intValue());
 		this.contenido = ( evento.contenido == null ) ? null : evento.contenido;
 	}
-
 }

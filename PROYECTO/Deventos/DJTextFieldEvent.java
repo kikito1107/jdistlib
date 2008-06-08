@@ -1,28 +1,13 @@
 package Deventos;
 
 /**
- * <p>
- * Title:
- * </p>
- * <p>
- * Description:
- * </p>
- * <p>
- * Copyright: Copyright (c) 2004
- * </p>
- * <p>
- * Company:
- * </p>
+ * Eventos distribuidos de campo de texto
  * 
- * @author not attributable
- * @version 1.0
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public class DJTextFieldEvent extends DEvent
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 7169940901048242521L;
 
 	public static final Integer SINCRONIZACION = new Integer(0);
