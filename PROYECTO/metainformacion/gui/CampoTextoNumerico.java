@@ -1,8 +1,5 @@
 package metainformacion.gui;
 
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-
 import javax.swing.JTextField;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
@@ -11,7 +8,6 @@ import javax.swing.text.PlainDocument;
 
 public class CampoTextoNumerico extends JTextField
 {
-
 	private static final long serialVersionUID = 1L;
 
 	public CampoTextoNumerico()
@@ -31,15 +27,8 @@ public class CampoTextoNumerico extends JTextField
 		return new DocumentoSoloNumeros();
 	}
 
-	private void focoGanado(FocusEvent e)
+	private static class DocumentoSoloNumeros extends PlainDocument
 	{
-		this.setSelectionStart(0);
-		this.setSelectionEnd(this.getText().length());
-	}
-
-	static class DocumentoSoloNumeros extends PlainDocument
-	{
-
 		private static final long serialVersionUID = 3L;
 
 		@Override
@@ -52,22 +41,6 @@ public class CampoTextoNumerico extends JTextField
 			for (int i = numeros.length - 1; i >= 0; i--)
 				if (( numeros[i] < '0' ) || ( numeros[i] > '9' )) return;
 			super.insertString(offs, new String(numeros), a);
-		}
-	}
-
-	class ListenerFocus extends FocusAdapter
-	{
-		CampoTextoNumerico campo;
-
-		ListenerFocus( CampoTextoNumerico campo )
-		{
-			this.campo = campo;
-		}
-
-		@Override
-		public void focusGained(FocusEvent e)
-		{
-			campo.focoGanado(e);
 		}
 	}
 }
