@@ -20,7 +20,6 @@ import componentes.listeners.DMIListener;
 /**
  * Cliente del modulo de metainformacion
  */
-
 @SuppressWarnings( "unchecked" )
 public class ClienteMetaInformacion
 {
@@ -52,7 +51,6 @@ public class ClienteMetaInformacion
 	public ClienteMetaInformacion( String aplicacion2, String usuario2,
 			String clave2 )
 	{
-
 		this.aplicacion = new String(aplicacion2);
 		this.usuario = new String(usuario2);
 		this.clave = new String(clave2);
