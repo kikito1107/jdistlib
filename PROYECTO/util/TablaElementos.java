@@ -7,23 +7,33 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 
 /**
- * Clase con la que se simplifica el uso de las tablas JTable añadiendo metodos
- * utiles para su utilizacion.
+ * Componente grafico que simplifica el uso de las tablas JTable, agregando
+ * metodos utiles para su utilizacion.
  * 
- * @author Juan Antonio Ibañez Santorum - ejido2002@hotmail.com
+ * @author Juan Antonio Ibañez Santorum. Ana Belen Pelegrina Ortiz. Carlos
+ *         Rodriguez Dominguez
  */
 
 public class TablaElementos extends JTable
 {
-
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Constructor con parametros
+	 * 
+	 * @param nombreColumnas
+	 *            Nombre de las columnas de la tabla
+	 * @param modelo
+	 *            Modelo para la tabla
+	 */
 	public TablaElementos( String[] nombreColumnas, TableModel modelo )
 	{
 		super(modelo);
 	}
 
 	/**
+	 * Constructor con parametros
+	 * 
 	 * @param nombreColumnas
 	 *            Array con el nombre de cada una de las columnas
 	 */
@@ -34,10 +44,10 @@ public class TablaElementos extends JTable
 	}
 
 	/**
-	 * Añadir una fila a la tabla
+	 * Agrega una fila a la tabla
 	 * 
 	 * @param fila
-	 *            Fila que deseamos añadir
+	 *            Fila que deseamos agregar
 	 */
 	public void aniadir(String[] fila)
 	{
@@ -45,10 +55,10 @@ public class TablaElementos extends JTable
 	}
 
 	/**
-	 * Añadir varias filas a la tabla
+	 * Agregar varias filas a la tabla
 	 * 
 	 * @param filas
-	 *            Filas que deseamos añadir
+	 *            Filas que deseamos agregar
 	 */
 	public void aniadir(String[][] filas)
 	{
@@ -57,6 +67,12 @@ public class TablaElementos extends JTable
 			modelo.aniadirFila(element);
 	}
 
+	/**
+	 * Elimina una fila de la tabla
+	 * 
+	 * @param numFila
+	 *            Numero de la fila a eliminar
+	 */
 	public void eliminarFila(int numFila)
 	{
 		ModeloTabla modelo = (ModeloTabla) this.getModel();
@@ -72,9 +88,9 @@ public class TablaElementos extends JTable
 	}
 
 	/**
-	 * Numero de filas en la tabla
+	 * Obtiene el numero de filas de la tabla
 	 * 
-	 * @return Numero de filas en la tabla
+	 * @return Numero de filas de la tabla
 	 */
 	public int numFilas()
 	{
@@ -113,17 +129,24 @@ public class TablaElementos extends JTable
 		return ( (ModeloTabla) this.getModel() ).getUltimaFila();
 	}
 
+	/**
+	 * Permite asignar un ancho a una columna
+	 * 
+	 * @param indexColumna
+	 *            Indice de la columna
+	 * @param tamanio
+	 *            Tamaño en pixels del ancho de la columna
+	 */
 	public void setAnchoColumna(int indexColumna, int tamanio)
 	{
 		this.getColumnModel().getColumn(indexColumna)
 				.setPreferredWidth(tamanio);
 	}
 
-	// **************************************************************
-	// MODELO USADO PARA LA TABLA
-	// **************************************************************
-
-	@SuppressWarnings("unchecked")
+	/**
+	 * Modelo usado para la tabla
+	 */
+	@SuppressWarnings( "unchecked" )
 	private class ModeloTabla extends AbstractTableModel
 	{
 		private static final long serialVersionUID = 1L;
@@ -133,6 +156,8 @@ public class TablaElementos extends JTable
 		private Vector v = null;
 
 		/**
+		 * Constructor
+		 * 
 		 * @param nombreColumnas
 		 *            Nombre de cada una de las columnas
 		 */
@@ -143,7 +168,7 @@ public class TablaElementos extends JTable
 		}
 
 		/**
-		 * Numero de columnas que tenemos
+		 * Numero de columnas de la tabla
 		 * 
 		 * @return Numero de columnas
 		 */
@@ -153,7 +178,7 @@ public class TablaElementos extends JTable
 		}
 
 		/**
-		 * Numero de filas que tenemos
+		 * Numero de filas de la tabla
 		 * 
 		 * @return Numero de filas
 		 */
@@ -191,16 +216,14 @@ public class TablaElementos extends JTable
 		}
 
 		/**
-		 * Saber si una celda es o no editable
+		 * Permite conocer si una celda es o no editable
 		 * 
 		 * @param row
-		 *            Fila de la celda para la que queremos conocer si es
-		 *            editable
+		 *            Fila de la tabla
 		 * @param col
-		 *            Columna de la celda para la que queremos conocer si es
-		 *            editable
-		 * @return En la actual implementacion ninguna de las columnas es
-		 *         editable por lo que devuelve siempre false
+		 *            Columna de la tabla
+		 * @return Siempre devuelve False, puesto que las celdas son no
+		 *         editables
 		 */
 		@Override
 		public boolean isCellEditable(int row, int col)
@@ -209,18 +232,24 @@ public class TablaElementos extends JTable
 		}
 
 		/**
-		 * Añadir una fila a la tabla
+		 * Agregar una fila a la tabla
 		 * 
 		 * @param fila
-		 *            Fila que queremos insertar
+		 *            Fila que queremos agregar
 		 */
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings( "unchecked" )
 		public void aniadirFila(String[] fila)
 		{
 			v.add(fila);
 			this.fireTableRowsInserted(v.size(), v.size());
 		}
 
+		/**
+		 * Elimina una fila de la tabla
+		 * 
+		 * @param numFila
+		 *            Numero de fila a eliminar
+		 */
 		public void eliminarFila(int numFila)
 		{
 			v.remove(numFila);
@@ -241,10 +270,10 @@ public class TablaElementos extends JTable
 		}
 
 		/**
-		 * Obtener una fila
+		 * Obtener una fila de la tabla
 		 * 
 		 * @param numFila
-		 *            Numero de la fila que queremos obtener
+		 *            Numero de fila
 		 * @return Fila deseada
 		 */
 		public String[] getFila(int numFila)
@@ -255,7 +284,7 @@ public class TablaElementos extends JTable
 		/**
 		 * Obtener la primera fila de la tabla
 		 * 
-		 * @return La primera fila de la tabla
+		 * @return Primera fila de la tabla
 		 */
 		public String[] getPrimeraFila()
 		{
@@ -265,13 +294,11 @@ public class TablaElementos extends JTable
 		/**
 		 * Obtener la ultima fila de la tabla
 		 * 
-		 * @return La ultima fila de la tabla
+		 * @return Ultima fila de la tabla
 		 */
 		public String[] getUltimaFila()
 		{
 			return (String[]) v.lastElement();
 		}
-
 	}
-
 }

@@ -11,23 +11,37 @@ import java.io.Serializable;
 
 import javax.swing.ImageIcon;
 
+/**
+ * Elemento de una lista con texto e icono asociado
+ */
 public class ElementoLista implements Serializable
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -7133828227559355237L;
 
 	transient public ImageIcon imagen = null;
 
 	transient public String texto = null;
 
+	/**
+	 * Constructor
+	 * 
+	 * @param imagen
+	 *            Imagen del elemento
+	 * @param texto
+	 *            Texto del elemento
+	 */
 	public ElementoLista( ImageIcon imagen, String texto )
 	{
 		this.imagen = imagen;
 		this.texto = texto;
 	}
 
+	/**
+	 * Constructor de copias
+	 * 
+	 * @param elemento
+	 *            Elemento a copiar
+	 */
 	public ElementoLista( ElementoLista elemento )
 	{
 		if (elemento.imagen != null)
@@ -55,7 +69,7 @@ public class ElementoLista implements Serializable
 	private void writeObject(ObjectOutputStream stream)
 			throws java.io.IOException
 	{
-		stream.defaultWriteObject(); // write non-transient, non-static data
+		stream.defaultWriteObject();
 		PixelGrabber grabber = null;
 		Object pix = null;
 		Dimension dim = null;
@@ -95,7 +109,7 @@ public class ElementoLista implements Serializable
 	{
 		try
 		{
-			stream.defaultReadObject(); // read non-transient, non-static data
+			stream.defaultReadObject();
 
 			Object rimagen = stream.readObject();
 			texto = (String) stream.readObject();

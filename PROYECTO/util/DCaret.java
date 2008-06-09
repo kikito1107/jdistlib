@@ -1,11 +1,3 @@
-/*
-
-	Implementar el acceso a las estaciones existentes de forma atomica
-
-
-
- */
-
 package util;
 
 import java.awt.Graphics;
@@ -44,12 +36,12 @@ import javax.swing.text.JTextComponent;
 import javax.swing.text.Position;
 import javax.swing.text.Segment;
 
+/**
+ * Acceso a las estaciones de forma atomica
+ */
 public class DCaret extends Rectangle implements Caret, FocusListener,
 		MouseListener, MouseMotionListener
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -1242950692357469828L;
 
 	Rectangle grupo = new Rectangle();
@@ -1132,11 +1124,9 @@ public class DCaret extends Rectangle implements Caret, FocusListener,
 				visible = !visible;
 				try
 				{
-					
 
 					/*
-					 * TextUI mapper = component.getUI();
-					 * for(int i=0; i<dJTextPane.grupoTrabajo.estaciones.size();
+					 * TextUI mapper = component.getUI(); for(int i=0; i<dJTextPane.grupoTrabajo.estaciones.size();
 					 * i++){ DEstacion estacion =
 					 * (DEstacion)dJTextPane.grupoTrabajo.estaciones.elementAt(i);
 					 * estacion.r = mapper.modelToView(getComponent(),
@@ -1342,7 +1332,6 @@ public class DCaret extends Rectangle implements Caret, FocusListener,
  * "+estacion.getPosicionCaret()); } }
  */
 // *****************************************************************************
-
 // see if we should paint a flag to indicate the bias
 // of the caret.
 // PENDING(prinz) this should be done through
@@ -1365,8 +1354,7 @@ public class DCaret extends Rectangle implements Caret, FocusListener,
  * (DEstacion)dJTextPane.grupoTrabajo.estaciones.elementAt(0); r =
  * mapper.modelToView(super.getComponent(), estacion.getPosicionCaret(),
  * dotBias); g.setColor(Color.red); g.drawLine(r.x, r.y, r.x, r.y + r.height -
- * 1);
- *  }
+ * 1); }
  * 
  * 
  * public PathIterator getPathIterator(AffineTransform at, double flatness) {
@@ -1410,6 +1398,5 @@ public class DCaret extends Rectangle implements Caret, FocusListener,
 /*
  * throw new java.lang.UnsupportedOperationException("Method getPathIterator()
  * not yet implemented."); }
- * 
  *  }
  */

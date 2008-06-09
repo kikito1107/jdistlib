@@ -25,7 +25,6 @@ import javax.swing.filechooser.FileFilter;
  */
 public class FiltroFichero extends FileFilter
 {
-
 	private Hashtable<String, FiltroFichero> filters = null;
 
 	private String description = null;
@@ -156,8 +155,7 @@ public class FiltroFichero extends FileFilter
 	 */
 	public void addExtension(String extension)
 	{
-		if (filters == null)
-			filters = new Hashtable<String, FiltroFichero>(5);
+		if (filters == null) filters = new Hashtable<String, FiltroFichero>(5);
 		filters.put(extension.toLowerCase(), this);
 		fullDescription = null;
 	}

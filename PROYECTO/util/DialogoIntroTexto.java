@@ -15,9 +15,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+/**
+ * Dialogo para la introduccion de un texto
+ * 
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
+ */
 public class DialogoIntroTexto extends JDialog
 {
-
 	private static final long serialVersionUID = 1L;
 
 	private JPanel jContentPane = null;
@@ -32,12 +37,15 @@ public class DialogoIntroTexto extends JDialog
 
 	private JTextArea jTextArea = null;
 
-	private String texto = ""; // @jve:decl-index=0:
+	private String texto = "";
 
 	private JPanel jPanel1 = null;
 
 	/**
+	 * Constructor
+	 * 
 	 * @param owner
+	 *            Ventana padre del dialogo
 	 */
 	public DialogoIntroTexto( Frame owner )
 	{
@@ -46,9 +54,7 @@ public class DialogoIntroTexto extends JDialog
 	}
 
 	/**
-	 * This method initializes this
-	 * 
-	 * @return void
+	 * Inicializa el dialogo
 	 */
 	private void initialize()
 	{
@@ -57,11 +63,6 @@ public class DialogoIntroTexto extends JDialog
 		this.setContentPane(getJContentPane());
 	}
 
-	/**
-	 * This method initializes jContentPane
-	 * 
-	 * @return javax.swing.JPanel
-	 */
 	private JPanel getJContentPane()
 	{
 		if (jContentPane == null)
@@ -77,11 +78,6 @@ public class DialogoIntroTexto extends JDialog
 		return jContentPane;
 	}
 
-	/**
-	 * This method initializes jPanel
-	 * 
-	 * @return javax.swing.JPanel
-	 */
 	private JPanel getJPanel()
 	{
 		if (jPanel == null)
@@ -93,12 +89,7 @@ public class DialogoIntroTexto extends JDialog
 		return jPanel;
 	}
 
-	/**
-	 * This method initializes jButton
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private JButton getJButton()
+	private JButton getBotonCancelar()
 	{
 		if (botonCancelar == null)
 		{
@@ -119,12 +110,7 @@ public class DialogoIntroTexto extends JDialog
 		return botonCancelar;
 	}
 
-	/**
-	 * This method initializes jButton1
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private JButton getJButton1()
+	private JButton getBotonAceptar()
 	{
 		if (botonAceptar == null)
 		{
@@ -145,11 +131,6 @@ public class DialogoIntroTexto extends JDialog
 		return botonAceptar;
 	}
 
-	/**
-	 * This method initializes jScrollPane
-	 * 
-	 * @return javax.swing.JScrollPane
-	 */
 	private JScrollPane getJScrollPane()
 	{
 		if (jScrollPane == null)
@@ -160,11 +141,6 @@ public class DialogoIntroTexto extends JDialog
 		return jScrollPane;
 	}
 
-	/**
-	 * This method initializes jTextArea
-	 * 
-	 * @return javax.swing.JTextArea
-	 */
 	private JTextArea getJTextArea()
 	{
 		if (jTextArea == null)
@@ -182,6 +158,35 @@ public class DialogoIntroTexto extends JDialog
 		return jTextArea;
 	}
 
+	private JPanel getJPanel1()
+	{
+		if (jPanel1 == null)
+		{
+			GridBagConstraints gridBagConstraints = new GridBagConstraints();
+			gridBagConstraints.insets = new Insets(4, 4, 4, 4);
+			gridBagConstraints.gridx = 1;
+			gridBagConstraints.gridy = 0;
+			gridBagConstraints.ipadx = 0;
+			gridBagConstraints.gridwidth = 1;
+			GridBagConstraints gridBagConstraints1 = new GridBagConstraints();
+			gridBagConstraints1.fill = GridBagConstraints.NONE;
+			gridBagConstraints1.gridx = 0;
+			gridBagConstraints1.gridy = 0;
+			gridBagConstraints1.ipadx = 0;
+			gridBagConstraints1.insets = new Insets(4, 4, 4, 4);
+			jPanel1 = new JPanel();
+			jPanel1.setLayout(new GridBagLayout());
+			jPanel1.add(getBotonAceptar(), gridBagConstraints1);
+			jPanel1.add(getBotonCancelar(), gridBagConstraints);
+		}
+		return jPanel1;
+	}
+
+	/**
+	 * Obtiene el texto introducido
+	 * 
+	 * @return Texto introducido
+	 */
 	public String obtenerTexto()
 	{
 		setTitle("Introduce el texto");
@@ -203,33 +208,4 @@ public class DialogoIntroTexto extends JDialog
 		return texto;
 
 	}
-
-	/**
-	 * This method initializes jPanel1
-	 * 
-	 * @return javax.swing.JPanel
-	 */
-	private JPanel getJPanel1()
-	{
-		if (jPanel1 == null)
-		{
-			GridBagConstraints gridBagConstraints = new GridBagConstraints();
-			gridBagConstraints.insets = new Insets(4, 4, 4, 4);
-			gridBagConstraints.gridx = 1;
-			gridBagConstraints.gridy = 0;
-			gridBagConstraints.ipadx = 0;
-			gridBagConstraints.gridwidth = 1;
-			GridBagConstraints gridBagConstraints1 = new GridBagConstraints();
-			gridBagConstraints1.fill = GridBagConstraints.NONE;
-			gridBagConstraints1.gridx = 0;
-			gridBagConstraints1.gridy = 0;
-			gridBagConstraints1.ipadx = 0;
-			gridBagConstraints1.insets = new Insets(4, 4, 4, 4);
-			jPanel1 = new JPanel();
-			jPanel1.setLayout(new GridBagLayout());
-			jPanel1.add(getJButton1(), gridBagConstraints1);
-			jPanel1.add(getJButton(), gridBagConstraints);
-		}
-		return jPanel1;
-	}
-} // @jve:decl-index=0:visual-constraint="10,10"
+}

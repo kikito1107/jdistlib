@@ -11,39 +11,29 @@ import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
 
 /**
- * <p>
- * Title:
- * </p>
- * <p>
- * Description:
- * </p>
- * <p>
- * Copyright: Copyright (c) 2004
- * </p>
- * <p>
- * Company:
- * </p>
+ * Componente lista que hace uso de entradas que tiene asociado un icono y un
+ * texto
  * 
- * @author not attributable
- * @version 1.0
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings( "unchecked" )
 public class ListaElementos extends JList
 {
-
 	private static final long serialVersionUID = 1L;
-
-	ImageIcon img = new ImageIcon("Resources/openFile.png");
 
 	private Modelo model = null;
 
+	/**
+	 * Constructor
+	 */
 	public ListaElementos()
 	{
 		super();
 		extrasConstructor();
 	}
 
-	public void extrasConstructor()
+	private void extrasConstructor()
 	{
 		this.getSelectionModel().setSelectionMode(
 				ListSelectionModel.SINGLE_SELECTION);
@@ -52,11 +42,25 @@ public class ListaElementos extends JList
 		this.setModel(model);
 	}
 
+	/**
+	 * Agrega un elemento a la lista
+	 * 
+	 * @param texto
+	 *            Texto a agregar
+	 */
 	public void aniadirElemento(String texto)
 	{
 		model.addElement(new ElementoLista(null, texto));
 	}
 
+	/**
+	 * Agrega un elemento a la lista en una posicion determinada
+	 * 
+	 * @param texto
+	 *            Texto a agregar
+	 * @param posicion
+	 *            Posicion en la lista
+	 */
 	public void aniadirElemento(String texto, int posicion)
 	{
 		model.add(posicion, new ElementoLista(null, texto));
@@ -68,23 +72,51 @@ public class ListaElementos extends JList
 		// model.addElement(new ElementoLista(this.img, texto));
 	}
 
+	/**
+	 * Agrega un elemento a la lista con icono, un texto y en una posicion
+	 * determinada
+	 * 
+	 * @param imagen
+	 *            Icono del elemento
+	 * @param texto
+	 *            Texto del elemento
+	 * @param posicion
+	 *            Posicion del elemento en la lista
+	 */
 	public void aniadirElemento(ImageIcon imagen, String texto, int posicion)
 	{
 		model.add(posicion, new ElementoLista(imagen, texto));
 	}
 
+	/**
+	 * Agrega un conjunto de elementos a la lista
+	 * 
+	 * @param elementos
+	 *            Array de cadenas de texto a agregar
+	 */
 	public void aniadirElementos(String[] elementos)
 	{
 		for (String element : elementos)
 			model.addElement(new ElementoLista(null, element));
 	}
 
+	/**
+	 * Obtiene el numero de elementos que hay en la lista
+	 * 
+	 * @return Numero de elementos de la lista
+	 */
 	public int obtenerNumElementos()
 	{
 		return model.getSize();
 	}
 
-	@SuppressWarnings("unchecked")
+	/**
+	 * Obtiene los elementos de la lista
+	 * 
+	 * @return Vector con los elementos de la lista (clase
+	 * @see ElementoLista)
+	 */
+	@SuppressWarnings( "unchecked" )
 	public Vector obtenerElementos()
 	{
 		Vector v = new Vector();
@@ -97,6 +129,11 @@ public class ListaElementos extends JList
 		return v;
 	}
 
+	/**
+	 * Obtiene el elemento seleccionado
+	 * 
+	 * @return Cadena con el texto del elemento seleccionado
+	 */
 	public String obtenerElementoSeleccionado()
 	{
 		String elemento = null;
@@ -105,6 +142,11 @@ public class ListaElementos extends JList
 		return elemento;
 	}
 
+	/**
+	 * Obtiene los elementos seleccionados en la lista
+	 * 
+	 * @return Elementos seleccionados
+	 */
 	public String[] obtenerElementosSeleccionados()
 	{
 		ElementoLista[] el = (ElementoLista[]) getSelectedValues();
@@ -115,6 +157,13 @@ public class ListaElementos extends JList
 		return els;
 	}
 
+	/**
+	 * Obtiene la posicion de un elemento
+	 * 
+	 * @param elemento
+	 *            Elemento a buscar
+	 * @return Posicion del elemento o -1 si no se encontro
+	 */
 	public int obtenerPosicionElemento(String elemento)
 	{
 		int pos = -1;
@@ -133,29 +182,46 @@ public class ListaElementos extends JList
 		return pos;
 	}
 
+	/**
+	 * Elimina todos los elementos de la lista
+	 */
 	public void eliminarElementos()
 	{
 		model.removeAllElements();
 	}
 
+	/**
+	 * Elimina un elemento concreto de la lista
+	 * 
+	 * @param elemento
+	 *            Elemento a eliminar
+	 */
 	public void eliminarElemento(String elemento)
 	{
 		model.removeElement(elemento);
 	}
 
+	/**
+	 * Elimina el elemento de una posicion de la lista
+	 * 
+	 * @param posicion
+	 *            Posicion del elemento a eliminar
+	 */
 	public void eliminarElemento(int posicion)
 	{
 		if (posicion < obtenerNumElementos()) model.remove(posicion);
 	}
 
+	/**
+	 * Renderiza los elementos de la lista
+	 */
 	private class CellRenderer extends JLabel implements ListCellRenderer
 	{
-
-		/**
-		 * 
-		 */
 		private static final long serialVersionUID = -6591636148692100033L;
 
+		/**
+		 * Constructor por defecto
+		 */
 		public CellRenderer()
 		{
 			setOpaque(true);
@@ -163,9 +229,8 @@ public class ListaElementos extends JList
 			setVerticalAlignment(CENTER);
 		}
 
-		/*
-		 * This method finds the image and text corresponding to the selected
-		 * value and returns the label, set up to display the text and image.
+		/**
+		 * Pone el icono al elemento de la lista correspondiente
 		 */
 		public Component getListCellRendererComponent(JList list, Object value,
 				int index, boolean isSelected, boolean cellHasFocus)
@@ -193,11 +258,11 @@ public class ListaElementos extends JList
 		}
 	}
 
+	/**
+	 * Modelo para la lista
+	 */
 	private class Modelo extends DefaultListModel
 	{
-		/**
-		 * 
-		 */
 		private static final long serialVersionUID = 1L;
 
 		@Override

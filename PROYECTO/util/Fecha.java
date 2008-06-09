@@ -11,7 +11,6 @@ import java.util.GregorianCalendar;
  * 
  * @author: LooPer (ejido2002@hotmail.com)
  */
-
 public class Fecha
 {
 	public static final int HCVNDay = 4;

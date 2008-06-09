@@ -558,6 +558,7 @@ public class JFontChooser extends JComponent
 		 * 
 		 */
 		private static final long serialVersionUID = 8802274939066478971L;
+
 		private JDialog dialog;
 
 		protected DialogOKAction( JDialog dialog )
@@ -580,6 +581,7 @@ public class JFontChooser extends JComponent
 		 * 
 		 */
 		private static final long serialVersionUID = 3190442527102418607L;
+
 		private JDialog dialog;
 
 		protected DialogCancelAction( JDialog dialog )

@@ -6,15 +6,18 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 /**
- * Separador utilizado en la generacion de 
- * @author anab
+ * Separador utilizado para las barras de herramientas
+ * 
+ * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
 public class Separador extends JButton
 {
 	private static final long serialVersionUID = 3115477453021523269L;
 
 	/**
-	 * Crea un nuevo separador
+	 * Constructor
+	 * 
+	 * @pre La imagen "Resources/separador.gif" debe existir
 	 */
 	public Separador()
 	{
@@ -30,7 +33,10 @@ public class Separador extends JButton
 
 	/**
 	 * Establece el icono con el que se pinta el separador
-	 * @param path path del fichero del nuevo icono
+	 * 
+	 * @param path
+	 *            Path del fichero con el icono en cualquier formato de imagen
+	 *            soportado por Java
 	 */
 	public void setIcon(String path)
 	{

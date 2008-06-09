@@ -11,33 +11,19 @@ import javax.swing.MenuSelectionManager;
 
 import Deventos.enlaceJS.DConector;
 
-import componentes.base.DComponente;
-import componentes.base.HebraProcesadoraBase;
 import componentes.listeners.DMenuSelectionManagerListener;
 import Deventos.ColaEventos;
 import Deventos.DEvent;
 import Deventos.DJListEvent;
-import Deventos.DMIEvent;
 import Deventos.DMenuSelectionManagerEvent;
 
 /**
- * <p>
- * Title:
- * </p>
- * <p>
- * Description:
- * </p>
- * <p>
- * Copyright: Copyright (c) 2004
- * </p>
- * <p>
- * Company:
- * </p>
+ * Implementa un manejador de seleccion para los menus distribuidos
  * 
- * @author not attributable
- * @version 1.0
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings( "unchecked" )
 public class DMenuSelectionManager extends MenuSelectionManager
 {
 	private static final DMenuSelectionManager dinstance = new DMenuSelectionManager();
@@ -60,6 +46,12 @@ public class DMenuSelectionManager extends MenuSelectionManager
 
 	private JMenuBar barraMenu = null;
 
+	/**
+	 * Inicializa la clase
+	 * 
+	 * @param barraMenu
+	 *            Barra de menu asociada al menu
+	 */
 	public void inicializar(JMenuBar barraMenu)
 	{
 		if (!inicializado)
@@ -72,46 +64,53 @@ public class DMenuSelectionManager extends MenuSelectionManager
 		}
 	}
 
+	/**
+	 * Obtiene la barra de menu
+	 * 
+	 * @return Barra de menu asociada
+	 */
 	public JMenuBar getBarraMenu()
 	{
 		return barraMenu;
 	}
 
+	/**
+	 * Indica si esta o no oculto
+	 * 
+	 * @return False siempre
+	 */
 	public boolean oculto()
 	{
 		return false;
 	}
 
-	public void padreOcultado()
-	{
-	}
-
-	public void padreMostrado()
-	{
-	}
-
-	public DComponente obtenerPadre()
-	{
-		return null;
-	}
-
-	public int obtenerNumComponentesHijos()
-	{
-		return 0;
-	}
-
-	
+	/**
+	 * Agrega un listener al manejador
+	 * 
+	 * @param listener
+	 *            Listener para el manejador
+	 */
 	public void addDMenuSelectionManagerListener(
 			DMenuSelectionManagerListener listener)
 	{
 		dmenuselectionmanagerlisteners.add(listener);
 	}
 
+	/**
+	 * Obtiene los listeners para el manejador
+	 * 
+	 * @return Vector con los listeners para el manejador
+	 */
 	public Vector getDMenuSelectionManagerListeners()
 	{
 		return dmenuselectionmanagerlisteners;
 	}
 
+	/**
+	 * Obtiene la instancia del manejador
+	 * 
+	 * @return Instancia del manejador
+	 */
 	public static MenuSelectionManager defaultManager()
 	{
 		return dinstance;
@@ -120,15 +119,7 @@ public class DMenuSelectionManager extends MenuSelectionManager
 	@Override
 	public void setSelectedPath(MenuElement[] path)
 	{
-		/*
-		 * DMenuSelectionManagerEvent evento = new DMenuSelectionManagerEvent();
-		 * evento.path = pathToVector(path); Vector v =
-		 * getDMenuSelectionManagerListeners(); for(int i=0; i<v.size(); i++){
-		 * ((DMenuSelectionManagerListener)v.elementAt(i)).cambioPath(evento); }
-		 */
 		super.setSelectedPath(path);
-		// System.out.println("["+contador++ +"S]DMenuSelecionManager:
-		// setSelectedPath()");
 	}
 
 	private void superSetSelectedPath(MenuElement[] path)
@@ -139,39 +130,32 @@ public class DMenuSelectionManager extends MenuSelectionManager
 	@Override
 	public MenuElement[] getSelectedPath()
 	{
-		// System.out.println("["+contador++ +"G]DMenuSelecionManager:
-		// getSelectedPath()");
 		return super.getSelectedPath();
 	}
 
-	public void activar()
-	{
-		//
-	}
-
-	public void desactivar()
-	{
-		//
-	}
-
+	/**
+	 * Inicia la hebra procesadora de eventos
+	 */
 	public void iniciarHebraProcesadora()
 	{
 		Thread t = new Thread(new HebraProcesadora(colaRecepcion, this));
 		t.start();
-		// System.out.println("DMenuSelectionManager("+DID+"): Iniciada hebra
-		// procesadora");
 	}
 
+	/**
+	 * Procesa un evento
+	 * 
+	 * @param evento
+	 *            Evento a procesar
+	 */
 	public void procesarEvento(DEvent evento)
 	{
 		colaRecepcion.nuevoEvento(evento);
 	}
 
-	public void procesarMetaInformacion(DMIEvent evento)
-	{
-
-	}
-
+	/**
+	 * Sincroniza los componentes
+	 */
 	public void sincronizar()
 	{
 		DMenuSelectionManagerEvent evento = new DMenuSelectionManagerEvent();
@@ -185,41 +169,74 @@ public class DMenuSelectionManager extends MenuSelectionManager
 		colaEnvio.nuevoEvento(evento);
 	}
 
+	/**
+	 * Asigna un nivel de permisos
+	 * 
+	 * @param nivel
+	 *            Nivel de permisos
+	 */
 	public void setNivelPermisos(int nivel)
 	{
 		nivelPermisos = nivel;
 	}
 
+	/**
+	 * Obtiene el nivel de permisos
+	 * 
+	 * @return Nivel de permisos
+	 */
 	public int getNivelPermisos()
 	{
 		return nivelPermisos;
 	}
 
+	/**
+	 * Obtiene el identificador del componente
+	 * 
+	 * @return Identificador del componente
+	 */
 	public Integer getID()
 	{
 		return DID;
 	}
 
+	/**
+	 * Obtiene el nombre del componente
+	 * 
+	 * @return Nombre del componente
+	 */
 	public String getNombre()
 	{
 		return nombre;
 	}
 
+	/**
+	 * Obtiene la cola de recepcion de eventos
+	 * 
+	 * @return Cola de eventos
+	 */
 	public ColaEventos obtenerColaRecepcion()
 	{
 		return colaRecepcion;
 	}
 
+	/**
+	 * Obtiene la cola de envio de eventos
+	 * 
+	 * @return Cola de eventos
+	 */
 	public ColaEventos obtenerColaEnvio()
 	{
 		return colaEnvio;
 	}
 
-	public HebraProcesadoraBase crearHebraProcesadora()
-	{
-		return null;
-	}
-
+	/**
+	 * Convierte un path de seleccion a un vector
+	 * 
+	 * @param path
+	 *            Path de seleccion
+	 * @return Vector creado a partir del path de seleccion
+	 */
 	private Vector pathToVector(MenuElement[] path)
 	{
 		Vector v = new Vector();
@@ -239,6 +256,13 @@ public class DMenuSelectionManager extends MenuSelectionManager
 		return v;
 	}
 
+	/**
+	 * Convierte un vector a un path de seleccion
+	 * 
+	 * @param v
+	 *            Vector a convertir
+	 * @return Array de elementos de menu que forman el path de seleccion
+	 */
 	private MenuElement[] vectorToPath(Vector v)
 	{
 		MenuElement[] me = new MenuElement[v.size()];
@@ -265,6 +289,9 @@ public class DMenuSelectionManager extends MenuSelectionManager
 		return me;
 	}
 
+	/**
+	 * Permite probar la clase
+	 */
 	public void prueba()
 	{
 		MenuElement[] me = dinstance.getSelectedPath();
@@ -274,7 +301,9 @@ public class DMenuSelectionManager extends MenuSelectionManager
 		dinstance.setSelectedPath(me);
 	}
 
-	// *****************************************************************************
+	/**
+	 * Listener para el cambio de path en la seleccion
+	 */
 	private class Listener implements DMenuSelectionManagerListener
 	{
 		public void cambioPath(DMenuSelectionManagerEvent evento)
@@ -292,19 +321,29 @@ public class DMenuSelectionManager extends MenuSelectionManager
 		}
 	}
 
-	class HebraProcesadora implements Runnable
+	/**
+	 * Hebra encargada de procesar los eventos
+	 */
+	private class HebraProcesadora implements Runnable
 	{
+		private ColaEventos cola = null;
 
-		ColaEventos cola = null;
-
-		DMenuSelectionManager manager = null;
-
-		HebraProcesadora( ColaEventos cola, DMenuSelectionManager manager )
+		/**
+		 * Constructor
+		 * 
+		 * @param cola
+		 *            Cola de eventos
+		 * @param manager
+		 *            Manejador de seleccion de menus
+		 */
+		public HebraProcesadora( ColaEventos cola, DMenuSelectionManager manager )
 		{
 			this.cola = cola;
-			this.manager = manager;
 		}
 
+		/**
+		 * Ejecucion de la hebra
+		 */
 		public void run()
 		{
 			DMenuSelectionManagerEvent evento = null;
@@ -313,7 +352,7 @@ public class DMenuSelectionManager extends MenuSelectionManager
 			ColaEventos colaAux = new ColaEventos();
 
 			int numEventos = colaRecepcion.tamanio(); // Para evitar quedarnos
-														// bloqueados
+			// bloqueados
 			// int i=0;
 			// int posicion=-1;
 			// boolean encontradaRespuestaSincronizacion = false;
@@ -323,13 +362,6 @@ public class DMenuSelectionManager extends MenuSelectionManager
 				ultimoProcesado = new Integer(respSincr.ultimoProcesado
 						.intValue());
 				superSetSelectedPath(vectorToPath(respSincr.path));
-				// System.out.println("HebraProcesadora("+DID+"): Sincronizacion
-				// realizada");
-			}
-			else
-			{
-				// System.out.println("HebraProcesadora("+DID+"): Iniciado sin
-				// sincronizacion");
 			}
 
 			// Colocamos en la cola de recepcion los eventos que deben ser
@@ -371,7 +403,5 @@ public class DMenuSelectionManager extends MenuSelectionManager
 				}
 			}
 		}
-
 	}
-
 }

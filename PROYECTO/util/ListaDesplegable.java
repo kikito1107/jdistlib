@@ -7,13 +7,8 @@ import javax.swing.JComboBox;
  * 
  * @author LooPer (ejido2002@hotmail.com)
  */
-
 public class ListaDesplegable extends JComboBox
 {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	/**

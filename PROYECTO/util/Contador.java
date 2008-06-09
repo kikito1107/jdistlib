@@ -1,66 +1,87 @@
 package util;
 
 /**
- * <p>
- * Title:
- * </p>
- * <p>
- * Description:
- * </p>
- * <p>
- * Copyright: Copyright (c) 2004
- * </p>
- * <p>
- * Company:
- * </p>
+ * Contador totalmente sincronizado para poder acceder a el desde distintas
+ * hebras
  * 
- * @author not attributable
- * @version 1.0
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public class Contador
 {
 	private int contador = -1;
 
 	private int tiempo = -1;
 
+	/**
+	 * Constructor
+	 * 
+	 * @param tiempo
+	 *            Tiempo inicial del contador
+	 */
 	public Contador( int tiempo )
 	{
 		this.contador = tiempo;
 		this.tiempo = tiempo;
 	}
 
+	/**
+	 * Comprueba si el contador ha terminado
+	 * 
+	 * @return True si el contador ha terminado. False en caso contrario
+	 */
 	public synchronized boolean acabado()
 	{
 		return ( contador == 0 );
 	}
 
+	/**
+	 * Reinicia el contador
+	 */
 	public synchronized void reiniciar()
 	{
 		contador = tiempo;
 	}
 
+	/**
+	 * Inicia la cuenta atras en el contador
+	 */
 	public void iniciar()
 	{
 		new Hebra(this);
 	}
 
+	/**
+	 * Decrementa en uno el valor del contador
+	 */
 	private synchronized void decrementar()
 	{
 		contador--;
 	}
 
+	/**
+	 * Hebra encargada de decrementar el contador
+	 */
 	private class Hebra implements Runnable
 	{
-		Contador contador = null;
+		private Contador contador = null;
 
-		Hebra( Contador contador )
+		/**
+		 * Constructor
+		 * 
+		 * @param contador
+		 *            Contador al cual hacer la cuenta atras
+		 */
+		public Hebra( Contador contador )
 		{
 			this.contador = contador;
 			Thread t = new Thread(this);
 			t.start();
 		}
 
+		/**
+		 * Ejecucion de la hebra
+		 */
 		public void run()
 		{
 			try
