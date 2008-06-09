@@ -1046,10 +1046,15 @@ public class ClienteMetaInformacion
 
 	/**
 	 * Cambia los permisos de un componente para un rol
-	 * @param rol Nombre del rol
-	 * @param componente Nombre del componente
-	 * @param nuevoPermiso Nuevo nivel de permisos
-	 * @return True si se cambiaron los permisos con exito. False en caso contrario
+	 * 
+	 * @param rol
+	 *            Nombre del rol
+	 * @param componente
+	 *            Nombre del componente
+	 * @param nuevoPermiso
+	 *            Nuevo nivel de permisos
+	 * @return True si se cambiaron los permisos con exito. False en caso
+	 *         contrario
 	 */
 	public boolean cambiarPermisoComponenteRol(String rol, String componente,
 			int nuevoPermiso)
@@ -1106,8 +1111,11 @@ public class ClienteMetaInformacion
 
 	/**
 	 * Obtiene los permisos que tiene un usuario para un componente
-	 * @param usuario Nombre del usuario
-	 * @param componente Nombre del componente
+	 * 
+	 * @param usuario
+	 *            Nombre del usuario
+	 * @param componente
+	 *            Nombre del componente
 	 * @return Nivel de permisos o -1 si ocurrio algun error
 	 */
 	public int obtenerPermisoComponenteUsuario(String usuario, String componente)
@@ -1163,8 +1171,11 @@ public class ClienteMetaInformacion
 
 	/**
 	 * Obtiene los permisos que tiene un rol para un componente
-	 * @param rol Nombre del rol
-	 * @param componente Nombre del componente
+	 * 
+	 * @param rol
+	 *            Nombre del rol
+	 * @param componente
+	 *            Nombre del componente
 	 * @return Nivel de permisos o -1 si ocurrio algun error
 	 */
 	public int obtenerPermisoComponenteRol(String rol, String componente)
@@ -1220,7 +1231,9 @@ public class ClienteMetaInformacion
 
 	/**
 	 * Permite desconectar un usuario del sistema
-	 * @param usuario Nombre del usuario
+	 * 
+	 * @param usuario
+	 *            Nombre del usuario
 	 */
 	public void desconectarUsuario(String usuario)
 	{
@@ -1249,10 +1262,15 @@ public class ClienteMetaInformacion
 
 	/**
 	 * Crea un nuevo usuario
-	 * @param nombreUsuario Nombre del usuario a crear
-	 * @param clave Clave para el usuario
-	 * @param rolDefecto Rol por defecto para el usuario
-	 * @param administrador Indica si es administrador o no
+	 * 
+	 * @param nombreUsuario
+	 *            Nombre del usuario a crear
+	 * @param clave
+	 *            Clave para el usuario
+	 * @param rolDefecto
+	 *            Rol por defecto para el usuario
+	 * @param administrador
+	 *            Indica si es administrador o no
 	 * @return Mensaje producido por el sistema
 	 */
 	public String nuevoUsuario(String nombreUsuario, String clave,
@@ -1309,7 +1327,9 @@ public class ClienteMetaInformacion
 
 	/**
 	 * Crea un nuevo rol en el sistema
-	 * @param rol Nombre del rol
+	 * 
+	 * @param rol
+	 *            Nombre del rol
 	 * @return Mensaje producido por el sistema
 	 */
 	public String nuevoRol(String rol)
@@ -1362,8 +1382,11 @@ public class ClienteMetaInformacion
 
 	/**
 	 * Asigna un nuevo rol permitido a un usuario concreto
-	 * @param usuario Nombre del usuario
-	 * @param rol Nombre del nuevo rol permitido
+	 * 
+	 * @param usuario
+	 *            Nombre del usuario
+	 * @param rol
+	 *            Nombre del nuevo rol permitido
 	 * @return Mensaje producido por el sistema
 	 */
 	public String nuevoRolPermitido(String usuario, String rol)
@@ -1418,8 +1441,11 @@ public class ClienteMetaInformacion
 
 	/**
 	 * Elimina un rol permitido para un usuario
-	 * @param usuario Nombre del usuario
-	 * @param rol Nombre del rol
+	 * 
+	 * @param usuario
+	 *            Nombre del usuario
+	 * @param rol
+	 *            Nombre del rol
 	 * @return Mensaje producido por el sistema
 	 */
 	public String eliminarRolPermitido(String usuario, String rol)
@@ -1475,7 +1501,9 @@ public class ClienteMetaInformacion
 
 	/**
 	 * Elimina un usuario del sistema
-	 * @param nombreUsuario Nombre del usuario a eliminar
+	 * 
+	 * @param nombreUsuario
+	 *            Nombre del usuario a eliminar
 	 * @return Mensaje producido por el sistema
 	 */
 	public String eliminarUsuario(String nombreUsuario)
@@ -1528,7 +1556,9 @@ public class ClienteMetaInformacion
 
 	/**
 	 * Elimina un rol del sistema
-	 * @param rol Nombre del rol a eliminar
+	 * 
+	 * @param rol
+	 *            Nombre del rol a eliminar
 	 * @return Mensaje producido por el sistema
 	 */
 	public String eliminarRol(String rol)
@@ -1578,10 +1608,12 @@ public class ClienteMetaInformacion
 		return mensaje;
 
 	}
-	
+
 	/**
 	 * Obtiene la metainformacion de un rol, dado su nombre
-	 * @param drol Nombre del rol
+	 * 
+	 * @param drol
+	 *            Nombre del rol
 	 * @return Metainformacion del rol o null si ocurrio algun error
 	 */
 	public MIRol getRol(String drol)
@@ -1636,6 +1668,7 @@ public class ClienteMetaInformacion
 
 	/**
 	 * Guarda los cambios fisicamente
+	 * 
 	 * @return Mensaje producido por el sistema
 	 */
 	public String guardarCambios()
@@ -1668,6 +1701,7 @@ public class ClienteMetaInformacion
 
 	/**
 	 * Genera un numero aleatorio
+	 * 
 	 * @return Numero aleatorio en el intervalo [0, 51000)
 	 */
 	private int aleatorio()
@@ -1690,6 +1724,7 @@ public class ClienteMetaInformacion
 
 		/**
 		 * Constructor
+		 * 
 		 * @param nombreJavaSpace
 		 *            Nombre del JavaSpace que deseamos localizar
 		 */
@@ -1727,9 +1762,9 @@ public class ClienteMetaInformacion
 	}
 
 	/**
-	 * Permite indicar que no ha sido posible localizar el
-	 * JavaSpace pasado el tiempo indicado. De esta forma evitamos que el
-	 * programa se quede bloqueado en la fase de localizacion del JavasPace
+	 * Permite indicar que no ha sido posible localizar el JavaSpace pasado el
+	 * tiempo indicado. De esta forma evitamos que el programa se quede
+	 * bloqueado en la fase de localizacion del JavasPace
 	 */
 	private class HebraDetectoraError implements Runnable
 	{
@@ -1739,6 +1774,7 @@ public class ClienteMetaInformacion
 
 		/**
 		 * Constructor
+		 * 
 		 * @param tiempoEspera
 		 *            Tiempo que deseamos esperar
 		 */
@@ -1854,8 +1890,8 @@ public class ClienteMetaInformacion
 		}
 
 		/**
-		 * Permite obtener si se ha sobrepasado el tiempo de espera sin haber sido
-		 * localizado el JavaSpace
+		 * Permite obtener si se ha sobrepasado el tiempo de espera sin haber
+		 * sido localizado el JavaSpace
 		 * 
 		 * @return Indica si se ha producido o no un error
 		 */
@@ -1901,7 +1937,8 @@ public class ClienteMetaInformacion
 		/**
 		 * Permite obtener si se ha sincronizado correctamente o no
 		 * 
-		 * @return True si se ha sincronizado correctamente. False en caso contrario
+		 * @return True si se ha sincronizado correctamente. False en caso
+		 *         contrario
 		 */
 		public synchronized boolean getSincronizado()
 		{
