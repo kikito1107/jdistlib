@@ -5,6 +5,7 @@ import java.awt.Toolkit;
 
 import javax.swing.UIManager;
 
+import awareness.ServidorMetaInformacion;
 import awareness.gui.FrameAdminServMI;
 
 
@@ -59,7 +60,10 @@ public class MainServidorMI
 		{
 			e.printStackTrace();
 		}
+		
 		new MainServidorMI();
+		
+		new ServidorMetaInformacion();
 	}
 
 }

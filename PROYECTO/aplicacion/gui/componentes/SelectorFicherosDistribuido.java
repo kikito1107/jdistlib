@@ -40,7 +40,7 @@ public class SelectorFicherosDistribuido extends JDialog
 
 	private DefaultMutableTreeNode root = null;
 
-	private ArbolDocumentos arbol = null;
+	private ArbolDoc arbol = null;
 
 	private MIDocumento fichero = null;
 
@@ -185,12 +185,12 @@ public class SelectorFicherosDistribuido extends JDialog
 		return jPanel1;
 	}
 
-	private JTree getArbol()
+	private ArbolDoc getArbol()
 	{
 		if (arbol == null)
 		{
-			arbol = new ArbolDocumentos(root);
-			arbol.setRootVisible(false);
+			arbol = new ArbolDoc("ArbolDoc", false, null, root);
+			//arbol.setRootVisible(false);
 			arbol.addKeyListener(new java.awt.event.KeyAdapter()
 			{
 				@Override
@@ -208,7 +208,7 @@ public class SelectorFicherosDistribuido extends JDialog
 					if (e.getClickCount() == 2) accionAceptar();
 				}
 			});
-			arbol.expandRow(0);
+			//arbol.expandRow(0);
 		}
 		return arbol;
 	}
@@ -218,15 +218,8 @@ public class SelectorFicherosDistribuido extends JDialog
 	 */
 	private void accionAceptar()
 	{
-		TreePath[] dtp = arbol.getSelectionPaths();
-
-		if (( dtp != null ) && ( dtp.length > 0 ))
-		{
-
 			fichero = arbol.getDocumentoSeleccionado();
-
 			setVisible(false);
-		}
 	}
 
 }

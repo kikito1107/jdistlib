@@ -366,16 +366,12 @@ public class DComponenteBase extends JPanel implements DComponente,
 	// ********* METODOS ASOCIADOS A LA INTERFAZ DCONECTOR ********************
 	public void procesarEvento(DEvent evento)
 	{
-
-		System.out.println("Recibido evento " + evento.tipo.toString());
-		System.out.flush();
 		colaRecepcion.nuevoEvento(evento);
 	}
 
 	synchronized public void procesarEventoHijo(DEvent evento)
 	{
-		System.out.println(nombre + ": procesarEventoHijo(DEvent)");
-		System.out.flush();
+
 	}
 
 	public void procesarMetaInformacion(DMIEvent evento)
@@ -438,9 +434,16 @@ public class DComponenteBase extends JPanel implements DComponente,
 			t.start();
 		}
 		DComponente hijo;
+		
+		System.out.println("Iniciando hebra procesadora para el componente " + getClass().toString());
+		System.out.flush();
 		for (int i = 0; i < obtenerNumComponentesHijos(); i++)
+			
 		{
 			hijo = obtenerComponente(i);
+			
+			System.out.println("\tiniciando hebra procesadora para el componente hijo " + hijo.getClass().toString());
+			System.out.flush();
 			hijo.iniciarHebraProcesadora();
 		}
 	}

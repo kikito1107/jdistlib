@@ -104,7 +104,7 @@ public class PrimeMaster extends GenericMaster
 
 	private JLabel etiqueta = null;
 
-	private JFrame ventanaConsola = null;  //  @jve:decl-index=0:visual-constraint="18,445"
+	private JFrame ventanaConsola = null;
 
 	private JPanel panelConsola = null;
 
@@ -287,8 +287,9 @@ public class PrimeMaster extends GenericMaster
 				GridBagConstraints gridBagConstraints5 = new GridBagConstraints();
 				gridBagConstraints5.gridx = 0; // Generated
 				gridBagConstraints5.gridy = 2; // Generated
-				Tamano = new JLabel();
+	Tamano = new JLabel();
 				Tamano.setText(Messages.getString("PrimeMaster.15")); // Generated //$NON-NLS-1$
+
 				GridBagConstraints gridBagConstraints4 = new GridBagConstraints();
 				gridBagConstraints4.gridx = 0; // Generated
 				gridBagConstraints4.gridy = 1; // Generated
@@ -321,7 +322,7 @@ public class PrimeMaster extends GenericMaster
 				jPanel.add(getCampoMax(), gridBagConstraints1); // Generated
 				jPanel.add(getCampoTamBloques(), gridBagConstraints2); // Generated
 				jPanel.add(etqMin, gridBagConstraints3); // Generated
-				jPanel.add(maximo, gridBagConstraints4); // Generated
+				jPanel.add(maximo, gridBagConstraints4); // Generate
 				jPanel.add(Tamano, gridBagConstraints5); // Generated
 				jPanel.add(getVerDatosEnviados(), gridBagConstraints14);  // Generated
 				jPanel.add(etiqueta, gridBagConstraints21);  // Generated

@@ -21,7 +21,6 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
-import javax.swing.JTree;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -36,7 +35,7 @@ import aplicacion.fisica.ClienteFicheros;
 import aplicacion.fisica.documentos.Documento;
 import aplicacion.fisica.documentos.MIDocumento;
 import aplicacion.fisica.eventos.DFileEvent;
-import aplicacion.gui.componentes.ArbolDocumentos;
+import aplicacion.gui.componentes.ArbolDoc;
 import aplicacion.gui.componentes.EnviarMensaje;
 import aplicacion.gui.editor.FramePanelDibujo;
 import aplicacion.plugin.DAbstractPlugin;
@@ -88,7 +87,7 @@ public class PanelPrincipal extends DComponenteBase
 
 	private JButton botonImprimirDocumento = null;
 
-	private ArbolDocumentos arbolDocumentos = null;
+	private ArbolDoc arbolDocumentos = null;
 
 	private JLabel jLabel1 = null;
 
@@ -417,21 +416,8 @@ public class PanelPrincipal extends DComponenteBase
 
 							f = arbolDocumentos.agregarCarpeta(nombre);
 
-							if (f == null) return;
-
-							f = ClienteFicheros.cf.insertarNuevoFichero(f,
-									DConector.Daplicacion);
-
-							if (f != null)
-							{
-								DFileEvent evento = new DFileEvent();
-								evento.padre = arbolDocumentos
-										.getDocumentoSeleccionado();
-								evento.fichero = f;
-								evento.tipo = new Integer(
-										DFileEvent.NOTIFICAR_INSERTAR_FICHERO
-												.intValue());
-								enviarEvento(evento);
+							if (f == null) {
+								
 							}
 
 						}
@@ -541,23 +527,8 @@ public class PanelPrincipal extends DComponenteBase
 
 							if (opcion == JOptionPane.YES_OPTION)
 							{
-								MIDocumento f = arbolDocumentos
-										.getDocumentoSeleccionado();
-
-								if (arbolDocumentos.eliminarFichero())
-								{
-
-									DFileEvent evento = new DFileEvent();
-									evento.fichero = f;
-									evento.tipo = new Integer(
-											DFileEvent.NOTIFICAR_ELIMINAR_FICHERO
-													.intValue());
-									enviarEvento(evento);
-
-									arbolDocumentos.setSelectionRow(0);
-								}
-
-								else JOptionPane
+								if (!arbolDocumentos.eliminarFichero())
+									JOptionPane
 										.showMessageDialog(null,
 												"No tiene permisos suficientes para eliminar este fichero/directorio");
 							}
@@ -596,26 +567,7 @@ public class PanelPrincipal extends DComponenteBase
 
 					if (f != null)
 					{
-						DFileEvent evento = new DFileEvent();
-						evento.fichero = f;
-
-						DefaultMutableTreeNode r = (DefaultMutableTreeNode) arbolDocumentos
-								.getNodoSeleccionado().getParent();
-
-						evento.padre = (MIDocumento) r.getUserObject();
-
-						if (evento.padre != null) // por si es la raiz
-						{
-							// System.err.println("directorio padre: "
-							// + evento.padre.getNombre());
-
-							evento.tipo = new Integer(
-									DFileEvent.NOTIFICAR_MODIFICACION_FICHERO
-											.intValue());
-							enviarEvento(evento);
-							ClienteFicheros.obtenerClienteFicheros()
-									.modificarFichero(f, DConector.Daplicacion);
-						}
+						arbolDocumentos.cambiarMIDocumento(f);
 					}
 				}
 			});
@@ -694,22 +646,23 @@ public class PanelPrincipal extends DComponenteBase
 	 * 
 	 * @return Arbol de documentos ya inicializado
 	 */
-	private JTree getArbolDocumentos()
+	private ArbolDoc getArbolDocumentos()
 	{
 		if (arbolDocumentos == null)
 		{
-			arbolDocumentos = new ArbolDocumentos(DConector.raiz);
+			arbolDocumentos = new ArbolDoc("ArbolDoc", false, this, DConector.raiz);
 
 			arbolDocumentos.setFont(fuente);
-
-			arbolDocumentos.setSelectionRow(0);
 
 			arbolDocumentos.addMouseListener(new java.awt.event.MouseAdapter()
 			{
 				@Override
 				public void mouseClicked(java.awt.event.MouseEvent e)
 				{
-					if (e.getClickCount() == 2) monitor.notificarAbrir();
+					if (e.getClickCount() == 2) {
+						monitor.notificarAbrir();
+						System.err.println("DOBLE CLICK");
+					}
 				}
 			});
 		}
@@ -1037,8 +990,7 @@ public class PanelPrincipal extends DComponenteBase
 	 */
 	private void subirFicheroServidor()
 	{
-		DFileEvent evento = arbolDocumentos.subirFicheroServidor();
-		if (evento != null) enviarEvento(evento);
+		arbolDocumentos.subirFicheroServidor();
 	}
 
 	/**
@@ -1176,7 +1128,7 @@ public class PanelPrincipal extends DComponenteBase
 	@Override
 	public int obtenerNumComponentesHijos()
 	{
-		return 1;
+		return 2;
 	}
 
 	/**
@@ -1196,7 +1148,7 @@ public class PanelPrincipal extends DComponenteBase
 				dc = arbolUsuario;
 				break;
 			case 1:
-				// dc = frame.obtenerComponente(0);
+				dc = this.arbolDocumentos;
 				break;
 			default:
 				break;
@@ -1205,28 +1157,22 @@ public class PanelPrincipal extends DComponenteBase
 	}
 
 	// ========= EVENTOS =================================================
-	/**
-	 * Notifica la modificacion de un fichero al servidor
-	 * 
-	 * @param f
-	 *            evento a enviar
-	 */
-	public static void notificarModificacionFichero(DFileEvent f)
-	{
-		esto.enviarEvento(f);
-		ClienteFicheros.obtenerClienteFicheros().modificarFichero(f.fichero,
-				DConector.Daplicacion);
-	}
 
-	/**
-	 * Procesa un evento que le llega desde la red
-	 * 
-	 * @param evento
-	 *            Evento a procesar
-	 */
+	
+	@Override
+	public void procesarEventoHijo(DEvent evento)
+	{
+		this.enviarEvento(evento);
+	}
+	
+	//*******************************************************************************
+	// PROCESADO DE EVENTOS
+	//*******************************************************************************
 	@Override
 	public void procesarEvento(DEvent evento)
 	{
+		System.err.println("Enviar evento " + evento.tipo);
+		
 		if (evento.tipo.intValue() == DFileEvent.NOTIFICAR_INSERTAR_FICHERO)
 		{
 			DFileEvent dfe = (DFileEvent) evento;
@@ -1235,13 +1181,12 @@ public class PanelPrincipal extends DComponenteBase
 					DConector.Drol, MIDocumento.PERMISO_LECTURA))
 			{
 
-				DefaultTreeModel modelo = (DefaultTreeModel) arbolDocumentos
-						.getModel();
+				DefaultTreeModel modelo = arbolDocumentos.getModelo();
 				DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) modelo
 						.getRoot();
 
 				int id_papa = dfe.padre.getId();
-				DefaultMutableTreeNode papi = ArbolDocumentos.buscarFichero(
+				DefaultMutableTreeNode papi = ArbolDoc.buscarFichero(
 						raiz, id_papa);
 
 				modelo.insertNodeInto(new DefaultMutableTreeNode(dfe.fichero),
@@ -1249,20 +1194,18 @@ public class PanelPrincipal extends DComponenteBase
 
 			}
 
-			comprobarPermisosDocumentoActual(dfe.fichero, true);
-			if (this.arbolDocumentos != null) arbolDocumentos.repaint();
+			repaint();
 		}
 		else if (evento.tipo.intValue() == DFileEvent.NOTIFICAR_MODIFICACION_FICHERO)
 		{
 
 			DFileEvent dfe = (DFileEvent) evento;
-			DefaultTreeModel modelo = (DefaultTreeModel) arbolDocumentos
-					.getModel();
+			DefaultTreeModel modelo = arbolDocumentos.getModelo();
 			DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) modelo
 					.getRoot();
 
 			int id_doc = dfe.fichero.getId();
-			DefaultMutableTreeNode nodo = ArbolDocumentos.buscarFichero(raiz,
+			DefaultMutableTreeNode nodo = ArbolDoc.buscarFichero(raiz,
 					id_doc);
 
 			if (nodo == null)
@@ -1273,7 +1216,7 @@ public class PanelPrincipal extends DComponenteBase
 						|| dfe.fichero.comprobarPermisos(DConector.Dusuario,
 								DConector.Drol, MIDocumento.PERMISO_LECTURA))
 				{
-					DefaultMutableTreeNode padre = ArbolDocumentos
+					DefaultMutableTreeNode padre = ArbolDoc
 							.buscarFichero(raiz, dfe.padre.getId());
 					modelo.insertNodeInto(new DefaultMutableTreeNode(
 							dfe.fichero), padre, modelo.getChildCount(padre));
@@ -1293,8 +1236,7 @@ public class PanelPrincipal extends DComponenteBase
 				{
 
 					// buscamos al nuevo padre
-					DefaultMutableTreeNode padre = ArbolDocumentos
-							.buscarFichero(raiz, dfe.padre.getId());
+					DefaultMutableTreeNode padre = ArbolDoc.buscarFichero(raiz, dfe.padre.getId());
 
 					if (padre == null)
 					{
@@ -1313,11 +1255,16 @@ public class PanelPrincipal extends DComponenteBase
 						nodo.setUserObject(dfe.fichero);
 					}
 				}
-				else modelo.removeNodeFromParent(nodo);
+				else {
+					if (evento.usuario.equals(DConector.Dusuario))
+						modelo.removeNodeFromParent(nodo);
+				}
 			}
 
-			this.arbolDocumentos.repaint();
+			repaint();
 
+			
+			
 			comprobarPermisosDocumentoActual(dfe.fichero, false);
 			if (this.arbolDocumentos != null) arbolDocumentos.repaint();
 
@@ -1341,13 +1288,12 @@ public class PanelPrincipal extends DComponenteBase
 		{
 
 			DFileEvent dfe = (DFileEvent) evento;
-			DefaultTreeModel modelo = (DefaultTreeModel) arbolDocumentos
-					.getModel();
+			DefaultTreeModel modelo = arbolDocumentos.getModelo();
 			DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) modelo
 					.getRoot();
 
 			int id_doc = dfe.fichero.getId();
-			DefaultMutableTreeNode nodo = ArbolDocumentos.buscarFichero(raiz,
+			DefaultMutableTreeNode nodo = ArbolDoc.buscarFichero(raiz,
 					id_doc);
 
 			if (nodo == null) return;
@@ -1367,10 +1313,24 @@ public class PanelPrincipal extends DComponenteBase
 				frame.dispose();
 			}
 
-			if (this.arbolDocumentos != null) arbolDocumentos.repaint();
+			repaint();
 		}
 	}
 
+	
+	/**
+	 * Notifica la modificacion de un fichero al servidor
+	 * 
+	 * @param f
+	 *            evento a enviar
+	 */
+	public static void notificarModificacionFichero(DFileEvent f)
+	{
+		esto.enviarEvento(f);
+		ClienteFicheros.obtenerClienteFicheros().modificarFichero(f.fichero,
+				DConector.Daplicacion);
+	}
+	
 	/**
 	 * Procesa un evento de metainformacion
 	 * 
@@ -1387,7 +1347,7 @@ public class PanelPrincipal extends DComponenteBase
 				&& e.usuario.equals(DConector.Dusuario))
 		{
 			ClienteFicheros.cf.inicializar();
-			arbolDocumentos.setRaiz(ClienteFicheros.cf.getArbolDoc());
+			//arbolDocumentos.setRaiz(ClienteFicheros.cf.getArbolDoc());
 		}
 	}
 
