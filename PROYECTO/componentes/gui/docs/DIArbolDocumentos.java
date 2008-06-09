@@ -11,7 +11,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
-import Deventos.DEvent;
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.ClienteFicheros;
 import aplicacion.fisica.documentos.Documento;
@@ -27,13 +26,11 @@ import componentes.base.DComponenteBase;
 public class DIArbolDocumentos extends DComponenteBase
 {	
 	public DJArbolDocumentos arbol = null;
-	private static DIArbolDocumentos esto = null;
 	
 	public DIArbolDocumentos(DefaultMutableTreeNode raiz)
 	{
 		super();
 		init(raiz);
-		esto = this;
 	}
 
 	public DIArbolDocumentos( String nombre, boolean conexionDC, DComponenteBase padre, DefaultMutableTreeNode raiz)

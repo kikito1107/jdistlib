@@ -2,7 +2,6 @@ package componentes.gui.usuarios;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.util.Vector;
 
 import javax.swing.Icon;
@@ -11,7 +10,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.border.MatteBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
