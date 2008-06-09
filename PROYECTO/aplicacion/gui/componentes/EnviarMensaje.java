@@ -27,8 +27,6 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 import Deventos.enlaceJS.DConector;
-import aplicacion.fisica.ClienteFicheros;
-import aplicacion.fisica.documentos.MIDocumento;
 import awareness.ClienteMetaInformacion;
 import awareness.MIRol;
 import awareness.MIUsuario;
@@ -37,6 +35,8 @@ import javax.swing.JToolBar;
 import javax.swing.JSplitPane;
 
 import componentes.util.Separador;
+import fisica.ClienteFicheros;
+import fisica.documentos.MIDocumento;
 
 
 /**

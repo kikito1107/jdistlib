@@ -19,12 +19,12 @@ import net.jini.core.transaction.TransactionFactory;
 import net.jini.core.transaction.server.TransactionManager;
 import net.jini.space.JavaSpace;
 import util.Fecha;
-import aplicacion.fisica.ClienteFicheros;
 import awareness.ClienteMetaInformacion;
 import awareness.MICompleta;
 
 import componentes.base.DComponente;
 import componentes.listeners.DMIListener;
+import fisica.ClienteFicheros;
 import Deventos.ColaEventos;
 import Deventos.DEvent;
 import Deventos.DMIEvent;

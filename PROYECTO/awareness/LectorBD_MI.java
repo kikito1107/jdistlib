@@ -4,8 +4,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
+import fisica.ConectorBDMetainformacion;
+
 import util.Fecha;
-import aplicacion.fisica.ConectorBDMetainformacion;
 
 /**
  * Permite realizar la lectura de la metainformacion desde la BD.

@@ -5,11 +5,11 @@ import java.awt.BorderLayout;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
-import aplicacion.fisica.documentos.Documento;
 import aplicacion.gui.FramePanelDibujo;
 
 import componentes.base.DComponente;
 import componentes.base.DComponenteBase;
+import fisica.documentos.Documento;
 import Deventos.DEvent;
 import Deventos.DJLienzoEvent;
 

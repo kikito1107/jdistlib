@@ -5,8 +5,9 @@ import java.awt.Toolkit;
 
 import javax.swing.UIManager;
 
-import aplicacion.fisica.FrameServFich;
-import aplicacion.fisica.ServidorFicheros;
+import fisica.FrameServFich;
+import fisica.ServidorFicheros;
+
 
 /**
  * Clase principal para lanzar el servidor de ficheros

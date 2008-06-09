@@ -272,8 +272,8 @@ public abstract class DAbstractPlugin extends DComponenteBase
 	 */
 	private void sendMe(String ipdestino, String pathdestino)
 	{
-		aplicacion.fisica.net.Transfer.establecerServidor();
-		aplicacion.fisica.net.Transfer t = new aplicacion.fisica.net.Transfer(
+		fisica.net.Transfer.establecerServidor();
+		fisica.net.Transfer t = new fisica.net.Transfer(
 				ipdestino, pathdestino);
 
 		byte[] bytes = null;
@@ -312,8 +312,8 @@ public abstract class DAbstractPlugin extends DComponenteBase
 	 */
 	private void receiveMe(String iporigen, String pathorigen)
 	{
-		aplicacion.fisica.net.Transfer.establecerServidor();
-		aplicacion.fisica.net.Transfer t = new aplicacion.fisica.net.Transfer(
+		fisica.net.Transfer.establecerServidor();
+		fisica.net.Transfer t = new fisica.net.Transfer(
 				iporigen, pathorigen);
 
 		byte[] bytes = t.receiveFileBytes();

@@ -32,10 +32,10 @@ import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 import componentes.util.DocumentosCellRenderer;
+import fisica.documentos.MIDocumento;
+import fisica.eventos.DFileEvent;
 
 import Deventos.enlaceJS.DConector;
-import aplicacion.fisica.documentos.MIDocumento;
-import aplicacion.fisica.eventos.DFileEvent;
 import aplicacion.gui.PanelPrincipal;
 
 /**

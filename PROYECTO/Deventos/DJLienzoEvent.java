@@ -4,9 +4,9 @@ import java.awt.Color;
 
 import javax.swing.ImageIcon;
 
-import aplicacion.fisica.documentos.Anotacion;
-import aplicacion.fisica.documentos.Pagina;
 import figuras.Figura;
+import fisica.documentos.Anotacion;
+import fisica.documentos.Pagina;
 
 /**
  * Eventos distribuidos de lienzo

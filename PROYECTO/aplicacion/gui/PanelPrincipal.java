@@ -33,10 +33,6 @@ import Deventos.DEvent;
 import Deventos.DJChatEvent;
 import Deventos.DMIEvent;
 import Deventos.enlaceJS.DConector;
-import aplicacion.fisica.ClienteFicheros;
-import aplicacion.fisica.documentos.Documento;
-import aplicacion.fisica.documentos.MIDocumento;
-import aplicacion.fisica.eventos.DFileEvent;
 import aplicacion.gui.componentes.EnviarMensaje;
 import awareness.ClienteMetaInformacion;
 
@@ -45,6 +41,10 @@ import componentes.base.DComponenteBase;
 import componentes.gui.docs.DIArbolDocumentos;
 import componentes.gui.usuarios.ArbolUsuariosConectadosRol;
 import componentes.util.Separador;
+import fisica.ClienteFicheros;
+import fisica.documentos.Documento;
+import fisica.documentos.MIDocumento;
+import fisica.eventos.DFileEvent;
 
 /**
  * Panel de la ventana de la aplicacion principal

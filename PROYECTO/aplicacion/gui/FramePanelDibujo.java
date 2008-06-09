@@ -5,11 +5,11 @@ import java.awt.Graphics;
 import java.awt.event.WindowEvent;
 
 import Deventos.enlaceJS.DConector;
-import aplicacion.fisica.documentos.Documento;
 
 import componentes.base.DComponente;
 import componentes.base.DJFrame;
 import componentes.gui.visualizador.DIPanelEditor;
+import fisica.documentos.Documento;
 
 /**
  * Ventana con un panel de dibujo de la clase @see DIPanelEditor

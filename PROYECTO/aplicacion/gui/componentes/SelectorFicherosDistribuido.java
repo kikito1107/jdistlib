@@ -15,8 +15,8 @@ import javax.swing.JScrollPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import componentes.gui.docs.DIArbolDocumentos;
+import fisica.documentos.MIDocumento;
 
-import aplicacion.fisica.documentos.MIDocumento;
 
 
 

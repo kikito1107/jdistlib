@@ -1,6 +1,6 @@
 package util;
 
-import aplicacion.fisica.documentos.MIDocumento;
+import fisica.documentos.MIDocumento;
 
 /**
  * Permite comprobar los permisos de un documento

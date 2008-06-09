@@ -24,12 +24,12 @@ import Deventos.ColaEventos;
 import Deventos.DEvent;
 import Deventos.DJChatEvent;
 import Deventos.enlaceJS.DConector;
-import aplicacion.fisica.webcam.VideoConferencia;
-import aplicacion.fisica.webcam.VideoFrame;
 
 import componentes.gui.chat.PanelChatPrivado;
 import componentes.listeners.DJChatListener;
 import componentes.listeners.LJChatListener;
+import fisica.webcam.VideoConferencia;
+import fisica.webcam.VideoFrame;
 
 /**
  * Implementacion de la clase captadora de eventos para el componente Chat

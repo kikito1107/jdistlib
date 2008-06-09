@@ -12,16 +12,16 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
 import Deventos.enlaceJS.DConector;
-import aplicacion.fisica.ClienteFicheros;
-import aplicacion.fisica.documentos.Documento;
-import aplicacion.fisica.documentos.MIDocumento;
-import aplicacion.fisica.eventos.DFileEvent;
-import aplicacion.fisica.net.Transfer;
 import awareness.ClienteMetaInformacion;
 import awareness.MIRol;
 import awareness.MIUsuario;
 
 import componentes.base.DComponenteBase;
+import fisica.ClienteFicheros;
+import fisica.documentos.Documento;
+import fisica.documentos.MIDocumento;
+import fisica.eventos.DFileEvent;
+import fisica.net.Transfer;
 
 public class DIArbolDocumentos extends DComponenteBase
 {	

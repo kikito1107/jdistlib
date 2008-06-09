@@ -18,12 +18,6 @@ import javax.swing.border.EtchedBorder;
 import Deventos.DEvent;
 import Deventos.DJLienzoEvent;
 import Deventos.enlaceJS.DConector;
-import aplicacion.fisica.ClienteFicheros;
-import aplicacion.fisica.documentos.Anotacion;
-import aplicacion.fisica.documentos.Documento;
-import aplicacion.fisica.documentos.Pagina;
-import aplicacion.fisica.net.Transfer;
-import aplicacion.fisica.net.TransferP2P;
 import aplicacion.gui.FramePanelDibujo;
 import componentes.base.DComponenteBase;
 import componentes.util.DialogoIntroTexto;
@@ -34,6 +28,12 @@ import figuras.Linea;
 import figuras.Rectangulo;
 import figuras.Texto;
 import figuras.TrazoManoAlzada;
+import fisica.ClienteFicheros;
+import fisica.documentos.Anotacion;
+import fisica.documentos.Documento;
+import fisica.documentos.Pagina;
+import fisica.net.Transfer;
+import fisica.net.TransferP2P;
 
 /**
  * Implementacion de un editor de imagenes distribuido
