@@ -1,8 +1,8 @@
-package aplicacion.plugin.example;
+package plugins.examples;
 
+import plugins.DAbstractPlugin;
 import aplicacion.fisica.webcam.VideoConferencia;
 import aplicacion.fisica.webcam.VideoFrame;
-import aplicacion.plugin.DAbstractPlugin;
 
 /**
  * Ejemplo basico de creacion de un plugin. Establece una videoconferencia

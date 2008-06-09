@@ -1,4 +1,4 @@
-package aplicacion.plugin.example.gestor;
+package plugins.examples;
 
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
@@ -20,11 +20,12 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
+import plugins.DAbstractPlugin;
+import plugins.DPluginLoader;
+import plugins.PluginContainer;
+
 import util.FiltroFichero;
 
-import aplicacion.plugin.DAbstractPlugin;
-import aplicacion.plugin.DPluginLoader;
-import aplicacion.plugin.PluginContainer;
 
 import java.awt.Font;
 

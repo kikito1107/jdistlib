@@ -6,7 +6,8 @@ import java.awt.event.MouseMotionAdapter;
 import javax.swing.JList;
 import javax.swing.ListModel;
 
-import aplicacion.plugin.DAbstractPlugin;
+import plugins.DAbstractPlugin;
+
 
 /**
  * Componente con la lista de plugins del sistema

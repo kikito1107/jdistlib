@@ -1,4 +1,4 @@
-package aplicacion.plugin.jar;
+package plugins.jar;
 
 /**
  * Carga una clase contenida en un fichero jar

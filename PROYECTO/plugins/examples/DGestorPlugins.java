@@ -1,7 +1,6 @@
-package aplicacion.plugin.example;
+package plugins.examples;
 
-import aplicacion.plugin.DAbstractPlugin;
-import aplicacion.plugin.example.gestor.GestorPlugins;
+import plugins.DAbstractPlugin;
 
 /**
  * Plugin que permite gestionar los plugins de la plataforma

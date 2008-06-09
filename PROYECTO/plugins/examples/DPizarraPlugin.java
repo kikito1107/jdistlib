@@ -1,10 +1,11 @@
-package aplicacion.plugin.example;
+package plugins.examples;
 
 import java.awt.BorderLayout;
 
-import aplicacion.plugin.DAbstractPlugin;
-import aplicacion.plugin.example.pizarra.ControlesPizarra;
-import aplicacion.plugin.example.pizarra.Pizarra;
+import plugins.DAbstractPlugin;
+import plugins.examples.blackboard.ControlesPizarra;
+import plugins.examples.blackboard.Pizarra;
+
 
 import componentes.base.DComponenteBase;
 import componentes.base.DJFrame;

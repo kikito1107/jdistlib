@@ -1,4 +1,4 @@
-package aplicacion.plugin;
+package plugins;
 
 import java.io.File;
 import java.util.Enumeration;
@@ -6,7 +6,8 @@ import java.util.Vector;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-import aplicacion.plugin.jar.JarClassLoader;
+import plugins.jar.JarClassLoader;
+
 
 /**
  * Permite cargar los plugins en la plataforma

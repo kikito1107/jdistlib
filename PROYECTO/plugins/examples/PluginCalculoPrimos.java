@@ -1,10 +1,10 @@
 /**
  * 
  */
-package aplicacion.plugin.example;
+package plugins.examples;
 
-import aplicacion.plugin.DAbstractPlugin;
-import aplicacion.plugin.example.primos.PrimeMaster;
+import plugins.DAbstractPlugin;
+import plugins.examples.primes.PrimeMaster;
 
 /**
  * Plugin para el calculo paralelo de numeros primos

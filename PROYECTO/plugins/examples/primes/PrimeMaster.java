@@ -1,4 +1,4 @@
-package aplicacion.plugin.example.primos;
+package plugins.examples.primes;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -25,9 +25,10 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 
+import plugins.DAbstractPlugin;
+
 import net.jini.core.entry.Entry;
 import net.jini.space.JavaSpace;
-import aplicacion.plugin.DAbstractPlugin;
 import calculoparalelo.GenericMaster;
 import calculoparalelo.GenericWorker;
 import calculoparalelo.eventos.PoisonPill;

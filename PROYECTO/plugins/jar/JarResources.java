@@ -1,4 +1,4 @@
-package aplicacion.plugin.jar;
+package plugins.jar;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;

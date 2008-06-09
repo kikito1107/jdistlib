@@ -1,4 +1,4 @@
-package aplicacion.plugin.example.calculadora;
+package plugins.examples;
 
 import java.applet.Applet;
 import java.awt.BorderLayout;

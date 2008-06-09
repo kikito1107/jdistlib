@@ -1,4 +1,4 @@
-package aplicacion.plugin;
+package plugins;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -9,8 +9,9 @@ import java.util.Vector;
 
 import javax.swing.JOptionPane;
 
+import plugins.eventos.DPluginRegisterEvent;
+
 import Deventos.enlaceJS.DConector;
-import aplicacion.plugin.deventos.DPluginRegisterEvent;
 
 import componentes.base.DComponente;
 import componentes.base.DComponenteBase;

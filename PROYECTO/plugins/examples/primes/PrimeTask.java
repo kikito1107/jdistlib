@@ -1,7 +1,7 @@
 /**
  * 
  */
-package aplicacion.plugin.example.primos;
+package plugins.examples.primes;
 
 import net.jini.space.JavaSpace;
 import calculoparalelo.eventos.PoisonPill;

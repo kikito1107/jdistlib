@@ -1,4 +1,4 @@
-package aplicacion.plugin;
+package plugins;
 
 import java.util.Vector;
 

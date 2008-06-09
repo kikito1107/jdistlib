@@ -26,6 +26,9 @@ import javax.swing.border.MatteBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
+import plugins.DAbstractPlugin;
+import plugins.PluginContainer;
+
 import Deventos.DEvent;
 import Deventos.DJChatEvent;
 import Deventos.DMIEvent;
@@ -35,8 +38,6 @@ import aplicacion.fisica.documentos.Documento;
 import aplicacion.fisica.documentos.MIDocumento;
 import aplicacion.fisica.eventos.DFileEvent;
 import aplicacion.gui.componentes.EnviarMensaje;
-import aplicacion.plugin.DAbstractPlugin;
-import aplicacion.plugin.PluginContainer;
 import awareness.ClienteMetaInformacion;
 
 import componentes.base.DComponente;

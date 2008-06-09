@@ -1,4 +1,4 @@
-package aplicacion.plugin.example.primos;
+package plugins.examples.primes;
 
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;

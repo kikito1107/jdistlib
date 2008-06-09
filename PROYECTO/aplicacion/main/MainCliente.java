@@ -5,9 +5,10 @@ import java.awt.Toolkit;
 
 import javax.swing.UIManager;
 
+import plugins.PluginContainer;
+
 import Deventos.enlaceJS.DConector;
 import aplicacion.gui.FramePrincipal;
-import aplicacion.plugin.PluginContainer;
 
 /**
  * Clase principal para lanzar el cliente de la plataforma

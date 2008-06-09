@@ -1,4 +1,4 @@
-package aplicacion.plugin.example.pizarra;
+package plugins.examples.blackboard;
 
 import java.awt.Color;
 import java.awt.Dimension;

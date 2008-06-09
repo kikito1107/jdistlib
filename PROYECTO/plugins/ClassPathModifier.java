@@ -1,4 +1,4 @@
-package aplicacion.plugin;
+package plugins;
 
 import java.io.File;
 import java.lang.reflect.Method;

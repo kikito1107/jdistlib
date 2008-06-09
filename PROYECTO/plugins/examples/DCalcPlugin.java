@@ -1,9 +1,9 @@
-package aplicacion.plugin.example;
+package plugins.examples;
 
 import javax.swing.JFrame;
 
-import aplicacion.plugin.DAbstractPlugin;
-import aplicacion.plugin.example.calculadora.Calc;
+import plugins.DAbstractPlugin;
+
 
 /**
  * Plugin que implementa una calculadora totalmente

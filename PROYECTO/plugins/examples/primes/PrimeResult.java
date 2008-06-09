@@ -1,4 +1,4 @@
-package aplicacion.plugin.example.primos;
+package plugins.examples.primes;
 
 import calculoparalelo.eventos.ResultEntry;
 

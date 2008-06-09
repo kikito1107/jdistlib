@@ -1,4 +1,4 @@
-package aplicacion.plugin.example.pizarra;
+package plugins.examples.blackboard;
 
 import java.util.Vector;
 

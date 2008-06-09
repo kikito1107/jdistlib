@@ -1,4 +1,4 @@
-package aplicacion.plugin.example;
+package plugins.examples;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -20,8 +20,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
+import plugins.DAbstractPlugin;
+
 import Deventos.enlaceJS.DConector;
-import aplicacion.plugin.DAbstractPlugin;
 
 import componentes.base.DJFrame;
 import componentes.gui.DIChat;
