@@ -5,20 +5,17 @@ import java.util.Date;
 import java.util.Vector;
 
 /**
- * <p>
- * Description: Clase que representa un usuario de una aplicacion. Guardamos
- * informacion sobre: Nombre, clave, roles que tiene permitidos, restricciones
- * sobre el uso de ciertos componentes (no tiene que haber restriccion sobre
- * todos), rol por defecto y estado del usuario (conectado/desconectado)
- * </p>
+ * Permite obtener la metainformacion de un usuario para una aplicacion.
+ * Guardamos informacion sobre: Nombre, clave, roles que tiene permitidos,
+ * restricciones sobre el uso de ciertos componentes (no tiene que haber
+ * restriccion sobre todos), rol por defecto y estado del usuario
+ * (conectado/desconectado)
  * 
- * @author Juan Antonio Ibañez Santorum (looper@telefonica.net)
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
 public class MIUsuario implements Serializable
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private String nombreUsuario = null;
@@ -41,36 +38,63 @@ public class MIUsuario implements Serializable
 
 	private int identificador = -1;
 
-	public int getIdentificador()
-	{
-		return identificador;
-	}
-
-	public void setIdentificador(int identificador)
-	{
-		this.identificador = identificador;
-	}
-
+	/**
+	 * Constructor
+	 * 
+	 * @param nombreUsuario
+	 *            Nombre del usuario
+	 * @param clave
+	 *            Clave del usuario
+	 */
 	public MIUsuario( String nombreUsuario, String clave )
 	{
 		this.nombreUsuario = nombreUsuario;
 		this.clave = clave;
 	}
 
+	/**
+	 * Obtiene el identificador para el usuario
+	 * 
+	 * @return Identificador del usuario
+	 */
+	public int getIdentificador()
+	{
+		return identificador;
+	}
+
+	/**
+	 * Asigna el identificador a un usuario
+	 * 
+	 * @param identificador
+	 *            Identificador del usuario
+	 */
+	public void setIdentificador(int identificador)
+	{
+		this.identificador = identificador;
+	}
+
+	/**
+	 * Actualiza la marca de tiempo para el usuario
+	 */
 	public void actualizarMarcaTiempo()
 	{
 		this.actualizado = new Date().getTime();
 	}
 
+	/**
+	 * Devuelve la marca de tiempo para el usuario
+	 * 
+	 * @return Marca de tiempo para el usuario
+	 */
 	public long getActualizado()
 	{
 		return actualizado;
 	}
 
 	/**
-	 * Obtenemos el nombre del usuario
+	 * Obtiene el nombre del usuario
 	 * 
-	 * @return String Nombre del usuario
+	 * @return Nombre del usuario
 	 */
 	public String getNombreUsuario()
 	{
@@ -78,9 +102,9 @@ public class MIUsuario implements Serializable
 	}
 
 	/**
-	 * Obtenemos la clave del usuario
+	 * Obtiene la clave del usuario
 	 * 
-	 * @return String Clave del usuario
+	 * @return Clave del usuario
 	 */
 	public String getClave()
 	{
@@ -91,7 +115,7 @@ public class MIUsuario implements Serializable
 	 * Obtiene el rol actual del usuario. Solo tiene sentido si el usuario esta
 	 * conectado
 	 * 
-	 * @return String Rol actual del usuario.
+	 * @return Rol actual del usuario.
 	 */
 	public String getRolActual()
 	{
@@ -102,7 +126,7 @@ public class MIUsuario implements Serializable
 	 * Especifica el rol actual del usuario
 	 * 
 	 * @param rol
-	 *            String Rol que le deseamos especificar
+	 *            Rol que le deseamos especificar
 	 */
 	public void setRolActual(String rol)
 	{
@@ -113,10 +137,10 @@ public class MIUsuario implements Serializable
 	 * Buscamos si el usuario tiene permitido un determinado rol
 	 * 
 	 * @param rol
-	 *            String Nombre del rol sobre el que queremos saber si se tiene
-	 *            o no permiso.
-	 * @return boolean Si el rol no esta entre los permitidos devolvera false.
-	 *         True en caso contrario
+	 *            Nombre del rol sobre el que queremos saber si se tiene o no
+	 *            permiso.
+	 * @return Si el rol no esta entre los permitidos devolvera False. True en
+	 *         caso contrario
 	 */
 	public boolean tieneRolPermitido(String rol)
 	{
@@ -133,10 +157,10 @@ public class MIUsuario implements Serializable
 	}
 
 	/**
-	 * Especificamos un nuevo rol permitido al usuario
+	 * Especificamos un nuevo rol permitido para el usuario
 	 * 
 	 * @param rol
-	 *            String Nuevo rol que se le permite
+	 *            Nuevo rol que se le permite
 	 */
 	public boolean nuevoRolPermitido(String rol)
 	{
@@ -173,8 +197,8 @@ public class MIUsuario implements Serializable
 	 * Obtiene el permiso que tiene el usuario sobre un determinado rol.
 	 * 
 	 * @param componente
-	 *            String Componente sobre el que deseamos obtener informacion.
-	 * @return int Permiso del comoponente. Si el componente no esta definido
+	 *            Componente sobre el que deseamos obtener informacion.
+	 * @return Permisos para el componente. Si el componente no esta definido
 	 *         devuelve -1.
 	 */
 	public int getPermisoComponente(String componente)
@@ -191,9 +215,9 @@ public class MIUsuario implements Serializable
 	 * componente se añade un nuevo componente con el permiso indicado
 	 * 
 	 * @param componente
-	 *            String Componente al que se quiere cambiar el permiso
+	 *            Componente al que se quiere cambiar el permiso
 	 * @param permiso
-	 *            int Nuevo permiso que deseamos establecer al componente
+	 *            Nuevo permiso que deseamos establecer al componente
 	 */
 	public void setPermisoComponente(String componente, int permiso)
 	{
@@ -210,9 +234,9 @@ public class MIUsuario implements Serializable
 	 * se crea la informacion para ese componente
 	 * 
 	 * @param componente
-	 *            String Componente que deseamos añadir
+	 *            Componente que deseamos añadir
 	 * @param permiso
-	 *            int Permiso con el que queremos añadir el componente
+	 *            Permiso con el que queremos añadir el componente
 	 */
 	public void nuevoPermisoComponente(String componente, int permiso)
 	{
@@ -223,10 +247,10 @@ public class MIUsuario implements Serializable
 	}
 
 	/**
-	 * Especificamos el rol por defecto de este usuario
+	 * Asigna el rol por defecto de este usuario
 	 * 
 	 * @param rol
-	 *            String
+	 *            Nombre del rol
 	 */
 	public void setRolPorDefecto(String rol)
 	{
@@ -234,10 +258,10 @@ public class MIUsuario implements Serializable
 	}
 
 	/**
-	 * Obtenemos los componentes para los que se ha especificado algun permiso
+	 * Obtiene los componentes para los que se ha especificado algun permiso
 	 * 
-	 * @return Vector Vector de MIComponente con los componentes para los que se
-	 *         ha definido algun permiso
+	 * @return Vector de metainformacion de los componentes para los que se ha
+	 *         definido algun permiso
 	 */
 	@SuppressWarnings( "unchecked" )
 	public Vector getPermisosComponentes()
@@ -246,10 +270,9 @@ public class MIUsuario implements Serializable
 	}
 
 	/**
-	 * Obtenemos los roles permitidos para este usuario
+	 * Obtiene los roles permitidos para este usuario
 	 * 
-	 * @return Vector Vector de String con los nombres de los roles permitidos a
-	 *         este usuario
+	 * @return Vector con los nombres de los roles permitidos a este usuario
 	 */
 	@SuppressWarnings( "unchecked" )
 	public Vector getRolesPermitidos()
@@ -260,7 +283,7 @@ public class MIUsuario implements Serializable
 	/**
 	 * Obtiene el rol por defecto de este usuario
 	 * 
-	 * @return String Nombre del rol por defecto de este usuario
+	 * @return Nombre del rol por defecto de este usuario
 	 */
 	public String getRolPorDefecto()
 	{
@@ -271,9 +294,8 @@ public class MIUsuario implements Serializable
 	 * Cambia el usuario a online o desconectado
 	 * 
 	 * @param b
-	 *            boolean Estado del usuario que deseamos establecer. True para
-	 *            indicar que esta online y False para indicar que esta
-	 *            desconectado
+	 *            Estado del usuario que deseamos establecer. True para indicar
+	 *            que esta online y False para indicar que esta desconectado
 	 */
 	public void setOnline(boolean b)
 	{
@@ -282,21 +304,31 @@ public class MIUsuario implements Serializable
 	}
 
 	/**
-	 * Obtenemos el estado del usuario
+	 * Obtiene el estado del usuario
 	 * 
-	 * @return boolean Devolvera True si esta conectado o False en caso
-	 *         contrario.
+	 * @return True si esta conectado. False en caso contrario.
 	 */
 	public boolean online()
 	{
 		return online;
 	}
 
+	/**
+	 * Permite asignar si el usuario es administrador o no
+	 * 
+	 * @param b
+	 *            Indica si el usuario es administrador o no
+	 */
 	public void setEsAdministrador(boolean b)
 	{
 		administrador = b;
 	}
 
+	/**
+	 * Devuelve si el usuario es o no administrador
+	 * 
+	 * @return True si el usuario es administrador. False en caso contrario
+	 */
 	public boolean esAdministrador()
 	{
 		return administrador;
@@ -306,12 +338,12 @@ public class MIUsuario implements Serializable
 	// **********************************************
 
 	/**
-	 * Nos devuelve una instancia del componente con el nombre indicado
+	 * Devuelve una instancia del componente con el nombre indicado
 	 * 
 	 * @param nombreComponente
-	 *            String Nombre del componente que queremos obtener
-	 * @return MIComponente La instancia del componente buscado. Si no existe un
-	 *         componente con ese nombre devuelve null.
+	 *            Nombre del componente que queremos obtener
+	 * @return La instancia del componente buscado. Si no existe un componente
+	 *         con ese nombre devuelve null.
 	 */
 	private MIComponente getComponente(String nombreComponente)
 	{
@@ -329,12 +361,12 @@ public class MIUsuario implements Serializable
 	}
 
 	/**
-	 * Devuelve la posicion dentro del vectoor interno del rol con el nombre
+	 * Devuelve la posicion dentro del vector interno del rol con el nombre
 	 * indicado
 	 * 
 	 * @param rol
-	 *            String Rol sobre el que deseamos buscar informacion
-	 * @return int Posicion dentro del vector. Si no existe rol con ese nombre
+	 *            Rol sobre el que deseamos buscar informacion
+	 * @return Posicion dentro del vector. Si no existe rol con ese nombre
 	 *         devuelve -1
 	 */
 	private int getPosicionRol(String rol)

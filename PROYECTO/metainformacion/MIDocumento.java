@@ -9,7 +9,6 @@ import aplicacion.fisica.ClienteFicheros;
 import aplicacion.fisica.eventos.DFileEvent;
 import aplicacion.fisica.net.Transfer;
 
-
 /**
  * Metainformacion de un documento
  * 
@@ -463,7 +462,7 @@ public class MIDocumento implements Serializable
 		evento.padre = padre;
 		evento.tipo = new Integer(DFileEvent.NOTIFICAR_INSERTAR_FICHERO
 				.intValue());
-		
+
 		return evento;
 	}
 

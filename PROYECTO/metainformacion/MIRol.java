@@ -3,34 +3,32 @@ package metainformacion;
 import java.io.Serializable;
 
 /**
- * <p>
- * Title:
- * </p>
- * <p>
- * Description:
- * </p>
- * <p>
- * Copyright: Copyright (c) 2004
- * </p>
- * <p>
- * Company:
- * </p>
+ * Metainformacion de un rol
  * 
- * @author not attributable
- * @version 1.0
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 @SuppressWarnings( "serial" )
 public class MIRol extends MIUsuario implements Serializable
 {
+	private static final long serialVersionUID = 1L;
 
-	static final long serialVersionUID = 1L;
-
+	/**
+	 * Constructor
+	 * 
+	 * @param nombreRol
+	 *            Nombre del rol
+	 */
 	public MIRol( String nombreRol )
 	{
 		super(nombreRol, new String(""));
 	}
 
+	/**
+	 * Obtiene el nombre del rol
+	 * 
+	 * @return Nombre del rol
+	 */
 	public String getNombreRol()
 	{
 		return super.getNombreUsuario();

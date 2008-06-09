@@ -3,9 +3,9 @@ package metainformacion;
 import java.io.Serializable;
 
 /**
- * Permite almacenar informacion sobre un componente de la
- * aplicacion. Guardamos informacion sobre: Nombre del componente y permiso del
- * componente. El permiso solo tiene sentido en relacion con un usuario
+ * Permite almacenar informacion sobre un componente de la aplicacion. Guardamos
+ * informacion sobre: Nombre del componente y permiso del componente. El permiso
+ * solo tiene sentido en relacion con un usuario
  * 
  * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
  *         Pelegrina Ortiz
@@ -20,16 +20,14 @@ public class MIComponente implements Serializable
 
 	private int identificador;
 
-	public int getIdentificador()
-	{
-		return identificador;
-	}
-
-	public void setIdentificador(int identificador)
-	{
-		this.identificador = identificador;
-	}
-
+	/**
+	 * Constructor
+	 * 
+	 * @param nombre
+	 *            Nombre del componente
+	 * @param permiso
+	 *            Nivel de permisos
+	 */
 	public MIComponente( String nombre, int permiso )
 	{
 		this.nombre = nombre;
@@ -37,9 +35,30 @@ public class MIComponente implements Serializable
 	}
 
 	/**
-	 * Obtenemos el nombre del componente
+	 * Obtiene el identificador del componente
 	 * 
-	 * @return String Nombre del componente
+	 * @return Identificador del componente
+	 */
+	public int getIdentificador()
+	{
+		return identificador;
+	}
+
+	/**
+	 * Asigna un identificador al componente
+	 * 
+	 * @param identificador
+	 *            Identificador del componente
+	 */
+	public void setIdentificador(int identificador)
+	{
+		this.identificador = identificador;
+	}
+
+	/**
+	 * Obtiene el nombre del componente
+	 * 
+	 * @return Nombre del componente
 	 */
 	public String getNombreComponente()
 	{
@@ -47,9 +66,9 @@ public class MIComponente implements Serializable
 	}
 
 	/**
-	 * Obtenemos el permiso del componente
+	 * Obtiene el nivel de permisos del componente
 	 * 
-	 * @return int Permiso del componente
+	 * @return Nivel de permisos del componente
 	 */
 	public int permisoComponente()
 	{
@@ -57,10 +76,10 @@ public class MIComponente implements Serializable
 	}
 
 	/**
-	 * Establecemos el permiso del componente
+	 * Asigna el nivel de permisos del componente
 	 * 
 	 * @param permiso
-	 *            int Nuevo permiso del componente
+	 *            Nivel de permisos del componente
 	 */
 	public void setPermisoComponente(int permiso)
 	{
