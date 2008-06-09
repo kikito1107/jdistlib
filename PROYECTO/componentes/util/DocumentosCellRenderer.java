@@ -1,4 +1,4 @@
-package aplicacion.gui.componentes;
+package componentes.util;
 
 import java.util.Vector;
 

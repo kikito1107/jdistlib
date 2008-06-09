@@ -3,8 +3,6 @@ package componentes.base;
 import java.awt.Color;
 import java.util.Vector;
 
-import util.ElementoLista;
-import util.ListaElementos;
 import Deventos.ColaEventos;
 import Deventos.DEvent;
 import Deventos.DJListEvent;
@@ -13,6 +11,8 @@ import Deventos.enlaceJS.DConector;
 
 import componentes.listeners.DJListListener;
 import componentes.listeners.LJListListener;
+import componentes.util.ElementoLista;
+import componentes.util.ListaElementos;
 
 /**
  * Implementacion de la clase captadora de eventos para el componente Lista

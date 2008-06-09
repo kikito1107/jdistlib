@@ -16,6 +16,8 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
+import componentes.gui.docs.DIArbolDocumentos;
+
 import aplicacion.fisica.documentos.MIDocumento;
 
 
@@ -40,7 +42,7 @@ public class SelectorFicherosDistribuido extends JDialog
 
 	private DefaultMutableTreeNode root = null;
 
-	private ArbolDoc arbol = null;
+	private DIArbolDocumentos arbol = null;
 
 	private MIDocumento fichero = null;
 
@@ -185,11 +187,11 @@ public class SelectorFicherosDistribuido extends JDialog
 		return jPanel1;
 	}
 
-	private ArbolDoc getArbol()
+	private DIArbolDocumentos getArbol()
 	{
 		if (arbol == null)
 		{
-			arbol = new ArbolDoc("ArbolDoc", false, null, root);
+			arbol = new DIArbolDocumentos("ArbolDoc", false, null, root);
 			//arbol.setRootVisible(false);
 			arbol.addKeyListener(new java.awt.event.KeyAdapter()
 			{

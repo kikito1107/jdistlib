@@ -1,4 +1,4 @@
-package util;
+package componentes.util;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

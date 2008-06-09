@@ -26,7 +26,6 @@ import javax.swing.border.MatteBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
-import util.Separador;
 import Deventos.DEvent;
 import Deventos.DJChatEvent;
 import Deventos.DMIEvent;
@@ -35,16 +34,16 @@ import aplicacion.fisica.ClienteFicheros;
 import aplicacion.fisica.documentos.Documento;
 import aplicacion.fisica.documentos.MIDocumento;
 import aplicacion.fisica.eventos.DFileEvent;
-import aplicacion.gui.componentes.ArbolDoc;
 import aplicacion.gui.componentes.EnviarMensaje;
-import aplicacion.gui.editor.FramePanelDibujo;
 import aplicacion.plugin.DAbstractPlugin;
 import aplicacion.plugin.PluginContainer;
 import awareness.ClienteMetaInformacion;
 
 import componentes.base.DComponente;
 import componentes.base.DComponenteBase;
+import componentes.gui.docs.DIArbolDocumentos;
 import componentes.gui.usuarios.ArbolUsuariosConectadosRol;
+import componentes.util.Separador;
 
 /**
  * Panel de la ventana de la aplicacion principal
@@ -87,7 +86,7 @@ public class PanelPrincipal extends DComponenteBase
 
 	private JButton botonImprimirDocumento = null;
 
-	private ArbolDoc arbolDocumentos = null;
+	private DIArbolDocumentos arbolDocumentos = null;
 
 	private JLabel jLabel1 = null;
 
@@ -646,11 +645,11 @@ public class PanelPrincipal extends DComponenteBase
 	 * 
 	 * @return Arbol de documentos ya inicializado
 	 */
-	private ArbolDoc getArbolDocumentos()
+	private DIArbolDocumentos getArbolDocumentos()
 	{
 		if (arbolDocumentos == null)
 		{
-			arbolDocumentos = new ArbolDoc("ArbolDoc", false, this, DConector.raiz);
+			arbolDocumentos = new DIArbolDocumentos("ArbolDoc", false, this, DConector.raiz);
 
 			arbolDocumentos.setFont(fuente);
 
@@ -1186,7 +1185,7 @@ public class PanelPrincipal extends DComponenteBase
 						.getRoot();
 
 				int id_papa = dfe.padre.getId();
-				DefaultMutableTreeNode papi = ArbolDoc.buscarFichero(
+				DefaultMutableTreeNode papi = DIArbolDocumentos.buscarFichero(
 						raiz, id_papa);
 
 				modelo.insertNodeInto(new DefaultMutableTreeNode(dfe.fichero),
@@ -1205,7 +1204,7 @@ public class PanelPrincipal extends DComponenteBase
 					.getRoot();
 
 			int id_doc = dfe.fichero.getId();
-			DefaultMutableTreeNode nodo = ArbolDoc.buscarFichero(raiz,
+			DefaultMutableTreeNode nodo = DIArbolDocumentos.buscarFichero(raiz,
 					id_doc);
 
 			if (nodo == null)
@@ -1216,7 +1215,7 @@ public class PanelPrincipal extends DComponenteBase
 						|| dfe.fichero.comprobarPermisos(DConector.Dusuario,
 								DConector.Drol, MIDocumento.PERMISO_LECTURA))
 				{
-					DefaultMutableTreeNode padre = ArbolDoc
+					DefaultMutableTreeNode padre = DIArbolDocumentos
 							.buscarFichero(raiz, dfe.padre.getId());
 					modelo.insertNodeInto(new DefaultMutableTreeNode(
 							dfe.fichero), padre, modelo.getChildCount(padre));
@@ -1236,7 +1235,7 @@ public class PanelPrincipal extends DComponenteBase
 				{
 
 					// buscamos al nuevo padre
-					DefaultMutableTreeNode padre = ArbolDoc.buscarFichero(raiz, dfe.padre.getId());
+					DefaultMutableTreeNode padre = DIArbolDocumentos.buscarFichero(raiz, dfe.padre.getId());
 
 					if (padre == null)
 					{
@@ -1293,7 +1292,7 @@ public class PanelPrincipal extends DComponenteBase
 					.getRoot();
 
 			int id_doc = dfe.fichero.getId();
-			DefaultMutableTreeNode nodo = ArbolDoc.buscarFichero(raiz,
+			DefaultMutableTreeNode nodo = DIArbolDocumentos.buscarFichero(raiz,
 					id_doc);
 
 			if (nodo == null) return;

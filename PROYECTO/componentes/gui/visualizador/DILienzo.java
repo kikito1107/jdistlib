@@ -1,4 +1,4 @@
-package aplicacion.gui.editor;
+package componentes.gui.visualizador;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -15,7 +15,6 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.border.EtchedBorder;
 
-import util.DialogoIntroTexto;
 import Deventos.DEvent;
 import Deventos.DJLienzoEvent;
 import Deventos.enlaceJS.DConector;
@@ -25,7 +24,9 @@ import aplicacion.fisica.documentos.Documento;
 import aplicacion.fisica.documentos.Pagina;
 import aplicacion.fisica.net.Transfer;
 import aplicacion.fisica.net.TransferP2P;
+import aplicacion.gui.FramePanelDibujo;
 import componentes.base.DComponenteBase;
+import componentes.util.DialogoIntroTexto;
 
 import figuras.Elipse;
 import figuras.Figura;

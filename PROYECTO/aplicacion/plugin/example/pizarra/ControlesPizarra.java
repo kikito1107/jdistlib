@@ -13,7 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 
-import util.Separador;
+import componentes.util.Separador;
+
 
 /**
  * Panel con los controles para la pizarra distribuida

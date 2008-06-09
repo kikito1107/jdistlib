@@ -1,4 +1,4 @@
-package util;
+package componentes.util;
 
 import java.awt.Container;
 import java.util.Vector;

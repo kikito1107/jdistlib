@@ -8,9 +8,9 @@ import javax.swing.BorderFactory;
 import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
 
-import util.ListaElementos;
 
 import componentes.base.DComponenteBase;
+import componentes.util.ListaElementos;
 import Deventos.DMIEvent;
 
 /**

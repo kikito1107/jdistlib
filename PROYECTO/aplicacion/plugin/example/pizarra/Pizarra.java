@@ -10,16 +10,16 @@ import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.border.EtchedBorder;
 
-import aplicacion.gui.editor.DILienzo;
-import aplicacion.gui.editor.DIViewer;
 
-import util.DialogoIntroTexto;
 
 import Deventos.enlaceJS.DConector;
 
 import componentes.base.DComponente;
 import componentes.base.DComponenteBase;
 import componentes.base.HebraProcesadoraBase;
+import componentes.gui.visualizador.DILienzo;
+import componentes.gui.visualizador.DIViewer;
+import componentes.util.DialogoIntroTexto;
 import Deventos.DEvent;
 import figuras.Elipse;
 import figuras.Figura;

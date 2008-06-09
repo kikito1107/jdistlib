@@ -1,4 +1,4 @@
-package aplicacion.gui.editor;
+package componentes.gui.visualizador;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -18,10 +18,11 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 
+import componentes.util.Separador;
+
 
 import Deventos.DJLienzoEvent;
 
-import util.Separador;
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.ClienteFicheros;
 import aplicacion.fisica.documentos.Documento;

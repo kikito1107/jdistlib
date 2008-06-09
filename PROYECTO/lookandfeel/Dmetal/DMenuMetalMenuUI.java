@@ -17,11 +17,11 @@ import javax.swing.event.MouseInputListener;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicMenuUI;
 
-import util.DMenuSelectionManager;
 import Deventos.DJMenuEvent;
 
 import componentes.base.DJMenu;
 import componentes.listeners.DJMenuListener;
+import componentes.util.DMenuSelectionManager;
 
 /**
  * <p>

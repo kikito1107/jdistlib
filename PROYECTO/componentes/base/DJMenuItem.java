@@ -11,7 +11,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.MenuElement;
 
-import util.DMenuSelectionManager;
 import Deventos.ColaEventos;
 import Deventos.DEvent;
 import Deventos.DJMenuItemEvent;
@@ -20,6 +19,7 @@ import Deventos.enlaceJS.DConector;
 
 import componentes.listeners.DJMenuItemListener;
 import componentes.listeners.LJMenuItemListener;
+import componentes.util.DMenuSelectionManager;
 
 /**
  * Implementacion de la clase captadora de eventos para el componente Elemento

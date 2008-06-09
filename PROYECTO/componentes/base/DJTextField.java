@@ -13,13 +13,13 @@ import javax.swing.text.Document;
 import javax.swing.text.JTextComponent;
 import javax.swing.text.TextAction;
 
-import util.DCaret;
 import Deventos.ColaEventos;
 import Deventos.DEvent;
 import Deventos.DJTextFieldEvent;
 import Deventos.enlaceJS.DConector;
 
 import componentes.listeners.DJTextFieldListener;
+import componentes.util.DCaret;
 
 /**
  * Implementacion de la clase captadora de eventos para el componente TextField

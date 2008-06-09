@@ -1,4 +1,4 @@
-package aplicacion.gui.componentes;
+package componentes.gui.docs;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -24,19 +24,19 @@ import awareness.MIUsuario;
 
 import componentes.base.DComponenteBase;
 
-public class ArbolDoc extends DComponenteBase
+public class DIArbolDocumentos extends DComponenteBase
 {	
-	public ArbolDocumentos arbol = null;
-	private static ArbolDoc esto = null;
+	public DJArbolDocumentos arbol = null;
+	private static DIArbolDocumentos esto = null;
 	
-	public ArbolDoc(DefaultMutableTreeNode raiz)
+	public DIArbolDocumentos(DefaultMutableTreeNode raiz)
 	{
 		super();
 		init(raiz);
 		esto = this;
 	}
 
-	public ArbolDoc( String nombre, boolean conexionDC, DComponenteBase padre, DefaultMutableTreeNode raiz)
+	public DIArbolDocumentos( String nombre, boolean conexionDC, DComponenteBase padre, DefaultMutableTreeNode raiz)
 	{
 		super(nombre, conexionDC, padre);
 		init( raiz);
@@ -45,7 +45,7 @@ public class ArbolDoc extends DComponenteBase
 	private void init(DefaultMutableTreeNode raiz)
 	{
 		
-		arbol = new ArbolDocumentos(raiz);
+		arbol = new DJArbolDocumentos(raiz);
 		this.add(arbol);
 	}
 	

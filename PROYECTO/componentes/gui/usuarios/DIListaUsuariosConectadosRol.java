@@ -10,10 +10,10 @@ import javax.swing.border.TitledBorder;
 
 import awareness.ClienteMetaInformacion;
 
-import util.ListaElementos;
 import Deventos.enlaceJS.DConector;
 
 import componentes.base.DComponenteBase;
+import componentes.util.ListaElementos;
 import Deventos.DMIEvent;
 
 /**

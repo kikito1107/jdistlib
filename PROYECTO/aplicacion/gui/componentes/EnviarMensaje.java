@@ -36,7 +36,8 @@ import awareness.MIUsuario;
 import javax.swing.JToolBar;
 import javax.swing.JSplitPane;
 
-import util.Separador;
+import componentes.util.Separador;
+
 
 /**
  * Dialogo que permite enviar un mensaje de texto a alguno de los usuarios del

@@ -4,7 +4,8 @@ import java.util.Vector;
 
 import javax.swing.ImageIcon;
 
-import util.ElementoLista;
+import componentes.util.ElementoLista;
+
 
 /**
  * Eventos distribuidos de lista

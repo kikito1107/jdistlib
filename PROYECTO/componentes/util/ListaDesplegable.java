@@ -1,4 +1,4 @@
-package util;
+package componentes.util;
 
 import javax.swing.JComboBox;
 

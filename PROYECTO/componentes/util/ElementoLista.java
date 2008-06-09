@@ -1,4 +1,4 @@
-package util;
+package componentes.util;
 
 import java.awt.Canvas;
 import java.awt.Dimension;

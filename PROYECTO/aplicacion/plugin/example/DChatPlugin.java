@@ -20,13 +20,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
-import util.JFontChooser;
 import Deventos.enlaceJS.DConector;
 import aplicacion.plugin.DAbstractPlugin;
 
 import componentes.base.DJFrame;
 import componentes.gui.DIChat;
 import componentes.gui.usuarios.ArbolUsuariosConectadosRol;
+import componentes.util.JFontChooser;
 import Deventos.DEvent;
 import Deventos.DJChatEvent;
 

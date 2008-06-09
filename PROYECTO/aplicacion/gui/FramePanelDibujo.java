@@ -1,4 +1,4 @@
-package aplicacion.gui.editor;
+package aplicacion.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Graphics;
@@ -9,6 +9,7 @@ import aplicacion.fisica.documentos.Documento;
 
 import componentes.base.DComponente;
 import componentes.base.DJFrame;
+import componentes.gui.visualizador.DIPanelEditor;
 
 /**
  * Ventana con un panel de dibujo de la clase @see DIPanelEditor

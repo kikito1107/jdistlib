@@ -1,4 +1,4 @@
-package util;
+package componentes.util;
 
 /************************************************************
  * Copyright 2004-2005,2007 Masahiko SAWAI All Rights Reserved. 

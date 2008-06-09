@@ -1,4 +1,4 @@
-package aplicacion.gui.componentes;
+package componentes.gui.docs;
 
 import java.awt.Insets;
 import java.awt.Point;
@@ -31,6 +31,8 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
+import componentes.util.DocumentosCellRenderer;
+
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.documentos.MIDocumento;
 import aplicacion.fisica.eventos.DFileEvent;
@@ -41,7 +43,7 @@ import aplicacion.gui.PanelPrincipal;
  * 
  * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
-public class ArbolDocumentos extends JTree implements Autoscroll
+public class DJArbolDocumentos extends JTree implements Autoscroll
 {
 	private int margin = 12;
 
@@ -101,7 +103,7 @@ public class ArbolDocumentos extends JTree implements Autoscroll
 	 * @param raiz
 	 *            Raiz del arbol de documentos
 	 */
-	public ArbolDocumentos( DefaultMutableTreeNode raiz )
+	public DJArbolDocumentos( DefaultMutableTreeNode raiz )
 	{
 		super(raiz);
 		this.setRootVisible(false);

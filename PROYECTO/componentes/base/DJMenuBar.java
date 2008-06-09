@@ -5,7 +5,8 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 
-import util.DMenuSelectionManager;
+import componentes.util.DMenuSelectionManager;
+
 import Deventos.ColaEventos;
 import Deventos.DEvent;
 import Deventos.DMIEvent;
