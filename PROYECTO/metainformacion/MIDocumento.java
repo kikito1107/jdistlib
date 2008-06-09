@@ -14,7 +14,6 @@ import aplicacion.fisica.net.Transfer;
  * Metainformacion de un documento
  * 
  * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz.
- * 
  */
 public class MIDocumento implements Serializable
 {

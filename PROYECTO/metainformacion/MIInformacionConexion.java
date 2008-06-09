@@ -5,9 +5,6 @@ import java.util.Vector;
 
 public class MIInformacionConexion implements Serializable
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public String mensajeError = null;

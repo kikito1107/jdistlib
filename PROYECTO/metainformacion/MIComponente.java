@@ -3,20 +3,15 @@ package metainformacion;
 import java.io.Serializable;
 
 /**
- * <p>
- * Description: Clase para almacenar informacion sobre un componente de la
- * palicacion. Guardamos informacion sobre: Nombre del componente y permiso del
+ * Permite almacenar informacion sobre un componente de la
+ * aplicacion. Guardamos informacion sobre: Nombre del componente y permiso del
  * componente. El permiso solo tiene sentido en relacion con un usuario
- * </p>
  * 
- * @author Juan Antonio Ibañez Santorum (looper@telefonica.net)
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public class MIComponente implements Serializable
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -8212385220511015348L;
 
 	private String nombre = null;
