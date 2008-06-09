@@ -205,7 +205,7 @@ public class DialogoMetaInformacion extends JDialog
 									java.awt.event.ActionEvent e)
 							{
 								ClienteMetaInformacion.obtenerCMI()
-										.guardarCambiosBD();
+										.guardarCambios();
 								setVisible(false);
 							}
 						});

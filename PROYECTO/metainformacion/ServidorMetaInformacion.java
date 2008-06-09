@@ -941,7 +941,7 @@ public class ServidorMetaInformacion
 		}
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	private class HebraDesconexionUsuarios implements Runnable
 	{
 		public void run()

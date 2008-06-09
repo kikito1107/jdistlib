@@ -19,16 +19,31 @@ import componentes.listeners.DMIListener;
 
 /**
  * Cliente del modulo de metainformacion
+ * 
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
 @SuppressWarnings( "unchecked" )
 public class ClienteMetaInformacion
 {
+	/**
+	 * Instancia ejecutandose actualmente del cliente de metainformacion
+	 */
 	public static ClienteMetaInformacion cmi = null;
 
+	/**
+	 * Nombre del usuario que poseemos en el sistema
+	 */
 	public static String usuario = null;
 
+	/**
+	 * Clave asociada al usuario
+	 */
 	public static String clave = null;
 
+	/**
+	 * Nombre de la aplicacion que se esta ejecutando
+	 */
 	public static String aplicacion = null;
 
 	private DialogoMetaInformacion dmi = null;
@@ -47,13 +62,22 @@ public class ClienteMetaInformacion
 
 	private long contador = -1;
 
-	@SuppressWarnings( "static-access" )
+	/**
+	 * Constructor con parametros
+	 * 
+	 * @param aplicacion2
+	 *            Nombre de la aplicacion en ejecucion
+	 * @param usuario2
+	 *            Nombre del usuario que poseemos actualmente
+	 * @param clave2
+	 *            Clave asociada al usuario
+	 */
 	public ClienteMetaInformacion( String aplicacion2, String usuario2,
 			String clave2 )
 	{
-		this.aplicacion = new String(aplicacion2);
-		this.usuario = new String(usuario2);
-		this.clave = new String(clave2);
+		ClienteMetaInformacion.aplicacion = new String(aplicacion2);
+		ClienteMetaInformacion.usuario = new String(usuario2);
+		ClienteMetaInformacion.clave = new String(clave2);
 		localizarJavaSpace();
 		cmi = this;
 
@@ -63,13 +87,24 @@ public class ClienteMetaInformacion
 		inicializar();
 	}
 
-	@SuppressWarnings( "static-access" )
+	/**
+	 * Constructor con parametros
+	 * 
+	 * @param aplicacion
+	 *            Nombre de la aplicacion en ejecucion
+	 * @param usuario
+	 *            Nombre del usuario que poseemos actualmente
+	 * @param clave
+	 *            Clave asociada al usuario
+	 * @param space
+	 *            JavaSpace asociado a las comunicaciones
+	 */
 	public ClienteMetaInformacion( String aplicacion, String usuario,
-			String clave, JFrame frame, JavaSpace space )
+			String clave, JavaSpace space )
 	{
-		this.aplicacion = new String(aplicacion);
-		this.usuario = new String(usuario);
-		this.clave = clave;
+		ClienteMetaInformacion.aplicacion = new String(aplicacion);
+		ClienteMetaInformacion.usuario = new String(usuario);
+		ClienteMetaInformacion.clave = clave;
 		this.space = space;
 		cmi = this;
 
@@ -79,6 +114,9 @@ public class ClienteMetaInformacion
 		inicializar();
 	}
 
+	/**
+	 * Localiza el JavaSpace
+	 */
 	private void localizarJavaSpace()
 	{
 		// Encargada de localizar el JavaSpace
@@ -97,16 +135,21 @@ public class ClienteMetaInformacion
 		System.exit(1);
 	}
 
+	/**
+	 * Obtiene la instancia en ejecucion del cliente de metainformacion
+	 * 
+	 * @return Cliente de metainformacion en ejecucion
+	 */
 	public static ClienteMetaInformacion obtenerCMI()
 	{
 		return cmi;
 	}
 
 	/**
-	 * inicializa el cliente enviando una solicitud de sincronizacion al
+	 * Inicializa el cliente enviando una solicitud de sincronizacion al
 	 * servidor de Metainformacion
 	 */
-	public void inicializar()
+	private void inicializar()
 	{
 		try
 		{
@@ -178,7 +221,7 @@ public class ClienteMetaInformacion
 	 * Identificamos al usuario para concederle, o no, el acceso a la aplicacion
 	 * en cuestion
 	 * 
-	 * @return
+	 * @return Metainformacion de la conexion establecida
 	 */
 	public MIInformacionConexion identificar()
 	{
@@ -249,11 +292,22 @@ public class ClienteMetaInformacion
 		return info;
 	}
 
+	/**
+	 * Agrega un Listener para los eventos de metainformacion
+	 * 
+	 * @param listener
+	 *            Listener a agregar
+	 */
 	public void addDMIListener(DMIListener listener)
 	{
 		dmilisteners.add(listener);
 	}
 
+	/**
+	 * Muestra el dialogo que permite modificar la metainformacion del sistema.
+	 * 
+	 * @pre El usuario debe tener permisos de administracion
+	 */
 	public void mostrarDialogo()
 	{
 		if (( dmi != null ) && permisoAdministracion)
@@ -264,12 +318,27 @@ public class ClienteMetaInformacion
 		else System.out.println("=> Sin permisos para iniciar dmi!!!!");
 	}
 
+	/**
+	 * Indica si un usuario tiene o no permisos de administracion
+	 * 
+	 * @return True si el usuario tiene permisos de administracion. False en
+	 *         caso contrario
+	 */
 	public boolean permisosAdministracion()
 	{
 		return permisoAdministracion;
 	}
 
-	@SuppressWarnings( "static-access" )
+	/**
+	 * Conecta un usuario al servidor de metainformacion
+	 * 
+	 * @param usuario
+	 *            Nombre del usuario a conectar
+	 * @param clave
+	 *            Clave del usuario
+	 * @return Metainformacion completa del nuevo usuario conectado o null si
+	 *         ocurrio algun error.
+	 */
 	public MICompleta conectarUsuario(String usuario, String clave)
 	{
 		DMIEvent leido = null;
@@ -310,21 +379,20 @@ public class ClienteMetaInformacion
 			else
 			{
 				info = leido.infoCompleta;
-				this.permisoAdministracion = info.esAdministrador
+				ClienteMetaInformacion.permisoAdministracion = info.esAdministrador
 						.booleanValue();
 				if (info.identificacionValida.booleanValue())
 				{
 					// ********** PREPARANDO HEBRA RECOLECTORA DE EVENTOS
-					// ************//
+					// *****//
 					Thread recolectora = new Thread(new HebraRecolectora());
 					recolectora.start();
 					recolectora.setPriority(Thread.MAX_PRIORITY);
-					// ***************************************************************//
+
 					// ********** PREPARANDO HEBRA ENVIO DE KEEPALIVE
-					// ************//
+					// *********//
 					Thread envioKA = new Thread(new HebraEnvioKeepAlive());
 					envioKA.start();
-					// ***************************************************************//
 				}
 			}
 		}
@@ -341,6 +409,15 @@ public class ClienteMetaInformacion
 		return info;
 	}
 
+	/**
+	 * Permite cambiar el rol a un usuario
+	 * 
+	 * @param usuario
+	 *            Nombre del usuario
+	 * @param nuevoRol
+	 *            Nombre del nuevo rol que tendra en el sistema
+	 * @return Metainformacion nueva del sistema o null si ocurrio algun error.
+	 */
 	public MICompleta cambiarRolUsuario(String usuario, String nuevoRol)
 	{
 		MICompleta info = new MICompleta();
@@ -392,6 +469,13 @@ public class ClienteMetaInformacion
 		return info;
 	}
 
+	/**
+	 * Permite obtener los usuarios que estan asociados a un determinado rol
+	 * 
+	 * @param rol
+	 *            Nombre del rol
+	 * @return Vector con los usuarios o null si hubo algun problema
+	 */
 	public Vector obtenerUsuariosBajoRol(String rol)
 	{
 		Vector v = null;
@@ -440,6 +524,12 @@ public class ClienteMetaInformacion
 
 	}
 
+	/**
+	 * Obtiene los usuarios del sistema
+	 * 
+	 * @return Vector con los usuarios del sistema o null si ocurrio algun
+	 *         problema
+	 */
 	public Vector obtenerUsuarios()
 	{
 		Vector v = null;
@@ -486,6 +576,13 @@ public class ClienteMetaInformacion
 
 	}
 
+	/**
+	 * Obtiene la metainformacion de un usuario
+	 * 
+	 * @param nombre
+	 *            Nombre del usuario
+	 * @return Metainformacion del usuario
+	 */
 	public MIUsuario obtenerDatosUsuario(String nombre)
 	{
 		Vector<MIUsuario> v = obtenerDatosUsuarios();
@@ -496,6 +593,12 @@ public class ClienteMetaInformacion
 		return null;
 	}
 
+	/**
+	 * Obtiene la metainformacion de todos los usuarios del sistema
+	 * 
+	 * @return Vector con la metainformacion de todos los usuarios o null si
+	 *         ocurrio algun error
+	 */
 	@SuppressWarnings( "unchecked" )
 	public Vector<MIUsuario> obtenerDatosUsuarios()
 	{
@@ -543,6 +646,12 @@ public class ClienteMetaInformacion
 
 	}
 
+	/**
+	 * Obtiene todos los roles del sistema
+	 * 
+	 * @return Vector con todos los roles disponibles en el sistema o null si
+	 *         ocurrio algun error
+	 */
 	public Vector obtenerRoles()
 	{
 		Vector v = null;
@@ -589,6 +698,12 @@ public class ClienteMetaInformacion
 
 	}
 
+	/**
+	 * Obtiene la metainformacion de todos los usuarios conectados
+	 * 
+	 * @return Vector con la metainformacion de todos los usuarios conectados o
+	 *         null si ocurrio algun error
+	 */
 	public Vector<MIUsuario> getUsuariosConectados()
 	{
 
@@ -633,8 +748,15 @@ public class ClienteMetaInformacion
 		return null;
 	}
 
+	/**
+	 * Obtiene la metainformacion de un usuario, dado su nombre
+	 * 
+	 * @param nombre
+	 *            Nombre del usuario
+	 * @return Metainformacion del usuario
+	 */
 	@SuppressWarnings( "unchecked" )
-	public MIUsuario getUsuarioConectado(String Nombre)
+	public MIUsuario getUsuarioConectado(String nombre)
 	{
 
 		Vector<MIUsuario> v = null;
@@ -669,7 +791,7 @@ public class ClienteMetaInformacion
 			{
 				v = leido.usuarios;
 
-				//System.out.println("Tamaño v " + v.size());
+				// System.out.println("Tamaño v " + v.size());
 
 				for (int i = 0; i < v.size(); ++i)
 				{
@@ -677,7 +799,7 @@ public class ClienteMetaInformacion
 					System.out.println("Comparando con: "
 							+ v.get(i).getNombreUsuario());
 
-					if (v.get(i).getNombreUsuario().equals(Nombre))
+					if (v.get(i).getNombreUsuario().equals(nombre))
 						u = v.get(i);
 				}
 			}
@@ -696,6 +818,12 @@ public class ClienteMetaInformacion
 		return u;
 	}
 
+	/**
+	 * Obtiene todos los componentes del sistema
+	 * 
+	 * @return Vector con los componentes del sistema o null si ocurrio algun
+	 *         error
+	 */
 	public Vector obtenerComponentes()
 	{
 		Vector v = null;
@@ -742,6 +870,12 @@ public class ClienteMetaInformacion
 
 	}
 
+	/**
+	 * Obtiene los usuarios conectados en este momento
+	 * 
+	 * @return Vector con los usuarios conectados en este momento o null si
+	 *         ocurrio algun error
+	 */
 	public Vector obtenerUsuariosConectados()
 	{
 		Vector v = null;
@@ -789,6 +923,13 @@ public class ClienteMetaInformacion
 
 	}
 
+	/**
+	 * Obtiene los roles permitidos para un usuario
+	 * 
+	 * @param usuario
+	 *            Nombre del usuario
+	 * @return Vector con los roles permitidos o null si ocurre algun error
+	 */
 	public Vector obtenerRolesPermitidos(String usuario)
 	{
 		Vector v = null;
@@ -838,6 +979,18 @@ public class ClienteMetaInformacion
 
 	}
 
+	/**
+	 * Permite cambiar los permisos a un componente para un usuario concreto
+	 * 
+	 * @param usuario
+	 *            Nombre del usuario
+	 * @param componente
+	 *            Nombre del componente
+	 * @param nuevoPermiso
+	 *            Nuevos permisos para el componente
+	 * @return True si se cambiaron los permisos con exito. False en caso
+	 *         contrario
+	 */
 	public boolean cambiarPermisoComponenteUsuario(String usuario,
 			String componente, int nuevoPermiso)
 	{
@@ -891,6 +1044,13 @@ public class ClienteMetaInformacion
 		return cambiado;
 	}
 
+	/**
+	 * Cambia los permisos de un componente para un rol
+	 * @param rol Nombre del rol
+	 * @param componente Nombre del componente
+	 * @param nuevoPermiso Nuevo nivel de permisos
+	 * @return True si se cambiaron los permisos con exito. False en caso contrario
+	 */
 	public boolean cambiarPermisoComponenteRol(String rol, String componente,
 			int nuevoPermiso)
 	{
@@ -944,6 +1104,12 @@ public class ClienteMetaInformacion
 		return cambiado;
 	}
 
+	/**
+	 * Obtiene los permisos que tiene un usuario para un componente
+	 * @param usuario Nombre del usuario
+	 * @param componente Nombre del componente
+	 * @return Nivel de permisos o -1 si ocurrio algun error
+	 */
 	public int obtenerPermisoComponenteUsuario(String usuario, String componente)
 	{
 		DMIEvent leido = null;
@@ -995,6 +1161,12 @@ public class ClienteMetaInformacion
 		return permiso;
 	}
 
+	/**
+	 * Obtiene los permisos que tiene un rol para un componente
+	 * @param rol Nombre del rol
+	 * @param componente Nombre del componente
+	 * @return Nivel de permisos o -1 si ocurrio algun error
+	 */
 	public int obtenerPermisoComponenteRol(String rol, String componente)
 	{
 		DMIEvent leido = null;
@@ -1046,6 +1218,10 @@ public class ClienteMetaInformacion
 		return permiso;
 	}
 
+	/**
+	 * Permite desconectar un usuario del sistema
+	 * @param usuario Nombre del usuario
+	 */
 	public void desconectarUsuario(String usuario)
 	{
 		DMIEvent evento = new DMIEvent();
@@ -1071,6 +1247,14 @@ public class ClienteMetaInformacion
 		}
 	}
 
+	/**
+	 * Crea un nuevo usuario
+	 * @param nombreUsuario Nombre del usuario a crear
+	 * @param clave Clave para el usuario
+	 * @param rolDefecto Rol por defecto para el usuario
+	 * @param administrador Indica si es administrador o no
+	 * @return Mensaje producido por el sistema
+	 */
 	public String nuevoUsuario(String nombreUsuario, String clave,
 			String rolDefecto, boolean administrador)
 	{
@@ -1123,6 +1307,11 @@ public class ClienteMetaInformacion
 
 	}
 
+	/**
+	 * Crea un nuevo rol en el sistema
+	 * @param rol Nombre del rol
+	 * @return Mensaje producido por el sistema
+	 */
 	public String nuevoRol(String rol)
 	{
 		DMIEvent leido = null;
@@ -1171,6 +1360,12 @@ public class ClienteMetaInformacion
 
 	}
 
+	/**
+	 * Asigna un nuevo rol permitido a un usuario concreto
+	 * @param usuario Nombre del usuario
+	 * @param rol Nombre del nuevo rol permitido
+	 * @return Mensaje producido por el sistema
+	 */
 	public String nuevoRolPermitido(String usuario, String rol)
 	{
 		DMIEvent leido = null;
@@ -1221,6 +1416,12 @@ public class ClienteMetaInformacion
 
 	}
 
+	/**
+	 * Elimina un rol permitido para un usuario
+	 * @param usuario Nombre del usuario
+	 * @param rol Nombre del rol
+	 * @return Mensaje producido por el sistema
+	 */
 	public String eliminarRolPermitido(String usuario, String rol)
 	{
 		DMIEvent leido = null;
@@ -1272,6 +1473,11 @@ public class ClienteMetaInformacion
 
 	}
 
+	/**
+	 * Elimina un usuario del sistema
+	 * @param nombreUsuario Nombre del usuario a eliminar
+	 * @return Mensaje producido por el sistema
+	 */
 	public String eliminarUsuario(String nombreUsuario)
 	{
 		DMIEvent leido = null;
@@ -1320,6 +1526,11 @@ public class ClienteMetaInformacion
 
 	}
 
+	/**
+	 * Elimina un rol del sistema
+	 * @param rol Nombre del rol a eliminar
+	 * @return Mensaje producido por el sistema
+	 */
 	public String eliminarRol(String rol)
 	{
 		DMIEvent leido = null;
@@ -1367,8 +1578,67 @@ public class ClienteMetaInformacion
 		return mensaje;
 
 	}
+	
+	/**
+	 * Obtiene la metainformacion de un rol, dado su nombre
+	 * @param drol Nombre del rol
+	 * @return Metainformacion del rol o null si ocurrio algun error
+	 */
+	public MIRol getRol(String drol)
+	{
+		MIRol rol = null;
+		DMIEvent leido = null;
+		DMIEvent evento = new DMIEvent();
+		DMIEvent plantilla = new DMIEvent();
 
-	public String guardarCambiosBD()
+		try
+		{
+			int idEvento = aleatorio();
+			evento.origen = new Integer(11); // Cliente MetaInformacion
+			evento.destino = new Integer(10); // Servidor MetaInformacion
+			evento.tipo = new Integer(DMIEvent.DATOS_ROL.intValue());
+			evento.sincrono = new Boolean(true);
+			evento.aplicacion = new String(aplicacion);
+			evento.entero = new Integer(idEvento);
+			evento.clave = new String(drol);
+			evento.rol = new String(DConector.Drol);
+			space.write(evento, null, leaseWriteTime);
+
+			System.err.println(drol);
+
+			plantilla.origen = new Integer(10); // Servidor MetaInformacion
+			plantilla.destino = new Integer(11); // Cliente MetaInformacion
+			plantilla.tipo = new Integer(DMIEvent.RESPUESTA_DATOS_ROL
+					.intValue());
+			plantilla.sincrono = new Boolean(true);
+			plantilla.aplicacion = new String(aplicacion);
+			plantilla.entero = new Integer(idEvento);
+
+			leido = (DMIEvent) space.take(plantilla, null, leaseReadTime);
+			if (leido == null)
+			{ // Sin respuesta del servidor
+			}
+			else rol = leido.datosRol;
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			JOptionPane
+					.showMessageDialog(
+							null,
+							"Hubo un error en la comunicacion a la hora de obtener rol en el CMI\nDebera identificarse de nuevo.",
+							"Error", JOptionPane.ERROR_MESSAGE);
+			System.exit(1);
+		}
+
+		return rol;
+	}
+
+	/**
+	 * Guarda los cambios fisicamente
+	 * @return Mensaje producido por el sistema
+	 */
+	public String guardarCambios()
 	{
 		DMIEvent evento = new DMIEvent();
 		String mensaje = new String();
@@ -1396,6 +1666,10 @@ public class ClienteMetaInformacion
 
 	}
 
+	/**
+	 * Genera un numero aleatorio
+	 * @return Numero aleatorio en el intervalo [0, 51000)
+	 */
 	private int aleatorio()
 	{
 		Date fecha = new Date();
@@ -1406,19 +1680,18 @@ public class ClienteMetaInformacion
 	}
 
 	/**
-	 * Encargada de localizar el JavaSpace
+	 * Hebra encargada de localizar el JavaSpace
 	 */
 	private class HebraLocalizadora implements Runnable
 	{
-		String nombre = null;
+		private String nombre = null;
 
-		Thread t = null;
-
-		int i = 0;
+		private Thread t = null;
 
 		/**
+		 * Constructor
 		 * @param nombreJavaSpace
-		 *            String Nombre del JavaSpace que deseamos localizar
+		 *            Nombre del JavaSpace que deseamos localizar
 		 */
 		public HebraLocalizadora( String nombreJavaSpace )
 		{
@@ -1429,7 +1702,7 @@ public class ClienteMetaInformacion
 		}
 
 		/**
-		 * Metodo que ejecuta la hebra
+		 * Ejecucion de la hebra
 		 */
 		public void run()
 		{
@@ -1454,21 +1727,20 @@ public class ClienteMetaInformacion
 	}
 
 	/**
-	 * 
-	 * Mediante esta clase podemos indicar que no ha sido posible localizar el
+	 * Permite indicar que no ha sido posible localizar el
 	 * JavaSpace pasado el tiempo indicado. De esta forma evitamos que el
 	 * programa se quede bloqueado en la fase de localizacion del JavasPace
 	 */
 	private class HebraDetectoraError implements Runnable
 	{
+		private int tiempoEspera = -1;
 
-		int tiempoEspera = -1;
-
-		Thread t = null;
+		private Thread t = null;
 
 		/**
+		 * Constructor
 		 * @param tiempoEspera
-		 *            int Tiempo que deseamos esperar
+		 *            Tiempo que deseamos esperar
 		 */
 		public HebraDetectoraError( int tiempoEspera )
 		{
@@ -1479,7 +1751,7 @@ public class ClienteMetaInformacion
 		}
 
 		/**
-		 * Metodo que ejecuta la hebra
+		 * Ejecucion de la hebra
 		 */
 		public void run()
 		{
@@ -1501,10 +1773,16 @@ public class ClienteMetaInformacion
 		}
 	}
 
+	/**
+	 * Permite mantener vivo al usuario en el sistema
+	 */
 	private class HebraEnvioKeepAlive implements Runnable
 	{
-		DMIEvent evento = new DMIEvent();
+		private DMIEvent evento = new DMIEvent();
 
+		/**
+		 * Ejecucion de la hebra
+		 */
 		public void run()
 		{
 			evento.origen = new Integer(11); // Cliente MetaInformacion
@@ -1534,10 +1812,10 @@ public class ClienteMetaInformacion
 	}
 
 	/**
-	 * Dado el comportamiento concurrente de las 2 Hebras mediante este Monitor
+	 * Dado el comportamiento concurrente de las 2 Hebras, mediante este Monitor
 	 * gestionamos la informacion sobre la inicializacion. La clase DConector
 	 * realizara una llamada a inicializacionCorrecta() quedandose bloqueada
-	 * hasta que se producza la correcta localizacion del JavaSpace o se
+	 * hasta que se produzca la correcta localizacion del JavaSpace o se
 	 * sobrepase el tiempo de espera sin haber sido localizado.
 	 */
 	private class Monitor
@@ -1552,7 +1830,7 @@ public class ClienteMetaInformacion
 		 * Bloquea al llamante hasta que se produzca una actualizacion de las
 		 * variables inicializado o error
 		 * 
-		 * @return boolean Devuelve si se ha producido o no la inicializacion
+		 * @return Devuelve si se ha producido o no la inicializacion
 		 */
 		public synchronized boolean inicializacionCorrecta()
 		{
@@ -1576,8 +1854,10 @@ public class ClienteMetaInformacion
 		}
 
 		/**
-		 * Devuelve si se ha sobrepasado el tiempo de espera sin haber sido
+		 * Permite obtener si se ha sobrepasado el tiempo de espera sin haber sido
 		 * localizado el JavaSpace
+		 * 
+		 * @return Indica si se ha producido o no un error
 		 */
 		public synchronized boolean getError()
 		{
@@ -1585,10 +1865,10 @@ public class ClienteMetaInformacion
 		}
 
 		/**
-		 * Cambamos el valor d ela variable error
+		 * Permite cambiar el valor de la variable de error
 		 * 
 		 * @param b
-		 *            boolean Valor deseado
+		 *            Valor deseado
 		 */
 		public synchronized void setError(boolean b)
 		{
@@ -1597,7 +1877,9 @@ public class ClienteMetaInformacion
 		}
 
 		/**
-		 * Devuelve si se ha localizado el JavaSpace
+		 * Permite obtener si se ha localizado el JavaSpace
+		 * 
+		 * @return True si se ha inicializado. False en caso contrario
 		 */
 		public synchronized boolean getInicializado()
 		{
@@ -1605,10 +1887,10 @@ public class ClienteMetaInformacion
 		}
 
 		/**
-		 * Cambiamos el valor de la variable inicializado
+		 * Permite cambiar el valor de la variable de inicializacion
 		 * 
 		 * @param b
-		 *            boolean Valor deseado
+		 *            Valor deseado
 		 */
 		public synchronized void setInicializado(boolean b)
 		{
@@ -1617,7 +1899,9 @@ public class ClienteMetaInformacion
 		}
 
 		/**
-		 * Devuelve si se ha sincronizado
+		 * Permite obtener si se ha sincronizado correctamente o no
+		 * 
+		 * @return True si se ha sincronizado correctamente. False en caso contrario
 		 */
 		public synchronized boolean getSincronizado()
 		{
@@ -1625,10 +1909,10 @@ public class ClienteMetaInformacion
 		}
 
 		/**
-		 * Cambiamos el valor de la variable sincronizado
+		 * Permite cambiar el valor de la variable de sincronizacion
 		 * 
 		 * @param b
-		 *            boolean Valor deseado
+		 *            Valor deseado
 		 */
 		public synchronized void setSincronizado(boolean b)
 		{
@@ -1637,9 +1921,14 @@ public class ClienteMetaInformacion
 		}
 	}
 
+	/**
+	 * Hebra que permite recopilar los eventos del sistema
+	 */
 	private class HebraRecolectora implements Runnable
 	{
-
+		/**
+		 * Ejecucion de la hebra
+		 */
 		public void run()
 		{
 			DMIEvent leido = null;
@@ -1769,63 +2058,5 @@ public class ClienteMetaInformacion
 					System.exit(1);
 				}
 		}
-	}
-
-	public static void main(String[] args)
-	{
-		// ClienteMetaInformacion cmi = new
-		// ClienteMetaInformacion("AplicacionDePrueba");
-		// cmi.desconectarUsuario("Looper");
-		// System.out.println(cmi.obtenerRoles());
-	}
-
-	public MIRol getRol(String drol)
-	{
-		MIRol rol = null;
-		DMIEvent leido = null;
-		DMIEvent evento = new DMIEvent();
-		DMIEvent plantilla = new DMIEvent();
-
-		try
-		{
-			int idEvento = aleatorio();
-			evento.origen = new Integer(11); // Cliente MetaInformacion
-			evento.destino = new Integer(10); // Servidor MetaInformacion
-			evento.tipo = new Integer(DMIEvent.DATOS_ROL.intValue());
-			evento.sincrono = new Boolean(true);
-			evento.aplicacion = new String(aplicacion);
-			evento.entero = new Integer(idEvento);
-			evento.clave = new String(drol);
-			evento.rol = new String(DConector.Drol);
-			space.write(evento, null, leaseWriteTime);
-
-			System.err.println(drol);
-
-			plantilla.origen = new Integer(10); // Servidor MetaInformacion
-			plantilla.destino = new Integer(11); // Cliente MetaInformacion
-			plantilla.tipo = new Integer(DMIEvent.RESPUESTA_DATOS_ROL
-					.intValue());
-			plantilla.sincrono = new Boolean(true);
-			plantilla.aplicacion = new String(aplicacion);
-			plantilla.entero = new Integer(idEvento);
-
-			leido = (DMIEvent) space.take(plantilla, null, leaseReadTime);
-			if (leido == null)
-			{ // Sin respuesta del servidor
-			}
-			else rol = leido.datosRol;
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-			JOptionPane
-					.showMessageDialog(
-							null,
-							"Hubo un error en la comunicacion a la hora de obtener rol en el CMI\nDebera identificarse de nuevo.",
-							"Error", JOptionPane.ERROR_MESSAGE);
-			System.exit(1);
-		}
-
-		return rol;
 	}
 }

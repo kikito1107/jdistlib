@@ -197,7 +197,7 @@ public class LectorBD_MI
 		}
 		catch (SQLException e)
 		{
-			//System.out.println("Error en la ejecucion");
+			// System.out.println("Error en la ejecucion");
 		}
 
 		try
@@ -237,7 +237,7 @@ public class LectorBD_MI
 		// conexion.cerrar();
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public void actualizarBD(Vector aplicaciones)
 	{
 		try

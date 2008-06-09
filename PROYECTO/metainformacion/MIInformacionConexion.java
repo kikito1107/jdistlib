@@ -20,10 +20,10 @@ public class MIInformacionConexion implements Serializable
 
 	public Boolean identificacionValida = new Boolean(false);
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector rolesPermitidos = new Vector();
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector usuariosConectados = new Vector();
 
 }
