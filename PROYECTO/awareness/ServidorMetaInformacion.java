@@ -1,9 +1,10 @@
-package metainformacion;
+package awareness;
 
 import java.util.Vector;
 
+import awareness.gui.FrameAdminServMI;
+
 import javaspaces.SpaceLocator;
-import metainformacion.gui.FrameAdminServMI;
 import net.jini.core.lease.Lease;
 import net.jini.space.JavaSpace;
 import Deventos.ColaEventos;

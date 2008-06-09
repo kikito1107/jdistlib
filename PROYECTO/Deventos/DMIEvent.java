@@ -2,11 +2,12 @@ package Deventos;
 
 import java.util.Vector;
 
-import metainformacion.MICompleta;
-import metainformacion.MIComponente;
-import metainformacion.MIInformacionConexion;
-import metainformacion.MIRol;
-import metainformacion.MIUsuario;
+import awareness.MICompleta;
+import awareness.MIComponente;
+import awareness.MIInformacionConexion;
+import awareness.MIRol;
+import awareness.MIUsuario;
+
 
 /**
  * Eventos distribuidos de metainformacion

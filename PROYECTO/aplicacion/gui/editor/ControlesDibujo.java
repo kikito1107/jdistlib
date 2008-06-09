@@ -18,7 +18,6 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 
-import metainformacion.MIDocumento;
 
 import Deventos.DJLienzoEvent;
 
@@ -26,6 +25,7 @@ import util.Separador;
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.ClienteFicheros;
 import aplicacion.fisica.documentos.Documento;
+import aplicacion.fisica.documentos.MIDocumento;
 import aplicacion.fisica.net.Transfer;
 import aplicacion.gui.VentanaCarga;
 import aplicacion.gui.componentes.SelectorFicherosDistribuido;

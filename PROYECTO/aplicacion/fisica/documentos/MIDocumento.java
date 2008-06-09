@@ -1,13 +1,16 @@
-package metainformacion;
+package aplicacion.fisica.documentos;
 
 import java.io.Serializable;
 
 import javax.swing.JOptionPane;
 
+
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.ClienteFicheros;
 import aplicacion.fisica.eventos.DFileEvent;
 import aplicacion.fisica.net.Transfer;
+import awareness.MIRol;
+import awareness.MIUsuario;
 
 /**
  * Metainformacion de un documento

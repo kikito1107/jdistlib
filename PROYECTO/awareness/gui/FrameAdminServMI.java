@@ -1,4 +1,4 @@
-package metainformacion.gui;
+package awareness.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -15,7 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import metainformacion.ServidorMetaInformacion;
+import awareness.ServidorMetaInformacion;
+
 
 /**
  * Frame que se abre al iniciar el servidor de Metainformacion

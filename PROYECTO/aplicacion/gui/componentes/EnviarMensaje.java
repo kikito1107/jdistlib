@@ -26,12 +26,13 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-import metainformacion.ClienteMetaInformacion;
-import metainformacion.MIDocumento;
-import metainformacion.MIRol;
-import metainformacion.MIUsuario;
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.ClienteFicheros;
+import aplicacion.fisica.documentos.MIDocumento;
+import awareness.ClienteMetaInformacion;
+import awareness.MIRol;
+import awareness.MIUsuario;
+
 import javax.swing.JToolBar;
 import javax.swing.JSplitPane;
 

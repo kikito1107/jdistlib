@@ -1,4 +1,4 @@
-package metainformacion.gui;
+package awareness.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Frame;
@@ -10,7 +10,8 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
-import metainformacion.ClienteMetaInformacion;
+import awareness.ClienteMetaInformacion;
+
 
 /**
  * <p>

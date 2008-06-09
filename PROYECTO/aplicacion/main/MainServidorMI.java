@@ -5,7 +5,8 @@ import java.awt.Toolkit;
 
 import javax.swing.UIManager;
 
-import metainformacion.gui.FrameAdminServMI;
+import awareness.gui.FrameAdminServMI;
+
 
 /**
  * Clase principal para lanzar el servidor de metainformacion

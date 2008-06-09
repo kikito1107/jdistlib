@@ -1,4 +1,4 @@
-package metainformacion.gui;
+package awareness.gui;
 
 import javax.swing.JTextField;
 import javax.swing.text.AttributeSet;

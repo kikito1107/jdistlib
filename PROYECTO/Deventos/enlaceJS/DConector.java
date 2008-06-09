@@ -11,8 +11,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import metainformacion.ClienteMetaInformacion;
-import metainformacion.MICompleta;
 import net.jini.core.entry.UnusableEntryException;
 import net.jini.core.lease.Lease;
 import net.jini.core.transaction.Transaction;
@@ -22,6 +20,8 @@ import net.jini.core.transaction.server.TransactionManager;
 import net.jini.space.JavaSpace;
 import util.Fecha;
 import aplicacion.fisica.ClienteFicheros;
+import awareness.ClienteMetaInformacion;
+import awareness.MICompleta;
 
 import componentes.base.DComponente;
 import componentes.listeners.DMIListener;

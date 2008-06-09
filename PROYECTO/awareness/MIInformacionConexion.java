@@ -1,4 +1,4 @@
-package metainformacion;
+package awareness;
 
 import java.io.Serializable;
 import java.util.Vector;

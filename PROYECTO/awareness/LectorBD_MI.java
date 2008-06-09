@@ -1,4 +1,4 @@
-package metainformacion;
+package awareness;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

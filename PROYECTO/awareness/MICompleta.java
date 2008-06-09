@@ -1,4 +1,4 @@
-package metainformacion;
+package awareness;
 
 /**
  * Informacion mandada cuando un usuario se identifica o cambia de rol

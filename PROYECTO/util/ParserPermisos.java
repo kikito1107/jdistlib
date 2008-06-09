@@ -1,6 +1,6 @@
 package util;
 
-import metainformacion.MIDocumento;
+import aplicacion.fisica.documentos.MIDocumento;
 
 public class ParserPermisos
 {

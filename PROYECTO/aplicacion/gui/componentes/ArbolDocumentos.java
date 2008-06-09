@@ -36,16 +36,16 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
-import metainformacion.ClienteMetaInformacion;
-import metainformacion.MIDocumento;
-import metainformacion.MIRol;
-import metainformacion.MIUsuario;
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.ClienteFicheros;
 import aplicacion.fisica.documentos.Documento;
+import aplicacion.fisica.documentos.MIDocumento;
 import aplicacion.fisica.eventos.DFileEvent;
 import aplicacion.fisica.net.Transfer;
 import aplicacion.gui.PanelPrincipal;
+import awareness.ClienteMetaInformacion;
+import awareness.MIRol;
+import awareness.MIUsuario;
 
 /**
  * Componente que muestra el arbol de documentos

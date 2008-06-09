@@ -1,6 +1,6 @@
 package aplicacion.fisica.eventos;
 
-import metainformacion.MIDocumento;
+import aplicacion.fisica.documentos.MIDocumento;
 import Deventos.DEvent;
 
 /**

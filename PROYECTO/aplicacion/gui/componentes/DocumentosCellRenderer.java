@@ -8,7 +8,8 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
-import metainformacion.MIDocumento;
+import aplicacion.fisica.documentos.MIDocumento;
+
 
 import Deventos.enlaceJS.DConector;
 

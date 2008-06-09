@@ -15,7 +15,8 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
-import metainformacion.ClienteMetaInformacion;
+import awareness.ClienteMetaInformacion;
+
 
 import componentes.base.DComponenteBase;
 import Deventos.DMIEvent;

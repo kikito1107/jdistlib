@@ -1,4 +1,4 @@
-package metainformacion.gui;
+package awareness.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -27,11 +27,12 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import metainformacion.ClienteMetaInformacion;
 import util.Lista;
 import util.ListaDesplegable;
 import util.ListaElementos;
 import javax.swing.ImageIcon;
+
+import awareness.ClienteMetaInformacion;
 
 /**
  * <p>

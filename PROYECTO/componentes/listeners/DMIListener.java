@@ -1,6 +1,6 @@
 package componentes.listeners;
 
-import metainformacion.MICompleta;
+import awareness.MICompleta;
 
 /**
  * Interfaz para los listeners de los eventos de metainformacion

@@ -12,7 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
 
-import metainformacion.ClienteMetaInformacion;
+import awareness.ClienteMetaInformacion;
+
 import util.ListaElementos;
 import Deventos.enlaceJS.DConector;
 
