@@ -1,4 +1,4 @@
-package plugins.eventos;
+package plugins.evento;
 
 import Deventos.DEvent;
 
