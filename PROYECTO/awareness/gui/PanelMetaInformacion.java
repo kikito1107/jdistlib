@@ -35,177 +35,168 @@ import javax.swing.ImageIcon;
 import awareness.ClienteMetaInformacion;
 
 /**
- * <p>
- * Title:
- * </p>
- * <p>
- * Description:
- * </p>
- * <p>
- * Copyright: Copyright (c) 2004
- * </p>
- * <p>
- * Company:
- * </p>
+ * Panel con la metainformacion del sistema
  * 
- * @author not attributable
- * @version 1.0
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public class PanelMetaInformacion extends JPanel
 {
 	private static final long serialVersionUID = 1L;
 
-	ClienteMetaInformacion cmi = ClienteMetaInformacion.cmi;
+	private ClienteMetaInformacion cmi = ClienteMetaInformacion.cmi;
 
-	BorderLayout borderLayout1 = new BorderLayout();
+	private BorderLayout borderLayout1 = new BorderLayout();
 
-	JSplitPane jSplitPane1 = new JSplitPane();
+	private JSplitPane jSplitPane1 = new JSplitPane();
 
-	JPanel panelIzquierdo = new JPanel();
+	private JPanel panelIzquierdo = new JPanel();
 
-	JPanel panelDerecho = new JPanel();
+	private JPanel panelDerecho = new JPanel();
 
-	JPanel panelInferior = new JPanel();
+	private JPanel panelInferior = new JPanel();
 
-	JButton botonAplicar = new JButton();
+	private JButton botonAplicar = new JButton();
 
-	JScrollPane jScrollPane1 = new JScrollPane();
+	private JScrollPane jScrollPane1 = new JScrollPane();
 
-	Lista listaUsuariosPermisos = new Lista();
+	private Lista listaUsuariosPermisos = new Lista();
 
-	JLabel etiquetaU = new JLabel();
+	private JLabel etiquetaU = new JLabel();
 
-	JScrollPane jScrollPane2 = new JScrollPane();
+	private JScrollPane jScrollPane2 = new JScrollPane();
 
-	BorderLayout borderLayout3 = new BorderLayout();
+	private BorderLayout borderLayout3 = new BorderLayout();
 
-	JLabel jLabel2 = new JLabel();
+	private JLabel jLabel2 = new JLabel();
 
-	Lista listaComponentes = new Lista();
+	private Lista listaComponentes = new Lista();
 
-	JPanel panelPermisos = new JPanel();
+	private JPanel panelPermisos = new JPanel();
 
-	BorderLayout borderLayout4 = new BorderLayout();
+	private BorderLayout borderLayout4 = new BorderLayout();
 
-	JTabbedPane jTabbedPane1 = new JTabbedPane();
+	private JTabbedPane jTabbedPane1 = new JTabbedPane();
 
-	JPanel jPanel4 = new JPanel();
+	private JPanel jPanel4 = new JPanel();
 
-	JRadioButton botonUsuario = new JRadioButton();
+	private JRadioButton botonUsuario = new JRadioButton();
 
-	JRadioButton botonRol = new JRadioButton();
+	private JRadioButton botonRol = new JRadioButton();
 
-	TitledBorder titledBorder1;
+	private TitledBorder titledBorder1;
 
-	ButtonGroup buttonGroup1 = new ButtonGroup();
+	private ButtonGroup buttonGroup1 = new ButtonGroup();
 
-	JPanel jPanel5 = new JPanel();
+	private JPanel jPanel5 = new JPanel();
 
-	BorderLayout borderLayout7 = new BorderLayout();
+	private BorderLayout borderLayout7 = new BorderLayout();
 
-	JPanel jPanel6 = new JPanel();
+	private JPanel jPanel6 = new JPanel();
 
-	JScrollPane jScrollPane4 = new JScrollPane();
+	private JScrollPane jScrollPane4 = new JScrollPane();
 
-	BorderLayout borderLayout8 = new BorderLayout();
+	private BorderLayout borderLayout8 = new BorderLayout();
 
-	JLabel etiquetaR = new JLabel();
+	private JLabel etiquetaR = new JLabel();
 
-	GridBagLayout gridBagLayout1 = new GridBagLayout();
+	private GridBagLayout gridBagLayout1 = new GridBagLayout();
 
-	Lista listaRolesPermisos = new Lista();
+	private Lista listaRolesPermisos = new Lista();
 
-	CampoTextoNumerico campoPermiso = new CampoTextoNumerico();
+	private CampoTextoNumerico campoPermiso = new CampoTextoNumerico();
 
-	JPanel panelNuevo = new JPanel();
+	private JPanel panelNuevo = new JPanel();
 
-	JPanel panelEliminar = new JPanel();
+	private JPanel panelEliminar = new JPanel();
 
-	BorderLayout borderLayout2 = new BorderLayout();
+	private BorderLayout borderLayout2 = new BorderLayout();
 
-	JPanel jPanel1 = new JPanel();
+	private JPanel jPanel1 = new JPanel();
 
-	JRadioButton botonNRol = new JRadioButton();
+	private JRadioButton botonNRol = new JRadioButton();
 
-	JRadioButton botonNUsuario = new JRadioButton();
+	private JRadioButton botonNUsuario = new JRadioButton();
 
-	ButtonGroup buttonGroup2 = new ButtonGroup();
+	private ButtonGroup buttonGroup2 = new ButtonGroup();
 
-	JPanel jPanel2 = new JPanel();
+	private JPanel jPanel2 = new JPanel();
 
-	JTextField campoNombre = new JTextField();
+	private JTextField campoNombre = new JTextField();
 
-	JTextField campoClave = new JTextField();
+	private JTextField campoClave = new JTextField();
 
-	JCheckBox checkAdmin = new JCheckBox();
+	private JCheckBox checkAdmin = new JCheckBox();
 
-	ListaDesplegable listaRoles = new ListaDesplegable();
+	private ListaDesplegable listaRoles = new ListaDesplegable();
 
-	JLabel jLabel1 = new JLabel();
+	private JLabel jLabel1 = new JLabel();
 
-	JLabel jLabel3 = new JLabel();
+	private JLabel jLabel3 = new JLabel();
 
-	JLabel jLabel4 = new JLabel();
+	private JLabel jLabel4 = new JLabel();
 
-	BorderLayout borderLayout5 = new BorderLayout();
+	private BorderLayout borderLayout5 = new BorderLayout();
 
-	JPanel jPanel3 = new JPanel();
+	private JPanel jPanel3 = new JPanel();
 
-	JRadioButton botonERol = new JRadioButton();
+	private JRadioButton botonERol = new JRadioButton();
 
-	JRadioButton botonEUsuario = new JRadioButton();
+	private JRadioButton botonEUsuario = new JRadioButton();
 
-	JPanel jPanel7 = new JPanel();
+	private JPanel jPanel7 = new JPanel();
 
-	ListaDesplegable listaEliminarUsuarios = new ListaDesplegable();
+	private ListaDesplegable listaEliminarUsuarios = new ListaDesplegable();
 
-	ListaDesplegable listaEliminarRoles = new ListaDesplegable();
+	private ListaDesplegable listaEliminarRoles = new ListaDesplegable();
 
-	JButton botonEliminar = new JButton();
+	private JButton botonEliminar = new JButton();
 
-	JButton botonCrear = new JButton();
+	private JButton botonCrear = new JButton();
 
-	JLabel jLabel5 = new JLabel();
+	private JLabel jLabel5 = new JLabel();
 
-	JLabel jLabel6 = new JLabel();
+	private JLabel jLabel6 = new JLabel();
 
-	JPanel panelRolesPermitidos = new JPanel();
+	private JPanel panelRolesPermitidos = new JPanel();
 
-	BorderLayout borderLayout6 = new BorderLayout();
+	private BorderLayout borderLayout6 = new BorderLayout();
 
-	JPanel jPanel8 = new JPanel();
+	private JPanel jPanel8 = new JPanel();
 
-	JRadioButton botonREliminar = new JRadioButton();
+	private JRadioButton botonREliminar = new JRadioButton();
 
-	JRadioButton botonRAniadir = new JRadioButton();
+	private JRadioButton botonRAniadir = new JRadioButton();
 
-	JPanel jPanel9 = new JPanel();
+	private JPanel jPanel9 = new JPanel();
 
-	ListaDesplegable listaCambiarRoles = new ListaDesplegable();
+	private ListaDesplegable listaCambiarRoles = new ListaDesplegable();
 
-	ListaDesplegable listaCambiarUsuarios = new ListaDesplegable();
+	private ListaDesplegable listaCambiarUsuarios = new ListaDesplegable();
 
-	JLabel jLabel7 = new JLabel();
+	private JLabel jLabel7 = new JLabel();
 
-	JLabel jLabel8 = new JLabel();
+	private JLabel jLabel8 = new JLabel();
 
-	JButton botonEfectuarCambio = new JButton();
+	private JButton botonEfectuarCambio = new JButton();
 
-	JPanel jPanel10 = new JPanel();
+	private JPanel jPanel10 = new JPanel();
 
-	JScrollPane jScrollPane3 = new JScrollPane();
+	private JScrollPane jScrollPane3 = new JScrollPane();
 
-	BorderLayout borderLayout9 = new BorderLayout();
+	private BorderLayout borderLayout9 = new BorderLayout();
 
-	ListaElementos listaCambiarRolesPermitidos = new ListaElementos();
+	private ListaElementos listaCambiarRolesPermitidos = new ListaElementos();
 
-	JLabel listaRolesPermitidos = new JLabel();
+	private JLabel listaRolesPermitidos = new JLabel();
 
-	ButtonGroup buttonGroup3 = new ButtonGroup();
+	private ButtonGroup buttonGroup3 = new ButtonGroup();
 
-	ButtonGroup buttonGroup4 = new ButtonGroup();
+	private ButtonGroup buttonGroup4 = new ButtonGroup();
 
+	/**
+	 * Constructor
+	 */
 	public PanelMetaInformacion()
 	{
 		try
@@ -218,7 +209,12 @@ public class PanelMetaInformacion extends JPanel
 		}
 	}
 
-	void jbInit() throws Exception
+	/**
+	 * Inicializacion de los componentes graficos
+	 * 
+	 * @throws Exception
+	 */
+	private void jbInit() throws Exception
 	{
 		titledBorder1 = new TitledBorder(BorderFactory.createEtchedBorder(
 				Color.white, new Color(165, 163, 151)), "Tipo permiso");
@@ -426,16 +422,34 @@ public class PanelMetaInformacion extends JPanel
 
 	}
 
+	/**
+	 * Agrega un nuevo usuario a la lista
+	 * 
+	 * @param usuario
+	 *            Nombre de usuario
+	 */
 	public void nuevoUsuario(String usuario)
 	{
 		listaUsuariosPermisos.aniadir(usuario);
 	}
 
+	/**
+	 * Agrega un nuevo rol a la lista
+	 * 
+	 * @param rol
+	 *            Nombre del rol
+	 */
 	public void nuevoRol(String rol)
 	{
 		listaRolesPermisos.aniadir(rol);
 	}
 
+	/**
+	 * Elimina un usuario de la lista
+	 * 
+	 * @param usuario
+	 *            Nombre del usuario
+	 */
 	public void eliminarUsuario(String usuario)
 	{
 		listaUsuariosPermisos.eliminar(usuario);
@@ -445,6 +459,12 @@ public class PanelMetaInformacion extends JPanel
 		listaCambiarUsuarios.borrarElemento(usuario);
 	}
 
+	/**
+	 * Elimina un rol de la lista
+	 * 
+	 * @param rol
+	 *            Nombre del rol
+	 */
 	public void eliminarRol(String rol)
 	{
 		listaRolesPermisos.eliminar(rol);
@@ -453,7 +473,7 @@ public class PanelMetaInformacion extends JPanel
 		listaCambiarRoles.borrarElemento(rol);
 	}
 
-	void botonRol_actionPerformed(ActionEvent e)
+	private void botonRol_actionPerformed(ActionEvent e)
 	{
 		if (botonRol.isSelected())
 		{
@@ -465,7 +485,7 @@ public class PanelMetaInformacion extends JPanel
 		}
 	}
 
-	void botonUsuario_actionPerformed(ActionEvent e)
+	private void botonUsuario_actionPerformed(ActionEvent e)
 	{
 		if (botonUsuario.isSelected())
 		{
@@ -480,7 +500,6 @@ public class PanelMetaInformacion extends JPanel
 	@SuppressWarnings( "unchecked" )
 	public void inicializar(String rol)
 	{
-		// ************************************************
 		listaComponentes.getSelectionModel().addListSelectionListener(
 				new ListenerListas());
 		listaUsuariosPermisos.getSelectionModel().addListSelectionListener(
@@ -617,31 +636,31 @@ public class PanelMetaInformacion extends JPanel
 
 	}
 
-	void botonAplicar_actionPerformed(ActionEvent e)
+	private void botonAplicar_actionPerformed(ActionEvent e)
 	{
 		cambiarPermiso();
 	}
 
-	void botonNRol_actionPerformed(ActionEvent e)
+	private void botonNRol_actionPerformed(ActionEvent e)
 	{
 		campoClave.setEnabled(false);
 		listaRoles.setEnabled(false);
 		checkAdmin.setEnabled(false);
 	}
 
-	void botonNUsuario_actionPerformed(ActionEvent e)
+	private void botonNUsuario_actionPerformed(ActionEvent e)
 	{
 		campoClave.setEnabled(true);
 		listaRoles.setEnabled(true);
 		checkAdmin.setEnabled(true);
 	}
 
-	void botonRAniadir_actionPerformed(ActionEvent e)
+	private void botonRAniadir_actionPerformed(ActionEvent e)
 	{
 
 	}
 
-	void botonCrear_actionPerformed(ActionEvent e)
+	private void botonCrear_actionPerformed(ActionEvent e)
 	{
 		if (botonNUsuario.isSelected())
 		{ // Creacion de usuario
@@ -722,7 +741,7 @@ public class PanelMetaInformacion extends JPanel
 		}
 	}
 
-	void botonEliminar_actionPerformed(ActionEvent e)
+	private void botonEliminar_actionPerformed(ActionEvent e)
 	{
 		if (botonEUsuario.isSelected())
 		{ // Eliminamos un usuario
@@ -764,7 +783,7 @@ public class PanelMetaInformacion extends JPanel
 	}
 
 	@SuppressWarnings( "unchecked" )
-	void listaCambiarUsuarios_actionPerformed(ActionEvent e)
+	private void listaCambiarUsuarios_actionPerformed(ActionEvent e)
 	{
 		listaCambiarRolesPermitidos.eliminarElementos();
 		if (listaCambiarUsuarios.getSelectedIndex() != 0)
@@ -778,7 +797,7 @@ public class PanelMetaInformacion extends JPanel
 		}
 	}
 
-	void botonEfectuarCambio_actionPerformed(ActionEvent e)
+	private void botonEfectuarCambio_actionPerformed(ActionEvent e)
 	{
 		if (botonRAniadir.isSelected())
 		{
@@ -817,171 +836,173 @@ public class PanelMetaInformacion extends JPanel
 		}
 	}
 
-}
-
-class PanelMetaInformacion_botonRol_actionAdapter implements
-		java.awt.event.ActionListener
-{
-	PanelMetaInformacion adaptee;
-
-	PanelMetaInformacion_botonRol_actionAdapter( PanelMetaInformacion adaptee )
+	private class PanelMetaInformacion_botonRol_actionAdapter implements
+			java.awt.event.ActionListener
 	{
-		this.adaptee = adaptee;
+		PanelMetaInformacion adaptee;
+
+		PanelMetaInformacion_botonRol_actionAdapter(
+				PanelMetaInformacion adaptee )
+		{
+			this.adaptee = adaptee;
+		}
+
+		public void actionPerformed(ActionEvent e)
+		{
+			adaptee.botonRol_actionPerformed(e);
+		}
 	}
 
-	public void actionPerformed(ActionEvent e)
+	private class PanelMetaInformacion_botonUsuario_actionAdapter implements
+			java.awt.event.ActionListener
 	{
-		adaptee.botonRol_actionPerformed(e);
-	}
-}
+		PanelMetaInformacion adaptee;
 
-class PanelMetaInformacion_botonUsuario_actionAdapter implements
-		java.awt.event.ActionListener
-{
-	PanelMetaInformacion adaptee;
+		PanelMetaInformacion_botonUsuario_actionAdapter(
+				PanelMetaInformacion adaptee )
+		{
+			this.adaptee = adaptee;
+		}
 
-	PanelMetaInformacion_botonUsuario_actionAdapter(
-			PanelMetaInformacion adaptee )
-	{
-		this.adaptee = adaptee;
-	}
-
-	public void actionPerformed(ActionEvent e)
-	{
-		adaptee.botonUsuario_actionPerformed(e);
-	}
-}
-
-class PanelMetaInformacion_botonAplicar_actionAdapter implements
-		java.awt.event.ActionListener
-{
-	PanelMetaInformacion adaptee;
-
-	PanelMetaInformacion_botonAplicar_actionAdapter(
-			PanelMetaInformacion adaptee )
-	{
-		this.adaptee = adaptee;
+		public void actionPerformed(ActionEvent e)
+		{
+			adaptee.botonUsuario_actionPerformed(e);
+		}
 	}
 
-	public void actionPerformed(ActionEvent e)
+	private class PanelMetaInformacion_botonAplicar_actionAdapter implements
+			java.awt.event.ActionListener
 	{
-		adaptee.botonAplicar_actionPerformed(e);
-	}
-}
+		PanelMetaInformacion adaptee;
 
-class PanelMetaInformacion_botonNRol_actionAdapter implements
-		java.awt.event.ActionListener
-{
-	PanelMetaInformacion adaptee;
+		PanelMetaInformacion_botonAplicar_actionAdapter(
+				PanelMetaInformacion adaptee )
+		{
+			this.adaptee = adaptee;
+		}
 
-	PanelMetaInformacion_botonNRol_actionAdapter( PanelMetaInformacion adaptee )
-	{
-		this.adaptee = adaptee;
-	}
-
-	public void actionPerformed(ActionEvent e)
-	{
-		adaptee.botonNRol_actionPerformed(e);
-	}
-}
-
-class PanelMetaInformacion_botonNUsuario_actionAdapter implements
-		java.awt.event.ActionListener
-{
-	PanelMetaInformacion adaptee;
-
-	PanelMetaInformacion_botonNUsuario_actionAdapter(
-			PanelMetaInformacion adaptee )
-	{
-		this.adaptee = adaptee;
+		public void actionPerformed(ActionEvent e)
+		{
+			adaptee.botonAplicar_actionPerformed(e);
+		}
 	}
 
-	public void actionPerformed(ActionEvent e)
+	private class PanelMetaInformacion_botonNRol_actionAdapter implements
+			java.awt.event.ActionListener
 	{
-		adaptee.botonNUsuario_actionPerformed(e);
-	}
-}
+		PanelMetaInformacion adaptee;
 
-class PanelMetaInformacion_botonRAniadir_actionAdapter implements
-		java.awt.event.ActionListener
-{
-	PanelMetaInformacion adaptee;
+		PanelMetaInformacion_botonNRol_actionAdapter(
+				PanelMetaInformacion adaptee )
+		{
+			this.adaptee = adaptee;
+		}
 
-	PanelMetaInformacion_botonRAniadir_actionAdapter(
-			PanelMetaInformacion adaptee )
-	{
-		this.adaptee = adaptee;
-	}
-
-	public void actionPerformed(ActionEvent e)
-	{
-		adaptee.botonRAniadir_actionPerformed(e);
-	}
-}
-
-class PanelMetaInformacion_botonCrear_actionAdapter implements
-		java.awt.event.ActionListener
-{
-	PanelMetaInformacion adaptee;
-
-	PanelMetaInformacion_botonCrear_actionAdapter( PanelMetaInformacion adaptee )
-	{
-		this.adaptee = adaptee;
+		public void actionPerformed(ActionEvent e)
+		{
+			adaptee.botonNRol_actionPerformed(e);
+		}
 	}
 
-	public void actionPerformed(ActionEvent e)
+	private class PanelMetaInformacion_botonNUsuario_actionAdapter implements
+			java.awt.event.ActionListener
 	{
-		adaptee.botonCrear_actionPerformed(e);
-	}
-}
+		PanelMetaInformacion adaptee;
 
-class PanelMetaInformacion_botonEliminar_actionAdapter implements
-		java.awt.event.ActionListener
-{
-	PanelMetaInformacion adaptee;
+		PanelMetaInformacion_botonNUsuario_actionAdapter(
+				PanelMetaInformacion adaptee )
+		{
+			this.adaptee = adaptee;
+		}
 
-	PanelMetaInformacion_botonEliminar_actionAdapter(
-			PanelMetaInformacion adaptee )
-	{
-		this.adaptee = adaptee;
-	}
-
-	public void actionPerformed(ActionEvent e)
-	{
-		adaptee.botonEliminar_actionPerformed(e);
-	}
-}
-
-class PanelMetaInformacion_listaCambiarUsuarios_actionAdapter implements
-		java.awt.event.ActionListener
-{
-	PanelMetaInformacion adaptee;
-
-	PanelMetaInformacion_listaCambiarUsuarios_actionAdapter(
-			PanelMetaInformacion adaptee )
-	{
-		this.adaptee = adaptee;
+		public void actionPerformed(ActionEvent e)
+		{
+			adaptee.botonNUsuario_actionPerformed(e);
+		}
 	}
 
-	public void actionPerformed(ActionEvent e)
+	private class PanelMetaInformacion_botonRAniadir_actionAdapter implements
+			java.awt.event.ActionListener
 	{
-		adaptee.listaCambiarUsuarios_actionPerformed(e);
+		PanelMetaInformacion adaptee;
+
+		PanelMetaInformacion_botonRAniadir_actionAdapter(
+				PanelMetaInformacion adaptee )
+		{
+			this.adaptee = adaptee;
+		}
+
+		public void actionPerformed(ActionEvent e)
+		{
+			adaptee.botonRAniadir_actionPerformed(e);
+		}
 	}
-}
 
-class PanelMetaInformacion_botonEfectuarCambio_actionAdapter implements
-		java.awt.event.ActionListener
-{
-	PanelMetaInformacion adaptee;
-
-	PanelMetaInformacion_botonEfectuarCambio_actionAdapter(
-			PanelMetaInformacion adaptee )
+	private class PanelMetaInformacion_botonCrear_actionAdapter implements
+			java.awt.event.ActionListener
 	{
-		this.adaptee = adaptee;
+		PanelMetaInformacion adaptee;
+
+		PanelMetaInformacion_botonCrear_actionAdapter(
+				PanelMetaInformacion adaptee )
+		{
+			this.adaptee = adaptee;
+		}
+
+		public void actionPerformed(ActionEvent e)
+		{
+			adaptee.botonCrear_actionPerformed(e);
+		}
 	}
 
-	public void actionPerformed(ActionEvent e)
+	private class PanelMetaInformacion_botonEliminar_actionAdapter implements
+			java.awt.event.ActionListener
 	{
-		adaptee.botonEfectuarCambio_actionPerformed(e);
+		PanelMetaInformacion adaptee;
+
+		PanelMetaInformacion_botonEliminar_actionAdapter(
+				PanelMetaInformacion adaptee )
+		{
+			this.adaptee = adaptee;
+		}
+
+		public void actionPerformed(ActionEvent e)
+		{
+			adaptee.botonEliminar_actionPerformed(e);
+		}
+	}
+
+	private class PanelMetaInformacion_listaCambiarUsuarios_actionAdapter
+			implements java.awt.event.ActionListener
+	{
+		PanelMetaInformacion adaptee;
+
+		PanelMetaInformacion_listaCambiarUsuarios_actionAdapter(
+				PanelMetaInformacion adaptee )
+		{
+			this.adaptee = adaptee;
+		}
+
+		public void actionPerformed(ActionEvent e)
+		{
+			adaptee.listaCambiarUsuarios_actionPerformed(e);
+		}
+	}
+
+	private class PanelMetaInformacion_botonEfectuarCambio_actionAdapter
+			implements java.awt.event.ActionListener
+	{
+		PanelMetaInformacion adaptee;
+
+		PanelMetaInformacion_botonEfectuarCambio_actionAdapter(
+				PanelMetaInformacion adaptee )
+		{
+			this.adaptee = adaptee;
+		}
+
+		public void actionPerformed(ActionEvent e)
+		{
+			adaptee.botonEfectuarCambio_actionPerformed(e);
+		}
 	}
 }

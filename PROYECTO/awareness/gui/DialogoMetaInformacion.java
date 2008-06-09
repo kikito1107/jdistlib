@@ -12,35 +12,18 @@ import javax.swing.JPanel;
 
 import awareness.ClienteMetaInformacion;
 
-
 /**
- * <p>
- * Title:
- * </p>
- * <p>
- * Description:
- * </p>
- * <p>
- * Copyright: Copyright (c) 2004
- * </p>
- * <p>
- * Company:
- * </p>
+ * Dialogo encargado de modificar la metainformacion del sistema. Solo deberan
+ * acceder a este dialogo los usuarios con permiso de administrador
  * 
- * @author not attributable
- * @version 1.0
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public class DialogoMetaInformacion extends JDialog
 {
-
 	private static final long serialVersionUID = 1L;
 
-	Frame frame = null;
-
-	BorderLayout borderLayout1 = new BorderLayout();
-
-	PanelMetaInformacion jPanel1 = new PanelMetaInformacion();
+	private PanelMetaInformacion jPanel1 = new PanelMetaInformacion();
 
 	private JPanel content = null;
 
@@ -50,14 +33,30 @@ public class DialogoMetaInformacion extends JDialog
 
 	private JButton botonSalir = null;
 
+	/**
+	 * Constructor por defecto
+	 */
+	public DialogoMetaInformacion()
+	{
+		this(null, "", false);
+	}
+
+	/**
+	 * Constructor con parametros
+	 * 
+	 * @param frame
+	 *            Ventana padre del dialogo
+	 * @param title
+	 *            Titulo del dialogo
+	 * @param modal
+	 *            Indica si es un dialogo modal o no
+	 */
 	public DialogoMetaInformacion( Frame frame, String title, boolean modal )
 	{
 		super(frame, title, modal);
 		initialize();
 		try
 		{
-			this.frame = frame;
-			jbInit();
 			pack();
 		}
 		catch (Exception ex)
@@ -68,14 +67,8 @@ public class DialogoMetaInformacion extends JDialog
 		inicializar("");
 	}
 
-	public DialogoMetaInformacion()
-	{
-		this(null, "", false);
-	}
-
 	/**
-	 * This method initializes this
-	 * 
+	 * Inicializacion de dialogo
 	 */
 	private void initialize()
 	{
@@ -90,31 +83,56 @@ public class DialogoMetaInformacion extends JDialog
 		}
 	}
 
+	/**
+	 * Pone un nuevo usuario en el panel
+	 * 
+	 * @param usuario
+	 *            Nombre del usuario
+	 */
 	public void nuevoUsuario(String usuario)
 	{
 		jPanel1.nuevoUsuario(usuario);
 	}
 
+	/**
+	 * Pone un nuevo rol en el panel
+	 * 
+	 * @param rol
+	 *            Nombre del rol
+	 */
 	public void nuevoRol(String rol)
 	{
 		jPanel1.nuevoRol(rol);
 	}
 
+	/**
+	 * Elimina un usuario del panel
+	 * 
+	 * @param usuario
+	 *            Nombre del usuario
+	 */
 	public void eliminarUsuario(String usuario)
 	{
 		jPanel1.eliminarUsuario(usuario);
 	}
 
+	/**
+	 * Elimina un rol del panel
+	 * 
+	 * @param rol
+	 *            Nombre del rol
+	 */
 	public void eliminarRol(String rol)
 	{
 		jPanel1.eliminarRol(rol);
 	}
 
-	private void jbInit() throws Exception
-	{
-
-	}
-
+	/**
+	 * Inicializa un nuevo rol en el panel
+	 * 
+	 * @param rol
+	 *            Nombre del rol
+	 */
 	public void inicializar(String rol)
 	{
 		jPanel1.inicializar(rol);
@@ -125,7 +143,6 @@ public class DialogoMetaInformacion extends JDialog
 	{
 		if (b)
 		{
-			// int alturaFrame = frame.getSize().height;
 			setSize(450, 500);
 			setLocation(10, 10);
 		}
@@ -133,9 +150,10 @@ public class DialogoMetaInformacion extends JDialog
 	}
 
 	/**
-	 * This method initializes content
+	 * Inicializa el panel completo de contenido, agregandole el panel con la
+	 * informacion y el panel inferior que permite salir y guardar
 	 * 
-	 * @return javax.swing.JPanel
+	 * @return Panel inicializado
 	 */
 	private JPanel getContent()
 	{
@@ -144,9 +162,9 @@ public class DialogoMetaInformacion extends JDialog
 			try
 			{
 				content = new JPanel();
-				content.setLayout(new BorderLayout()); // Generated
-				content.add(jPanel1, BorderLayout.CENTER); // Generated
-				content.add(getPanelInferior(), BorderLayout.SOUTH); // Generated
+				content.setLayout(new BorderLayout());
+				content.add(jPanel1, BorderLayout.CENTER);
+				content.add(getPanelInferior(), BorderLayout.SOUTH);
 			}
 			catch (java.lang.Throwable e)
 			{
@@ -157,9 +175,9 @@ public class DialogoMetaInformacion extends JDialog
 	}
 
 	/**
-	 * This method initializes panelInferior
+	 * Obtiene el panel inferior con el boton de guardar y el boton de salir
 	 * 
-	 * @return javax.swing.JPanel
+	 * @return Panel ya inicializado
 	 */
 	private JPanel getPanelInferior()
 	{
@@ -185,11 +203,6 @@ public class DialogoMetaInformacion extends JDialog
 		return panelInferior;
 	}
 
-	/**
-	 * This method initializes botonGuardar
-	 * 
-	 * @return javax.swing.JButton
-	 */
 	private JButton getBotonGuardar()
 	{
 		if (botonGuardar == null)
@@ -219,11 +232,6 @@ public class DialogoMetaInformacion extends JDialog
 		return botonGuardar;
 	}
 
-	/**
-	 * This method initializes botonSalir
-	 * 
-	 * @return javax.swing.JButton
-	 */
 	private JButton getBotonSalir()
 	{
 		if (botonSalir == null)
@@ -250,5 +258,4 @@ public class DialogoMetaInformacion extends JDialog
 		}
 		return botonSalir;
 	}
-
 }

@@ -12,34 +12,36 @@ import Deventos.DEvent;
 import Deventos.DMIEvent;
 
 /**
- * Implementacion del servidor de metainformacion
+ * Servidor de metainformacion
+ * 
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public class ServidorMetaInformacion
 {
-	AlmacenMetaInformacion almacen = null;
+	private AlmacenMetaInformacion almacen = null;
 
-	JavaSpace space = null;
+	private JavaSpace space = null;
 
-	Thread hebraProcesadora = null;
+	private Thread hebraProcesadora = null;
 
-	Thread hebraEnvio = null;
+	private Thread hebraEnvio = null;
 
-	Thread hebraDesconexionUsuarios = null;
+	private Thread hebraDesconexionUsuarios = null;
 
-	ColaEventos colaRecepcion = new ColaEventos();
+	private ColaEventos colaEnvio = new ColaEventos();
 
-	ColaEventos colaEnvio = new ColaEventos();
-
-	long contador = 0;
+	private long contador = 0;
 
 	private static long leaseWriteTime = Lease.FOREVER;
 
 	private static long leaseReadTime = Long.MAX_VALUE;
 
+	/**
+	 * Constructor
+	 */
 	public ServidorMetaInformacion()
 	{
-
 		// System.out.println("");
 
 		almacen = new AlmacenMetaInformacion();
@@ -80,16 +82,24 @@ public class ServidorMetaInformacion
 				.println("ServidorMetaInformacion: HebraDesconexionUsuarios iniciada");
 	}
 
-	public static void main(String[] args)
-	{
-		new ServidorMetaInformacion();
-	}
-
+	/**
+	 * Guarda toda la informacion del servidor de metainformacion
+	 */
 	public void salvar()
 	{
 		almacen.salvar();
 	}
 
+	/**
+	 * Notifica la conexion de un nuevo usuario
+	 * 
+	 * @param aplicacion
+	 *            Nombre de la aplicacion
+	 * @param usuario
+	 *            Nombre del usuario
+	 * @param rol
+	 *            Nombre del rol
+	 */
 	private void notificarConexionUsuario(String aplicacion, String usuario,
 			String rol)
 	{
@@ -108,6 +118,14 @@ public class ServidorMetaInformacion
 		contador++;
 	}
 
+	/**
+	 * Notifica la desconexion de un usuario
+	 * 
+	 * @param aplicacion
+	 *            Nombre de la aplicacion
+	 * @param usuario
+	 *            Nombre del usuario
+	 */
 	private void notificarDesconexionUsuario(String aplicacion, String usuario)
 	{
 		DMIEvent evento = new DMIEvent();
@@ -124,6 +142,20 @@ public class ServidorMetaInformacion
 		contador++;
 	}
 
+	/**
+	 * Notifica el cambio de rol de un usuario
+	 * 
+	 * @param aplicacion
+	 *            Nombre de la aplicacion
+	 * @param usuario
+	 *            Nombre del usuario
+	 * @param rol
+	 *            Nombre del rol nuevo
+	 * @param rolAntiguo
+	 *            Nombre del antiguo rol
+	 * @param info
+	 *            Metainformacion de la conexion
+	 */
 	private void notificarCambioRolUsuario(String aplicacion, String usuario,
 			String rol, String rolAntiguo, MICompleta info)
 	{
@@ -144,6 +176,19 @@ public class ServidorMetaInformacion
 		contador++;
 	}
 
+	/**
+	 * Notifica el cambio del nivel de permisos de un componente para un usuario
+	 * en una aplicacion
+	 * 
+	 * @param aplicacion
+	 *            Nombre de la aplicacion
+	 * @param usuario
+	 *            Nombre del usuario
+	 * @param componente
+	 *            Nombre del componente
+	 * @param permiso
+	 *            Nivel de permisos
+	 */
 	private void notificarCambioPermisoComponenteUsuario(String aplicacion,
 			String usuario, String componente, int permiso)
 	{
@@ -167,6 +212,19 @@ public class ServidorMetaInformacion
 		contador++;
 	}
 
+	/**
+	 * Notifica el cambio del nivel de permisos de un componente para un rol en
+	 * una aplicacion
+	 * 
+	 * @param aplicacion
+	 *            Nombre de la aplicacion
+	 * @param rol
+	 *            Nombre del rol
+	 * @param componente
+	 *            Nombre del componente
+	 * @param permiso
+	 *            Nivel de permisos
+	 */
 	private void notificarCambioPermisoComponenteRol(String aplicacion,
 			String rol, String componente, int permiso)
 	{
@@ -186,6 +244,14 @@ public class ServidorMetaInformacion
 		contador++;
 	}
 
+	/**
+	 * Notifica la eliminacion de un usuario
+	 * 
+	 * @param aplicacion
+	 *            Nombre de la aplicacion
+	 * @param usuario
+	 *            Nombre del usuario
+	 */
 	private void notificarUsuarioEliminado(String aplicacion, String usuario)
 	{
 		DMIEvent evento = new DMIEvent();
@@ -202,6 +268,14 @@ public class ServidorMetaInformacion
 		contador++;
 	}
 
+	/**
+	 * Notifica la eliminacion de un rol
+	 * 
+	 * @param aplicacion
+	 *            Nombre de la aplicacion
+	 * @param rol
+	 *            Nombre del rol
+	 */
 	private void notificarRolEliminado(String aplicacion, String rol)
 	{
 		DMIEvent evento = new DMIEvent();
@@ -218,6 +292,16 @@ public class ServidorMetaInformacion
 		contador++;
 	}
 
+	/**
+	 * Notifica la asignacion de un nuevo rol permitido para un usuario
+	 * 
+	 * @param aplicacion
+	 *            Nombre de la aplicacion
+	 * @param usuario
+	 *            Nombre del usuario
+	 * @param rol
+	 *            Nombre del rol
+	 */
 	private void notificarNuevoRolPermitido(String aplicacion, String usuario,
 			String rol)
 	{
@@ -236,6 +320,14 @@ public class ServidorMetaInformacion
 		contador++;
 	}
 
+	/**
+	 * Notifica la creacion de un nuevo rol
+	 * 
+	 * @param aplicacion
+	 *            Nombre de la aplicacion
+	 * @param rol
+	 *            Nombre del rol
+	 */
 	private void notificarNuevoRol(String aplicacion, String rol)
 	{
 		DMIEvent evento = new DMIEvent();
@@ -251,6 +343,14 @@ public class ServidorMetaInformacion
 		contador++;
 	}
 
+	/**
+	 * Notifica la creacion de un nuevo usuario
+	 * 
+	 * @param aplicacion
+	 *            Nombre de la aplicacion
+	 * @param usuario
+	 *            Nombre del usuario
+	 */
 	private void notificarNuevoUsuario(String aplicacion, String usuario)
 	{
 		DMIEvent evento = new DMIEvent();
@@ -267,6 +367,16 @@ public class ServidorMetaInformacion
 		contador++;
 	}
 
+	/**
+	 * Notifica la eliminacion de un rol permitido para un usuario
+	 * 
+	 * @param aplicacion
+	 *            Nombre de la aplicacion
+	 * @param usuario
+	 *            Nombre del usuario
+	 * @param rol
+	 *            Nombre del rol
+	 */
 	private void notificarRolPermitidoEliminado(String aplicacion,
 			String usuario, String rol)
 	{
@@ -285,12 +395,18 @@ public class ServidorMetaInformacion
 		contador++;
 	}
 
+	/**
+	 * Hebra encargada de procesar los eventos recibidos
+	 */
 	private class HebraProcesadora implements Runnable
 	{
-		DEvent leido = null;
+		private DEvent leido = null;
 
-		DEvent plantilla = new DEvent();
+		private DEvent plantilla = new DEvent();
 
+		/**
+		 * Ejecucion de la hebra
+		 */
 		public void run()
 		{
 			plantilla.destino = new Integer(10); // Servidor MetaInformacion
@@ -924,8 +1040,14 @@ public class ServidorMetaInformacion
 		}
 	}
 
+	/**
+	 * Hebra encargada de enviar los eventos
+	 */
 	private class HebraEnvio implements Runnable
 	{
+		/**
+		 * Ejecucion de la hebra
+		 */
 		public void run()
 		{
 			while (true)
@@ -942,9 +1064,15 @@ public class ServidorMetaInformacion
 		}
 	}
 
+	/**
+	 * Hebra encargada de detectar la desconexion de los usuarios
+	 */
 	@SuppressWarnings( "unchecked" )
 	private class HebraDesconexionUsuarios implements Runnable
 	{
+		/**
+		 * Ejecucion de la hebra
+		 */
 		public void run()
 		{
 			while (true)

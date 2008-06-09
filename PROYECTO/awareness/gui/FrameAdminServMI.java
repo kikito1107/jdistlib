@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -15,22 +14,16 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import awareness.ServidorMetaInformacion;
-
-
 /**
- * Frame que se abre al iniciar el servidor de Metainformacion
+ * Ventana que se abre al iniciar el servidor de Metainformacion
  * 
  * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz
  */
-
 public class FrameAdminServMI extends JFrame
 {
 	private static final long serialVersionUID = 1L;
 
-	BorderLayout borderLayout1 = new BorderLayout();
-
-	ServidorMetaInformacion smi = new ServidorMetaInformacion();
+	private BorderLayout borderLayout1 = new BorderLayout();
 
 	private JPanel panel = null;
 
@@ -42,6 +35,9 @@ public class FrameAdminServMI extends JFrame
 
 	public static JTextArea consola = new JTextArea();
 
+	/**
+	 * Constructor
+	 */
 	public FrameAdminServMI()
 	{
 		try
@@ -54,7 +50,12 @@ public class FrameAdminServMI extends JFrame
 		}
 	}
 
-	void jbInit() throws Exception
+	/**
+	 * Inicializa los componentes graficos
+	 * 
+	 * @throws Exception
+	 */
+	private void jbInit() throws Exception
 	{
 		this.getContentPane().setLayout(borderLayout1);
 		consola.setBackground(Color.black); // Generated
@@ -66,16 +67,6 @@ public class FrameAdminServMI extends JFrame
 		this.setTitle(".:: Servidor MetaInformacion ::.");
 	}
 
-	void botonCerrar_actionPerformed(ActionEvent e)
-	{
-		System.exit(0);
-	}
-
-	/**
-	 * This method initializes panel
-	 * 
-	 * @return javax.swing.JPanel
-	 */
 	private JPanel getPanel()
 	{
 		if (panel == null)
@@ -95,11 +86,6 @@ public class FrameAdminServMI extends JFrame
 		return panel;
 	}
 
-	/**
-	 * This method initializes panelSur
-	 * 
-	 * @return javax.swing.JPanel
-	 */
 	private JPanel getPanelSur()
 	{
 		if (panelSur == null)
@@ -121,11 +107,6 @@ public class FrameAdminServMI extends JFrame
 		return panelSur;
 	}
 
-	/**
-	 * This method initializes botonSalir
-	 * 
-	 * @return javax.swing.JButton
-	 */
 	private JButton getBotonSalir()
 	{
 		if (botonSalir == null)
@@ -168,11 +149,6 @@ public class FrameAdminServMI extends JFrame
 		return botonSalir;
 	}
 
-	/**
-	 * This method initializes scroll
-	 * 
-	 * @return javax.swing.JScrollPane
-	 */
 	private JScrollPane getScroll()
 	{
 		if (scroll == null)
@@ -190,11 +166,6 @@ public class FrameAdminServMI extends JFrame
 		return scroll;
 	}
 
-	/**
-	 * This method initializes consola
-	 * 
-	 * @return javax.swing.JTextArea
-	 */
 	private JTextArea getConsola()
 	{
 		if (consola == null)
@@ -213,8 +184,15 @@ public class FrameAdminServMI extends JFrame
 		return consola;
 	}
 
+	/**
+	 * Permite imprimir un nuevo valor en la consola del servidor. Permite hacer
+	 * logging
+	 * 
+	 * @param s
+	 *            Cadena de texto a imprimir en la consola
+	 */
 	public static void println(String s)
 	{
 		consola.append(s + "\n");
 	}
-} // @jve:decl-index=0:visual-constraint="10,10"
+}
