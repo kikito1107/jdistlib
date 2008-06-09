@@ -9,9 +9,8 @@ import java.util.Vector;
 
 import javax.swing.JOptionPane;
 
-import plugins.eventos.DPluginRegisterEvent;
-
 import Deventos.enlaceJS.DConector;
+import plugins.evento.DPluginRegisterEvent;
 
 import componentes.base.DComponente;
 import componentes.base.DComponenteBase;
