@@ -5,20 +5,15 @@ import java.util.Date;
 import java.util.Vector;
 
 /**
- * <p>
- * Description: Clase para guardar metainformacion sobre una aplicacion.
- * Guardamos informacion sobre: Nombre de la aplicacion, permiso por defecto de
- * los componentes, usuarios definidos, roles definidos y componentes definidos.
- * </p>
+ * Permite guardar metainformacion sobre una aplicacion. Guardamos informacion
+ * sobre: Nombre de la aplicacion, permiso por defecto de los componentes,
+ * usuarios definidos, roles definidos y componentes definidos.
  * 
- * @author Juan Antonio Ibañez Santorum (looper@telefonica.net)
+ * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
+ *         Pelegrina Ortiz
  */
-
 public class MIAplicacion implements Serializable
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private Integer permisoDefault = new Integer(20);
@@ -33,46 +28,48 @@ public class MIAplicacion implements Serializable
 
 	private int identificador;
 
+	/**
+	 * Constructor
+	 */
 	public MIAplicacion()
 	{
-	}
-
-	public MIRol getRolByName(String nombreRol)
-	{
-		MIRol rol = null;
-
-		for (int i = 0; i < roles.size(); ++i)
-			if (roles.get(i).getNombreRol().equals(nombreRol))
-				rol = roles.get(i);
-
-		return rol;
 	}
 
 	/**
 	 * Especificamos el nombre de la aplicacion
 	 * 
 	 * @param nombre
-	 *            String Nombre deseado
+	 *            Nombre deseado
 	 */
 	public void setNombre(String nombre)
 	{
 		this.nombre = nombre;
 	}
 
+	/**
+	 * Obtiene el identificador de la aplicacion
+	 * 
+	 * @return Identificador de la aplicacion
+	 */
 	public int getIdentificador()
 	{
 		return identificador;
 	}
 
+	/**
+	 * Asigna el identificador de la aplicacion
+	 * 
+	 * @param identificador
+	 */
 	public void setIdentificador(int identificador)
 	{
 		this.identificador = identificador;
 	}
 
 	/**
-	 * Obtenemos el nombre de la aplicacion
+	 * Obtiene el nombre de la aplicacion
 	 * 
-	 * @return String Nombre de la aplicacion
+	 * @return Nombre de la aplicacion
 	 */
 	public String getNombre()
 	{
@@ -80,10 +77,10 @@ public class MIAplicacion implements Serializable
 	}
 
 	/**
-	 * Especificamos el permiso por defecto de los componentes.
+	 * Especifica el permiso por defecto de los componentes.
 	 * 
 	 * @param permiso
-	 *            int Permiso por defecto
+	 *            Permiso por defecto
 	 */
 	public void setPermisoDefault(int permiso)
 	{
@@ -91,9 +88,9 @@ public class MIAplicacion implements Serializable
 	}
 
 	/**
-	 * Obtenemos el permiso por defecto de los componentes.
+	 * Obtiene el permiso por defecto de los componentes.
 	 * 
-	 * @return int Permiso por defecto
+	 * @return Permiso por defecto para los componentes
 	 */
 	public int getPermisoDefault()
 	{
@@ -104,7 +101,7 @@ public class MIAplicacion implements Serializable
 	 * Definimos un nuevo rol para esta aplicacion
 	 * 
 	 * @param rol
-	 *            MIRol Nuevo rol
+	 *            Metainformacion del nuevo rol
 	 */
 	public String nuevoRol(MIRol rol)
 	{
@@ -116,11 +113,11 @@ public class MIAplicacion implements Serializable
 	}
 
 	/**
-	 * Definimos un nuevo usuario para esta aplicacion. Si el rol por defecto es
-	 * nulo no lo añade
+	 * Define un nuevo usuario para esta aplicacion. Si el rol por defecto es
+	 * null no lo añade
 	 * 
 	 * @param usuario
-	 *            MIUsuario Nuevo usuario
+	 *            Metainformacion del nuevo usuario
 	 */
 	public String nuevoUsuario(MIUsuario usuario)
 	{
@@ -132,6 +129,13 @@ public class MIAplicacion implements Serializable
 		return mensaje;
 	}
 
+	/**
+	 * Elimina un usuario de la aplicacion
+	 * 
+	 * @param usuario
+	 *            Nombre del usuario
+	 * @return True si se elimino con exito. False en caso contrario
+	 */
 	public boolean eliminarUsuario(String usuario)
 	{
 		boolean encontrado = false;
@@ -150,12 +154,26 @@ public class MIAplicacion implements Serializable
 		return encontrado;
 	}
 
+	/**
+	 * Actualiza la marca de tiempo para un usuario. Evita que se desconecte
+	 * automaticamente pasado un tiempo
+	 * 
+	 * @param usuario
+	 *            Nombre del usuario
+	 */
 	public void actualizarMarcaTiempoUsuario(String usuario)
 	{
 		MIUsuario aux = getUsuario(usuario);
 		if (aux != null) aux.actualizarMarcaTiempo();
 	}
 
+	/**
+	 * Elimina un rol de la aplicacion
+	 * 
+	 * @param rol
+	 *            Nombre del rol
+	 * @return Mensaje del sistema
+	 */
 	public String eliminarRol(String rol)
 	{
 		String mensaje = "";
@@ -201,7 +219,8 @@ public class MIAplicacion implements Serializable
 	 * usuario no se realiza ninguna accion
 	 * 
 	 * @param usuario
-	 *            String Usuario que deseamos especificar como conectado
+	 *            Usuario que deseamos especificar como conectado
+	 * @return Rol por defecto del usuario
 	 */
 	public String setUsuarioConectado(String usuario)
 	{
@@ -216,6 +235,15 @@ public class MIAplicacion implements Serializable
 		return rolPorDefecto;
 	}
 
+	/**
+	 * Asigna un rol a un usuario para esta aplicacion
+	 * 
+	 * @param usuario
+	 *            Nombre del usuario
+	 * @param nuevoRol
+	 *            Nombre del nuevo rol del usuario
+	 * @return Mensaje producido por el sistema
+	 */
 	public String setRolActualUsuario(String usuario, String nuevoRol)
 	{
 		String mensaje = new String("");
@@ -236,7 +264,7 @@ public class MIAplicacion implements Serializable
 	 * usuario no se realiza ningun accion
 	 * 
 	 * @param usuario
-	 *            String Usuario que deseamos especificar como desconectado
+	 *            Usuario que deseamos especificar como desconectado
 	 */
 	public void setUsuarioDesconectado(String usuario)
 	{
@@ -252,7 +280,7 @@ public class MIAplicacion implements Serializable
 	 * Definimos un nuevo componente para esta aplicacion
 	 * 
 	 * @param componente
-	 *            MIComponente Nuevo componente
+	 *            Nuevo componente
 	 */
 	public void nuevoComponente(MIComponente componente)
 	{
@@ -264,11 +292,11 @@ public class MIAplicacion implements Serializable
 	 * no existe no se realiza accion alguna.
 	 * 
 	 * @param rol
-	 *            String Rol sobre el que queremos definir el permiso
+	 *            Rol sobre el que queremos definir el permiso
 	 * @param componente
-	 *            String Componente al que queremos especificar el permiso
+	 *            Componente al que queremos especificar el permiso
 	 * @param permiso
-	 *            int Permiso para el componente
+	 *            Permiso para el componente
 	 */
 	public void nuevoPermisoRol(String rol, String componente, int permiso)
 	{
@@ -281,11 +309,11 @@ public class MIAplicacion implements Serializable
 	 * el usuario no existe no se realiza accion alguna
 	 * 
 	 * @param usuario
-	 *            String Usuario sobre el que queremos definir el permiso
+	 *            Usuario sobre el que queremos definir el permiso
 	 * @param componente
-	 *            String Componente al que queremos especificar el permiso
+	 *            Componente al que queremos especificar el permiso
 	 * @param permiso
-	 *            int Permiso para el componente
+	 *            Permiso para el componente
 	 */
 	public void nuevoPermisoUsuario(String usuario, String componente,
 			int permiso)
@@ -299,9 +327,9 @@ public class MIAplicacion implements Serializable
 	 * no existe no se realiza accion alguna
 	 * 
 	 * @param usuario
-	 *            String Usuario al que queremos añadir un nuevo rol permitido
+	 *            Usuario al que queremos añadir un nuevo rol permitido
 	 * @param rol
-	 *            String Nuevo rol que le permitimos al usuario
+	 *            Nuevo rol que le permitimos al usuario
 	 */
 	public String nuevoRolPermitidoUsuario(String usuario, String rol)
 	{
@@ -326,9 +354,9 @@ public class MIAplicacion implements Serializable
 	 * existe no se realiza accion alguna
 	 * 
 	 * @param usuario
-	 *            String Usuario al que queremos eliminar un rol permitido
+	 *            Usuario al que queremos eliminar un rol permitido
 	 * @param rol
-	 *            String Rol que deseamos eliminar
+	 *            Rol que deseamos eliminar
 	 */
 	public String eliminarRolPermitidoUsuario(String usuario, String rol)
 	{
@@ -346,7 +374,7 @@ public class MIAplicacion implements Serializable
 	/**
 	 * Obtenemos los roles definidos para esta aplicacion
 	 * 
-	 * @return Vector Vector de MIRol con los roles definidos
+	 * @return Vector con la metainformacion de los roles definidos
 	 */
 	@SuppressWarnings( "unchecked" )
 	public Vector getRoles()
@@ -355,11 +383,11 @@ public class MIAplicacion implements Serializable
 	}
 
 	/**
-	 * Obtenemos una instancia del rol especificado
+	 * Obtenemos una instancia de la metainformacion del rol especificado
 	 * 
 	 * @param rol
-	 *            String Rol que deseamos buscar
-	 * @return MIRol Rol deseado. Si no existe se devuelve null
+	 *            Nombre del rol
+	 * @return Metainformacion del rol deseado. Si no existe se devuelve null
 	 */
 	public MIRol getRol(String rol)
 	{
@@ -383,7 +411,7 @@ public class MIAplicacion implements Serializable
 	/**
 	 * Obtenemos los usuarios definidos para esta aplicacion
 	 * 
-	 * @return Vector Vector de MIUsuario con los usuarios definidos
+	 * @return Vector de metainformacion para los usuarios definidos
 	 */
 	@SuppressWarnings( "unchecked" )
 	public Vector getUsuarios()
@@ -391,6 +419,11 @@ public class MIAplicacion implements Serializable
 		return usuarios;
 	}
 
+	/**
+	 * Obtiene un vector con la metainformacion de los usuario no actualizados
+	 * 
+	 * @return Vector con la metainformacion de los usuarios no actualizados
+	 */
 	@SuppressWarnings( "unchecked" )
 	public Vector getUsuariosNoActualizados()
 	{
@@ -414,9 +447,9 @@ public class MIAplicacion implements Serializable
 	 * momento de la consulta
 	 * 
 	 * @param rol
-	 *            String Rol sobre el que deseamos hacer la consulta
-	 * @return Vector Vector de String con los nombres de los usuarios que estan
-	 *         bajo el rol pasado como parametro.
+	 *            Rol sobre el que deseamos hacer la consulta
+	 * @return Vector con los nombres de los usuarios que estan bajo el rol
+	 *         pasado como parametro.
 	 */
 	@SuppressWarnings( "unchecked" )
 	public Vector<String> getUsuariosBajoRol(String rol)
@@ -439,10 +472,10 @@ public class MIAplicacion implements Serializable
 	/**
 	 * Obtiene los usuarios conectados
 	 * 
-	 * @return Vector Vector de tamaño 2. En la primera posicion tiene un vector
-	 *         con los nombres de los usuarios conectados. En la segunda
-	 *         posicion tiene un vector con los roles con los que estan
-	 *         conectados esos usuarios. Un posible valor devuelto podria ser:<br>
+	 * @return Vector de tamaño 2. En la primera posicion tiene un vector con
+	 *         los nombres de los usuarios conectados. En la segunda posicion
+	 *         tiene un vector con los roles con los que estan conectados esos
+	 *         usuarios. Un posible valor devuelto podria ser:<br>
 	 *         <br>
 	 *         Vector1 -> [LooPer,PeTer]<br>
 	 *         Vector2 -> [Jefe,Empleado]<br>
@@ -490,8 +523,8 @@ public class MIAplicacion implements Serializable
 	 * Obtenemos una instancia del usuario especificado
 	 * 
 	 * @param usuario
-	 *            String Usuario que deseamos buscar
-	 * @return MIUsuario Usuario deseado. Si no existe se devuelve null
+	 *            Usuario que deseamos buscar
+	 * @return Usuario deseado. Si no existe se devuelve null
 	 */
 	public MIUsuario getUsuario(String usuario)
 	{
@@ -517,8 +550,8 @@ public class MIAplicacion implements Serializable
 	 * esta conectado
 	 * 
 	 * @param usuario
-	 *            String Usuario sobre el que queremos la informacion
-	 * @return String Rol actual. Si no existe el usuario valdra null;
+	 *            Usuario sobre el que queremos la informacion
+	 * @return Rol actual. Si no existe el usuario valdra null;
 	 */
 	public String getRolActualUsuario(String usuario)
 	{
@@ -531,7 +564,7 @@ public class MIAplicacion implements Serializable
 	/**
 	 * Obtenemos los componentes definidos para esta aplicacion
 	 * 
-	 * @return Vector Vector de MIComponente con los componentes definidos
+	 * @return Vector de metainformacion de los componentes definidos
 	 */
 	@SuppressWarnings( "unchecked" )
 	public Vector getComponentes()
@@ -543,8 +576,8 @@ public class MIAplicacion implements Serializable
 	 * Obtenemos una instancia del componente especificado
 	 * 
 	 * @param componente
-	 *            String Componente que deseamos buscar
-	 * @return MIComponente Componente deseado. Si no existe se devuelve null
+	 *            Componente que deseamos buscar
+	 * @return Componente deseado. Si no existe se devuelve null
 	 */
 	public MIComponente getComponente(String componente)
 	{
@@ -565,6 +598,15 @@ public class MIAplicacion implements Serializable
 		return componenteEncontrado;
 	}
 
+	/**
+	 * Obtiene los permisos que tiene un usuario para un componente
+	 * 
+	 * @param usuario
+	 *            Nombre del usuario
+	 * @param componente
+	 *            Nombre del componente
+	 * @return Nivel de permisos o -1 si ocurrio algun error
+	 */
 	public int getPermisoComponenteUsuario(String usuario, String componente)
 	{
 		int permiso = -1;
@@ -578,6 +620,18 @@ public class MIAplicacion implements Serializable
 		return permiso;
 	}
 
+	/**
+	 * Asigna un nivel de permisos para un usuario y un componente
+	 * 
+	 * @param nombreUsuario
+	 *            Nombre del usuario
+	 * @param componente
+	 *            Nombre del componente
+	 * @param nuevoPermiso
+	 *            Nuevo nivel de permisos
+	 * @return True si el nivel de permisos se asigno con exito. False en caso
+	 *         contrario
+	 */
 	public boolean setPermisoComponenteUsuario(String nombreUsuario,
 			String componente, int nuevoPermiso)
 	{
@@ -592,6 +646,15 @@ public class MIAplicacion implements Serializable
 		return cambiado;
 	}
 
+	/**
+	 * Obtiene el nivel de permisos para un rol y un componente
+	 * 
+	 * @param rol
+	 *            Nombre del rol
+	 * @param componente
+	 *            Nombre del componente
+	 * @return Nivel de permisos o -1 si ocurrio algun error
+	 */
 	public int getPermisoComponenteRol(String rol, String componente)
 	{
 		int permiso = -1;
@@ -605,6 +668,17 @@ public class MIAplicacion implements Serializable
 		return permiso;
 	}
 
+	/**
+	 * Asigna el nivel de permisos de un rol sobre un componente
+	 * 
+	 * @param nombreRol
+	 *            Nombre del rol
+	 * @param componente
+	 *            Nombre del componente
+	 * @param nuevoPermiso
+	 *            Nuevo nivel de permisos
+	 * @return True si todo fue correctamente. False en caso contrario
+	 */
 	public boolean setPermisoComponenteRol(String nombreRol, String componente,
 			int nuevoPermiso)
 	{
@@ -623,8 +697,8 @@ public class MIAplicacion implements Serializable
 	 * Obtenemos si un cierto rol existe o no
 	 * 
 	 * @param rol
-	 *            String Rol sobre el que queremos buscar si existe
-	 * @return boolean True si existe. False en otro caso
+	 *            Rol sobre el que queremos buscar si existe
+	 * @return True si existe. False en otro caso
 	 */
 	public boolean existeRol(String rol)
 	{
@@ -635,8 +709,8 @@ public class MIAplicacion implements Serializable
 	 * Obtenemos si un cierto usuario existe.
 	 * 
 	 * @param usuario
-	 *            String Usuario sobre el que queremos buscar si existe
-	 * @return boolean True si existe. False en otro caso
+	 *            Usuario sobre el que queremos buscar si existe
+	 * @return True si existe. False en otro caso
 	 */
 	public boolean existeUsuario(String usuario)
 	{
@@ -647,8 +721,8 @@ public class MIAplicacion implements Serializable
 	 * Obtenemos si un cierto componente existe
 	 * 
 	 * @param componente
-	 *            String Componente sobre el que queremos buscar si existe
-	 * @return boolean True si existe. False en otro caso
+	 *            Componente sobre el que queremos buscar si existe
+	 * @return True si existe. False en otro caso
 	 */
 	public boolean existeComponente(String componente)
 	{

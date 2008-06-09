@@ -8,8 +8,7 @@ import util.Fecha;
 import aplicacion.fisica.ConectorBDMetainformacion;
 
 /**
- * Permite realizar la lectura de la metainformacion desde
- * la BD.
+ * Permite realizar la lectura de la metainformacion desde la BD.
  * 
  * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
@@ -29,8 +28,8 @@ public class LectorBD_MI
 	/**
 	 * Recupera de la base de datos la informacion de las aplicaciones
 	 * 
-	 * @return Devuelve un vector de MIAplicacion con las aplicaciones
-	 *         definidas en la base de datos
+	 * @return Devuelve un vector de MIAplicacion con las aplicaciones definidas
+	 *         en la base de datos
 	 */
 	public Vector<MIAplicacion> Recuperar()
 	{
@@ -215,8 +214,7 @@ public class LectorBD_MI
 	}
 
 	/**
-	 * Crea un log en la base datos acerca de la inicializacion
-	 * del sistema
+	 * Crea un log en la base datos acerca de la inicializacion del sistema
 	 */
 	public void crearLog()
 	{
@@ -240,7 +238,9 @@ public class LectorBD_MI
 
 	/**
 	 * Actualiza la base de datos con un vector de aplicaciones
-	 * @param aplicaciones Vector de aplicaciones para la base de datos
+	 * 
+	 * @param aplicaciones
+	 *            Vector de aplicaciones para la base de datos
 	 * @post La base de datos contendra solamente el vector de aplicaciones
 	 *       proporcionado
 	 */
@@ -470,7 +470,7 @@ public class LectorBD_MI
 
 	/**
 	 * Metodo main que prueba si la lectura de los datos desde la base de datos
-	 * es la correcta, pintandolos en pantalla
+	 * es la correcta
 	 * 
 	 * @param args
 	 *            Argumentos. Se ignoran
