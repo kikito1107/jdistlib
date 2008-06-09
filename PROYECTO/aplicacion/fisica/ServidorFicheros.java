@@ -15,10 +15,10 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import Deventos.ColaEventos;
 import Deventos.DEvent;
 
+import metainformacion.MIDocumento;
 import net.jini.core.lease.Lease;
 import net.jini.space.JavaSpace;
 import util.ParserPermisos;
-import aplicacion.fisica.documentos.MIDocumento;
 import aplicacion.fisica.eventos.DFileEvent;
 import aplicacion.fisica.eventos.DNodeEvent;
 import aplicacion.fisica.net.Transfer;

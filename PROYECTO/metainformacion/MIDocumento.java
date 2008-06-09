@@ -1,4 +1,4 @@
-package aplicacion.fisica.documentos;
+package metainformacion;
 
 import java.io.Serializable;
 
@@ -9,8 +9,6 @@ import aplicacion.fisica.ClienteFicheros;
 import aplicacion.fisica.eventos.DFileEvent;
 import aplicacion.fisica.net.Transfer;
 
-import metainformacion.MIRol;
-import metainformacion.MIUsuario;
 
 /**
  * Metainformacion de un documento

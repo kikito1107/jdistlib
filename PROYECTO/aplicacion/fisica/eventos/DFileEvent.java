@@ -1,7 +1,7 @@
 package aplicacion.fisica.eventos;
 
+import metainformacion.MIDocumento;
 import Deventos.DEvent;
-import aplicacion.fisica.documentos.MIDocumento;
 
 /**
  * Eventos enviados desde y hacia el servidor de ficheros

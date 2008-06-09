@@ -11,12 +11,13 @@ import java.nio.channels.FileChannel;
 
 import javax.swing.ImageIcon;
 
+import metainformacion.MIDocumento;
+
 import com.sun.pdfview.PDFFile;
 import com.sun.pdfview.PDFPage;
 
 import aplicacion.fisica.ServidorFicheros;
 import aplicacion.fisica.documentos.Documento;
-import aplicacion.fisica.documentos.MIDocumento;
 
 /**
  * Filtro de documento para ficheros en formato pdf

@@ -4,9 +4,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
+import metainformacion.MIDocumento;
 import metainformacion.MIRol;
 import metainformacion.MIUsuario;
-import aplicacion.fisica.documentos.MIDocumento;
 
 /**
  * Permite usar de forma apropiada la clase

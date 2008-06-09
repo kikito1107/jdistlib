@@ -28,6 +28,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
 import metainformacion.ClienteMetaInformacion;
+import metainformacion.MIDocumento;
 import util.Separador;
 import Deventos.DEvent;
 import Deventos.DJChatEvent;
@@ -35,7 +36,6 @@ import Deventos.DMIEvent;
 import Deventos.enlaceJS.DConector;
 import aplicacion.fisica.ClienteFicheros;
 import aplicacion.fisica.documentos.Documento;
-import aplicacion.fisica.documentos.MIDocumento;
 import aplicacion.fisica.eventos.DFileEvent;
 import aplicacion.gui.componentes.ArbolDocumentos;
 import aplicacion.gui.componentes.EnviarMensaje;

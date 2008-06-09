@@ -8,8 +8,9 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
+import metainformacion.MIDocumento;
+
 import Deventos.enlaceJS.DConector;
-import aplicacion.fisica.documentos.MIDocumento;
 
 /**
  * Clase que modela cada una de las celdas del arbol de documentos

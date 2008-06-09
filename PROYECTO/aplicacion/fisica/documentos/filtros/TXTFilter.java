@@ -8,9 +8,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+import metainformacion.MIDocumento;
+
 import aplicacion.fisica.ServidorFicheros;
 import aplicacion.fisica.documentos.Documento;
-import aplicacion.fisica.documentos.MIDocumento;
 
 /**
  * Filtro de documento para ficheros de texto plano

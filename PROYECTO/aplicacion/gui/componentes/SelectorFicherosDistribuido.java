@@ -16,7 +16,8 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
-import aplicacion.fisica.documentos.MIDocumento;
+import metainformacion.MIDocumento;
+
 
 /**
  * Dialogo para abrir un documento del servidor de ficheros

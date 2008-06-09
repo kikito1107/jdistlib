@@ -22,6 +22,8 @@ import java.util.Vector;
 
 import javax.swing.ImageIcon;
 
+import metainformacion.MIDocumento;
+
 import aplicacion.fisica.ServidorFicheros;
 import aplicacion.fisica.documentos.filtros.DocumentFilter;
 import aplicacion.fisica.documentos.filtros.ImageFilter;
