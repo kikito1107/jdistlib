@@ -8,20 +8,17 @@ import util.Fecha;
 import aplicacion.fisica.ConectorBDMetainformacion;
 
 /**
- * <p>
- * Description: Con esta clase se realiza la lectura de la metainformacion desde
- * la BD. En la documentacion se puede encontrar una descripcion detallada de la
- * estructura de la Base de Datos
- * </p>
+ * Permite realizar la lectura de la metainformacion desde
+ * la BD.
  * 
  * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
 public class LectorBD_MI
 {
-	ConectorBDMetainformacion conexion = null;
+	private ConectorBDMetainformacion conexion = null;
 
 	/**
-	 * Inicializa la clase, creando un nuevo objeto conexion BD
+	 * Contructor
 	 */
 	public LectorBD_MI()
 	{
@@ -32,7 +29,7 @@ public class LectorBD_MI
 	/**
 	 * Recupera de la base de datos la informacion de las aplicaciones
 	 * 
-	 * @return Vector Devuelve un vector de MIAplicacion con las aplicaciones
+	 * @return Devuelve un vector de MIAplicacion con las aplicaciones
 	 *         definidas en la base de datos
 	 */
 	public Vector<MIAplicacion> Recuperar()
@@ -217,6 +214,10 @@ public class LectorBD_MI
 		return datosAplicaciones;
 	}
 
+	/**
+	 * Crea un log en la base datos acerca de la inicializacion
+	 * del sistema
+	 */
 	public void crearLog()
 	{
 		Fecha fecha = new Fecha();
@@ -237,6 +238,12 @@ public class LectorBD_MI
 		// conexion.cerrar();
 	}
 
+	/**
+	 * Actualiza la base de datos con un vector de aplicaciones
+	 * @param aplicaciones Vector de aplicaciones para la base de datos
+	 * @post La base de datos contendra solamente el vector de aplicaciones
+	 *       proporcionado
+	 */
 	@SuppressWarnings( "unchecked" )
 	public void actualizarBD(Vector aplicaciones)
 	{
@@ -437,6 +444,9 @@ public class LectorBD_MI
 		}
 	}
 
+	/**
+	 * Vacia el contenido completo de la base de datos
+	 */
 	private void vaciarBD()
 	{
 		conexion.delete("DELETE FROM aplicacion");
@@ -450,6 +460,9 @@ public class LectorBD_MI
 		conexion.delete("DELETE FROM permisosUsuario");
 	}
 
+	/**
+	 * Cierra la conexion con la base de datos
+	 */
 	public void cerrarConexion()
 	{
 		conexion.cerrar();
@@ -460,7 +473,7 @@ public class LectorBD_MI
 	 * es la correcta, pintandolos en pantalla
 	 * 
 	 * @param args
-	 *            argumentos del main. Se ignoran
+	 *            Argumentos. Se ignoran
 	 */
 	public static void main(String[] args)
 	{
