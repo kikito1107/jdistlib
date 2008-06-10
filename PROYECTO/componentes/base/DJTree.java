@@ -337,8 +337,8 @@ public class DJTree extends JTree
 						&& ( saux.tipo.intValue() == DJTreeEvent.RESPUESTA_SINCRONIZACION
 								.intValue() ))
 				{
-					System.out.print("REcibida sincronizzacion");
-					System.out.flush();
+					//System.out.print("REcibida sincronizzacion");
+					//System.out.flush();
 					respSincr = saux;
 				}
 				else colaAux.nuevoEvento(saux);
