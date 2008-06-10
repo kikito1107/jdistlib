@@ -88,12 +88,14 @@ public class DJArbolDocumentos extends JTree implements Autoscroll
 				+ margin, outer.width - inner.width - inner.x + outer.x
 				+ margin);
 	}
-	
-	public DefaultMutableTreeNode getRaiz(){
+
+	public DefaultMutableTreeNode getRaiz()
+	{
 		return raiz;
 	}
-	
-	public DefaultTreeModel getModelo(){
+
+	public DefaultTreeModel getModelo()
+	{
 		return model;
 	}
 
@@ -131,7 +133,6 @@ public class DJArbolDocumentos extends JTree implements Autoscroll
 	{
 		if (raiz != null && model != null) model.setRoot(raizNueva);
 	}
-
 
 }
 

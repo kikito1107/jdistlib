@@ -24,36 +24,37 @@ import fisica.eventos.DFileEvent;
 import fisica.net.Transfer;
 
 public class DIArbolDocumentos extends DComponenteBase
-{	
+{
+	private static final long serialVersionUID = 5277749260155721460L;
+
 	public DJArbolDocumentos arbol = null;
-	
-	public DIArbolDocumentos(DefaultMutableTreeNode raiz)
+
+	public DIArbolDocumentos( DefaultMutableTreeNode raiz )
 	{
 		super();
 		init(raiz);
 	}
 
-	public DIArbolDocumentos( String nombre, boolean conexionDC, DComponenteBase padre, DefaultMutableTreeNode raiz)
+	public DIArbolDocumentos( String nombre, boolean conexionDC,
+			DComponenteBase padre, DefaultMutableTreeNode raiz )
 	{
 		super(nombre, conexionDC, padre);
-		init( raiz);
+		init(raiz);
 	}
 
 	private void init(DefaultMutableTreeNode raiz)
 	{
-		
+
 		arbol = new DJArbolDocumentos(raiz);
 		this.add(arbol);
 	}
-	
+
 	@Override
 	public int obtenerNumComponentesHijos()
 	{
 		return 0;
 	}
 
-	
-	
 	/**
 	 * Permite obtener la metainformacion del documento seleccionado en el arbol
 	 * 
@@ -73,13 +74,15 @@ public class DIArbolDocumentos extends DComponenteBase
 		else return null;
 	}
 
-	
 	/**
-	 * Cambia la MI asociada a un documento, la actualiza en el servidor 
-	 * y envia el evento al resto de aplicaciones conectadas
-	 * @param f MI nueva
+	 * Cambia la MI asociada a un documento, la actualiza en el servidor y envia
+	 * el evento al resto de aplicaciones conectadas
+	 * 
+	 * @param f
+	 *            MI nueva
 	 */
-	public void cambiarMIDocumento(MIDocumento f) {
+	public void cambiarMIDocumento(MIDocumento f)
+	{
 		DFileEvent evento = new DFileEvent();
 		evento.fichero = f;
 
@@ -90,20 +93,19 @@ public class DIArbolDocumentos extends DComponenteBase
 
 		if (evento.padre != null) // por si es la raiz
 		{
-			evento.tipo = new Integer(
-					DFileEvent.NOTIFICAR_MODIFICACION_FICHERO
-							.intValue());
+			evento.tipo = new Integer(DFileEvent.NOTIFICAR_MODIFICACION_FICHERO
+					.intValue());
 			enviarEvento(evento);
-			ClienteFicheros.obtenerClienteFicheros()
-					.modificarFichero(f, DConector.Daplicacion);
+			ClienteFicheros.obtenerClienteFicheros().modificarFichero(f,
+					DConector.Daplicacion);
 		}
 	}
-	
-	
-	public DefaultTreeModel getModelo(){
+
+	public DefaultTreeModel getModelo()
+	{
 		return arbol.getModelo();
 	}
-	
+
 	/**
 	 * Permite obtener el nodo seleccionado en el arbol
 	 * 
@@ -284,16 +286,14 @@ public class DIArbolDocumentos extends DComponenteBase
 
 				ClienteFicheros.obtenerClienteFicheros().borrarFichero(f,
 						DConector.Daplicacion);
-				
+
 				// enviamos el evento de eliminacion
 				DFileEvent evento = new DFileEvent();
 				evento.fichero = f;
-				evento.tipo = new Integer(
-						DFileEvent.NOTIFICAR_ELIMINAR_FICHERO
-								.intValue());
+				evento.tipo = new Integer(DFileEvent.NOTIFICAR_ELIMINAR_FICHERO
+						.intValue());
 				enviarEvento(evento);
-				
-				
+
 				return true;
 			}
 			else if (f.comprobarPermisos(DConector.Dusuario, DConector.Drol,
@@ -305,16 +305,14 @@ public class DIArbolDocumentos extends DComponenteBase
 				{
 					ClienteFicheros.obtenerClienteFicheros().borrarFichero(f,
 							DConector.Daplicacion);
-					
+
 					// enviamos el evento de eliminacion
 					DFileEvent evento = new DFileEvent();
 					evento.fichero = f;
 					evento.tipo = new Integer(
-							DFileEvent.NOTIFICAR_ELIMINAR_FICHERO
-									.intValue());
+							DFileEvent.NOTIFICAR_ELIMINAR_FICHERO.intValue());
 					enviarEvento(evento);
-					
-					
+
 					return true;
 				}
 				else
@@ -368,10 +366,12 @@ public class DIArbolDocumentos extends DComponenteBase
 			MIRol rol = ClienteMetaInformacion.cmi.getRol(DConector.Drol);
 
 			if (user == null || rol == null) return null;
-			
-			if (!f.comprobarPermisos(user.getNombreUsuario(), rol.getNombreRol(), MIDocumento.PERMISO_ESCRITURA))
+
+			if (!f.comprobarPermisos(user.getNombreUsuario(), rol
+					.getNombreRol(), MIDocumento.PERMISO_ESCRITURA))
 			{
-				JOptionPane.showMessageDialog(null, "No tiene permisos suficientes para crear la carpeta");
+				JOptionPane.showMessageDialog(null,
+						"No tiene permisos suficientes para crear la carpeta");
 				return null;
 			}
 
@@ -383,8 +383,7 @@ public class DIArbolDocumentos extends DComponenteBase
 			nuevo.setTipo("NULL");
 
 			nuevo.esDirectorio(true);
-			
-			
+
 			MIDocumento f2 = ClienteFicheros.cf.insertarNuevoFichero(nuevo,
 					DConector.Daplicacion);
 
@@ -393,9 +392,8 @@ public class DIArbolDocumentos extends DComponenteBase
 				DFileEvent evento = new DFileEvent();
 				evento.padre = getDocumentoSeleccionado();
 				evento.fichero = f2;
-				evento.tipo = new Integer(
-						DFileEvent.NOTIFICAR_INSERTAR_FICHERO
-								.intValue());
+				evento.tipo = new Integer(DFileEvent.NOTIFICAR_INSERTAR_FICHERO
+						.intValue());
 				enviarEvento(evento);
 			}
 
@@ -496,8 +494,8 @@ public class DIArbolDocumentos extends DComponenteBase
 		if (!carpeta.esDirectorio())
 		{
 			DefaultMutableTreeNode df = buscarFichero(
-					(DefaultMutableTreeNode) arbol.getModelo().getRoot(), carpeta
-							.getPadre());
+					(DefaultMutableTreeNode) arbol.getModelo().getRoot(),
+					carpeta.getPadre());
 
 			carpeta = buscarFichero(df, ( (MIDocumento) df.getUserObject() )
 					.getRutaLocal());
@@ -663,15 +661,7 @@ public class DIArbolDocumentos extends DComponenteBase
 			evento.tipo = new Integer(DFileEvent.NOTIFICAR_INSERTAR_FICHERO
 					.intValue());
 
-			
 			this.enviarEvento(evento);
-			
 		}
 	}
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 5277749260155721460L;
-
 }
