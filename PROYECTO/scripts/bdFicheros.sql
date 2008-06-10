@@ -67,7 +67,7 @@ CREATE TABLE `Fichero` (
 
 LOCK TABLES `Fichero` WRITE;
 /*!40000 ALTER TABLE `Fichero` DISABLE KEYS */;
-INSERT INTO `Fichero` VALUES (1,'/',1,'rwrwrw',NULL,NULL,NULL,'/',NULL),(2,'Public',1,'rwrwrw',1,1,1,'/Public',NULL),(3,'Incoming',1,'r-r-r-',1,1,1,'/Incoming','INCOMING'),(4,'SolicitudIdiomasIN.pdf',0,'rwrwr-',1,1,2,'/Public/SolicitudIdiomasIN.pdf','pdf'),(6,'bdFicheros.sql',0,'rwrwr-',1,1,2,'/Public/bdFicheros.sql','sql'),(7,'automensaje.msg',0,'rw----',1,1,3,'/Incoming/automensaje.msg','msg'),(8,'Re automensaje.msg',0,'rw----',1,1,3,'/Incoming/Re automensaje.msg','msg'),(9,'Privado',1,'rw----',1,1,1,'/Privado','NULL'),(10,'Privado',1,'rwrw--',2,2,1,'/Privado','NULL'),(11,'foto_bea.jpg',0,'rwrw--',1,1,9,'/Privado/foto_bea.jpg','img'),(12,'leeme.txt',0,'rwrwr-',2,2,1,'/leeme.txt','txt');
+INSERT INTO `Fichero` VALUES (1,'/',1,'rwrwrw',NULL,NULL,NULL,'/',NULL),(2,'Public',1,'rwrw--',1,1,1,'/Public','null'),(3,'Incoming',1,'r-r-r-',1,1,1,'/Incoming','INCOMING'),(4,'SolicitudIdiomasIN.pdf',0,'rw----',1,1,1,'/SolicitudIdiomasIN.pdf','pdf'),(6,'bdFicheros.sql',0,'rwrwrw',1,1,1,'/bdFicheros.sql','sql'),(7,'automensaje.msg',0,'rw----',1,1,3,'/Incoming/automensaje.msg','msg'),(8,'Re automensaje.msg',0,'rw----',1,1,3,'/Incoming/Re automensaje.msg','msg'),(9,'Privado',1,'rw----',1,1,1,'/Privado','NULL'),(10,'Privado',1,'rwr---',2,2,1,'/Privado','NULL'),(12,'leeme.txt',0,'rwrwrw',2,2,1,'/leeme.txt','txt'),(15,'HOLA hola.msg',0,'rw----',1,1,3,'/Incoming/HOLA hola.msg','msg'),(17,'global_03-06-08_09:35:25.h',0,'rwrw--',1,1,2,'/Public/global_03-06-08_09:35:25.h','VER'),(18,'global_03-06-08_09:36:32.h',0,'rwrw--',1,1,1,'/global_03-06-08_09:36:32.h','VER'),(19,'global_04-06-08_03:11:20.h',0,'rwrw--',1,1,1,'/global_04-06-08_03:11:20.h','VER'),(20,'global.h',0,'rwrw--',1,1,1,'/global.h','h'),(21,'global_2.h',0,'rwrwrw',1,1,22,'/Antiguo/global_2.h','h'),(22,'Antiguo',1,'rwrwr-',1,1,1,'/Antiguo','NULL'),(23,'Hola.msg',0,'rw----',3,5,3,'/Incoming/Hola.msg','msg');
 /*!40000 ALTER TABLE `Fichero` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -80,4 +80,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2008-06-02 11:39:26
+-- Dump completed on 2008-06-10 14:42:32
