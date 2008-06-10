@@ -653,15 +653,14 @@ public class PanelPrincipal extends DComponenteBase
 			arbolDocumentos = new DIArbolDocumentos("ArbolDoc", false, this, DConector.raiz);
 
 			arbolDocumentos.setFont(fuente);
-
-			arbolDocumentos.addMouseListener(new java.awt.event.MouseAdapter()
+			
+			arbolDocumentos.arbol.addMouseListener(new java.awt.event.MouseAdapter()
 			{
 				@Override
 				public void mouseClicked(java.awt.event.MouseEvent e)
 				{
 					if (e.getClickCount() == 2) {
 						monitor.notificarAbrir();
-						System.err.println("DOBLE CLICK");
 					}
 				}
 			});
