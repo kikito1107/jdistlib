@@ -7,7 +7,7 @@ import java.util.Vector;
  * plugins y notificar a las hebras que asi lo deseen los cambios producidos en
  * los plugins
  * 
- * @author anab
+ * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
 public class PluginContainer
 {
