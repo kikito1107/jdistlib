@@ -16,7 +16,7 @@ import awareness.gui.FrameAdminServMI;
  */
 public class MainServidorMI
 {
-	boolean packFrame = false;
+	private boolean packFrame = false;
 
 	public MainServidorMI()
 	{
@@ -41,7 +41,6 @@ public class MainServidorMI
 		frame.setLocation(( screenSize.width - frameSize.width ) / 2,
 				( screenSize.height - frameSize.height ) / 2);
 		frame.setVisible(true);
-
 	}
 
 	/**
@@ -62,7 +61,6 @@ public class MainServidorMI
 		}
 		
 		new MainServidorMI();
-		
 		new ServidorMetaInformacion();
 	}
 

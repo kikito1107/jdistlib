@@ -63,7 +63,6 @@ public class FrameAdminServMI extends JFrame
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setContentPane(getPanel()); // Generated
 		this.setSize(new Dimension(352, 298)); // Generated
-		this.setResizable(false);
 		this.setTitle(".:: Servidor MetaInformacion ::.");
 	}
 
