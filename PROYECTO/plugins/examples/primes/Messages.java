@@ -10,8 +10,8 @@ import java.util.ResourceBundle;
  */
 public class Messages
 {
-	private static final String SPANISH = "aplicacion.plugin.example.primos.messageses";
-	private static final String ENGLISH = "aplicacion.plugin.example.primos.messagesen";
+	private static final String SPANISH = "plugins.examples.primes.messageses";
+	private static final String ENGLISH = "plugins.examples.primes.messagesen";
 	
 	/**
 	 * Indica que el idioma es el castellano
