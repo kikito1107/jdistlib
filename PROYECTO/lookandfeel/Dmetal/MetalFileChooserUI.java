@@ -617,11 +617,13 @@ public class MetalFileChooserUI extends BasicFileChooserUI
 		SwingUtilities.replaceUIActionMap(fc, actionMap);
 	}
 
+	@SuppressWarnings("all")
 	protected ActionMap getActionMap()
 	{
 		return createActionMap();
 	}
 
+	@SuppressWarnings("all")
 	protected ActionMap createActionMap()
 	{
 		AbstractAction escAction = new AbstractAction()
