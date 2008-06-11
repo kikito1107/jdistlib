@@ -659,9 +659,6 @@ public class MetalFileChooserUI extends BasicFileChooserUI
 		final JFileChooser fileChooser = fc;
 		list = new JList()
 		{
-			/**
-			 * 
-			 */
 			private static final long serialVersionUID = 3116253919223929906L;
 
 			@Override
