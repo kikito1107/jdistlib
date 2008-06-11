@@ -288,7 +288,7 @@ public class PanelPrincipal extends DComponenteBase
 			panelLateral.add(jLabel, gridBagConstraints); // Generated
 
 			JScrollPane jscrollpane = new JScrollPane(getListaAplicaciones());
-			jscrollpane.setBorder(new MatteBorder(2, 0, 2,0, Color.GRAY));
+			jscrollpane.setBorder(new MatteBorder(2, 0, 2, 0, Color.GRAY));
 			panelLateral.add(jscrollpane, gridBagConstraints1);
 			panelLateral.add(jLabel1, gridBagConstraints2); // Generated
 			panelLateral.add(getArbolUsuario(), gridBagConstraints3); // Generated
@@ -413,8 +413,9 @@ public class PanelPrincipal extends DComponenteBase
 
 							f = arbolDocumentos.agregarCarpeta(nombre);
 
-							if (f == null) {
-								
+							if (f == null)
+							{
+
 							}
 
 						}
@@ -526,8 +527,8 @@ public class PanelPrincipal extends DComponenteBase
 							{
 								if (!arbolDocumentos.eliminarFichero())
 									JOptionPane
-										.showMessageDialog(null,
-												"No tiene permisos suficientes para eliminar este fichero/directorio");
+											.showMessageDialog(null,
+													"No tiene permisos suficientes para eliminar este fichero/directorio");
 							}
 						}
 					});
@@ -647,20 +648,23 @@ public class PanelPrincipal extends DComponenteBase
 	{
 		if (arbolDocumentos == null)
 		{
-			arbolDocumentos = new DIArbolDocumentos("ArbolDoc", false, this, DConector.raiz);
+			arbolDocumentos = new DIArbolDocumentos("ArbolDoc", false, this,
+					DConector.raiz);
 
 			arbolDocumentos.setFont(fuente);
-			
-			arbolDocumentos.arbol.addMouseListener(new java.awt.event.MouseAdapter()
-			{
-				@Override
-				public void mouseClicked(java.awt.event.MouseEvent e)
-				{
-					if (e.getClickCount() == 2) {
-						monitor.notificarAbrir();
-					}
-				}
-			});
+
+			arbolDocumentos.arbol
+					.addMouseListener(new java.awt.event.MouseAdapter()
+					{
+						@Override
+						public void mouseClicked(java.awt.event.MouseEvent e)
+						{
+							if (e.getClickCount() == 2)
+							{
+								monitor.notificarAbrir();
+							}
+						}
+					});
 		}
 		return arbolDocumentos;
 	}
@@ -1060,9 +1064,8 @@ public class PanelPrincipal extends DComponenteBase
 	private void enviarMail(MIDocumento f)
 	{
 		DFileEvent dfe = MIDocumento.enviarMail(f);
-		
-		if (dfe != null)
-			enviarEvento(dfe);
+
+		if (dfe != null) enviarEvento(dfe);
 	}
 
 	/**
@@ -1151,21 +1154,20 @@ public class PanelPrincipal extends DComponenteBase
 
 	// ========= EVENTOS =================================================
 
-	
 	@Override
 	public void procesarEventoHijo(DEvent evento)
 	{
 		this.enviarEvento(evento);
 	}
-	
-	//*******************************************************************************
+
+	// *******************************************************************************
 	// PROCESADO DE EVENTOS
-	//*******************************************************************************
+	// *******************************************************************************
 	@Override
 	public void procesarEvento(DEvent evento)
 	{
 		System.err.println("Enviar evento " + evento.tipo);
-		
+
 		if (evento.tipo.intValue() == DFileEvent.NOTIFICAR_INSERTAR_FICHERO)
 		{
 			DFileEvent dfe = (DFileEvent) evento;
@@ -1229,7 +1231,8 @@ public class PanelPrincipal extends DComponenteBase
 				{
 
 					// buscamos al nuevo padre
-					DefaultMutableTreeNode padre = DIArbolDocumentos.buscarFichero(raiz, dfe.padre.getId());
+					DefaultMutableTreeNode padre = DIArbolDocumentos
+							.buscarFichero(raiz, dfe.padre.getId());
 
 					if (padre == null)
 					{
@@ -1248,7 +1251,8 @@ public class PanelPrincipal extends DComponenteBase
 						nodo.setUserObject(dfe.fichero);
 					}
 				}
-				else {
+				else
+				{
 					if (evento.usuario.equals(DConector.Dusuario))
 						modelo.removeNodeFromParent(nodo);
 				}
@@ -1256,8 +1260,6 @@ public class PanelPrincipal extends DComponenteBase
 
 			repaint();
 
-			
-			
 			comprobarPermisosDocumentoActual(dfe.fichero, false);
 			if (this.arbolDocumentos != null) arbolDocumentos.repaint();
 
@@ -1310,7 +1312,6 @@ public class PanelPrincipal extends DComponenteBase
 		}
 	}
 
-	
 	/**
 	 * Notifica la modificacion de un fichero al servidor
 	 * 
@@ -1323,7 +1324,7 @@ public class PanelPrincipal extends DComponenteBase
 		ClienteFicheros.obtenerClienteFicheros().modificarFichero(f.fichero,
 				DConector.Daplicacion);
 	}
-	
+
 	/**
 	 * Procesa un evento de metainformacion
 	 * 
@@ -1340,7 +1341,7 @@ public class PanelPrincipal extends DComponenteBase
 				&& e.usuario.equals(DConector.Dusuario))
 		{
 			ClienteFicheros.cf.inicializar();
-			//arbolDocumentos.setRaiz(ClienteFicheros.cf.getArbolDoc());
+			// arbolDocumentos.setRaiz(ClienteFicheros.cf.getArbolDoc());
 		}
 	}
 
