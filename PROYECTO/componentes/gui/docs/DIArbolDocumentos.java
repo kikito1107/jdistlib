@@ -1,5 +1,6 @@
 package componentes.gui.docs;
 
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -23,8 +24,13 @@ import fisica.documentos.MIDocumento;
 import fisica.eventos.DFileEvent;
 import fisica.net.Transfer;
 
+/**
+ * 
+ * @author Ana Belen Pelegrina Ortiz, Carlos Rodríguez Dominguez
+ */
 public class DIArbolDocumentos extends DComponenteBase
 {
+
 	private static final long serialVersionUID = 5277749260155721460L;
 
 	public DJArbolDocumentos arbol = null;
@@ -663,5 +669,12 @@ public class DIArbolDocumentos extends DComponenteBase
 
 			this.enviarEvento(evento);
 		}
+	}
+	
+	@Override
+	public synchronized void addMouseListener(MouseListener l)
+	{
+		// TODO Auto-generated method stub
+		arbol.addMouseListener(l);
 	}
 }

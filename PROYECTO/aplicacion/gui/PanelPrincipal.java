@@ -243,7 +243,6 @@ public class PanelPrincipal extends DComponenteBase
 		if (panelLateral == null)
 		{
 			jLabel1 = new JLabel();
-			jLabel1.setMinimumSize(new Dimension(80, 25));
 			jLabel1.setFont(new Font("Lucida Sans", Font.BOLD, 12));
 			jLabel1.setText("Usuarios");
 			jLabel1
@@ -255,7 +254,6 @@ public class PanelPrincipal extends DComponenteBase
 					.setToolTipText("Lista de las aplicaciones disponibles. Doble Click sobre el nombre para ejecutar");
 			jLabel.setFont(new Font("Lucida Sans", Font.BOLD, 12));
 			jLabel.setIcon(new ImageIcon("Resources/bricks.png"));
-			jLabel.setMinimumSize(new Dimension(100, 25));
 			panelLateral = new JPanel();
 
 			panelLateral.setMinimumSize(new Dimension(300, 200));
@@ -290,8 +288,7 @@ public class PanelPrincipal extends DComponenteBase
 			panelLateral.add(jLabel, gridBagConstraints); // Generated
 
 			JScrollPane jscrollpane = new JScrollPane(getListaAplicaciones());
-			jscrollpane.setBorder(null);
-			jscrollpane.setMinimumSize(new Dimension(100, 200));
+			jscrollpane.setBorder(new MatteBorder(2, 0, 2,0, Color.GRAY));
 			panelLateral.add(jscrollpane, gridBagConstraints1);
 			panelLateral.add(jLabel1, gridBagConstraints2); // Generated
 			panelLateral.add(getArbolUsuario(), gridBagConstraints3); // Generated
@@ -747,7 +744,7 @@ public class PanelPrincipal extends DComponenteBase
 				"ListaUsuariosConectadosRol", false, this);
 
 		arbolUsuario.setFont(fuente);
-		arbolUsuario.setMinimumSize(new Dimension(220, 180));
+		arbolUsuario.setPreferredSize(new Dimension(180, 140));
 		return arbolUsuario;
 	}
 
@@ -1003,9 +1000,6 @@ public class PanelPrincipal extends DComponenteBase
 		{
 			listaAplicaciones = new PluginList(getModelo());
 			listaAplicaciones.setFont(fuente);
-			listaAplicaciones.setMinimumSize(new Dimension(100, 200));
-			listaAplicaciones
-					.setBorder(new MatteBorder(2, 0, 2, 0, Color.GRAY));
 
 			listaAplicaciones
 					.addMouseListener(new java.awt.event.MouseAdapter()
