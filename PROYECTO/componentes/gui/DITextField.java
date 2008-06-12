@@ -17,6 +17,7 @@ import componentes.listeners.DJTextFieldListener;
 
 /**
  * Componente correspondiente a un ComboBox compartido.
+ * 
  * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
  *         Pelegrina Ortiz
  */
@@ -29,6 +30,33 @@ public class DITextField extends DComponenteBase implements
 
 	private BorderLayout borderLayout2 = new BorderLayout();
 
+	/**
+	 * Constructor por defecto
+	 */
+	public DITextField()
+	{
+		super();
+
+		try
+		{
+			jbInit();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * @param nombre
+	 *            String Nombre del componente.
+	 * @param conexionDC
+	 *            boolean TRUE si esta en contacto directo con el DConector (no
+	 *            es hijo de ningun otro componente) y FALSE en otro caso
+	 * @param padre
+	 *            DComponenteBase Componente padre de este componente. Si no
+	 *            tiene padre establecer a null
+	 */
 	public DITextField( String nombre, boolean conexionDC, DComponenteBase padre )
 	{
 		super(nombre, conexionDC, padre);

@@ -17,6 +17,7 @@ import componentes.listeners.LJToggleButtonListener;
 
 /**
  * Componente correspondiente a un Toggle Button compartido.
+ * 
  * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
  *         Pelegrina Ortiz
  */
@@ -26,6 +27,22 @@ public class DIToggleButton extends DComponenteBase implements
 	private static final long serialVersionUID = 1L;
 
 	private DJToggleButton boton = null;
+
+	/**
+	 * Constructor por defecto
+	 */
+	public DIToggleButton()
+	{
+		super();
+		try
+		{
+			jbInit();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * @param nombre
@@ -174,7 +191,7 @@ public class DIToggleButton extends DComponenteBase implements
 	 * 
 	 * @return Vector Vector de listeners DJToggleButtonListener
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector getDJToggleButtonListeners()
 	{
 		return boton.getDJToggleButtonListeners();
@@ -185,7 +202,7 @@ public class DIToggleButton extends DComponenteBase implements
 	 * 
 	 * @return Vector Vector de listeners LJToggleButtonListener
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector getLJToggleButtonListeners()
 	{
 		return boton.getLJToggleButtonListeners();
@@ -196,7 +213,7 @@ public class DIToggleButton extends DComponenteBase implements
 	 * 
 	 * @return Vector Vector de listeners LJToggleButtonListener
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector getLUJToggleButtonListeners()
 	{
 		return boton.getLUJToggleButtonListeners();

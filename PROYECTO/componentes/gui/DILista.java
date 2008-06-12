@@ -21,6 +21,7 @@ import componentes.util.ElementoLista;
 
 /**
  * Componente correspondiente a una Lista compartida.
+ * 
  * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
  *         Pelegrina Ortiz
  */
@@ -35,6 +36,23 @@ public class DILista extends DComponenteBase implements java.io.Serializable
 	private DJList lista = new DJList();
 
 	private boolean estatica = false;
+
+	/**
+	 * Constructor por defecto
+	 */
+	public DILista()
+	{
+		super();
+
+		try
+		{
+			jbInit();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * @param nombre
@@ -323,7 +341,7 @@ public class DILista extends DComponenteBase implements java.io.Serializable
 	 * 
 	 * @return Vector Vector de listeners DJListListener
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector getDJListListeners()
 	{
 		return lista.getDJListListeners();
@@ -334,7 +352,7 @@ public class DILista extends DComponenteBase implements java.io.Serializable
 	 * 
 	 * @return Vector Vector de listeners LJListListener
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector getLJListListeners()
 	{
 		return lista.getLJListListeners();
@@ -345,7 +363,7 @@ public class DILista extends DComponenteBase implements java.io.Serializable
 	 * 
 	 * @return Vector Vector de listeners LJListListener
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector getLUJListListeners()
 	{
 		return lista.getLUJListListeners();

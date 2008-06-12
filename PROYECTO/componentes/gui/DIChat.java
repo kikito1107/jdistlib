@@ -15,6 +15,7 @@ import componentes.listeners.LJChatListener;
 
 /**
  * Chat con el que pueden hablar todos los usuarios de la aplicacion
+ * 
  * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
  *         Pelegrina Ortiz
  */
@@ -28,11 +29,11 @@ public class DIChat extends DComponenteBase implements java.io.Serializable
 	 * @param nombre
 	 *            Nombre del componente.
 	 * @param conexionDC
-	 *            TRUE si esta en contacto directo con el DConector (no
-	 *            es hijo de ningun otro componente) y FALSE en otro caso
+	 *            TRUE si esta en contacto directo con el DConector (no es hijo
+	 *            de ningun otro componente) y FALSE en otro caso
 	 * @param padre
-	 *            Componente padre de este componente. Si no
-	 *            tiene padre establecer a null
+	 *            Componente padre de este componente. Si no tiene padre
+	 *            establecer a null
 	 */
 	public DIChat( String nombre, boolean conexionDC, DComponenteBase padre )
 	{
@@ -54,6 +55,15 @@ public class DIChat extends DComponenteBase implements java.io.Serializable
 	public DIChat()
 	{
 		super();
+
+		try
+		{
+			jbInit();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	private void jbInit() throws Exception
@@ -74,6 +84,7 @@ public class DIChat extends DComponenteBase implements java.io.Serializable
 
 	/**
 	 * Obtiene el texto que haya en el chat
+	 * 
 	 * @return Texto del chat
 	 */
 	public String getTexto()
@@ -83,7 +94,9 @@ public class DIChat extends DComponenteBase implements java.io.Serializable
 
 	/**
 	 * Asigna una fuente al chat
-	 * @param f Fuente a asignar
+	 * 
+	 * @param f
+	 *            Fuente a asignar
 	 */
 	public void setFuente(Font f)
 	{
@@ -148,7 +161,7 @@ public class DIChat extends DComponenteBase implements java.io.Serializable
 	 * 
 	 * @return Vector de listeners DJChatListener
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector getDJChatListeners()
 	{
 		return chat.getDJChatListeners();
@@ -159,7 +172,7 @@ public class DIChat extends DComponenteBase implements java.io.Serializable
 	 * 
 	 * @return Vector de listeners LJChatListener
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector getLJChatListeners()
 	{
 		return chat.getLJChatListeners();

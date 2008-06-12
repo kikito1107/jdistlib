@@ -35,12 +35,40 @@ public class DIArbolDocumentos extends DComponenteBase
 
 	public DJArbolDocumentos arbol = null;
 
+	/**
+	 * Constructor por defecto
+	 */
+	public DIArbolDocumentos()
+	{
+		super();
+	}
+
+	/**
+	 * Constructor con parametros
+	 * 
+	 * @param raiz
+	 *            Raiz del arbol de documentos
+	 */
 	public DIArbolDocumentos( DefaultMutableTreeNode raiz )
 	{
 		super();
 		init(raiz);
 	}
 
+	/**
+	 * Constructor con parametros
+	 * 
+	 * @param nombre
+	 *            String Nombre del componente.
+	 * @param conexionDC
+	 *            boolean TRUE si esta en contacto directo con el DConector (no
+	 *            es hijo de ningun otro componente) y FALSE en otro caso
+	 * @param padre
+	 *            DComponenteBase Componente padre de este componente. Si no
+	 *            tiene padre establecer a null
+	 * @param raiz
+	 *            Raiz del arbol de documentos
+	 */
 	public DIArbolDocumentos( String nombre, boolean conexionDC,
 			DComponenteBase padre, DefaultMutableTreeNode raiz )
 	{
@@ -221,9 +249,11 @@ public class DIArbolDocumentos extends DComponenteBase
 						.getRutaLocal());
 
 				byte[] datos = t.receiveFileBytes();
-				
-				if (datos == null) {
-					JOptionPane.showMessageDialog(null, "Error al almacenar el fichero");
+
+				if (datos == null)
+				{
+					JOptionPane.showMessageDialog(null,
+							"Error al almacenar el fichero");
 					return;
 				}
 
@@ -270,9 +300,11 @@ public class DIArbolDocumentos extends DComponenteBase
 				.getRutaLocal());
 
 		byte[] datos = t.receiveFileBytes();
-		
-		if (datos == null) {
-			JOptionPane.showMessageDialog(null, "Error al almacenar el fichero");
+
+		if (datos == null)
+		{
+			JOptionPane
+					.showMessageDialog(null, "Error al almacenar el fichero");
 			return null;
 		}
 
@@ -680,7 +712,7 @@ public class DIArbolDocumentos extends DComponenteBase
 			this.enviarEvento(evento);
 		}
 	}
-	
+
 	@Override
 	public synchronized void addMouseListener(MouseListener l)
 	{

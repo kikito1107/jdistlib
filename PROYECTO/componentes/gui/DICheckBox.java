@@ -17,6 +17,7 @@ import componentes.listeners.LJCheckBoxListener;
 
 /**
  * Componente correspondiente a un CheckBox compartido.
+ * 
  * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
  *         Pelegrina Ortiz
  */
@@ -26,20 +27,32 @@ public class DICheckBox extends DComponenteBase implements java.io.Serializable
 
 	private DJCheckBox checkbox = null;
 
+	/**
+	 * Constructor por defecto
+	 */
 	public DICheckBox()
 	{
 		super();
+
+		try
+		{
+			jbInit();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	/**
 	 * @param nombre
 	 *            Nombre del componente.
 	 * @param conexionDC
-	 *            TRUE si esta en contacto directo con el DConector (no
-	 *            es hijo de ningun otro componente) y FALSE en otro caso
+	 *            TRUE si esta en contacto directo con el DConector (no es hijo
+	 *            de ningun otro componente) y FALSE en otro caso
 	 * @param padre
-	 *            Componente padre de este componente. Si no
-	 *            tiene padre establecer a null
+	 *            Componente padre de este componente. Si no tiene padre
+	 *            establecer a null
 	 */
 	public DICheckBox( String nombre, boolean conexionDC, DComponenteBase padre )
 	{
@@ -62,11 +75,11 @@ public class DICheckBox extends DComponenteBase implements java.io.Serializable
 	 * @param nombre
 	 *            Nombre del componente.
 	 * @param conexionDC
-	 *            TRUE si esta en contacto directo con el DConector (no
-	 *            es hijo de ningun otro componente) y FALSE en otro caso
+	 *            TRUE si esta en contacto directo con el DConector (no es hijo
+	 *            de ningun otro componente) y FALSE en otro caso
 	 * @param padre
-	 *            Componente padre de este componente. Si no
-	 *            tiene padre establecer a null
+	 *            Componente padre de este componente. Si no tiene padre
+	 *            establecer a null
 	 */
 	public DICheckBox( String textoCheckBox, String nombre, boolean conexionDC,
 			DComponenteBase padre )
@@ -121,6 +134,7 @@ public class DICheckBox extends DComponenteBase implements java.io.Serializable
 
 	/**
 	 * Obtiene un evento con la informacion de estado del componente
+	 * 
 	 * @return Evento con la informacion de estado
 	 */
 	public DJCheckBoxEvent obtenerInfoEstado()
@@ -182,7 +196,7 @@ public class DICheckBox extends DComponenteBase implements java.io.Serializable
 	 * 
 	 * @return Vector de listeners DJCheckBoxListener
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector getDJCheckBoxListeners()
 	{
 		return checkbox.getDJCheckBoxListeners();
@@ -193,7 +207,7 @@ public class DICheckBox extends DComponenteBase implements java.io.Serializable
 	 * 
 	 * @return Vector Vector de listeners LJCheckBoxListener
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector getLJCheckBoxListeners()
 	{
 		return checkbox.getLJCheckBoxListeners();
@@ -204,7 +218,7 @@ public class DICheckBox extends DComponenteBase implements java.io.Serializable
 	 * 
 	 * @return Vector Vector de listeners LJCheckBoxListener
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector getLUJCheckBoxListeners()
 	{
 		return checkbox.getLUJCheckBoxListeners();

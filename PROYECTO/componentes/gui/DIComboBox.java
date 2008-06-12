@@ -19,6 +19,7 @@ import componentes.listeners.LJComboBoxListener;
 
 /**
  * Componente correspondiente a un ComboBox compartido.
+ * 
  * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
  *         Pelegrina Ortiz
  */
@@ -27,24 +28,36 @@ public class DIComboBox extends DComponenteBase implements java.io.Serializable
 
 	private static final long serialVersionUID = 1L;
 
-	DJComboBox combobox = null;
+	private DJComboBox combobox = null;
 
-	BorderLayout borderLayout1 = new BorderLayout();
+	private BorderLayout borderLayout1 = new BorderLayout();
 
+	/**
+	 * Constructor por defecto
+	 */
 	public DIComboBox()
 	{
 		super();
+
+		try
+		{
+			jbInit();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	/**
 	 * @param nombre
 	 *            Nombre del componente.
 	 * @param conexionDC
-	 *            TRUE si esta en contacto directo con el DConector (no
-	 *            es hijo de ningun otro componente) y FALSE en otro caso
+	 *            TRUE si esta en contacto directo con el DConector (no es hijo
+	 *            de ningun otro componente) y FALSE en otro caso
 	 * @param padre
-	 *            Componente padre de este componente. Si no
-	 *            tiene padre establecer a null
+	 *            Componente padre de este componente. Si no tiene padre
+	 *            establecer a null
 	 */
 	public DIComboBox( String nombre, boolean conexionDC, DComponenteBase padre )
 	{
@@ -68,11 +81,11 @@ public class DIComboBox extends DComponenteBase implements java.io.Serializable
 	 * @param nombre
 	 *            Nombre del componente.
 	 * @param conexionDC
-	 *            TRUE si esta en contacto directo con el DConector (no
-	 *            es hijo de ningun otro componente) y FALSE en otro caso
+	 *            TRUE si esta en contacto directo con el DConector (no es hijo
+	 *            de ningun otro componente) y FALSE en otro caso
 	 * @param padre
-	 *            Componente padre de este componente. Si no
-	 *            tiene padre establecer a null
+	 *            Componente padre de este componente. Si no tiene padre
+	 *            establecer a null
 	 */
 	public DIComboBox( String[] elementos, String nombre, boolean conexionDC,
 			DComponenteBase padre )
@@ -111,6 +124,7 @@ public class DIComboBox extends DComponenteBase implements java.io.Serializable
 
 	/**
 	 * Obtiene el componente captador asociado
+	 * 
 	 * @return Componente captador asociado
 	 */
 	public DJComboBox obtenerCmp()
@@ -120,6 +134,7 @@ public class DIComboBox extends DComponenteBase implements java.io.Serializable
 
 	/**
 	 * Comprueba si el componente se ve o no
+	 * 
 	 * @return True si esta oculto. False en caso contrario
 	 */
 	public boolean ocultoEnJerarquia()
@@ -232,7 +247,7 @@ public class DIComboBox extends DComponenteBase implements java.io.Serializable
 	 * 
 	 * @return Vector Vector de listeners DJComboBoxListener
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector getDJComboBoxListeners()
 	{
 		return combobox.getDJComboBoxListeners();
@@ -243,7 +258,7 @@ public class DIComboBox extends DComponenteBase implements java.io.Serializable
 	 * 
 	 * @return Vector Vector de listeners LJComboBoxListener
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector getLJComboBoxListeners()
 	{
 		return combobox.getLJComboBoxListeners();
@@ -254,7 +269,7 @@ public class DIComboBox extends DComponenteBase implements java.io.Serializable
 	 * 
 	 * @return Vector Vector de listeners LJComboBoxListener
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector getLUJComboBoxListeners()
 	{
 		return combobox.getLUJComboBoxListeners();

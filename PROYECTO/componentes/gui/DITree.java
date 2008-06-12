@@ -20,6 +20,7 @@ import componentes.listeners.LJTreeListener;
 
 /**
  * Componente correspondiente a un Arbol compartido.
+ * 
  * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
  *         Pelegrina Ortiz
  */
@@ -30,6 +31,23 @@ public class DITree extends DComponenteBase implements java.io.Serializable
 	private JScrollPane jScrollPane1 = new JScrollPane();
 
 	private DJTree arbol = null;
+
+	/**
+	 * Constructor por defecto
+	 */
+	public DITree()
+	{
+		super();
+
+		try
+		{
+			jbInit();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * @param nombre

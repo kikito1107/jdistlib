@@ -17,6 +17,7 @@ import componentes.listeners.LJButtonListener;
 
 /**
  * Componente grafico correspondiente a un boton compartido
+ * 
  * @author Juan Antonio Ibañez Santorum. Carlos Rodriguez Dominguez. Ana Belen
  *         Pelegrina Ortiz
  */
@@ -33,7 +34,7 @@ public class DIButton extends DComponenteBase implements java.io.Serializable
 	 */
 	public DIButton()
 	{
-		super("boton", false, null);
+		super();
 
 		this.boton = new DJButton();
 		try
@@ -44,19 +45,19 @@ public class DIButton extends DComponenteBase implements java.io.Serializable
 		{
 			e.printStackTrace();
 		}
-
 	};
 
 	/**
 	 * Constructor con parametros
+	 * 
 	 * @param nombre
 	 *            Nombre del componente.
 	 * @param conexionDC
-	 *            True si esta en contacto directo con el DConector (no
-	 *            es hijo de ningun otro componente). False en otro caso
+	 *            True si esta en contacto directo con el DConector (no es hijo
+	 *            de ningun otro componente). False en otro caso
 	 * @param padre
-	 *            Componente padre de este componente. Si no
-	 *            tiene padre establecer a null
+	 *            Componente padre de este componente. Si no tiene padre
+	 *            establecer a null
 	 */
 	public DIButton( String nombre, boolean conexionDC, DComponenteBase padre )
 	{
@@ -78,11 +79,11 @@ public class DIButton extends DComponenteBase implements java.io.Serializable
 	 * @param nombre
 	 *            Nombre del componente.
 	 * @param conexionDC
-	 *            TRUE si esta en contacto directo con el DConector (no
-	 *            es hijo de ningun otro componente) y FALSE en otro caso
+	 *            TRUE si esta en contacto directo con el DConector (no es hijo
+	 *            de ningun otro componente) y FALSE en otro caso
 	 * @param padre
-	 *            Componente padre de este componente. Si no
-	 *            tiene padre establecer a null
+	 *            Componente padre de este componente. Si no tiene padre
+	 *            establecer a null
 	 */
 	public DIButton( String textoBoton, String nombre, boolean conexionDC,
 			DComponenteBase padre )
@@ -122,6 +123,7 @@ public class DIButton extends DComponenteBase implements java.io.Serializable
 
 	/**
 	 * Obtiene el texto mostrado en el boton
+	 * 
 	 * @return
 	 */
 	public String getText()
@@ -131,7 +133,9 @@ public class DIButton extends DComponenteBase implements java.io.Serializable
 
 	/**
 	 * Asigna un texto al boton
-	 * @param text Texto a asignar
+	 * 
+	 * @param text
+	 *            Texto a asignar
 	 */
 	public void setText(String text)
 	{
@@ -234,7 +238,7 @@ public class DIButton extends DComponenteBase implements java.io.Serializable
 	 * 
 	 * @return Vector de listeners DJButtonListener
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector getDJButtonListeners()
 	{
 		return boton.getDJButtonListeners();
@@ -245,7 +249,7 @@ public class DIButton extends DComponenteBase implements java.io.Serializable
 	 * 
 	 * @return Vector de listeners LJButtonListener
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector getLJButtonListeners()
 	{
 		return boton.getLJButtonListeners();
@@ -256,7 +260,7 @@ public class DIButton extends DComponenteBase implements java.io.Serializable
 	 * 
 	 * @return Vector de listeners LJButtonListener
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector getLUJButtonListeners()
 	{
 		return boton.getLUJButtonListeners();
