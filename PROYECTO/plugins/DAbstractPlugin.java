@@ -268,7 +268,7 @@ public abstract class DAbstractPlugin extends DComponenteBase
 		return jarFile;
 	}
 
-	/**
+	/*
 	 * Envia el fichero jar que contiene al plugin hacia una direccion IP de
 	 * destino y a un path concreto
 	 * 
@@ -278,7 +278,7 @@ public abstract class DAbstractPlugin extends DComponenteBase
 	 *            Path de destino del fichero jar
 	 * @pre En el destino el servidor RMI debe estar iniciado
 	 */
-	private void sendMe(String ipdestino, String pathdestino)
+	/*private void sendMe(String ipdestino, String pathdestino)
 	{
 		//fisica.net.Transfer.establecerServidor();
 		fisica.net.Transfer t = new fisica.net.Transfer(
@@ -307,7 +307,7 @@ public abstract class DAbstractPlugin extends DComponenteBase
 		}
 
 		t.sendFile(bytes);
-	}
+	}*/
 
 	/**
 	 * Obtiene un fichero jar con un plugin desde la direccion IP de origen y lo
