@@ -4,6 +4,7 @@
 package plugins.examples;
 
 import plugins.DAbstractPlugin;
+import plugins.PluginContainer;
 import plugins.examples.primes.PrimeMaster;
 
 /**
@@ -22,7 +23,7 @@ public class PluginCalculoPrimos extends DAbstractPlugin
 	 */
 	public PluginCalculoPrimos( ) throws Exception
 	{
-		super("CalcPrimosPlugin", false, null);
+		super("CalcPrimosPlugin", false, PluginContainer.getPC(), "Calculo Primos", 1, "primos.jar", true);
 		init();
 	}
 
@@ -35,9 +36,6 @@ public class PluginCalculoPrimos extends DAbstractPlugin
 	@Override
 	public void init() throws Exception
 	{
-		version = 5;
-		nombre = "Calculo Distribuido";
-		jarFile = "primos.jar";
 		versioningEnabled = false;
 		categoria = DAbstractPlugin.CATEGORIA_CIENTIFICO;
 		descripcion = "Calculo de numeros primos en paralelo. Comunicate con tus colaboradores para que pongan su ordenador a tu disposicion para los calculos!!";

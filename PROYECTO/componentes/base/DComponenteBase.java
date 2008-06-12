@@ -435,15 +435,11 @@ public class DComponenteBase extends JPanel implements DComponente,
 		}
 		DComponente hijo;
 		
-		System.out.println("Iniciando hebra procesadora para el componente " + getClass().toString());
 		System.out.flush();
 		for (int i = 0; i < obtenerNumComponentesHijos(); i++)
 			
 		{
 			hijo = obtenerComponente(i);
-			
-			System.out.println("\tiniciando hebra procesadora para el componente hijo " + hijo.getClass().toString());
-			System.out.flush();
 			hijo.iniciarHebraProcesadora();
 		}
 	}

@@ -3,6 +3,7 @@ package plugins.examples;
 import fisica.webcam.VideoConferencia;
 import fisica.webcam.VideoFrame;
 import plugins.DAbstractPlugin;
+import plugins.PluginContainer;
 
 /**
  * Ejemplo basico de creacion de un plugin. Establece una videoconferencia
@@ -21,7 +22,7 @@ public class DPluginBasicExample extends DAbstractPlugin
 	 */
 	public DPluginBasicExample() throws Exception
 	{
-		super("DpluginExample", false, null);
+		super("DpluginExample", false, PluginContainer.getPC(), "Video Conferencia", 2, "VC.jar", true);
 		init();
 	}
 
@@ -34,10 +35,7 @@ public class DPluginBasicExample extends DAbstractPlugin
 	@Override
 	public void init() throws Exception
 	{
-		version = 1;
-		nombre = "Videoconferencia";
-		jarFile = "vc.jar";
-		versioningEnabled = false;
+		versioningEnabled = true;
 		categoria = DAbstractPlugin.CATEGORIA_OTROS;
 	}
 

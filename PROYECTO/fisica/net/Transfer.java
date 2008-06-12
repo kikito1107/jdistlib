@@ -18,7 +18,7 @@ public class Transfer
 
 	private String ip_origen;
 
-	private static final int port = 1099;
+	private static int port = 1099;
 
 	private static boolean serverExecuted = false;
 
@@ -49,11 +49,15 @@ public class Transfer
 
 	/**
 	 * Inicia el servidor RMI para poder realizar transferencias
+	 * @param puerto puerto sobre el que se inicia el servido RMI 
 	 */
-	public static void establecerServidor()
+	public static void establecerServidor(int puerto)
 	{
 		if (!getServerExecuted())
 		{
+			
+			port = puerto;
+			
 			Transfer ts = new Transfer("", "");
 
 			ServerThread s = ts.new ServerThread();
@@ -63,6 +67,24 @@ public class Transfer
 		}
 	}
 
+	
+	/**
+	 * Inicia el servidor RMI para poder realizar transferencias
+	 */
+	public static void establecerServidor()
+	{
+		if (!getServerExecuted())
+		{
+			
+			Transfer ts = new Transfer("", "");
+
+			ServerThread s = ts.new ServerThread();
+			new Thread(s).start();
+
+			setServerExecuted(true);
+		}
+	}
+	
 	/**
 	 * Recibe un documento del servidor
 	 * 

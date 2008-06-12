@@ -92,9 +92,17 @@ public abstract class DAbstractPlugin extends DComponenteBase
 	 * @throws Exception
 	 */
 	protected DAbstractPlugin( String nombre, boolean conexionDC,
-			DComponenteBase padre ) throws Exception
+			DComponenteBase padre , String nombrePlugin, long version, String jarFile, boolean show) throws Exception
 	{
 		super(nombre, conexionDC, padre);
+		
+		this.nombre = nombrePlugin;
+		this.version = version;
+		this.jarFile = jarFile;
+		this.shouldShow = show;
+		
+		// establecemos el servidor de envio de plugins
+		fisica.net.Transfer.establecerServidor(2332);
 		
 		register();
 	}
@@ -272,7 +280,7 @@ public abstract class DAbstractPlugin extends DComponenteBase
 	 */
 	private void sendMe(String ipdestino, String pathdestino)
 	{
-		fisica.net.Transfer.establecerServidor();
+		//fisica.net.Transfer.establecerServidor();
 		fisica.net.Transfer t = new fisica.net.Transfer(
 				ipdestino, pathdestino);
 
@@ -311,12 +319,16 @@ public abstract class DAbstractPlugin extends DComponenteBase
 	 *            Path de destino local donde guardaremos el plugin descargado
 	 */
 	private void receiveMe(String iporigen, String pathorigen)
-	{
-		fisica.net.Transfer.establecerServidor();
+	{		
 		fisica.net.Transfer t = new fisica.net.Transfer(
 				iporigen, pathorigen);
 
 		byte[] bytes = t.receiveFileBytes();
+		
+		if (bytes == null) {
+			JOptionPane.showMessageDialog(null, "Error al cargar el plugin el fichero");
+			return;
+		}
 
 		try
 		{
@@ -341,14 +353,21 @@ public abstract class DAbstractPlugin extends DComponenteBase
 	 * deseamos quedarnos
 	 * @param dp Evento de registro recibido
 	 */
-	private void procesarEvento(DPluginRegisterEvent dp)
+	public void procesarEvento(DEvent evento)
 	{		
+		
+		
+		DPluginRegisterEvent dp = (DPluginRegisterEvent) evento;
+		
 		int res; // para almacenar el resultado de los confirm dialog's
-		if (dp.tipo.intValue() == DPluginRegisterEvent.RESPUESTA_SINCRONIZACION
+		if (dp.tipo.intValue() == DPluginRegisterEvent.SINCRONIZACION
 				.intValue())
-			if (( dp.version > getVersion() ) && this.versioningEnabled
-					&& !dp.usuario.equals(DConector.Dusuario)
-					&& ( getName().equals(dp.nombre) ))
+		{
+			
+			System.out.println("Recibida sincronizacion.\n\tVersion actual " + version + " version recibida " + dp.version);
+			
+			// si la version recibid es posterior a la actual necesitamos actualizarnos
+			if (( dp.version > getVersion() ) && this.versioningEnabled)
 			{
 
 				Object[] options =
@@ -356,11 +375,11 @@ public abstract class DAbstractPlugin extends DComponenteBase
 
 				res = JOptionPane
 						.showOptionDialog(null,
-								"Hay una nueva version del plug-in "
+								"Hay una nueva version del plug-in:\n\t"
 										+ getName() + " (Version Actual: "
 										+ getVersion() + ", Version Nueva: "
 										+ dp.version,
-								"Nuevo Version Disponible",
+								"Nueva Version Disponible",
 								JOptionPane.YES_NO_OPTION,
 								JOptionPane.QUESTION_MESSAGE, null, options,
 								options[1]);
@@ -382,7 +401,7 @@ public abstract class DAbstractPlugin extends DComponenteBase
 									"Debera reiniciar la aplicacion para que la nueva version del plugin: "
 											+ getName()
 											+ " funcione correctamente. ¿Cerrarla ahora?",
-									"Aviso", JOptionPane.YES_NO_OPTION,
+									"¿Reiniciar?", JOptionPane.YES_NO_OPTION,
 									JOptionPane.QUESTION_MESSAGE, null,
 									options2, options2[1]);
 					if (res == JOptionPane.YES_OPTION)
@@ -390,19 +409,67 @@ public abstract class DAbstractPlugin extends DComponenteBase
 						DConector.obtenerDC().salir();
 						System.exit(0);
 					}
-
-					// podria probarse:
-					// aplicacion.gui.PanelPrincipal.removeAll();
-					// aplicacion.gui.PanelPrincipal.add(DPluginLoader.getAllPlugins(...))
 				}
 			}
+			// si la version recibida es posterior a la nuestra debemos enviar el plugin
+			// le mandamos al emisor nuestra ip
+			else if (( dp.version < getVersion() ) && this.versioningEnabled) {
+				DPluginRegisterEvent evt = obtenerInfoEstado();
+				evt.tipo = new Integer(DPluginRegisterEvent.RESPUESTA_SINCRONIZACION.intValue());
+				
+				this.enviarEvento(evt);
+			}
+				
+		}
+		
+		// si recibimos respuesta de sincronizacion es que es existe una versión nueva del plugin
+		else if (dp.tipo.intValue() == DPluginRegisterEvent.RESPUESTA_SINCRONIZACION
+				.intValue()) {
+			
 
-			else if (( dp.version < getVersion() ) && this.versioningEnabled
-					&& !dp.usuario.equals(DConector.Dusuario)
-					&& ( getName().equals(dp.nombre) )) // enviar nuestro
-														// fichero
-				// jar
-				sendMe(dp.ip, dp.jarPath);
+			System.out.println("REcibida respuesta sincronizacion");
+			
+			Object[] options =
+			{ "Instalar Nueva Versión", "Conservar Versión Actual" };
+
+			res = JOptionPane
+					.showOptionDialog(null,
+							"Hay una nueva version del plug-in:\n\t"
+									+ getName() + " (Version Actual: "
+									+ getVersion() + ", Version Nueva: "
+									+ dp.version,
+							"Nueva Version Disponible",
+							JOptionPane.YES_NO_OPTION,
+							JOptionPane.QUESTION_MESSAGE, null, options,
+							options[1]);
+
+			if (res == JOptionPane.YES_OPTION)
+			{
+				// hacer una recepcion del fichero plugin remoto y
+				// sobreescribir fichero local
+				receiveMe(dp.ip, dp.jarPath);
+
+				// reconstruir los plugins
+
+				Object[] options2 =
+				{ "Reiniciar Ahora", "Más tarde" };
+
+				res = JOptionPane
+						.showOptionDialog(
+								null,
+								"Debera reiniciar la aplicacion para que la nueva version del plugin: "
+										+ getName()
+										+ " funcione correctamente. ¿Cerrarla ahora?",
+								"¿Reiniciar?", JOptionPane.YES_NO_OPTION,
+								JOptionPane.QUESTION_MESSAGE, null,
+								options2, options2[1]);
+				if (res == JOptionPane.YES_OPTION)
+				{
+					DConector.obtenerDC().salir();
+					System.exit(0);
+				}
+			}
+		}
 	}
 
 	/**

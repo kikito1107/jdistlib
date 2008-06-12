@@ -76,10 +76,12 @@ public class TransferenciaFichero extends UnicastRemoteObject implements
 		catch (FileNotFoundException e)
 		{
 			e.printStackTrace();
+			return null;
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
+			return null;
 		}
 
 		return bytes;

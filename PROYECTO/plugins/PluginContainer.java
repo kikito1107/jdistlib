@@ -2,6 +2,13 @@ package plugins;
 
 import java.util.Vector;
 
+import plugins.evento.DPluginRegisterEvent;
+
+import Deventos.DEvent;
+import Deventos.enlaceJS.DConector;
+
+import componentes.base.DComponenteBase;
+
 /**
  * Clase encargada de la gestión de los plugins, controlar el acceso a los
  * plugins y notificar a las hebras que asi lo deseen los cambios producidos en
@@ -9,8 +16,13 @@ import java.util.Vector;
  * 
  * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
-public class PluginContainer
+public class PluginContainer extends DComponenteBase
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7505153623522584387L;
+
 	/**
 	 * Vector de plugins
 	 */
@@ -25,30 +37,69 @@ public class PluginContainer
 	 * Flag booleano que indica si el contenedor ha sido ya creado
 	 */
 	private static boolean created = false;
-
+	
+	/**
+	 * 
+	 */
+	private static PluginContainer esto = null;
+	
 	/**
 	 * Inicializa el contenedor de plugins si no ha sido ya inicializado
 	 */
 	public PluginContainer()
 	{
-
+		
+		// nos conectamos directamente con el DConector
+		super("PluginContainer", true, null);
+			
 		if (!created)
 		{
 
 			// cargar los plugins
 			try
 			{
+				esto = this;
 				plugins = DPluginLoader.getAllPlugins("plugin");
 			}
 			catch (Exception e)
 			{
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
 			monitor = new MonitorPlugins();
 			created = true;
 		}
+	}
+	
+	public static PluginContainer getPC() {
+		return esto;
+	}
+
+	@Override
+	public void procesarEvento(DEvent evento)
+	{
+		
+		if (DConector.Dusuario.equals(evento.usuario)) return;
+		
+		if (evento.tipo.intValue() == DPluginRegisterEvent.SINCRONIZACION.intValue()) {
+			DPluginRegisterEvent evt = (DPluginRegisterEvent) evento;
+			
+			
+			
+			for(DAbstractPlugin p: plugins) {
+				
+				if (p.nombre.equals(evt.nombre)) {
+					p.procesarEvento(evt);
+				}
+			}
+		}
+	}
+
+	@Override
+	public synchronized void procesarEventoHijo(DEvent evento)
+	{
+		
+		this.enviarEvento(evento);
 	}
 
 	/**

@@ -221,6 +221,11 @@ public class DIArbolDocumentos extends DComponenteBase
 						.getRutaLocal());
 
 				byte[] datos = t.receiveFileBytes();
+				
+				if (datos == null) {
+					JOptionPane.showMessageDialog(null, "Error al almacenar el fichero");
+					return;
+				}
 
 				try
 				{
@@ -265,6 +270,11 @@ public class DIArbolDocumentos extends DComponenteBase
 				.getRutaLocal());
 
 		byte[] datos = t.receiveFileBytes();
+		
+		if (datos == null) {
+			JOptionPane.showMessageDialog(null, "Error al almacenar el fichero");
+			return null;
+		}
 
 		// enviamos los datos
 		doc.setMensaje(new String(datos));

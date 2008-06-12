@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
 import plugins.DAbstractPlugin;
+import plugins.PluginContainer;
 
 import Deventos.enlaceJS.DConector;
 
@@ -52,7 +53,7 @@ public class DChatPlugin extends DAbstractPlugin
 	 */
 	public DChatPlugin() throws Exception
 	{
-		super("chatplugin", false, null);
+		super("chatplugin", false, PluginContainer.getPC(), "Chat", 1, "chat.jar", true);
 		ventanaChat = new DJFrame(false, "");
 		init();
 	}
@@ -66,10 +67,6 @@ public class DChatPlugin extends DAbstractPlugin
 	@Override
 	public void init() throws Exception
 	{
-		version = 6;
-		nombre = "Chat";
-		shouldShow = true;
-		jarFile = "chat.jar";
 		versioningEnabled = true;
 		categoria = DAbstractPlugin.CATEGORIA_COMUNICACION;
 		descripcion = "Chat con videoconferencia integrada. Permite mensajes privados y publicos";

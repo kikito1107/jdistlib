@@ -41,7 +41,7 @@ public abstract class GenericMaster extends DAbstractPlugin
 	protected GenericMaster( String nombre, boolean conexionDC,
 			DComponenteBase padre ) throws Exception
 	{
-		super(nombre, conexionDC, padre);
+		super(nombre, conexionDC, padre, "", 1, "", true);
 	}
 
 	@Override

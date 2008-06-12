@@ -602,6 +602,11 @@ public class ControlesDibujo extends JPanel
 										ClienteFicheros.ipConexion, d.getPath());
 
 								byte[] datos = t.receiveFileBytes();
+								
+								if (datos == null) {
+									JOptionPane.showMessageDialog(null, "Error al almacenar el fichero");
+									return;
+								}
 
 								try
 								{

@@ -1,6 +1,7 @@
 package plugins.examples;
 
 import plugins.DAbstractPlugin;
+import plugins.PluginContainer;
 
 /**
  * Plugin que permite gestionar los plugins de la plataforma
@@ -18,9 +19,8 @@ public class DGestorPlugins extends DAbstractPlugin
 	 */
 	public DGestorPlugins() throws Exception
 	{
-		super("GestorPlugin", false, null);
+		super("GestorPlugin", false, PluginContainer.getPC(), "Gestor", 1, "gestor.jar", true);
 		init();
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -32,10 +32,6 @@ public class DGestorPlugins extends DAbstractPlugin
 	@Override
 	public void init() throws Exception
 	{
-		// TODO Auto-generated method stub
-		version = 1;
-		nombre = "Gestor Plugins";
-		jarFile = "gestor.jar";
 		categoria = DAbstractPlugin.CATEGORIA_UTILIDADES;
 		descripcion = "Gestor de los plugins instalados en esta aplicacion";
 
@@ -45,7 +41,6 @@ public class DGestorPlugins extends DAbstractPlugin
 	@Override
 	public void start() throws Exception
 	{
-		// TODO Auto-generated method stub
 
 		gestorPlugin.inicializarModelo();
 		gestorPlugin.pack();

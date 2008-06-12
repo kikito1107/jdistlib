@@ -3,6 +3,7 @@ package plugins.examples;
 import javax.swing.JFrame;
 
 import plugins.DAbstractPlugin;
+import plugins.PluginContainer;
 
 
 /**
@@ -24,9 +25,8 @@ public class DCalcPlugin extends DAbstractPlugin
 	 */
 	public DCalcPlugin() throws Exception
 	{
-		super("CalcPlugin", false, null);
+		super("CalcPlugin", false, PluginContainer.getPC(), "Calculadora", 1, "calc.jar", true);
 		init();
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -38,9 +38,6 @@ public class DCalcPlugin extends DAbstractPlugin
 	@Override
 	public void init() throws Exception
 	{
-		version = 5;
-		nombre = "Calculadora";
-		jarFile = "calculadora.jar";
 		categoria = DAbstractPlugin.CATEGORIA_UTILIDADES;
 		versioningEnabled = false;
 		shouldShow = true;

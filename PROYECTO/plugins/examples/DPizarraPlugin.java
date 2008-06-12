@@ -3,6 +3,7 @@ package plugins.examples;
 import java.awt.BorderLayout;
 
 import plugins.DAbstractPlugin;
+import plugins.PluginContainer;
 import plugins.examples.blackboard.ControlesPizarra;
 import plugins.examples.blackboard.Pizarra;
 
@@ -30,7 +31,7 @@ public class DPizarraPlugin extends DAbstractPlugin
 	 */
 	public DPizarraPlugin() throws Exception
 	{
-		super("pizarra plugin", false, null);
+		super("pizarra plugin", false, PluginContainer.getPC(), "Pizarra", 5, "pizarrra.jar", true);
 		ventanaPizarra = new DJFrame(true, "mousesRemotos3");
 		init();
 	}
@@ -44,12 +45,11 @@ public class DPizarraPlugin extends DAbstractPlugin
 	@Override
 	public void init() throws Exception
 	{
-		version = 5;
-		nombre = "Pizarra";
-		jarFile = "pizarra.jar";
 		categoria = DAbstractPlugin.CATEGORIA_EDICION;
 		descripcion = "Pizarra para pintar junto a tus colaboradores";
-
+		
+		this.versioningEnabled = true;
+		
 		p = new Pizarra(nombre, true, null);
 
 		ventanaPizarra.getContentPane().setLayout(new BorderLayout());
