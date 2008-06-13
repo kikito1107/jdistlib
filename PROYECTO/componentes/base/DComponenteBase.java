@@ -74,6 +74,18 @@ public class DComponenteBase extends JPanel implements DComponente,
 	public DComponenteBase()
 	{
 		super();
+		this.nombre = "";
+		this.DCompPadre = null;
+		this.conexionDC = false;
+		
+		try
+		{
+			jbInit();
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 
 	/**
