@@ -5,7 +5,6 @@ import java.rmi.RemoteException;
 
 import fisica.documentos.Documento;
 
-
 /**
  * Interfaz encargada de la transmision de ficheros entre usuarios
  * 

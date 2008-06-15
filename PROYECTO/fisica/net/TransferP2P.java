@@ -9,7 +9,6 @@ import java.rmi.registry.LocateRegistry;
 
 import fisica.documentos.Documento;
 
-
 /**
  * Clase encargada de la transmision de documentos entre usuarios
  * 
@@ -196,9 +195,9 @@ public class TransferP2P
 
 				System.out.println("Servicio RMI activo en " + host
 						+ " sobre el puerto " + port);
-				//System.out
-				//		.println("Ha sido creado el objeto con identificador "
-				//				+ id);
+				// System.out
+				// .println("Ha sido creado el objeto con identificador "
+				// + id);
 
 			}
 			catch (Exception e)

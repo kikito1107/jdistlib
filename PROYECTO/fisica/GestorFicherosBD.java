@@ -9,7 +9,6 @@ import fisica.documentos.MIDocumento;
 import awareness.MIRol;
 import awareness.MIUsuario;
 
-
 /**
  * Permite usar de forma apropiada la clase
  * 

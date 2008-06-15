@@ -5,7 +5,6 @@ import java.rmi.server.UnicastRemoteObject;
 
 import fisica.documentos.Documento;
 
-
 /**
  * Transfiere documentos entre usuarios
  * 

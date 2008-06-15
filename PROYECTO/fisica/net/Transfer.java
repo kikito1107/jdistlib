@@ -6,7 +6,6 @@ import java.rmi.registry.LocateRegistry;
 
 import fisica.documentos.Documento;
 
-
 /**
  * Transfiere un fichero entre dos ordenadores via RMI
  * 
@@ -21,6 +20,8 @@ public class Transfer
 	private static int port = 1099;
 
 	private static boolean serverExecuted = false;
+
+	private boolean useAbsolutePaths = false;
 
 	/**
 	 * Constructor
@@ -37,6 +38,25 @@ public class Transfer
 		ip_origen = ip_orig;
 	}
 
+	/**
+	 * Constructor
+	 * 
+	 * @param ip_orig
+	 *            Direccion IP del ordenador del cual recibiremos o enviaremos
+	 *            el fichero
+	 * @param fich
+	 *            path del fichero a mover
+	 * @param absolutePath
+	 *            Indica si queremos usar un path absoluto o relativo al
+	 *            directorio base
+	 */
+	public Transfer( String ip_orig, String fich, boolean absolutePath )
+	{
+		path = fich;
+		ip_origen = ip_orig;
+		useAbsolutePaths = absolutePath;
+	}
+
 	private static synchronized void setServerExecuted(boolean b)
 	{
 		serverExecuted = b;
@@ -49,15 +69,17 @@ public class Transfer
 
 	/**
 	 * Inicia el servidor RMI para poder realizar transferencias
-	 * @param puerto puerto sobre el que se inicia el servido RMI 
+	 * 
+	 * @param puerto
+	 *            puerto sobre el que se inicia el servido RMI
 	 */
 	public static void establecerServidor(int puerto)
 	{
 		if (!getServerExecuted())
 		{
-			
+
 			port = puerto;
-			
+
 			Transfer ts = new Transfer("", "");
 
 			ServerThread s = ts.new ServerThread();
@@ -67,7 +89,6 @@ public class Transfer
 		}
 	}
 
-	
 	/**
 	 * Inicia el servidor RMI para poder realizar transferencias
 	 */
@@ -75,7 +96,7 @@ public class Transfer
 	{
 		if (!getServerExecuted())
 		{
-			
+
 			Transfer ts = new Transfer("", "");
 
 			ServerThread s = ts.new ServerThread();
@@ -84,7 +105,7 @@ public class Transfer
 			setServerExecuted(true);
 		}
 	}
-	
+
 	/**
 	 * Recibe un documento del servidor
 	 * 
@@ -145,7 +166,7 @@ public class Transfer
 			TransmisorFicheros ar = (TransmisorFicheros) Naming.lookup("//"
 					+ ip_origen + "/TransferenciaFichero");
 
-			return ar.getByteFiles(path);
+			return ar.getByteFiles(path, useAbsolutePaths);
 		}
 		catch (Exception ex)
 		{
@@ -169,7 +190,7 @@ public class Transfer
 			TransmisorFicheros ar = (TransmisorFicheros) Naming.lookup("//"
 					+ ip_origen + "/TransferenciaFichero");
 
-			return ar.sendByteFile(datos, path);
+			return ar.sendByteFile(datos, path, useAbsolutePaths);
 		}
 		catch (Exception ex)
 		{
