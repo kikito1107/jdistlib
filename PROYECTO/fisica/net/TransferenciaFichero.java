@@ -38,14 +38,23 @@ public class TransferenciaFichero extends UnicastRemoteObject implements
 		return Documento.openDocument(path, "", "");
 	}
 
-	public byte[] getByteFiles(String path)
+	public byte[] getByteFiles(String path) throws RemoteException
 	{
+		return getByteFiles(path, false);
+	}
+
+	public byte[] getByteFiles(String path, boolean isAbsolutePath)
+			throws RemoteException
+	{
+		String ppath = path;
+
+		if (!isAbsolutePath)
+			ppath = ServidorFicheros.getDirectorioBase() + path;
+
 		byte[] bytes = null;
 		try
 		{
-			RandomAccessFile raf = new RandomAccessFile(ServidorFicheros
-					.getDirectorioBase()
-					+ path, "r");
+			RandomAccessFile raf = new RandomAccessFile(ppath, "r");
 
 			int tamanio = (int) raf.length();
 
@@ -69,49 +78,24 @@ public class TransferenciaFichero extends UnicastRemoteObject implements
 		return bytes;
 	}
 
-	public byte[] getByteFiles(String path, boolean isAbsolutePath)
+	public boolean sendByteFile(byte[] bytes, String path)
 			throws RemoteException
 	{
-		if (!isAbsolutePath)
-			return getByteFiles(path);
-		else
-		{
-			byte[] bytes = null;
-			try
-			{
-				RandomAccessFile raf = new RandomAccessFile(path, "r");
-
-				int tamanio = (int) raf.length();
-
-				bytes = new byte[tamanio];
-
-				raf.read(bytes);
-
-				raf.close();
-			}
-			catch (FileNotFoundException e)
-			{
-				e.printStackTrace();
-				return null;
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-				return null;
-			}
-
-			return bytes;
-		}
+		return sendByteFile(bytes, path, false);
 	}
 
-	public boolean sendByteFile(byte[] bytes, String path)
+	public boolean sendByteFile(byte[] bytes, String path,
+			boolean isAbsolutePath) throws RemoteException
 	{
+		String ppath = path;
+
+		if (!isAbsolutePath)
+			ppath = ServidorFicheros.getDirectorioBase() + path;
+
 		try
 		{
 
-			RandomAccessFile raf = new RandomAccessFile(ServidorFicheros
-					.getDirectorioBase()
-					+ path, "rw");
+			RandomAccessFile raf = new RandomAccessFile(ppath, "rw");
 			System.out.println("RECIBIDO FICHERO");
 			raf.write(bytes);
 			raf.close();
@@ -127,36 +111,6 @@ public class TransferenciaFichero extends UnicastRemoteObject implements
 			System.out.println("Se ha producido un error");
 			e.printStackTrace();
 			return false;
-		}
-	}
-
-	public boolean sendByteFile(byte[] bytes, String path,
-			boolean isAbsolutePath) throws RemoteException
-	{
-		if (!isAbsolutePath)
-			return sendByteFile(bytes, path);
-		else
-		{
-			try
-			{
-
-				RandomAccessFile raf = new RandomAccessFile(path, "rw");
-				System.out.println("RECIBIDO FICHERO");
-				raf.write(bytes);
-				raf.close();
-				return true;
-			}
-			catch (FileNotFoundException e)
-			{
-				e.printStackTrace();
-				return false;
-			}
-			catch (Exception e)
-			{
-				System.out.println("Se ha producido un error");
-				e.printStackTrace();
-				return false;
-			}
 		}
 	}
 
