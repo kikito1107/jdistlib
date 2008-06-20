@@ -26,7 +26,7 @@ public class ReproductorAudio extends AudioBase
 	 * @param mixer
 	 *            Mezclador de audio
 	 * @param tam_buffer
-	 *            Tama√±o del buffer en milisegundos
+	 *            Tamaño del buffer en milisegundos
 	 */
 	public ReproductorAudio( int fc, Mixer mixer, int tam_buffer )
 	{
