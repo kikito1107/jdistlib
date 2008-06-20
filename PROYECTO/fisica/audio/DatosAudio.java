@@ -14,7 +14,6 @@ import javax.swing.JOptionPane;
 import fisica.net.ConfiguracionConexion;
 import fisica.net.Network;
 import fisica.net.TCPNetwork;
-import fisica.net.UDPNetwork;
 
 /**
  * Datos de configuracion para el audio
@@ -76,7 +75,6 @@ public class DatosAudio
 	{
 		if (getConfiguracionConexion().getTipoConexion() == fisica.net.ConfiguracionConexion.TIPO_CONEXION_TCP)
 			red = new TCPNetwork(getModeloGeneral().getConnectionSettings());
-		else red = new UDPNetwork(getModeloGeneral().getConnectionSettings());
 	}
 
 	private Network obtenerRed()
