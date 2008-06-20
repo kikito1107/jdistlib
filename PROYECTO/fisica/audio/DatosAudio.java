@@ -22,7 +22,7 @@ import fisica.net.TCPNetwork;
  */
 public class DatosAudio
 {
-	private DatosGenerales modelo_general;
+	private DatosGenerales datos;
 
 	private PropertyChangeSupport soporte_cambio_propiedades;
 
@@ -38,9 +38,9 @@ public class DatosAudio
 
 	private boolean activo;
 
-	public DatosAudio( DatosGenerales masterModel )
+	public DatosAudio( DatosGenerales datos_generales )
 	{
-		modelo_general = masterModel;
+		datos = datos_generales;
 		soporte_cambio_propiedades = new PropertyChangeSupport(this);
 		inicializarRed();
 		audio[ConstantesAudio.DIR_MIC] = new CapturaAudio(getAudioSettings()
@@ -58,7 +58,7 @@ public class DatosAudio
 
 	private DatosGenerales getModeloGeneral()
 	{
-		return modelo_general;
+		return datos;
 	}
 
 	private ConfiguracionConexion getConfiguracionConexion()
