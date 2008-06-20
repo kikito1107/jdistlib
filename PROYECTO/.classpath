@@ -6,8 +6,8 @@
 	<classpathentry kind="lib" path="PDFRenderer.jar"/>
 	<classpathentry kind="lib" path="lti-civil-no_s_w_t.jar"/>
 	<classpathentry kind="lib" path="swing-layout-1.0.3.jar"/>
-	<classpathentry kind="lib" path="/Users/anab/Documents/Estudios/quinto/proyecto/PROYECTO/3.implementacion/PROYECTO/lib/jini/lib/jini-core.jar"/>
-	<classpathentry kind="lib" path="/Users/anab/Documents/Estudios/quinto/proyecto/PROYECTO/3.implementacion/PROYECTO/lib/jini/lib/jini-ext.jar"/>
-	<classpathentry kind="lib" path="/Users/anab/Documents/Estudios/quinto/proyecto/PROYECTO/3.implementacion/PROYECTO/lib/jini/lib/sun-util.jar"/>
+	<classpathentry kind="lib" path="lib/jini2_1/lib/jini-core.jar"/>
+	<classpathentry kind="lib" path="lib/jini2_1/lib/jini-ext.jar"/>
+	<classpathentry kind="lib" path="lib/jini2_1/lib/sun-util.jar"/>
 	<classpathentry kind="output" path=""/>
 </classpath>
