@@ -8,6 +8,7 @@ import java.beans.PropertyChangeListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
@@ -28,18 +29,15 @@ public class PanelConexion extends JPanel implements ActionListener,
 
 	private JButton boton_configuracion;
 
-	private String ip_conexion;
-
 	/**
 	 * Contructor
 	 * 
 	 * @param datos_generales
 	 *            Datos generales para la conexion
 	 */
-	public PanelConexion( DatosGenerales datos_generales, String ip )
+	public PanelConexion( DatosGenerales datos_generales)
 	{
 		datos = datos_generales;
-		ip_conexion = ip;
 
 		setLayout(new GridLayout(0, 1));
 
@@ -87,6 +85,7 @@ public class PanelConexion extends JPanel implements ActionListener,
 		String comando = ae.getActionCommand();
 		if (comando.equals("connect"))
 		{
+			String ip_conexion = JOptionPane.showInputDialog(null, "IP del otro:");
 			if (ip_conexion != null)
 			{
 				// System.out.println(ip_conexion);

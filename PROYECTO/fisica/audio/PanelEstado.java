@@ -17,13 +17,9 @@ public class PanelEstado extends JPanel
 
 	private JLabel etiqueta_estado;
 
-	private String ip_conexion;
-
-	public PanelEstado( String ip )
+	public PanelEstado()
 	{
 		super();
-
-		ip_conexion = ip;
 
 		DatosGenerales datos_generales = new DatosGenerales();
 		setLayout(new BorderLayout());
@@ -37,7 +33,7 @@ public class PanelEstado extends JPanel
 
 	private JComponent createPane(DatosGenerales datos)
 	{
-		return new PanelConexion(datos, ip_conexion);
+		return new PanelConexion(datos);
 	}
 
 	public void setStatusLine(String str)
