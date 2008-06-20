@@ -439,23 +439,28 @@ public class DatosAudio
 		public void run()
 		{
 			obtenerRed().escuchar(true);
+			
 			while (!terminar)
 				if (obtenerRed().escuchando())
 				{
-					/*
-					 * String msg = "Llamada recibida desde " +
-					 * getNetwork().getPeer() + ". ¿Quieres aceptarla?"; int
-					 * resp = JOptionPane.showConfirmDialog(null, new Object[] {
-					 * msg }, "Aviso", JOptionPane.YES_NO_OPTION,
-					 * JOptionPane.QUESTION_MESSAGE); if (resp ==
-					 * JOptionPane.YES_OPTION) {
-					 */
-					inicializarConexion(false);
-					setEscuchar(false);
-					/*
-					 * } else getNetwork().disconnect();
-					 */
+
+					String msg = "Llamada recibida desde "
+							+ obtenerRed().getIPPeer()
+							+ ". ¿Quieres aceptarla?";
+
+					int resp = JOptionPane.showConfirmDialog(null, msg,
+							"Aviso", JOptionPane.YES_NO_OPTION,
+							JOptionPane.QUESTION_MESSAGE);
+					
+					if (resp == JOptionPane.YES_OPTION)
+					{
+						inicializarConexion(false);
+						setEscuchar(false);
+					}
+
+					else obtenerRed().desconectar();
 				}
+			
 			obtenerRed().escuchar(false);
 		}
 	}
