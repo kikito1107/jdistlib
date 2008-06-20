@@ -24,7 +24,8 @@ public class ConstantesAudio
 			"705.6KBit/s - LAN" };
 
 	public static final int[] CODIGOS_FORMATO =
-	{ CODIGO_FORMATO_GSM, CODIGO_FORMATO_TELEFONO, CODIGO_FORMATO_RADIO, CODIGO_FORMATO_CD };
+	{ CODIGO_FORMATO_GSM, CODIGO_FORMATO_TELEFONO, CODIGO_FORMATO_RADIO,
+			CODIGO_FORMATO_CD };
 
 	public static final String[] BUFFER_SIZE_MILLIS_STR =
 	{ "30", "40", "50", "70", "85", "100", "130", "150", "180", "220", "400" };

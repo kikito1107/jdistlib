@@ -14,7 +14,9 @@ public class UDPNetwork extends BaseNetwork
 {
 	/**
 	 * Constructor
-	 * @param conf Configuracion de la conexion
+	 * 
+	 * @param conf
+	 *            Configuracion de la conexion
 	 */
 	public UDPNetwork( ConfiguracionConexion conf )
 	{

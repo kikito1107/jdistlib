@@ -7,8 +7,8 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.Mixer;
 
 /**
- * Clase abstracta que permite implementar un sistema de
- * escucha para una linea de entrada
+ * Clase abstracta que permite implementar un sistema de escucha para una linea
+ * de entrada
  * 
  * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz
  */
@@ -35,8 +35,8 @@ public abstract class AudioBase implements LineListener
 	protected int milisegundos_buffer;
 
 	/**
-	 * Tamaño del buffer. Se calculara en base al tiempo del buffer
-	 * y a los formatos usados
+	 * Tamaño del buffer. Se calculara en base al tiempo del buffer y a los
+	 * formatos usados
 	 */
 	protected int tam_buffer;
 
@@ -51,7 +51,7 @@ public abstract class AudioBase implements LineListener
 	protected DataLine linea;
 
 	/**
-	 * Ultimo nivel de sonido capturado 
+	 * Ultimo nivel de sonido capturado
 	 */
 	protected int anterior_nivel = -1;
 
@@ -62,11 +62,15 @@ public abstract class AudioBase implements LineListener
 
 	/**
 	 * Constructor
-	 * @param fc Codigo de formato
-	 * @param mix Mezclador usado
-	 * @param tbufferMils Tamaño del buffer en milisegundos
+	 * 
+	 * @param fc
+	 *            Codigo de formato
+	 * @param mix
+	 *            Mezclador usado
+	 * @param tbufferMils
+	 *            Tamaño del buffer en milisegundos
 	 */
-	protected AudioBase(int fc, Mixer mix, int tbufferMils )
+	protected AudioBase( int fc, Mixer mix, int tbufferMils )
 	{
 		this.milisegundos_buffer = tbufferMils;
 		this.mixer = mix;
@@ -82,6 +86,7 @@ public abstract class AudioBase implements LineListener
 
 	/**
 	 * Abre la captura de linea
+	 * 
 	 * @throws Exception
 	 */
 	public void open() throws Exception
@@ -94,12 +99,14 @@ public abstract class AudioBase implements LineListener
 
 	/**
 	 * Implementacion de como crear la linea de audio
+	 * 
 	 * @throws Exception
 	 */
 	protected abstract void creacionLinea() throws Exception;
 
 	/**
 	 * Crea la linea de audio
+	 * 
 	 * @throws Exception
 	 */
 	private void createLine() throws Exception
@@ -118,12 +125,14 @@ public abstract class AudioBase implements LineListener
 
 	/**
 	 * Implementacion de como abrir la linea de audio
+	 * 
 	 * @throws Exception
 	 */
 	protected abstract void aperturaLinea() throws Exception;
 
 	/**
 	 * Apertura de la linea
+	 * 
 	 * @throws Exception
 	 */
 	private void openLine() throws Exception
@@ -144,6 +153,7 @@ public abstract class AudioBase implements LineListener
 
 	/**
 	 * Comienza la captura de la linea
+	 * 
 	 * @throws Exception
 	 */
 	public void start() throws Exception
@@ -163,7 +173,9 @@ public abstract class AudioBase implements LineListener
 
 	/**
 	 * Cierra la captura de la linea
-	 * @param abrir_despues Indica si se abrira de nuevo otra vez o no
+	 * 
+	 * @param abrir_despues
+	 *            Indica si se abrira de nuevo otra vez o no
 	 */
 	public void close(boolean abrir_despues)
 	{
@@ -173,7 +185,9 @@ public abstract class AudioBase implements LineListener
 
 	/**
 	 * Cierra el stream de la linea
-	 * @param abrir_despues Indica si se abrira de nuevo otra vez o no
+	 * 
+	 * @param abrir_despues
+	 *            Indica si se abrira de nuevo otra vez o no
 	 */
 	protected void closeLine(boolean abrir_despues)
 	{
@@ -197,8 +211,9 @@ public abstract class AudioBase implements LineListener
 
 	/**
 	 * Comprueba si esta iniciada la captura o no
-	 * @return True si la linea esta inicializada y activada. False
-	 *         en caso contrario
+	 * 
+	 * @return True si la linea esta inicializada y activada. False en caso
+	 *         contrario
 	 */
 	public boolean isStarted()
 	{
@@ -207,8 +222,9 @@ public abstract class AudioBase implements LineListener
 
 	/**
 	 * Comprueba si la linea esta abierta o no
-	 * @return True si la linea esta inicializada y abierta. False
-	 *         en caso contrario
+	 * 
+	 * @return True si la linea esta inicializada y abierta. False en caso
+	 *         contrario
 	 */
 	public boolean isOpen()
 	{
@@ -217,6 +233,7 @@ public abstract class AudioBase implements LineListener
 
 	/**
 	 * Obtiene el tamaño del buffer
+	 * 
 	 * @return Tamaño del buffer
 	 */
 	public int getBufferSize()
@@ -226,6 +243,7 @@ public abstract class AudioBase implements LineListener
 
 	/**
 	 * Obtiene el tamaño del buffer en tiempo (milisegundos)
+	 * 
 	 * @return Tamaño del buffer en milisegundos
 	 */
 	public int getBufferSizeMillis()
@@ -235,7 +253,9 @@ public abstract class AudioBase implements LineListener
 
 	/**
 	 * Asigna el tamaño del buffer en tiempo (milisegundos)
-	 * @param bufferSizeMillis Tamaño del buffer en milisegundos
+	 * 
+	 * @param bufferSizeMillis
+	 *            Tamaño del buffer en milisegundos
 	 * @throws Exception
 	 */
 	public void setBufferSizeMillis(int bufferSizeMillis) throws Exception
@@ -256,6 +276,7 @@ public abstract class AudioBase implements LineListener
 
 	/**
 	 * Obtiene el codigo de formato del audio
+	 * 
 	 * @return Codigo de formato del audio
 	 */
 	public int getFormatCode()
@@ -265,20 +286,26 @@ public abstract class AudioBase implements LineListener
 
 	/**
 	 * Asigna el codigo de formato para el audio
-	 * @param formatCode Codigo de formato
+	 * 
+	 * @param formatCode
+	 *            Codigo de formato
 	 * @throws Exception
 	 */
 	public void setFormatCode(int formatCode) throws Exception
 	{
 		if (this.codigo_formato == formatCode) return;
-		if (isOpen()) throw new Exception("No se puede cambiar el formato mientras esta abierto el canal");
+		if (isOpen())
+			throw new Exception(
+					"No se puede cambiar el formato mientras esta abierto el canal");
 		this.formato_linea = Util.getLineAudioFormat(formatCode);
 		this.formato_red = Util.getNetAudioFormat(formatCode);
 	}
 
 	/**
 	 * Asigna el mezclador para la captura
-	 * @param mixer Mezclador usado
+	 * 
+	 * @param mixer
+	 *            Mezclador usado
 	 * @throws Exception
 	 */
 	public void setMixer(Mixer mixer) throws Exception
@@ -300,7 +327,9 @@ public abstract class AudioBase implements LineListener
 
 	/**
 	 * Asigna si debemos silenciar la captura
-	 * @param silenciar Indica si debemos silenciar o no la captura
+	 * 
+	 * @param silenciar
+	 *            Indica si debemos silenciar o no la captura
 	 */
 	public void setSilenciado(boolean silenciar)
 	{
@@ -309,6 +338,7 @@ public abstract class AudioBase implements LineListener
 
 	/**
 	 * Comprueba si la linea esta silenciada o no
+	 * 
 	 * @return True si la linea esta en silencio. False en otro caso
 	 */
 	public boolean estaSilenciado()
@@ -318,6 +348,7 @@ public abstract class AudioBase implements LineListener
 
 	/**
 	 * Obtiene el ultimo nivel de audio capturado
+	 * 
 	 * @return Ultimo nivel de audio capturado
 	 */
 	public int getLevel()
@@ -327,9 +358,13 @@ public abstract class AudioBase implements LineListener
 
 	/**
 	 * Calcula el nivel de audio actual
-	 * @param b Vector de bytes capturados
-	 * @param off Offset en el vector
-	 * @param len Longitud a tomar del vector
+	 * 
+	 * @param b
+	 *            Vector de bytes capturados
+	 * @param off
+	 *            Offset en el vector
+	 * @param len
+	 *            Longitud a tomar del vector
 	 */
 	protected void calcCurrVol(byte[] b, int off, int len)
 	{
@@ -369,9 +404,13 @@ public abstract class AudioBase implements LineListener
 
 	/**
 	 * Pone en silencio todo el audio de un buffer
-	 * @param b Vector de bytes del buffer
-	 * @param off Offset en el vector
-	 * @param len Longitud a tomar del vector
+	 * 
+	 * @param b
+	 *            Vector de bytes del buffer
+	 * @param off
+	 *            Offset en el vector
+	 * @param len
+	 *            Longitud a tomar del vector
 	 */
 	protected void silenciarBuffer(byte[] b, int off, int len)
 	{

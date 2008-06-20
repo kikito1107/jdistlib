@@ -26,8 +26,8 @@ import javax.swing.event.ChangeListener;
  * 
  * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz
  */
-public class PanelConfiguracionAudio extends JPanel implements ActionListener, ItemListener,
-		ChangeListener, PropertyChangeListener
+public class PanelConfiguracionAudio extends JPanel implements ActionListener,
+		ItemListener, ChangeListener, PropertyChangeListener
 {
 	private static final long serialVersionUID = -1211093879092247548L;
 
@@ -68,8 +68,8 @@ public class PanelConfiguracionAudio extends JPanel implements ActionListener, I
 		p.add(new JLabel(title));
 
 		p.add(new JLabel("Mezclador:"));
-		selector_mezclador[d] = new JComboBox(getAudioSettings().getNombresMezcladores(d)
-				.toArray());
+		selector_mezclador[d] = new JComboBox(getAudioSettings()
+				.getNombresMezcladores(d).toArray());
 		selector_mezclador[d].addItemListener(this);
 		p.add(selector_mezclador[d]);
 
@@ -81,7 +81,8 @@ public class PanelConfiguracionAudio extends JPanel implements ActionListener, I
 		desp_volumen[d].addChangeListener(this);
 		p.add(desp_volumen[d]);
 
-		puerto_volumen[d] = new JComboBox(getAudioSettings().getPuertos(d).toArray());
+		puerto_volumen[d] = new JComboBox(getAudioSettings().getPuertos(d)
+				.toArray());
 		puerto_volumen[d].addItemListener(this);
 		p.add(puerto_volumen[d]);
 
@@ -90,7 +91,8 @@ public class PanelConfiguracionAudio extends JPanel implements ActionListener, I
 		p.add(boton_silenciar[d]);
 
 		p.add(new JLabel("Tamaño del buffer en milisegundos:"));
-		seleccion_buffer[d] = new JComboBox(ConstantesAudio.BUFFER_SIZE_MILLIS_STR);
+		seleccion_buffer[d] = new JComboBox(
+				ConstantesAudio.BUFFER_SIZE_MILLIS_STR);
 		seleccion_buffer[d].setSelectedIndex(getAudioSettings()
 				.getIndiceTamBuffer(d));
 		seleccion_buffer[d].addItemListener(this);
@@ -165,8 +167,10 @@ public class PanelConfiguracionAudio extends JPanel implements ActionListener, I
 	{
 		try
 		{
-			getAudio(d).setMixer(getAudioSettings().getMezcladorSeleccionado(d));
-			if (d == ConstantesAudio.DIR_MIC) getChatModel().inicializarAudioStream();
+			getAudio(d)
+					.setMixer(getAudioSettings().getMezcladorSeleccionado(d));
+			if (d == ConstantesAudio.DIR_MIC)
+				getChatModel().inicializarAudioStream();
 		}
 		catch (Exception e)
 		{
@@ -180,7 +184,8 @@ public class PanelConfiguracionAudio extends JPanel implements ActionListener, I
 		{
 			getAudio(d).setBufferSizeMillis(
 					getAudioSettings().getTamBufferMilisegundos(d));
-			if (d == ConstantesAudio.DIR_MIC) getChatModel().inicializarAudioStream();
+			if (d == ConstantesAudio.DIR_MIC)
+				getChatModel().inicializarAudioStream();
 		}
 		catch (Exception e)
 		{
@@ -196,7 +201,8 @@ public class PanelConfiguracionAudio extends JPanel implements ActionListener, I
 		else if (e.getSource() == puerto_volumen[1]) d = 1;
 		if (( d >= 0 ) && ( e.getStateChange() == ItemEvent.SELECTED ))
 		{
-			getAudioSettings().setPuertoSeleccionado(d, puerto_volumen[d].getSelectedIndex());
+			getAudioSettings().setPuertoSeleccionado(d,
+					puerto_volumen[d].getSelectedIndex());
 			initNewPort(d);
 			return;
 		}

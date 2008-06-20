@@ -18,7 +18,8 @@ import fisica.net.ConfiguracionConexion;
  * 
  * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz
  */
-public class PanelConfiguracionTransmision extends JPanel implements ActionListener
+public class PanelConfiguracionTransmision extends JPanel implements
+		ActionListener
 {
 	private static final long serialVersionUID = 3068817356174683515L;
 
@@ -101,7 +102,8 @@ public class PanelConfiguracionTransmision extends JPanel implements ActionListe
 	{
 		int port = Integer.parseInt(texto_puerto.getText());
 		getConfiguracionConexion().setPuerto(port);
-		int nFormatCode = ConstantesAudio.CODIGOS_FORMATO[combo_calidad.getSelectedIndex()];
+		int nFormatCode = ConstantesAudio.CODIGOS_FORMATO[combo_calidad
+				.getSelectedIndex()];
 		getConfiguracionAudio().setCodigoFormato(nFormatCode);
 		int nConnectionType = ConstantesAudio.TIPOS_CONEXION[combo_tipo
 				.getSelectedIndex()];

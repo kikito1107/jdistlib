@@ -1,8 +1,7 @@
 package fisica.net;
 
 /**
- * Clase para guardar los datos de configuracion
- * de un protocolo de red
+ * Clase para guardar los datos de configuracion de un protocolo de red
  * 
  * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz
  */
@@ -31,7 +30,9 @@ public class ConfiguracionConexion
 
 	/**
 	 * Asigna el puerto para la conexion
-	 * @param p Puerto para la conexion
+	 * 
+	 * @param p
+	 *            Puerto para la conexion
 	 */
 	public void setPuerto(int p)
 	{
@@ -40,6 +41,7 @@ public class ConfiguracionConexion
 
 	/**
 	 * Obtiene el puerto para la conexion
+	 * 
 	 * @return Puerto para la conexion
 	 */
 	public int getPuerto()
@@ -49,7 +51,9 @@ public class ConfiguracionConexion
 
 	/**
 	 * Asigna el tipo de conexion
-	 * @param t Tipo de conexion
+	 * 
+	 * @param t
+	 *            Tipo de conexion
 	 */
 	public void setTipoConexion(int t)
 	{
@@ -58,6 +62,7 @@ public class ConfiguracionConexion
 
 	/**
 	 * Obtiene el tipo de conexion
+	 * 
 	 * @return Tipo de conexion
 	 */
 	public int getTipoConexion()

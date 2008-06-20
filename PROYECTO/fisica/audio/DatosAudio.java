@@ -44,12 +44,16 @@ public class DatosAudio
 		modelo_general = masterModel;
 		soporte_cambio_propiedades = new PropertyChangeSupport(this);
 		inicializarRed();
-		audio[ConstantesAudio.DIR_MIC] = new CapturaAudio(getAudioSettings().getCodigoFormato(),
-				getAudioSettings().getMezcladorSeleccionado(ConstantesAudio.DIR_MIC), getAudioSettings()
-						.getTamBufferMilisegundos(ConstantesAudio.DIR_MIC));
-		audio[ConstantesAudio.DIR_SPK] = new ReproductorAudio(getAudioSettings().getCodigoFormato(),
-				getAudioSettings().getMezcladorSeleccionado(ConstantesAudio.DIR_SPK), getAudioSettings()
-						.getTamBufferMilisegundos(ConstantesAudio.DIR_SPK));
+		audio[ConstantesAudio.DIR_MIC] = new CapturaAudio(getAudioSettings()
+				.getCodigoFormato(), getAudioSettings()
+				.getMezcladorSeleccionado(ConstantesAudio.DIR_MIC),
+				getAudioSettings().getTamBufferMilisegundos(
+						ConstantesAudio.DIR_MIC));
+		audio[ConstantesAudio.DIR_SPK] = new ReproductorAudio(
+				getAudioSettings().getCodigoFormato(), getAudioSettings()
+						.getMezcladorSeleccionado(ConstantesAudio.DIR_SPK),
+				getAudioSettings().getTamBufferMilisegundos(
+						ConstantesAudio.DIR_SPK));
 		activo = false;
 	}
 
@@ -72,8 +76,7 @@ public class DatosAudio
 	{
 		if (getConfiguracionConexion().getTipoConexion() == fisica.net.ConfiguracionConexion.TIPO_CONEXION_TCP)
 			red = new TCPNetwork(getModeloGeneral().getConnectionSettings());
-		else red = new UDPNetwork(getModeloGeneral()
-				.getConnectionSettings());
+		else red = new UDPNetwork(getModeloGeneral().getConnectionSettings());
 	}
 
 	private Network obtenerRed()
@@ -132,7 +135,8 @@ public class DatosAudio
 	}
 
 	/**
-	 * Inicializa los flujos de datos y establece la conexion (negocia el formato de audio)
+	 * Inicializa los flujos de datos y establece la conexion (negocia el
+	 * formato de audio)
 	 * 
 	 * @param es_activo
 	 *            True si es un extremo activo. False si es un extremo pasivo
@@ -141,8 +145,7 @@ public class DatosAudio
 	{
 		try
 		{
-			dis = new DataInputStream(obtenerRed()
-					.crearBufferEntrada());
+			dis = new DataInputStream(obtenerRed().crearBufferEntrada());
 			os = obtenerRed().crearBufferSalida();
 		}
 		catch (IOException e)
@@ -153,9 +156,9 @@ public class DatosAudio
 		boolean correcto = false;
 		if (es_activo)
 			correcto = handShakeActivo();
-		
+
 		else correcto = handShakePasivo();
-		
+
 		if (correcto)
 		{
 			if (estaConectado()) inicializarRedAudio();
@@ -195,8 +198,7 @@ public class DatosAudio
 			return false;
 		}
 
-		int w = ( ( buffer[0] & 0xFF ) << 24 )
-				| ( ( buffer[1] & 0xFF ) << 16 )
+		int w = ( ( buffer[0] & 0xFF ) << 24 ) | ( ( buffer[1] & 0xFF ) << 16 )
 				| ( ( buffer[2] & 0xFF ) << 8 ) | ( buffer[3] & 0xFF );
 
 		if (w != ConstantesAudio.PROTOCOL_ACK)
@@ -251,7 +253,8 @@ public class DatosAudio
 					w = ( buffer[8] << 24 ) | ( buffer[9] << 16 )
 							| ( buffer[10] << 8 ) | buffer[11];
 
-					if (( w < 0 ) || ( w > ConstantesAudio.CODIGOS_FORMATO.length ))
+					if (( w < 0 )
+							|| ( w > ConstantesAudio.CODIGOS_FORMATO.length ))
 					{
 						error("Codigo de formato incorrecto");
 						correcto = false;
@@ -318,7 +321,8 @@ public class DatosAudio
 	public boolean esTestMicrofono()
 	{
 		return audioActivado()
-				&& ( ( (CapturaAudio) getAudio(ConstantesAudio.DIR_MIC) ).getOutputStream() == null );
+				&& ( ( (CapturaAudio) getAudio(ConstantesAudio.DIR_MIC) )
+						.getOutputStream() == null );
 	}
 
 	public boolean audioActivado()
@@ -359,7 +363,8 @@ public class DatosAudio
 			else
 			{
 				iniciarAudio(ConstantesAudio.DIR_MIC);
-				( (CapturaAudio) getAudio(ConstantesAudio.DIR_MIC) ).setOutputStream(null);
+				( (CapturaAudio) getAudio(ConstantesAudio.DIR_MIC) )
+						.setOutputStream(null);
 				iniciarAudio(ConstantesAudio.DIR_SPK);
 				activarAudio(true);
 				inicializarAudioStream();
@@ -408,14 +413,16 @@ public class DatosAudio
 
 	private void notifyConnection()
 	{
-		soporte_cambio_propiedades.firePropertyChange(ConstantesAudio.CONNECTION_PROPERTY,
-				estaConectado(), !estaConectado());
+		soporte_cambio_propiedades.firePropertyChange(
+				ConstantesAudio.CONNECTION_PROPERTY, estaConectado(),
+				!estaConectado());
 	}
 
 	private void notifyAudio()
 	{
-		soporte_cambio_propiedades.firePropertyChange(ConstantesAudio.AUDIO_PROPERTY,
-				audioActivado(), !audioActivado());
+		soporte_cambio_propiedades.firePropertyChange(
+				ConstantesAudio.AUDIO_PROPERTY, audioActivado(),
+				!audioActivado());
 	}
 
 	/**
@@ -437,21 +444,19 @@ public class DatosAudio
 			while (!terminar)
 				if (obtenerRed().escuchando())
 				{
-					/*String msg = "Llamada recibida desde "
-							+ getNetwork().getPeer()
-							+ ". ¿Quieres aceptarla?";
-					int resp = JOptionPane.showConfirmDialog(null,
-							new Object[]
-							{ msg }, "Aviso",
-							JOptionPane.YES_NO_OPTION,
-							JOptionPane.QUESTION_MESSAGE);
-					if (resp == JOptionPane.YES_OPTION)
-					{*/
+					/*
+					 * String msg = "Llamada recibida desde " +
+					 * getNetwork().getPeer() + ". ¿Quieres aceptarla?"; int
+					 * resp = JOptionPane.showConfirmDialog(null, new Object[] {
+					 * msg }, "Aviso", JOptionPane.YES_NO_OPTION,
+					 * JOptionPane.QUESTION_MESSAGE); if (resp ==
+					 * JOptionPane.YES_OPTION) {
+					 */
 					inicializarConexion(false);
 					setEscuchar(false);
-					/*}
-					else 
-						getNetwork().disconnect();*/
+					/*
+					 * } else getNetwork().disconnect();
+					 */
 				}
 			obtenerRed().escuchar(false);
 		}

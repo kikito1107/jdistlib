@@ -35,9 +35,13 @@ public class CapturaAudio extends AudioBase
 
 	/**
 	 * Constructor
-	 * @param formatCode Codigo de formato para el audio
-	 * @param mixer Mezclador de audio usado
-	 * @param bufferSizeMillis Tamaño del buffer en milisegundos
+	 * 
+	 * @param formatCode
+	 *            Codigo de formato para el audio
+	 * @param mixer
+	 *            Mezclador de audio usado
+	 * @param bufferSizeMillis
+	 *            Tamaño del buffer en milisegundos
 	 */
 	public CapturaAudio( int formatCode, Mixer mixer, int bufferSizeMillis )
 	{
@@ -47,7 +51,8 @@ public class CapturaAudio extends AudioBase
 	@Override
 	protected void creacionLinea() throws Exception
 	{
-		DataLine.Info info = new DataLine.Info(TargetDataLine.class, formato_linea);
+		DataLine.Info info = new DataLine.Info(TargetDataLine.class,
+				formato_linea);
 
 		if (mixer != null)
 			linea = (TargetDataLine) mixer.getLine(info);
@@ -73,8 +78,7 @@ public class CapturaAudio extends AudioBase
 			thread.terminate();
 			iniciar_hebra = true;
 		}
-		if (( ( thread == null ) || iniciar_hebra )
-				&& ( outputStream != null ))
+		if (( ( thread == null ) || iniciar_hebra ) && ( outputStream != null ))
 		{
 			thread = new CaptureThread();
 			thread.start();
@@ -122,6 +126,7 @@ public class CapturaAudio extends AudioBase
 
 	/**
 	 * Obtiene el buffer de entrada para el audio
+	 * 
 	 * @return Buffer de entrada para el audio
 	 */
 	public AudioInputStream getAudioInputStream()
@@ -131,7 +136,9 @@ public class CapturaAudio extends AudioBase
 
 	/**
 	 * Asigna el flujo de salida para el audio
-	 * @param stream Flujo de salida para el audio
+	 * 
+	 * @param stream
+	 *            Flujo de salida para el audio
 	 */
 	public synchronized void setOutputStream(OutputStream stream)
 	{
@@ -145,6 +152,7 @@ public class CapturaAudio extends AudioBase
 
 	/**
 	 * Obtiene el flujo de salida para el audio
+	 * 
 	 * @return Flujo de salida para el audio
 	 */
 	public synchronized OutputStream getOutputStream()
@@ -214,8 +222,8 @@ public class CapturaAudio extends AudioBase
 		}
 
 		/**
-		 * Comprobar si se esta finalizando la ejecucion
-		 * de la hebra
+		 * Comprobar si se esta finalizando la ejecucion de la hebra
+		 * 
 		 * @return True si se esta finalizando. False en otro caso
 		 */
 		public synchronized boolean isTerminating()
@@ -228,8 +236,7 @@ public class CapturaAudio extends AudioBase
 		 */
 		public synchronized void esperar()
 		{
-			if (!finalizado) 
-			try
+			if (!finalizado) try
 			{
 				this.join();
 			}
@@ -241,8 +248,8 @@ public class CapturaAudio extends AudioBase
 	}
 
 	/**
-	 * Clase que lee de la linea de entrada y calcula el nivel
-	 * de audio para cada elemento leido
+	 * Clase que lee de la linea de entrada y calcula el nivel de audio para
+	 * cada elemento leido
 	 */
 	private class MedidorLinea extends AudioInputStream
 	{
@@ -253,7 +260,9 @@ public class CapturaAudio extends AudioBase
 
 		/**
 		 * Constructor
-		 * @param l Linea de captura
+		 * 
+		 * @param l
+		 *            Linea de captura
 		 */
 		public MedidorLinea( TargetDataLine l )
 		{

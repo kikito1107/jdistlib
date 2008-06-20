@@ -20,9 +20,13 @@ public class ReproductorAudio extends AudioBase
 
 	/**
 	 * Constructor
-	 * @param fc Codigo de formato
-	 * @param mixer Mezclador de audio
-	 * @param tam_buffer Tamaño del buffer en milisegundos
+	 * 
+	 * @param fc
+	 *            Codigo de formato
+	 * @param mixer
+	 *            Mezclador de audio
+	 * @param tam_buffer
+	 *            Tamaño del buffer en milisegundos
 	 */
 	public ReproductorAudio( int fc, Mixer mixer, int tam_buffer )
 	{
@@ -32,7 +36,8 @@ public class ReproductorAudio extends AudioBase
 	@Override
 	protected void creacionLinea() throws Exception
 	{
-		DataLine.Info info = new DataLine.Info(SourceDataLine.class, formato_linea);
+		DataLine.Info info = new DataLine.Info(SourceDataLine.class,
+				formato_linea);
 
 		// get the playback data line for capture.
 		if (mixer != null)
@@ -84,7 +89,9 @@ public class ReproductorAudio extends AudioBase
 
 	/**
 	 * Asigna el flujo de entrada de audio
-	 * @param ais Flujo de entrada de audio
+	 * 
+	 * @param ais
+	 *            Flujo de entrada de audio
 	 */
 	public void setAudioInputStream(AudioInputStream ais)
 	{
@@ -114,7 +121,8 @@ public class ReproductorAudio extends AudioBase
 						int r = ais.read(buffer, 0, buffer.length);
 						if (r > 0)
 						{
-							if (estaSilenciado()) silenciarBuffer(buffer, 0, r);
+							if (estaSilenciado())
+								silenciarBuffer(buffer, 0, r);
 							calcCurrVol(buffer, 0, r);
 							if (sdl != null) sdl.write(buffer, 0, r);
 						}

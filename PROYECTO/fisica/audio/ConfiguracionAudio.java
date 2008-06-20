@@ -25,13 +25,13 @@ public class ConfiguracionAudio
 	 * Indice del tamaño del buffer por defecto
 	 */
 	private static final int INDICE_TAM_BUFFER = 2;
-	
+
 	/**
 	 * Tamaño del buffer en milisegundos
 	 */
 	private static final int[] TAM_BUFFER_MILISEGUNDOS =
 	{ 30, 40, 50, 70, 85, 100, 130, 150, 180, 220, 400 };
-	
+
 	/**
 	 * Codigo de formato por defecto
 	 */
@@ -44,7 +44,7 @@ public class ConfiguracionAudio
 	private BooleanControl[] puertoSeleccionado = new BooleanControl[2];
 
 	private List<String> nombresPuertos[] = new List[2];
-	
+
 	private List<Port>[] puertos = new List[2];
 
 	private List<Integer>[] indices_controles = new List[2];
@@ -61,7 +61,9 @@ public class ConfiguracionAudio
 
 	/**
 	 * Contructor
-	 * @param master Modelo de datos general para el sistema de captura
+	 * 
+	 * @param master
+	 *            Modelo de datos general para el sistema de captura
 	 */
 	public ConfiguracionAudio( DatosGenerales master )
 	{
@@ -96,8 +98,10 @@ public class ConfiguracionAudio
 			try
 			{
 				Mixer mixer = AudioSystem.getMixer(infos[i]);
-				addMixer(mixer, mixer.getSourceLineInfo(), ConstantesAudio.DIR_SPK);
-				addMixer(mixer, mixer.getTargetLineInfo(), ConstantesAudio.DIR_MIC);
+				addMixer(mixer, mixer.getSourceLineInfo(),
+						ConstantesAudio.DIR_SPK);
+				addMixer(mixer, mixer.getTargetLineInfo(),
+						ConstantesAudio.DIR_MIC);
 			}
 			catch (Exception e)
 			{
@@ -126,9 +130,13 @@ public class ConfiguracionAudio
 
 	/**
 	 * Agregar un mezclador a la lista disponible
-	 * @param mixer Mezclador a agregar
-	 * @param infos Informacion de la linea
-	 * @param indice_data_line Linea de datos seleccionada
+	 * 
+	 * @param mixer
+	 *            Mezclador a agregar
+	 * @param infos
+	 *            Informacion de la linea
+	 * @param indice_data_line
+	 *            Linea de datos seleccionada
 	 */
 	private void addMixer(Mixer mixer, Line.Info[] infos, int indice_data_line)
 	{
@@ -139,15 +147,14 @@ public class ConfiguracionAudio
 				{
 					Port.Info info = (Port.Info) infos[i];
 					int d;
-					
-					//es el microfono
+
+					// es el microfono
 					if (info.isSource())
 						d = ConstantesAudio.DIR_MIC;
-					
-					//es el altavoz
-					else 
-						d = ConstantesAudio.DIR_SPK;
-					
+
+					// es el altavoz
+					else d = ConstantesAudio.DIR_SPK;
+
 					Port p = (Port) mixer.getLine(info);
 					p.open();
 					try
@@ -157,7 +164,8 @@ public class ConfiguracionAudio
 							if (cs[c] instanceof CompoundControl)
 							{
 								puertos[d].add(p);
-								nombresPuertos[d].add(mixer.getMixerInfo().getName()
+								nombresPuertos[d].add(mixer.getMixerInfo()
+										.getName()
 										+ ": " + cs[c].getType().toString());
 								indices_controles[d].add(c);
 							}
@@ -179,7 +187,9 @@ public class ConfiguracionAudio
 
 	/**
 	 * Obtiene los nombres de los mezcladores disponibles
-	 * @param d Indice del mezclador
+	 * 
+	 * @param d
+	 *            Indice del mezclador
 	 * @return Lista con los nombres de los mezcladores
 	 */
 	public List<String> getNombresMezcladores(int d)
@@ -195,7 +205,9 @@ public class ConfiguracionAudio
 
 	/**
 	 * Obtiene el mezclador seleccionado
-	 * @param d Indice del mezclador
+	 * 
+	 * @param d
+	 *            Indice del mezclador
 	 * @return Mezclador seleccionado
 	 */
 	public Mixer getMezcladorSeleccionado(int d)
@@ -205,8 +217,11 @@ public class ConfiguracionAudio
 
 	/**
 	 * Asigna el mezclador de la lista de mezcladores
-	 * @param d Indice en la lista de mezcladores
-	 * @param index Indice del mezclador en la lista
+	 * 
+	 * @param d
+	 *            Indice en la lista de mezcladores
+	 * @param index
+	 *            Indice del mezclador en la lista
 	 */
 	public void setMezcladorSeleccionado(int d, int index)
 	{
@@ -217,7 +232,9 @@ public class ConfiguracionAudio
 
 	/**
 	 * Obtiene el nombre de los puertos para un mezclador
-	 * @param d Indice de la lista de mezcladores
+	 * 
+	 * @param d
+	 *            Indice de la lista de mezcladores
 	 * @return Nombres asociados a los puertos
 	 */
 	public List<String> getPuertos(int d)
@@ -228,7 +245,9 @@ public class ConfiguracionAudio
 
 	/**
 	 * Obtiene el puerto seleccionado
-	 * @param d Indice del puerto
+	 * 
+	 * @param d
+	 *            Indice del puerto
 	 * @return Puerto seleccionado
 	 */
 	public Port getPuertoSeleccionado(int d)
@@ -238,7 +257,9 @@ public class ConfiguracionAudio
 
 	/**
 	 * Obtiene el volumen del puerto seleccionado
-	 * @param d Indice del puerto
+	 * 
+	 * @param d
+	 *            Indice del puerto
 	 * @return Control de volumen asociado al puerto
 	 */
 	public FloatControl getControlVolumenSeleccionado(int d)
@@ -248,8 +269,11 @@ public class ConfiguracionAudio
 
 	/**
 	 * Asigna el puerto seleccionado
-	 * @param d Indice del puerto seleccionado
-	 * @param index Indice del puerto en cuestion
+	 * 
+	 * @param d
+	 *            Indice del puerto seleccionado
+	 * @param index
+	 *            Indice del puerto en cuestion
 	 */
 	public void setPuertoSeleccionado(int d, int index)
 	{
@@ -258,9 +282,13 @@ public class ConfiguracionAudio
 
 	/**
 	 * Asigna el puerto seleccionado
-	 * @param d Indice del puerto seleccionado
-	 * @param index Indice del puerto en cuestion
-	 * @param seleccionar Indica si hay que seleccionar el puerto o no
+	 * 
+	 * @param d
+	 *            Indice del puerto seleccionado
+	 * @param index
+	 *            Indice del puerto en cuestion
+	 * @param seleccionar
+	 *            Indica si hay que seleccionar el puerto o no
 	 */
 	public void setPuertoSeleccionado(int d, int index, boolean seleccionar)
 	{
@@ -271,16 +299,20 @@ public class ConfiguracionAudio
 		}
 		else
 		{
-			configurarPuerto(d, puertos[d].get(index), indices_controles[d].get(index));
+			configurarPuerto(d, puertos[d].get(index), indices_controles[d]
+					.get(index));
 
-			if (seleccionar && ( d == ConstantesAudio.DIR_MIC ) && ( puertoSeleccionado[d] != null ))
+			if (seleccionar && ( d == ConstantesAudio.DIR_MIC )
+					&& ( puertoSeleccionado[d] != null ))
 				puertoSeleccionado[d].setValue(true);
 		}
 	}
 
 	/**
 	 * Cierra el puerto seleccionado
-	 * @param d Indice del puerto
+	 * 
+	 * @param d
+	 *            Indice del puerto
 	 */
 	private void cerrarPuerto(int d)
 	{
@@ -295,9 +327,13 @@ public class ConfiguracionAudio
 
 	/**
 	 * Configurar un puerto
-	 * @param d Indice del puerto
-	 * @param p Puerto configurado
-	 * @param controlIndex Indice del control de volumen
+	 * 
+	 * @param d
+	 *            Indice del puerto
+	 * @param p
+	 *            Puerto configurado
+	 * @param controlIndex
+	 *            Indice del control de volumen
 	 */
 	private void configurarPuerto(int d, Port p, int controlIndex)
 	{
@@ -337,7 +373,9 @@ public class ConfiguracionAudio
 
 	/**
 	 * Obtien el tamaño del buffer en milisegundos de un puerto
-	 * @param d Puerto
+	 * 
+	 * @param d
+	 *            Puerto
 	 * @return Tamaño del buffer
 	 */
 	public int getTamBufferMilisegundos(int d)
@@ -347,7 +385,9 @@ public class ConfiguracionAudio
 
 	/**
 	 * Obtiene el indice del tamaño del buffer de un puerto
-	 * @param d Puerto
+	 * 
+	 * @param d
+	 *            Puerto
 	 * @return Indice del tamaño del buffer
 	 */
 	public int getIndiceTamBuffer(int d)
@@ -357,8 +397,11 @@ public class ConfiguracionAudio
 
 	/**
 	 * Asignar el indice del tamaño del buffer
-	 * @param d Puerto
-	 * @param indice Indice del tamaño del buffer
+	 * 
+	 * @param d
+	 *            Puerto
+	 * @param indice
+	 *            Indice del tamaño del buffer
 	 */
 	public void setIndiceTamBuffer(int d, int indice)
 	{
@@ -367,7 +410,9 @@ public class ConfiguracionAudio
 
 	/**
 	 * Asigna el codigo de formato
-	 * @param c_for Codigo de formato
+	 * 
+	 * @param c_for
+	 *            Codigo de formato
 	 */
 	public void setCodigoFormato(int c_for)
 	{
@@ -376,6 +421,7 @@ public class ConfiguracionAudio
 
 	/**
 	 * Obtiene el codigo de formato
+	 * 
 	 * @return Codigo de formato
 	 */
 	public int getCodigoFormato()

@@ -107,7 +107,8 @@ public class Util
 			else return ConstantesAudio.CODIGO_FORMATO_RADIO;
 		if (encoding.equals(AudioFormat.Encoding.ULAW))
 			return ConstantesAudio.CODIGO_FORMATO_TELEFONO;
-		if (encoding.toString().equals("GSM0610")) return ConstantesAudio.CODIGO_FORMATO_GSM;
+		if (encoding.toString().equals("GSM0610"))
+			return ConstantesAudio.CODIGO_FORMATO_GSM;
 		throw new RuntimeException("Wrong Format");
 	}
 

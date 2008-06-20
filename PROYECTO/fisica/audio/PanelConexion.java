@@ -8,13 +8,12 @@ import java.beans.PropertyChangeListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 /**
- * Panel con los botones que permiten conectase
- * a un chat de voz y abrir una ventana de configuracion
+ * Panel con los botones que permiten conectase a un chat de voz y abrir una
+ * ventana de configuracion
  * 
  * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz
  */
@@ -29,13 +28,18 @@ public class PanelConexion extends JPanel implements ActionListener,
 
 	private JButton boton_configuracion;
 
+	private String ip_conexion;
+
 	/**
 	 * Contructor
-	 * @param datos_generales Datos generales para la conexion
+	 * 
+	 * @param datos_generales
+	 *            Datos generales para la conexion
 	 */
-	public PanelConexion( DatosGenerales datos_generales )
+	public PanelConexion( DatosGenerales datos_generales, String ip )
 	{
 		datos = datos_generales;
+		ip_conexion = ip;
 
 		setLayout(new GridLayout(0, 1));
 
@@ -54,7 +58,8 @@ public class PanelConexion extends JPanel implements ActionListener,
 				jframe.setResizable(false);
 				JTabbedPane tabbed = new JTabbedPane();
 				tabbed.addTab("Audio", new PanelConfiguracionAudio(datos));
-				tabbed.addTab("Conexion", new PanelConfiguracionTransmision(datos));
+				tabbed.addTab("Conexion", new PanelConfiguracionTransmision(
+						datos));
 				jframe.add(tabbed);
 				jframe.setVisible(true);
 			}
@@ -82,10 +87,11 @@ public class PanelConexion extends JPanel implements ActionListener,
 		String comando = ae.getActionCommand();
 		if (comando.equals("connect"))
 		{
-			String ip_conexion = JOptionPane.showInputDialog(null,
-					"Introduzca IP del otro:");
-
-			if (ip_conexion != null) getDatosAudio().conectar(ip_conexion);
+			if (ip_conexion != null)
+			{
+				// System.out.println(ip_conexion);
+				getDatosAudio().conectar(ip_conexion);
+			}
 		}
 	}
 

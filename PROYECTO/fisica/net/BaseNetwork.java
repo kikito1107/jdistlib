@@ -1,7 +1,7 @@
 package fisica.net;
 
 /**
- * Clase abstracta para la implementacion de protocolos de red 
+ * Clase abstracta para la implementacion de protocolos de red
  * 
  * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz
  */
@@ -11,7 +11,9 @@ public abstract class BaseNetwork implements Network
 
 	/**
 	 * Constructor
-	 * @param conf Configuracion de la conexion
+	 * 
+	 * @param conf
+	 *            Configuracion de la conexion
 	 */
 	protected BaseNetwork( ConfiguracionConexion conf )
 	{

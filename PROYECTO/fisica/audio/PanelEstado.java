@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 /**
  * Panel con el estado de la transmision
+ * 
  * @author carlosrodriguezdominguez
  */
 public class PanelEstado extends JPanel
@@ -16,9 +17,13 @@ public class PanelEstado extends JPanel
 
 	private JLabel etiqueta_estado;
 
-	public PanelEstado()
+	private String ip_conexion;
+
+	public PanelEstado( String ip )
 	{
 		super();
+
+		ip_conexion = ip;
 
 		DatosGenerales datos_generales = new DatosGenerales();
 		setLayout(new BorderLayout());
@@ -32,7 +37,7 @@ public class PanelEstado extends JPanel
 
 	private JComponent createPane(DatosGenerales datos)
 	{
-		return new PanelConexion(datos);
+		return new PanelConexion(datos, ip_conexion);
 	}
 
 	public void setStatusLine(String str)

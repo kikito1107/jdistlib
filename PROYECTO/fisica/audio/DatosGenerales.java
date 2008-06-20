@@ -3,8 +3,8 @@ package fisica.audio;
 import fisica.net.ConfiguracionConexion;
 
 /**
- * Clase que se encarga de encapsular todas la clases que
- * guardan datos acerca del audio y la conexion usada
+ * Clase que se encarga de encapsular todas la clases que guardan datos acerca
+ * del audio y la conexion usada
  * 
  * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz
  */
@@ -28,6 +28,7 @@ public class DatosGenerales
 
 	/**
 	 * Obtiene los datos para el audio
+	 * 
 	 * @return Datos del audio
 	 */
 	public DatosAudio getChatModel()
@@ -37,6 +38,7 @@ public class DatosGenerales
 
 	/**
 	 * Obtiene la configuracion de la conexion
+	 * 
 	 * @return Configuracion de la conexion
 	 */
 	public ConfiguracionConexion getConnectionSettings()
@@ -46,6 +48,7 @@ public class DatosGenerales
 
 	/**
 	 * Obtiene la configuracion del audio
+	 * 
 	 * @return Configuracion del audio
 	 */
 	public ConfiguracionAudio getAudioSettings()

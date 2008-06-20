@@ -28,7 +28,9 @@ public class TCPNetwork extends BaseNetwork
 
 	/**
 	 * Constructor
-	 * @param conf Configuracion de la conexion
+	 * 
+	 * @param conf
+	 *            Configuracion de la conexion
 	 */
 	public TCPNetwork( ConfiguracionConexion conf )
 	{
@@ -76,7 +78,8 @@ public class TCPNetwork extends BaseNetwork
 
 	public boolean conectado()
 	{
-		return ( socket_comunicacion != null ) && !socket_comunicacion.isClosed();
+		return ( socket_comunicacion != null )
+				&& !socket_comunicacion.isClosed();
 	}
 
 	public void escuchar(boolean esc)

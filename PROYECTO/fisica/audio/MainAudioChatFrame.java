@@ -7,6 +7,7 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  * Ventana principal del chat de audio
@@ -30,7 +31,10 @@ public class MainAudioChatFrame
 		};
 		frame.addWindowListener(windowAdapter);
 
-		JComponent botones = new PanelEstado();
+		String ip = JOptionPane
+				.showInputDialog(null, "Introduzca IP del otro:");
+
+		JComponent botones = new PanelEstado(ip);
 		frame.getContentPane().add(botones);
 
 		frame.validate();
