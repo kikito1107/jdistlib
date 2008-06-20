@@ -101,8 +101,8 @@ public class DatosAudio
 		}
 		if (addr != null) obtenerRed().conectar(addr);
 		if (!obtenerRed().conectado())
-			JOptionPane.showMessageDialog(null, new Object[]
-			{ "No se pudo establecer la conexion con " + ip_conexion },
+			JOptionPane.showMessageDialog(null,
+					"No se pudo establecer la conexion con " + ip_conexion,
 					"Error", JOptionPane.ERROR_MESSAGE);
 		else inicializarConexion(true);
 	}
@@ -439,7 +439,7 @@ public class DatosAudio
 		public void run()
 		{
 			obtenerRed().escuchar(true);
-			
+
 			while (!terminar)
 				if (obtenerRed().escuchando())
 				{
@@ -451,7 +451,7 @@ public class DatosAudio
 					int resp = JOptionPane.showConfirmDialog(null, msg,
 							"Aviso", JOptionPane.YES_NO_OPTION,
 							JOptionPane.QUESTION_MESSAGE);
-					
+
 					if (resp == JOptionPane.YES_OPTION)
 					{
 						inicializarConexion(false);
@@ -460,7 +460,7 @@ public class DatosAudio
 
 					else obtenerRed().desconectar();
 				}
-			
+
 			obtenerRed().escuchar(false);
 		}
 	}
