@@ -35,7 +35,7 @@ public class PanelConexion extends JPanel implements ActionListener,
 	 * @param datos_generales
 	 *            Datos generales para la conexion
 	 */
-	public PanelConexion( DatosGenerales datos_generales)
+	public PanelConexion( DatosGenerales datos_generales )
 	{
 		datos = datos_generales;
 
@@ -85,7 +85,8 @@ public class PanelConexion extends JPanel implements ActionListener,
 		String comando = ae.getActionCommand();
 		if (comando.equals("connect"))
 		{
-			String ip_conexion = JOptionPane.showInputDialog(null, "IP del otro:");
+			String ip_conexion = JOptionPane.showInputDialog(null,
+					"IP del otro:");
 			if (ip_conexion != null)
 			{
 				// System.out.println(ip_conexion);

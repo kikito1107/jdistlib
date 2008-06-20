@@ -443,22 +443,20 @@ public class DatosAudio
 			while (!terminar)
 				if (obtenerRed().escuchando())
 				{
+					System.out.println(obtenerRed().getIPPeer());
 
-					String msg = "Llamada recibida desde "
-							+ obtenerRed().getIPPeer()
-							+ ". ¿Quieres aceptarla?";
-
-					int resp = JOptionPane.showConfirmDialog(null, msg,
-							"Aviso", JOptionPane.YES_NO_OPTION,
-							JOptionPane.QUESTION_MESSAGE);
-
-					if (resp == JOptionPane.YES_OPTION)
+					try
 					{
-						inicializarConexion(false);
-						setEscuchar(false);
+						sleep(5000); // dar tiempo para el establecimiento
+										// del handshake
+					}
+					catch (InterruptedException e)
+					{
+						e.printStackTrace();
 					}
 
-					else obtenerRed().desconectar();
+					inicializarConexion(false);
+					setEscuchar(false);
 				}
 
 			obtenerRed().escuchar(false);
