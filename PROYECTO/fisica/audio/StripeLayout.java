@@ -63,14 +63,6 @@ public class StripeLayout implements LayoutManager
 	{
 	}
 
-	/**
-	 * enleve le layout.
-	 * 
-	 * @param Component
-	 *            comp) {
-	 * @see
-	 * @return
-	 */
 	public void removeLayoutComponent(Component comp)
 	{
 	}
@@ -86,15 +78,14 @@ public class StripeLayout implements LayoutManager
 	}
 
 	/**
-	 * calcul les dimensions du layout.
+	 * calculates the dimension of the layout.
 	 * 
 	 * @param boolean
-	 *            preferred pour utilisation des dimensions preferees
+	 *            preferred for the utilization of the preferred dimensions
 	 * @return
 	 */
 	private Dimension calcSize(Container parent, boolean preferred)
 	{
-
 		Dimension dim = new Dimension(0, 0);
 		int nmembers = parent.getComponentCount();
 		Dimension d;
@@ -118,38 +109,16 @@ public class StripeLayout implements LayoutManager
 		return dim;
 	}
 
-	/**
-	 * retourne les dimensions preferees pour le layout. compte tenu de la
-	 * taille des composants Les places dans le container cible
-	 * 
-	 * @param target
-	 *            le composant a appliquer sur le layout
-	 */
 	public Dimension preferredLayoutSize(Container target)
 	{
 		return calcSize(target, true);
 	}
-
-	/**
-	 * retourne les dimensions minimales pour le layout. compte tenu de la
-	 * taille des composants. Les places dans le container cible
-	 * 
-	 * @param target
-	 *            le composant a appliquer sur le layout *
-	 * @see #preferredLayoutSize
-	 */
 
 	public Dimension minimumLayoutSize(Container target)
 	{
 		return calcSize(target, false);
 	}
 
-	/**
-	 * application du layout sur le container.
-	 * 
-	 * @param target
-	 *            le composant a appliquer sur le layout
-	 */
 	public void layoutContainer(Container target)
 	{
 		// insanity check,
