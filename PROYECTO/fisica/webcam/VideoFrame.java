@@ -1,8 +1,3 @@
-/*
- * NewJFrame.java
- *
- * Created on 11 de abril de 2008, 19:20
- */
 package fisica.webcam;
 
 import java.awt.Color;
@@ -15,7 +10,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
@@ -49,8 +43,6 @@ public class VideoFrame extends JFrame
 	private javax.swing.JPanel webcamPanel;
 
 	private HebraMiWebcam th2 = new HebraMiWebcam();
-
-	private JButton hola = new JButton("HOLA");
 	
 	/**
 	 * Constructor
