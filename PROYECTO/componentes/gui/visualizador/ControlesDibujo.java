@@ -7,7 +7,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -18,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 
+import componentes.util.ComboBoxRenderer;
 import componentes.util.Separador;
 import fisica.ClienteFicheros;
 import fisica.documentos.Documento;
@@ -41,8 +41,6 @@ public class ControlesDibujo extends JPanel
 	private static final long serialVersionUID = 1L;
 
 	private JComboBox listaPinceles = null;
-
-	private DefaultComboBoxModel modeloPincel = null;
 
 	private DILienzo lienzo = null;
 
@@ -167,17 +165,31 @@ public class ControlesDibujo extends JPanel
 	{
 		if (listaPinceles == null)
 		{
-			listaPinceles = new JComboBox();
-
-			modeloPincel = new DefaultComboBoxModel();
-			modeloPincel.addElement("Lineas");
-			modeloPincel.addElement("Mano Alzada");
-			modeloPincel.addElement("Texto");
-			modeloPincel.addElement("Rectangulo");
-			modeloPincel.addElement("Ovalo");
-
-			listaPinceles.setModel(modeloPincel);
-
+			
+			Integer[] enteros = new Integer[5];
+			
+			for(int i=0; i<5; ++i){
+				enteros[i] = i;
+			}
+			
+			listaPinceles = new JComboBox(enteros);
+			
+			//creamos la lista de 
+			String[] pinceles = {"Lineas","Mano Alzada","Texto","Rectangulo","Ovalo"};
+			ImageIcon[] images = new ImageIcon[5];
+			images[0] = createImageIcon("Resources/line_16x16.gif");
+			images[1] = createImageIcon("Resources/stock_draw-freeform-line_16x16.png");
+			images[2] = createImageIcon("Resources/font_16x16.png");
+			images[3] = createImageIcon("Resources/mini_rect.png");
+			images[4] = createImageIcon("Resources/circle_20x20.png");
+			
+			
+			ComboBoxRenderer renderer= new ComboBoxRenderer(images, pinceles);
+	        renderer.setPreferredSize(new Dimension(30, 30));
+	        listaPinceles.setRenderer(renderer);
+	        listaPinceles.setMaximumRowCount(5);
+			
+			
 			listaPinceles.addActionListener(new java.awt.event.ActionListener()
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
@@ -193,6 +205,17 @@ public class ControlesDibujo extends JPanel
 		return listaPinceles;
 	}
 
+	/** Returns an ImageIcon, or null if the path was invalid. */
+    public static ImageIcon createImageIcon(String path) {
+        if (path != null) {
+            return new ImageIcon(path);
+        } else {
+            System.err.println("Couldn't find file: " + path);
+                return null;
+        }
+    }
+
+	
 	private JButton getBotonLimpiar()
 	{
 		if (botonLimpiarLienzo == null)
@@ -395,7 +418,7 @@ public class ControlesDibujo extends JPanel
 			jLabel2 = new JLabel();
 			jLabel2.setText("Pincel  ");
 			jLabel1 = new JLabel();
-			jLabel1.setIcon(new ImageIcon("Resources/pencil.png"));
+			jLabel1.setIcon(new ImageIcon("Resources/paintbrush.png"));
 			jLabel1.setText(" ");
 
 			Separador separator1 = new Separador();

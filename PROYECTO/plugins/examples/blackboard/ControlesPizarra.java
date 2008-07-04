@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -13,6 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 
+import componentes.gui.visualizador.ControlesDibujo;
+import componentes.util.ComboBoxRenderer;
 import componentes.util.Separador;
 
 
@@ -25,8 +26,6 @@ public class ControlesPizarra extends JPanel
 	private static final long serialVersionUID = 1L;
 
 	private JComboBox listaPinceles = null;
-
-	private DefaultComboBoxModel modeloPincel = null;
 
 	private Pizarra pizarra = null;
 
@@ -116,16 +115,28 @@ public class ControlesPizarra extends JPanel
 	{
 		if (listaPinceles == null)
 		{
-			listaPinceles = new JComboBox();
-
-			modeloPincel = new DefaultComboBoxModel();
-			modeloPincel.addElement("Lineas");
-			modeloPincel.addElement("Mano Alzada");
-			modeloPincel.addElement("Texto");
-			modeloPincel.addElement("Rectangulo");
-			modeloPincel.addElement("Ovalo");
-
-			listaPinceles.setModel(modeloPincel);
+Integer[] enteros = new Integer[5];
+			
+			for(int i=0; i<5; ++i){
+				enteros[i] = i;
+			}
+			
+			listaPinceles = new JComboBox(enteros);
+			
+			//creamos la lista de 
+			String[] pinceles = {"Lineas","Mano Alzada","Texto","Rectangulo","Ovalo"};
+			ImageIcon[] images = new ImageIcon[5];
+			images[0] = ControlesDibujo.createImageIcon("Resources/line_16x16.gif");
+			images[1] = ControlesDibujo.createImageIcon("Resources/stock_draw-freeform-line_16x16.png");
+			images[2] = ControlesDibujo.createImageIcon("Resources/font_16x16.png");
+			images[3] = ControlesDibujo.createImageIcon("Resources/mini_rect.png");
+			images[4] = ControlesDibujo.createImageIcon("Resources/circle_20x20.png");
+			
+			
+			ComboBoxRenderer renderer= new ComboBoxRenderer(images, pinceles);
+	        renderer.setPreferredSize(new Dimension(30, 30));
+	        listaPinceles.setRenderer(renderer);
+	        listaPinceles.setMaximumRowCount(5);
 
 			listaPinceles.addActionListener(new java.awt.event.ActionListener()
 			{
