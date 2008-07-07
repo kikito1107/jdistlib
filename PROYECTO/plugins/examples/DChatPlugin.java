@@ -317,7 +317,6 @@ public class DChatPlugin extends DAbstractPlugin
 								{
 									File aFile = jfc.getSelectedFile();
 
-									// use buffering
 									Writer output = null;
 									try
 									{
@@ -330,8 +329,6 @@ public class DChatPlugin extends DAbstractPlugin
 									}
 									try
 									{
-										// FileWriter always assumes default
-										// encoding is OK!
 										Calendar c = Calendar.getInstance();
 
 										String fecha = c
@@ -346,8 +343,8 @@ public class DChatPlugin extends DAbstractPlugin
 												+ c.get(Calendar.MINUTE)
 												+ ":" + c.get(Calendar.SECOND);
 
-										output.write("Chat Log  saved at "
-												+ hora + " on " + fecha + ":\n"
+										output.write("Chat guardado a las "
+												+ hora + " de " + fecha + ":\n"
 												+ chat.getTexto());
 										output.close();
 									}
@@ -399,13 +396,11 @@ public class DChatPlugin extends DAbstractPlugin
 							{
 								JFontChooser fontChooser = new JFontChooser();
 								int retValue = fontChooser.showDialog(null);
-								// get the selected font
+
 								if (retValue == JFontChooser.OK_OPTION)
 								{
 									Font selected = fontChooser
 											.getSelectedFont();
-									// do something...
-
 									chat.setFuente(selected);
 								}
 							}
