@@ -505,7 +505,7 @@ public class PanelPrincipal extends DComponenteBase
 					.setToolTipText("Eliminar el documento o directorio seleccionado (solo elimina directorios vacios)");
 
 			botonEliminarFich.setIcon(new ImageIcon(
-					"Resources/page_white_delete.png"));
+					"Resources/bin.png"));
 			botonEliminarFich
 					.addActionListener(new java.awt.event.ActionListener()
 					{
