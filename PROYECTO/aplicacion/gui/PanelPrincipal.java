@@ -744,11 +744,14 @@ public class PanelPrincipal extends DComponenteBase
 	 */
 	private ArbolUsuariosConectadosRol getArbolUsuario()
 	{
-		arbolUsuario = new ArbolUsuariosConectadosRol(
-				"ListaUsuariosConectadosRol", false, this);
+		if (arbolUsuario == null)
+		{
+			arbolUsuario = new ArbolUsuariosConectadosRol(
+					"ListaUsuariosConectadosRol", false, this);
 
-		arbolUsuario.setFont(fuente);
-		arbolUsuario.setPreferredSize(new Dimension(180, 140));
+			arbolUsuario.setFont(fuente);
+			arbolUsuario.setPreferredSize(new Dimension(180, 140));
+		}
 		return arbolUsuario;
 	}
 
