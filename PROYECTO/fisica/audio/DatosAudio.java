@@ -444,14 +444,14 @@ public class DatosAudio
 				if (obtenerRed().escuchando())
 				{
 					System.out.println(obtenerRed().getIPPeer());
-					//aqui se puede poner un mensaje de que hemos
-					//recibido una peticion para que al aceptarlo
-					//empiece la comunicacion. Si se rechaza
-					//habra que poner obtenerRed().desconectar()
+					// aqui se puede poner un mensaje de que hemos
+					// recibido una peticion para que al aceptarlo
+					// empiece la comunicacion. Si se rechaza
+					// habra que poner obtenerRed().desconectar()
 					try
 					{
 						sleep(5000); // dar tiempo para el establecimiento
-										// del handshake
+						// del handshake
 					}
 					catch (InterruptedException e)
 					{

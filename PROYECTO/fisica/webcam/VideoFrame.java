@@ -43,7 +43,9 @@ public class VideoFrame extends JFrame
 	private javax.swing.JPanel webcamPanel;
 
 	private HebraMiWebcam th2 = new HebraMiWebcam();
-	
+
+	private PanelEstado panelAudio = new PanelEstado();
+
 	/**
 	 * Constructor
 	 * 
@@ -88,10 +90,7 @@ public class VideoFrame extends JFrame
 		webcamPanel = new javax.swing.JPanel();
 		myWebcam = new javax.swing.JPanel();
 		botonCaptura = new javax.swing.JButton();
-		ini_stop = new javax.swing.JButton(); 
-		
-		PanelEstado p = new PanelEstado();
-	
+		ini_stop = new javax.swing.JButton();
 
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -186,34 +185,20 @@ public class VideoFrame extends JFrame
 		org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(
 				getContentPane());
 		getContentPane().setLayout(layout);
-		
-		
-		layout.setHorizontalGroup(
-				layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).
-				add(
-						org.jdesktop.layout.GroupLayout.TRAILING,
-						
-						
-						layout.createSequentialGroup()
-							.add(29, 29, 29)
-							.add(ini_stop)
-							.addPreferredGap(
-									org.jdesktop.layout.LayoutStyle.RELATED, 299,Short.MAX_VALUE)
-							.add(botonCaptura)
-							.add(60, 60,60)
-							.add(p)
-							.add(90,90,90)
-					)
-					.add(
-								org.jdesktop.layout.GroupLayout.TRAILING, 
-								webcamPanel,
-								org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
-								org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
-								Short.MAX_VALUE		
-					)
-		);
-		
-		
+
+		layout.setHorizontalGroup(layout.createParallelGroup(
+				org.jdesktop.layout.GroupLayout.LEADING).add(
+				org.jdesktop.layout.GroupLayout.TRAILING,
+
+				layout.createSequentialGroup().add(29, 29, 29).add(ini_stop)
+						.addPreferredGap(
+								org.jdesktop.layout.LayoutStyle.RELATED, 299,
+								Short.MAX_VALUE).add(botonCaptura).add(60, 60,
+								60).add(panelAudio).add(90, 90, 90)).add(
+				org.jdesktop.layout.GroupLayout.TRAILING, webcamPanel,
+				org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
+				org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+
 		layout
 				.setVerticalGroup(layout
 						.createParallelGroup(
@@ -234,8 +219,8 @@ public class VideoFrame extends JFrame
 																org.jdesktop.layout.GroupLayout.BASELINE)
 														.add(botonCaptura).add(
 																ini_stop))
-										.addContainerGap(21, Short.MAX_VALUE).add(p)
-										.add(90,90,90)));
+										.addContainerGap(21, Short.MAX_VALUE)
+										.add(panelAudio).add(90, 90, 90)));
 		ini_stop.setIcon(new ImageIcon("Resources/control_play_blue.png"));
 
 		pack();
@@ -284,6 +269,7 @@ public class VideoFrame extends JFrame
 						"Resources/control_play_blue.png"));
 
 				VideoConferencia.setStopped(true);
+				panelAudio.getPanelConexion().desconectarse();
 			}
 			catch (Exception ex)
 			{
@@ -297,6 +283,7 @@ public class VideoFrame extends JFrame
 			init = true;
 			this.ini_stop.setText("Detener");
 			ini_stop.setIcon(new ImageIcon("Resources/control_pause_blue.png"));
+			panelAudio.getPanelConexion().conectarse(ip);
 		}
 		catch (Exception ex)
 		{

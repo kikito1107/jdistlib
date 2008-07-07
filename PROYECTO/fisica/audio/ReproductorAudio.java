@@ -39,7 +39,7 @@ public class ReproductorAudio extends AudioBase
 		DataLine.Info info = new DataLine.Info(SourceDataLine.class,
 				formato_linea);
 
-		//obtiene la linea para capturar
+		// obtiene la linea para capturar
 		if (mixer != null)
 			linea = (SourceDataLine) mixer.getLine(info);
 		else linea = AudioSystem.getSourceDataLine(formato_linea);
@@ -63,7 +63,7 @@ public class ReproductorAudio extends AudioBase
 		}
 		if (( hebra_play == null ) || needStartThread)
 		{
-			//iniciar hebra
+			// iniciar hebra
 			hebra_play = new PlayThread();
 			hebra_play.start();
 		}

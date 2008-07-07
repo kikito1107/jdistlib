@@ -2,7 +2,6 @@ package fisica.audio;
 
 import java.awt.BorderLayout;
 
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -17,13 +16,15 @@ public class PanelEstado extends JPanel
 
 	private JLabel etiqueta_estado;
 
+	private PanelConexion pane;
+
 	public PanelEstado()
 	{
 		super();
 
 		DatosGenerales datos_generales = new DatosGenerales();
 		setLayout(new BorderLayout());
-		JComponent pane = createPane(datos_generales);
+		pane = new PanelConexion(datos_generales);
 		this.add(pane, BorderLayout.CENTER);
 		etiqueta_estado = new JLabel();
 		this.add(etiqueta_estado, BorderLayout.SOUTH);
@@ -31,13 +32,13 @@ public class PanelEstado extends JPanel
 		setStatusLine(" ");
 	}
 
-	private JComponent createPane(DatosGenerales datos)
-	{
-		return new PanelConexion(datos);
-	}
-
 	public void setStatusLine(String str)
 	{
 		etiqueta_estado.setText(str);
+	}
+
+	public PanelConexion getPanelConexion()
+	{
+		return pane;
 	}
 }
