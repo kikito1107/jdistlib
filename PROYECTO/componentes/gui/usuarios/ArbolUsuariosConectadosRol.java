@@ -21,16 +21,11 @@ import componentes.util.ArbolUsuariosCellRenderer;
 import Deventos.DMIEvent;
 
 /**
- * Con este componente podemos ver todos los usuarios que hay conectados que
- * estan desempeñando el mismo rol que nosotros
- */
-
-/**
  * Clase que muestra un panel con los usuarios conectados clasificados por
  * roles. Con este componente podemos ver todos los usuarios que hay conectados
  * que estan desempeñando el mismo rol que nosotros.
  * 
- * @author Carlos Rodriguez Dominguez
+ * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz
  */
 public class ArbolUsuariosConectadosRol extends DComponenteBase
 {
