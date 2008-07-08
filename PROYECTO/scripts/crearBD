@@ -1,6 +1,4 @@
 create database Metainformacion;
-crate database Ficheros;
 GRANT ALL on Metainformacion.* TO admin@localhost IDENTIFIED by 'admin';
-GRANT ALL on Ficheros.* TO admin@localhost IDENTIFIED by 'admin';
 quit
 
