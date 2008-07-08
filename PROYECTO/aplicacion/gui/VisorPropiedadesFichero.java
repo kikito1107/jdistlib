@@ -595,7 +595,7 @@ public class VisorPropiedadesFichero extends JDialog
 			areaTextoEditores.setWrapStyleWord(true);
 			areaTextoEditores.setAutoscrolls(true);
 
-			Vector<String> editores = DConector.obtenerDC().consultarEditores(
+			Vector<String> editores = DConector.obtenerDC().usuariosToken(
 					fichero.getRutaLocal());
 
 			if (editores != null)

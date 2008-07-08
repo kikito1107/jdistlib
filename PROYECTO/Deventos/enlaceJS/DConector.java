@@ -484,13 +484,13 @@ public class DConector
 	}
 
 	/**
-	 * Obtiene el conjunto de usuarios que editan un documento del sistema
+	 * Obtiene el conjunto de usuarios que hacen uso de un token
 	 * 
 	 * @param path
-	 *            Path del documento en edicion
-	 * @return Vector con los nombres de usuario que editan un documento
+	 *            Path del elemento fisico (fichero) asociado al token
+	 * @return Vector con los nombres de usuario que hacen uso del token
 	 */
-	public Vector<String> consultarEditores(String path)
+	public Vector<String> usuariosToken(String path)
 	{
 		TokenFichero plantilla = new TokenFichero();
 		plantilla.Fichero = new String(path);

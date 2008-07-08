@@ -226,7 +226,7 @@ public class DocumentosCellRenderer extends DefaultTreeCellRenderer
 
 			MIDocumento f = (MIDocumento) dftn.getUserObject();
 
-			Vector<String> v = DConector.obtenerDC().consultarEditores(
+			Vector<String> v = DConector.obtenerDC().usuariosToken(
 					f.getRutaLocal());
 
 			if (v == null)
