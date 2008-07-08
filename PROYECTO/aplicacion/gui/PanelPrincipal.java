@@ -33,7 +33,9 @@ import Deventos.DEvent;
 import Deventos.DJChatEvent;
 import Deventos.DMIEvent;
 import Deventos.enlaceJS.DConector;
-import aplicacion.gui.componentes.EnviarMensaje;
+import aplicacion.gui.util.EnviarMensaje;
+import aplicacion.gui.util.VentanaCambiarRol;
+import aplicacion.gui.util.VisorPropiedadesFichero;
 import awareness.ClienteMetaInformacion;
 
 import componentes.base.DComponente;

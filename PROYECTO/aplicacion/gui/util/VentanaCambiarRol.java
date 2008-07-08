@@ -1,4 +1,4 @@
-package aplicacion.gui;
+package aplicacion.gui.util;
 
 import componentes.base.DJFrame;
 import java.awt.Dimension;

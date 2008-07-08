@@ -1,4 +1,4 @@
-package aplicacion.gui;
+package aplicacion.gui.util;
 
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;

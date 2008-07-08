@@ -28,8 +28,8 @@ import fisica.net.Transfer;
 import Deventos.DJLienzoEvent;
 
 import Deventos.enlaceJS.DConector;
-import aplicacion.gui.VentanaCarga;
-import aplicacion.gui.componentes.SelectorFicherosDistribuido;
+import aplicacion.gui.util.SelectorFicherosDistribuido;
+import aplicacion.gui.util.VentanaCarga;
 
 /**
  * Panel con los controles para el editor distribuido
