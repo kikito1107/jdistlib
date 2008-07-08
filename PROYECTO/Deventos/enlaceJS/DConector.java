@@ -28,6 +28,9 @@ import fisica.ClienteFicheros;
 import Deventos.ColaEventos;
 import Deventos.DEvent;
 import Deventos.DMIEvent;
+import Deventos.tokens.Token;
+import Deventos.tokens.TokenFichero;
+import Deventos.tokens.TokenSincronizacion;
 
 /**
  * Conector entre el JavaSpace y la aplicacion. Dispondra de metodos para

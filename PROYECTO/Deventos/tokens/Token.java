@@ -1,4 +1,4 @@
-package Deventos.enlaceJS;
+package Deventos.tokens;
 
 import net.jini.core.entry.Entry;
 
