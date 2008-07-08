@@ -17,7 +17,7 @@ import java.sql.Statement;
  * 
  * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
-public class ConectorBDMetainformacion
+public class ConectorBD
 {
 
 	private Connection con = null;
@@ -104,7 +104,7 @@ public class ConectorBDMetainformacion
 	 * Constructor de la clase.
 	 * 
 	 */
-	public ConectorBDMetainformacion()
+	public ConectorBD()
 	{
 		try
 		{

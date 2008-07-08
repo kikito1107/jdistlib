@@ -19,14 +19,14 @@ import awareness.MIUsuario;
  */
 public class GestorFicherosBD
 {
-	ConectorBDMetainformacion conexion = null;
+	ConectorBD conexion = null;
 
 	/**
 	 * Contructor de la clase. Abre la conexion con la base de datos
 	 */
 	public GestorFicherosBD()
 	{
-		conexion = new ConectorBDMetainformacion();
+		conexion = new ConectorBD();
 		conexion.abrir();
 	}
 
@@ -239,7 +239,7 @@ public class GestorFicherosBD
 	{
 		try
 		{
-			ConectorBDMetainformacion con = new ConectorBDMetainformacion();
+			ConectorBD con = new ConectorBD();
 			con.abrir();
 
 			ResultSet rs = con
@@ -324,7 +324,7 @@ public class GestorFicherosBD
 		try
 		{
 			// conectamos con la base de datos de metainformacion
-			ConectorBDMetainformacion con = new ConectorBDMetainformacion();
+			ConectorBD con = new ConectorBD();
 			con.abrir();
 
 			// realizamos la consulta
