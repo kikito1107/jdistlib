@@ -3,10 +3,10 @@
  */
 package plugins.examples.primes;
 
+import plugins.calculoparalelo.eventos.PoisonPill;
+import plugins.calculoparalelo.eventos.ResultEntry;
+import plugins.calculoparalelo.eventos.TaskEntry;
 import net.jini.space.JavaSpace;
-import calculoparalelo.eventos.PoisonPill;
-import calculoparalelo.eventos.ResultEntry;
-import calculoparalelo.eventos.TaskEntry;
 
 /**
  * @author anab

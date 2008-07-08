@@ -1,4 +1,4 @@
-package calculoparalelo;
+package plugins.calculoparalelo;
 
 import net.jini.core.entry.Entry;
 import net.jini.space.JavaSpace;

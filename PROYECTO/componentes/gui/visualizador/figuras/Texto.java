@@ -1,4 +1,4 @@
-package figuras;
+package componentes.gui.visualizador.figuras;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;

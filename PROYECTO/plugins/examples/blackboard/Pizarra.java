@@ -19,14 +19,14 @@ import componentes.base.DComponenteBase;
 import componentes.base.HebraProcesadoraBase;
 import componentes.gui.visualizador.DILienzo;
 import componentes.gui.visualizador.DIViewer;
+import componentes.gui.visualizador.figuras.Elipse;
+import componentes.gui.visualizador.figuras.Figura;
+import componentes.gui.visualizador.figuras.Linea;
+import componentes.gui.visualizador.figuras.Rectangulo;
+import componentes.gui.visualizador.figuras.Texto;
+import componentes.gui.visualizador.figuras.TrazoManoAlzada;
 import componentes.util.DialogoIntroTexto;
 import Deventos.DEvent;
-import figuras.Elipse;
-import figuras.Figura;
-import figuras.Linea;
-import figuras.Rectangulo;
-import figuras.Texto;
-import figuras.TrazoManoAlzada;
 
 /**
  * Implementacion de una pizarra distribuida

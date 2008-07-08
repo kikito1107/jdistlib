@@ -4,7 +4,8 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import figuras.Figura;
+import componentes.gui.visualizador.figuras.Figura;
+
 
 /**
  * Anotacion realizada sobre una pagina determinada de un documento del sistema

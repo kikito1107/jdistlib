@@ -1,6 +1,6 @@
 package plugins.examples.primes;
 
-import calculoparalelo.eventos.ResultEntry;
+import plugins.calculoparalelo.eventos.ResultEntry;
 
 /**
  * Entrada para el canal de comunicaciones

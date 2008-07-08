@@ -1,8 +1,9 @@
-package calculoparalelo;
+package plugins.calculoparalelo;
 
 import java.rmi.RemoteException;
 
 import plugins.DAbstractPlugin;
+import plugins.calculoparalelo.eventos.TaskEntry;
 
 import javaspaces.SpaceLocator;
 import net.jini.core.entry.Entry;
@@ -10,7 +11,6 @@ import net.jini.core.entry.UnusableEntryException;
 import net.jini.core.lease.Lease;
 import net.jini.core.transaction.TransactionException;
 import net.jini.space.JavaSpace;
-import calculoparalelo.eventos.TaskEntry;
 
 import componentes.base.DComponenteBase;
 

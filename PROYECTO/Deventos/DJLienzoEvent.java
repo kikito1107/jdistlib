@@ -4,7 +4,8 @@ import java.awt.Color;
 
 import javax.swing.ImageIcon;
 
-import figuras.Figura;
+import componentes.gui.visualizador.figuras.Figura;
+
 import fisica.documentos.Anotacion;
 import fisica.documentos.Pagina;
 

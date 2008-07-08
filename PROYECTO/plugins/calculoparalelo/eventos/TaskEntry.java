@@ -1,7 +1,7 @@
-package calculoparalelo.eventos;
+package plugins.calculoparalelo.eventos;
 
+import plugins.calculoparalelo.Command;
 import net.jini.space.JavaSpace;
-import calculoparalelo.Command;
 import Deventos.DEvent;
 
 /**

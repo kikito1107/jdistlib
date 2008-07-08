@@ -1,12 +1,13 @@
-package calculoparalelo;
+package plugins.calculoparalelo;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
 
 import javax.swing.JTextArea;
 
-import calculoparalelo.eventos.ResultEntry;
-import calculoparalelo.eventos.TaskEntry;
+import plugins.calculoparalelo.eventos.ResultEntry;
+import plugins.calculoparalelo.eventos.TaskEntry;
+
 
 import javaspaces.SpaceLocator;
 import javaspaces.TransactionManagerAccessor;

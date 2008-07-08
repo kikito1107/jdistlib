@@ -2,10 +2,11 @@ package plugins.examples.blackboard;
 
 import java.util.Vector;
 
+import componentes.gui.visualizador.figuras.Figura;
+
 import Deventos.DJViewerEvent;
 
 
-import figuras.Figura;
 
 /**
  * Clase que implementa los eventos asociados a un lienzo de dibujo

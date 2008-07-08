@@ -26,12 +26,12 @@ import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 
 import plugins.DAbstractPlugin;
+import plugins.calculoparalelo.GenericMaster;
+import plugins.calculoparalelo.GenericWorker;
+import plugins.calculoparalelo.eventos.PoisonPill;
 
 import net.jini.core.entry.Entry;
 import net.jini.space.JavaSpace;
-import calculoparalelo.GenericMaster;
-import calculoparalelo.GenericWorker;
-import calculoparalelo.eventos.PoisonPill;
 
 import componentes.base.DJFrame;
 

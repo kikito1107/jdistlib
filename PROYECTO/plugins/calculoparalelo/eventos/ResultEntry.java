@@ -1,4 +1,4 @@
-package calculoparalelo.eventos;
+package plugins.calculoparalelo.eventos;
 
 import Deventos.DEvent;
 
