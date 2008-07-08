@@ -10,7 +10,7 @@ import plugins.PluginContainer;
  * con nuestro propio ordenador
  * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz
  */
-public class DPluginBasicExample extends DAbstractPlugin
+public class DVCPlugin extends DAbstractPlugin
 {
 	private static final long serialVersionUID = -9034900489624255928L;
 
@@ -20,7 +20,7 @@ public class DPluginBasicExample extends DAbstractPlugin
 	 * Constructor
 	 * @throws Exception
 	 */
-	public DPluginBasicExample() throws Exception
+	public DVCPlugin() throws Exception
 	{
 		super("DpluginExample", false, PluginContainer.getPC(), "Video Conferencia", 2, "VC.jar", true);
 		init();
@@ -29,7 +29,7 @@ public class DPluginBasicExample extends DAbstractPlugin
 	@Override
 	public DAbstractPlugin getInstance() throws Exception
 	{
-		return new DPluginBasicExample();
+		return new DVCPlugin();
 	}
 
 	@Override

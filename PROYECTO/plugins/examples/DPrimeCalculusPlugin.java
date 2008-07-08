@@ -11,7 +11,7 @@ import plugins.examples.primes.PrimeMaster;
  * Plugin para el calculo paralelo de numeros primos
  * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
-public class PluginCalculoPrimos extends DAbstractPlugin
+public class DPrimeCalculusPlugin extends DAbstractPlugin
 {
 	private static final long serialVersionUID = 3319470838794298216L;
 	
@@ -21,7 +21,7 @@ public class PluginCalculoPrimos extends DAbstractPlugin
 	 * Constructor
 	 * @throws Exception
 	 */
-	public PluginCalculoPrimos( ) throws Exception
+	public DPrimeCalculusPlugin( ) throws Exception
 	{
 		super("CalcPrimosPlugin", false, PluginContainer.getPC(), "Calculo Primos", 1, "primos.jar", true);
 		init();
@@ -30,7 +30,7 @@ public class PluginCalculoPrimos extends DAbstractPlugin
 	@Override
 	public DAbstractPlugin getInstance() throws Exception
 	{
-		return new PluginCalculoPrimos();
+		return new DPrimeCalculusPlugin();
 	}
 
 	@Override

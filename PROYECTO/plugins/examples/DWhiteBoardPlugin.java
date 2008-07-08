@@ -17,7 +17,7 @@ import Deventos.DEvent;
  * dibujos con otros usuarios
  * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz
  */
-public class DPizarraPlugin extends DAbstractPlugin
+public class DWhiteBoardPlugin extends DAbstractPlugin
 {
 	private DJFrame ventanaPizarra = null;
 
@@ -29,7 +29,7 @@ public class DPizarraPlugin extends DAbstractPlugin
 	 * Constructor
 	 * @throws Exception
 	 */
-	public DPizarraPlugin() throws Exception
+	public DWhiteBoardPlugin() throws Exception
 	{
 		super("pizarra plugin", false, PluginContainer.getPC(), "Pizarra", 5, "pizarrra.jar", true);
 		ventanaPizarra = new DJFrame(true, "mousesRemotos3");
@@ -39,7 +39,7 @@ public class DPizarraPlugin extends DAbstractPlugin
 	@Override
 	public DAbstractPlugin getInstance() throws Exception
 	{
-		return new DPizarraPlugin();
+		return new DWhiteBoardPlugin();
 	}
 
 	@Override

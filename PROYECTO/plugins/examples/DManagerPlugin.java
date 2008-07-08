@@ -7,7 +7,7 @@ import plugins.PluginContainer;
  * Plugin que permite gestionar los plugins de la plataforma
  * @author Carlos Rodriguez Dominguez. Ana Belen Pelegrina Ortiz
  */
-public class DGestorPlugins extends DAbstractPlugin
+public class DManagerPlugin extends DAbstractPlugin
 {
 	private GestorPlugins gestorPlugin = null;
 
@@ -17,7 +17,7 @@ public class DGestorPlugins extends DAbstractPlugin
 	 * Constructor
 	 * @throws Exception
 	 */
-	public DGestorPlugins() throws Exception
+	public DManagerPlugin() throws Exception
 	{
 		super("GestorPlugin", false, PluginContainer.getPC(), "Gestor", 1, "gestor.jar", true);
 		init();
@@ -26,7 +26,7 @@ public class DGestorPlugins extends DAbstractPlugin
 	@Override
 	public DAbstractPlugin getInstance() throws Exception
 	{
-		return new DGestorPlugins();
+		return new DManagerPlugin();
 	}
 
 	@Override
