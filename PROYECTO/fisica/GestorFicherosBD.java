@@ -19,14 +19,14 @@ import awareness.MIUsuario;
  */
 public class GestorFicherosBD
 {
-	ConectorBDFicheros conexion = null;
+	ConectorBDMetainformacion conexion = null;
 
 	/**
 	 * Contructor de la clase. Abre la conexion con la base de datos
 	 */
 	public GestorFicherosBD()
 	{
-		conexion = new ConectorBDFicheros();
+		conexion = new ConectorBDMetainformacion();
 		conexion.abrir();
 	}
 
