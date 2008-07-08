@@ -2,6 +2,8 @@ package awareness;
 
 import java.util.Vector;
 
+import fisica.GestorMetainformacionBD;
+
 /**
  * Clase para ayudar al almacenado y consulta de toda la metainformacion
  * 
@@ -12,7 +14,7 @@ public class AlmacenMetaInformacion
 {
 	private Vector<MIAplicacion> aplicaciones = null;
 
-	private LectorBD_MI lector = null;
+	private GestorMetainformacionBD lector = null;
 
 	/**
 	 * Constructor
@@ -29,7 +31,7 @@ public class AlmacenMetaInformacion
 	{
 		try
 		{
-			lector = new LectorBD_MI();
+			lector = new GestorMetainformacionBD();
 			lector.crearLog();
 			aplicaciones = lector.Recuperar();
 			lector.cerrarConexion();
@@ -704,7 +706,7 @@ public class AlmacenMetaInformacion
 	 */
 	public void salvar()
 	{
-		lector = new LectorBD_MI();
+		lector = new GestorMetainformacionBD();
 		lector.actualizarBD(aplicaciones);
 		lector.cerrarConexion();
 	}

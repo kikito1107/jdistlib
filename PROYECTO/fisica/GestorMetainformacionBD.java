@@ -1,10 +1,14 @@
-package awareness;
+package fisica;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
-import fisica.ConectorBD;
+import awareness.MIAplicacion;
+import awareness.MIComponente;
+import awareness.MIRol;
+import awareness.MIUsuario;
+
 
 import util.Fecha;
 
@@ -13,14 +17,14 @@ import util.Fecha;
  * 
  * @author Ana Belen Pelegrina Ortiz. Carlos Rodriguez Dominguez
  */
-public class LectorBD_MI
+public class GestorMetainformacionBD
 {
 	private ConectorBD conexion = null;
 
 	/**
 	 * Contructor
 	 */
-	public LectorBD_MI()
+	public GestorMetainformacionBD()
 	{
 		conexion = new ConectorBD();
 		conexion.abrir();
@@ -478,7 +482,7 @@ public class LectorBD_MI
 	 */
 	public static void main(String[] args)
 	{
-		LectorBD_MI pbd = new LectorBD_MI();
+		GestorMetainformacionBD pbd = new GestorMetainformacionBD();
 		pbd.Recuperar();
 	}
 
