@@ -223,7 +223,7 @@ public class DatosAudio
 		}
 		catch (IOException e)
 		{
-			error("Error en el protocolo handshake (passive, fase I)");
+			error("Error en el protocolo handshake (pasivo, fase II)");
 			correcto = false;
 		}
 		if (correcto)
