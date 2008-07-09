@@ -1,4 +1,4 @@
-package fisica.webcam;
+package componentes.gui.chat;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -14,6 +14,8 @@ import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
 import fisica.audio.PanelEstado;
+import fisica.webcam.ImageComponent;
+import fisica.webcam.VideoConferencia;
 
 /**
  * Ventana que muestra las imagenes capturadas por la webcam.

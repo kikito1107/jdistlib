@@ -1,7 +1,8 @@
 package plugins.examples;
 
+import componentes.gui.chat.VideoFrame;
+
 import fisica.webcam.VideoConferencia;
-import fisica.webcam.VideoFrame;
 import plugins.DAbstractPlugin;
 import plugins.PluginContainer;
 
