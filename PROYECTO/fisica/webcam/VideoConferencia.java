@@ -21,6 +21,7 @@ import com.lti.civil.CaptureStream;
 import com.lti.civil.CaptureSystem;
 import com.lti.civil.CaptureSystemFactory;
 import com.lti.civil.DefaultCaptureSystemFactorySingleton;
+import com.lti.civil.VideoFormat;
 import com.lti.civil.awt.AWTImageConverter;
 
 /**
@@ -279,6 +280,20 @@ public class VideoConferencia
 
 				captureStream = system.openCaptureDeviceStream(info
 						.getDeviceID());
+				
+				List<VideoFormat> ls = captureStream.enumVideoFormats();
+				
+				int mejor = 0;
+				for (int k = 1; k<ls.size(); k++)
+				{
+					if (ls.get(k).getWidth()<ls.get(mejor).getWidth())
+					{
+						mejor = k;
+					}
+				}
+				
+				captureStream.setVideoFormat(ls.get(mejor));
+				
 				captureStream.setObserver(new MyCaptureObserver());
 
 				break;
