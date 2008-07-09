@@ -360,6 +360,15 @@ public class VideoFrame extends JFrame
 						g.drawString("Sin Conexion", img_remota.getWidth() / 3,
 								img_remota.getHeight() / 2);
 					}
+					
+					try
+					{
+						//dejar durmiendo 30 milisegundos hasta recibir la siguiente imagen
+						Thread.sleep(30);
+					}
+					catch (InterruptedException e)
+					{
+					}
 				}
 		}
 	}
@@ -391,7 +400,7 @@ public class VideoFrame extends JFrame
 												myWebcam.getHeight(),
 												Image.SCALE_FAST));
 
-					Thread.sleep(500);
+					Thread.sleep(100);
 				}
 				catch (InterruptedException ex)
 				{
