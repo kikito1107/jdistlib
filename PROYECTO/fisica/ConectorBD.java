@@ -55,7 +55,6 @@ public class ConectorBD
 			String datos;
 
 			br.readLine();
-			br.readLine();
 			datos = br.readLine();
 
 			String data[] = datos.split(" ");
