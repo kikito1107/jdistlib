@@ -404,7 +404,6 @@ public class VideoFrame extends JFrame
 				}
 				catch (InterruptedException ex)
 				{
-					ex.printStackTrace();
 				}
 		}
 	}
