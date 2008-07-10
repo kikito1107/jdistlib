@@ -828,7 +828,7 @@ public class PanelPrincipal extends DComponenteBase
 			iniciarVC.setIcon(new ImageIcon("Resources/webcam.png"));
 			iniciarVC.setBorderPainted(false);
 			iniciarVC
-					.setToolTipText("Inicia un chat privado con el usuario seleccionado");
+					.setToolTipText("Inicia una videoconferencia con el usuario seleccionado");
 
 			iniciarVC.addActionListener(new java.awt.event.ActionListener()
 			{
