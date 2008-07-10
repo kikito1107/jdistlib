@@ -18,9 +18,6 @@ import componentes.base.DComponenteBase;
  */
 public class PluginContainer extends DComponenteBase
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -7505153623522584387L;
 
 	/**
