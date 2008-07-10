@@ -87,8 +87,6 @@ public class EnviarMensaje extends JDialog
 
 	private JToolBar barra = null;
 
-	private JButton Adjuntar = null;
-
 	private JSplitPane split = null;
 
 	private JButton botonAgenda = null;
@@ -134,7 +132,7 @@ public class EnviarMensaje extends JDialog
 		setLocation(( screenSize.width - frameSize.width ) / 2,
 				( screenSize.height - frameSize.height ) / 2);
 		this.setContentPane(getJContentPane());
-		this.setTitle(".:: Enviar  Nota ::.");
+		this.setTitle(".:: Enviar Mensaje ::.");
 		this.addWindowListener(new java.awt.event.WindowAdapter()
 		{
 			@Override
@@ -568,7 +566,6 @@ public class EnviarMensaje extends JDialog
 				barra
 						.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT); // Generated
 				barra.setPreferredSize(new Dimension(69, 32)); // Generated
-				barra.add(getAdjuntar()); // Generated
 				barra.add(getBotonAgenda()); // Generated
 				barra.add(new Separador());
 				barra.add(getEnviar()); // Generated
@@ -580,26 +577,6 @@ public class EnviarMensaje extends JDialog
 			}
 		}
 		return barra;
-	}
-
-	private JButton getAdjuntar()
-	{
-		if (Adjuntar == null)
-		{
-			try
-			{
-				Adjuntar = new JButton();
-				Adjuntar.setPreferredSize(new Dimension(61, 24)); // Generated
-				Adjuntar.setIcon(new ImageIcon("Resources/attach.png")); // Generated
-				Adjuntar.setText("Adjuntar"); // Generated
-				Adjuntar.setBorderPainted(false); // Generated
-			}
-			catch (java.lang.Throwable e)
-			{
-				// TODO: Something
-			}
-		}
-		return Adjuntar;
 	}
 
 	private JSplitPane getSplit()
