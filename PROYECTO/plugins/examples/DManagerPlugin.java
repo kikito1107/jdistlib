@@ -24,12 +24,6 @@ public class DManagerPlugin extends DAbstractPlugin
 	}
 
 	@Override
-	public DAbstractPlugin getInstance() throws Exception
-	{
-		return new DManagerPlugin();
-	}
-
-	@Override
 	public void init() throws Exception
 	{
 		categoria = DAbstractPlugin.CATEGORIA_UTILIDADES;

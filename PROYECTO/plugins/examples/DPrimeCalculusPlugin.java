@@ -28,12 +28,6 @@ public class DPrimeCalculusPlugin extends DAbstractPlugin
 	}
 
 	@Override
-	public DAbstractPlugin getInstance() throws Exception
-	{
-		return new DPrimeCalculusPlugin();
-	}
-
-	@Override
 	public void init() throws Exception
 	{
 		versioningEnabled = false;

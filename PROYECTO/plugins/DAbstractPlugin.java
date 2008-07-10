@@ -108,14 +108,6 @@ public abstract class DAbstractPlugin extends DComponenteBase
 	}
 
 	/**
-	 * Obtiene una instancia de la clase que implementa
-	 * el plugin
-	 * @return Instancia de la clase que implementa al plugin
-	 * @throws Exception
-	 */
-	public abstract DAbstractPlugin getInstance() throws Exception;
-
-	/**
 	 * Inicializa los parametros del plugin
 	 * @throws Exception
 	 */

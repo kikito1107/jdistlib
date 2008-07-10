@@ -25,7 +25,6 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 
-import plugins.DAbstractPlugin;
 import plugins.calculoparalelo.GenericMaster;
 import plugins.calculoparalelo.GenericWorker;
 import plugins.calculoparalelo.eventos.PoisonPill;
@@ -706,12 +705,6 @@ public class PrimeMaster extends GenericMaster
 			}
 		}
 		return botonIniciarEsclavo;
-	}
-
-	@Override
-	public DAbstractPlugin getInstance() throws Exception
-	{
-		return new PrimeMaster(false);
 	}
 
 	@Override

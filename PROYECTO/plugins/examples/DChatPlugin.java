@@ -59,12 +59,6 @@ public class DChatPlugin extends DAbstractPlugin
 	}
 
 	@Override
-	public DAbstractPlugin getInstance() throws Exception
-	{
-		return new DChatPlugin();
-	}
-
-	@Override
 	public void init() throws Exception
 	{
 		versioningEnabled = true;

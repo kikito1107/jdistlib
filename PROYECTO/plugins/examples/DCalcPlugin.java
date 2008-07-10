@@ -30,12 +30,6 @@ public class DCalcPlugin extends DAbstractPlugin
 	}
 
 	@Override
-	public DAbstractPlugin getInstance() throws Exception
-	{
-		return new DCalcPlugin();
-	}
-
-	@Override
 	public void init() throws Exception
 	{
 		categoria = DAbstractPlugin.CATEGORIA_UTILIDADES;

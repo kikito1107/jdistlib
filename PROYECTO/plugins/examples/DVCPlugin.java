@@ -28,12 +28,6 @@ public class DVCPlugin extends DAbstractPlugin
 	}
 
 	@Override
-	public DAbstractPlugin getInstance() throws Exception
-	{
-		return new DVCPlugin();
-	}
-
-	@Override
 	public void init() throws Exception
 	{
 		versioningEnabled = true;
