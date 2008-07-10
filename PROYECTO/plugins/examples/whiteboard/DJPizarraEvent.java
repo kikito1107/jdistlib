@@ -1,4 +1,4 @@
-package plugins.examples.blackboard;
+package plugins.examples.whiteboard;
 
 import java.util.Vector;
 

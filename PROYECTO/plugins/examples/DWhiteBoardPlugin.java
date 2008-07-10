@@ -4,8 +4,8 @@ import java.awt.BorderLayout;
 
 import plugins.DAbstractPlugin;
 import plugins.PluginContainer;
-import plugins.examples.blackboard.ControlesPizarra;
-import plugins.examples.blackboard.Pizarra;
+import plugins.examples.whiteboard.ControlesPizarra;
+import plugins.examples.whiteboard.Pizarra;
 
 
 import componentes.base.DComponenteBase;
