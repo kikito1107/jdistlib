@@ -69,6 +69,11 @@ public class PanelConexion extends JPanel
 	{
 		return getDatosGenerales().getChatModel();
 	}
+	
+	public JButton getBoton()
+	{
+		return boton_configuracion;
+	}
 
 	public void conectarse(String ip)
 	{

@@ -183,49 +183,35 @@ public class VideoFrame extends JFrame
 				ini_stopActionPerformed(evt);
 			}
 		});
-
-		org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(
-				getContentPane());
-		getContentPane().setLayout(layout);
-
-		layout.setHorizontalGroup(layout.createParallelGroup(
-				org.jdesktop.layout.GroupLayout.LEADING).add(
-				org.jdesktop.layout.GroupLayout.TRAILING,
-
-				layout.createSequentialGroup().add(29, 29, 29).add(ini_stop)
-						.addPreferredGap(
-								org.jdesktop.layout.LayoutStyle.RELATED, 299,
-								Short.MAX_VALUE).add(botonCaptura).add(60, 60,
-								60).add(panelAudio).add(90, 90, 90)).add(
-				org.jdesktop.layout.GroupLayout.TRAILING, webcamPanel,
-				org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
-				org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
-
-		layout
-				.setVerticalGroup(layout
-						.createParallelGroup(
-								org.jdesktop.layout.GroupLayout.LEADING)
-						.add(
-								layout
-										.createSequentialGroup()
-										.add(
-												webcamPanel,
-												org.jdesktop.layout.GroupLayout.PREFERRED_SIZE,
-												org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
-												org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(
-												org.jdesktop.layout.LayoutStyle.RELATED)
-										.add(
-												layout
-														.createParallelGroup(
-																org.jdesktop.layout.GroupLayout.BASELINE)
-														.add(botonCaptura).add(
-																ini_stop))
-										.addContainerGap(21, Short.MAX_VALUE)
-										.add(panelAudio).add(90, 90, 90)));
 		ini_stop.setIcon(new ImageIcon("Resources/control_play_blue.png"));
 
-		pack();
+		org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(webcamPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(layout.createSequentialGroup()
+                .addContainerGap()
+                .add(ini_stop)
+                .add(95, 95, 95)
+                .add(botonCaptura)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 129, Short.MAX_VALUE)
+                .add(panelAudio.getBoton())
+                .add(80, 80, 80))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
+                .add(webcamPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(28, 28, 28)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(ini_stop)
+                    .add(botonCaptura)
+                    .add(panelAudio.getBoton()))
+                .addContainerGap())
+        );
+
+        pack();
 	}
 
 	/**

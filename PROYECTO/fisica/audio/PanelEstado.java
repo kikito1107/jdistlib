@@ -2,6 +2,7 @@ package fisica.audio;
 
 import java.awt.BorderLayout;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -40,5 +41,10 @@ public class PanelEstado extends JPanel
 	public PanelConexion getPanelConexion()
 	{
 		return pane;
+	}
+	
+	public JButton getBoton()
+	{
+		return pane.getBoton();
 	}
 }
