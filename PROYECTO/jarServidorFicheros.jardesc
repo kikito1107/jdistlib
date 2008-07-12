@@ -13,22 +13,22 @@
 <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
 <javaElement handleIdentifier="=PROYECTO/&lt;componentes.gui.chat"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;componentes.gui"/>
-<javaElement handleIdentifier="=PROYECTO/&lt;componentes.gui.docs"/>
-<javaElement handleIdentifier="=PROYECTO/&lt;componentes.gui.visualizador.figuras"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;fisica.audio"/>
+<javaElement handleIdentifier="=PROYECTO/&lt;componentes.gui.visualizador.figuras"/>
+<javaElement handleIdentifier="=PROYECTO/&lt;componentes.gui.docs"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;fisica.documentos"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;fisica.net"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;fisica"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;componentes"/>
-<javaElement handleIdentifier="=PROYECTO/&lt;fisica.eventos"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;aplicacion"/>
+<javaElement handleIdentifier="=PROYECTO/&lt;fisica.eventos"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;aplicacion.main"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;Deventos"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;componentes.gui.usuarios"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;componentes.listeners"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;awareness.gui"/>
-<javaElement handleIdentifier="=PROYECTO/&lt;plugins.evento"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;util"/>
+<javaElement handleIdentifier="=PROYECTO/&lt;plugins.evento"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;plugins.calculoparalelo.eventos"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;componentes.base"/>
 <javaElement handleIdentifier="=PROYECTO/&lt;Deventos.enlaceJS"/>
