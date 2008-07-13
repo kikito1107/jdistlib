@@ -2,8 +2,14 @@ package aplicacion.gui.util;
 
 import componentes.base.DJFrame;
 import java.awt.Dimension;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import componentes.gui.usuarios.DICambioRol;
 
 /**
@@ -59,6 +65,20 @@ public class VentanaCambiarRol extends DJFrame
 				panelPrincipal = new JPanel();
 				panelPrincipal.setLayout(new BorderLayout()); // Generated
 				panelPrincipal.add(getDICambioRol(), BorderLayout.CENTER); // Generated
+				
+				JButton botonSalir = new JButton("Salir");
+				botonSalir.setIcon(new ImageIcon("Resources/door_open.png"));
+				botonSalir.addActionListener(new ActionListener(){
+
+					public void actionPerformed(ActionEvent e)
+					{
+						setVisible(false);
+						
+					}
+					
+				});
+				
+				panelPrincipal.add(botonSalir, BorderLayout.SOUTH);
 			}
 			catch (java.lang.Throwable e)
 			{

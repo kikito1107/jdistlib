@@ -155,10 +155,13 @@ public class ClienteFicheros
 
 			// tipo de evento
 			evento.tipo = new Integer(DNodeEvent.SINCRONIZACION.intValue());
-			evento.aplicacion = new String(aplicacion);
-			evento.usuario = new String(usuario);
-			evento.rol = new String(rol);
+			evento.aplicacion = new String(DConector.Daplicacion);
+			evento.usuario = new String(DConector.Dusuario);
+			evento.rol = new String(DConector.Drol);
 
+			
+			System.err.println("Enviando solicitud SINCRO para el user de rol: " + evento.rol);
+			
 			// escribimos en el JavaSpace la solicitud
 			space.write(evento, null, leaseWriteTime);
 
@@ -183,10 +186,12 @@ public class ClienteFicheros
 			{
 				// contador = leido.contador.longValue();
 
+				
+				System.err.println("Recibida respuesta SINCRO");
+				
+				
 				raiz = leido.raiz;
 				ClienteFicheros.ipConexion = leido.direccionRMI;
-				// hr = new Thread(new HebraRecolectora());
-				// hr.start();
 			}
 
 		}

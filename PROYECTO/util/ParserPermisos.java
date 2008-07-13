@@ -45,9 +45,10 @@ public class ParserPermisos
 			// 1) El usuario es dueño del fichero
 			if (u.equals(nombreUsuarioFichero))
 			{
-				/*
-				 * if (permisos.charAt(0) == 'r') res = true; else res = false;
-				 */res = true;
+				
+				 if (permisos.charAt(0) == 'r') res = true; 
+				 else if (r.equals(nombreRolFichero)) res = true;
+				 else res = false;
 			}
 
 			// 2) el usuario pertenece al rol que le da acceso

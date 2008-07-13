@@ -88,6 +88,10 @@ public class FramePanelDibujo extends DJFrame
 			System.gc();
 		}
 	}
+	
+	public void setPermisosGuardar(boolean permisos) {
+		lienzo.setPermisoLectura(permisos);
+	}
 
 	@Override
 	public void setVisible(boolean b)

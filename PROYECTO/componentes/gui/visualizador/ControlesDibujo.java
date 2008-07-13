@@ -112,6 +112,11 @@ public class ControlesDibujo extends JPanel
 		initialize();
 	}
 
+	
+	public void setPermisos(boolean permiso) {
+		botonGuardar.setEnabled(permiso);
+	}
+	
 	/**
 	 * Devuelve el color actual
 	 * 

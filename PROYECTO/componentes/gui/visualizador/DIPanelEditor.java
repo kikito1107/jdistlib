@@ -109,6 +109,10 @@ public class DIPanelEditor extends DComponenteBase
 
 		return de;
 	}
+	
+	public void setPermisoLectura(boolean permiso){
+		controles.setPermisos(permiso);
+	}
 
 	/**
 	 * Asigna el documento de trabajo

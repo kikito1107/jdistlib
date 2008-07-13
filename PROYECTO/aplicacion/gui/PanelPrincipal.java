@@ -1208,6 +1208,8 @@ public class PanelPrincipal extends DComponenteBase
 			DefaultMutableTreeNode nodo = DIArbolDocumentos.buscarFichero(raiz,
 					id_doc);
 
+			
+			// no tenemos ese fichero
 			if (nodo == null)
 			{
 
@@ -1346,7 +1348,9 @@ public class PanelPrincipal extends DComponenteBase
 				&& e.usuario.equals(DConector.Dusuario))
 		{
 			ClienteFicheros.cf.inicializar();
-			// arbolDocumentos.setRaiz(ClienteFicheros.cf.getArbolDoc());
+			arbolDocumentos.arbol.setRaiz(ClienteFicheros.cf.getArbolDoc());
+			arbolDocumentos.arbol.repaint();
+			repaint();
 		}
 	}
 
@@ -1367,7 +1371,7 @@ public class PanelPrincipal extends DComponenteBase
 	{
 		if (!f.comprobarPermisos(DConector.Dusuario, DConector.Drol,
 				MIDocumento.PERMISO_LECTURA)
-				|| eliminado)
+				|| eliminado) {
 			if (frame.isVisible()
 					&& frame.getLienzo().getLienzo().getDocumento().getPath()
 							.equals(f.getRutaLocal()))
@@ -1384,6 +1388,12 @@ public class PanelPrincipal extends DComponenteBase
 				d.setPath("");
 				frame.setDocumento(d);
 			}
+		}
+		else if (!f.comprobarPermisos(DConector.Dusuario, DConector.Drol,
+				MIDocumento.PERMISO_ESCRITURA) )
+				frame.setPermisosGuardar(false);
+		else
+			frame.setPermisosGuardar(true);
 	}
 
 	// ============= SALIR ==============================================

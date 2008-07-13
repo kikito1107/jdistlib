@@ -131,9 +131,19 @@ public class DJArbolDocumentos extends JTree implements Autoscroll
 	 */
 	public void setRaiz(DefaultMutableTreeNode raizNueva)
 	{
-		if (raiz != null && model != null) model.setRoot(raizNueva);
+		if (raizNueva != null && model != null) {
+			
+			raiz = (DefaultMutableTreeNode) model.getRoot();
+			
+			raiz.removeAllChildren();
+			
+			model.setRoot(raizNueva);
+			
+			raiz = raizNueva;
+			
+			this.expandRow(0);
+		}
 	}
-
 }
 
 /**
