@@ -33,9 +33,9 @@ public class DFileEvent extends DEvent
 
 	public static final Integer RESPUESTA_SINCRONIZACION = new Integer(185);
 
-	public static final Integer EXISTE_FICHERO = new Integer(184);
+	public static final Integer EXISTE_FICHERO = new Integer(186);
 
-	public static final Integer RESPUESTA_EXISTE_FICHERO = new Integer(185);
+	public static final Integer RESPUESTA_EXISTE_FICHERO = new Integer(187);
 
 	/**
 	 * Path del fichero

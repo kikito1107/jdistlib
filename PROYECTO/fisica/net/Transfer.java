@@ -233,7 +233,7 @@ public class Transfer
 				// Iniciamos el servidor RMIRegistry
 				LocateRegistry.createRegistry(port);
 
-				// Se publica el objeto AccesoMesa
+				// recuperamos la dirección de local
 				host = InetAddress.getLocalHost().getHostName();
 
 				TransmisorFicheros tf = new TransferenciaFichero();
@@ -249,14 +249,6 @@ public class Transfer
 						+ e.getMessage());
 			}
 
-			while (true)
-				try
-				{
-					Thread.sleep(1000);
-				}
-				catch (Exception ex)
-				{
-				}
 		}
 	}
 }
