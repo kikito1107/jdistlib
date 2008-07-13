@@ -32,8 +32,6 @@ public class ClienteFicheros
 
 	private static String usuario = null;
 
-	private static String aplicacion = null;
-
 	private static String rol = null;
 
 	private static final long leaseWriteTime = Lease.FOREVER;
@@ -68,8 +66,6 @@ public class ClienteFicheros
 	public ClienteFicheros( String aplicacion2, String usuario2, String clave2,
 			String rol2 )
 	{
-
-		this.aplicacion = new String(aplicacion2);
 		this.usuario = new String(usuario2);
 		this.rol = new String(rol2);
 		localizarJavaSpace();
