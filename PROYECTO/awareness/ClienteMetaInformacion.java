@@ -1831,7 +1831,7 @@ public class ClienteMetaInformacion
 			{
 				while (true)
 				{
-					Thread.sleep(30000);
+					Thread.sleep(10000);
 					space.write(evento, null, leaseWriteTime);
 				}
 			}

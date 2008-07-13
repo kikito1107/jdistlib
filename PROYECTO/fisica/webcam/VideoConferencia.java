@@ -283,16 +283,7 @@ public class VideoConferencia
 				
 				List<VideoFormat> ls = captureStream.enumVideoFormats();
 				
-				int mejor = 0;
-				for (int k = 1; k<ls.size(); k++)
-				{
-					if (ls.get(k).getWidth()<ls.get(mejor).getWidth())
-					{
-						mejor = k;
-					}
-				}
-				
-				captureStream.setVideoFormat(ls.get(mejor));
+				captureStream.setVideoFormat(ls.get(0));
 				
 				captureStream.setObserver(new MyCaptureObserver());
 

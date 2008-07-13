@@ -306,6 +306,7 @@ public class DJChat extends JPanel
 
 				VideoConferencia.establecerOrigen();
 				VideoFrame ventana = new VideoFrame(ev2.ipVC);
+				ventana.conectarAudio(false);
 				ventana.setSize(400, 400);
 				ventana.setLocationRelativeTo(null);
 				ventana.run();

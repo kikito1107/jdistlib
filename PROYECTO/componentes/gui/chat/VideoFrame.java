@@ -47,6 +47,8 @@ public class VideoFrame extends JFrame
 	private HebraMiWebcam th2 = new HebraMiWebcam();
 
 	private PanelEstado panelAudio = new PanelEstado();
+	
+	private boolean conectarAudio = true;
 
 	/**
 	 * Constructor
@@ -107,6 +109,8 @@ public class VideoFrame extends JFrame
 					init = false;
 					ini_stop.setText("Iniciar");
 					VideoConferencia.setStopped(true);
+					if (conectarAudio)
+						panelAudio.getPanelConexion().desconectarse();	
 				}
 				catch (Exception ex)
 				{
@@ -257,7 +261,8 @@ public class VideoFrame extends JFrame
 						"Resources/control_play_blue.png"));
 
 				VideoConferencia.setStopped(true);
-				panelAudio.getPanelConexion().desconectarse();
+				if (conectarAudio)
+					panelAudio.getPanelConexion().desconectarse();
 			}
 			catch (Exception ex)
 			{
@@ -271,7 +276,9 @@ public class VideoFrame extends JFrame
 			init = true;
 			this.ini_stop.setText("Detener");
 			ini_stop.setIcon(new ImageIcon("Resources/control_pause_blue.png"));
-			panelAudio.getPanelConexion().conectarse(ip);
+			
+			if (conectarAudio)
+				panelAudio.getPanelConexion().conectarse(ip);
 		}
 		catch (Exception ex)
 		{
@@ -350,7 +357,7 @@ public class VideoFrame extends JFrame
 					try
 					{
 						//dejar durmiendo 30 milisegundos hasta recibir la siguiente imagen
-						Thread.sleep(30);
+						Thread.sleep(100);
 					}
 					catch (InterruptedException e)
 					{
@@ -386,12 +393,17 @@ public class VideoFrame extends JFrame
 												myWebcam.getHeight(),
 												Image.SCALE_FAST));
 
-					Thread.sleep(100);
+					Thread.sleep(200);
 				}
 				catch (InterruptedException ex)
 				{
 				}
 		}
+	}
+	
+	public void conectarAudio(boolean b)
+	{
+		conectarAudio = b;
 	}
 
 	/**
