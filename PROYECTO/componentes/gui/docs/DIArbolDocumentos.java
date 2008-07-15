@@ -672,7 +672,7 @@ public class DIArbolDocumentos extends DComponenteBase
 						.getExtension(nombre));
 
 		// enviamos el nuevo fichero al servidor
-		Transfer t = new Transfer(ClienteFicheros.ipConexion, path + nombre);
+		Transfer t = new Transfer(ClienteFicheros.ipConexion, path + nombre, false);
 
 		// si se ha producido algun error: MENSAJE y SALIMOS
 		if (!t.sendFile(bytes))

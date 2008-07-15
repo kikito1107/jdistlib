@@ -52,28 +52,9 @@ public class ServidorFicheros
 	private static long leaseReadTime = Long.MAX_VALUE;
 
 	private static String directorioBase = "data";
-
-	/**
-	 * Devuelve el directorio en el que se almacenan los ficheros y directorios
-	 * localmente. Todas las peticiones a '/' que se hagan al servidor, seran
-	 * automaticamente redirigidas a este directorio fisico.
-	 * 
-	 * @return Directorio donde se estan almacenando los documentos y
-	 *         directorios del servidor en el ordenador local.
-	 */
-	public static String getDirectorioBase()
+	
+	static
 	{
-		return directorioBase;
-	}
-
-	/**
-	 * Constructor por defecto
-	 */
-	public ServidorFicheros()
-	{
-
-		FrameServFich.println("");
-
 		File f = new File("config");
 		FileReader fr = null;
 		try
@@ -110,6 +91,28 @@ public class ServidorFicheros
 					.println("Error en lectura de fichero: " + e.getMessage());
 			System.exit(2);
 		}
+	}
+
+	/**
+	 * Devuelve el directorio en el que se almacenan los ficheros y directorios
+	 * localmente. Todas las peticiones a '/' que se hagan al servidor, seran
+	 * automaticamente redirigidas a este directorio fisico.
+	 * 
+	 * @return Directorio donde se estan almacenando los documentos y
+	 *         directorios del servidor en el ordenador local.
+	 */
+	public static String getDirectorioBase()
+	{
+		return directorioBase;
+	}
+
+	/**
+	 * Constructor por defecto
+	 */
+	public ServidorFicheros()
+	{
+
+		FrameServFich.println("");
 
 		gestor = new GestorFicherosBD();
 		FrameServFich.println("ServidorFicheros: Almacen de ficheros creado");

@@ -91,6 +91,9 @@ public class TransferenciaFichero extends UnicastRemoteObject implements
 
 		if (!isAbsolutePath)
 			ppath = ServidorFicheros.getDirectorioBase() + path;
+		
+		System.out.println(ppath);
+		System.out.println(ServidorFicheros.getDirectorioBase());
 
 		try
 		{
