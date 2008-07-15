@@ -556,20 +556,11 @@ public class ControlesDibujo extends JPanel
 			{
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
-
-					MIDocumento f = lienzo.getDocumento().getMetainformacion();
-					if (f.comprobarPermisos(DConector.Dusuario, DConector.Drol,
-							MIDocumento.PERMISO_ESCRITURA))
-					{
-						if (!( new Transfer(ClienteFicheros.ipConexion, "") )
-								.sendDocumento(lienzo.getDocumento()))
-							JOptionPane
-									.showMessageDialog(null,
-											"Error: no se ha podido guardar el documento en el servidor");
-					}
-					else JOptionPane
-							.showMessageDialog(null,
-									"No tiene suficientes permisos para guardar el documento");
+					if (!( new Transfer(ClienteFicheros.ipConexion, "") )
+							.sendDocumento(lienzo.getDocumento()))
+						JOptionPane
+								.showMessageDialog(null,
+									"Error: no se ha podido guardar el documento en el servidor");
 
 				}
 			});
